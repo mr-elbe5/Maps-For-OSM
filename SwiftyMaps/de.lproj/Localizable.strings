@@ -19,6 +19,7 @@
 "yourText"="Dein Text...";
 "start"="Start";
 "close"="Schliessen";
+"backup"="Backup";
 
 //map menu - ControlLayerView
 "preloadMaps"="Kartenkacheln vorladen...";

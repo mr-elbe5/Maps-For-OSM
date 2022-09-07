@@ -125,7 +125,15 @@ class PreferencesViewController: PopupScrollViewController{
         saveLogButton.setTitleColor(.systemBlue, for: .normal)
         saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
         contentView.addSubview(saveLogButton)
-        saveLogButton.setAnchors(top: deleteLogsButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        saveLogButton.setAnchors(top: deleteLogsButton.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
+        let backupButton = UIButton()
+        backupButton.setTitle("backup".localize(), for: .normal)
+        backupButton.setTitleColor(.systemBlue, for: .normal)
+        backupButton.addTarget(self, action: #selector(backup), for: .touchDown)
+        contentView.addSubview(backupButton)
+        backupButton.setAnchors(top: saveLogButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -185,6 +193,45 @@ class PreferencesViewController: PopupScrollViewController{
                 if let data = s.data(using: .utf8){
                     FileController.saveFile(data : data, url: url)
                     showDone(title: "ok".localize(), text: "logSaved".localize())
+                }
+            }
+        }
+    }
+    
+    @objc func backup(){
+        let locationsURL = FileController.backupDirURL.appendingPathComponent("locations.json")
+        let tracksURL = FileController.backupDirURL.appendingPathComponent("tracks.json")
+        FileController.deleteFile(url: locationsURL)
+        FileController.deleteFile(url: tracksURL)
+        FileController.saveFile(text: Locations.list.toJSON(), url: locationsURL)
+        var tracks = TrackList()
+        for location in Locations.list{
+            for track in location.tracks{
+                tracks.append(track)
+            }
+        }
+        FileController.saveFile(text: tracks.toJSON(), url: tracksURL)
+        
+        FileController.deleteAllFiles(dirURL: FileController.backupImagesDirURL)
+        FileController.deleteAllFiles(dirURL: FileController.backupTilesDirURL)
+        var targetURL: URL
+        var sourceURL: URL
+        let files = FileController.listAllURLs(dirURL: FileController.imageDirURL)
+        for file in files {
+            if file.path.hasSuffix(".jpg"){
+                targetURL = FileController.backupImagesDirURL.appendingPathComponent(file.lastPathComponent)
+                FileController.copyFile(fromURL: file.absoluteURL, toURL: targetURL)
+            }
+        }
+        if let paths = try? FileManager.default.subpathsOfDirectory(atPath: FileController.tilesDirURL.path){
+            for path in paths {
+                if path.hasSuffix(".png"){
+                    sourceURL = FileController.tilesDirURL.appendingPathComponent(path)
+                    targetURL = FileController.backupTilesDirURL.appendingPathComponent(path)
+                    if !FileController.assertDirectoryFor(url: targetURL){
+                        continue
+                    }
+                    FileController.copyFile(fromURL: sourceURL, toURL: targetURL)
                 }
             }
         }

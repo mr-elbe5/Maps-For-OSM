@@ -19,8 +19,13 @@ class FileController {
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    static var imageDirURL : URL = FileController.privateURL
+    static var tilesDirURL : URL = FileController.privateURL.appendingPathComponent("files")
     static var gpxDirURL = documentURL.appendingPathComponent("gpx")
     static var logDirURL = documentURL.appendingPathComponent("logs")
+    static var backupDirURL = documentURL.appendingPathComponent("backup")
+    static var backupImagesDirURL = backupDirURL.appendingPathComponent("images")
+    static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles")
     
     static var temporaryPath : String {
         tempDir
@@ -38,6 +43,9 @@ class FileController {
         try! FileManager.default.createDirectory(at: FileController.privateURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: FileController.gpxDirURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: FileController.logDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.backupDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.backupImagesDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.backupTilesDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     static func getPath(dirPath: String, fileName: String ) -> String
@@ -74,6 +82,21 @@ class FileController {
         catch{
             return nil
         }
+    }
+    
+    static func assertDirectoryFor(url: URL) -> Bool{
+        let dirUrl = url.deletingLastPathComponent()
+        var isDir:ObjCBool = true
+        if !FileManager.default.fileExists(atPath: dirUrl.path, isDirectory: &isDir) {
+            do{
+                try FileManager.default.createDirectory(at: dirUrl, withIntermediateDirectories: true)
+            }
+            catch{
+                print("could not create directory")
+                return false
+            }
+        }
+        return true
     }
     
     @discardableResult

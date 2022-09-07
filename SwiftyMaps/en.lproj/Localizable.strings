@@ -19,6 +19,7 @@
 "yourText"="Your text...";
 "start"="Start";
 "close"="Close";
+"backup"="Backup";
 
 //map menu - ControlLayerView
 "preloadMaps"="Preload Map Tiles...";
