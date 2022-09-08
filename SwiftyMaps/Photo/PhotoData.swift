@@ -17,6 +17,7 @@ class PhotoData : Equatable, Identifiable, Codable{
     private enum CodingKeys: CodingKey{
         case id
         case creationDate
+        case fileName
     }
     
     var id: UUID
@@ -52,6 +53,7 @@ class PhotoData : Equatable, Identifiable, Codable{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(creationDate, forKey: .creationDate)
+        try container.encode(fileName, forKey: .fileName)
     }
     
     func getFile() -> Data?{

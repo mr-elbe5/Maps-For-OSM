@@ -208,7 +208,8 @@ class PreferencesViewController: PopupScrollViewController{
                 location.name = location.description
             }
         }
-        FileController.saveFile(text: Locations.list.toJSON(), url: locationsURL)
+        let json = Locations.list.toJSON().replacingOccurrences(of: "\"photos\" :", with: "\"images\" :")
+        FileController.saveFile(text: json, url: locationsURL)
         var tracks = TrackList()
         for location in Locations.list{
             for track in location.tracks{
