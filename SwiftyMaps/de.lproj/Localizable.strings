@@ -20,6 +20,7 @@
 "start"="Start";
 "close"="Schliessen";
 "backup"="Backup";
+"backupSaved"="Backup wurde in 'SwiftyMaps for OSM/backup' gespeichert.";
 
 //map menu - ControlLayerView
 "preloadMaps"="Kartenkacheln vorladen...";

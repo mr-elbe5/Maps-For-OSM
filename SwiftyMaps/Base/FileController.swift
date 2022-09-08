@@ -25,7 +25,7 @@ class FileController {
     static var logDirURL = documentURL.appendingPathComponent("logs")
     static var backupDirURL = documentURL.appendingPathComponent("backup")
     static var backupImagesDirURL = backupDirURL.appendingPathComponent("images")
-    static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles")
+    static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles/carto")
     
     static var temporaryPath : String {
         tempDir
@@ -65,6 +65,11 @@ class FileController {
     
     static func fileExists(url: URL) -> Bool{
         return FileManager.default.fileExists(atPath: url.path)
+    }
+    
+    static func isDirectory(url: URL) -> Bool{
+        var isDir:ObjCBool = true
+        return FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue
     }
     
     static func readFile(url: URL) -> Data?{

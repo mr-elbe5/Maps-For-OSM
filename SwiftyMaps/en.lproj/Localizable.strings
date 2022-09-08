@@ -20,6 +20,7 @@
 "start"="Start";
 "close"="Close";
 "backup"="Backup";
+"backupSaved"="Backup has been saved in 'SwiftyMaps for OSM/backup'";
 
 //map menu - ControlLayerView
 "preloadMaps"="Preload Map Tiles...";

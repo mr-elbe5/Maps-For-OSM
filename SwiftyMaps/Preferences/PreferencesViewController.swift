@@ -203,6 +203,11 @@ class PreferencesViewController: PopupScrollViewController{
         let tracksURL = FileController.backupDirURL.appendingPathComponent("tracks.json")
         FileController.deleteFile(url: locationsURL)
         FileController.deleteFile(url: tracksURL)
+        for location in Locations.list{
+            if location.name.isEmpty{
+                location.name = location.description
+            }
+        }
         FileController.saveFile(text: Locations.list.toJSON(), url: locationsURL)
         var tracks = TrackList()
         for location in Locations.list{
@@ -218,7 +223,7 @@ class PreferencesViewController: PopupScrollViewController{
         var sourceURL: URL
         let files = FileController.listAllURLs(dirURL: FileController.imageDirURL)
         for file in files {
-            if file.path.hasSuffix(".jpg"){
+            if !FileController.isDirectory(url: file){
                 targetURL = FileController.backupImagesDirURL.appendingPathComponent(file.lastPathComponent)
                 FileController.copyFile(fromURL: file.absoluteURL, toURL: targetURL)
             }
@@ -235,6 +240,7 @@ class PreferencesViewController: PopupScrollViewController{
                 }
             }
         }
+        showDone(title: "ok".localize(), text: "backupSaved".localize())
     }
     
     @objc func deleteAllLogs(){
