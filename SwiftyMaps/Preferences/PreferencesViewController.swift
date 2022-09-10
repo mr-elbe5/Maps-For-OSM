@@ -199,7 +199,7 @@ class PreferencesViewController: PopupScrollViewController{
     }
     
     @objc func backup(){
-        let locationsURL = FileController.backupDirURL.appendingPathComponent("locations.json")
+        let locationsURL = FileController.backupDirURL.appendingPathComponent("places.json")
         let tracksURL = FileController.backupDirURL.appendingPathComponent("tracks.json")
         FileController.deleteFile(url: locationsURL)
         FileController.deleteFile(url: tracksURL)
