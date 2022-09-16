@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        TestCenter.test()
         FileController.initialize()
         Preferences.loadInstance()
         guard let windowScene = (scene as? UIWindowScene) else { return }

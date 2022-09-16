@@ -53,9 +53,11 @@ class MapView: UIView {
         scrollView.bouncesZoom = false
         scrollView.maximumZoomScale = 1.0
         scrollView.minimumZoomScale = 1.0/MapStatics.zoomScale(at: MapStatics.maxZoom - MapStatics.minZoom)
+        print("minZoomScale \(scrollView.minimumZoomScale)")
         addSubview(scrollView)
         scrollView.fillView(view: self)
         scrollView.contentSize = MapStatics.scrollablePlanetSize
+        print("contentSize \(scrollView.contentSize)")
         scrollView.delegate = self
     }
     
@@ -233,6 +235,7 @@ extension MapView : UIScrollViewDelegate{
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         updatePosition()
         let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
+        print("zoom = \(zoom)")
         if zoom != self.zoom{
             self.zoom = zoom
             locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)

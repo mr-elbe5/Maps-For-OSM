@@ -25,7 +25,6 @@ struct MapStatics{
     static var tilePixels : CGFloat = 256
     static var tileSize = CGSize(width: tilePixels, height: tilePixels)
     static var tileRect = CGRect(x: 0, y: 0, width: tilePixels, height: tilePixels)
-    static var averageTileLoadSize = 12
     static var minZoom : Int = 4
     static var maxZoom : Int = 18
     static var scrollWidthFactor : CGFloat = 3
