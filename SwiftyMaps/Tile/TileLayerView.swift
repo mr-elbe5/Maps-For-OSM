@@ -48,7 +48,7 @@ class TileLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        print("draw \(rect)")
+        //print("draw \(rect)")
         let ctx = UIGraphicsGetCurrentContext()!
         scaleToPlanet = 1.0/ctx.ctm.a*screenScale
         drawTile(rect: rect)
@@ -71,15 +71,15 @@ class TileLayerView: UIView {
         }
         let tile = MapTiles.getTile(zoom: zoom, x: x, y: y)
         if let image = tile.image{
-            print("draw \(tile.id)")
+            //print("draw \(tile.string)")
             image.draw(in: rect)
             return
         }
         MapStatics.mapGearImage.draw(in: rect.scaleCenteredBy(0.25))
         MapTiles.loadTileImage(tile: tile){ data in
-            print("tile loaded \(tile.id)")
+            //print("tile loaded \(tile.string)")
             if MapTiles.saveTile(tile: tile, data: data){
-                print("tile saved \(tile.id)")
+                //print("tile saved \(tile.string)")
                 DispatchQueue.main.async {
                     if let data = data, let image = UIImage(data: data){
                         tile.image = image

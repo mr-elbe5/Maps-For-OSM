@@ -10,7 +10,7 @@ import Foundation
 class MapRect{
     
     static let null = MapRect()
-    static let world = MapRect(origin: MapPoint(x: 0, y: 0), size: MapSize.world)
+    static let world = MapRect(origin: MapPoint(x: 0, y: 0), size: World.mapSize)
     
     var origin: MapPoint
     var size: MapSize
@@ -61,6 +61,10 @@ class MapRect{
     init(rect: MapRect){
         origin = MapPoint(x: rect.origin.x, y: rect.origin.y)
         size = MapSize(width: rect.size.width, height: rect.size.height)
+    }
+    
+    func scale(factor: Double) -> MapRect{
+        MapRect(x: origin.x*factor, y: origin.y*factor, width: width*factor, height: height*factor)
     }
     
 }

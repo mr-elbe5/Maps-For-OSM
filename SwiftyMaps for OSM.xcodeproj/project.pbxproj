@@ -104,6 +104,7 @@
 		4EE1462028D368D60058F3D3 /* MapSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461F28D368D60058F3D3 /* MapSize.swift */; };
 		4EE1462228D36AAA0058F3D3 /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462128D36AAA0058F3D3 /* CoordinateRegion.swift */; };
 		4EE1462428D476210058F3D3 /* TestCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462328D476210058F3D3 /* TestCenter.swift */; };
+		4EE1462E28D49F510058F3D3 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462D28D49F510058F3D3 /* World.swift */; };
 		4EE6A891275A6E19007FBC67 /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6A890275A6E19007FBC67 /* PhotoList.swift */; };
 		4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EF5FA7927820B2D0004583B /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -209,6 +210,7 @@
 		4EE1461F28D368D60058F3D3 /* MapSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSize.swift; sourceTree = "<group>"; };
 		4EE1462128D36AAA0058F3D3 /* CoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateRegion.swift; sourceTree = "<group>"; };
 		4EE1462328D476210058F3D3 /* TestCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCenter.swift; sourceTree = "<group>"; };
+		4EE1462D28D49F510058F3D3 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		4EE6A890275A6E19007FBC67 /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
 		4EF5FA7827820B2D0004583B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EF5FA7A27820B300004583B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */,
 				4EE1461F28D368D60058F3D3 /* MapSize.swift */,
 				4EE1462128D36AAA0058F3D3 /* CoordinateRegion.swift */,
+				4EE1462D28D49F510058F3D3 /* World.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
+				4EE1462E28D49F510058F3D3 /* World.swift in Sources */,
 				4E1B81012732EDA2003ED6B0 /* PreferencesViewController.swift in Sources */,
 				4E1B811A2732EDC5003ED6B0 /* NormalizedPlanetPoint.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,

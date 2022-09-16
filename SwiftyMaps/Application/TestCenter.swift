@@ -10,12 +10,12 @@ import CoreLocation
 
 struct TestCenter{
     
-    static var coordinate = CLLocationCoordinate2D(latitude: 35.90, longitude: 9.40)
+    static var coordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)
     
     static func test(){
         
-        print("maxZoom = \(MapSize.maxZoom)")
-        print("worldSize = \(MapSize.world.string)")
+        print("maxZoom = \(World.maxZoom)")
+        print("worldSize = \(World.mapSize.string)")
         
         let mapPoint = MapPoint(coordinate)
         print("coordinate = \(coordinate.shortString)")
@@ -23,6 +23,12 @@ struct TestCenter{
         let coord = mapPoint.coordinate
         print("mappoint coordinate = \(coord.shortString)")
         
+        //18/138123/84731
+        let tile = MapTile(zoom: 18, x: 138123, y: 84732)
+        print("tile mapRect = \(tile.rectInZoomedWorld.string)")
+        let worldRect = tile.rectInWorld
+        print("worldRect = \(worldRect.string)")
+        print("tile origin = \(worldRect.origin.coordinate.shortString)")
     }
     
 }

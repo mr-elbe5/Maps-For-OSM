@@ -25,13 +25,13 @@ class MapPoint{
     }
     
     init (_ coord: CLLocationCoordinate2D){
-        x = (coord.longitude + 180)/360.0*MapSize.world.width
-        y = (1.0 - log(tan(coord.latitude*CGFloat.pi/180.0) + 1/cos(coord.latitude*CGFloat.pi/180.0 ))/CGFloat.pi )/2*MapSize.world.height
+        x = (coord.longitude + 180)/360.0*World.fullExtent
+        y = (1.0 - log(tan(coord.latitude*CGFloat.pi/180.0) + 1/cos(coord.latitude*CGFloat.pi/180.0 ))/CGFloat.pi )/2*World.fullExtent
     }
     
     var coordinate : CLLocationCoordinate2D{
-        let longitude = x/MapSize.world.width*360.0 - 180.0
-        let latitude = atan(sinh(.pi - (y/MapSize.world.height)*2*CGFloat.pi))*(180.0/CGFloat.pi)
+        let longitude = x/World.fullExtent*360.0 - 180.0
+        let latitude = atan(sinh(.pi - (y/World.fullExtent)*2*CGFloat.pi))*(180.0/CGFloat.pi)
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
