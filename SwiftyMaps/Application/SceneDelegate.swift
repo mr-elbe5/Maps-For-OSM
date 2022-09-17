@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        Locations.save()
+        Places.save()
         if !ActiveTrack.isTracking{
             LocationService.shared.stop()
         }

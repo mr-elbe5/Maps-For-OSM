@@ -30,7 +30,7 @@ class TileLayerView: UIView {
         super.init(frame: frame)
         screenScale = tileLayer.contentsScale
         tileLayer.tileSize = CGSize(width: MapStatics.tileSize.width*screenScale, height: MapStatics.tileSize.height*screenScale)
-        print("tile size = \(tileLayer.tileSize)")
+        //print("tile size = \(tileLayer.tileSize)")
         tileLayer.levelsOfDetail = MapStatics.maxZoom
         tileLayer.levelsOfDetailBias = 0
     }

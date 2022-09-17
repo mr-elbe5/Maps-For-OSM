@@ -12,7 +12,7 @@ protocol LocationViewDelegate{
     func showTrackOnMap(track: TrackData)
 }
 
-class LocationDetailViewController: PopupScrollViewController{
+class PlaceDetailViewController: PopupScrollViewController{
     
     let editButton = IconButton(icon: "pencil.circle", tintColor: .white)
     let deleteButton = IconButton(icon: "trash", tintColor: .white)
@@ -24,7 +24,7 @@ class LocationDetailViewController: PopupScrollViewController{
     
     var editMode = false
     
-    var location: Location? = nil
+    var location: Place? = nil
     var hadPhotos = false
     
     var delegate: LocationViewDelegate? = nil
@@ -165,7 +165,7 @@ class LocationDetailViewController: PopupScrollViewController{
     @objc func deleteLocation(){
         if let loc = location{
             showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-                Locations.deleteLocation(loc)
+                Places.deleteLocation(loc)
                 self.dismiss(animated: true){
                     self.delegate?.updateLocationLayer()
                 }
@@ -177,7 +177,7 @@ class LocationDetailViewController: PopupScrollViewController{
         var needsUpdate = false
         if let location = location{
             location.description = descriptionView?.text ?? ""
-            Locations.save()
+            Places.save()
             needsUpdate = location.hasPhotos != hadPhotos
         }
         self.dismiss(animated: true){
@@ -189,14 +189,14 @@ class LocationDetailViewController: PopupScrollViewController{
     
 }
 
-extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
         let photo = PhotoData()
         if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
             location?.addPhoto(photo: photo)
-            Locations.save()
+            Places.save()
             delegate?.updateLocationLayer()
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
@@ -207,7 +207,7 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
     
 }
 
-extension LocationDetailViewController: PhotoListItemDelegate{
+extension PlaceDetailViewController: PhotoListItemDelegate{
     
     func viewPhoto(sender: PhotoListItemView) {
         let photoViewController = PhotoViewController()
@@ -238,7 +238,7 @@ extension LocationDetailViewController: PhotoListItemDelegate{
         showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
             if let location = self.location{
                 location.deletePhoto(photo: sender.photoData)
-                Locations.save()
+                Places.save()
                 self.delegate?.updateLocationLayer()
                 for subView in self.photoStackView.subviews{
                     if subView == sender{
@@ -253,7 +253,7 @@ extension LocationDetailViewController: PhotoListItemDelegate{
     
 }
 
-extension LocationDetailViewController: TrackListItemDelegate{
+extension PlaceDetailViewController: TrackListItemDelegate{
     
     func viewTrack(sender: TrackListItemView) {
         let trackController = TrackDetailViewController()
@@ -282,7 +282,7 @@ extension LocationDetailViewController: TrackListItemDelegate{
         showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
             if let location = self.location{
                 location.deleteTrack(track: sender.trackData)
-                Locations.save()
+                Places.save()
                 self.delegate?.updateLocationLayer()
                 for subView in self.trackStackView.subviews{
                     if subView == sender{
@@ -297,7 +297,7 @@ extension LocationDetailViewController: TrackListItemDelegate{
     
 }
 
-extension LocationDetailViewController: TrackDetailDelegate{
+extension PlaceDetailViewController: TrackDetailDelegate{
     
     func showTrackOnMap(track: TrackData) {
         delegate?.showTrackOnMap(track: track)

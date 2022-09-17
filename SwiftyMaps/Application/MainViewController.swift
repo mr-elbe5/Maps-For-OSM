@@ -45,10 +45,10 @@ extension MainViewController: LocationServiceDelegate{
     
 }
 
-extension MainViewController: LocationLayerViewDelegate{
+extension MainViewController: PlaceLayerViewDelegate{
     
-    func showLocationDetails(location: Location) {
-        let controller = LocationDetailViewController()
+    func showLocationDetails(location: Place) {
+        let controller = PlaceDetailViewController()
         controller.location = location
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -88,7 +88,7 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func openLocationList() {
-        let controller = LocationListViewController()
+        let controller = PlaceListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -104,7 +104,7 @@ extension MainViewController: ControlLayerDelegate{
             if ActiveTrack.track != nil{
                 self.cancelActiveTrack()
             }
-            Locations.deleteAllLocations()
+            Places.deleteAllLocations()
             self.updateLocationLayer()
             self.mapView.clearTrack()
         }
@@ -139,7 +139,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = Locations.getAllTracks()
+        controller.tracks = Places.getAllTracks()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -148,7 +148,7 @@ extension MainViewController: ControlLayerDelegate{
     func deleteTracks() {
         showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
             self.cancelActiveTrack()
-            Locations.deleteAllTracks()
+            Places.deleteAllTracks()
             self.updateLocationLayer()
             self.mapView.clearTrack()
         }
@@ -203,7 +203,7 @@ extension MainViewController: PhotoCaptureDelegate{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
-                Locations.save()
+                Places.save()
                 if changeState{
                     DispatchQueue.main.async {
                         self.updateLocationLayer()
@@ -223,21 +223,21 @@ extension MainViewController: LocationViewDelegate{
     
 }
 
-extension MainViewController: LocationListDelegate{
+extension MainViewController: PlaceListDelegate{
     
-    func showOnMap(location: Location) {
+    func showOnMap(location: Place) {
         mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
     }
     
-    func deleteLocation(location: Location) {
+    func deleteLocation(location: Place) {
         if let track = ActiveTrack.track, location.tracks.contains(track){
             cancelActiveTrack()
         }
         if let track = mapView.trackLayerView.track, location.tracks.contains(track){
             mapView.clearTrack()
         }
-        Locations.deleteLocation(location)
-        Locations.save()
+        Places.deleteLocation(location)
+        Places.save()
         updateLocationLayer()
     }
 
@@ -265,7 +265,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     }
     
     private func deleteTrack(track: TrackData){
-        Locations.deleteTrack(track: track)
+        Places.deleteTrack(track: track)
         mapView.clearTrack(track)
         updateLocationLayer()
     }
@@ -303,7 +303,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.name = alertController.textFields![0].text ?? "Route"
                 track.startLocation.addTrack(track: track)
-                Locations.save()
+                Places.save()
                 self.mapView.trackLayerView.setTrack(track: track)
                 ActiveTrack.stopTracking()
                 self.mapView.controlLayerView.stopTrackControl()

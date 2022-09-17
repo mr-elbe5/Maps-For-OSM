@@ -60,7 +60,6 @@ extension MapScrollView : UIScrollViewDelegate{
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         mapDelegate?.didZoom()
         let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
-        print("zoom = \(zoom)")
         if zoom != self.zoom{
             self.zoom = zoom
             self.mapDelegate?.didChangeZoom()

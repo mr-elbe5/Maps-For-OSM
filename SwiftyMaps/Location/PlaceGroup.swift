@@ -8,11 +8,11 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationGroup{
+class PlaceGroup{
     
     var center: CLLocationCoordinate2D? = nil
     var centerPlanetPosition: CGPoint? = nil
-    var locations = LocationList()
+    var locations = PlaceList()
     
     var hasPhotos: Bool{
         for location in locations{
@@ -32,7 +32,7 @@ class LocationGroup{
         return false
     }
     
-    func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
+    func isWithinRadius(location: Place, radius: CGFloat) -> Bool{
         //print("checkking radius")
         if let center = center{
             let dist = center.distance(to: location.coordinate)
@@ -44,11 +44,11 @@ class LocationGroup{
         }
     }
     
-    func hasLocation(location: Location) -> Bool{
+    func hasLocation(location: Place) -> Bool{
         locations.contains(location)
     }
     
-    func addLocation(location: Location){
+    func addLocation(location: Place){
         locations.append(location)
     }
     

@@ -160,7 +160,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                             track.name = alertController.textFields![0].text ?? url.lastPathComponent
                             location.addTrack(track: track)
-                            Locations.save()
+                            Places.save()
                             self.tracks?.append(track)
                             self.tableView.reloadData()
                         })

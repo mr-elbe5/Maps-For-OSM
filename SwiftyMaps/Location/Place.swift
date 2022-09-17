@@ -8,9 +8,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Location : Hashable, Codable{
+class Place : Hashable, Codable{
     
-    static func == (lhs: Location, rhs: Location) -> Bool {
+    static func == (lhs: Place, rhs: Place) -> Bool {
         lhs.id == rhs.id
     }
     

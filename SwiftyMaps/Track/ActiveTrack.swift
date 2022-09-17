@@ -13,7 +13,7 @@ class ActiveTrack{
     static var track : TrackData? = nil
     static var isTracking : Bool = false
     
-    static func startTracking(startLocation: Location){
+    static func startTracking(startLocation: Place){
         if track == nil{
             Log.log("Tracking started at \(startLocation.cllocation.coordinate.shortString)")
             track = TrackData(startLocation: startLocation)

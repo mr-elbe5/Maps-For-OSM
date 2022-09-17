@@ -18,13 +18,13 @@ struct MapTiles{
     }
     
     static func loadTileImage(tile: MapTile, result: @escaping (Data?) -> Void) {
-        print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
+        //print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
         guard let url = tileUrl(tile: tile, urlTemplate: Preferences.instance.urlTemplate) else {print("could not crate map url"); return}
         loadTileImage(url: url, result: result)
     }
     
     static func loadTileImage(url: URL, result: @escaping (Data?) -> Void) {
-        print("loading tile image \(url)")
+        //print("loading tile image \(url)")
         let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 300.0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             var statusCode = 0
@@ -74,7 +74,7 @@ struct MapTiles{
     static func getTile(zoom: Int, x: Int, y: Int) -> MapTile{
         let tile = MapTile(zoom: zoom, x: x, y: y)
         if let fileUrl = fileUrl(tile: tile), tileExists(url: fileUrl), let fileData = FileManager.default.contents(atPath: fileUrl.path){
-            print("getting image from file \(shortPath(fileUrl))")
+            //print("getting image from file \(shortPath(fileUrl))")
             tile.image = UIImage(data: fileData)
         }
         return tile

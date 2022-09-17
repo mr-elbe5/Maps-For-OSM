@@ -51,7 +51,7 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         locationManager.authorizationStatus == .authorizedAlways
     }
     
-    func getPlacemarkInfo(for location: Location){
+    func getPlacemarkInfo(for location: Place){
         geocoder.reverseGeocodeLocation(location.cllocation, completionHandler: { (placemarks, error) in
             if error == nil, let placemark =  placemarks?[0]{
                 location.addPlacemarkInfo(placemark: placemark)

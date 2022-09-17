@@ -203,15 +203,15 @@ class PreferencesViewController: PopupScrollViewController{
         let tracksURL = FileController.backupDirURL.appendingPathComponent("tracks.json")
         FileController.deleteFile(url: locationsURL)
         FileController.deleteFile(url: tracksURL)
-        for location in Locations.list{
+        for location in Places.list{
             if location.name.isEmpty{
                 location.name = location.description
             }
         }
-        let json = Locations.list.toJSON().replacingOccurrences(of: "\"photos\" :", with: "\"images\" :")
+        let json = Places.list.toJSON().replacingOccurrences(of: "\"photos\" :", with: "\"images\" :")
         FileController.saveFile(text: json, url: locationsURL)
         var tracks = TrackList()
-        for location in Locations.list{
+        for location in Places.list{
             for track in location.tracks{
                 tracks.append(track)
             }

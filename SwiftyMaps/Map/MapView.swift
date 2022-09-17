@@ -11,7 +11,7 @@ class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var locationLayerView = LocationLayerView()
+    var locationLayerView = PlaceLayerView()
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     

@@ -9,8 +9,8 @@ import CoreLocation
 
 extension UIViewController{
     
-    func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
-        if let nextLocation = Locations.locationNextTo(coordinate: coordinate, maxDistance: Preferences.instance.maxLocationMergeDistance){
+    func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Place) -> Void)? = nil){
+        if let nextLocation = Places.locationNextTo(coordinate: coordinate, maxDistance: Preferences.instance.maxLocationMergeDistance){
             var txt = nextLocation.description
             if !txt.isEmpty{
                 txt += ", "
@@ -18,8 +18,8 @@ extension UIViewController{
             txt += nextLocation.coordinateString
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                let location = Locations.addLocation(coordinate: coordinate)
-                Locations.save()
+                let location = Places.addLocation(coordinate: coordinate)
+                Places.save()
                 onComplete?(location)
             })
             alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
@@ -28,8 +28,8 @@ extension UIViewController{
             self.present(alertController, animated: true)
         }
         else{
-            let location = Locations.addLocation(coordinate: coordinate)
-            Locations.save()
+            let location = Places.addLocation(coordinate: coordinate)
+            Places.save()
             onComplete?(location)
         }
     }

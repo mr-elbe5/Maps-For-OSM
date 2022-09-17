@@ -36,7 +36,7 @@ class TrackData : Hashable, Codable{
     var upDistance : CGFloat
     var downDistance : CGFloat
     
-    var startLocation : Location!
+    var startLocation : Place!
     
     var duration : TimeInterval{
         if let pauseTime = pauseTime{
@@ -52,7 +52,7 @@ class TrackData : Hashable, Codable{
         return startTime.distance(to: Date()) - pauseLength
     }
     
-    init(startLocation: Location){
+    init(startLocation: Place){
         id = UUID()
         name = "trk"
         startTime = Date()

@@ -7,21 +7,21 @@
 import UIKit
 
 
-protocol LocationCellDelegate{
-    func deleteLocation(location: Location, approved: Bool)
-    func viewLocation(location: Location)
-    func showOnMap(location: Location)
+protocol PlaceCellDelegate{
+    func deleteLocation(location: Place, approved: Bool)
+    func viewLocation(location: Place)
+    func showOnMap(location: Place)
 }
 
-class LocationCell: UITableViewCell{
+class PlaceCell: UITableViewCell{
     
-    var location : Location? = nil {
+    var location : Place? = nil {
         didSet {
             updateCell()
         }
     }
     
-    var delegate: LocationCellDelegate? = nil
+    var delegate: PlaceCellDelegate? = nil
     
     var cellBody = UIView()
     
