@@ -9,20 +9,17 @@ import CoreLocation
 
 class MapView: UIView {
     
-    var scrollView : UIScrollView!
-    var mapScrollView : MapScrollView!
-    var tileLayerView = TileLayerView()
+    var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
-    var scale: CGFloat{
-        scrollView.zoomScale
-        // same as contentView.layer.affineTransform().a
+    var zoom: Int{
+        get{scrollView.zoom}
+        set{scrollView.zoom = newValue}
     }
     
-    var zoom: Int = 0
     var position : MapPosition? = MapPosition.loadPosition()
     var startLocationIsSet = false
     
@@ -31,7 +28,7 @@ class MapView: UIView {
     }
     
     var contentDrawScale : CGFloat{
-        scale*tileLayerView.layer.contentsScale
+        scrollView.zoomScale*scrollView.tileLayerView.layer.contentsScale
     }
     
     var contentOffset : CGPoint{
@@ -43,30 +40,12 @@ class MapView: UIView {
     }
     
     func setupScrollView(){
-        mapScrollView = MapScrollView(frame: bounds)
-        scrollView = UIScrollView(frame: bounds)
-        scrollView.backgroundColor = .white
-        scrollView.isScrollEnabled = true
-        scrollView.isDirectionalLockEnabled = false
-        scrollView.isPagingEnabled = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.bounces = false
-        scrollView.bouncesZoom = false
-        scrollView.maximumZoomScale = 1.0
-        scrollView.minimumZoomScale = 1.0/MapStatics.zoomScale(at: MapStatics.maxZoom - MapStatics.minZoom)
+        scrollView = MapScrollView(frame: bounds)
         print("minZoomScale \(scrollView.minimumZoomScale)")
         addSubview(scrollView)
         scrollView.fillView(view: self)
-        scrollView.contentSize = MapStatics.scrollablePlanetSize
         print("contentSize \(scrollView.contentSize)")
-        scrollView.delegate = self
-    }
-    
-    func setupTileLayerView(){
-        tileLayerView.backgroundColor = .white
-        scrollView.addSubview(tileLayerView)
-        tileLayerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+        scrollView.mapDelegate = self
     }
     
     func setupTrackLayerView(){
@@ -94,7 +73,7 @@ class MapView: UIView {
     }
 
     func clearTiles(){
-        tileLayerView.tileLayer.setNeedsDisplay()
+        scrollView.tileLayerView.tileLayer.setNeedsDisplay()
     }
     
     func clearTrack(_ track: TrackData? = nil){
@@ -120,7 +99,7 @@ class MapView: UIView {
     }
     
     func getPlanetRect(screenRect: CGRect) -> CGRect{
-        NormalizedPlanetRect(rect: screenRect.offsetBy(dx: contentOffset.x, dy: contentOffset.y), fromScale: scale).rect
+        NormalizedPlanetRect(rect: screenRect.offsetBy(dx: contentOffset.x, dy: contentOffset.y), fromScale: scrollView.zoomScale).rect
     }
     
     func getScreenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
@@ -151,7 +130,7 @@ class MapView: UIView {
     }
     
     func updateLocationLayer(){
-        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
+        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -189,7 +168,7 @@ class MapView: UIView {
             startLocationIsSet = true
         }
         else{
-            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scale)
+            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
             if ActiveTrack.isTracking{
                 ActiveTrack.updateTrack(with: location)
                 trackLayerView.updateTrack()
@@ -228,30 +207,24 @@ class MapView: UIView {
     
 }
 
-extension MapView : UIScrollViewDelegate{
+extension MapView : MapScrollViewDelegate{
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        tileLayerView
-    }
-    
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        updatePosition()
-        let zoom = MapStatics.zoomLevelFromReverseScale(scale: scale)
-        print("zoom = \(zoom)")
-        if zoom != self.zoom{
-            self.zoom = zoom
-            locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scale)
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func didScroll() {
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
         if startLocationIsSet{
-            userLocationView.updatePosition(offset: contentOffset, scale: scale)
+            userLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         }
-        locationLayerView.updatePosition(offset: contentOffset, scale: scale)
-        trackLayerView.updatePosition(offset: contentOffset, scale: scale)
+        locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+    }
+    
+    func didZoom() {
+        updatePosition()
+    }
+    
+    func didChangeZoom() {
+        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     // for infinite scroll using 3 * content width

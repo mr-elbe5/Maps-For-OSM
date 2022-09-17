@@ -21,7 +21,6 @@ class MainViewController: UIViewController {
         mapView.fillView(view: view)
         MapStatics.minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView()
-        mapView.setupTileLayerView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
         mapView.setupLocationLayerView()
