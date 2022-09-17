@@ -10,6 +10,7 @@ import CoreLocation
 class MapView: UIView {
     
     var scrollView : UIScrollView!
+    var mapScrollView : MapScrollView!
     var tileLayerView = TileLayerView()
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
@@ -42,6 +43,7 @@ class MapView: UIView {
     }
     
     func setupScrollView(){
+        mapScrollView = MapScrollView(frame: bounds)
         scrollView = UIScrollView(frame: bounds)
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true

@@ -9,7 +9,8 @@ import Foundation
 
 class World{
     
-    static let maxZoom : Int = 20
+    static let maxZoom : Int = 18
+    static let minZoom : Int = 4
     static let tileExtent : Double = 256.0
     static let tileSize : MapSize = MapSize(width: tileExtent, height: tileExtent)
     static let fullExtent : Double = pow(2,Double(maxZoom))*tileExtent

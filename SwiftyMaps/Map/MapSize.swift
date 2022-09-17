@@ -23,6 +23,10 @@ class MapSize{
         self.height = height
     }
     
+    var cgSize : CGSize{
+        CGSize(width: width, height: height)
+    }
+    
     var string : String{
         "height: \(height), width: \(width)"
     }
