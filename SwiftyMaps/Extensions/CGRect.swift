@@ -21,14 +21,5 @@ extension CGRect{
         CGRect(x: minX - size.width, y: minY - size.height, width: width + 2*size.width, height: height + 2*size.height)
     }
     
-    var centerSquare : CGRect{
-        if width >= height{
-            let diff = width - height
-            return CGRect(x: diff/2, y: 0, width: height, height: height)
-        }
-        let diff = height - width
-        return CGRect(x: 0, y: diff/2, width: width, height: width)
-    }
-    
 }
 
