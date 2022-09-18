@@ -103,8 +103,8 @@ class MapScrollView : UIScrollView{
     
     func scrollToScreenPoint(coordinate: CLLocationCoordinate2D, screenPoint: CGPoint){
         let size = scaledWorldSize
-        var x = round((coordinate.longitude + 180)/360.0*size.width) + size.width
-        var y = round((1 - log(tan(coordinate.latitude*CGFloat.pi/180.0) + 1/cos(coordinate.latitude*CGFloat.pi/180.0 ))/CGFloat.pi )/2*size.height)
+        var x = round(World.xPos(longitude: coordinate.longitude)*size.width) + size.width
+        var y = round(World.yPos(latitude: coordinate.latitude)*size.height)
         x = max(0, x - screenPoint.x)
         x = min(x, contentSize.width - visibleSize.width)
         y = max(0, y - screenPoint.y)

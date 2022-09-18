@@ -31,11 +31,18 @@ class TileRegion : CoordinateRegion{
     func updateTileSets(){
         tiles.removeAll()
         for zoom in 0...maxZoom{
-            let bottomLeftTile = World.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
-            let topRightTile = World.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
+            let bottomLeftTile = tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
+            let topRightTile = tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
             let tileSet = TileSet(minX: bottomLeftTile.x, minY: bottomLeftTile.y, maxX: topRightTile.x, maxY: topRightTile.y)
             tiles[zoom] = tileSet
         }
+    }
+    
+    func tileCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees, zoom: Int) -> (x: Int, y: Int){
+        let scale = World.zoomScale(at: zoom)
+        let x = floor(World.xPos(longitude: longitude)*scale)
+        let y = floor(World.yPos(latitude: latitude)*scale)
+        return (x: Int(x), y: Int(y))
     }
     
     override var string : String{

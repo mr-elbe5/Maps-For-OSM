@@ -108,7 +108,7 @@ class MapView: UIView {
             startLocationIsSet = true
         }
         else{
-            userLocationView.updateLocationPoint(planetPoint: World.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
+            userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
             if ActiveTrack.isTracking{
                 ActiveTrack.updateTrack(with: location)
                 trackLayerView.updateTrack()

@@ -11,7 +11,6 @@ class TrackLayerView: UIView {
     
     var offset = CGPoint()
     var scale : CGFloat = 1.0
-    var normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint())
     
     var track : TrackData? = nil
     
@@ -31,30 +30,27 @@ class TrackLayerView: UIView {
     func updatePosition(offset: CGPoint, scale: CGFloat){
         self.offset = offset
         self.scale = scale
-        normalizedOffset = NormalizedPlanetPoint(pnt: CGPoint(x: offset.x/scale, y: offset.y/scale))
         setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
         if let track = track{
             if !track.trackpoints.isEmpty{
+                let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!
                 ctx.beginPath()
-                ctx.move(to: getPoint(track.trackpoints[0]))
+                var locationPoint = MapPoint(track.trackpoints[0].coordinate)
+                ctx.move(to: CGPoint(x: (locationPoint.x - mapOffset.x)*scale , y: (locationPoint.y - mapOffset.y)*scale))
                 for idx in 1..<track.trackpoints.count{
-                    ctx.addLine(to: getPoint(track.trackpoints[idx]))
+                    locationPoint = MapPoint(track.trackpoints[idx].coordinate)
+                    ctx.addLine(to: CGPoint(x: (locationPoint.x - mapOffset.x)*scale , y: (locationPoint.y - mapOffset.y)*scale))
                 }
                 ctx.setStrokeColor(color)
                 ctx.setLineWidth(4.0)
                 ctx.drawPath(using: .stroke)
             }
         }
-    }
-    
-    func getPoint(_ trackPoint: TrackPoint) -> CGPoint{
-        let locationPoint = World.planetPointFromCoordinate(coordinate: trackPoint.coordinate)
-        return CGPoint(x: (locationPoint.x - normalizedOffset.point.x)*scale , y: (locationPoint.y - normalizedOffset.point.y)*scale)
     }
     
 }
