@@ -94,7 +94,7 @@ class Place : Hashable, Codable{
     init(coordinate: CLLocationCoordinate2D){
         id = UUID()
         self.coordinate = coordinate
-        planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
+        planetPosition = World.planetPointFromCoordinate(coordinate: coordinate)
         hasPlacemark = false
         description = ""
         photos = PhotoList()
@@ -114,7 +114,7 @@ class Place : Hashable, Codable{
         city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
         country = try values.decodeIfPresent(String.self, forKey: .country) ?? ""
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        planetPosition = MapStatics.planetPointFromCoordinate(coordinate: coordinate)
+        planetPosition = World.planetPointFromCoordinate(coordinate: coordinate)
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         photos = try values.decodeIfPresent(PhotoList.self, forKey: .photos) ?? Array<PhotoData>()
         tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()

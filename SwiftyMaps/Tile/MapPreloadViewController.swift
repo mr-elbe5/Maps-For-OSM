@@ -9,7 +9,7 @@ import UIKit
 
 class MapPreloadViewController: PopupScrollViewController{
     
-    var mapRegion: MapRegion? = nil
+    var mapRegion: TileRegion? = nil
     
     var downloadQueue : OperationQueue?
     
@@ -214,5 +214,3 @@ extension MapPreloadViewController: DownloadDelegate{
     }
     
 }
-
-

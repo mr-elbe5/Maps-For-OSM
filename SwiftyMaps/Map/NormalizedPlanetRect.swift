@@ -37,7 +37,7 @@ class NormalizedPlanetRect{
     }
     
     init(rect: CGRect){
-        self.dx = MapStatics.scrollShift(x: rect.minX)
+        self.dx = World.scrollShift(x: rect.minX)
         self.rect = (dx == 0) ? rect : CGRect(x: rect.minX - dx, y: rect.minY, width: rect.width, height: rect.height)
     }
     
@@ -46,7 +46,7 @@ class NormalizedPlanetRect{
     }
     
     convenience init(rect: CGRect, fromScaledPlanet: CGRect){
-        let scale = MapStatics.planetSize.width/fromScaledPlanet.width
+        let scale = World.worldSize.width/fromScaledPlanet.width
         self.init(rect: rect, fromScale: scale)
     }
     
@@ -55,8 +55,8 @@ class NormalizedPlanetRect{
     }
     
     func mapTo(frame : CGRect, normalized: Bool) -> CGRect{
-        let fx = frame.width/MapStatics.planetSize.width
-        let fy = frame.height/MapStatics.planetSize.height
+        let fx = frame.width/World.worldSize.width
+        let fy = frame.height/World.worldSize.height
         return CGRect(x: (rect.minX + (normalized ? 0.0 : dx))*fx, y: rect.minY*fy, width: rect.width*fx, height: rect.height*fy)
     }
     

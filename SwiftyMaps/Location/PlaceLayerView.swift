@@ -19,7 +19,7 @@ class PlaceLayerView: UIView {
         for subview in subviews {
             subview.removeFromSuperview()
         }
-        if zoom == MapStatics.maxZoom{
+        if zoom == World.maxZoom{
             for location in Places.list{
                 let pin = PlacePin(location: location)
                 addSubview(pin)
@@ -27,7 +27,7 @@ class PlaceLayerView: UIView {
             }
         }
         else{
-            let planetDist = MapStatics.zoomScaleToPlanet(from: zoom) * 10 // 10m at full zoom
+            let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
             var groups = Array<PlaceGroup>()
             for location in Places.list{
                 var grouped = false

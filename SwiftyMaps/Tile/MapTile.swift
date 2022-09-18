@@ -31,9 +31,9 @@ class MapTile{
     }
     
     var rectInWorld : MapRect{
-        let scaleFactor = World.zoomFactor(fromZoom: zoom, toZoom: World.maxZoom)
-        let origin = MapPoint(x: Double(x)*World.tileExtent*scaleFactor , y: Double(y)*World.tileExtent*scaleFactor)
-        let scaledTileExtent = World.tileExtent/scaleFactor
+        let scale = World.zoomScale(from: zoom, to: World.maxZoom)
+        let origin = MapPoint(x: Double(x)*World.tileExtent*scale , y: Double(y)*World.tileExtent*scale)
+        let scaledTileExtent = World.tileExtent/scale
         return MapRect(origin: origin, size: MapSize(width: scaledTileExtent, height: scaledTileExtent))
     }
         

@@ -22,7 +22,7 @@ class PreferencesViewController: PopupScrollViewController{
     var startWithLastPositionSwitch = LabeledSwitchView()
     var logSwitch = LabeledSwitchView()
     
-    var currentZoom : Int = MapStatics.minZoom
+    var currentZoom : Int = World.minZoom
     var currentCenterCoordinate : CLLocationCoordinate2D? = nil
     
     override func loadView() {

@@ -8,24 +8,17 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MapRegion{
+class TileRegion : CoordinateRegion{
     
-    var minLatitude : CLLocationDegrees
-    var maxLatitude : CLLocationDegrees
-    var minLongitude : CLLocationDegrees
-    var maxLongitude : CLLocationDegrees
     var maxZoom : Int
     var size : Int
     
     var tiles = Dictionary<Int, TileSet>()
     
     init(topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D, maxZoom: Int){
-        maxLatitude = topLeft.latitude
-        minLatitude = bottomRight.latitude
-        minLongitude = topLeft.longitude
-        maxLongitude = bottomRight.longitude
         self.maxZoom = maxZoom
         size = 0
+        super.init(topLeft: topLeft, bottomRight: bottomRight)
         updateTileSets()
         for zoom in tiles.keys{
             if let tileSet = tiles[zoom]{
@@ -33,25 +26,20 @@ class MapRegion{
                 size += tileSet.size
             }
         }
-        //dump()
     }
     
     func updateTileSets(){
         tiles.removeAll()
         for zoom in 0...maxZoom{
-            let bottomLeftTile = MapStatics.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
-            let topRightTile = MapStatics.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
+            let bottomLeftTile = World.tileCoordinate(latitude: minLatitude, longitude: minLongitude, zoom: zoom)
+            let topRightTile = World.tileCoordinate(latitude: maxLatitude, longitude: maxLongitude, zoom: zoom)
             let tileSet = TileSet(minX: bottomLeftTile.x, minY: bottomLeftTile.y, maxX: topRightTile.x, maxY: topRightTile.y)
             tiles[zoom] = tileSet
         }
     }
     
-    func dump(){
-        print("minLatitude = \(minLatitude)")
-        print("maxLatitude = \(maxLatitude)")
-        print("minLongitude = \(minLongitude)")
-        print("maxLongitude = \(maxLongitude)")
-        print("size = \(size)")
+    override var string : String{
+        super.string + ", size = \(size)"
     }
     
 }

@@ -1,26 +1,29 @@
-//
-//  CoordinateRegion.swift
-//  SwiftyMaps for OSM
-//
-//  Created by Michael Rönnau on 15.09.22.
-//
+/*
+ SwiftyMaps
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import Foundation
+import UIKit
 import CoreLocation
 
 class CoordinateRegion{
     
-    var center : CLLocationCoordinate2D
-    var span : CoordinateSpan
+    var minLatitude : CLLocationDegrees
+    var maxLatitude : CLLocationDegrees
+    var minLongitude : CLLocationDegrees
+    var maxLongitude : CLLocationDegrees
     
-    init(){
-        center = CLLocationCoordinate2D()
-        span = CoordinateSpan()
+    init(topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D){
+        maxLatitude = topLeft.latitude
+        minLatitude = bottomRight.latitude
+        minLongitude = topLeft.longitude
+        maxLongitude = bottomRight.longitude
     }
     
-    init(center : CLLocationCoordinate2D, span : CoordinateSpan){
-        self.center = center
-        self.span = span
+    var string : String{
+        "minLatitude = \(minLatitude), maxLatitude = \(maxLatitude), minLongitude = \(minLongitude), maxLongitude = \(maxLongitude)"
     }
     
 }

@@ -29,6 +29,17 @@ class MapPoint{
         y = (1.0 - log(tan(coord.latitude*CGFloat.pi/180.0) + 1/cos(coord.latitude*CGFloat.pi/180.0 ))/CGFloat.pi )/2*World.fullExtent
     }
     
+    var normalizedPoint : MapPoint{
+        if x > World.worldSize.width{
+            return MapPoint(x: x - World.worldSize.width, y: y)
+        }
+        return self
+    }
+    
+    var cgPoint: CGPoint{
+        CGPoint(x: x, y: y)
+    }
+    
     var coordinate : CLLocationCoordinate2D{
         let longitude = x/World.fullExtent*360.0 - 180.0
         let latitude = atan(sinh(.pi - (y/World.fullExtent)*2*CGFloat.pi))*(180.0/CGFloat.pi)
@@ -41,14 +52,6 @@ class MapPoint{
     
     func distance(to: MapPoint) -> CLLocationDistance{
         coordinate.distance(to: to.coordinate)
-    }
-    
-    func metersPerMapPointAtLatitude(_ lat: CLLocationDegrees) -> CLLocationDistance{
-        156543.03 * cos(lat)
-    }
-    
-    func mapPointsPerMeterAtLatitude(_ lat: CLLocationDegrees) -> Double{
-        1/metersPerMapPointAtLatitude(lat)
     }
     
 }

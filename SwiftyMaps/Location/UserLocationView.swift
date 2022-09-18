@@ -12,6 +12,8 @@ class UserLocationView : UIView{
     static var userLocationColor = UIColor.systemBlue
     static var userDirectionColor = UIColor.red
     
+    let locationRadius : CGFloat = 16
+    
     var drawCenter : CGPoint? = nil
     var accuracy: CLLocationAccuracy = 100
     var planetPoint : CGPoint = .zero
@@ -40,11 +42,11 @@ class UserLocationView : UIView{
     
     override func draw(_ rect: CGRect) {
         if let drawCenter = drawCenter{
-            let drawRect = CGRect(x: drawCenter.x - MapStatics.locationRadius , y: drawCenter.y - MapStatics.locationRadius, width: 2*MapStatics.locationRadius, height: 2*MapStatics.locationRadius)
+            let drawRect = CGRect(x: drawCenter.x - locationRadius , y: drawCenter.y - locationRadius, width: 2*locationRadius, height: 2*locationRadius)
             let ctx = UIGraphicsGetCurrentContext()!
             var color : CGColor!
             if accuracy <= 10{
-                color = UIColor.systemBlue.cgColor
+                color = UserLocationView.userLocationColor.cgColor
             }
             else{
                 let redFactor = max(1.0, accuracy/100.0)
@@ -64,8 +66,8 @@ class UserLocationView : UIView{
             ctx.beginPath()
             ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
             ctx.move(to: drawCenter)
-            ctx.addLine(to: CGPoint(x: drawCenter.x + MapStatics.locationRadius * sin(angle1), y: drawCenter.y - MapStatics.locationRadius * cos(angle1)))
-            ctx.addLine(to: CGPoint(x: drawCenter.x + MapStatics.locationRadius * sin(angle2), y: drawCenter.y - MapStatics.locationRadius * cos(angle2)))
+            ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle1), y: drawCenter.y - locationRadius * cos(angle1)))
+            ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle2), y: drawCenter.y - locationRadius * cos(angle2)))
             ctx.closePath()
             ctx.drawPath(using: .fill)
         }

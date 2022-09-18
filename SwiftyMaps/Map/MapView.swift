@@ -23,28 +23,14 @@ class MapView: UIView {
     var position : MapPosition? = MapPosition.loadPosition()
     var startLocationIsSet = false
     
-    var currentMapRegion : MapRegion{
-        MapRegion(topLeft: getCoordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: getCoordinate(screenPoint: CGPoint(x: scrollView.visibleSize.width, y: scrollView.visibleSize.height)), maxZoom: MapStatics.maxZoom)
-    }
-    
-    var contentDrawScale : CGFloat{
-        scrollView.zoomScale*scrollView.tileLayerView.layer.contentsScale
-    }
-    
     var contentOffset : CGPoint{
         scrollView.contentOffset
     }
     
-    var scrollViewPlanetSize : CGSize{
-        CGSize(width: scrollView.contentSize.width/3, height: scrollView.contentSize.height)
-    }
-    
     func setupScrollView(){
         scrollView = MapScrollView(frame: bounds)
-        print("minZoomScale \(scrollView.minimumZoomScale)")
         addSubview(scrollView)
         scrollView.fillView(view: self)
-        print("contentSize \(scrollView.contentSize)")
         scrollView.mapDelegate = self
     }
     
@@ -83,52 +69,6 @@ class MapView: UIView {
         }
     }
     
-    func getCoordinate(screenPoint: CGPoint) -> CLLocationCoordinate2D{
-        let size = scrollViewPlanetSize
-        var point = screenPoint
-        while point.x >= size.width{
-            point.x -= size.width
-        }
-        point.x += scrollView.contentOffset.x
-        point.y += scrollView.contentOffset.y
-        return MapStatics.coordinateFromPointInScaledPlanetSize(point: point, scaledSize: size)
-    }
-    
-    func getPlanetRect() -> CGRect{
-        getPlanetRect(screenRect: bounds)
-    }
-    
-    func getPlanetRect(screenRect: CGRect) -> CGRect{
-        NormalizedPlanetRect(rect: screenRect.offsetBy(dx: contentOffset.x, dy: contentOffset.y), fromScale: scrollView.zoomScale).rect
-    }
-    
-    func getScreenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
-        let size = scrollViewPlanetSize
-        var xOffset = scrollView.contentOffset.x
-        while xOffset > size.width{
-            xOffset -= size.width
-        }
-        var point = MapStatics.pointInScaledSize(coordinate: coordinate, scaledSize: size)
-        point.x -= xOffset
-        point.y -= scrollView.contentOffset.y
-        return point
-    }
-    
-    func scrollToCoordinateAtScreenPoint(coordinate: CLLocationCoordinate2D, point: CGPoint){
-        let size = scrollViewPlanetSize
-        var x = round((coordinate.longitude + 180)/360.0*size.width) + size.width
-        var y = round((1 - log(tan(coordinate.latitude*CGFloat.pi/180.0) + 1/cos(coordinate.latitude*CGFloat.pi/180.0 ))/CGFloat.pi )/2*size.height)
-        x = max(0, x - point.x)
-        x = min(x, scrollView.contentSize.width - scrollView.visibleSize.width)
-        y = max(0, y - point.y)
-        y = min(y, scrollView.contentSize.height - scrollView.visibleSize.height)
-        scrollView.contentOffset = CGPoint(x: x, y: y)
-    }
-    
-    func scrollToCenteredCoordinate(coordinate: CLLocationCoordinate2D){
-        scrollToCoordinateAtScreenPoint(coordinate: coordinate, point: CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2))
-    }
-    
     func updateLocationLayer(){
         locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
@@ -138,7 +78,7 @@ class MapView: UIView {
     }
     
     func zoomTo(zoom: Int, animated: Bool){
-        scaleTo(scale: MapStatics.zoomScale(at: zoom - MapStatics.maxZoom), animated: animated)
+        scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
         self.zoom = zoom
         updateLocationLayer()
     }
@@ -148,13 +88,13 @@ class MapView: UIView {
             Log.log("Setting location to last position")
             scaleTo(scale: pos.scale)
             updateLocationLayer()
-            scrollToCenteredCoordinate(coordinate: pos.coordinate)
+            scrollView.scrollToScreenCenter(coordinate: pos.coordinate)
             startLocationIsSet = true
         }
         else{
             Log.log("Setting location to default position, zooming to min zoom")
-            zoomTo(zoom: MapStatics.minZoom, animated: false)
-            scrollToCenteredCoordinate(coordinate: MapStatics.startCoordinate)
+            zoomTo(zoom: World.minZoom, animated: false)
+            scrollView.scrollToScreenCenter(coordinate: World.startCoordinate)
             updateLocationLayer()
         }
     }
@@ -162,13 +102,13 @@ class MapView: UIView {
     func locationDidChange(location: CLLocation) {
         if !startLocationIsSet{
             Log.log("Start location not set, zooming to min zoom")
-            zoomTo(zoom: MapStatics.minZoom, animated: false)
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
+            zoomTo(zoom: World.minZoom, animated: false)
+            scrollView.scrollToScreenCenter(coordinate: location.coordinate)
             updatePosition()
             startLocationIsSet = true
         }
         else{
-            userLocationView.updateLocationPoint(planetPoint: MapStatics.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
+            userLocationView.updateLocationPoint(planetPoint: World.planetPointFromCoordinate(coordinate: location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
             if ActiveTrack.isTracking{
                 ActiveTrack.updateTrack(with: location)
                 trackLayerView.updateTrack()
@@ -179,7 +119,7 @@ class MapView: UIView {
     
     func focusUserLocation() {
         if let location = LocationService.shared.lastLocation{
-            scrollToCenteredCoordinate(coordinate: location.coordinate)
+            scrollView.scrollToScreenCenter(coordinate: location.coordinate)
         }
     }
     
@@ -187,16 +127,8 @@ class MapView: UIView {
         userLocationView.updateDirection(direction: direction)
     }
     
-    func getVisibleCenter() -> CGPoint{
-        CGPoint(x: scrollView.visibleSize.width/2, y: scrollView.visibleSize.height/2)
-    }
-    
-    func getVisibleCenterCoordinate() -> CLLocationCoordinate2D{
-        getCoordinate(screenPoint: getVisibleCenter())
-    }
-    
     func updatePosition(){
-        position = MapPosition(scale: scrollView.zoomScale, coordinate: getVisibleCenterCoordinate())
+        position = MapPosition(scale: scrollView.zoomScale, coordinate: scrollView.screenCenterCoordinate)
     }
     
     func savePosition(){
@@ -217,6 +149,7 @@ extension MapView : MapScrollViewDelegate{
         }
         locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        TestCenter.testMapView(mapView: self)
     }
     
     func didZoom() {
@@ -225,6 +158,7 @@ extension MapView : MapScrollViewDelegate{
     
     func didChangeZoom() {
         locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        TestCenter.testMapView(mapView: self)
     }
     
     // for infinite scroll using 3 * content width

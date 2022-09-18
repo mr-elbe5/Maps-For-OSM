@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 class MapRect{
     
@@ -37,6 +38,47 @@ class MapRect{
     
     var height: Double{
         size.height
+    }
+    
+    var topLeft: MapPoint{
+        MapPoint(x: minX, y: maxY)
+    }
+    
+    var bottomRight: MapPoint{
+        MapPoint(x: maxX, y: minY)
+    }
+    
+    var normalizedRect : MapRect{
+        if origin.x > World.worldSize.width{
+            return MapRect(origin: MapPoint(x: origin.x - World.worldSize.width, y: origin.y), size: size)
+        }
+        return self
+    }
+    
+    var cgRect : CGRect{
+        CGRect(origin: origin.cgPoint, size: size.cgSize)
+    }
+    
+    var topLeftCoordinate : CLLocationCoordinate2D{
+        topLeft.coordinate
+    }
+    
+    var bottomRightCoordinate : CLLocationCoordinate2D{
+        if spans180Medidian, let rect = remainderRect{
+            return rect.bottomRightCoordinate
+        }
+        return bottomRight.coordinate
+    }
+    
+    var spans180Medidian : Bool{
+        maxX > World.worldSize.width
+    }
+    
+    var remainderRect : MapRect?{
+        if !spans180Medidian{
+            return nil
+        }
+        return MapRect(x: 0, y: origin.y, width: maxX - World.worldSize.width, height: height)
     }
     
     var string : String{

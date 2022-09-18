@@ -29,12 +29,12 @@ class NormalizedPlanetPoint{
     }
     
     init(pnt: CGPoint){
-        self.dx = MapStatics.scrollShift(x: pnt.x)
+        self.dx = World.scrollShift(x: pnt.x)
         self.point = (dx == 0) ? pnt : CGPoint(x: pnt.x - dx, y: pnt.y)
     }
     
     convenience init(pnt: CGPoint, fromScaledPlanet: CGRect){
-        let scale = MapStatics.planetSize.width/fromScaledPlanet.width
+        let scale = World.worldSize.width/fromScaledPlanet.width
         self.init(pnt: CGPoint(x: pnt.x*scale, y: pnt.y*scale))
     }
     
@@ -43,7 +43,7 @@ class NormalizedPlanetPoint{
     }
     
     func mapTo(frame : CGRect, fromOriginal: Bool) -> CGPoint{
-        let scale = frame.width/MapStatics.planetSize.width
+        let scale = frame.width/World.worldSize.width
         return CGPoint(x: (point.x + (fromOriginal ? dx : 0))*scale, y: point.y*scale)
     }
     

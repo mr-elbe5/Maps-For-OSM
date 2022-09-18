@@ -8,7 +8,9 @@ import UIKit
 
 class TileLayerView: UIView {
     
-    var screenScale : CGFloat = 1.0
+    var mapGearImage = UIImage(named: "gear.grey")
+    
+    var pointToPixelsFactor : CGFloat = 1.0
     
     // this is the factor from planet zoom: drawRect*scale=tileSize,
     // same as MapController.zoomScaleFromPlanet(to: zoom)
@@ -20,7 +22,7 @@ class TileLayerView: UIView {
         set{
             if _scaleToPlanet  != newValue{
                 _scaleToPlanet = newValue
-                zoom = MapStatics.maxZoom - MapStatics.zoomLevelFromScale(scale: _scaleToPlanet)
+                zoom = World.maxZoom - World.zoomLevelFromScale(scale: _scaleToPlanet)
             }
         }
     }
@@ -28,10 +30,10 @@ class TileLayerView: UIView {
     
     override init(frame: CGRect){
         super.init(frame: frame)
-        screenScale = tileLayer.contentsScale
-        tileLayer.tileSize = CGSize(width: MapStatics.tileSize.width*screenScale, height: MapStatics.tileSize.height*screenScale)
+        pointToPixelsFactor = tileLayer.contentsScale
+        tileLayer.tileSize = CGSize(width: World.tileExtent*pointToPixelsFactor, height: World.tileExtent*pointToPixelsFactor)
         //print("tile size = \(tileLayer.tileSize)")
-        tileLayer.levelsOfDetail = MapStatics.maxZoom
+        tileLayer.levelsOfDetail = World.maxZoom
         tileLayer.levelsOfDetailBias = 0
     }
     
@@ -50,7 +52,7 @@ class TileLayerView: UIView {
     override func draw(_ rect: CGRect) {
         //print("draw \(rect)")
         let ctx = UIGraphicsGetCurrentContext()!
-        scaleToPlanet = 1.0/ctx.ctm.a*screenScale
+        scaleToPlanet = 1.0/ctx.ctm.a*pointToPixelsFactor
         drawTile(rect: rect)
     }
     
@@ -62,9 +64,9 @@ class TileLayerView: UIView {
     
     // rect is in contentSize = planetSize
     func drawTile(rect: CGRect){
-        var x = Int(round(rect.minX / scaleToPlanet / MapStatics.tileSize.width))
-        let y = Int(round(rect.minY / scaleToPlanet / MapStatics.tileSize.height))
-        let currentMaxTiles = Int(MapStatics.zoomScale(at: zoom))
+        var x = Int(round(rect.minX / scaleToPlanet / World.tileSize.width))
+        let y = Int(round(rect.minY / scaleToPlanet / World.tileSize.height))
+        let currentMaxTiles = Int(World.zoomScale(at: zoom))
         // for infinite scroll
         while x >= currentMaxTiles{
             x -= currentMaxTiles
@@ -75,7 +77,7 @@ class TileLayerView: UIView {
             image.draw(in: rect)
             return
         }
-        MapStatics.mapGearImage.draw(in: rect.scaleCenteredBy(0.25))
+        mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
         MapTiles.loadTileImage(tile: tile){ data in
             //print("tile loaded \(tile.string)")
             if MapTiles.saveTile(tile: tile, data: data){

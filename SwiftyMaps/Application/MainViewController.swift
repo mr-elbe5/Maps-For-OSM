@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.bounds
         mapView.fillView(view: view)
-        MapStatics.minZoom = MapStatics.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
+        World.minZoom = World.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
@@ -29,6 +29,11 @@ class MainViewController: UIViewController {
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
         LocationService.shared.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        TestCenter.testMapView(mapView: mapView)
     }
     
 }
@@ -60,7 +65,7 @@ extension MainViewController: PlaceLayerViewDelegate{
 extension MainViewController: ControlLayerDelegate{
     
     func preloadMap() {
-        let region = mapView.currentMapRegion
+        let region = mapView.scrollView.tileRegion
         if region.size > Preferences.instance.maxPreloadTiles{
             let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(Preferences.instance.maxPreloadTiles))
             showAlert(title: "pleaseNote".localize(), text: text, onOk: nil)
@@ -81,7 +86,7 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func addLocation(){
-        let coordinate = mapView.getVisibleCenterCoordinate()
+        let coordinate = mapView.scrollView.screenCenterCoordinate
         assertLocation(coordinate: coordinate){ location in
             self.updateLocationLayer()
         }
@@ -167,7 +172,7 @@ extension MainViewController: ControlLayerDelegate{
     func openPreferences() {
         let controller = PreferencesViewController()
         controller.currentZoom = mapView.zoom
-        controller.currentCenterCoordinate = mapView.getVisibleCenterCoordinate()
+        controller.currentCenterCoordinate = mapView.scrollView.screenCenterCoordinate
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -226,7 +231,7 @@ extension MainViewController: LocationViewDelegate{
 extension MainViewController: PlaceListDelegate{
     
     func showOnMap(location: Place) {
-        mapView.scrollToCenteredCoordinate(coordinate: location.coordinate)
+        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
     }
     
     func deleteLocation(location: Place) {
@@ -273,7 +278,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     func showTrackOnMap(track: TrackData) {
         if let startLocation = track.startLocation{
             mapView.trackLayerView.setTrack(track: track)
-            mapView.scrollToCenteredCoordinate(coordinate: startLocation.coordinate)
+            mapView.scrollView.scrollToScreenCenter(coordinate: startLocation.coordinate)
         }
     }
     
