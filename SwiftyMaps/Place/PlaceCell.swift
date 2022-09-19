@@ -8,14 +8,14 @@ import UIKit
 
 
 protocol PlaceCellDelegate{
-    func deleteLocation(location: Place, approved: Bool)
-    func viewLocation(location: Place)
-    func showOnMap(location: Place)
+    func deletePlace(place: Place, approved: Bool)
+    func viewPlace(place: Place)
+    func showOnMap(place: Place)
 }
 
 class PlaceCell: UITableViewCell{
     
-    var location : Place? = nil {
+    var place : Place? = nil {
         didSet {
             updateCell()
         }
@@ -44,14 +44,14 @@ class PlaceCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if let location = location{
+        if let location = place{
             let deleteButton = IconButton(icon: "xmark.circle")
             deleteButton.tintColor = UIColor.systemRed
-            deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
+            deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
             cellBody.addSubview(deleteButton)
             deleteButton.setAnchors(top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
-            viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
+            viewButton.addTarget(self, action: #selector(viewPlace), for: .touchDown)
             cellBody.addSubview(viewButton)
             viewButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             let mapButton = IconButton(icon: "map")
@@ -90,21 +90,21 @@ class PlaceCell: UITableViewCell{
         }
     }
     
-    @objc func deleteLocation() {
-        if let location = location{
-            delegate?.deleteLocation(location: location, approved: false)
+    @objc func deletePlace() {
+        if let location = place{
+            delegate?.deletePlace(place: location, approved: false)
         }
     }
     
-    @objc func viewLocation(){
-        if location != nil{
-            delegate?.viewLocation(location: location!)
+    @objc func viewPlace(){
+        if place != nil{
+            delegate?.viewPlace(place: place!)
         }
     }
     
     @objc func showOnMap(){
-        if location != nil{
-            delegate?.showOnMap(location: location!)
+        if place != nil{
+            delegate?.showOnMap(place: place!)
         }
     }
     

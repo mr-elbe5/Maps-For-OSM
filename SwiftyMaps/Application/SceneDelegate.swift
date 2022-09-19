@@ -29,16 +29,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        Log.log("Changing to foreground")
         if !LocationService.instance.running{
             LocationService.instance.start()
         }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        Log.log("Changing to background")
         if ActiveTrack.isTracking{
-            Log.log("Now tracking in background mode")
             if !LocationService.instance.authorizedForTracking{
                 LocationService.instance.requestAlwaysAuthorization()
             }

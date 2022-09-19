@@ -11,7 +11,7 @@ class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var locationLayerView = PlaceLayerView()
+    var placeLayerView = PlaceLayerView()
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
@@ -40,10 +40,10 @@ class MapView: UIView {
         trackLayerView.fillView(view: self)
     }
     
-    func setupLocationLayerView(){
-        addSubview(locationLayerView)
-        locationLayerView.fillView(view: self)
-        locationLayerView.isHidden = !Preferences.instance.showPins
+    func setupPlaceLayerView(){
+        addSubview(placeLayerView)
+        placeLayerView.fillView(view: self)
+        placeLayerView.isHidden = !Preferences.instance.showPins
     }
     
     func setupUserLocationView(){
@@ -70,8 +70,8 @@ class MapView: UIView {
         }
     }
     
-    func updateLocationLayer(){
-        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+    func updatePlaceLayer(){
+        placeLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -81,28 +81,25 @@ class MapView: UIView {
     func zoomTo(zoom: Int, animated: Bool){
         scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
         self.zoom = zoom
-        updateLocationLayer()
+        updatePlaceLayer()
     }
     
     func setDefaultLocation(){
         if Preferences.instance.startWithLastPosition, let pos = position{
-            Log.log("Setting location to last position")
             scaleTo(scale: pos.scale)
-            updateLocationLayer()
+            updatePlaceLayer()
             scrollView.scrollToScreenCenter(coordinate: pos.coordinate)
             startLocationIsSet = true
         }
         else{
-            Log.log("Setting location to default position, zooming to min zoom")
             zoomTo(zoom: World.minZoom, animated: false)
             scrollView.scrollToScreenCenter(coordinate: World.startCoordinate)
-            updateLocationLayer()
+            updatePlaceLayer()
         }
     }
     
     func locationDidChange(location: CLLocation) {
         if !startLocationIsSet{
-            Log.log("Start location not set, zooming to min zoom")
             zoomTo(zoom: World.minZoom, animated: false)
             scrollView.scrollToScreenCenter(coordinate: location.coordinate)
             updatePosition()
@@ -148,7 +145,7 @@ extension MapView : MapScrollViewDelegate{
         if startLocationIsSet{
             userLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         }
-        locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         TestCenter.testMapView(mapView: self)
     }
@@ -158,7 +155,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didChangeZoom() {
-        locationLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
         TestCenter.testMapView(mapView: self)
     }
     

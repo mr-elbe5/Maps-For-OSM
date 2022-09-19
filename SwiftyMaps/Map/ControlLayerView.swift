@@ -32,7 +32,7 @@ class ControlLayerView: UIView {
     
     var controlLine = UIView()
     var mapMenuControl = IconButton(icon: "map")
-    var locationMenuControl = IconButton(icon: "mappin")
+    var placeMenuControl = IconButton(icon: "mappin")
     var trackMenuControl = IconButton(icon: "figure.walk")
     var crossControl = IconButton(icon: "plus.circle")
     var currentTrackLine = CurrentTrackLine()
@@ -52,13 +52,13 @@ class ControlLayerView: UIView {
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        controlLine.addSubview(locationMenuControl)
-        locationMenuControl.setAnchors(top: controlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
-        locationMenuControl.menu = getLocationMenu()
-        locationMenuControl.showsMenuAsPrimaryAction = true
+        controlLine.addSubview(placeMenuControl)
+        placeMenuControl.setAnchors(top: controlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        placeMenuControl.menu = getPlaceMenu()
+        placeMenuControl.showsMenuAsPrimaryAction = true
         
         controlLine.addSubview(trackMenuControl)
-        trackMenuControl.setAnchors(top: controlLine.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        trackMenuControl.setAnchors(top: controlLine.topAnchor, leading: placeMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
@@ -126,31 +126,31 @@ class ControlLayerView: UIView {
         return UIMenu(title: "", children: [preloadMapAction, deleteTilesAction])
     }
     
-    func getLocationMenu() -> UIMenu{
-        let addLocationAction = UIAction(title: "addLocation".localize(), image: UIImage(systemName: "plus.circle")){ action in
+    func getPlaceMenu() -> UIMenu{
+        let addPlaceAction = UIAction(title: "addPlace".localize(), image: UIImage(systemName: "plus.circle")){ action in
             self.activateCross()
         }
-        var showLocationsAction : UIAction!
+        var showPlacesAction : UIAction!
         if Preferences.instance.showPins{
-            showLocationsAction = UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
+            showPlacesAction = UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
-                self.locationMenuControl.menu = self.getLocationMenu()
+                self.placeMenuControl.menu = self.getPlaceMenu()
             }
         }
         else{
-            showLocationsAction = UIAction(title: "showLocations".localize(), image: UIImage(systemName: "mappin")){ action in
+            showPlacesAction = UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
                 self.delegate?.showLocations(true)
-                self.locationMenuControl.menu = self.getLocationMenu()
+                self.placeMenuControl.menu = self.getPlaceMenu()
                 
             }
         }
-        let showLocationListAction = UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+        let showPlaceListAction = UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
         }
         let deleteLocationsAction = UIAction(title: "deleteLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteLocations()
         }
-        return UIMenu(title: "", children: [addLocationAction, showLocationListAction, showLocationsAction, deleteLocationsAction])
+        return UIMenu(title: "", children: [addPlaceAction, showPlaceListAction, showPlacesAction, deleteLocationsAction])
     }
     
     func getTrackingMenu() -> UIMenu{

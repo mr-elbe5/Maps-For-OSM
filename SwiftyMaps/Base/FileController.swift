@@ -110,7 +110,7 @@ class FileController {
             try data.write(to: url, options: .atomic)
             return true
         } catch let err{
-            Log.log("Error saving file: " + err.localizedDescription)
+            print(err)
             return false
         }
     }
@@ -121,7 +121,7 @@ class FileController {
             try text.write(to: url, atomically: true, encoding: .utf8)
             return true
         } catch let err{
-            Log.log("Error saving file: " + err.localizedDescription)
+            print(err)
             return false
         }
     }
@@ -135,7 +135,7 @@ class FileController {
             try FileManager.default.copyItem(at: getURL(dirURL: fromDir,fileName: name), to: getURL(dirURL: toDir, fileName: name))
             return true
         } catch let err{
-            Log.log("Error copying file: " + err.localizedDescription)
+            print(err)
             return false
         }
     }
@@ -149,7 +149,7 @@ class FileController {
             try FileManager.default.copyItem(at: fromURL, to: toURL)
             return true
         } catch let err{
-            Log.log("Error copying file: " + err.localizedDescription)
+            print(err)
             return false
         }
     }
@@ -242,7 +242,6 @@ class FileController {
     static func deleteFile(dirURL: URL, fileName: String) -> Bool{
         do{
             try FileManager.default.removeItem(at: getURL(dirURL: dirURL, fileName: fileName))
-            Log.log("File deleted: \(fileName)")
             return true
         }
         catch {
@@ -254,7 +253,6 @@ class FileController {
     static func deleteFile(url: URL) -> Bool{
         do{
             try FileManager.default.removeItem(at: url)
-            Log.log("File deleted: \(url)")
             return true
         }
         catch {
@@ -293,12 +291,10 @@ class FileController {
     }
     
     static func logFileInfo(){
-        Log.log("Temporary files:")
         var names = listAllFiles(dirPath: temporaryPath)
         for name in names{
             print(name)
         }
-        Log.log("Private files:")
         names = listAllFiles(dirPath: FileController.privateURL.path)
         for name in names{
             print(name)

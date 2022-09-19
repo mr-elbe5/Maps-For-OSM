@@ -7,7 +7,7 @@
 import UIKit
 
 protocol PlaceLayerViewDelegate{
-    func showLocationDetails(location: Place)
+    func showPlaceDetails(place: Place)
 }
 
 class PlaceLayerView: UIView {
@@ -20,40 +20,40 @@ class PlaceLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == World.maxZoom{
-            for location in Places.list{
-                let pin = PlacePin(location: location)
+            for place in Places.list{
+                let pin = PlacePin(place: place)
                 addSubview(pin)
-                pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
+                pin.addTarget(self, action: #selector(showPlaceDetails), for: .touchDown)
             }
         }
         else{
             let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
             var groups = Array<PlaceGroup>()
-            for location in Places.list{
+            for place in Places.list{
                 var grouped = false
                 for group in groups{
-                    if group.isWithinRadius(location: location, radius: planetDist){
-                        group.addLocation(location: location)
+                    if group.isWithinRadius(place: place, radius: planetDist){
+                        group.addPlace(place: place)
                         group.setCenter()
                         grouped = true
                     }
                 }
                 if !grouped{
                     let group = PlaceGroup()
-                    group.addLocation(location: location)
+                    group.addPlace(place: place)
                     group.setCenter()
                     groups.append(group)
                 }
             }
             for group in groups{
-                if group.locations.count > 1{
-                    let pin = PlaceGroupPin(locationGroup: group)
+                if group.places.count > 1{
+                    let pin = PlaceGroupPin(placeGroup: group)
                     addSubview(pin)
                 }
-                else if let location = group.locations.first{
-                    let pin = PlacePin(location: location)
+                else if let place = group.places.first{
+                    let pin = PlacePin(place: place)
                     addSubview(pin)
-                    pin.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
+                    pin.addTarget(self, action: #selector(showPlaceDetails), for: .touchDown)
                 }
             }
             
@@ -63,10 +63,10 @@ class PlaceLayerView: UIView {
     
     func getPin(location: Place) -> Pin?{
         for subview in subviews{
-            if let pin = subview as? PlacePin, pin.location == location{
+            if let pin = subview as? PlacePin, pin.place == location{
                 return pin
             }
-            if let pin = subview as? PlaceGroupPin, pin.locationGroup.hasLocation(location: location){
+            if let pin = subview as? PlaceGroupPin, pin.placeGroup.hasPlace(place: location){
                 return pin
             }
         }
@@ -83,23 +83,23 @@ class PlaceLayerView: UIView {
         let offset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
         for subview in subviews{
             if let placePin = subview as? PlacePin{
-                placePin.updatePosition(to: CGPoint(x: (placePin.location.mapPoint.x - offset.x)*scale , y: (placePin.location.mapPoint.y - offset.y)*scale))
+                placePin.updatePosition(to: CGPoint(x: (placePin.place.mapPoint.x - offset.x)*scale , y: (placePin.place.mapPoint.y - offset.y)*scale))
             }
-            else if let groupPin = subview as? PlaceGroupPin, let center = groupPin.locationGroup.centerPlanetPosition{
+            else if let groupPin = subview as? PlaceGroupPin, let center = groupPin.placeGroup.centerPlanetPosition{
                 groupPin.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
             }
         }
     }
     
-    func updateLocationState(_ location: Place){
+    func updatePlaceState(_ location: Place){
         if let pin = getPin(location: location){
             pin.updateImage()
         }
     }
     
-    @objc func showLocationDetails(_ sender: AnyObject){
+    @objc func showPlaceDetails(_ sender: AnyObject){
         if let pin = sender as? PlacePin{
-            delegate?.showLocationDetails(location: pin.location)
+            delegate?.showPlaceDetails(place: pin.place)
         }
     }
     

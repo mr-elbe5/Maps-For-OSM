@@ -7,8 +7,8 @@
 import Foundation
 import UIKit
 
-protocol LocationViewDelegate{
-    func updateLocationLayer()
+protocol PlaceViewDelegate{
+    func updatePlaceLayer()
     func showTrackOnMap(track: Track)
 }
 
@@ -23,10 +23,10 @@ class PlaceDetailViewController: PopupScrollViewController{
     
     var editMode = false
     
-    var location: Place? = nil
+    var place: Place? = nil
     var hadPhotos = false
     
-    var delegate: LocationViewDelegate? = nil
+    var delegate: PlaceViewDelegate? = nil
     
     override func loadView() {
         title = "location".localize()
@@ -49,20 +49,20 @@ class PlaceDetailViewController: PopupScrollViewController{
         editButton.setAnchors(top: headerView.topAnchor, leading: addPhotoButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         
         headerView.addSubview(deleteButton)
-        deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
+        deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
         deleteButton.setAnchors(top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
     }
     
     func setupContent(){
-        if let location = location{
-            hadPhotos = location.hasPhotos
+        if let place = place{
+            hadPhotos = place.hasPhotos
             var header = UILabel(header: "locationData".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-            let locationLabel = UILabel(text: location.address)
+            let locationLabel = UILabel(text: place.address)
             contentView.addSubview(locationLabel)
             locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-            let coordinateLabel = UILabel(text: location.coordinateString)
+            let coordinateLabel = UILabel(text: place.coordinateString)
             contentView.addSubview(coordinateLabel)
             coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
             header = UILabel(header: "description".localize())
@@ -86,7 +86,7 @@ class PlaceDetailViewController: PopupScrollViewController{
     
     func setupDescriptionContainerView(){
         descriptionContainerView.removeAllSubviews()
-        guard let location = location else {return}
+        guard let location = place else {return}
         if editMode{
             descriptionView = TextEditArea()
             descriptionView!.text = location.description
@@ -115,7 +115,7 @@ class PlaceDetailViewController: PopupScrollViewController{
     func setupPhotoStackView(){
         photoStackView.removeAllArrangedSubviews()
         photoStackView.removeAllSubviews()
-        guard let location = location else {return}
+        guard let location = place else {return}
         for photo in location.photos{
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
@@ -146,12 +146,12 @@ class PlaceDetailViewController: PopupScrollViewController{
         setupPhotoStackView()
     }
     
-    @objc func deleteLocation(){
-        if let loc = location{
+    @objc func deletePlace(){
+        if let place = place{
             showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-                Places.deleteLocation(loc)
+                Places.deletePlace(place)
                 self.dismiss(animated: true){
-                    self.delegate?.updateLocationLayer()
+                    self.delegate?.updatePlaceLayer()
                 }
             }
         }
@@ -159,14 +159,14 @@ class PlaceDetailViewController: PopupScrollViewController{
     
     @objc func save(){
         var needsUpdate = false
-        if let location = location{
-            location.note = descriptionView?.text ?? ""
+        if let place = place{
+            place.note = descriptionView?.text ?? ""
             Places.save()
-            needsUpdate = location.hasPhotos != hadPhotos
+            needsUpdate = place.hasPhotos != hadPhotos
         }
         self.dismiss(animated: true){
             if needsUpdate{
-                self.delegate?.updateLocationLayer()
+                self.delegate?.updatePlaceLayer()
             }
         }
     }
@@ -179,9 +179,9 @@ extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigati
         guard let imageURL = info[.imageURL] as? URL else {return}
         let photo = PhotoData()
         if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
-            location?.addPhoto(photo: photo)
+            place?.addPhoto(photo: photo)
             Places.save()
-            delegate?.updateLocationLayer()
+            delegate?.updatePlaceLayer()
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
             photoStackView.addArrangedSubview(photoView)
@@ -220,10 +220,10 @@ extension PlaceDetailViewController: PhotoListItemDelegate{
     
     func deletePhoto(sender: PhotoListItemView) {
         showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
-            if let location = self.location{
-                location.deletePhoto(photo: sender.photoData)
+            if let place = self.place{
+                place.deletePhoto(photo: sender.photoData)
                 Places.save()
-                self.delegate?.updateLocationLayer()
+                self.delegate?.updatePlaceLayer()
                 for subView in self.photoStackView.subviews{
                     if subView == sender{
                         self.photoStackView.removeArrangedSubview(subView)

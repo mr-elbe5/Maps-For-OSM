@@ -78,7 +78,6 @@
 		4E3A416128D83D51004C9D90 /* CodableLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416028D83D51004C9D90 /* CodableLocation.swift */; };
 		4E3A416528D85357004C9D90 /* Tracks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416428D85357004C9D90 /* Tracks.swift */; };
 		4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416628D8896F004C9D90 /* Nominatim.swift */; };
-		4E3F1290277886FE006F9C31 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F128F277886FE006F9C31 /* Log.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
@@ -182,7 +181,6 @@
 		4E3A416028D83D51004C9D90 /* CodableLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableLocation.swift; sourceTree = "<group>"; };
 		4E3A416428D85357004C9D90 /* Tracks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tracks.swift; sourceTree = "<group>"; };
 		4E3A416628D8896F004C9D90 /* Nominatim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nominatim.swift; sourceTree = "<group>"; };
-		4E3F128F277886FE006F9C31 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
@@ -303,7 +301,6 @@
 				4E8F877E275796990027DAD4 /* PopupTableViewController.swift */,
 				4E24F47127345D11004E69C2 /* TextButton.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
-				4E3F128F277886FE006F9C31 /* Log.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -557,7 +554,6 @@
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
 				4E3A416128D83D51004C9D90 /* CodableLocation.swift in Sources */,
 				4E05FECD27592E64005D903B /* PlaceList.swift in Sources */,
-				4E3F1290277886FE006F9C31 /* Log.swift in Sources */,
 				4EB76A9A2760EF9F00D64B6D /* PhotoListItemView.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,

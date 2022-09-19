@@ -54,11 +54,11 @@ class TrackLayerView: UIView {
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!
                 ctx.beginPath()
-                var locationPoint = MapPoint(track.trackpoints[0].coordinate)
-                ctx.move(to: CGPoint(x: (locationPoint.x - mapOffset.x)*scale , y: (locationPoint.y - mapOffset.y)*scale))
+                var mapPointPoint = MapPoint(track.trackpoints[0].coordinate)
+                ctx.move(to: CGPoint(x: (mapPointPoint.x - mapOffset.x)*scale , y: (mapPointPoint.y - mapOffset.y)*scale))
                 for idx in 1..<track.trackpoints.count{
-                    locationPoint = MapPoint(track.trackpoints[idx].coordinate)
-                    ctx.addLine(to: CGPoint(x: (locationPoint.x - mapOffset.x)*scale , y: (locationPoint.y - mapOffset.y)*scale))
+                    mapPointPoint = MapPoint(track.trackpoints[idx].coordinate)
+                    ctx.addLine(to: CGPoint(x: (mapPointPoint.x - mapOffset.x)*scale , y: (mapPointPoint.y - mapOffset.y)*scale))
                 }
                 ctx.setStrokeColor(color)
                 ctx.setLineWidth(4.0)

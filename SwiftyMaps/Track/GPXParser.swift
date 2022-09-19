@@ -13,7 +13,7 @@ class GPXParser : XMLParser{
         if let data = FileController.readFile(url: url){
             let parser = GPXParser(data: data)
             guard parser.parse() else { return nil }
-            return parser.locations
+            return parser.trackpoints
         }
         return nil
     }
@@ -23,9 +23,9 @@ class GPXParser : XMLParser{
         delegate = self
     }
     
-    var locations = [CLLocation]()
+    var trackpoints = [TrackPoint]()
     
-    private var currentTrackPoint : TrackPointData? = nil
+    private var currentTrackPointData : TrackPointData? = nil
     private var currentElement : String? = nil
     
     struct TrackPointData{
@@ -43,18 +43,18 @@ extension GPXParser : XMLParserDelegate{
             guard let latString = attributeDict["lat"], let lonString = attributeDict["lon"] else { return }
             guard let lat = Double(latString), let lon = Double(lonString) else { return }
             guard let latDegrees = CLLocationDegrees(exactly: lat), let lonDegrees = CLLocationDegrees(exactly: lon) else { return }
-            currentTrackPoint = TrackPointData(coordinate: CLLocationCoordinate2D(latitude: latDegrees, longitude: lonDegrees))
+            currentTrackPointData = TrackPointData(coordinate: CLLocationCoordinate2D(latitude: latDegrees, longitude: lonDegrees))
         }
         currentElement = elementName
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        if currentTrackPoint != nil{
+        if currentTrackPointData != nil{
             switch currentElement{
             case "time":
-                currentTrackPoint!.time = string.ISO8601Date()
+                currentTrackPointData!.time = string.ISO8601Date()
             case "ele":
-                currentTrackPoint!.altitude = CLLocationDistance(string) ?? 0
+                currentTrackPointData!.altitude = CLLocationDistance(string) ?? 0
             default:
                 break
             }
@@ -62,9 +62,9 @@ extension GPXParser : XMLParserDelegate{
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "trkpt" || elementName == "wpt", let tp = currentTrackPoint{
-            locations.append(CLLocation(coordinate: tp.coordinate, altitude: tp.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: tp.time ?? Date()))
-            currentTrackPoint = nil
+        if elementName == "trkpt" || elementName == "wpt", let tp = currentTrackPointData{
+            trackpoints.append(TrackPoint(coordinate: tp.coordinate, altitude: tp.altitude, timestamp: tp.time ?? Date()))
+            currentTrackPointData = nil
         }
         currentElement = nil
     }

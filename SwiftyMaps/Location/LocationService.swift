@@ -62,7 +62,6 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
         lock.wait()
         defer{lock.signal()}
         if authorized, !running{
-            Log.log("Location service starting")
             startUpdatingLocation()
             allowsBackgroundLocationUpdates = true
             pausesLocationUpdatesAutomatically = false
@@ -80,14 +79,12 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
     func stop(){
         if running{
-            Log.log("Location service stopping")
             stopUpdatingLocation()
             stopUpdatingHeading()
         }
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        Log.log("Location service changed authorization")
         checkRunning()
         if authorized, let loc = location{
             mainController.locationDidChange(location: loc)
@@ -107,7 +104,6 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        Log.log("Location updates paused")
         running = false
         if let loc = location{
             let monitoredRegion = CLCircularRegion(center: loc.coordinate, radius: 5.0, identifier: "monitoredRegion")
@@ -116,12 +112,10 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     }
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        Log.log("Location updates resumed")
         running = true
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        Log.log("Location exited monitored region")
         if region.identifier == "monitoredRegion"{
             stopMonitoring(for: region)
             if authorized{

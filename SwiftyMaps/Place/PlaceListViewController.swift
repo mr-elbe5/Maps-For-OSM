@@ -9,9 +9,9 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol PlaceListDelegate: LocationViewDelegate{
-    func showOnMap(location: Place)
-    func deleteLocation(location: Place)
+protocol PlaceListDelegate: PlaceViewDelegate{
+    func showOnMap(place: Place)
+    func deletePlace(place: Place)
     func showTrackOnMap(track: Track)
 }
 
@@ -43,8 +43,8 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
-        let track = Places.location(at: indexPath.row)
-        cell.location = track
+        let track = Places.place(at: indexPath.row)
+        cell.place = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -66,42 +66,42 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension PlaceListViewController : PlaceCellDelegate{
     
-    func showOnMap(location: Place) {
+    func showOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showOnMap(location: location)
+            self.delegate?.showOnMap(place: place)
         }
     }
     
-    func deleteLocation(location: Place, approved: Bool) {
+    func deletePlace(place: Place, approved: Bool) {
         if approved{
-            deleteLocation(location: location)
+            deletePlace(place: place)
         }
         else{
-            showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
-                self.deleteLocation(location: location)
+            showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceInfo".localize()){
+                self.deletePlace(place: place)
             }
         }
     }
     
-    private func deleteLocation(location: Place){
-        delegate?.deleteLocation(location: location)
+    private func deletePlace(place: Place){
+        delegate?.deletePlace(place: place)
         self.tableView.reloadData()
     }
     
-    func viewLocation(location: Place) {
-        let locationController = PlaceDetailViewController()
-        locationController.delegate = self
-        locationController.location = location
-        locationController.modalPresentationStyle = .fullScreen
-        self.present(locationController, animated: true)
+    func viewPlace(place: Place) {
+        let placeController = PlaceDetailViewController()
+        placeController.delegate = self
+        placeController.place = place
+        placeController.modalPresentationStyle = .fullScreen
+        self.present(placeController, animated: true)
     }
     
 }
 
-extension PlaceListViewController: LocationViewDelegate{
+extension PlaceListViewController: PlaceViewDelegate{
     
-    func updateLocationLayer() {
-        delegate?.updateLocationLayer()
+    func updatePlaceLayer() {
+        delegate?.updatePlaceLayer()
     }
     
     func showTrackOnMap(track: Track) {

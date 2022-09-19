@@ -18,32 +18,32 @@ class Places{
         list.count
     }
     
-    static func location(at idx: Int) -> Place?{
+    static func place(at idx: Int) -> Place?{
         list[idx]
     }
     
     @discardableResult
-    static func addLocation(coordinate: CLLocationCoordinate2D) -> Place{
+    static func addPlace(coordinate: CLLocationCoordinate2D) -> Place{
         _lock.wait()
         defer{_lock.signal()}
-        let location = Place(coordinate: coordinate)
-        list.append(location)
-        return location
+        let place = Place(coordinate: coordinate)
+        list.append(place)
+        return place
     }
     
-    static func deleteLocation(_ location: Place){
+    static func deletePlace(_ place: Place){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
-            if list[idx] == location{
-                location.deleteAllPhotos()
+            if list[idx] == place{
+                place.deleteAllPhotos()
                 list.remove(at: idx)
                 return
             }
         }
     }
     
-    static func deleteAllLocations(){
+    static func deleteAllPlaces(){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
@@ -52,23 +52,23 @@ class Places{
         list.removeAll()
     }
     
-    static func locationNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Place?{
-        var distance : CLLocationDistance = Double.infinity
-        var nextLocation : Place? = nil
-        for location in list{
-            let dist = location.coordinate.distance(to: coordinate)
-            if dist<maxDistance && dist<distance{
-                distance = dist
-                nextLocation = location
-            }
-        }
-        return nextLocation
-    }
-    
     static func save(){
         _lock.wait()
         defer{_lock.signal()}
         PlaceList.save(list)
+    }
+    
+    static func placeNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Place?{
+        var distance : CLLocationDistance = Double.infinity
+        var nearestPlace : Place? = nil
+        for location in list{
+            let dist = location.coordinate.distance(to: coordinate)
+            if dist<maxDistance && dist<distance{
+                distance = dist
+                nearestPlace = location
+            }
+        }
+        return nearestPlace
     }
     
 }

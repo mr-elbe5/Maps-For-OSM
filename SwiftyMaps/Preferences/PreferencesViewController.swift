@@ -11,16 +11,12 @@ import CoreLocation
 class PreferencesViewController: PopupScrollViewController{
     
     var urlTemplateField = LabeledTextField()
-    var preloadUrlTemplateField = LabeledTextField()
-    var startZoomField = LabeledTextField()
     var minLocationAccuracyField = LabeledTextField()
     var maxLocationMergeDistanceField = LabeledTextField()
     var minTrackingDistanceField = LabeledTextField()
     var minTrackingIntervalField = LabeledTextField()
     var pinGroupRadiusField = LabeledTextField()
-    var maxPreloadTilesField = LabeledTextField()
     var startWithLastPositionSwitch = LabeledSwitchView()
-    var logSwitch = LabeledSwitchView()
     
     var currentZoom : Int = World.minZoom
     var currentCenterCoordinate : CLLocationCoordinate2D? = nil
@@ -63,17 +59,9 @@ class PreferencesViewController: PopupScrollViewController{
         osmInfoLink.setTitle("osmLegalInfo".localize(), for: .normal)
         osmInfoLink.addTarget(self, action: #selector(openOSMInfo), for: .touchDown)
         
-        preloadUrlTemplateField.setupView(labelText: "preloadUrlTemplate".localize(), text: Preferences.instance.preloadUrlTemplate, isHorizontal: false)
-        contentView.addSubview(preloadUrlTemplateField)
-        preloadUrlTemplateField.setAnchors(top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        startZoomField.setupView(labelText: "startZoom".localize(), text: String(Int(Preferences.instance.startZoom)), isHorizontal: true)
-        contentView.addSubview(startZoomField)
-        startZoomField.setAnchors(top: preloadUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(Preferences.instance.maxLocationMergeDistance)), isHorizontal: true)
         contentView.addSubview(maxLocationMergeDistanceField)
-        maxLocationMergeDistanceField.setAnchors(top: startZoomField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxLocationMergeDistanceField.setAnchors(top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         minTrackingDistanceField.setupView(labelText: "minTrackingDistance".localize(), text: String(Int(Preferences.instance.minTrackingDistance)), isHorizontal: true)
         contentView.addSubview(minTrackingDistanceField)
@@ -83,13 +71,9 @@ class PreferencesViewController: PopupScrollViewController{
         contentView.addSubview(minTrackingIntervalField)
         minTrackingIntervalField.setAnchors(top: minTrackingDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        maxPreloadTilesField.setupView(labelText: "maxPreloadTiles".localize(), text: String(Int(Preferences.instance.maxPreloadTiles)), isHorizontal: true)
-        contentView.addSubview(maxPreloadTilesField)
-        maxPreloadTilesField.setAnchors(top: minTrackingIntervalField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         startWithLastPositionSwitch.setupView(labelText: "startWithLastPosition".localize(), isOn: Preferences.instance.startWithLastPosition)
         contentView.addSubview(startWithLastPositionSwitch)
-        startWithLastPositionSwitch.setAnchors(top: maxPreloadTilesField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        startWithLastPositionSwitch.setAnchors(top: minTrackingIntervalField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
@@ -99,41 +83,12 @@ class PreferencesViewController: PopupScrollViewController{
         saveButton.setAnchors(top: startWithLastPositionSwitch.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     
-        logSwitch.setupView(labelText: "useLog".localize(), isOn: Log.isLogging)
-        contentView.addSubview(logSwitch)
-        logSwitch.setAnchors(top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        logSwitch.delegate = self
-        
-        let clearLogButton = UIButton()
-        clearLogButton.setTitle("clearLog".localize(), for: .normal)
-        clearLogButton.setTitleColor(.systemBlue, for: .normal)
-        clearLogButton.addTarget(self, action: #selector(clearLog), for: .touchDown)
-        contentView.addSubview(clearLogButton)
-        clearLogButton.setAnchors(top: logSwitch.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let deleteLogsButton = UIButton()
-        deleteLogsButton.setTitle("deleteAllLogs".localize(), for: .normal)
-        deleteLogsButton.setTitleColor(.systemBlue, for: .normal)
-        deleteLogsButton.addTarget(self, action: #selector(deleteAllLogs), for: .touchDown)
-        contentView.addSubview(deleteLogsButton)
-        deleteLogsButton.setAnchors(top: clearLogButton.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let saveLogButton = UIButton()
-        saveLogButton.setTitle("saveLog".localize(), for: .normal)
-        saveLogButton.setTitleColor(.systemBlue, for: .normal)
-        saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
-        contentView.addSubview(saveLogButton)
-        saveLogButton.setAnchors(top: deleteLogsButton.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
         let backupButton = UIButton()
         backupButton.setTitle("backup".localize(), for: .normal)
         backupButton.setTitleColor(.systemBlue, for: .normal)
         backupButton.addTarget(self, action: #selector(backup), for: .touchDown)
         contentView.addSubview(backupButton)
-        backupButton.setAnchors(top: saveLogButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        backupButton.setAnchors(top: saveButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -159,7 +114,6 @@ class PreferencesViewController: PopupScrollViewController{
             Preferences.instance.urlTemplate = newTemplate
             _ = MapTiles.clear()
         }
-        Preferences.instance.preloadUrlTemplate = preloadUrlTemplateField.text
         if let val = Int(maxLocationMergeDistanceField.text){
             Preferences.instance.maxLocationMergeDistance = CLLocationDistance(val)
         }
@@ -169,33 +123,9 @@ class PreferencesViewController: PopupScrollViewController{
         if let val = Int(minTrackingIntervalField.text){
             Preferences.instance.minTrackingInterval = CLLocationDistance(val)
         }
-        if let val = Int(maxPreloadTilesField.text){
-            Preferences.instance.maxPreloadTiles = val
-        }
-        if let val = Int(startZoomField.text){
-            Preferences.instance.startZoom = val
-        }
         Preferences.instance.startWithLastPosition = startWithLastPositionSwitch.isOn
         Preferences.instance.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
-    }
-    
-    @objc func clearLog(){
-        logSwitch.isOn = false
-        Log.clear()
-    }
-    
-    @objc func saveLog(){
-        logSwitch.isOn = false
-        if !Log.isEmtpy{
-            if let url = URL(string: "log_\(Date().fileDate()).log", relativeTo: FileController.logDirURL){
-                let s = Log.toString()
-                if let data = s.data(using: .utf8){
-                    FileController.saveFile(data : data, url: url)
-                    showDone(title: "ok".localize(), text: "logSaved".localize())
-                }
-            }
-        }
     }
     
     @objc func backup(){
@@ -252,19 +182,5 @@ class PreferencesViewController: PopupScrollViewController{
     }
     
 }
-
-extension PreferencesViewController: SwitchDelegate{
     
-    func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
-        if sender == logSwitch{
-            if sender.isOn{
-                Log.startLogging()
-            }
-            else{
-                Log.stopLogging()
-            }
-        }
-    }
-    
-}
 

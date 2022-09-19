@@ -12,10 +12,10 @@ class PlaceGroup{
     
     var center: CLLocationCoordinate2D? = nil
     var centerPlanetPosition: CGPoint? = nil
-    var locations = PlaceList()
+    var places = PlaceList()
     
     var hasPhotos: Bool{
-        for location in locations{
+        for location in places{
             if location.hasPhotos{
                 return true
             }
@@ -24,7 +24,7 @@ class PlaceGroup{
     }
     
     var hasTracks: Bool{
-        for location in locations{
+        for location in places{
             if location.hasTracks{
                 return true
             }
@@ -32,10 +32,10 @@ class PlaceGroup{
         return false
     }
     
-    func isWithinRadius(location: Place, radius: CGFloat) -> Bool{
+    func isWithinRadius(place: Place, radius: CGFloat) -> Bool{
         //print("checkking radius")
         if let center = center{
-            let dist = center.distance(to: location.coordinate)
+            let dist = center.distance(to: place.coordinate)
             //print("dist = \(dist) at radius \(radius)")
             return dist <= radius
         }
@@ -44,12 +44,12 @@ class PlaceGroup{
         }
     }
     
-    func hasLocation(location: Place) -> Bool{
-        locations.contains(location)
+    func hasPlace(place: Place) -> Bool{
+        places.contains(place)
     }
     
-    func addLocation(location: Place){
-        locations.append(location)
+    func addPlace(place: Place){
+        places.append(place)
     }
     
     func setCenter(){
@@ -58,7 +58,7 @@ class PlaceGroup{
         var minLat : CGFloat? = nil
         var maxLat : CGFloat? = nil
         
-        for loc in locations{
+        for loc in places{
             minLon = min(minLon ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
             maxLon = max(maxLon ?? -CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
             minLat = min(minLat ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.latitude)

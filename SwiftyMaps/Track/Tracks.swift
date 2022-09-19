@@ -14,8 +14,8 @@ extension TrackList{
     static var storeKey = "tracks"
     
     static func load() -> TrackList{
-        if let locations : TrackList = DataController.shared.load(forKey: TrackList.storeKey){
-            return locations
+        if let list : TrackList = DataController.shared.load(forKey: TrackList.storeKey){
+            return list
         }
         else{
             var list = TrackList()

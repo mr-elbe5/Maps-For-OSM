@@ -23,8 +23,8 @@ class MainViewController: UIViewController {
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
-        mapView.setupLocationLayerView()
-        mapView.locationLayerView.delegate = self
+        mapView.setupPlaceLayerView()
+        mapView.placeLayerView.delegate = self
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
@@ -51,9 +51,9 @@ extension MainViewController: LocationServiceDelegate{
 
 extension MainViewController: PlaceLayerViewDelegate{
     
-    func showLocationDetails(location: Place) {
+    func showPlaceDetails(place: Place) {
         let controller = PlaceDetailViewController()
-        controller.location = location
+        controller.place = place
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -65,16 +65,10 @@ extension MainViewController: ControlLayerDelegate{
     
     func preloadMap() {
         let region = mapView.scrollView.tileRegion
-        if region.size > Preferences.instance.maxPreloadTiles{
-            let text = "preloadMapsAlert".localize(param1: String(region.size), param2: String(Preferences.instance.maxPreloadTiles))
-            showAlert(title: "pleaseNote".localize(), text: text, onOk: nil)
-        }
-        else{
-            let controller = MapPreloadViewController()
-            controller.mapRegion = region
-            controller.modalPresentationStyle = .fullScreen
-            present(controller, animated: true)
-        }
+        let controller = MapPreloadViewController()
+        controller.mapRegion = region
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     func deleteTiles() {
@@ -86,8 +80,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func addLocation(){
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        assertLocation(coordinate: coordinate){ location in
-            self.updateLocationLayer()
+        assertPlace(coordinate: coordinate){ location in
+            self.updatePlaceLayer()
         }
     }
     
@@ -100,7 +94,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func showLocations(_ show: Bool) {
         Preferences.instance.showPins = show
-        mapView.locationLayerView.isHidden = !Preferences.instance.showPins
+        mapView.placeLayerView.isHidden = !Preferences.instance.showPins
     }
     
     func deleteLocations() {
@@ -108,16 +102,16 @@ extension MainViewController: ControlLayerDelegate{
             if ActiveTrack.track != nil{
                 self.cancelActiveTrack()
             }
-            Places.deleteAllLocations()
-            self.updateLocationLayer()
+            Places.deleteAllPlaces()
+            self.updatePlaceLayer()
             self.mapView.clearTrack()
         }
     }
     
     func startTracking(){
         if let lastLocation = LocationService.instance.location{
-            assertLocation(coordinate: lastLocation.coordinate){ location in
-                ActiveTrack.startTracking(startLocation: location)
+            assertPlace(coordinate: lastLocation.coordinate){ location in
+                ActiveTrack.startTracking(startPoint: location)
                 if let track = ActiveTrack.track{
                     self.mapView.trackLayerView.setTrack(track: track)
                     self.mapView.controlLayerView.startTrackControl()
@@ -153,7 +147,7 @@ extension MainViewController: ControlLayerDelegate{
         showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
             self.cancelActiveTrack()
             Tracks.deleteAllTracks()
-            self.updateLocationLayer()
+            self.updatePlaceLayer()
             self.mapView.clearTrack()
         }
     }
@@ -204,13 +198,13 @@ extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.instance.location{
-            assertLocation(coordinate: location.coordinate){ location in
+            assertPlace(coordinate: location.coordinate){ location in
                 let changeState = location.photos.isEmpty
                 location.addPhoto(photo: photo)
                 Places.save()
                 if changeState{
                     DispatchQueue.main.async {
-                        self.updateLocationLayer()
+                        self.updatePlaceLayer()
                     }
                 }
             }
@@ -219,24 +213,24 @@ extension MainViewController: PhotoCaptureDelegate{
     
 }
 
-extension MainViewController: LocationViewDelegate{
+extension MainViewController: PlaceViewDelegate{
     
-    func updateLocationLayer() {
-        mapView.updateLocationLayer()
+    func updatePlaceLayer() {
+        mapView.updatePlaceLayer()
     }
     
 }
 
 extension MainViewController: PlaceListDelegate{
     
-    func showOnMap(location: Place) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
+    func showOnMap(place: Place) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
     
-    func deleteLocation(location: Place) {
-        Places.deleteLocation(location)
+    func deletePlace(place: Place) {
+        Places.deletePlace(place)
         Places.save()
-        updateLocationLayer()
+        updatePlaceLayer()
     }
 
 }
@@ -265,7 +259,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     private func deleteTrack(track: Track){
         Tracks.deleteTrack(track)
         mapView.clearTrack(track)
-        updateLocationLayer()
+        updatePlaceLayer()
     }
     
     func showTrackOnMap(track: Track) {
@@ -304,7 +298,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
                 self.mapView.trackLayerView.setTrack(track: track)
                 ActiveTrack.stopTracking()
                 self.mapView.controlLayerView.stopTrackControl()
-                self.mapView.updateLocationLayer()
+                self.mapView.updatePlaceLayer()
             })
             present(alertController, animated: true)
         }
