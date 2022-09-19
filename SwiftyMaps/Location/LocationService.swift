@@ -13,31 +13,27 @@ protocol LocationServiceDelegate{
     func directionDidChange(direction: CLLocationDirection)
 }
 
-class LocationService : NSObject, CLLocationManagerDelegate{
+class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
-    static var shared = LocationService()
+    static var instance = LocationService()
     
-    var lastLocation : CLLocation? = nil
-    var lastDirection : CLLocationDirection = 0
     var running = false
-    var delegate : LocationServiceDelegate? = nil
     
-    private let locationManager = CLLocationManager()
     private let geocoder = CLGeocoder()
     
     private var lock = DispatchSemaphore(value: 1)
     
     override init() {
         super.init()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.headingFilter = 2.0
+        delegate = self
+        desiredAccuracy = kCLLocationAccuracyBest
+        distanceFilter = kCLDistanceFilterNone
+        headingFilter = 2.0
         
     }
     
     var authorized : Bool{
-        switch locationManager.authorizationStatus{
+        switch authorizationStatus{
         case .authorizedAlways:
             return true
         case.authorizedWhenInUse:
@@ -48,13 +44,16 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     }
     
     var authorizedForTracking : Bool{
-        locationManager.authorizationStatus == .authorizedAlways
+        authorizationStatus == .authorizedAlways
     }
     
-    func getPlacemarkInfo(for location: Place){
-        geocoder.reverseGeocodeLocation(location.cllocation, completionHandler: { (placemarks, error) in
+    func getPlacemark(for location: CLLocation, result: @escaping(CLPlacemark?) -> Void){
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
             if error == nil, let placemark =  placemarks?[0]{
-                location.addPlacemarkInfo(placemark: placemark)
+                result(placemark)
+            }
+            else{
+                result(nil)
             }
         })
     }
@@ -64,11 +63,11 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         defer{lock.signal()}
         if authorized, !running{
             Log.log("Location service starting")
-            locationManager.startUpdatingLocation()
-            locationManager.allowsBackgroundLocationUpdates = true
-            locationManager.pausesLocationUpdatesAutomatically = false
-            locationManager.showsBackgroundLocationIndicator = true
-            locationManager.startUpdatingHeading()
+            startUpdatingLocation()
+            allowsBackgroundLocationUpdates = true
+            pausesLocationUpdatesAutomatically = false
+            showsBackgroundLocationIndicator = true
+            startUpdatingHeading()
             running = true
         }
     }
@@ -82,24 +81,16 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     func stop(){
         if running{
             Log.log("Location service stopping")
-            locationManager.stopUpdatingLocation()
-            locationManager.stopUpdatingHeading()
+            stopUpdatingLocation()
+            stopUpdatingHeading()
         }
-    }
-    
-    func requestWhenInUseAuthorization(){
-        self.locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func requestAlwaysAuthorization(){
-        self.locationManager.requestAlwaysAuthorization()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         Log.log("Location service changed authorization")
         checkRunning()
-        if authorized, let loc = lastLocation{
-            delegate?.locationDidChange(location: loc)
+        if authorized, let loc = location{
+            mainController.locationDidChange(location: loc)
         }
     }
     
@@ -108,21 +99,19 @@ class LocationService : NSObject, CLLocationManagerDelegate{
         if loc.horizontalAccuracy == -1{
             return
         }
-        lastLocation = loc
-        delegate?.locationDidChange(location: loc)
+        mainController.locationDidChange(location: loc)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        lastDirection = newHeading.trueHeading
-        delegate?.directionDidChange(direction: lastDirection)
+        mainController.directionDidChange(direction: newHeading.trueHeading)
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
         Log.log("Location updates paused")
         running = false
-        if let loc = lastLocation{
+        if let loc = location{
             let monitoredRegion = CLCircularRegion(center: loc.coordinate, radius: 5.0, identifier: "monitoredRegion")
-            locationManager.startMonitoring(for: monitoredRegion)
+            startMonitoring(for: monitoredRegion)
         }
     }
     
@@ -134,10 +123,10 @@ class LocationService : NSObject, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         Log.log("Location exited monitored region")
         if region.identifier == "monitoredRegion"{
-            locationManager.stopMonitoring(for: region)
+            stopMonitoring(for: region)
             if authorized{
-                locationManager.startUpdatingLocation()
-                locationManager.startUpdatingHeading()
+                startUpdatingLocation()
+                startUpdatingHeading()
                 running = true
             }
         }

@@ -18,7 +18,7 @@ protocol ControlLayerDelegate{
     func openCamera()
     func addLocation()
     func startTracking()
-    func openTrack(track: TrackData)
+    func openTrack(track: Track)
     func hideTrack()
     func openTrackList()
     func deleteTracks()

@@ -16,11 +16,11 @@ protocol TrackListItemDelegate{
 
 class TrackListItemView : UIView{
     
-    var trackData : TrackData
+    var trackData : Track
     
     var delegate : TrackListItemDelegate? = nil
     
-    init(data: TrackData){
+    init(data: Track){
         self.trackData = data
         super.init(frame: .zero)
         let deleteButton = IconButton(icon: "xmark.circle")
@@ -47,12 +47,10 @@ class TrackListItemView : UIView{
         let header = UILabel(header: trackData.name)
         trackView.addSubview(header)
         header.setAnchors(top: trackView.topAnchor, leading: trackView.leadingAnchor, insets: defaultInsets)
-        let locationLabel = UILabel(text: trackData.startLocation?.locationString ?? "")
-        trackView.addSubview(locationLabel)
-        locationLabel.setAnchors(top: header.bottomAnchor, leading: trackView.leadingAnchor, trailing: trackView.trailingAnchor, insets: flatInsets)
-        let coordinateLabel = UILabel(text: trackData.startLocation?.coordinateString ?? "")
+        let tp = trackData.trackpoints.isEmpty ? nil : trackData.trackpoints[0]
+        let coordinateLabel = UILabel(text: tp?.coordinateString ?? "")
         trackView.addSubview(coordinateLabel)
-        coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: trackView.leadingAnchor, trailing: trackView.trailingAnchor, insets: flatInsets)
+        coordinateLabel.setAnchors(top: header.bottomAnchor, leading: trackView.leadingAnchor, trailing: trackView.trailingAnchor, insets: flatInsets)
         let timeLabel = UILabel(text: "\(trackData.startTime.dateTimeString()) - \(trackData.endTime.dateTimeString())")
         trackView.addSubview(timeLabel)
         timeLabel.setAnchors(top: coordinateLabel.bottomAnchor, leading: trackView.leadingAnchor, trailing: trackView.trailingAnchor, insets: flatInsets)
@@ -68,7 +66,6 @@ class TrackListItemView : UIView{
         let durationLabel = UILabel(text: "\("duration".localize()): \(trackData.duration.hmsString())")
         trackView.addSubview(durationLabel)
         durationLabel.setAnchors(top: downDistanceLabel.bottomAnchor, leading: trackView.leadingAnchor, bottom: trackView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
-        
     }
     
     required init?(coder: NSCoder) {

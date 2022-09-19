@@ -8,59 +8,43 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TrackPoint : Hashable, Codable{
+typealias TrackPoint = CodableLocation
+
+typealias TrackPointList = Array<TrackPoint>
+
+extension TrackPointList{
     
-    static func == (lhs: TrackPoint, rhs: TrackPoint) -> Bool {
-        lhs.location.coordinate == rhs.location.coordinate
+    var boundingCoordinates: (topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D)?{
+        get{
+            if isEmpty{
+                return nil
+            }
+            var coord = self[0].coordinate
+            var top = coord.latitude
+            var bottom = coord.latitude
+            var left = coord.longitude
+            var right = coord.longitude
+            for i in 1..<count{
+                coord = self[i].coordinate
+                top = Swift.max(top, coord.latitude)
+                bottom = Swift.min(bottom, coord.latitude)
+                left = Swift.min(left, coord.longitude)
+                right = Swift.max(right, coord.longitude)
+            }
+            return (topLeft: CLLocationCoordinate2D(latitude: top,longitude: left),
+                    bottomRight: CLLocationCoordinate2D(latitude: bottom,longitude: right))
+        }
     }
     
-    private enum CodingKeys: String, CodingKey {
-        case latitude
-        case longitude
-        case altitude
-        case timestamp
-    }
-    
-    var location : CLLocation
-    
-    var coordinate : CLLocationCoordinate2D{
-        location.coordinate
-    }
-    
-    var coordinateString : String{
-        let latitudeText = coordinate.latitude > 0 ? "north".localize() : "south".localize()
-        let longitudeText = coordinate.longitude > 0 ? "east".localize() : "west".localize()
-        return String(format: "%.04f", abs(coordinate.latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(coordinate.longitude)) + "° "  + longitudeText
-    }
-    
-    init(){
-        location = CLLocation()
-    }
-    
-    init(location: CLLocation){
-        self.location = location
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
-        let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
-        let altitude = try values.decodeIfPresent(Double.self, forKey: .altitude) ?? 0
-        let timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
-        location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: timestamp)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(location.coordinate.latitude, forKey: .latitude)
-        try container.encode(location.coordinate.longitude, forKey: .longitude)
-        try container.encode(location.altitude, forKey: .altitude)
-        try container.encode(location.timestamp, forKey: .timestamp)
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(coordinate.latitude)
-        hasher.combine(coordinate.longitude)
+    var boundingMapRect: MapRect?{
+        if let boundingCoordinates = boundingCoordinates{
+            let topLeft = MapPoint(boundingCoordinates.topLeft)
+            let bottomRight = MapPoint(boundingCoordinates.bottomRight)
+            return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
+        }
+        return nil
     }
     
 }
+
+

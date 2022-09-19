@@ -8,9 +8,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TrackData : Hashable, Codable{
+class Track : Hashable, Codable{
     
-    static func == (lhs: TrackData, rhs: TrackData) -> Bool {
+    static func == (lhs: Track, rhs: Track) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -31,12 +31,10 @@ class TrackData : Hashable, Codable{
     var pauseLength : TimeInterval = 0
     var endTime : Date
     var name : String
-    var trackpoints : Array<TrackPoint>
+    var trackpoints : TrackPointList
     var distance : CGFloat
     var upDistance : CGFloat
     var downDistance : CGFloat
-    
-    var startLocation : Place!
     
     var duration : TimeInterval{
         if let pauseTime = pauseTime{
@@ -52,16 +50,15 @@ class TrackData : Hashable, Codable{
         return startTime.distance(to: Date()) - pauseLength
     }
     
-    init(startLocation: Place){
+    init(){
         id = UUID()
         name = "trk"
         startTime = Date()
         endTime = Date()
-        trackpoints = Array<TrackPoint>()
+        trackpoints = TrackPointList()
         distance = 0
         upDistance = 0
         downDistance = 0
-        self.startLocation = startLocation
     }
     
     required init(from decoder: Decoder) throws {
@@ -70,7 +67,7 @@ class TrackData : Hashable, Codable{
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
         endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
-        trackpoints = try values.decodeIfPresent(Array<TrackPoint>.self, forKey: .trackpoints) ?? Array<TrackPoint>()
+        trackpoints = try values.decodeIfPresent(TrackPointList.self, forKey: .trackpoints) ?? TrackPointList()
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
         downDistance = try values.decodeIfPresent(CGFloat.self, forKey: .downDistance) ?? 0
@@ -99,12 +96,12 @@ class TrackData : Hashable, Codable{
             if tp.coordinate.distance(to: location.coordinate) < Preferences.instance.minTrackingDistance{
                 return
             }
-            let interval = tp.location.timestamp.distance(to: location.timestamp)
+            let interval = tp.timestamp.distance(to: location.timestamp)
             if interval < Preferences.instance.minTrackingInterval{
                 return
             }
-            self.distance += tp.location.coordinate.distance(to: location.coordinate)
-            let vDist = location.altitude - tp.location.altitude
+            self.distance += tp.coordinate.distance(to: location.coordinate)
+            let vDist = location.altitude - tp.altitude
             if vDist > 0{
                 upDistance += vDist
             }
@@ -133,17 +130,17 @@ class TrackData : Hashable, Codable{
         distance = 0
         upDistance = 0
         downDistance = 0
-        if let time = trackpoints.first?.location.timestamp{
+        if let time = trackpoints.first?.timestamp{
             startTime = time
         }
-        if let time = trackpoints.last?.location.timestamp{
+        if let time = trackpoints.last?.timestamp{
             endTime = time
         }
         var last : TrackPoint? = nil
         for tp in trackpoints{
             if let last = last{
                 distance += last.coordinate.distance(to: tp.coordinate)
-                let vDist = tp.location.altitude - last.location.altitude
+                let vDist = tp.altitude - last.altitude
                 if vDist > 0{
                     upDistance += vDist
                 }

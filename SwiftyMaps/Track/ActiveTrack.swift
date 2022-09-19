@@ -10,14 +10,14 @@ import UIKit
 
 class ActiveTrack{
     
-    static var track : TrackData? = nil
+    static var track : Track? = nil
     static var isTracking : Bool = false
     
     static func startTracking(startLocation: Place){
         if track == nil{
-            Log.log("Tracking started at \(startLocation.cllocation.coordinate.shortString)")
-            track = TrackData(startLocation: startLocation)
-            track!.trackpoints.append(TrackPoint(location: startLocation.cllocation))
+            Log.log("Tracking started at \(startLocation.coordinate.shortString)")
+            track = Track()
+            track!.trackpoints.append(TrackPoint(location: startLocation))
         }
         isTracking = true
     }

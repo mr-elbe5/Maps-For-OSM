@@ -9,7 +9,7 @@ import UIKit
 
 protocol LocationViewDelegate{
     func updateLocationLayer()
-    func showTrackOnMap(track: TrackData)
+    func showTrackOnMap(track: Track)
 }
 
 class PlaceDetailViewController: PopupScrollViewController{
@@ -20,7 +20,6 @@ class PlaceDetailViewController: PopupScrollViewController{
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
     let photoStackView = UIStackView()
-    let trackStackView = UIStackView()
     
     var editMode = false
     
@@ -60,7 +59,7 @@ class PlaceDetailViewController: PopupScrollViewController{
             var header = UILabel(header: "locationData".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-            let locationLabel = UILabel(text: location.locationString)
+            let locationLabel = UILabel(text: location.address)
             contentView.addSubview(locationLabel)
             locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             let coordinateLabel = UILabel(text: location.coordinateString)
@@ -81,11 +80,7 @@ class PlaceDetailViewController: PopupScrollViewController{
             photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
             header = UILabel(header: "tracks".localize())
             contentView.addSubview(header)
-            header.setAnchors(top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-            trackStackView.setupVertical()
-            setupTrackStackView()
-            contentView.addSubview(trackStackView)
-            trackStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 0, bottom: 0, right: 0))
+            header.setAnchors(top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         }
     }
     
@@ -128,17 +123,6 @@ class PlaceDetailViewController: PopupScrollViewController{
         }
     }
     
-    func setupTrackStackView(){
-        trackStackView.removeAllArrangedSubviews()
-        trackStackView.removeAllSubviews()
-        guard let location = location else {return}
-        for track in location.tracks{
-            let trackView = TrackListItemView(data: track)
-            trackView.delegate = self
-            trackStackView.addArrangedSubview(trackView)
-        }
-    }
-    
     @objc func addPhoto(){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
@@ -176,7 +160,7 @@ class PlaceDetailViewController: PopupScrollViewController{
     @objc func save(){
         var needsUpdate = false
         if let location = location{
-            location.description = descriptionView?.text ?? ""
+            location.note = descriptionView?.text ?? ""
             Places.save()
             needsUpdate = location.hasPhotos != hadPhotos
         }
@@ -253,54 +237,3 @@ extension PlaceDetailViewController: PhotoListItemDelegate{
     
 }
 
-extension PlaceDetailViewController: TrackListItemDelegate{
-    
-    func viewTrack(sender: TrackListItemView) {
-        let trackController = TrackDetailViewController()
-        trackController.track = sender.trackData
-        trackController.delegate = self
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
-    }
-    
-    func showTrackOnMap(sender: TrackListItemView) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: sender.trackData)
-        }
-    }
-    
-    func exportTrack    (sender: TrackListItemView) {
-        if let url = GPXCreator.createTemporaryFile(track: sender.trackData){
-            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
-            present(controller, animated: true) {
-                FileController.logFileInfo()
-            }
-        }
-    }
-    
-    func deleteTrack(sender: TrackListItemView) {
-        showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-            if let location = self.location{
-                location.deleteTrack(track: sender.trackData)
-                Places.save()
-                self.delegate?.updateLocationLayer()
-                for subView in self.trackStackView.subviews{
-                    if subView == sender{
-                        self.trackStackView.removeArrangedSubview(subView)
-                        self.trackStackView.removeSubview(subView)
-                        break
-                    }
-                }
-            }
-        }
-    }
-    
-}
-
-extension PlaceDetailViewController: TrackDetailDelegate{
-    
-    func showTrackOnMap(track: TrackData) {
-        delegate?.showTrackOnMap(track: track)
-    }
-    
-}

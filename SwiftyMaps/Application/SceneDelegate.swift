@@ -20,18 +20,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         mainController = MainViewController()
         window?.rootViewController = mainController
         window?.makeKeyAndVisible()
-        LocationService.shared.requestWhenInUseAuthorization()
+        LocationService.instance.requestWhenInUseAuthorization()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        LocationService.shared.stop()
+        LocationService.instance.stop()
         FileController.deleteTemporaryFiles()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         Log.log("Changing to foreground")
-        if !LocationService.shared.running{
-            LocationService.shared.start()
+        if !LocationService.instance.running{
+            LocationService.instance.start()
         }
     }
 
@@ -39,20 +39,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Log.log("Changing to background")
         if ActiveTrack.isTracking{
             Log.log("Now tracking in background mode")
-            if !LocationService.shared.authorizedForTracking{
-                LocationService.shared.requestAlwaysAuthorization()
+            if !LocationService.instance.authorizedForTracking{
+                LocationService.instance.requestAlwaysAuthorization()
             }
         }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        LocationService.shared.start()
+        LocationService.instance.start()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
         Places.save()
         if !ActiveTrack.isTracking{
-            LocationService.shared.stop()
+            LocationService.instance.stop()
         }
         Preferences.instance.save()
         mainController.mapView.savePosition()

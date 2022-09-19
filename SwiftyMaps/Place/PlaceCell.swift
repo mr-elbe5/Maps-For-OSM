@@ -63,7 +63,7 @@ class PlaceCell: UITableViewCell{
             var label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
-            label.text = location.locationString
+            label.text = location.address
             cellBody.addSubview(label)
             label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
@@ -85,11 +85,6 @@ class PlaceCell: UITableViewCell{
             }
             label = UILabel()
             label.text = String(location.photos.count) + " " + "photos".localize()
-            cellBody.addSubview(label)
-            label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            label = UILabel()
-            label.text = String(location.tracks.count) + " " + "tracks".localize()
             cellBody.addSubview(label)
             label.setAnchors(top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }

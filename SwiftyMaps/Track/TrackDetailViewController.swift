@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackDetailDelegate{
-    func showTrackOnMap(track: TrackData)
+    func showTrackOnMap(track: Track)
 }
 
 protocol ActiveTrackDelegate{
@@ -20,7 +20,7 @@ protocol ActiveTrackDelegate{
 
 class TrackDetailViewController: PopupScrollViewController{
     
-    var track: TrackData? = nil
+    var track: Track? = nil
     
     var isActiveTrack : Bool{
         track != nil && track == ActiveTrack.track
@@ -50,16 +50,13 @@ class TrackDetailViewController: PopupScrollViewController{
     }
     
     func setupContent() {
-        if let track = track{
+        if let track = track, !track.trackpoints.isEmpty {
             var header = UILabel(header: "startLocation".localize())
             contentView.addSubview(header)
             header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
-            let locationLabel = UILabel(text: track.startLocation?.locationString ?? "")
-            contentView.addSubview(locationLabel)
-            locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
-            let coordinateLabel = UILabel(text: track.startLocation?.coordinateString ?? "")
+            let coordinateLabel = UILabel(text: track.trackpoints[0].coordinateString)
             contentView.addSubview(coordinateLabel)
-            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
+            coordinateLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
             let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")
             contentView.addSubview(timeLabel)
             timeLabel.setAnchors(top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)

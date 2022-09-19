@@ -212,7 +212,7 @@ class PreferencesViewController: PopupScrollViewController{
         FileController.saveFile(text: json, url: locationsURL)
         var tracks = TrackList()
         for location in Places.list{
-            for track in location.tracks{
+            for track in location.getTracks(){
                 tracks.append(track)
             }
         }

@@ -12,7 +12,7 @@ import CoreLocation
 protocol PlaceListDelegate: LocationViewDelegate{
     func showOnMap(location: Place)
     func deleteLocation(location: Place)
-    func showTrackOnMap(track: TrackData)
+    func showTrackOnMap(track: Track)
 }
 
 class PlaceListViewController: PopupTableViewController{
@@ -104,7 +104,7 @@ extension PlaceListViewController: LocationViewDelegate{
         delegate?.updateLocationLayer()
     }
     
-    func showTrackOnMap(track: TrackData) {
+    func showTrackOnMap(track: Track) {
         self.dismiss(animated: true){
             self.delegate?.showTrackOnMap(track: track)
         }

@@ -62,9 +62,10 @@ class MapView: UIView {
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
     }
     
-    func clearTrack(_ track: TrackData? = nil){
+    func clearTrack(_ track: Track? = nil){
         if track == nil || trackLayerView.track == track{
-            trackLayerView.setTrack(track: nil)
+            trackLayerView.track = nil
+            trackLayerView.trackRect = nil
             controlLayerView.stopTrackControl()
         }
     }
@@ -111,14 +112,14 @@ class MapView: UIView {
             userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
             if ActiveTrack.isTracking{
                 ActiveTrack.updateTrack(with: location)
-                trackLayerView.updateTrack()
+                trackLayerView.redrawTrack()
                 controlLayerView.updateTrackInfo()
             }
         }
     }
     
     func focusUserLocation() {
-        if let location = LocationService.shared.lastLocation{
+        if let location = LocationService.instance.location{
             scrollView.scrollToScreenCenter(coordinate: location.coordinate)
         }
     }

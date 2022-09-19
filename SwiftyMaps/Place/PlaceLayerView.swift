@@ -80,13 +80,13 @@ class PlaceLayerView: UIView {
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
-        let mapPoint = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+        let offset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
         for subview in subviews{
             if let placePin = subview as? PlacePin{
-                placePin.updatePosition(to: CGPoint(x: (placePin.location.planetPosition.x - mapPoint.x)*scale , y: (placePin.location.planetPosition.y - mapPoint.y)*scale))
+                placePin.updatePosition(to: CGPoint(x: (placePin.location.mapPoint.x - offset.x)*scale , y: (placePin.location.mapPoint.y - offset.y)*scale))
             }
             else if let groupPin = subview as? PlaceGroupPin, let center = groupPin.locationGroup.centerPlanetPosition{
-                groupPin.updatePosition(to: CGPoint(x: (center.x - mapPoint.x)*scale , y: (center.y - mapPoint.y)*scale))
+                groupPin.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
             }
         }
     }

@@ -9,33 +9,47 @@ import CoreLocation
 
 class TrackLayerView: UIView {
     
-    var offset = CGPoint()
-    var scale : CGFloat = 1.0
+    var offset : CGPoint? = nil
+    var scale : CGFloat = 0.0
+    var trackRect : CGRect? = nil
     
-    var track : TrackData? = nil
+    var track : Track? = nil
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
     }
     
-    func setTrack(track: TrackData? = nil){
+    func setTrack(track: Track? = nil){
         self.track = track
-        setNeedsDisplay()
-    }
-    
-    func updateTrack(){
-        setNeedsDisplay()
+        redrawTrack()
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
         self.offset = offset
         self.scale = scale
-        setNeedsDisplay()
+        redrawTrack()
+    }
+    
+    func updateTrackRect() -> CGRect?{
+        //todo test
+        if let track = track, let offset = offset, let rect = track.trackpoints.boundingMapRect{
+            let rect = rect.cgRect.scaleBy(scale).offsetBy(dx: -offset.x, dy: -offset.y)
+            setNeedsDisplay(rect)
+            trackRect = rect
+            return rect
+        }
+        return nil
+    }
+    
+    func redrawTrack(){
+        if let rect = updateTrackRect(){
+            setNeedsDisplay(rect)
+        }
     }
     
     override func draw(_ rect: CGRect) {
         if let track = track{
-            if !track.trackpoints.isEmpty{
+            if !track.trackpoints.isEmpty, let offset = offset{
                 let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!
