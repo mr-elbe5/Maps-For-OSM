@@ -16,6 +16,8 @@ struct TestCenter{
         
         print("maxZoom = \(World.maxZoom)")
         print("worldSize = \(World.mapSize.string)")
+        print("equatorInMeters = \(World.equatorInMeters)")
+        print("worldEquatorMetersPerPixel = \(World.equatorInMeters/World.tileExtent)")
         
         let mapPoint = MapPoint(coordinate)
         print("coordinate = \(coordinate.shortString)")

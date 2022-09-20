@@ -17,11 +17,11 @@ struct ScaledWorld{
     }
     
     static func worldX(_ longitude: Double, scale: Double) -> Double {
-        round((longitude + 180) / 360.0 * World.fullExtent * scale)
+        round(World.projectedLongitude(longitude) * World.fullExtent * scale)
     }
     
     static func worldY(_ latitude: Double, scale: Double) -> Double {
-        round((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2 * World.fullExtent * scale)
+        round(World.projectedLatitude(latitude) * World.fullExtent * scale)
     }
     
     static func mapPoint(x : Double, y : Double, scale: Double) -> MapPoint{

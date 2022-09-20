@@ -70,35 +70,43 @@ struct World{
     }
     
     static func metersPerMapPointAtLatitude(_ lat: CLLocationDegrees) -> CLLocationDistance{
-        156543.03 * cos(lat)
+        equatorInMeters/tileExtent * cos(lat)
     }
     
     static func mapPointsPerMeterAtLatitude(_ lat: CLLocationDegrees) -> Double{
         1/metersPerMapPointAtLatitude(lat)
     }
     
+    static func projectedLongitude(_ longitude: Double) -> Double {
+        (longitude + 180) / 360.0
+    }
+    
+    static func projectedLatitude(_ latitude: Double) -> Double {
+        (1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2
+    }
+    
     static func tileX(_ longitude: Double) -> Int {
-        Int(floor((longitude + 180) / 360.0))
+        Int(floor(projectedLongitude(longitude)))
     }
     
     static func tileX(_ longitude: Double, withZoom zoom: Int) -> Int {
-        Int(floor((longitude + 180) / 360.0 * pow(2.0, Double(zoom))))
+        Int(floor(projectedLongitude(longitude) * pow(2.0, Double(zoom))))
     }
     
     static func tileY(_ latitude: Double) -> Int {
-        Int(floor((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2))
+        Int(floor(projectedLatitude(latitude)))
     }
     
     static func tileY(_ latitude: Double, withZoom zoom: Int) -> Int {
-        Int(floor((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2 * pow(2.0, Double(zoom))))
+        Int(floor(projectedLatitude(latitude) * pow(2.0, Double(zoom))))
     }
     
     static func worldX(_ longitude: Double) -> Double {
-        round((longitude + 180) / 360.0 * World.fullExtent)
+        round(projectedLongitude(longitude) * World.fullExtent)
     }
     
     static func worldY(_ latitude: Double) -> Double {
-        round((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2 * World.fullExtent)
+        round(projectedLatitude(latitude) * World.fullExtent)
     }
     
     static func coordinate(worldX : Double, worldY : Double) -> CLLocationCoordinate2D {
