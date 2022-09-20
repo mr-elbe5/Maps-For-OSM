@@ -32,21 +32,22 @@ struct TestCenter{
     
     static func testMapView(mapView: MapView){
         print("mapView at scale \(mapView.scrollView.zoomScale) -------")
-        //print("bounds = \(mapView.scrollView.bounds.debugDescription)")
-        //print("visible size = \(mapView.scrollView.visibleSize.debugDescription)")
-        //print("content size = \(mapView.scrollView.contentSize.debugDescription)")
+        print("bounds = \(mapView.scrollView.bounds.debugDescription)")
+        print("visible size = \(mapView.scrollView.visibleSize.debugDescription)")
+        print("content size = \(mapView.scrollView.contentSize.debugDescription)")
         print("zoom = \(mapView.zoom)")
-        //let zoomScale = World.zoomScale(at: mapView.zoom)
-        //print("zoomScale = \(zoomScale)")
-        //let zoomScaleTo = World.zoomScaleToWorld(from: mapView.zoom)
-        //print("zoomScaleToWorld = \(zoomScaleTo)")
-        //let zoomScaleFrom = World.zoomScaleFromWorld(to: mapView.zoom)
-        //print("zoomScaleToWorld*zoomScaleFromWorld = \(zoomScaleTo*zoomScaleFrom)")
-        //print("zoomLevelFromScale = \(World.zoomLevelFromScale(scale: zoomScale))")
+        let zoomScale = World.zoomScale(at: mapView.zoom)
+        print("zoomScale = \(zoomScale)")
+        let zoomScaleTo = World.zoomScaleToWorld(from: mapView.zoom)
+        print("zoomScaleToWorld = \(zoomScaleTo)")
+        let zoomScaleFrom = World.zoomScaleFromWorld(to: mapView.zoom)
+        print("zoomScaleToWorld*zoomScaleFromWorld = \(zoomScaleTo*zoomScaleFrom)")
+        print("zoomLevelFromScale = \(World.zoomLevelFromScale(scale: zoomScale))")
         print("visibleMapRect = \(mapView.scrollView.visibleMapRect.string)")
         print("screenCenterMapPoint = \(mapView.scrollView.screenCenterMapPoint.string)")
         print("screenCenterMapPoint.coordinate = \(mapView.scrollView.screenCenterMapPoint.coordinate.shortString)")
-        print("scaledWorldSize = \(mapView.scrollView.scaledWorldSize)")
+        
+        print("ScaledWorld.fullExtent = \(ScaledWorld.fullExtent(scale: mapView.scrollView.zoomScale))")
         
         print("screenCenter = \(mapView.scrollView.screenCenter)")
         print("screenCenterPoint = \(mapView.scrollView.mapPoint(screenPoint: mapView.scrollView.screenCenter).string)")
@@ -54,6 +55,31 @@ struct TestCenter{
         
         print("centerScreenPoint = \(mapView.scrollView.screenPoint(coordinate: coordinate))")
         
+        print("------- new ------")
+        print("tileX = \(World.tileX(coordinate.longitude))")
+        print("tileX at 18 = \(World.tileX(coordinate.longitude, withZoom: 18))")
+        print("tileY = \(World.tileY(coordinate.latitude))")
+        print("tileY at 18 = \(World.tileY(coordinate.latitude, withZoom: 18))")
+        
+        let scale = World.zoomScaleFromWorld(to: 18)
+        print("worldX = \(World.worldX(coordinate.longitude))")
+        print("worldX at 18 = \(ScaledWorld.worldX(coordinate.longitude, scale: scale))")
+        print("worldY = \(World.worldY(coordinate.latitude))")
+        print("worldY at 18 = \(ScaledWorld.worldY(coordinate.latitude, scale: scale))")
+        
+        let mapPoint = MapPoint(coordinate)
+        print("coordinate = \(coordinate.shortString)")
+        print("mapPoint = \(mapPoint.string)")
+        print("coordinateAtWorld = \(World.coordinate(worldX : mapPoint.x, worldY : mapPoint.y))")
+        
+        let worldScale = mapView.scrollView.zoomScale
+        print("worldScale = \(worldScale)")
+        let scaledWorldExtent = ScaledWorld.fullExtent(scale: worldScale)
+        print("scaledWorldExtent = \(scaledWorldExtent)")
+        print("contentHeight = \(mapView.scrollView.contentSize.height)")
+        let scaledMapPoint = mapView.scrollView.contentPoint(screenPoint: mapView.scrollView.screenCenter)
+        print("scaledMapPoint = \(scaledMapPoint)")
+        print("coordinateAtScaledWorld = \(ScaledWorld.coordinate(x : scaledMapPoint.x, y : scaledMapPoint.y, scale: worldScale))")
     }
     
 }

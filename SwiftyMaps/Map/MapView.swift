@@ -147,7 +147,7 @@ extension MapView : MapScrollViewDelegate{
         }
         placeLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
-        TestCenter.testMapView(mapView: self)
+        //TestCenter.testMapView(mapView: self)
     }
     
     func didZoom() {
@@ -156,7 +156,7 @@ extension MapView : MapScrollViewDelegate{
     
     func didChangeZoom() {
         placeLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
-        TestCenter.testMapView(mapView: self)
+        //TestCenter.testMapView(mapView: self)
     }
     
     // for infinite scroll using 3 * content width

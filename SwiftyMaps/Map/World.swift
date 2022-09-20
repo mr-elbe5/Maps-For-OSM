@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class World{
+struct World{
     
     static let startCoordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)
     
@@ -61,14 +61,6 @@ class World{
         return MapRect(x: 0, y: 0, width: fullExtent*scale, height: fullExtent*scale)
     }
     
-    static func xPos(longitude: CLLocationDegrees) -> Double{
-       (longitude + 180)/360.0
-    }
-    
-    static func yPos(latitude: CLLocationDegrees) -> Double{
-        (1.0 - log(tan(latitude*CGFloat.pi/180.0) + 1/cos(latitude*CGFloat.pi/180.0 ))/CGFloat.pi)/2
-    }
-    
     static func latitudeDegreesForMeters(_ meters: CLLocationDistance) -> CLLocationDegrees{
         meters/equatorInMeters*360
     }
@@ -83,6 +75,36 @@ class World{
     
     static func mapPointsPerMeterAtLatitude(_ lat: CLLocationDegrees) -> Double{
         1/metersPerMapPointAtLatitude(lat)
+    }
+    
+    static func tileX(_ longitude: Double) -> Int {
+        Int(floor((longitude + 180) / 360.0))
+    }
+    
+    static func tileX(_ longitude: Double, withZoom zoom: Int) -> Int {
+        Int(floor((longitude + 180) / 360.0 * pow(2.0, Double(zoom))))
+    }
+    
+    static func tileY(_ latitude: Double) -> Int {
+        Int(floor((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2))
+    }
+    
+    static func tileY(_ latitude: Double, withZoom zoom: Int) -> Int {
+        Int(floor((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2 * pow(2.0, Double(zoom))))
+    }
+    
+    static func worldX(_ longitude: Double) -> Double {
+        round((longitude + 180) / 360.0 * World.fullExtent)
+    }
+    
+    static func worldY(_ latitude: Double) -> Double {
+        round((1 - log( tan( latitude * Double.pi / 180.0 ) + 1 / cos( latitude * Double.pi / 180.0 )) / Double.pi ) / 2 * World.fullExtent)
+    }
+    
+    static func coordinate(worldX : Double, worldY : Double) -> CLLocationCoordinate2D {
+        let lon = worldX / World.fullExtent * 360.0 - 180.0
+        let lat = atan( sinh (Double.pi - (worldY / World.fullExtent) * 2 * Double.pi)) * (180.0 / Double.pi)
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
 }

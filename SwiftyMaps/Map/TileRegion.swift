@@ -39,9 +39,8 @@ class TileRegion : CoordinateRegion{
     }
     
     func tileCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees, zoom: Int) -> (x: Int, y: Int){
-        let scale = World.zoomScale(at: zoom)
-        let x = floor(World.xPos(longitude: longitude)*scale)
-        let y = floor(World.yPos(latitude: latitude)*scale)
+        let x = World.tileX(longitude, withZoom: zoom)
+        let y = World.tileY(latitude, withZoom: zoom)
         return (x: Int(x), y: Int(y))
     }
     

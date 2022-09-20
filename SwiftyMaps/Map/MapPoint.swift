@@ -25,8 +25,8 @@ class MapPoint{
     }
     
     init (_ coord: CLLocationCoordinate2D){
-        x = World.xPos(longitude: coord.longitude)*World.fullExtent
-        y = World.yPos(latitude: coord.latitude)*World.fullExtent
+        x = World.worldX(coord.longitude)
+        y = World.worldY(coord.latitude)
     }
     
     var normalizedPoint : MapPoint{

@@ -55,11 +55,6 @@ class MapScrollView : UIScrollView{
         MapRect(x: bounds.minX/zoomScale, y: bounds.minY/zoomScale, width: bounds.width/zoomScale, height: bounds.height/zoomScale).normalizedRect
     }
     
-    var scaledWorldSize : CGSize{
-        //scroll size is 3 x wider for infinite scroll
-        CGSize(width: contentSize.width/3, height: contentSize.height)
-    }
-    
     var screenCenter : CGPoint{
         CGPoint(x: bounds.width/2, y: bounds.height/2)
     }
@@ -83,6 +78,14 @@ class MapScrollView : UIScrollView{
         TileRegion(topLeft: coordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: coordinate(screenPoint: CGPoint(x: visibleSize.width, y: visibleSize.height)), maxZoom: World.maxZoom)
     }
     
+    func contentPoint(screenPoint: CGPoint) -> CGPoint{
+        CGPoint(x: screenPoint.x + contentOffset.x, y: screenPoint.y + contentOffset.y)
+    }
+    
+    func normalizedContentPoint(screenPoint: CGPoint) -> CGPoint{
+        CGPoint(x: screenPoint.x + contentOffset.x - contentSize.width/3, y: screenPoint.y + contentOffset.y)
+    }
+    
     func mapPoint(screenPoint : CGPoint) -> MapPoint{
         //division by zoomScale is upScale
         MapPoint(x: (screenPoint.x + contentOffset.x)/zoomScale, y: (screenPoint.y + contentOffset.y)/zoomScale).normalizedPoint
@@ -102,14 +105,10 @@ class MapScrollView : UIScrollView{
     }
     
     func scrollToScreenPoint(coordinate: CLLocationCoordinate2D, screenPoint: CGPoint){
-        let size = scaledWorldSize
-        var x = round(World.xPos(longitude: coordinate.longitude)*size.width) + size.width
-        var y = round(World.yPos(latitude: coordinate.latitude)*size.height)
-        x = max(0, x - screenPoint.x)
-        x = min(x, contentSize.width - visibleSize.width)
-        y = max(0, y - screenPoint.y)
-        y = min(y, contentSize.height - visibleSize.height)
-        print("old contentOffset = \(CGPoint(x: x, y: y))")
+        var x = ScaledWorld.worldX(coordinate.longitude, scale: zoomScale) + ScaledWorld.fullExtent(scale: zoomScale)
+        var y = ScaledWorld.worldY(coordinate.latitude, scale: zoomScale)
+        x = min(max(0, x - screenPoint.x), contentSize.width - visibleSize.width)
+        y = min(max(0, y - screenPoint.y), contentSize.height - visibleSize.height)
         contentOffset = CGPoint(x: x, y: y)
     }
     
