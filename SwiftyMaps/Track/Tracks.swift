@@ -11,28 +11,6 @@ typealias TrackList = Array<Track>
 
 extension TrackList{
     
-    static var storeKey = "tracks"
-    
-    static func load() -> TrackList{
-        if let list : TrackList = DataController.shared.load(forKey: TrackList.storeKey){
-            return list
-        }
-        else{
-            var list = TrackList()
-            for place in Places.list{
-                for track in place.getTracks(){
-                    list.append(track)
-                }
-            }
-            save(list)
-            return list
-        }
-    }
-    
-    static func save(_ list: TrackList){
-        DataController.shared.save(forKey: TrackList.storeKey, value: list)
-    }
-    
     mutating func remove(_ track: Track){
         for idx in 0..<self.count{
             if self[idx] == track{
@@ -46,12 +24,36 @@ extension TrackList{
 
 class Tracks{
     
-    static var list = TrackList.load()
+    static var storeKey = "tracks"
+    
+    static var list = TrackList()
     
     static private var _lock = DispatchSemaphore(value: 1)
     
     static var trackCount : Int{
         list.count
+    }
+    
+    static func load(){
+        if let list : TrackList = DataController.shared.load(forKey: storeKey){
+            Tracks.list = list
+        }
+        else{
+            var list = TrackList()
+            for place in Places.list{
+                for track in place.getTracks(){
+                    list.append(track)
+                }
+            }
+            save()
+            Tracks.list = list
+        }
+    }
+    
+    static func save(){
+        _lock.wait()
+        defer{_lock.signal()}
+        DataController.shared.save(forKey: storeKey, value: list)
     }
     
     static func track(at idx: Int) -> Track?{
@@ -79,12 +81,6 @@ class Tracks{
         _lock.wait()
         defer{_lock.signal()}
         list.removeAll()
-    }
-    
-    static func saveTracks(){
-        _lock.wait()
-        defer{_lock.signal()}
-        TrackList.save(list)
     }
     
 }

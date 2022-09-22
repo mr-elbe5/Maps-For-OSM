@@ -19,7 +19,7 @@ struct MapTiles{
     
     static func loadTileImage(tile: MapTile, result: @escaping (Data?) -> Void) {
         //print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
-        guard let url = tileUrl(tile: tile, urlTemplate: Preferences.instance.urlTemplate) else {print("could not crate map url"); return}
+        guard let url = tileUrl(tile: tile, urlTemplate: MapPreferences.instance.urlTemplate) else {print("could not crate map url"); return}
         loadTileImage(url: url, result: result)
     }
     

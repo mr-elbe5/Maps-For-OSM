@@ -10,8 +10,6 @@ import CoreLocation
 
 struct World{
     
-    static let startCoordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)
-    
     static let maxZoom : Int = 18
     static var minZoom : Int = 4
     static let tileExtent : Double = 256.0
@@ -25,16 +23,6 @@ struct World{
     
     static var scrollWidthFactor : CGFloat = 3
     static var scrollableWorldSize = CGSize(width: scrollWidthFactor*fullExtent, height: fullExtent)
-    
-    static func minimumZoomLevelForViewSize(viewSize: CGSize) -> Int{
-        for z in 0..<10{
-            let zoomPixels = zoomScale(at: z)*tileExtent
-            if (zoomPixels > viewSize.width) && (zoomPixels > viewSize.height){
-                return max(minZoom, z)
-            }
-        }
-        return minZoom
-    }
     
     static func zoomScale(at zoom: Int) -> Double{
         pow(2.0, CGFloat(zoom))

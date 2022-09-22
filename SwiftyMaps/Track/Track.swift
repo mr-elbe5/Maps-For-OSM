@@ -92,11 +92,11 @@ class Track : Hashable, Codable{
     func updateTrack(_ location: CLLocation){
         let lastTP = trackpoints.last
         if let tp = lastTP{
-            if tp.coordinate.distance(to: location.coordinate) < Preferences.instance.minTrackingDistance{
+            if tp.coordinate.distance(to: location.coordinate) < TrackPreferences.instance.minTrackingDistance{
                 return
             }
             let interval = tp.timestamp.distance(to: location.timestamp)
-            if interval < Preferences.instance.minTrackingInterval{
+            if interval < TrackPreferences.instance.minTrackingInterval{
                 return
             }
             self.distance += tp.coordinate.distance(to: location.coordinate)

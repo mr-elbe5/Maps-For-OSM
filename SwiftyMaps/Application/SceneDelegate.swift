@@ -13,7 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         TestCenter.testWorld()
         FileController.initialize()
-        Preferences.loadInstance()
+        MapPreferences.loadInstance()
+        TrackPreferences.loadInstance()
+        AppState.loadInstance()
+        Places.load()
+        Tracks.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -35,6 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
+        AppState.instance.save()
         if ActiveTrack.isTracking{
             if !LocationService.instance.authorizedForTracking{
                 LocationService.instance.requestAlwaysAuthorization()
@@ -47,11 +52,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
+        AppState.instance.save()
         Places.save()
+        Tracks.save()
         if !ActiveTrack.isTracking{
             LocationService.instance.stop()
         }
-        Preferences.instance.save()
+        MapPreferences.instance.save()
+        TrackPreferences.instance.save()
         mainController.mapView.savePosition()
     }
 

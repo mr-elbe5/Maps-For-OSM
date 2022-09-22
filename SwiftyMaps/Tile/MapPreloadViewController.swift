@@ -168,7 +168,7 @@ class MapPreloadViewController: PopupScrollViewController{
             self.downloadQueue!.name = "downloadQueue"
             self.downloadQueue!.maxConcurrentOperationCount = 2
             self.tiles.forEach { tile in
-                let operation = TileDownloadOperation(tile: tile, urlTemplate: Preferences.instance.urlTemplate)
+                let operation = TileDownloadOperation(tile: tile, urlTemplate: MapPreferences.instance.urlTemplate)
                 operation.delegate = self
                 self.downloadQueue!.addOperation(operation)
             }

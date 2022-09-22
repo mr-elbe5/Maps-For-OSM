@@ -10,12 +10,29 @@ import UIKit
 
 class Places{
     
+    static var storeKey = "locations"
+    
     static private var _lock = DispatchSemaphore(value: 1)
     
-    static var list : PlaceList = PlaceList.load()
+    static var list = PlaceList()
     
     static var size : Int{
         list.count
+    }
+    
+    static func load(){
+        if let list : PlaceList = DataController.shared.load(forKey: Places.storeKey){
+            Places.list = list
+        }
+        else{
+            Places.list = PlaceList()
+        }
+    }
+    
+    static func save(){
+        _lock.wait()
+        defer{_lock.signal()}
+        DataController.shared.save(forKey: Places.storeKey, value: list)
     }
     
     static func place(at idx: Int) -> Place?{
@@ -50,12 +67,6 @@ class Places{
             list[idx].deleteAllPhotos()
         }
         list.removeAll()
-    }
-    
-    static func save(){
-        _lock.wait()
-        defer{_lock.signal()}
-        PlaceList.save(list)
     }
     
     static func placeNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Place?{

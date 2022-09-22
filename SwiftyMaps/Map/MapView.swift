@@ -20,9 +20,6 @@ class MapView: UIView {
         set{scrollView.zoom = newValue}
     }
     
-    var position : MapPosition? = MapPosition.loadPosition()
-    var startLocationIsSet = false
-    
     var contentOffset : CGPoint{
         scrollView.contentOffset
     }
@@ -43,7 +40,7 @@ class MapView: UIView {
     func setupPlaceLayerView(){
         addSubview(placeLayerView)
         placeLayerView.fillView(view: self)
-        placeLayerView.isHidden = !Preferences.instance.showPins
+        placeLayerView.isHidden = !AppState.instance.showPins
     }
     
     func setupUserLocationView(){
@@ -85,33 +82,17 @@ class MapView: UIView {
     }
     
     func setDefaultLocation(){
-        if Preferences.instance.startWithLastPosition, let pos = position{
-            scaleTo(scale: pos.scale)
-            updatePlaceLayer()
-            scrollView.scrollToScreenCenter(coordinate: pos.coordinate)
-            startLocationIsSet = true
-        }
-        else{
-            zoomTo(zoom: World.minZoom, animated: false)
-            scrollView.scrollToScreenCenter(coordinate: World.startCoordinate)
-            updatePlaceLayer()
-        }
+        scaleTo(scale: AppState.instance.scale)
+        scrollView.scrollToScreenCenter(coordinate: AppState.instance.coordinate)
+        updatePlaceLayer()
     }
     
     func locationDidChange(location: CLLocation) {
-        if !startLocationIsSet{
-            zoomTo(zoom: World.minZoom, animated: false)
-            scrollView.scrollToScreenCenter(coordinate: location.coordinate)
-            updatePosition()
-            startLocationIsSet = true
-        }
-        else{
-            userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
-            if ActiveTrack.isTracking{
-                ActiveTrack.updateTrack(with: location)
-                trackLayerView.redrawTrack()
-                controlLayerView.updateTrackInfo()
-            }
+        userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
+        if ActiveTrack.isTracking{
+            ActiveTrack.updateTrack(with: location)
+            trackLayerView.redrawTrack()
+            controlLayerView.updateTrackInfo()
         }
     }
     
@@ -126,13 +107,12 @@ class MapView: UIView {
     }
     
     func updatePosition(){
-        position = MapPosition(scale: scrollView.zoomScale, coordinate: scrollView.screenCenterCoordinate)
+        AppState.instance.scale = scrollView.zoomScale
+        AppState.instance.coordinate = scrollView.screenCenterCoordinate
     }
     
     func savePosition(){
-        if let pos = position{
-            pos.save()
-        }
+        AppState.instance.save()
     }
     
 }
@@ -142,9 +122,7 @@ extension MapView : MapScrollViewDelegate{
     func didScroll() {
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
-        if startLocationIsSet{
-            userLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
-        }
+        userLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         placeLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)

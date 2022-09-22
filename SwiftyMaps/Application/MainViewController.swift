@@ -19,7 +19,6 @@ class MainViewController: UIViewController {
         view.addSubview(mapView)
         mapView.frame = view.bounds
         mapView.fillView(view: view)
-        World.minZoom = World.minimumZoomLevelForViewSize(viewSize: mapView.bounds.size)
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()
@@ -71,6 +70,12 @@ extension MainViewController: ControlLayerDelegate{
         present(controller, animated: true)
     }
     
+    func openMapPreferences(){
+        let controller = MapPreferencesViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
     func deleteTiles() {
         showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
             MapTiles.clear()
@@ -78,26 +83,26 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
-    func addLocation(){
+    func addPlace(){
         let coordinate = mapView.scrollView.screenCenterCoordinate
         assertPlace(coordinate: coordinate){ location in
             self.updatePlaceLayer()
         }
     }
     
-    func openLocationList() {
+    func openPlaceList() {
         let controller = PlaceListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
     }
     
-    func showLocations(_ show: Bool) {
-        Preferences.instance.showPins = show
-        mapView.placeLayerView.isHidden = !Preferences.instance.showPins
+    func showPlaces(_ show: Bool) {
+        AppState.instance.showPins = show
+        mapView.placeLayerView.isHidden = !AppState.instance.showPins
     }
     
-    func deleteLocations() {
+    func deletePlaces() {
         showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             if ActiveTrack.track != nil{
                 self.cancelActiveTrack()
@@ -152,20 +157,18 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
+    func openTrackPreferences(){
+        let controller = TrackPreferencesViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
     
     func openInfo() {
         let controller = InfoViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func openPreferences() {
-        let controller = PreferencesViewController()
-        controller.currentZoom = mapView.zoom
-        controller.currentCenterCoordinate = mapView.scrollView.screenCenterCoordinate
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -190,6 +193,10 @@ extension MainViewController: ControlLayerDelegate{
                 return
             }
         }
+    }
+    
+    func openSearch() {
+        
     }
     
 }
