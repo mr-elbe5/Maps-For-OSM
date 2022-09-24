@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         TestCenter.testWorld()
         FileController.initialize()
         MapPreferences.loadInstance()
+        PlacePreferences.loadInstance()
         TrackPreferences.loadInstance()
         AppState.loadInstance()
         Places.load()
@@ -59,6 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             LocationService.instance.stop()
         }
         MapPreferences.instance.save()
+        PlacePreferences.instance.save()
         TrackPreferences.instance.save()
         mainController.mapView.savePosition()
     }

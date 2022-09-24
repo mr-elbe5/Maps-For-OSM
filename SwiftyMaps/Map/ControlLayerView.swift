@@ -15,6 +15,7 @@ protocol ControlLayerDelegate{
     func showPlaces(_ show: Bool)
     func openPlaceList()
     func deletePlaces()
+    func openPlacePreferences()
     
     func startTracking()
     func openTrack(track: Track)
@@ -98,8 +99,9 @@ class ControlLayerView: UIView {
         crossControl.tintColor = UIColor.red
         addSubview(crossControl)
         crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
-        crossControl.addTarget(self, action: #selector(locationCrossTouched), for: .touchDown)
-        crossControl.isHidden = true
+        crossControl.menu = getCrossMenu()
+        crossControl.showsMenuAsPrimaryAction = true
+        crossControl.isHidden = !AppState.instance.showCross
         
         addSubview(licenseView)
         licenseView.setAnchors(top: currentTrackLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
@@ -156,11 +158,37 @@ class ControlLayerView: UIView {
                 
             })
         }
+        if AppState.instance.showCross{
+            actions.append(UIAction(title: "hideCross".localize(), image: UIImage(systemName: "circle")){ action in
+                AppState.instance.showCross = false
+                self.crossControl.isHidden = true
+                self.placeMenuControl.menu = self.getPlaceMenu()
+            })
+        }
+        else{
+            actions.append(UIAction(title: "showCross".localize(), image: UIImage(systemName: "plus.circle")){ action in
+                AppState.instance.showCross = true
+                self.crossControl.isHidden = false
+                self.placeMenuControl.menu = self.getPlaceMenu()
+                
+            })
+        }
         actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openPlaceList()
         })
         actions.append(UIAction(title: "deleteLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deletePlaces()
+        })
+        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
+            self.delegate?.openPlacePreferences()
+        })
+        return UIMenu(title: "", children: actions)
+    }
+    
+    func getCrossMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "addPlace".localize(), image: UIImage(systemName: "mappin")){ action in
+            self.activateCross()
         })
         return UIMenu(title: "", children: actions)
     }

@@ -113,6 +113,12 @@ extension MainViewController: ControlLayerDelegate{
         }
     }
     
+    func openPlacePreferences(){
+        let controller = PlacePreferencesViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
     func startTracking(){
         if let lastLocation = LocationService.instance.location{
             assertPlace(coordinate: lastLocation.coordinate){ location in

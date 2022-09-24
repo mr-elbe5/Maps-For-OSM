@@ -15,8 +15,6 @@ class TrackPreferences: Identifiable, Codable{
     
     static var instance = TrackPreferences()
     
-    static var defaultMinLocationAccuracy : CLLocationDistance = 5.0
-    static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
     static var defaultMinTrackingDistance : CGFloat = 5 // [m]
     static var defaultMinTrackingInterval : CGFloat = 5 // [sec]
     
@@ -31,12 +29,10 @@ class TrackPreferences: Identifiable, Codable{
     
     enum CodingKeys: String, CodingKey {
         case urlTemplate
-        case maxLocationMergeDistance
         case minTrackingDistance
         case minTrackingInterval
     }
 
-    var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
     var minTrackingDistance : CGFloat = TrackPreferences.defaultMinTrackingDistance
     var minTrackingInterval : CGFloat = TrackPreferences.defaultMinTrackingInterval
     
@@ -45,14 +41,12 @@ class TrackPreferences: Identifiable, Codable{
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? TrackPreferences.defaultMaxLocationMergeDistance
         minTrackingDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minTrackingDistance) ?? TrackPreferences.defaultMinTrackingDistance
         minTrackingInterval = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minTrackingInterval) ?? TrackPreferences.defaultMinTrackingInterval
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
         try container.encode(minTrackingDistance, forKey: .minTrackingDistance)
         try container.encode(minTrackingInterval, forKey: .minTrackingInterval)
     }

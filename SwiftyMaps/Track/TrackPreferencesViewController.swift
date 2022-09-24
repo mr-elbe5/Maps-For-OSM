@@ -20,13 +20,9 @@ class TrackPreferencesViewController: PopupScrollViewController{
         title = "tilePreferences".localize()
         super.loadView()
         
-        maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(TrackPreferences.instance.maxLocationMergeDistance)), isHorizontal: true)
-        contentView.addSubview(maxLocationMergeDistanceField)
-        maxLocationMergeDistanceField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         minTrackingDistanceField.setupView(labelText: "minTrackingDistance".localize(), text: String(Int(TrackPreferences.instance.minTrackingDistance)), isHorizontal: true)
         contentView.addSubview(minTrackingDistanceField)
-        minTrackingDistanceField.setAnchors(top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        minTrackingDistanceField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         minTrackingIntervalField.setupView(labelText: "minTrackingInterval".localize(), text: String(Int(TrackPreferences.instance.minTrackingInterval)), isHorizontal: true)
         contentView.addSubview(minTrackingIntervalField)
@@ -43,9 +39,6 @@ class TrackPreferencesViewController: PopupScrollViewController{
     }
     
     @objc func save(){
-        if let val = Int(maxLocationMergeDistanceField.text){
-            TrackPreferences.instance.maxLocationMergeDistance = CLLocationDistance(val)
-        }
         if let val = Int(minTrackingDistanceField.text){
             TrackPreferences.instance.minTrackingDistance = CLLocationDistance(val)
         }
