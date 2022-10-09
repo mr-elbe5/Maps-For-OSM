@@ -27,11 +27,18 @@ class MapPreferencesViewController: PopupScrollViewController{
         contentView.addSubview(elbe5Button)
         elbe5Button.setAnchors(top: urlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
         
+        let elbe5TopoButton = UIButton()
+        elbe5TopoButton.setTitle("elbe5TopoURL".localize(), for: .normal)
+        elbe5TopoButton.setTitleColor(.systemBlue, for: .normal)
+        elbe5TopoButton.addTarget(self, action: #selector(elbe5TopoTemplate), for: .touchDown)
+        contentView.addSubview(elbe5TopoButton)
+        elbe5TopoButton.setAnchors(top: elbe5Button.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        
         let elbe5InfoLink = UIButton()
         elbe5InfoLink.setTitleColor(.systemBlue, for: .normal)
         elbe5InfoLink.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
         contentView.addSubview(elbe5InfoLink)
-        elbe5InfoLink.setAnchors(top: elbe5Button.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        elbe5InfoLink.setAnchors(top: elbe5TopoButton.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
         elbe5InfoLink.setTitle("elbe5LegalInfo".localize(), for: .normal)
         elbe5InfoLink.addTarget(self, action: #selector(openElbe5Info), for: .touchDown)
         
@@ -62,6 +69,10 @@ class MapPreferencesViewController: PopupScrollViewController{
     
     @objc func elbe5Template(){
         urlTemplateField.text = MapPreferences.elbe5Url
+    }
+    
+    @objc func elbe5TopoTemplate(){
+        urlTemplateField.text = MapPreferences.elbe5TopoUrl
     }
     
     @objc func openElbe5Info() {

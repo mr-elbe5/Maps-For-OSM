@@ -16,6 +16,7 @@ class MapPreferences: Identifiable, Codable{
     static var instance = MapPreferences()
     
     static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     
     static func loadInstance(){
