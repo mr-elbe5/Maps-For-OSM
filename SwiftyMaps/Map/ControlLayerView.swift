@@ -7,8 +7,8 @@
 import UIKit
 
 protocol ControlLayerDelegate{
+    func setMapType(_ type: MapType)
     func preloadMap()
-    func deleteTiles()
     func openMapPreferences()
     
     func addPlace()
@@ -128,11 +128,20 @@ class ControlLayerView: UIView {
     
     func getMapMenu() -> UIMenu{
         var actions = Array<UIAction>()
+        if AppState.instance.mapType == .carto{
+            actions.append(UIAction(title: "topoMapType".localize(), image: UIImage(systemName: "map.fill")){ action in
+                self.delegate?.setMapType(.topo)
+                self.mapMenuControl.menu = self.getMapMenu()
+            })
+        }
+        else{
+            actions.append(UIAction(title: "cartoMapType".localize(), image: UIImage(systemName: "map")){ action in
+                self.delegate?.setMapType(.carto)
+                self.mapMenuControl.menu = self.getMapMenu()
+            })
+        }
         actions.append(UIAction(title: "preloadMaps".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
             self.delegate?.preloadMap()
-        })
-        actions.append(UIAction(title: "deleteTiles".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteTiles()
         })
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openMapPreferences()

@@ -14,22 +14,19 @@ protocol DownloadDelegate {
 class TileDownloadOperation : AsyncOperation {
     
     var tile : MapTile
-    var urlTemplate : String
-    
     var delegate : DownloadDelegate? = nil
     
-    init(tile: MapTile, urlTemplate: String) {
+    init(tile: MapTile) {
         self.tile = tile
-        self.urlTemplate = urlTemplate
         super.init()
     }
     
     override func startExecution(){
         //print("starting \(tile.id)")
-        guard let sourceUrl = MapTiles.tileUrl(tile: tile, urlTemplate: urlTemplate) else {print("could not create map source url"); return}
-        guard let targetUrl = MapTiles.fileUrl(tile: tile) else {print("could not create map target url"); return}
-        MapTiles.loadTileImage(url: sourceUrl){ data in
-            if let data = data, MapTiles.saveTile(fileUrl: targetUrl, data: data){
+        guard let sourceUrl = TileCache.tileUrl(tile: tile) else {print("could not create map source url"); return}
+        guard let targetUrl = TileCache.fileUrl(tile: tile) else {print("could not create map target url"); return}
+        TileCache.loadTileImage(url: sourceUrl){ data in
+            if let data = data, TileCache.saveTile(fileUrl: targetUrl, data: data){
                 DispatchQueue.main.async { [self] in
                     //print("got \(tile.id)")
                     delegate?.downloadSucceeded()

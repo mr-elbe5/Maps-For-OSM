@@ -11,12 +11,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        TestCenter.testWorld()
+        //TestCenter.testWorld()
         FileController.initialize()
-        MapPreferences.loadInstance()
+        TileSources.loadInstance()
         PlacePreferences.loadInstance()
         TrackPreferences.loadInstance()
+        AppState.initialize()
         AppState.loadInstance()
+        //MapTiles.dumpTiles()
         Places.load()
         Tracks.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -59,7 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !ActiveTrack.isTracking{
             LocationService.instance.stop()
         }
-        MapPreferences.instance.save()
+        TileSources.instance.save()
         PlacePreferences.instance.save()
         TrackPreferences.instance.save()
         mainController.mapView.savePosition()

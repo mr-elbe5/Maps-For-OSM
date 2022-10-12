@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        TestCenter.testMapView(mapView: mapView)
+        //TestCenter.testMapView(mapView: mapView)
     }
     
 }
@@ -62,25 +62,25 @@ extension MainViewController: PlaceLayerViewDelegate{
 
 extension MainViewController: ControlLayerDelegate{
     
+    func setMapType(_ type: MapType) {
+        AppState.instance.mapType = type
+        AppState.instance.save()
+        //todo
+    }
+    
     func preloadMap() {
         let region = mapView.scrollView.tileRegion
-        let controller = MapPreloadViewController()
+        let controller = TileCacheViewController()
         controller.mapRegion = region
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
     func openMapPreferences(){
-        let controller = MapPreferencesViewController()
+        let controller = TileSourcesViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
-    }
-    
-    func deleteTiles() {
-        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
-            MapTiles.clear()
-            self.mapView.clearTiles()
-        }
     }
     
     func addPlace(){
@@ -203,6 +203,17 @@ extension MainViewController: ControlLayerDelegate{
     
     func openSearch() {
         
+    }
+    
+}
+
+extension MainViewController: TileCacheDelegate{
+    
+    func deleteTiles() {
+        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
+            TileCache.clear()
+            self.mapView.clearTiles()
+        }
     }
     
 }

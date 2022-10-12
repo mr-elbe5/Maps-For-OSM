@@ -7,19 +7,20 @@
 import Foundation
 import UIKit
 
-struct MapTiles{
+struct TileCache{
     
     static var tilesDirectory = "files"
     
-    static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    static var cartoDirectory = "carto"
+    static var topoDirectory = "topo"
     
-    static func tileUrl(tile: MapTile, urlTemplate: String) -> URL?{
-        URL(string: urlTemplate.replacingOccurrences(of: "{z}", with: String(tile.zoom)).replacingOccurrences(of: "{x}", with: String(tile.x)).replacingOccurrences(of: "{y}", with: String(tile.y)))
+    static func tileUrl(tile: MapTile) -> URL?{
+        URL(string: AppState.currentUrlTemplate.replacingOccurrences(of: "{z}", with: String(tile.zoom)).replacingOccurrences(of: "{x}", with: String(tile.x)).replacingOccurrences(of: "{y}", with: String(tile.y)))
     }
     
     static func loadTileImage(tile: MapTile, result: @escaping (Data?) -> Void) {
         //print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
-        guard let url = tileUrl(tile: tile, urlTemplate: MapPreferences.instance.urlTemplate) else {print("could not crate map url"); return}
+        guard let url = tileUrl(tile: tile) else {print("could not crate map url"); return}
         loadTileImage(url: url, result: result)
     }
     
@@ -48,16 +49,7 @@ struct MapTiles{
     }
     
     static func fileUrl(tile: MapTile) -> URL?{
-        URL(string: "\(tilesDirectory)/\(tile.zoom)/\(tile.x)/\(tile.y).png", relativeTo: MapTiles.privateURL)
-    }
-    
-    static func shortPath(_ url: URL?) -> String{
-        if let path : String = url?.path{
-            if let idx = path.range(of: tilesDirectory, options: .backwards)?.lowerBound{
-                return String(path[idx..<path.endIndex])
-            }
-        }
-        return "...no tiles path"
+        AppState.currentTileDirectory.appendingPathComponent("\(tile.zoom)/\(tile.x)/\(tile.y).png")
     }
     
     static func tileExists(tile: MapTile) -> Bool{
@@ -90,11 +82,9 @@ struct MapTiles{
     static func saveTile(fileUrl: URL, data: Data?) -> Bool{
         if let data = data{
             let dirUrl = fileUrl.deletingLastPathComponent()
-            //print("save tile \(shortPath(url)) in \(shortPath(dirUrl))")
             var isDir:ObjCBool = true
             if !FileManager.default.fileExists(atPath: dirUrl.path, isDirectory: &isDir) {
                 do{
-                    //print("creating path for \(shortPath(dirUrl))")
                     try FileManager.default.createDirectory(at: dirUrl, withIntermediateDirectories: true)
                 }
                 catch{
@@ -114,39 +104,36 @@ struct MapTiles{
         return false
     }
     
-    static func getTilePaths() -> Array<String>{
-        var paths = Array<String>()
-        if let url = URL(string: tilesDirectory, relativeTo: MapTiles.privateURL){
-            if let subpaths = FileManager.default.subpaths(atPath: url.path){
-                for path in subpaths{
-                    if !path.hasSuffix(".png"){
-                        continue
-                    }
-                    paths.append(path)
-                }
-                paths.sort()
+    static func shortPath(_ url: URL?) -> String{
+        if let path : String = url?.path{
+            if let idx = path.range(of: tilesDirectory, options: .backwards)?.lowerBound{
+                return String(path[idx..<path.endIndex])
             }
         }
-        return paths
+        return "...no tiles path"
     }
     
-    @discardableResult
-    static func clear() -> Bool{
-        if let url = URL(string: tilesDirectory, relativeTo: MapTiles.privateURL){
-            do{
-                try FileManager.default.removeItem(at: url)
-                //print("tile directory deleted")
-                return true
-            }
-            catch{
-                print(error)
-            }
+    static func clear(){
+        do{
+            try FileManager.default.removeItem(at: AppState.currentTileDirectory)
+            //print("current tile directory deleted")
         }
-        return false
+        catch{
+            print(error)
+        }
     }
     
     static func dumpTiles(){
-        let paths = getTilePaths()
+        var paths = Array<String>()
+        if let subpaths = FileManager.default.subpaths(atPath: AppState.filesDirectory.path){
+            for path in subpaths{
+                /*if !path.hasSuffix(".png"){
+                 continue
+                 }*/
+                paths.append(path)
+            }
+            paths.sort()
+        }
         for path in paths{
             print(path)
         }

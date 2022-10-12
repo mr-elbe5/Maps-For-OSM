@@ -71,16 +71,16 @@ class TileLayerView: UIView {
         while x >= currentMaxTiles{
             x -= currentMaxTiles
         }
-        let tile = MapTiles.getTile(zoom: zoom, x: x, y: y)
+        let tile = TileCache.getTile(zoom: zoom, x: x, y: y)
         if let image = tile.image{
             //print("draw \(tile.string)")
             image.draw(in: rect)
             return
         }
         mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
-        MapTiles.loadTileImage(tile: tile){ data in
+        TileCache.loadTileImage(tile: tile){ data in
             //print("tile loaded \(tile.string)")
-            if MapTiles.saveTile(tile: tile, data: data){
+            if TileCache.saveTile(tile: tile, data: data){
                 //print("tile saved \(tile.string)")
                 DispatchQueue.main.async {
                     if let data = data, let image = UIImage(data: data){

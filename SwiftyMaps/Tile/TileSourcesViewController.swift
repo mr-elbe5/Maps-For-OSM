@@ -8,15 +8,15 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class MapPreferencesViewController: PopupScrollViewController{
+class TileSourcesViewController: PopupScrollViewController{
     
     var urlTemplateField = LabeledTextField()
     
     override func loadView() {
-        title = "mapPreferences".localize()
+        title = "tileSources".localize()
         super.loadView()
         
-        urlTemplateField.setupView(labelText: "urlTemplate".localize(), text: MapPreferences.instance.urlTemplate, isHorizontal: false)
+        urlTemplateField.setupView(labelText: "urlTemplate".localize(), text: TileSources.instance.cartoUrlTemplate, isHorizontal: false)
         contentView.addSubview(urlTemplateField)
         urlTemplateField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -68,11 +68,11 @@ class MapPreferencesViewController: PopupScrollViewController{
     }
     
     @objc func elbe5Template(){
-        urlTemplateField.text = MapPreferences.elbe5Url
+        urlTemplateField.text = TileSources.elbe5Url
     }
     
     @objc func elbe5TopoTemplate(){
-        urlTemplateField.text = MapPreferences.elbe5TopoUrl
+        urlTemplateField.text = TileSources.elbe5TopoUrl
     }
     
     @objc func openElbe5Info() {
@@ -80,7 +80,7 @@ class MapPreferencesViewController: PopupScrollViewController{
     }
     
     @objc func osmTemplate(){
-        urlTemplateField.text = MapPreferences.osmUrl
+        urlTemplateField.text = TileSources.osmUrl
     }
     
     @objc func openOSMInfo() {
@@ -89,11 +89,11 @@ class MapPreferencesViewController: PopupScrollViewController{
     
     @objc func save(){
         let newTemplate = urlTemplateField.text
-        if newTemplate != MapPreferences.instance.urlTemplate{
-            MapPreferences.instance.urlTemplate = newTemplate
-            _ = MapTiles.clear()
+        if newTemplate != TileSources.instance.cartoUrlTemplate{
+            TileSources.instance.cartoUrlTemplate = newTemplate
+            TileCache.clear()
         }
-        MapPreferences.instance.save()
+        TileSources.instance.save()
         showDone(title: "ok".localize(), text: "mapPreferencesSaved".localize())
     }
     

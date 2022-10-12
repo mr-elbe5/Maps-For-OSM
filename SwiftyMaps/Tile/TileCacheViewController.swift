@@ -7,7 +7,11 @@
 import Foundation
 import UIKit
 
-class MapPreloadViewController: PopupScrollViewController{
+protocol TileCacheDelegate{
+    func deleteTiles()
+}
+
+class TileCacheViewController: PopupScrollViewController{
     
     var mapRegion: TileRegion? = nil
     
@@ -19,6 +23,36 @@ class MapPreloadViewController: PopupScrollViewController{
     
     var tiles = [MapTile]()
     
+    var minZoomSlider = UISlider()
+    var minZoomLabel = UILabel()
+    var maxZoomSlider = UISlider()
+    var maxZoomLabel = UILabel()
+    
+    private var _minZoom : Int = World.minZoom
+    var minZoom : Int{
+        get{
+            _minZoom
+        }
+        set{
+            if _minZoom != newValue{
+                _minZoom = newValue
+                minZoomLabel.text = "\(_minZoom)"
+            }
+        }
+    }
+    private var _maxZoom : Int = World.maxZoom
+    var maxZoom : Int{
+        get{
+            _maxZoom
+        }
+        set{
+            if _maxZoom != newValue{
+                _maxZoom = newValue
+                maxZoomLabel.text = "\(_maxZoom)"
+            }
+        }
+    }
+    
     var allTilesValueLabel = UILabel()
     var existingTilesValueLabel = UILabel()
     var tilesToLoadValueLabel = UILabel()
@@ -28,6 +62,10 @@ class MapPreloadViewController: PopupScrollViewController{
     
     var loadedTilesSlider = UISlider()
     var errorsValueLabel = UILabel()
+    
+    var deleteButton = UIButton()
+    
+    var delegate : TileCacheDelegate? = nil
     
     override func loadView() {
         super.loadView()
@@ -44,12 +82,67 @@ class MapPreloadViewController: PopupScrollViewController{
         note.text = "mapPreloadNote".localize()
         contentView.addSubview(note)
         note.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        let typeLabel = UILabel()
+        typeLabel.text = "\("currentMapType".localize()): \(AppState.instance.mapType)"
+        contentView.addSubview(typeLabel)
+        typeLabel.setAnchors(top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        
+        let sourceLabel = UILabel()
+        sourceLabel.text = "\("currentTileSource".localize()): \(AppState.currentUrlTemplate)"
+        contentView.addSubview(sourceLabel)
+        sourceLabel.setAnchors(top: typeLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        
+        minZoom = World.minZoom
+        maxZoom = World.maxZoom
+        let minFloat = Float(minZoom)
+        let maxFloat = Float(maxZoom)
+        let trackTintColor = UIColor.systemBlue
+        
+        var label = UILabel()
+        label.text = "fromZoom:".localize()
+        contentView.addSubview(label)
+        label.setAnchors(top: sourceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        
+        minZoomSlider.minimumValue = minFloat
+        minZoomSlider.maximumValue = maxFloat
+        minZoomSlider.value = minFloat
+        minZoomSlider.minimumTrackTintColor = trackTintColor
+        minZoomSlider.maximumTrackTintColor = trackTintColor
+        contentView.addSubview(minZoomSlider)
+        minZoomSlider.setAnchors(top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        minZoomSlider.addTarget(self, action: #selector(minZoomChanged), for: .valueChanged)
+        
+        minZoomLabel = UILabel()
+        minZoomLabel.text = "\(minZoom)"
+        contentView.addSubview(minZoomLabel)
+        minZoomLabel.setAnchors(top: minZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
+        
+        label = UILabel()
+        label.text = "toZoom:".localize()
+        contentView.addSubview(label)
+        label.setAnchors(top: minZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        
+        maxZoomSlider.minimumValue = minFloat
+        maxZoomSlider.maximumValue = maxFloat
+        maxZoomSlider.value = maxFloat - 2
+        maxZoomSlider.minimumTrackTintColor = trackTintColor
+        maxZoomSlider.maximumTrackTintColor = trackTintColor
+        contentView.addSubview(maxZoomSlider)
+        maxZoomSlider.setAnchors(top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        maxZoomSlider.addTarget(self, action: #selector(maxZoomChanged), for: .valueChanged)
+        
+        maxZoomLabel = UILabel()
+        maxZoomLabel.text = "\(maxZoom)"
+        contentView.addSubview(maxZoomLabel)
+        maxZoomLabel.setAnchors(top: maxZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
+        
         let allTilesLabel = UILabel()
         allTilesLabel.text = "allTilesForDownload".localize()
         contentView.addSubview(allTilesLabel)
-        allTilesLabel.setAnchors(top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        allTilesLabel.setAnchors(top: maxZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         contentView.addSubview(allTilesValueLabel)
-        allTilesValueLabel.setAnchors(top: note.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
+        allTilesValueLabel.setAnchors(top: maxZoomLabel.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
         
         let existingTilesLabel = UILabel()
         existingTilesLabel.text = "existingTiles".localize()
@@ -65,7 +158,7 @@ class MapPreloadViewController: PopupScrollViewController{
         contentView.addSubview(tilesToLoadValueLabel)
         tilesToLoadValueLabel.setAnchors(top: existingTilesLabel.bottomAnchor, leading: tilesToLoadLabel.trailingAnchor, insets: defaultInsets)
         
-        startButton.setTitle("start".localize(), for: .normal)
+        startButton.setTitle("startPreload".localize(), for: .normal)
         startButton.setTitleColor(.systemBlue, for: .normal)
         startButton.setTitleColor(.systemGray, for: .disabled)
         startButton.addTarget(self, action: #selector(startDownload), for: .touchDown)
@@ -90,10 +183,16 @@ class MapPreloadViewController: PopupScrollViewController{
         errorsInfo.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
         contentView.addSubview(errorsValueLabel)
-        errorsValueLabel.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        errorsValueLabel.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
         
-        prepareDownload()
-        updateValueViews()
+        deleteButton.setTitle("deleteAll".localize(), for: .normal)
+        deleteButton.setTitleColor(.systemBlue, for: .normal)
+        deleteButton.setTitleColor(.systemGray, for: .disabled)
+        deleteButton.addTarget(self, action: #selector(deleteTiles), for: .touchDown)
+        contentView.addSubview(deleteButton)
+        deleteButton.setAnchors(top: errorsValueLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets).centerX(contentView.centerXAnchor)
+        
+        recalculateTiles()
         
         if existingTiles == allTiles{
             startButton.isEnabled = false
@@ -129,18 +228,21 @@ class MapPreloadViewController: PopupScrollViewController{
         loadedTilesSlider.thumbTintColor = (existingTiles + errors == allTiles) ? (errors > 0 ? .systemRed : .systemGreen) : .systemGray
     }
     
-    func prepareDownload(){
+    func recalculateTiles(){
         tiles.removeAll()
         if let region = mapRegion{
             reset()
             for zoom in region.tiles.keys{
+                if zoom < minZoom || zoom > maxZoom{
+                    continue
+                }
                 if let tileSet = region.tiles[zoom]{
                     for x in tileSet.minX...tileSet.maxX{
                         for y in tileSet.minY...tileSet.maxY{
                             let tile = MapTile(zoom: zoom, x: x, y: y)
                             allTiles += 1
-                            if let fileUrl = MapTiles.fileUrl(tile: tile){
-                                if MapTiles.tileExists(url: fileUrl){
+                            if let fileUrl = TileCache.fileUrl(tile: tile){
+                                if TileCache.tileExists(url: fileUrl){
                                     existingTiles += 1
                                     continue
                                 }
@@ -151,6 +253,19 @@ class MapPreloadViewController: PopupScrollViewController{
                 }
             }
         }
+        updateValueViews()
+    }
+    
+    @objc func minZoomChanged(){
+        minZoomSlider.value = round(minZoomSlider.value)
+        minZoom = Int(minZoomSlider.value)
+        recalculateTiles()
+    }
+    
+    @objc func maxZoomChanged(){
+        maxZoomSlider.value = round(maxZoomSlider.value)
+        maxZoom = Int(maxZoomSlider.value)
+        recalculateTiles()
     }
     
     @objc func startDownload(){
@@ -168,7 +283,7 @@ class MapPreloadViewController: PopupScrollViewController{
             self.downloadQueue!.name = "downloadQueue"
             self.downloadQueue!.maxConcurrentOperationCount = 2
             self.tiles.forEach { tile in
-                let operation = TileDownloadOperation(tile: tile, urlTemplate: MapPreferences.instance.urlTemplate)
+                let operation = TileDownloadOperation(tile: tile)
                 operation.delegate = self
                 self.downloadQueue!.addOperation(operation)
             }
@@ -178,15 +293,18 @@ class MapPreloadViewController: PopupScrollViewController{
     @objc func cancelDownload(){
         downloadQueue?.cancelAllOperations()
         reset()
-        prepareDownload()
-        updateValueViews()
+        recalculateTiles()
         startButton.isEnabled = true
         cancelButton.isEnabled = false
     }
     
+    @objc func deleteTiles(){
+        delegate?.deleteTiles()
+    }
+    
 }
 
-extension MapPreloadViewController: DownloadDelegate{
+extension TileCacheViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1

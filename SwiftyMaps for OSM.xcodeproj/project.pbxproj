@@ -38,7 +38,7 @@
 		4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */; };
 		4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */; };
 		4E1B81142732EDC5003ED6B0 /* ControlLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81052732EDC4003ED6B0 /* ControlLayerView.swift */; };
-		4E1B81162732EDC5003ED6B0 /* MapTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81072732EDC4003ED6B0 /* MapTiles.swift */; };
+		4E1B81162732EDC5003ED6B0 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81072732EDC4003ED6B0 /* TileCache.swift */; };
 		4E1B81172732EDC5003ED6B0 /* PlaceLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */; };
 		4E1B81182732EDC5003ED6B0 /* PlacePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81092732EDC5003ED6B0 /* PlacePin.swift */; };
 		4E1B811B2732EDC5003ED6B0 /* Places.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810C2732EDC5003ED6B0 /* Places.swift */; };
@@ -83,8 +83,9 @@
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E55EFA828D9AA5A007AD900 /* ScaledWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA728D9AA5A007AD900 /* ScaledWorld.swift */; };
 		4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA928DAEC5B007AD900 /* AppState.swift */; };
-		4E55EFAC28DAF93C007AD900 /* MapPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAB28DAF93C007AD900 /* MapPreferences.swift */; };
-		4E55EFAE28DAF951007AD900 /* MapPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* MapPreferencesViewController.swift */; };
+		4E55EFAC28DAF93C007AD900 /* TileSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAB28DAF93C007AD900 /* TileSources.swift */; };
+		4E55EFAE28DAF951007AD900 /* TileSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */; };
+		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
 		4E68B5BE275F59F00025A80A /* UIViewController+PlaceDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BD275F59F00025A80A /* UIViewController+PlaceDialog.swift */; };
 		4E79FBAF275B9326001F0481 /* PlaceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBAE275B9326001F0481 /* PlaceGroup.swift */; };
 		4E79FBB1275BCE0C001F0481 /* PlaceGroupPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB0275BCE0C001F0481 /* PlaceGroupPin.swift */; };
@@ -98,7 +99,7 @@
 		4EB76A9A2760EF9F00D64B6D /* PhotoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB76A992760EF9F00D64B6D /* PhotoListItemView.swift */; };
 		4EB76A9C2760F2FF00D64B6D /* TrackListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
-		4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */; };
+		4ECFC99F26FBB8AF0083977B /* TileCacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Place.swift */; };
 		4EE1461A28D368020058F3D3 /* MapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461928D368020058F3D3 /* MapRect.swift */; };
 		4EE1461C28D368370058F3D3 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461B28D368370058F3D3 /* MapPoint.swift */; };
@@ -146,7 +147,7 @@
 		4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationView.swift; sourceTree = "<group>"; };
 		4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLayerView.swift; sourceTree = "<group>"; };
 		4E1B81052732EDC4003ED6B0 /* ControlLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlLayerView.swift; sourceTree = "<group>"; };
-		4E1B81072732EDC4003ED6B0 /* MapTiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTiles.swift; sourceTree = "<group>"; };
+		4E1B81072732EDC4003ED6B0 /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
 		4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceLayerView.swift; sourceTree = "<group>"; };
 		4E1B81092732EDC5003ED6B0 /* PlacePin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePin.swift; sourceTree = "<group>"; };
 		4E1B810C2732EDC5003ED6B0 /* Places.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Places.swift; sourceTree = "<group>"; };
@@ -191,8 +192,9 @@
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E55EFA728D9AA5A007AD900 /* ScaledWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledWorld.swift; sourceTree = "<group>"; };
 		4E55EFA928DAEC5B007AD900 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		4E55EFAB28DAF93C007AD900 /* MapPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreferences.swift; sourceTree = "<group>"; };
-		4E55EFAD28DAF951007AD900 /* MapPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreferencesViewController.swift; sourceTree = "<group>"; };
+		4E55EFAB28DAF93C007AD900 /* TileSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSources.swift; sourceTree = "<group>"; };
+		4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourcesViewController.swift; sourceTree = "<group>"; };
+		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		4E68B5BD275F59F00025A80A /* UIViewController+PlaceDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PlaceDialog.swift"; sourceTree = "<group>"; };
 		4E79FBAE275B9326001F0481 /* PlaceGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroup.swift; sourceTree = "<group>"; };
 		4E79FBB0275BCE0C001F0481 /* PlaceGroupPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupPin.swift; sourceTree = "<group>"; };
@@ -206,7 +208,7 @@
 		4EB76A992760EF9F00D64B6D /* PhotoListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoListItemView.swift; sourceTree = "<group>"; };
 		4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListItemView.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
-		4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPreloadViewController.swift; sourceTree = "<group>"; };
+		4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCacheViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		4EE1461928D368020058F3D3 /* MapRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRect.swift; sourceTree = "<group>"; };
 		4EE1461B28D368370058F3D3 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
@@ -258,7 +260,6 @@
 				4E0BD99726EA0020005A4A94 /* Application */,
 				4E24F48B27345DD5004E69C2 /* Extensions */,
 				4E0BD99E26EA010A005A4A94 /* Base */,
-				4E6A835E27523F81006F81AD /* Preferences */,
 				4E30799228D783F8005FBEF0 /* Location */,
 				4E1D0E1C274BCD9400F3D584 /* Place */,
 				4E0BD99C26EA0074005A4A94 /* Info */,
@@ -408,8 +409,7 @@
 				4E30798E28D74EB1005FBEF0 /* TileRegion.swift */,
 				4EE1462D28D49F510058F3D3 /* World.swift */,
 				4E55EFA728D9AA5A007AD900 /* ScaledWorld.swift */,
-				4E55EFAB28DAF93C007AD900 /* MapPreferences.swift */,
-				4E55EFAD28DAF951007AD900 /* MapPreferencesViewController.swift */,
+				4E5BC18F28F5B19C00A66E47 /* MapType.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -426,21 +426,16 @@
 			path = Photo;
 			sourceTree = "<group>";
 		};
-		4E6A835E27523F81006F81AD /* Preferences */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Preferences;
-			sourceTree = "<group>";
-		};
 		4E9A245B275379B8004B43BE /* Tile */ = {
 			isa = PBXGroup;
 			children = (
 				4E1B810D2732EDC5003ED6B0 /* MapTile.swift */,
-				4E1B81072732EDC4003ED6B0 /* MapTiles.swift */,
-				4ECFC99E26FBB8AF0083977B /* MapPreloadViewController.swift */,
+				4E1B81072732EDC4003ED6B0 /* TileCache.swift */,
+				4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */,
 				4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */,
 				4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */,
+				4E55EFAB28DAF93C007AD900 /* TileSources.swift */,
+				4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */,
 			);
 			path = Tile;
 			sourceTree = "<group>";
@@ -541,7 +536,7 @@
 				4ED5DF44273E831B00549AF8 /* Place.swift in Sources */,
 				4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */,
 				4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */,
-				4ECFC99F26FBB8AF0083977B /* MapPreloadViewController.swift in Sources */,
+				4ECFC99F26FBB8AF0083977B /* TileCacheViewController.swift in Sources */,
 				4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */,
 				4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */,
 				4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */,
@@ -556,6 +551,7 @@
 				4E025E3B274E3C4300D56ED7 /* CurrentTrackLine.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
+				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,
 				4EB76A9C2760F2FF00D64B6D /* TrackListItemView.swift in Sources */,
 				4E90A70F28DE12F000CF3A02 /* PlacePreferencesViewController.swift in Sources */,
@@ -609,13 +605,13 @@
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
 				4E68B5BE275F59F00025A80A /* UIViewController+PlaceDialog.swift in Sources */,
-				4E55EFAC28DAF93C007AD900 /* MapPreferences.swift in Sources */,
+				4E55EFAC28DAF93C007AD900 /* TileSources.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
-				4E1B81162732EDC5003ED6B0 /* MapTiles.swift in Sources */,
+				4E1B81162732EDC5003ED6B0 /* TileCache.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */,
-				4E55EFAE28DAF951007AD900 /* MapPreferencesViewController.swift in Sources */,
+				4E55EFAE28DAF951007AD900 /* TileSourcesViewController.swift in Sources */,
 				4E1B81022732EDA2003ED6B0 /* TrackPreferences.swift in Sources */,
 				4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */,
 				4E1B811B2732EDC5003ED6B0 /* Places.swift in Sources */,

@@ -38,9 +38,7 @@ class MapScrollView : UIScrollView{
         maximumZoomScale = 1.0
         minimumZoomScale = World.zoomScale(from: World.maxZoom, to: World.minZoom)
         contentSize = World.scrollableWorldSize
-        print("contentSize \(contentSize)")
         delegate = self
-        print("scroll min zoom scale = \(minimumZoomScale)")
         tileLayerView.backgroundColor = .white
         addSubview(tileLayerView)
         tileLayerView.frame = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height)
