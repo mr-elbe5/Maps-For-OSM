@@ -10,9 +10,9 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol PlaceListDelegate: PlaceViewDelegate{
-    func showOnMap(place: Place)
+    func showPlaceOnMap(place: Place)
     func deletePlace(place: Place)
-    func showTrackOnMap(track: Track)
+    func deleteAllPlaces()
 }
 
 class PlaceListViewController: PopupTableViewController{
@@ -27,6 +27,21 @@ class PlaceListViewController: PopupTableViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
+    }
+    
+    override func setupHeaderView(){
+        super.setupHeaderView()
+        let deleteButton = IconButton(icon: "trash", tintColor: .red)
+        headerView.addSubview(deleteButton)
+        deleteButton.addTarget(self, action: #selector(deleteAllPlaces), for: .touchDown)
+        deleteButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+    }
+    
+    @objc func deleteAllPlaces(){
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+            self.delegate?.deleteAllPlaces()
+            self.tableView.reloadData()
+        }
     }
     
 }
@@ -66,9 +81,9 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension PlaceListViewController : PlaceCellDelegate{
     
-    func showOnMap(place: Place) {
+    func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showOnMap(place: place)
+            self.delegate?.showPlaceOnMap(place: place)
         }
     }
     
@@ -102,12 +117,6 @@ extension PlaceListViewController: PlaceViewDelegate{
     
     func updatePlaceLayer() {
         delegate?.updatePlaceLayer()
-    }
-    
-    func showTrackOnMap(track: Track) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: track)
-        }
     }
     
 }

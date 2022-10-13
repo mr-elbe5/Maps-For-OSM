@@ -9,7 +9,6 @@ import UIKit
 
 protocol PlaceViewDelegate{
     func updatePlaceLayer()
-    func showTrackOnMap(track: Track)
 }
 
 class PlaceDetailViewController: PopupScrollViewController{

@@ -85,7 +85,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func addPlace(){
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        assertPlace(coordinate: coordinate){ location in
+        assertPlace(coordinate: coordinate){ place in
             self.updatePlaceLayer()
         }
     }
@@ -102,17 +102,6 @@ extension MainViewController: ControlLayerDelegate{
         mapView.placeLayerView.isHidden = !AppState.instance.showPins
     }
     
-    func deletePlaces() {
-        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
-            if ActiveTrack.track != nil{
-                self.cancelActiveTrack()
-            }
-            Places.deleteAllPlaces()
-            self.updatePlaceLayer()
-            self.mapView.clearTrack()
-        }
-    }
-    
     func openPlacePreferences(){
         let controller = PlacePreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
@@ -121,8 +110,8 @@ extension MainViewController: ControlLayerDelegate{
     
     func startTracking(){
         if let lastLocation = LocationService.instance.location{
-            assertPlace(coordinate: lastLocation.coordinate){ location in
-                ActiveTrack.startTracking(startPoint: location)
+            assertPlace(coordinate: lastLocation.coordinate){ place in
+                ActiveTrack.startTracking(startPoint: place)
                 if let track = ActiveTrack.track{
                     self.mapView.trackLayerView.setTrack(track: track)
                     self.mapView.controlLayerView.startTrackControl()
@@ -152,15 +141,6 @@ extension MainViewController: ControlLayerDelegate{
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
-    }
-    
-    func deleteTracks() {
-        showDestructiveApprove(title: "confirmDeleteTracks".localize(), text: "deleteTracksHint".localize()){
-            self.cancelActiveTrack()
-            Tracks.deleteAllTracks()
-            self.updatePlaceLayer()
-            self.mapView.clearTrack()
-        }
     }
     
     func openTrackPreferences(){
@@ -222,9 +202,9 @@ extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.instance.location{
-            assertPlace(coordinate: location.coordinate){ location in
-                let changeState = location.photos.isEmpty
-                location.addPhoto(photo: photo)
+            assertPlace(coordinate: location.coordinate){ place in
+                let changeState = place.photos.isEmpty
+                place.addPhoto(photo: photo)
                 Places.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -247,7 +227,7 @@ extension MainViewController: PlaceViewDelegate{
 
 extension MainViewController: PlaceListDelegate{
     
-    func showOnMap(place: Place) {
+    func showPlaceOnMap(place: Place) {
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
     
@@ -255,6 +235,11 @@ extension MainViewController: PlaceListDelegate{
         Places.deletePlace(place)
         Places.save()
         updatePlaceLayer()
+    }
+    
+    func deleteAllPlaces() {
+        Places.deleteAllPlaces()
+        self.updatePlaceLayer()
     }
 
 }
@@ -284,6 +269,12 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
         Tracks.deleteTrack(track)
         mapView.clearTrack(track)
         updatePlaceLayer()
+    }
+    
+    func deleteAllTracks() {
+        cancelActiveTrack()
+        Tracks.deleteAllTracks()
+        mapView.clearTrack()
     }
     
     func showTrackOnMap(track: Track) {

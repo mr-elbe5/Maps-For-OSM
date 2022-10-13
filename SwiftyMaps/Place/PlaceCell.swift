@@ -10,7 +10,7 @@ import UIKit
 protocol PlaceCellDelegate{
     func deletePlace(place: Place, approved: Bool)
     func viewPlace(place: Place)
-    func showOnMap(place: Place)
+    func showPlaceOnMap(place: Place)
 }
 
 class PlaceCell: UITableViewCell{
@@ -45,7 +45,7 @@ class PlaceCell: UITableViewCell{
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
         if let location = place{
-            let deleteButton = IconButton(icon: "xmark.circle")
+            let deleteButton = IconButton(icon: "trash")
             deleteButton.tintColor = UIColor.systemRed
             deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
             cellBody.addSubview(deleteButton)
@@ -56,7 +56,7 @@ class PlaceCell: UITableViewCell{
             viewButton.setAnchors(top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             let mapButton = IconButton(icon: "map")
             mapButton.tintColor = UIColor.systemBlue
-            mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
+            mapButton.addTarget(self, action: #selector(showPlaceOnMap), for: .touchDown)
             cellBody.addSubview(mapButton)
             mapButton.setAnchors(top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor
@@ -102,9 +102,9 @@ class PlaceCell: UITableViewCell{
         }
     }
     
-    @objc func showOnMap(){
+    @objc func showPlaceOnMap(){
         if place != nil{
-            delegate?.showOnMap(place: place!)
+            delegate?.showPlaceOnMap(place: place!)
         }
     }
     

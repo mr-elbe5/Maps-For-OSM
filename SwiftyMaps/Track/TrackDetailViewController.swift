@@ -45,7 +45,7 @@ class TrackDetailViewController: PopupScrollViewController{
         super.setupHeaderView()
         
         headerView.addSubview(mapButton)
-        mapButton.addTarget(self, action: #selector(showOnMap), for: .touchDown)
+        mapButton.addTarget(self, action: #selector(showTrackOnMap), for: .touchDown)
         mapButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
     }
     
@@ -105,7 +105,7 @@ class TrackDetailViewController: PopupScrollViewController{
         
     }
     
-    @objc func showOnMap(){
+    @objc func showTrackOnMap(){
         if let track = track{
             delegate?.showTrackOnMap(track: track)
         }

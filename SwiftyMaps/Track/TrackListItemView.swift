@@ -23,7 +23,7 @@ class TrackListItemView : UIView{
     init(data: Track){
         self.trackData = data
         super.init(frame: .zero)
-        let deleteButton = IconButton(icon: "xmark.circle")
+        let deleteButton = IconButton(icon: "trash")
         deleteButton.tintColor = UIColor.systemRed
         deleteButton.addTarget(self, action: #selector(deleteTrack), for: .touchDown)
         addSubview(deleteButton)

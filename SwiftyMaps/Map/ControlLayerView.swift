@@ -11,17 +11,14 @@ protocol ControlLayerDelegate{
     func preloadMap()
     func openMapPreferences()
     
-    func addPlace()
     func showPlaces(_ show: Bool)
     func openPlaceList()
-    func deletePlaces()
     func openPlacePreferences()
     
     func startTracking()
     func openTrack(track: Track)
     func hideTrack()
     func openTrackList()
-    func deleteTracks()
     func openTrackPreferences()
     
     func focusUserLocation()
@@ -31,6 +28,8 @@ protocol ControlLayerDelegate{
     func openCamera()
     
     func openInfo()
+    
+    func addPlace()
     
 }
 
@@ -151,9 +150,6 @@ class ControlLayerView: UIView {
     
     func getPlaceMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "addPlace".localize(), image: UIImage(systemName: "plus.circle")){ action in
-            self.activateCross()
-        })
         if AppState.instance.showPins{
             actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showPlaces(false)
@@ -185,9 +181,6 @@ class ControlLayerView: UIView {
         actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openPlaceList()
         })
-        actions.append(UIAction(title: "deleteLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deletePlaces()
-        })
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openPlacePreferences()
         })
@@ -197,7 +190,7 @@ class ControlLayerView: UIView {
     func getCrossMenu() -> UIMenu{
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "addPlace".localize(), image: UIImage(systemName: "mappin")){ action in
-            self.activateCross()
+            self.delegate?.addPlace()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -209,9 +202,6 @@ class ControlLayerView: UIView {
         })
         actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openTrackList()
-        })
-        actions.append(UIAction(title: "deleteTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteTracks()
         })
         if let track = ActiveTrack.track{
             actions.append(UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)){ action in
@@ -243,8 +233,6 @@ class ControlLayerView: UIView {
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
     
-    
-    
     @objc func focusUserLocation(){
         delegate?.focusUserLocation()
     }
@@ -259,11 +247,6 @@ class ControlLayerView: UIView {
     
     @objc func openSearch(){
         delegate?.openSearch()
-    }
-    
-    @objc func locationCrossTouched(){
-        delegate?.addPlace()
-        crossControl.isHidden = true
     }
     
     func activateCross(){
