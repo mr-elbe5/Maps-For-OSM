@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         AppState.instance.save()
-        if ActiveTrack.isTracking{
+        if TrackRecorder.isRecording{
             if !LocationService.instance.authorizedForTracking{
                 LocationService.instance.requestAlwaysAuthorization()
             }
@@ -58,7 +58,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppState.instance.save()
         Places.save()
         Tracks.save()
-        if !ActiveTrack.isTracking{
+        if !TrackRecorder.isRecording{
             LocationService.instance.stop()
         }
         TileSources.instance.save()

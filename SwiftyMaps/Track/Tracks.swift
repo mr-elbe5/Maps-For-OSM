@@ -28,6 +28,8 @@ class Tracks{
     
     static var list = TrackList()
     
+    static var visibleTrack : Track? = nil
+    
     static private var _lock = DispatchSemaphore(value: 1)
     
     static var trackCount : Int{

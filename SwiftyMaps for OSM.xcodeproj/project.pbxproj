@@ -52,7 +52,7 @@
 		4E1D0E24274C223C00F3D584 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* PlaceCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
 		4E2088E32743A24E0097BFBA /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E22743A24E0097BFBA /* Track.swift */; };
-		4E2088E52743A4280097BFBA /* ActiveTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E42743A4280097BFBA /* ActiveTrack.swift */; };
+		4E2088E52743A4280097BFBA /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E42743A4280097BFBA /* TrackRecorder.swift */; };
 		4E2088E72743AA670097BFBA /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E62743AA670097BFBA /* TrackPoint.swift */; };
 		4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */; };
 		4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45B27345D11004E69C2 /* IconInfoText.swift */; };
@@ -161,7 +161,7 @@
 		4E1D0E23274C223C00F3D584 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
 		4E2088E22743A24E0097BFBA /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		4E2088E42743A4280097BFBA /* ActiveTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTrack.swift; sourceTree = "<group>"; };
+		4E2088E42743A4280097BFBA /* TrackRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4E2088E62743AA670097BFBA /* TrackPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
 		4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		4E24F45B27345D11004E69C2 /* IconInfoText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconInfoText.swift; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 				4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */,
 				4E2088E62743AA670097BFBA /* TrackPoint.swift */,
 				4E2088E22743A24E0097BFBA /* Track.swift */,
-				4E2088E42743A4280097BFBA /* ActiveTrack.swift */,
+				4E2088E42743A4280097BFBA /* TrackRecorder.swift */,
 				4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
 				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
@@ -545,7 +545,7 @@
 				4E3A416528D85357004C9D90 /* Tracks.swift in Sources */,
 				4EE1461E28D368870058F3D3 /* CoordinateSpan.swift in Sources */,
 				4E1D0E24274C223C00F3D584 /* PlaceCell.swift in Sources */,
-				4E2088E52743A4280097BFBA /* ActiveTrack.swift in Sources */,
+				4E2088E52743A4280097BFBA /* TrackRecorder.swift in Sources */,
 				4E24F48027345D11004E69C2 /* UITextView.swift in Sources */,
 				4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */,
 				4E025E3B274E3C4300D56ED7 /* CurrentTrackLine.swift in Sources */,

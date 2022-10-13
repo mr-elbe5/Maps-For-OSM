@@ -11,16 +11,13 @@ class TrackLayerView: UIView {
     
     var offset : CGPoint? = nil
     var scale : CGFloat = 0.0
-    var trackRect : CGRect? = nil
-    
-    var track : Track? = nil
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
     }
     
     func setTrack(track: Track? = nil){
-        self.track = track
+        Tracks.visibleTrack = track
         redrawTrack()
     }
     
@@ -30,25 +27,18 @@ class TrackLayerView: UIView {
         redrawTrack()
     }
     
-    func updateTrackRect() -> CGRect?{
-        //todo test
-        if let track = track, let offset = offset, let rect = track.trackpoints.boundingMapRect{
+    func redrawTrack(){
+        if let track = Tracks.visibleTrack, let offset = offset, let rect = track.trackpoints.boundingMapRect{
             let rect = rect.cgRect.scaleBy(scale).offsetBy(dx: -offset.x, dy: -offset.y)
             setNeedsDisplay(rect)
-            trackRect = rect
-            return rect
         }
-        return nil
-    }
-    
-    func redrawTrack(){
-        if let rect = updateTrackRect(){
-            setNeedsDisplay(rect)
+        else{
+            setNeedsDisplay()
         }
     }
     
     override func draw(_ rect: CGRect) {
-        if let track = track{
+        if let track = Tracks.visibleTrack{
             if !track.trackpoints.isEmpty, let offset = offset{
                 let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
                 let color = UIColor.systemOrange.cgColor

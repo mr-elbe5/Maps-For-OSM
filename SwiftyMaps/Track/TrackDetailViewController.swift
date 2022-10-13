@@ -23,7 +23,7 @@ class TrackDetailViewController: PopupScrollViewController{
     var track: Track? = nil
     
     var isActiveTrack : Bool{
-        track != nil && track == ActiveTrack.track
+        track != nil && track == TrackRecorder.track
     }
     
     let mapButton = IconButton(icon: "map", tintColor: .white)

@@ -197,13 +197,7 @@ class ControlLayerView: UIView {
     
     func getTrackingMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
-            self.delegate?.hideTrack()
-        })
-        actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openTrackList()
-        })
-        if let track = ActiveTrack.track{
+        if let track = TrackRecorder.track{
             actions.append(UIAction(title: "showCurrentTrack".localize(), image: UIImage(systemName: "figure.walk")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)){ action in
                 self.delegate?.openTrack(track: track)
                 self.trackMenuControl.menu = self.getTrackingMenu()
@@ -216,6 +210,15 @@ class ControlLayerView: UIView {
             })
             
         }
+        if Tracks.visibleTrack != nil {
+            actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
+                self.delegate?.hideTrack()
+                self.trackMenuControl.menu = self.getTrackingMenu()
+            })
+        }
+        actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+            self.delegate?.openTrackList()
+        })
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openTrackPreferences()
         })

@@ -8,17 +8,17 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class ActiveTrack{
+class TrackRecorder{
     
     static var track : Track? = nil
-    static var isTracking : Bool = false
+    static var isRecording : Bool = false
     
-    static func startTracking(startPoint: TrackPoint){
+    static func startRecording(startPoint: TrackPoint){
         if track == nil{
             track = Track()
             track!.trackpoints.append(TrackPoint(location: startPoint))
         }
-        isTracking = true
+        isRecording = true
     }
     
     static func updateTrack(with location: CLLocation){
@@ -27,23 +27,23 @@ class ActiveTrack{
         }
     }
     
-    static func pauseTracking(){
+    static func pauseRecording(){
         if let track = track{
             track.pauseTracking()
-            isTracking = false
+            isRecording = false
         }
     }
     
-    static func resumeTracking(){
+    static func resumeRecording(){
         if let track = track{
             track.resumeTracking()
-            isTracking = true
+            isRecording = true
         }
     }
     
-    static func stopTracking(){
+    static func stopRecording(){
         if track != nil{
-            isTracking = false
+            isRecording = false
             track = nil
         }
     }

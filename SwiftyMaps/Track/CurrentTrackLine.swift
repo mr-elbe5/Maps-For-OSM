@@ -74,7 +74,7 @@ class CurrentTrackLine : UIView{
     }
     
     func updateInfo(){
-        if let track = ActiveTrack.track{
+        if let track = TrackRecorder.track{
             distanceLabel.text = "\(Int(track.distance))m"
             distanceUpLabel.text = "\(Int(track.upDistance))m"
             distanceDownLabel.text = "\(Int(track.downDistance))m"
@@ -88,25 +88,25 @@ class CurrentTrackLine : UIView{
     }
     
     @objc func updateTime(){
-        if let track = ActiveTrack.track{
+        if let track = TrackRecorder.track{
             timeLabel.text = track.durationUntilNow.hmsString()
         }
     }
     
     @objc func pauseResume(){
-        if let _ = ActiveTrack.track{
-            if ActiveTrack.isTracking{
-                ActiveTrack.pauseTracking()
+        if let _ = TrackRecorder.track{
+            if TrackRecorder.isRecording{
+                TrackRecorder.pauseRecording()
             }
             else{
-                ActiveTrack.resumeTracking()
+                TrackRecorder.resumeRecording()
             }
             updatePauseResumeButton()
         }
     }
     
     func updatePauseResumeButton(){
-        if ActiveTrack.isTracking{
+        if TrackRecorder.isRecording{
             pauseResumeButton.setImage(UIImage(systemName: "pause"), for: .normal)
         }
         else{

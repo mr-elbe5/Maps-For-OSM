@@ -59,14 +59,6 @@ class MapView: UIView {
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
     }
     
-    func clearTrack(_ track: Track? = nil){
-        if track == nil || trackLayerView.track == track{
-            trackLayerView.track = nil
-            trackLayerView.trackRect = nil
-            controlLayerView.stopTrackControl()
-        }
-    }
-    
     func updatePlaceLayer(){
         placeLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
@@ -89,8 +81,8 @@ class MapView: UIView {
     
     func locationDidChange(location: CLLocation) {
         userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
-        if ActiveTrack.isTracking{
-            ActiveTrack.updateTrack(with: location)
+        if TrackRecorder.isRecording{
+            TrackRecorder.updateTrack(with: location)
             trackLayerView.redrawTrack()
             controlLayerView.updateTrackInfo()
         }

@@ -111,8 +111,8 @@ extension MainViewController: ControlLayerDelegate{
     func startTracking(){
         if let lastLocation = LocationService.instance.location{
             assertPlace(coordinate: lastLocation.coordinate){ place in
-                ActiveTrack.startTracking(startPoint: place)
-                if let track = ActiveTrack.track{
+                TrackRecorder.startRecording(startPoint: place)
+                if let track = TrackRecorder.track{
                     self.mapView.trackLayerView.setTrack(track: track)
                     self.mapView.controlLayerView.startTrackControl()
                 }
@@ -125,7 +125,7 @@ extension MainViewController: ControlLayerDelegate{
         controller.track = track
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
-        if track == ActiveTrack.track{
+        if track == TrackRecorder.track{
             controller.activeDelegate = self
         }
         present(controller, animated: true)
@@ -266,15 +266,17 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     }
     
     private func deleteTrack(track: Track){
+        let isVisibleTrack = track == Tracks.visibleTrack
         Tracks.deleteTrack(track)
-        mapView.clearTrack(track)
-        updatePlaceLayer()
+        if isVisibleTrack{
+            mapView.trackLayerView.setTrack(track: nil)
+        }
     }
     
     func deleteAllTracks() {
         cancelActiveTrack()
         Tracks.deleteAllTracks()
-        mapView.clearTrack()
+        mapView.trackLayerView.setTrack(track: nil)
     }
     
     func showTrackOnMap(track: Track) {
@@ -289,29 +291,30 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     }
     
     func pauseActiveTrack() {
-        ActiveTrack.pauseTracking()
+        TrackRecorder.pauseRecording()
         mapView.controlLayerView.pauseTrackInfo()
     }
     
     func resumeActiveTrack() {
-        ActiveTrack.resumeTracking()
+        TrackRecorder.resumeRecording()
         mapView.controlLayerView.resumeTrackInfo()
     }
     
     func cancelActiveTrack() {
-        ActiveTrack.stopTracking()
-        mapView.clearTrack()
+        TrackRecorder.stopRecording()
+        mapView.trackLayerView.setTrack(track: nil)
+        mapView.controlLayerView.stopTrackControl()
     }
     
     func saveActiveTrack() {
-        if let track = ActiveTrack.track{
+        if let track = TrackRecorder.track{
             let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.name = alertController.textFields![0].text ?? "Route"
                 Places.save()
                 self.mapView.trackLayerView.setTrack(track: track)
-                ActiveTrack.stopTracking()
+                TrackRecorder.stopRecording()
                 self.mapView.controlLayerView.stopTrackControl()
                 self.mapView.updatePlaceLayer()
             })
