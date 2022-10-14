@@ -114,7 +114,7 @@ extension MainViewController: ControlLayerDelegate{
                 TrackRecorder.startRecording(startPoint: place)
                 if let track = TrackRecorder.track{
                     Tracks.visibleTrack = track
-                    self.mapView.trackLayerView.update()
+                    self.mapView.trackLayerView.setNeedsDisplay()
                     self.mapView.controlLayerView.startTrackControl()
                 }
             }
@@ -134,7 +134,7 @@ extension MainViewController: ControlLayerDelegate{
     
     func hideTrack() {
         Tracks.visibleTrack = nil
-        mapView.trackLayerView.update()
+        mapView.trackLayerView.setNeedsDisplay()
     }
     
     func openTrackList() {
@@ -270,7 +270,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
         Tracks.deleteTrack(track)
         if isVisibleTrack{
             Tracks.visibleTrack = nil
-            mapView.trackLayerView.update()
+            mapView.trackLayerView.setNeedsDisplay()
         }
     }
     
@@ -278,13 +278,13 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
         cancelActiveTrack()
         Tracks.deleteAllTracks()
         Tracks.visibleTrack = nil
-        mapView.trackLayerView.update()
+        mapView.trackLayerView.setNeedsDisplay()
     }
     
     func showTrackOnMap(track: Track) {
         if !track.trackpoints.isEmpty{
             Tracks.visibleTrack = track
-            mapView.trackLayerView.update()
+            mapView.trackLayerView.setNeedsDisplay()
             mapView.scrollView.scrollToScreenCenter(coordinate: track.trackpoints[0].coordinate)
         }
     }
@@ -306,7 +306,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     func cancelActiveTrack() {
         TrackRecorder.stopRecording()
         Tracks.visibleTrack = nil
-        mapView.trackLayerView.update()
+        mapView.trackLayerView.setNeedsDisplay()
         mapView.controlLayerView.stopTrackControl()
     }
     
@@ -318,7 +318,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
                 track.name = alertController.textFields![0].text ?? "Route"
                 Places.save()
                 Tracks.visibleTrack = track
-                self.mapView.trackLayerView.update()
+                self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()
                 self.mapView.controlLayerView.stopTrackControl()
                 self.mapView.updatePlaceLayer()

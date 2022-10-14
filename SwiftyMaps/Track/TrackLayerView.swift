@@ -11,30 +11,23 @@ class TrackLayerView: UIView {
     
     var offset : CGPoint? = nil
     var scale : CGFloat = 0.0
-    var trackRect : CGRect? = nil
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
     }
     
-    func update(){
-        if let trackRect = trackRect{
-            setNeedsDisplay(trackRect)
+    func getTrackRect() -> CGRect?{
+        if let track = Tracks.visibleTrack, let offset = offset, let boundingRect = track.trackpoints.boundingMapRect{
+            let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+            return CGRect(x: (boundingRect.minX  - mapOffset.x)*scale, y: (boundingRect.minY - mapOffset.y)*scale, width: boundingRect.width*scale, height: boundingRect.height*scale)
         }
-        if let track = Tracks.visibleTrack, let offset = offset, let rect = track.trackpoints.boundingMapRect{
-            let rect = rect.cgRect.scaleBy(scale).offsetBy(dx: -offset.x, dy: -offset.y)
-            setNeedsDisplay(rect)
-            trackRect = rect
-        }
-        else {
-            trackRect = nil
-        }
+        return nil
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
         self.offset = offset
         self.scale = scale
-        update()
+        setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
@@ -44,11 +37,13 @@ class TrackLayerView: UIView {
                 let color = UIColor.systemOrange.cgColor
                 let ctx = UIGraphicsGetCurrentContext()!
                 ctx.beginPath()
-                var mapPointPoint = MapPoint(track.trackpoints[0].coordinate)
-                ctx.move(to: CGPoint(x: (mapPointPoint.x - mapOffset.x)*scale , y: (mapPointPoint.y - mapOffset.y)*scale))
+                var mapPoint = MapPoint(track.trackpoints[0].coordinate)
+                var drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
+                ctx.move(to: drawPoint)
                 for idx in 1..<track.trackpoints.count{
-                    mapPointPoint = MapPoint(track.trackpoints[idx].coordinate)
-                    ctx.addLine(to: CGPoint(x: (mapPointPoint.x - mapOffset.x)*scale , y: (mapPointPoint.y - mapOffset.y)*scale))
+                    mapPoint = MapPoint(track.trackpoints[idx].coordinate)
+                    drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
+                    ctx.addLine(to: drawPoint)
                 }
                 ctx.setStrokeColor(color)
                 ctx.setLineWidth(4.0)
