@@ -8,7 +8,7 @@ import UIKit
 
 protocol ControlLayerDelegate{
     func setMapType(_ type: MapType)
-    func preloadMap()
+    func openPreloadMap()
     func openMapPreferences()
     
     func showPlaces(_ show: Bool)
@@ -140,7 +140,7 @@ class ControlLayerView: UIView {
             })
         }
         actions.append(UIAction(title: "preloadMaps".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
-            self.delegate?.preloadMap()
+            self.delegate?.openPreloadMap()
         })
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openMapPreferences()
@@ -204,7 +204,7 @@ class ControlLayerView: UIView {
             })
         }
         else{
-            actions.append(UIAction(title: "startNewTrack".localize(), image: UIImage(systemName: "figure.walk")){ action in
+            actions.append(UIAction(title: "startRecording".localize(), image: UIImage(systemName: "figure.walk")){ action in
                 self.delegate?.startTracking()
                 self.trackMenuControl.menu = self.getTrackingMenu()
             })

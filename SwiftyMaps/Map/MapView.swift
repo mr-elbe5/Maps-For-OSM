@@ -83,7 +83,7 @@ class MapView: UIView {
         userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
         if TrackRecorder.isRecording{
             TrackRecorder.updateTrack(with: location)
-            trackLayerView.redrawTrack()
+            trackLayerView.update()
             controlLayerView.updateTrackInfo()
         }
     }

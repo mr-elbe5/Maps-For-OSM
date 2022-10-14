@@ -11,30 +11,30 @@ class TrackLayerView: UIView {
     
     var offset : CGPoint? = nil
     var scale : CGFloat = 0.0
+    var trackRect : CGRect? = nil
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return false
     }
     
-    func setTrack(track: Track? = nil){
-        Tracks.visibleTrack = track
-        redrawTrack()
+    func update(){
+        if let trackRect = trackRect{
+            setNeedsDisplay(trackRect)
+        }
+        if let track = Tracks.visibleTrack, let offset = offset, let rect = track.trackpoints.boundingMapRect{
+            let rect = rect.cgRect.scaleBy(scale).offsetBy(dx: -offset.x, dy: -offset.y)
+            setNeedsDisplay(rect)
+            trackRect = rect
+        }
+        else {
+            trackRect = nil
+        }
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
         self.offset = offset
         self.scale = scale
-        redrawTrack()
-    }
-    
-    func redrawTrack(){
-        if let track = Tracks.visibleTrack, let offset = offset, let rect = track.trackpoints.boundingMapRect{
-            let rect = rect.cgRect.scaleBy(scale).offsetBy(dx: -offset.x, dy: -offset.y)
-            setNeedsDisplay(rect)
-        }
-        else{
-            setNeedsDisplay()
-        }
+        update()
     }
     
     override func draw(_ rect: CGRect) {
@@ -58,5 +58,3 @@ class TrackLayerView: UIView {
     }
     
 }
-
-

@@ -68,28 +68,23 @@ class TileCacheViewController: PopupScrollViewController{
     var delegate : TileCacheDelegate? = nil
     
     override func loadView() {
+        title = "mapPreload".localize()
         super.loadView()
-        let header = UILabel()
-        header.text = "mapPreload".localize()
-        header.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5, weight: .bold)
-        contentView.addSubview(header)
-        header.setAnchors(top: contentView.topAnchor, insets: defaultInsets)
-            .centerX(contentView.centerXAnchor)
         
         let note = UILabel()
         note.numberOfLines = 0
         note.lineBreakMode = .byWordWrapping
         note.text = "mapPreloadNote".localize()
         contentView.addSubview(note)
-        note.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        note.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let typeLabel = UILabel()
-        typeLabel.text = "\("currentMapType".localize()): \(AppState.instance.mapType)"
+        typeLabel.text = "\("currentMapType:".localize()) \(AppState.instance.mapType)"
         contentView.addSubview(typeLabel)
         typeLabel.setAnchors(top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         let sourceLabel = UILabel()
-        sourceLabel.text = "\("currentTileSource".localize()): \(AppState.currentUrlTemplate)"
+        sourceLabel.text = "\("currentTileSource:".localize()) \(AppState.currentUrlTemplate)"
         contentView.addSubview(sourceLabel)
         sourceLabel.setAnchors(top: typeLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
@@ -299,7 +294,12 @@ class TileCacheViewController: PopupScrollViewController{
     }
     
     @objc func deleteTiles(){
-        delegate?.deleteTiles()
+        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
+            self.delegate?.deleteTiles()
+            self.recalculateTiles()
+            self.startButton.isEnabled = true
+            self.cancelButton.isEnabled = false
+        }
     }
     
 }

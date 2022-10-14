@@ -17,12 +17,12 @@ protocol PlaceListDelegate: PlaceViewDelegate{
 
 class PlaceListViewController: PopupTableViewController{
 
-    private static let CELL_IDENT = "locationCell"
+    private static let CELL_IDENT = "placeCell"
     
     var delegate: PlaceListDelegate? = nil
     
     override func loadView() {
-        title = "locationList".localize()
+        title = "placeList".localize()
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -38,7 +38,7 @@ class PlaceListViewController: PopupTableViewController{
     }
     
     @objc func deleteAllPlaces(){
-        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+        showDestructiveApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
             self.delegate?.deleteAllPlaces()
             self.tableView.reloadData()
         }

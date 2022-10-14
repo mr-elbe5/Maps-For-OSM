@@ -68,7 +68,7 @@ extension MainViewController: ControlLayerDelegate{
         //todo
     }
     
-    func preloadMap() {
+    func openPreloadMap() {
         let region = mapView.scrollView.tileRegion
         let controller = TileCacheViewController()
         controller.mapRegion = region
@@ -113,7 +113,8 @@ extension MainViewController: ControlLayerDelegate{
             assertPlace(coordinate: lastLocation.coordinate){ place in
                 TrackRecorder.startRecording(startPoint: place)
                 if let track = TrackRecorder.track{
-                    self.mapView.trackLayerView.setTrack(track: track)
+                    Tracks.visibleTrack = track
+                    self.mapView.trackLayerView.update()
                     self.mapView.controlLayerView.startTrackControl()
                 }
             }
@@ -132,7 +133,8 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func hideTrack() {
-        mapView.trackLayerView.setTrack(track: nil)
+        Tracks.visibleTrack = nil
+        mapView.trackLayerView.update()
     }
     
     func openTrackList() {
@@ -190,10 +192,8 @@ extension MainViewController: ControlLayerDelegate{
 extension MainViewController: TileCacheDelegate{
     
     func deleteTiles() {
-        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
-            TileCache.clear()
-            self.mapView.clearTiles()
-        }
+        TileCache.clear()
+        self.mapView.clearTiles()
     }
     
 }
@@ -269,19 +269,22 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
         let isVisibleTrack = track == Tracks.visibleTrack
         Tracks.deleteTrack(track)
         if isVisibleTrack{
-            mapView.trackLayerView.setTrack(track: nil)
+            Tracks.visibleTrack = nil
+            mapView.trackLayerView.update()
         }
     }
     
     func deleteAllTracks() {
         cancelActiveTrack()
         Tracks.deleteAllTracks()
-        mapView.trackLayerView.setTrack(track: nil)
+        Tracks.visibleTrack = nil
+        mapView.trackLayerView.update()
     }
     
     func showTrackOnMap(track: Track) {
         if !track.trackpoints.isEmpty{
-            mapView.trackLayerView.setTrack(track: track)
+            Tracks.visibleTrack = track
+            mapView.trackLayerView.update()
             mapView.scrollView.scrollToScreenCenter(coordinate: track.trackpoints[0].coordinate)
         }
     }
@@ -302,7 +305,8 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     
     func cancelActiveTrack() {
         TrackRecorder.stopRecording()
-        mapView.trackLayerView.setTrack(track: nil)
+        Tracks.visibleTrack = nil
+        mapView.trackLayerView.update()
         mapView.controlLayerView.stopTrackControl()
     }
     
@@ -313,7 +317,8 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.name = alertController.textFields![0].text ?? "Route"
                 Places.save()
-                self.mapView.trackLayerView.setTrack(track: track)
+                Tracks.visibleTrack = track
+                self.mapView.trackLayerView.update()
                 TrackRecorder.stopRecording()
                 self.mapView.controlLayerView.stopTrackControl()
                 self.mapView.updatePlaceLayer()

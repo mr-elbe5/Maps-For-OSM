@@ -21,88 +21,100 @@
 "close"="Close";
 "backup"="Backup";
 "backupSaved"="Backup has been saved in 'SwiftyMaps for OSM/backup'";
+"preferences"="Preferences...";
+"preferencesSaved"="Preferences saved";
+"deleteAll"="Delete All";
 
 //map menu - ControlLayerView
+"cartoMapType"="Default Map";
+"topoMapType"="Topographic Map";
 "preloadMaps"="Preload Map Tiles...";
-"preloadMapsAlert"="You are tying to preload %@ tiles. The maximum size for preloads is %@ tiles. Please use a smaller map region (zoom in).";
-"deleteTiles"="Delete Loaded Map Tiles";
-"confirmDeleteTiles"="Do you want to delete all loaded map tiles?";
-"deleteTilesHint"="Map tiles will have to be reloaded then.";
 
 //map preload view - MapPreloadViewController
 "mapPreload"="Preload Map Tiles";
 "mapPreloadNote"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server!";
+"currentMapType:"="Current Map Type:";
+"currentTileSource:"="Current Server:";
+"fromZoom:"="From Zoom Level:";
+"toZoom:"="To Zoom Level:";
 "allTilesForDownload"="Number of all tiles:";
 "existingTiles"="Number of existing tiles:";
 "tilesToLoad"="Numer of tiles to load:";
 "unloadedTiles"="Number of load errors:";
+"startPreload"="Start Preload";
 "confirmPreload"="Are you sure to have the rights for mass downloads?";
 "preloadHint"="You can find links to legal infos under preferences.";
+"confirmDeleteTiles"="Do you want to delete all loaded map tiles?";
+"deleteTilesHint"="Map tiles will have to be reloaded then.";
 
 //preferences view - PreferencesViewController
-"mapPreferences"="Preferences";
-"urlTemplate"="URL Template for OpenStreetMap Tiles:";
-"elbe5TileURL"="Use template for Elbe5.de";
+"mapServers"="Map Servers";
+"cartoTemplate"="URL Template for OpenStreetMap Maps:";
+"elbe5TileURL"="Use Template for Elbe5.de";
 "osmTileURL"="Use template for OpenStreetMap.org";
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
-"preloadUrlTemplate"="URL Template for preloading OpenStreetMap Tiles:";
-"startZoom"="Start Zoom [2-18]";
-"maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
-"minTrackingDistance"="Minimal distance from a trackpoint to the next one [m]";
-"minTrackingInterval"="Minimal time from a trackpoint to the next one [sec]";
-"maxPreloadTiles"="Maximal Number of Tiles for Preload";
-"startWithLastPosition"="Start with last Position";
-"showLocations"="Show Location Markers (Needles)";
-"useLog"="Use Logging";
-"clearLog"="Clear Log";
-"saveLog"="Save Log";
-"deleteAllLogs"="Delete all logs";
-"confirmDeleteLogs"="Delete all logs?";
-"deleteLogsHint"="This action cannot be undone.";
-"logsDeleted"="Logs have been deleted.";
-"preferencesSaved"="The preferences have been saved.";
-"logSaved"="The log has been saved.";
+"topoTemplate"="URL Template for Topographic Maps:";
+"elbe5TopoTileURL"="Use Template for Elbe5.de(topo)";
+"elbe5TopoLegalInfo"="Legal Info for tiles from Elbe5.de(topo)";
+"openTopoTileURL"="Use Template for OpenTopoMap.org";
+"openTopoLegalInfo"="Legal Info for tiles from OpenTopoMap.org";
+"mapPreferencesSaved"="Map preferences have been saved.";
 
-// location menu - ControlLayerView
-"addLocation"="Add Location Marker (Needle)";
-"showLocationList"="Show Location List";
-"showLocations"="Show Location Markers (Needles)";
-"hideLocations"="Hide Location Markers (Needles)";
-"deleteLocations"="Delete all Location Markers";
-"confirmDeleteLocations"="Do you want to delete all location markers?";
-"deleteLocationsHint"="This action cannot be undone. Associated photos and tracks will also be deleted.";
+// place menu - ControlLayerView
+"showCross"="Show Position Cross";
+"hideCross"="Hide Position Cross";
+"showPlaceList"="Show Place List";
+"showPlaces"="Show Place Markers (Needles)";
+"hidePlaces"="Hide Place Markers (Needles)";
+"deletePlaces"="Delete all Place Markers";
+"confirmDeletePlaces"="Do you want to delete all place markers?";
+"deletePlacesHint"="This action cannot be undone. Associated photos will also be deleted.";
 
-// location list - LocationListViewController/LocationCell
-"locationList"="Locations";
+// cross menu
+"addPlace"="Add Place Marker (Needle)";
+
+// place list - LocationListViewController/LocationCell
+"placeList"="Places";
 "showDetails"="Show Details";
-"confirmDeleteLocation"="Do you want to delete this location?";
-"deleteLocationHint"="This action cannot be undone and includes associated photos and tracks.";
+"confirmDeletePlace"="Do you want to delete this place?";
+"deletePlaceHint"="This action cannot be undone and includes associated photos.";
+
+// place preferences
+"placePreferences"="Place Preferences";
+"minLocationAccuracy"="Minimal location accuracy";
+"maxLocationMergeDistance"="Maximal Distance for Merging Places [m]";
+"minZoomToShowLocations"="Minimal Zoom for Showing Places (Needles) [2-18]";
 
 // track menu - ControlLayerView
-"startNewTrack"="Start a new Track";
-"showCurrentTrack"="Current Track...";
-"hideTrack"="Hide Track";
-"showTrackList"="Saved Tracks...";
-"deleteTracks"="Delete all Tracks";
-"confirmDeleteTracks"="Do you want to delete all tracks?";
+"startRecording"="Record a new Tour";
+"showCurrentTrack"="Current Tour...";
+"hideTrack"="Hide Tour";
+"showTrackList"="Saved Tours...";
+"deleteTracks"="Delete all Tours";
+"confirmDeleteTracks"="Do you want to delete all tours?";
 "deleteTracksHint"="This action cannot be undone.";
 
 // track/ current track - ControlLayerView/TrackDetailView
-"track"="Track";
+"track"="Tour";
 "startLocation"="Start Location";
 "distances"="Distances";
 "distance"="Distance";
 "upDistance"="Upwards";
 "downDistance"="Downwards";
 "duration"="Duration";
-"currentTrack"="Current Track";
+"currentTrack"="Current Tour";
 "pause"="Pause";
 "resume"="Resume";
 
 // track list - TrackListViewController/TrackCell
 "trackList"="Tracks";
 "nameOrDescriptionHint"="Please enter a name for this track";
+
+// track preferences
+"trackPreferences"="Preferences for recording tours";
+"minTrackingDistance"="Minimal distance between trackpoints [m]";
+"minTrackingInterval"="Minimal time between trackpoints [sec]";
 
 //location
 "east"="East";

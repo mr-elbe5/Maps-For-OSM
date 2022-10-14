@@ -21,68 +21,73 @@
 "close"="Schliessen";
 "backup"="Backup";
 "backupSaved"="Backup wurde in 'SwiftyMaps for OSM/backup' gespeichert.";
+"preferences"="Einstellungen...";
+"preferencesSaved"="Einstellungen gespeichert";
+"deleteAll"="Alle löschen";
 
 //map menu - ControlLayerView
+"cartoMapType"="Standardkarte";
+"topoMapType"="Topografische Karte";
 "preloadMaps"="Kartenkacheln vorladen...";
-"preloadMapsAlert"="Sie versuchen, %@ Kacheln vorzuladen. Die maximale Menge ist %@ Kacheln. Bitte wählen Sie eine kleinere Region aus (durch Hineinzoomen).";
-"deleteTiles"="Geladene Kacheln löschen";
-"confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
-"deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 
 //map preload view - MapPreloadViewController
 "mapPreload"="Kartenkacheln vorladen";
 "mapPreloadNote"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server zu machen! ";
+"currentMapType:"="Aktueller Kartentyp:";
+"currentTileSource:"="Aktueller Server:";
+"fromZoom:"="Ab Zoomebene:";
+"toZoom:"="Bis Zoomebene:";
 "allTilesForDownload"="Zahl aller Kacheln:";
 "existingTiles"="Zahl vorhandener Kacheln:";
 "tilesToLoad"="Zahl zu ladender Kacheln:";
 "sizeToLoad"="Gesamtgröße zu ladender Kacheln (ca):";
 "unloadedTiles"="Zahl von Ladefehlern:";
+"startPreload"="Vorladen starten";
 "confirmPreload"="Haben Sie die Rechte für Massendownloads?";
 "preloadHint"="Sie finden Links zu den Regeln in den Einstellungen.";
+"confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
+"deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 
 //preferences view - PrefrencesViewController
-"mapPreferences"="Einstellungen";
-"urlTemplate"="URL-Template für OpenStreetMap-Kacheln:";
+"mapServers"="Kartenserver";
+"cartoTemplate"="URL-Template für OpenStreetMap-Karten:";
 "elbe5TileURL"="Template für Elbe5.de benutzen";
-"osmTileURL"="Template für OpenStreetMap.org benutzen";
 "elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
+"osmTileURL"="Template für OpenStreetMap.org benutzen";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
-"preloadUrlTemplate"="URL Template für das Vorladen von OpenStreetMap-Kacheln:";
-"startZoom"="Startzoom [2-18]";
-"maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
-"minTrackingDistance"="Minimale Entfernung von einem Tourpunkt zum nächsten [m]";
-"minTrackingInterval"="Minimale Zeit von einem Tourpunkt zum nächsten [sec]";
-"minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
-"maxPreloadTiles"="Maximale Anzahl von Kacheln zum Vorladen";
-"startWithLastPosition"="Mit der letzten Position starten";
-"showLocations"="Positionen (Nadeln) anzeigen";
-"useLog"="Log benutzen";
-"clearLog"="Log zurücksetzen";
-"saveLog"="Log speichern";
-"deleteAllLogs"="Alle Logs löschen";
-"confirmDeleteLogs"="Alle Logs löschen?";
-"deleteLogsHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
-"logsDeleted"="Die Logs wurden gelöscht.";
-"preferencesSaved"="Die Einstellungen wurden gespeichert.";
-"logSaved"="Das Log wurde gespeichert.";
+"topoTemplate"="URL-Template für Topografische Karten:";
+"elbe5TopoTileURL"="Template für Elbe5.de(topo) benutzen";
+"elbe5TopoLegalInfo"="Regeln für das Laden von Elbe5.de(topo)";
+"openTopoTileURL"="Template für OpenTopoMap.org benutzen";
+"openTopoLegalInfo"="Regeln für das Laden von OpenTopoMap.org";
+"mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
 
-// location menu - ControlLayerView
-"addLocation"="Ort hinzufügen";
-"showLocationList"="Ortsliste anzeigen";
-"showLocations"="Orte (Nadeln) anzeigen";
-"hideLocations"="Orte (Nadeln) ausblenden";
-"deleteLocations"="Alle Orte löschen";
-"confirmDeleteLocations"="Wollen Sie alle Orte löschen?";
-"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos und Touren werden ebenfalls gelöscht.";
+// place menu - ControlLayerView
+"showCross"="Positionskreuz anzeigen";
+"hideCross"="Positionskreuz ausblenden";
+"showPlaceList"="Ortsliste anzeigen";
+"showPlaces"="Orte (Nadeln) anzeigen";
+"hidePlaces"="Orte (Nadeln) ausblenden";
+"confirmDeletePlaces"="Wollen Sie alle Orte löschen?";
+"deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos werden ebenfalls gelöscht.";
 
-// location list - LocationListViewController/LocationCell
-"locationList"="Orte";
+// cross menu
+"addPlace"="Ort hinzufügen";
+
+// place list - LocationListViewController/LocationCell
+"placeList"="Orte";
 "showDetails"="Details anzeigen";
-"confirmDeleteLocation"="Wollen Sie diesen Ort löschen?";
-"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos und Touren. Sie kann nicht rückgängig gemacht werden.";
+"confirmDeletePlace"="Wollen Sie diesen Ort löschen?";
+"deletePlaceHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos. Sie kann nicht rückgängig gemacht werden.";
+
+// place preferences
+"placePreferences"="Einstellungen für Orte";
+"minLocationAccuracy"="Mindesgnauigkeit";
+"maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
+"minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
 
 // track menu - ControlLayerView
-"startNewTrack"="Neue Tour starten";
+"startRecording"="Neue Tour aufnehmen";
 "showCurrentTrack"="Aktuelle Tour...";
 "hideTrack"="Tour ausblenden";
 "showTrackList"="Touren...";
@@ -103,6 +108,11 @@
 // track list - TrackListViewController/TrackCell
 "trackList"="Touren";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
+
+// track preferences
+"trackPreferences"="Einstellungen für Touraufzeichnungen";
+"minTrackingDistance"="Minimale Entfernung zwischen Tourpunkten [m]";
+"minTrackingInterval"="Minimale Zeit zwischen Tourpunkten [sec]";
 
 //track menu - ControlLayerView
 "startTracking"="Neue Tour starten";

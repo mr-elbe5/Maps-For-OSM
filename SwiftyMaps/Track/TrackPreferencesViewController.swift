@@ -17,7 +17,7 @@ class TrackPreferencesViewController: PopupScrollViewController{
     var pinGroupRadiusField = LabeledTextField()
     
     override func loadView() {
-        title = "tilePreferences".localize()
+        title = "trackPreferences".localize()
         super.loadView()
         
         minTrackingDistanceField.setupView(labelText: "minTrackingDistance".localize(), text: String(Int(TrackPreferences.instance.minTrackingDistance)), isHorizontal: true)
