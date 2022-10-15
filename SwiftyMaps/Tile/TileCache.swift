@@ -19,14 +19,12 @@ struct TileCache{
     }
     
     static func loadTileImage(tile: MapTile, result: @escaping (Data?) -> Void) {
-        //print("loading tile image \(tile.zoom)/\(tile.x)/\(tile.y)")
         guard let url = tileUrl(tile: tile) else {print("could not crate map url"); return}
         loadTileImage(url: url, result: result)
     }
     
     static func loadTileImage(url: URL, result: @escaping (Data?) -> Void) {
-        //print("loading tile image \(url)")
-        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 300.0)
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 300.0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             var statusCode = 0
             if (response != nil && response is HTTPURLResponse){
@@ -37,7 +35,6 @@ struct TileCache{
                 print("error loading tile from \(url.path), error: \(error.localizedDescription)")
                 result(nil)
             } else if statusCode == 200{
-                //print("tile image \(tile.zoom)/\(tile.x)/\(tile.y) loaded")
                 result(data)
             }
             else{

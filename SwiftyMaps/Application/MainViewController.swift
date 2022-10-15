@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        TestCenter.testMapView(mapView: mapView)
+        //TestCenter.testMapView(mapView: mapView)
     }
     
 }
@@ -282,10 +282,11 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     }
     
     func showTrackOnMap(track: Track) {
-        if !track.trackpoints.isEmpty{
+        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
             Tracks.visibleTrack = track
             mapView.trackLayerView.setNeedsDisplay()
-            mapView.scrollView.scrollToScreenCenter(coordinate: track.trackpoints[0].coordinate)
+            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
+            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
         }
     }
     

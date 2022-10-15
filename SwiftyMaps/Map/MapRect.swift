@@ -48,6 +48,14 @@ class MapRect{
         MapPoint(x: maxX, y: minY)
     }
     
+    var center: MapPoint{
+        var cx = minX + width/2
+        if cx > World.worldSize.width{
+            cx -= World.worldSize.width
+        }
+        return MapPoint(x: cx, y: minY + height/2)
+    }
+    
     var normalizedRect : MapRect{
         if origin.x > World.worldSize.width{
             return MapRect(origin: MapPoint(x: origin.x - World.worldSize.width, y: origin.y), size: size)
@@ -68,6 +76,10 @@ class MapRect{
             return rect.bottomRightCoordinate
         }
         return bottomRight.coordinate
+    }
+    
+    var centerCoordinate : CLLocationCoordinate2D{
+        center.coordinate
     }
     
     var spans180Medidian : Bool{

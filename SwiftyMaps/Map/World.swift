@@ -136,4 +136,8 @@ struct World{
         round(projectedLatitude(latitude) * fullExtent * downScale)
     }
     
+    static func getZoomScaleToFit(mapRect: MapRect, scaledBounds: CGRect) -> Double{
+        min(scaledBounds.width / mapRect.width, scaledBounds.height/mapRect.height)
+    }
+    
 }

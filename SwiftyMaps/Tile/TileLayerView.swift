@@ -79,18 +79,18 @@ class TileLayerView: UIView {
         }
         mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
         TileCache.loadTileImage(tile: tile){ data in
-            //print("tile loaded \(tile.string)")
-            if TileCache.saveTile(tile: tile, data: data){
-                //print("tile saved \(tile.string)")
-                DispatchQueue.main.async {
-                    if let data = data, let image = UIImage(data: data){
-                        tile.image = image
-                        self.setNeedsDisplay(rect)
+            if let data = data{
+                if TileCache.saveTile(tile: tile, data: data){
+                    DispatchQueue.main.async {
+                        if let image = UIImage(data: data){
+                            tile.image = image
+                            self.setNeedsDisplay(rect)
+                        }
                     }
                 }
-            }
-            else{
-                print("error saving tile")
+                else{
+                    print("could not save tile \(tile.string)")
+                }
             }
         }
     }

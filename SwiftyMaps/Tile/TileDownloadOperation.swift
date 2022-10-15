@@ -28,7 +28,6 @@ class TileDownloadOperation : AsyncOperation {
         TileCache.loadTileImage(url: sourceUrl){ data in
             if let data = data, TileCache.saveTile(fileUrl: targetUrl, data: data){
                 DispatchQueue.main.async { [self] in
-                    //print("got \(tile.id)")
                     delegate?.downloadSucceeded()
                 }
             }
