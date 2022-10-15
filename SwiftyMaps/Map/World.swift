@@ -103,4 +103,37 @@ struct World{
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
+    static func mapPoint(scaledX : Double, scaledY : Double, downScale: Double) -> MapPoint{
+        MapPoint(x: scaledX / downScale, y: scaledY / downScale)
+    }
+    
+    static func mapPoint(scaledPoint: MapPoint, downScale: Double) -> MapPoint{
+        mapPoint(scaledX: scaledPoint.x, scaledY: scaledPoint.y, downScale: downScale)
+    }
+    
+    static func mapRect(scaledX : Double, scaledY : Double, scaledWidth: Double, scaledHeight: Double, downScale: Double) -> MapRect{
+        MapRect(x: scaledX / downScale, y: scaledY / downScale, width: scaledWidth/downScale, height: scaledHeight/downScale)
+    }
+    
+    static func mapRect(scaledRect: MapRect, downScale: Double) -> MapRect{
+        mapRect(scaledX: scaledRect.minX, scaledY: scaledRect.minY, scaledWidth: scaledRect.width, scaledHeight: scaledRect.height, downScale: downScale)
+    }
+    
+    static func coordinate(scaledX : Double, scaledY : Double, downScale: Double) -> CLLocationCoordinate2D {
+        let mapPoint = mapPoint(scaledX: scaledX, scaledY: scaledY, downScale: downScale).normalizedPoint
+        return mapPoint.coordinate
+    }
+    
+    static func scaledExtent(downScale: Double) -> Double {
+        fullExtent * downScale
+    }
+    
+    static func scaledX(_ longitude: Double, downScale: Double) -> Double {
+        round(projectedLongitude(longitude) * fullExtent * downScale)
+    }
+    
+    static func scaledY(_ latitude: Double, downScale: Double) -> Double {
+        round(projectedLatitude(latitude) * fullExtent * downScale)
+    }
+    
 }

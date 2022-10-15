@@ -81,7 +81,6 @@
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
 		4E4B758D273AA28100CB4B41 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B758C273AA28100CB4B41 /* PhotoData.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
-		4E55EFA828D9AA5A007AD900 /* ScaledWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA728D9AA5A007AD900 /* ScaledWorld.swift */; };
 		4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA928DAEC5B007AD900 /* AppState.swift */; };
 		4E55EFAC28DAF93C007AD900 /* TileSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAB28DAF93C007AD900 /* TileSources.swift */; };
 		4E55EFAE28DAF951007AD900 /* TileSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */; };
@@ -190,7 +189,6 @@
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
 		4E4B758C273AA28100CB4B41 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
-		4E55EFA728D9AA5A007AD900 /* ScaledWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledWorld.swift; sourceTree = "<group>"; };
 		4E55EFA928DAEC5B007AD900 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4E55EFAB28DAF93C007AD900 /* TileSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSources.swift; sourceTree = "<group>"; };
 		4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourcesViewController.swift; sourceTree = "<group>"; };
@@ -408,7 +406,6 @@
 				4E1B810F2732EDC5003ED6B0 /* MapView.swift */,
 				4E30798E28D74EB1005FBEF0 /* TileRegion.swift */,
 				4EE1462D28D49F510058F3D3 /* World.swift */,
-				4E55EFA728D9AA5A007AD900 /* ScaledWorld.swift */,
 				4E5BC18F28F5B19C00A66E47 /* MapType.swift */,
 			);
 			path = Map;
@@ -560,7 +557,6 @@
 				4E24F48927345D11004E69C2 /* TextButton.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */,
 				4E24F47527345D11004E69C2 /* CGRect.swift in Sources */,
-				4E55EFA828D9AA5A007AD900 /* ScaledWorld.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* PhotoViewController.swift in Sources */,
 				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,

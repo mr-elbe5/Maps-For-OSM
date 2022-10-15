@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //TestCenter.testMapView(mapView: mapView)
+        TestCenter.testMapView(mapView: mapView)
     }
     
 }

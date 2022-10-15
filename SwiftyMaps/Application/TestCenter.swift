@@ -49,7 +49,7 @@ struct TestCenter{
         print("screenCenterMapPoint = \(mapView.scrollView.screenCenterMapPoint.string)")
         print("screenCenterMapPoint.coordinate = \(mapView.scrollView.screenCenterMapPoint.coordinate.shortString)")
         
-        print("ScaledWorld.fullExtent = \(ScaledWorld.fullExtent(scale: mapView.scrollView.zoomScale))")
+        print("World.scaledExtent = \(World.scaledExtent(downScale: mapView.scrollView.zoomScale))")
         
         print("screenCenter = \(mapView.scrollView.screenCenter)")
         print("screenCenterPoint = \(mapView.scrollView.mapPoint(screenPoint: mapView.scrollView.screenCenter).string)")
@@ -65,9 +65,9 @@ struct TestCenter{
         
         let scale = World.zoomScaleFromWorld(to: 18)
         print("worldX = \(World.worldX(coordinate.longitude))")
-        print("worldX at 18 = \(ScaledWorld.worldX(coordinate.longitude, scale: scale))")
+        print("scaledX at 18 = \(World.scaledX(coordinate.longitude, downScale: scale))")
         print("worldY = \(World.worldY(coordinate.latitude))")
-        print("worldY at 18 = \(ScaledWorld.worldY(coordinate.latitude, scale: scale))")
+        print("scaledY at 18 = \(World.scaledY(coordinate.latitude, downScale: scale))")
         
         let mapPoint = MapPoint(coordinate)
         print("coordinate = \(coordinate.shortString)")
@@ -76,12 +76,12 @@ struct TestCenter{
         
         let worldScale = mapView.scrollView.zoomScale
         print("worldScale = \(worldScale)")
-        let scaledWorldExtent = ScaledWorld.fullExtent(scale: worldScale)
+        let scaledWorldExtent = World.scaledExtent(downScale: worldScale)
         print("scaledWorldExtent = \(scaledWorldExtent)")
         print("contentHeight = \(mapView.scrollView.contentSize.height)")
         let scaledMapPoint = mapView.scrollView.contentPoint(screenPoint: mapView.scrollView.screenCenter)
         print("scaledMapPoint = \(scaledMapPoint)")
-        print("coordinateAtScaledWorld = \(ScaledWorld.coordinate(x : scaledMapPoint.x, y : scaledMapPoint.y, scale: worldScale))")
+        print("coordinateAtScaledWorld = \(World.coordinate(scaledX : scaledMapPoint.x, scaledY : scaledMapPoint.y, downScale: worldScale))")
     }
     
 }
