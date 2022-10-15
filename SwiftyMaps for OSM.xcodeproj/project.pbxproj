@@ -108,6 +108,7 @@
 		4EE1462E28D49F510058F3D3 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462D28D49F510058F3D3 /* World.swift */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
 		4EE6A891275A6E19007FBC67 /* PhotoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6A890275A6E19007FBC67 /* PhotoList.swift */; };
+		4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */; };
 		4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EF5FA7927820B2D0004583B /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -216,6 +217,7 @@
 		4EE1462D28D49F510058F3D3 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollView.swift; sourceTree = "<group>"; };
 		4EE6A890275A6E19007FBC67 /* PhotoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoList.swift; sourceTree = "<group>"; };
+		4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4EF5FA7827820B2D0004583B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EF5FA7A27820B300004583B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,6 +262,7 @@
 				4E0BD99E26EA010A005A4A94 /* Base */,
 				4E30799228D783F8005FBEF0 /* Location */,
 				4E1D0E1C274BCD9400F3D584 /* Place */,
+				4EEF6F8228FAC58800543EBA /* Search */,
 				4E0BD99C26EA0074005A4A94 /* Info */,
 				4E3BE7EA26EA7E57000F9069 /* Map */,
 				4E9A245B275379B8004B43BE /* Tile */,
@@ -388,7 +391,6 @@
 				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
 				4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */,
 				4E3A416028D83D51004C9D90 /* CodableLocation.swift */,
-				4E3A416628D8896F004C9D90 /* Nominatim.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -435,6 +437,15 @@
 				4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */,
 			);
 			path = Tile;
+			sourceTree = "<group>";
+		};
+		4EEF6F8228FAC58800543EBA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4E3A416628D8896F004C9D90 /* Nominatim.swift */,
+				4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +536,7 @@
 				4EE1462428D476210058F3D3 /* TestCenter.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */,
+				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
 				4E79FBAF275B9326001F0481 /* PlaceGroup.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,

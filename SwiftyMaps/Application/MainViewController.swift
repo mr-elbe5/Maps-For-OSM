@@ -184,7 +184,10 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func openSearch() {
-        
+        let controller = SearchViewController()
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
     }
     
 }
@@ -196,6 +199,20 @@ extension MainViewController: TileCacheDelegate{
         self.mapView.clearTiles()
     }
     
+}
+
+extension MainViewController: SearchDelegate{
+    
+    func showSearchResult(coordinate: CLLocationCoordinate2D, region: CoordinateRegion?) {
+        if let region = region{
+            mapView.setRegion(region: region)
+        }
+        else{
+            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
+        }
+    }
+    
+
 }
 
 extension MainViewController: PhotoCaptureDelegate{

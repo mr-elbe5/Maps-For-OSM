@@ -70,4 +70,27 @@ class NominatimLocation {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
+    var region: CoordinateRegion?{
+        if let boundingBox = boundingBox, let minLat = Double(boundingBox[0]), let maxLat = Double(boundingBox[1]), let minLon = Double(boundingBox[2]), let maxLon = Double(boundingBox[3]){
+            return CoordinateRegion(topLeft: CLLocationCoordinate2D(latitude: maxLat, longitude: minLon), bottomRight: CLLocationCoordinate2D(latitude: minLat, longitude: maxLon))
+        }
+        return nil
+    }
+    
+    var mapRect : MapRect?{
+        //todo
+        if let boundingBox = boundingBox, let minLat = Double(boundingBox[0]), let maxLat = Double(boundingBox[1]), let minLon = Double(boundingBox[2]), let maxLon = Double(boundingBox[3]){
+            print("minLat = \(minLat)")
+            print("maxLat = \(maxLat)")
+            print("minLon = \(minLon)")
+            print("maxLon = \(maxLon)")
+            let topLeft = MapPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLon))
+            print("topLeft = \(topLeft.string)")
+            let bottomRight = MapPoint(CLLocationCoordinate2D(latitude: minLat, longitude: maxLon))
+            print("bottomRight = \(bottomRight.string)")
+            return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
+        }
+        return nil
+    }
+    
 }

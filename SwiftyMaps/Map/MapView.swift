@@ -73,6 +73,12 @@ class MapView: UIView {
         updatePlaceLayer()
     }
     
+    func setRegion(region: CoordinateRegion){
+        scrollView.scrollToScreenCenter(coordinate: region.center)
+        //todo
+        //scrollView.setZoomScale(World.getZoomScaleToFit(region: region, scaledBounds: bounds), animated: true)
+    }
+    
     func setDefaultLocation(){
         scaleTo(scale: AppState.instance.scale)
         scrollView.scrollToScreenCenter(coordinate: AppState.instance.coordinate)

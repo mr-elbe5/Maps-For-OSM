@@ -140,4 +140,8 @@ struct World{
         min(scaledBounds.width / mapRect.width, scaledBounds.height/mapRect.height)
     }
     
+    static func getZoomScaleToFit(region: CoordinateRegion, scaledBounds: CGRect) -> Double{
+        getZoomScaleToFit(mapRect: region.mapRect, scaledBounds: scaledBounds)
+    }
+    
 }
