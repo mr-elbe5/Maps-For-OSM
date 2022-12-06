@@ -87,8 +87,7 @@ class ControlLayerView: UIView {
         addSubviewWithAnchors(currentTrackLine, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
         
         crossControl.tintColor = UIColor.red
-        addSubview(crossControl)
-        crossControl.setAnchors(centerX: centerXAnchor, centerY: centerYAnchor)
+        addSubviewCentered(crossControl, centerX: centerXAnchor, centerY: centerYAnchor)
         crossControl.menu = getCrossMenu()
         crossControl.showsMenuAsPrimaryAction = true
         crossControl.isHidden = !AppState.instance.showCross

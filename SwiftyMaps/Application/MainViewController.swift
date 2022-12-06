@@ -16,9 +16,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(mapView)
+        view.addSubviewFilling(mapView)
         mapView.frame = view.bounds
-        mapView.fillView(view: view)
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupUserLocationView()

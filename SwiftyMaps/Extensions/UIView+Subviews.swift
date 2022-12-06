@@ -18,6 +18,13 @@ extension UIView{
     }
     
     @discardableResult
+    func addSubviewCentered(_ subview: UIView, centerX: NSLayoutXAxisAnchor? = nil, centerY: NSLayoutYAxisAnchor? = nil) -> UIView{
+        addSubview(subview)
+        subview.setAnchors(centerX: centerX,centerY: centerY)
+        return subview
+    }
+    
+    @discardableResult
     func addSubviewFilling(_ subview: UIView, insets: UIEdgeInsets = .zero) -> UIView{
         addSubview(subview)
         subview.fillView(view: self, insets: insets)

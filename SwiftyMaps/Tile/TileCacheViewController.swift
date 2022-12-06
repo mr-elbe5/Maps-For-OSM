@@ -158,8 +158,7 @@ class TileCacheViewController: PopupScrollViewController{
         
         let errorsInfo = UILabel()
         errorsInfo.text = "unloadedTiles".localize()
-        contentView.addSubview(errorsInfo)
-        errorsInfo.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(errorsInfo, top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
         contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
         
