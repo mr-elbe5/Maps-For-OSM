@@ -12,17 +12,20 @@ class PopupTableViewController: UIViewController {
     var headerView = UIView()
     var tableView = UITableView()
     
-    var closeButton = UIButton().setIcon("xmark.circle", color: .white)
+    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
     
     override func loadView() {
         super.loadView()
         view.backgroundColor = .systemGray5
         let guide = view.safeAreaLayoutGuide
+        
         let spacer = UIView()
         spacer.backgroundColor = .systemGray6
         view.addSubviewWithAnchors(spacer, top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: guide.topAnchor, insets: .zero)
+        
         view.addSubviewWithAnchors(headerView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
         setupHeaderView()
+        
         view.addSubviewWithAnchors(tableView, top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: .zero)
         tableView.allowsSelection = false
         tableView.allowsSelectionDuringEditing = false
@@ -40,7 +43,7 @@ class PopupTableViewController: UIViewController {
                 .centerX(headerView.centerXAnchor)
         }
         
-        let closeButton = UIButton().setIcon("xmark.circle", color: .white)
+        let closeButton = UIButton().asIconButton("xmark.circle", color: .white)
         headerView.addSubviewWithAnchors(closeButton, top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
     }

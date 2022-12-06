@@ -33,6 +33,7 @@ class LabeledSwitchView : UIView{
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
         addSubviewWithAnchors(label, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor)
+        
         switcher.scaleBy(0.75)
         switcher.isOn = isOn
         switcher.addTarget(self, action: #selector(valueDidChange), for: .valueChanged)

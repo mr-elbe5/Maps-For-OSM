@@ -39,10 +39,10 @@ class ControlLayerView: UIView {
     var delegate : ControlLayerDelegate? = nil
     
     var controlLine = UIView()
-    var mapMenuControl = UIButton().setIcon("map")
-    var placeMenuControl = UIButton().setIcon("mappin")
-    var trackMenuControl = UIButton().setIcon("figure.walk")
-    var crossControl = UIButton().setIcon("plus.circle")
+    var mapMenuControl = UIButton().asIconButton("map")
+    var placeMenuControl = UIButton().asIconButton("mappin")
+    var trackMenuControl = UIButton().asIconButton("figure.walk")
+    var crossControl = UIButton().asIconButton("plus.circle")
     var currentTrackLine = CurrentTrackLine()
     var licenseView = UIView()
     
@@ -66,20 +66,20 @@ class ControlLayerView: UIView {
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
-        let focusUserLocationControl = UIButton().setIcon("record.circle")
+        let focusUserLocationControl = UIButton().asIconButton("record.circle")
         controlLine.addSubviewWithAnchors(focusUserLocationControl, top: controlLine.topAnchor, bottom: controlLine.bottomAnchor)
             .centerX(controlLine.centerXAnchor)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
-        let infoControl = UIButton().setIcon("info.circle")
+        let infoControl = UIButton().asIconButton("info.circle")
         controlLine.addSubviewWithAnchors(infoControl, top: controlLine.topAnchor, trailing: controlLine.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        let openCameraControl = UIButton().setIcon("camera")
+        let openCameraControl = UIButton().asIconButton("camera")
         controlLine.addSubviewWithAnchors(openCameraControl, top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
-        let openSearchControl = UIButton().setIcon("magnifyingglass")
+        let openSearchControl = UIButton().asIconButton("magnifyingglass")
         controlLine.addSubviewWithAnchors(openSearchControl, top: controlLine.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openSearchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
         
@@ -93,17 +93,20 @@ class ControlLayerView: UIView {
         crossControl.isHidden = !AppState.instance.showCross
         
         addSubviewWithAnchors(licenseView, top: currentTrackLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+        
         var label = UILabel()
         label.textColor = .darkGray
         label.font = .preferredFont(forTextStyle: .footnote)
         licenseView.addSubviewWithAnchors(label, top: licenseView.topAnchor, leading: licenseView.leadingAnchor, bottom: licenseView.bottomAnchor)
         label.text = "© "
+        
         let link = UIButton()
         link.setTitleColor(.systemBlue, for: .normal)
         link.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
         licenseView.addSubviewWithAnchors(link, top: licenseView.topAnchor, leading: label.trailingAnchor, bottom: licenseView.bottomAnchor)
         link.setTitle("OpenStreetMap", for: .normal)
         link.addTarget(self, action: #selector(openOSMUrl), for: .touchDown)
+        
         label = UILabel()
         label.textColor = .darkGray
         label.font = .preferredFont(forTextStyle: .footnote)

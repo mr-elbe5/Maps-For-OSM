@@ -26,8 +26,8 @@ class TrackDetailViewController: PopupScrollViewController{
         track != nil && track == TrackRecorder.track
     }
     
-    let mapButton = UIButton().setIcon("map", color: .white)
-    let deleteButton = UIButton().setIcon("trash", color: .white)
+    let mapButton = UIButton().asIconButton("map", color: .white)
+    let deleteButton = UIButton().asIconButton("trash", color: .white)
     
     // MainViewController
     var delegate : TrackDetailDelegate? = nil
@@ -50,26 +50,37 @@ class TrackDetailViewController: PopupScrollViewController{
     
     func setupContent() {
         if let track = track, !track.trackpoints.isEmpty {
+            
             var header = UILabel(header: "startLocation".localize())
             contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
+            
             let coordinateLabel = UILabel(text: track.trackpoints[0].coordinateString)
             contentView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
+            
             let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")
             contentView.addSubviewWithAnchors(timeLabel, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
+            
             header = UILabel(header: "name".localize())
             contentView.addSubviewWithAnchors(header, top: timeLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
+            
             let nameLabel = UILabel(text: track.name)
             contentView.addSubviewWithAnchors(nameLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
+            
             header = UILabel(header: "distances".localize())
             contentView.addSubviewWithAnchors(header, top: nameLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
+            
             let distanceLabel = UILabel(text: "\("distance".localize()): \(Int(track.distance))m")
             contentView.addSubviewWithAnchors(distanceLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
+            
             let upDistanceLabel = UILabel(text: "\("upDistance".localize()): \(Int(track.upDistance))m")
             contentView.addSubviewWithAnchors(upDistanceLabel, top: distanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
+            
             let downDistanceLabel = UILabel(text: "\("downDistance".localize()): \(Int(track.downDistance))m")
             contentView.addSubviewWithAnchors(downDistanceLabel, top: upDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
+            
             let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
             contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
+            
             if isActiveTrack{
                 let cancelButton = UIButton()
                 cancelButton.setTitle("cancel".localize(), for: .normal)

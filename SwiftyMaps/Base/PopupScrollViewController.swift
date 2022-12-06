@@ -16,7 +16,7 @@ class PopupScrollViewController: UIViewController {
     var scrollVertical : Bool = true
     var scrollHorizontal : Bool = false
     
-    var closeButton = UIButton().setIcon("xmark.circle", color: .white)
+    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
     
     override func loadView() {
         super.loadView()
@@ -24,7 +24,8 @@ class PopupScrollViewController: UIViewController {
         let guide = view.safeAreaLayoutGuide
         setupHeaderView()
         view.addSubviewWithAnchors(headerView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
-        self.view.addSubviewWithAnchors(scrollView, top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+        
+        view.addSubviewWithAnchors(scrollView, top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         scrollView.backgroundColor = .systemBackground
         scrollView.addSubviewWithAnchors(contentView, top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor)
         if scrollVertical{

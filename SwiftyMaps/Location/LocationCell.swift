@@ -43,29 +43,34 @@ class LocationCell: UITableViewCell{
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
         if let location = location{
-            let deleteButton = UIButton().setIcon("trash", color: .systemRed)
+            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
             deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
             cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            let viewButton = UIButton().setIcon("magnifyingglass", color: .systemBlue)
+            
+            let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
             viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
-            let mapButton = UIButton().setIcon("map")
+            
+            let mapButton = UIButton().asIconButton("map")
             mapButton.tintColor = UIColor.systemBlue
             mapButton.addTarget(self, action: #selector(showLocationOnMap), for: .touchDown)
             cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor
+            
             var label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
             label.text = location.address
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
             label.text = location.coordinateString
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             if !description.isEmpty{
                 label = UILabel()
                 label.numberOfLines = 0
@@ -74,6 +79,7 @@ class LocationCell: UITableViewCell{
                 cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 nextAnchor = label.bottomAnchor
             }
+            
             label = UILabel()
             label.text = String(location.photos.count) + " " + "photos".localize()
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)

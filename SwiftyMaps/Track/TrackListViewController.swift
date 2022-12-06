@@ -37,11 +37,11 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(){
         super.setupHeaderView()
         
-        let deleteButton = UIButton().setIcon("trash", color: .red)
+        let deleteButton = UIButton().asIconButton("trash", color: .red)
         headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteButton.addTarget(self, action: #selector(deleteAllTracks), for: .touchDown)
         
-        let loadButton = UIButton().setIcon("arrow.down.square", color: .white)
+        let loadButton = UIButton().asIconButton("arrow.down.square", color: .white)
         headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: deleteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
     }

@@ -31,7 +31,8 @@ class LocationListViewController: PopupTableViewController{
     
     override func setupHeaderView(){
         super.setupHeaderView()
-        let deleteButton = UIButton().setIcon("trash", color: .red)
+        
+        let deleteButton = UIButton().asIconButton("trash", color: .red)
         headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteButton.addTarget(self, action: #selector(deleteAllLocations), for: .touchDown)
     }

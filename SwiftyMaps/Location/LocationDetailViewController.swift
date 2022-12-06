@@ -13,8 +13,8 @@ protocol LocationViewDelegate{
 
 class LocationDetailViewController: PopupScrollViewController{
     
-    let editButton = UIButton().setIcon("pencil.circle", color: .white)
-    let deleteButton = UIButton().setIcon("trash", color: .white)
+    let editButton = UIButton().asIconButton("pencil.circle", color: .white)
+    let deleteButton = UIButton().asIconButton("trash", color: .white)
     
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
@@ -38,7 +38,7 @@ class LocationDetailViewController: PopupScrollViewController{
     override func setupHeaderView(){
         super.setupHeaderView()
         
-        let addPhotoButton = UIButton().setIcon("photo", color: .white)
+        let addPhotoButton = UIButton().asIconButton("photo", color: .white)
         headerView.addSubviewWithAnchors(addPhotoButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
         
@@ -54,19 +54,25 @@ class LocationDetailViewController: PopupScrollViewController{
             hadPhotos = place.hasPhotos
             var header = UILabel(header: "locationData".localize())
             contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+            
             let locationLabel = UILabel(text: place.address)
             contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+            
             let coordinateLabel = UILabel(text: place.coordinateString)
             contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+            
             header = UILabel(header: "description".localize())
             contentView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             setupDescriptionContainerView()
+            
             header = UILabel(header: "photos".localize())
             contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+            
             photoStackView.setupVertical()
             setupPhotoStackView()
             contentView.addSubviewWithAnchors(photoStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+            
             header = UILabel(header: "tracks".localize())
             contentView.addSubviewWithAnchors(header, top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         }
@@ -83,6 +89,7 @@ class LocationDetailViewController: PopupScrollViewController{
             descriptionView?.isScrollEnabled = false
             descriptionView?.setKeyboardToolbar(doneTitle: "done".localize())
             descriptionContainerView.addSubviewWithAnchors(descriptionView!, top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, insets: defaultInsets)
+            
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
             saveButton.setTitleColor(.systemBlue, for: .normal)

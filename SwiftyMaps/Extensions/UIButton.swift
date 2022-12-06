@@ -20,7 +20,7 @@ extension UIButton{
     }
     
     @discardableResult
-    func setIcon(_ icon: String, color: UIColor = .darkGray) -> UIButton{
+    func asIconButton(_ icon: String, color: UIColor = .darkGray) -> UIButton{
         setImage(UIImage(systemName: icon), for: .normal)
         self.tintColor = tintColor
         self.scaleBy(1.25)
@@ -28,8 +28,20 @@ extension UIButton{
     }
     
     @discardableResult
-    func setImage(_ image: String) -> UIButton{
+    func asImageButton(_ image: String) -> UIButton{
         setImage(UIImage(named: image), for: .normal)
+        return self
+    }
+    
+    func asTextButton(_ text: String, color: UIColor = .systemBlue, backgroundColor: UIColor? = nil) -> UIButton{
+        setTitle(text, for: .normal)
+        setTitleColor(color, for: .normal)
+        tintColor = color
+        if let bgcol = backgroundColor{
+            self.backgroundColor = bgcol
+            layer.cornerRadius = 5
+            layer.masksToBounds = true
+        }
         return self
     }
     

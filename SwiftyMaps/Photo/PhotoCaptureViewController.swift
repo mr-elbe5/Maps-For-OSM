@@ -23,21 +23,18 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     var delegate: PhotoCaptureDelegate? = nil
     
     var captureButton = CaptureButton()
-    var flashButton = UIButton().setIcon("bolt.badge.a", color: .white)
-    var cameraButton = UIButton().setIcon("camera.rotate", color: .white)
+    var flashButton = UIButton().asIconButton("bolt.badge.a", color: .white)
+    var cameraButton = UIButton().asIconButton("camera.rotate", color: .white)
     
     private let photoOutput = AVCapturePhotoOutput()
     
     override func addButtons(){
         super.addButtons()
-        captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
-        bodyView.addSubviewWithAnchors(captureButton, bottom: bodyView.bottomAnchor, insets: defaultInsets)
-            .centerX(bodyView.centerXAnchor)
-            .width(50)
-            .height(50)
+        
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         buttonView.addSubviewWithAnchors(cameraButton, top: buttonView.topAnchor, leading: buttonView.leadingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
+        
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
         buttonView.addSubviewWithAnchors(flashButton, top: buttonView.topAnchor, leading: cameraButton.trailingAnchor, bottom: buttonView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))

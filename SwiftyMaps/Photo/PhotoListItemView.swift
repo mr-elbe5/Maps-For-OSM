@@ -22,16 +22,20 @@ class PhotoListItemView : UIView{
     init(data: PhotoData){
         self.photoData = data
         super.init(frame: .zero)
-        let deleteButton = UIButton().setIcon("xmark.circle")
+        
+        let deleteButton = UIButton().asIconButton("xmark.circle")
         deleteButton.tintColor = UIColor.systemRed
         deleteButton.addTarget(self, action: #selector(deletePhoto), for: .touchDown)
         addSubviewWithAnchors(deleteButton, top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
-        let viewButton = UIButton().setIcon("magnifyingglass", color: .systemBlue)
+        
+        let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
         viewButton.addTarget(self, action: #selector(viewPhoto), for: .touchDown)
         addSubviewWithAnchors(viewButton, top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
-        let shareButton = UIButton().setIcon("square.and.arrow.up", color: .systemBlue)
+        
+        let shareButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
         shareButton.addTarget(self, action: #selector(sharePhoto), for: .touchDown)
         addSubviewWithAnchors(shareButton, top: topAnchor, trailing: viewButton.leadingAnchor, insets: flatInsets)
+        
         let imageView = UIImageView()
         imageView.setDefaults()
         imageView.setRoundedBorders()

@@ -36,10 +36,14 @@ class CameraViewController: UIViewController {
         super.loadView()
         view.addSubviewFillingSafeArea(bodyView)
         bodyView.backgroundColor = .black
+        
         bodyView.addSubviewWithAnchors(buttonView, top: bodyView.topAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor)
         buttonView.backgroundColor = .black
+        
         addButtons()
+        
         bodyView.addSubviewWithAnchors(preview, top: buttonView.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
+        
         preview.backgroundColor = .black
         addCaptureButton()
         AVCaptureDevice.askCameraAuthorization(){ result in
@@ -52,7 +56,7 @@ class CameraViewController: UIViewController {
     }
     
     func addButtons(){
-        let closeButton = UIButton().setIcon("xmark.circle", color: .white)
+        let closeButton = UIButton().asIconButton("xmark.circle", color: .white)
         bodyView.addSubviewWithAnchors(closeButton, top: buttonView.topAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
     }
@@ -273,7 +277,7 @@ class CameraPreviewView: UIView {
         guard let layer = layer as? AVCaptureVideoPreviewLayer else {
             fatalError("bad layer type - AVCaptureVideoPreviewLayer expected")
         }
-        layer.videoGravity = .resizeAspectFill
+        layer.videoGravity = .resizeAspect
         return layer
     }
     

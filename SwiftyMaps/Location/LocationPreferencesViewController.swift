@@ -24,7 +24,6 @@ class LocationPreferencesViewController: PopupScrollViewController{
         maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(LocationPreferences.instance.maxLocationMergeDistance)), isHorizontal: true)
         contentView.addSubviewWithAnchors(maxLocationMergeDistanceField, top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)

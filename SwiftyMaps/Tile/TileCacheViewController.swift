@@ -145,6 +145,7 @@ class TileCacheViewController: PopupScrollViewController{
         startButton.setTitleColor(.systemGray, for: .disabled)
         startButton.addTarget(self, action: #selector(startDownload), for: .touchDown)
         contentView.addSubviewWithAnchors(startButton, top: tilesToLoadLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.centerXAnchor, insets: defaultInsets)
+        
         cancelButton.setTitle("cancel".localize(), for: .normal)
         cancelButton.setTitleColor(.systemBlue, for: .normal)
         cancelButton.setTitleColor(.systemGray, for: .disabled)

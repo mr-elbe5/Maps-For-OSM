@@ -28,12 +28,14 @@ class LabeledTextField : UIView, UITextFieldDelegate{
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
         addSubview(label)
+        
         textField.setDefaults()
         textField.text = text
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         addSubview(textField)
         textField.setKeyboardToolbar(doneTitle: "done".localize())
+        
         if isHorizontal{
             label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: centerXAnchor, bottom: bottomAnchor)
             textField.setAnchors(top: topAnchor, leading: centerXAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
