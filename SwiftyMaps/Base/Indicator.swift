@@ -34,7 +34,6 @@ class Indicator{
 
             indicatorView.addSubview(activityIndicator)
             window.addSubview(indicatorView)
-
             activityIndicator.startAnimating()
     }
 

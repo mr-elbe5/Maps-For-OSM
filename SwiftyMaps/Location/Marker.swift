@@ -6,7 +6,7 @@
 
 import UIKit
 
-class Pin : UIButton{
+class Marker : UIButton{
     
     var baseFrame : CGRect = .zero
     

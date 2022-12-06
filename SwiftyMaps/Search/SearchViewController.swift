@@ -24,20 +24,17 @@ class SearchViewController: PopupScrollViewController{
         super.loadView()
         
         searchField.setupView(labelText: "searchField".localize(), text: "", isHorizontal: false)
-        contentView.addSubview(searchField)
-        searchField.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(searchField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let searchButton = UIButton()
         searchButton.setTitle("search".localize(), for: .normal)
         searchButton.setTitleColor(.systemBlue, for: .normal)
         searchButton.addTarget(self, action: #selector(search), for: .touchDown)
-        contentView.addSubview(searchButton)
-        searchButton.setAnchors(top: searchField.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(searchButton, top: searchField.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
-        contentView.addSubview(resultView)
+        contentView.addSubviewWithAnchors(resultView, top: searchButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         resultView.setupVertical()
-        resultView.setAnchors(top: searchButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
     }
     

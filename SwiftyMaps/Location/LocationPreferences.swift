@@ -9,21 +9,21 @@ import UIKit
 import AVKit
 import CoreLocation
 
-class PlacePreferences: Identifiable, Codable{
+class LocationPreferences: Identifiable, Codable{
     
-    static var storeKey = "placePreferences"
+    static var storeKey = "locationPreferences"
     
-    static var instance = PlacePreferences()
+    static var instance = LocationPreferences()
     
     static var defaultMinLocationAccuracy : CLLocationDistance = 5.0
     static var defaultMaxLocationMergeDistance : CLLocationDistance = 10.0
     
     static func loadInstance(){
-        if let prefs : PlacePreferences = DataController.shared.load(forKey: PlacePreferences.storeKey){
+        if let prefs : LocationPreferences = DataController.shared.load(forKey: LocationPreferences.storeKey){
             instance = prefs
         }
         else{
-            instance = PlacePreferences()
+            instance = LocationPreferences()
         }
     }
     
@@ -40,8 +40,8 @@ class PlacePreferences: Identifiable, Codable{
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        minLocationAcciuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAcciuracy) ?? PlacePreferences.defaultMinLocationAccuracy
-        maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? PlacePreferences.defaultMaxLocationMergeDistance
+        minLocationAcciuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAcciuracy) ?? LocationPreferences.defaultMinLocationAccuracy
+        maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? LocationPreferences.defaultMaxLocationMergeDistance
         
     }
     
@@ -52,7 +52,7 @@ class PlacePreferences: Identifiable, Codable{
     }
     
     func save(){
-        DataController.shared.save(forKey: PlacePreferences.storeKey, value: self)
+        DataController.shared.save(forKey: LocationPreferences.storeKey, value: self)
     }
     
     

@@ -37,15 +37,13 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(){
         super.setupHeaderView()
         
-        let deleteButton = IconButton(icon: "trash", tintColor: .red)
-        headerView.addSubview(deleteButton)
+        let deleteButton = UIButton().setIcon("trash", color: .red)
+        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteButton.addTarget(self, action: #selector(deleteAllTracks), for: .touchDown)
-        deleteButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         
-        let loadButton = IconButton(icon: "arrow.down.square", tintColor: .white)
-        headerView.addSubview(loadButton)
+        let loadButton = UIButton().setIcon("arrow.down.square", color: .white)
+        headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: deleteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
-        loadButton.setAnchors(top: headerView.topAnchor, leading: deleteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
     }
     
     @objc func deleteAllTracks(){
@@ -173,7 +171,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                             track.name = alertController.textFields![0].text ?? url.lastPathComponent
                             Tracks.addTrack(track: track)
-                            Places.save()
+                            Locations.save()
                             self.tracks?.append(track)
                             self.tableView.reloadData()
                         })

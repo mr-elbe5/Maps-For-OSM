@@ -19,5 +19,19 @@ extension UIButton{
         setTitleColor(UIColor.systemGray3, for: .disabled)
     }
     
+    @discardableResult
+    func setIcon(_ icon: String, color: UIColor = .darkGray) -> UIButton{
+        setImage(UIImage(systemName: icon), for: .normal)
+        self.tintColor = tintColor
+        self.scaleBy(1.25)
+        return self
+    }
+    
+    @discardableResult
+    func setImage(_ image: String) -> UIButton{
+        setImage(UIImage(named: image), for: .normal)
+        return self
+    }
+    
 }
 

@@ -11,7 +11,7 @@ class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var placeLayerView = PlaceLayerView()
+    var placeLayerView = LocationLayerView()
     var userLocationView = UserLocationView()
     var controlLayerView = ControlLayerView()
     
@@ -26,32 +26,27 @@ class MapView: UIView {
     
     func setupScrollView(){
         scrollView = MapScrollView(frame: bounds)
-        addSubview(scrollView)
-        scrollView.fillView(view: self)
+        addSubviewFilling(scrollView)
         scrollView.mapDelegate = self
     }
     
     func setupTrackLayerView(){
         trackLayerView.backgroundColor = .clear
-        addSubview(trackLayerView)
-        trackLayerView.fillView(view: self)
+        addSubviewFilling(trackLayerView)
     }
     
     func setupPlaceLayerView(){
-        addSubview(placeLayerView)
-        placeLayerView.fillView(view: self)
+        addSubviewFilling(placeLayerView)
         placeLayerView.isHidden = !AppState.instance.showPins
     }
     
     func setupUserLocationView(){
         userLocationView.backgroundColor = .clear
-        addSubview(userLocationView)
-        userLocationView.fillView(view: self)
+        addSubviewFilling(userLocationView)
     }
     
     func setupControlLayerView(){
-        addSubview(controlLayerView)
-        controlLayerView.fillView(view: self)
+        addSubviewFilling(controlLayerView)
         controlLayerView.setup()
     }
 
@@ -60,7 +55,7 @@ class MapView: UIView {
     }
     
     func updatePlaceLayer(){
-        placeLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -131,7 +126,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didChangeZoom() {
-        placeLayerView.setupPins(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)
     }
     

@@ -16,8 +16,7 @@ class InfoViewController: PopupScrollViewController {
     override func loadView() {
         title = "Info"
         super.loadView()
-        contentView.addSubview(stackView)
-        stackView.fillView(view: contentView, insets: defaultInsets)
+        contentView.addSubviewFilling(stackView, insets: defaultInsets)
         stackView.setupVertical()
         
         stackView.addArrangedSubview(UILabel(header: "appInfoHeader".localize()))

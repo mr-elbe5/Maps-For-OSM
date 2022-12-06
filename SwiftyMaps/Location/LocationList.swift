@@ -6,9 +6,9 @@
 
 import Foundation
 
-typealias PlaceList = Array<Place>
+typealias LocationList = Array<Location>
     
-extension PlaceList{
+extension LocationList{
     
     
     

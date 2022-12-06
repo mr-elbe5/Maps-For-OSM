@@ -22,8 +22,7 @@ class PhotoViewController: PopupScrollViewController, UIScrollViewDelegate {
             imageView = UIImageView(image: image)
             imageView!.contentMode = .scaleAspectFit
             imageView!.isUserInteractionEnabled = true
-            scrollView.addSubview(imageView!)
-            imageView!.fillView(view: scrollView)
+            scrollView.addSubviewFilling(imageView!)
         }
     }
     

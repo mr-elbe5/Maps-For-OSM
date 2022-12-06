@@ -22,25 +22,21 @@ class PhotoListItemView : UIView{
     init(data: PhotoData){
         self.photoData = data
         super.init(frame: .zero)
-        let deleteButton = IconButton(icon: "xmark.circle")
+        let deleteButton = UIButton().setIcon("xmark.circle")
         deleteButton.tintColor = UIColor.systemRed
         deleteButton.addTarget(self, action: #selector(deletePhoto), for: .touchDown)
-        addSubview(deleteButton)
-        deleteButton.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
-        let viewButton = IconButton(icon: "magnifyingglass", tintColor: .systemBlue)
+        addSubviewWithAnchors(deleteButton, top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
+        let viewButton = UIButton().setIcon("magnifyingglass", color: .systemBlue)
         viewButton.addTarget(self, action: #selector(viewPhoto), for: .touchDown)
-        addSubview(viewButton)
-        viewButton.setAnchors(top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
-        let shareButton = IconButton(icon: "square.and.arrow.up", tintColor: .systemBlue)
+        addSubviewWithAnchors(viewButton, top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
+        let shareButton = UIButton().setIcon("square.and.arrow.up", color: .systemBlue)
         shareButton.addTarget(self, action: #selector(sharePhoto), for: .touchDown)
-        addSubview(shareButton)
-        shareButton.setAnchors(top: topAnchor, trailing: viewButton.leadingAnchor, insets: flatInsets)
+        addSubviewWithAnchors(shareButton, top: topAnchor, trailing: viewButton.leadingAnchor, insets: flatInsets)
         let imageView = UIImageView()
         imageView.setDefaults()
         imageView.setRoundedBorders()
-        addSubview(imageView)
+        addSubviewWithAnchors(imageView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
         imageView.image = photoData.getImage()
-        imageView.setAnchors(top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
         imageView.setAspectRatioConstraint()
     }
     

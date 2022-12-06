@@ -33,8 +33,7 @@ class TrackCell: UITableViewCell{
         shouldIndentWhileEditing = false
         cellBody.backgroundColor = .white
         cellBody.layer.cornerRadius = 5
-        contentView.addSubview(cellBody)
-        cellBody.fillView(view: contentView, insets: defaultInsets)
+        contentView.addSubviewFilling(cellBody, insets: defaultInsets)
         accessoryType = .none
         updateCell()
     }
@@ -48,8 +47,7 @@ class TrackCell: UITableViewCell{
         if let track = track{
             let trackView = TrackListItemView(data: track)
             trackView.delegate = self
-            cellBody.addSubview(trackView)
-            trackView.fillView(view: cellBody)
+            cellBody.addSubviewFilling(trackView)
             
         }
     }

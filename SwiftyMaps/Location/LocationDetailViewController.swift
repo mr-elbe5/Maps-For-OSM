@@ -7,14 +7,14 @@
 import Foundation
 import UIKit
 
-protocol PlaceViewDelegate{
-    func updatePlaceLayer()
+protocol LocationViewDelegate{
+    func updateMarkerLayer()
 }
 
-class PlaceDetailViewController: PopupScrollViewController{
+class LocationDetailViewController: PopupScrollViewController{
     
-    let editButton = IconButton(icon: "pencil.circle", tintColor: .white)
-    let deleteButton = IconButton(icon: "trash", tintColor: .white)
+    let editButton = UIButton().setIcon("pencil.circle", color: .white)
+    let deleteButton = UIButton().setIcon("trash", color: .white)
     
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
@@ -22,10 +22,10 @@ class PlaceDetailViewController: PopupScrollViewController{
     
     var editMode = false
     
-    var place: Place? = nil
+    var location: Location? = nil
     var hadPhotos = false
     
-    var delegate: PlaceViewDelegate? = nil
+    var delegate: LocationViewDelegate? = nil
     
     override func loadView() {
         title = "location".localize()
@@ -38,54 +38,43 @@ class PlaceDetailViewController: PopupScrollViewController{
     override func setupHeaderView(){
         super.setupHeaderView()
         
-        let addPhotoButton = IconButton(icon: "photo", tintColor: .white)
-        headerView.addSubview(addPhotoButton)
+        let addPhotoButton = UIButton().setIcon("photo", color: .white)
+        headerView.addSubviewWithAnchors(addPhotoButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
-        addPhotoButton.setAnchors(top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         
-        headerView.addSubview(editButton)
+        headerView.addSubviewWithAnchors(editButton, top: headerView.topAnchor, leading: addPhotoButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
-        editButton.setAnchors(top: headerView.topAnchor, leading: addPhotoButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         
-        headerView.addSubview(deleteButton)
-        deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
-        deleteButton.setAnchors(top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
     }
     
     func setupContent(){
-        if let place = place{
+        if let place = location{
             hadPhotos = place.hasPhotos
             var header = UILabel(header: "locationData".localize())
-            contentView.addSubview(header)
-            header.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             let locationLabel = UILabel(text: place.address)
-            contentView.addSubview(locationLabel)
-            locationLabel.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             let coordinateLabel = UILabel(text: place.coordinateString)
-            contentView.addSubview(coordinateLabel)
-            coordinateLabel.setAnchors(top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+            contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
             header = UILabel(header: "description".localize())
-            contentView.addSubview(header)
-            header.setAnchors(top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-            contentView.addSubview(descriptionContainerView)
-            descriptionContainerView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+            contentView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             setupDescriptionContainerView()
             header = UILabel(header: "photos".localize())
-            contentView.addSubview(header)
-            header.setAnchors(top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             photoStackView.setupVertical()
             setupPhotoStackView()
-            contentView.addSubview(photoStackView)
-            photoStackView.setAnchors(top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+            contentView.addSubviewWithAnchors(photoStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
             header = UILabel(header: "tracks".localize())
-            contentView.addSubview(header)
-            header.setAnchors(top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(header, top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         }
     }
     
     func setupDescriptionContainerView(){
         descriptionContainerView.removeAllSubviews()
-        guard let location = place else {return}
+        guard let location = location else {return}
         if editMode{
             descriptionView = TextEditArea()
             descriptionView!.text = location.description
@@ -93,28 +82,25 @@ class PlaceDetailViewController: PopupScrollViewController{
             descriptionView?.setDefaults()
             descriptionView?.isScrollEnabled = false
             descriptionView?.setKeyboardToolbar(doneTitle: "done".localize())
-            descriptionContainerView.addSubview(descriptionView!)
-            descriptionView!.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, insets: defaultInsets)
+            descriptionContainerView.addSubviewWithAnchors(descriptionView!, top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, insets: defaultInsets)
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
             saveButton.setTitleColor(.systemBlue, for: .normal)
             saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-            descriptionContainerView.addSubview(saveButton)
-            saveButton.setAnchors(top: descriptionView!.bottomAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
+            descriptionContainerView.addSubviewWithAnchors(saveButton, top: descriptionView!.bottomAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
                 .centerX(descriptionContainerView.centerXAnchor)
         }
         else{
             descriptionView = nil
             let descriptionLabel = UILabel(text: location.description)
-            descriptionContainerView.addSubview(descriptionLabel)
-            descriptionLabel.setAnchors(top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
+            descriptionContainerView.addSubviewWithAnchors(descriptionLabel, top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
         }
     }
     
     func setupPhotoStackView(){
         photoStackView.removeAllArrangedSubviews()
         photoStackView.removeAllSubviews()
-        guard let location = place else {return}
+        guard let location = location else {return}
         for photo in location.photos{
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
@@ -145,12 +131,12 @@ class PlaceDetailViewController: PopupScrollViewController{
         setupPhotoStackView()
     }
     
-    @objc func deletePlace(){
-        if let place = place{
+    @objc func deleteLocation(){
+        if let location = location{
             showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-                Places.deletePlace(place)
+                Locations.deletePlace(location)
                 self.dismiss(animated: true){
-                    self.delegate?.updatePlaceLayer()
+                    self.delegate?.updateMarkerLayer()
                 }
             }
         }
@@ -158,29 +144,29 @@ class PlaceDetailViewController: PopupScrollViewController{
     
     @objc func save(){
         var needsUpdate = false
-        if let place = place{
-            place.note = descriptionView?.text ?? ""
-            Places.save()
-            needsUpdate = place.hasPhotos != hadPhotos
+        if let location = location{
+            location.note = descriptionView?.text ?? ""
+            Locations.save()
+            needsUpdate = location.hasPhotos != hadPhotos
         }
         self.dismiss(animated: true){
             if needsUpdate{
-                self.delegate?.updatePlaceLayer()
+                self.delegate?.updateMarkerLayer()
             }
         }
     }
     
 }
 
-extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
         let photo = PhotoData()
         if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
-            place?.addPhoto(photo: photo)
-            Places.save()
-            delegate?.updatePlaceLayer()
+            location?.addPhoto(photo: photo)
+            Locations.save()
+            delegate?.updateMarkerLayer()
             let photoView = PhotoListItemView(data: photo)
             photoView.delegate = self
             photoStackView.addArrangedSubview(photoView)
@@ -190,7 +176,7 @@ extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigati
     
 }
 
-extension PlaceDetailViewController: PhotoListItemDelegate{
+extension LocationDetailViewController: PhotoListItemDelegate{
     
     func viewPhoto(sender: PhotoListItemView) {
         let photoViewController = PhotoViewController()
@@ -219,10 +205,10 @@ extension PlaceDetailViewController: PhotoListItemDelegate{
     
     func deletePhoto(sender: PhotoListItemView) {
         showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
-            if let place = self.place{
+            if let place = self.location{
                 place.deletePhoto(photo: sender.photoData)
-                Places.save()
-                self.delegate?.updatePlaceLayer()
+                Locations.save()
+                self.delegate?.updateMarkerLayer()
                 for subView in self.photoStackView.subviews{
                     if subView == sender{
                         self.photoStackView.removeArrangedSubview(subView)

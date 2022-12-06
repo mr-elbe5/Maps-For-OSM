@@ -8,14 +8,14 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class PlaceGroup{
+class LocationGroup{
     
     var center: CLLocationCoordinate2D? = nil
     var centerPlanetPosition: CGPoint? = nil
-    var places = PlaceList()
+    var locations = LocationList()
     
     var hasPhotos: Bool{
-        for location in places{
+        for location in locations{
             if location.hasPhotos{
                 return true
             }
@@ -24,7 +24,7 @@ class PlaceGroup{
     }
     
     var hasTracks: Bool{
-        for location in places{
+        for location in locations{
             if location.hasTracks{
                 return true
             }
@@ -32,10 +32,10 @@ class PlaceGroup{
         return false
     }
     
-    func isWithinRadius(place: Place, radius: CGFloat) -> Bool{
+    func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
         //print("checkking radius")
         if let center = center{
-            let dist = center.distance(to: place.coordinate)
+            let dist = center.distance(to: location.coordinate)
             //print("dist = \(dist) at radius \(radius)")
             return dist <= radius
         }
@@ -44,12 +44,12 @@ class PlaceGroup{
         }
     }
     
-    func hasPlace(place: Place) -> Bool{
-        places.contains(place)
+    func hasLocation(location: Location) -> Bool{
+        locations.contains(location)
     }
     
-    func addPlace(place: Place){
-        places.append(place)
+    func addLocation(location: Location){
+        locations.append(location)
     }
     
     func setCenter(){
@@ -58,7 +58,7 @@ class PlaceGroup{
         var minLat : CGFloat? = nil
         var maxLat : CGFloat? = nil
         
-        for loc in places{
+        for loc in locations{
             minLon = min(minLon ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
             maxLon = max(maxLon ?? -CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
             minLat = min(minLat ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.latitude)

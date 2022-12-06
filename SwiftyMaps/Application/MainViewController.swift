@@ -48,11 +48,11 @@ extension MainViewController: LocationServiceDelegate{
     
 }
 
-extension MainViewController: PlaceLayerViewDelegate{
+extension MainViewController: LocationLayerViewDelegate{
     
-    func showPlaceDetails(place: Place) {
-        let controller = PlaceDetailViewController()
-        controller.place = place
+    func showLocationDetails(place: Location) {
+        let controller = LocationDetailViewController()
+        controller.location = place
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -86,12 +86,12 @@ extension MainViewController: ControlLayerDelegate{
     func addPlace(){
         let coordinate = mapView.scrollView.screenCenterCoordinate
         assertPlace(coordinate: coordinate){ place in
-            self.updatePlaceLayer()
+            self.updateMarkerLayer()
         }
     }
     
     func openPlaceList() {
-        let controller = PlaceListViewController()
+        let controller = LocationListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -103,7 +103,7 @@ extension MainViewController: ControlLayerDelegate{
     }
     
     func openPlacePreferences(){
-        let controller = PlacePreferencesViewController()
+        let controller = LocationPreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -222,10 +222,10 @@ extension MainViewController: PhotoCaptureDelegate{
             assertPlace(coordinate: location.coordinate){ place in
                 let changeState = place.photos.isEmpty
                 place.addPhoto(photo: photo)
-                Places.save()
+                Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
-                        self.updatePlaceLayer()
+                        self.updateMarkerLayer()
                     }
                 }
             }
@@ -234,29 +234,29 @@ extension MainViewController: PhotoCaptureDelegate{
     
 }
 
-extension MainViewController: PlaceViewDelegate{
+extension MainViewController: LocationViewDelegate{
     
-    func updatePlaceLayer() {
+    func updateMarkerLayer() {
         mapView.updatePlaceLayer()
     }
     
 }
 
-extension MainViewController: PlaceListDelegate{
+extension MainViewController: LocationListDelegate{
     
-    func showPlaceOnMap(place: Place) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
+    func showLocationOnMap(location: Location) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
     }
     
-    func deletePlace(place: Place) {
-        Places.deletePlace(place)
-        Places.save()
-        updatePlaceLayer()
+    func deleteLocation(location: Location) {
+        Locations.deletePlace(location)
+        Locations.save()
+        updateMarkerLayer()
     }
     
-    func deleteAllPlaces() {
-        Places.deleteAllPlaces()
-        self.updatePlaceLayer()
+    func deleteAllLocations() {
+        Locations.deleteAllPlaces()
+        self.updateMarkerLayer()
     }
 
 }
@@ -334,7 +334,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.name = alertController.textFields![0].text ?? "Route"
-                Places.save()
+                Locations.save()
                 Tracks.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()

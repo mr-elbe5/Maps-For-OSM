@@ -75,18 +75,15 @@ class TileCacheViewController: PopupScrollViewController{
         note.numberOfLines = 0
         note.lineBreakMode = .byWordWrapping
         note.text = "mapPreloadNote".localize()
-        contentView.addSubview(note)
-        note.setAnchors(top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(note, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let typeLabel = UILabel()
         typeLabel.text = "\("currentMapType:".localize()) \(AppState.instance.mapType)"
-        contentView.addSubview(typeLabel)
-        typeLabel.setAnchors(top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(typeLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         let sourceLabel = UILabel()
         sourceLabel.text = "\("currentTileSource:".localize()) \(AppState.currentUrlTemplate)"
-        contentView.addSubview(sourceLabel)
-        sourceLabel.setAnchors(top: typeLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(sourceLabel, top: typeLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         minZoom = World.minZoom
         maxZoom = World.maxZoom
@@ -96,96 +93,81 @@ class TileCacheViewController: PopupScrollViewController{
         
         var label = UILabel()
         label.text = "fromZoom:".localize()
-        contentView.addSubview(label)
-        label.setAnchors(top: sourceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(label, top: sourceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         minZoomSlider.minimumValue = minFloat
         minZoomSlider.maximumValue = maxFloat
         minZoomSlider.value = minFloat
         minZoomSlider.minimumTrackTintColor = trackTintColor
         minZoomSlider.maximumTrackTintColor = trackTintColor
-        contentView.addSubview(minZoomSlider)
-        minZoomSlider.setAnchors(top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(minZoomSlider, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
         minZoomSlider.addTarget(self, action: #selector(minZoomChanged), for: .valueChanged)
         
         minZoomLabel = UILabel()
         minZoomLabel.text = "\(minZoom)"
-        contentView.addSubview(minZoomLabel)
-        minZoomLabel.setAnchors(top: minZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(minZoomLabel, top: minZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
         
         label = UILabel()
         label.text = "toZoom:".localize()
-        contentView.addSubview(label)
-        label.setAnchors(top: minZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(label, top: minZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         maxZoomSlider.minimumValue = minFloat
         maxZoomSlider.maximumValue = maxFloat
         maxZoomSlider.value = maxFloat - 2
         maxZoomSlider.minimumTrackTintColor = trackTintColor
         maxZoomSlider.maximumTrackTintColor = trackTintColor
-        contentView.addSubview(maxZoomSlider)
-        maxZoomSlider.setAnchors(top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(maxZoomSlider, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
         maxZoomSlider.addTarget(self, action: #selector(maxZoomChanged), for: .valueChanged)
         
         maxZoomLabel = UILabel()
         maxZoomLabel.text = "\(maxZoom)"
-        contentView.addSubview(maxZoomLabel)
-        maxZoomLabel.setAnchors(top: maxZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(maxZoomLabel, top: maxZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
         
         let allTilesLabel = UILabel()
         allTilesLabel.text = "allTilesForDownload".localize()
-        contentView.addSubview(allTilesLabel)
-        allTilesLabel.setAnchors(top: maxZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubview(allTilesValueLabel)
-        allTilesValueLabel.setAnchors(top: maxZoomLabel.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(allTilesLabel, top: maxZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(allTilesValueLabel, top: maxZoomLabel.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
         
         let existingTilesLabel = UILabel()
         existingTilesLabel.text = "existingTiles".localize()
-        contentView.addSubview(existingTilesLabel)
+        contentView.addSubviewWithAnchors(existingTilesLabel)
         existingTilesLabel.setAnchors(top: allTilesLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubview(existingTilesValueLabel)
-        existingTilesValueLabel.setAnchors(top: allTilesLabel.bottomAnchor, leading: existingTilesLabel.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(existingTilesValueLabel, top: allTilesLabel.bottomAnchor, leading: existingTilesLabel.trailingAnchor, insets: defaultInsets)
         
         let tilesToLoadLabel = UILabel()
         tilesToLoadLabel.text = "tilesToLoad".localize()
-        contentView.addSubview(tilesToLoadLabel)
+        contentView.addSubviewWithAnchors(tilesToLoadLabel)
         tilesToLoadLabel.setAnchors(top: existingTilesLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubview(tilesToLoadValueLabel)
-        tilesToLoadValueLabel.setAnchors(top: existingTilesLabel.bottomAnchor, leading: tilesToLoadLabel.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(tilesToLoadValueLabel, top: existingTilesLabel.bottomAnchor, leading: tilesToLoadLabel.trailingAnchor, insets: defaultInsets)
         
         startButton.setTitle("startPreload".localize(), for: .normal)
         startButton.setTitleColor(.systemBlue, for: .normal)
         startButton.setTitleColor(.systemGray, for: .disabled)
         startButton.addTarget(self, action: #selector(startDownload), for: .touchDown)
-        contentView.addSubview(startButton)
-        startButton.setAnchors(top: tilesToLoadLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.centerXAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(startButton, top: tilesToLoadLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.centerXAnchor, insets: defaultInsets)
         cancelButton.setTitle("cancel".localize(), for: .normal)
         cancelButton.setTitleColor(.systemBlue, for: .normal)
         cancelButton.setTitleColor(.systemGray, for: .disabled)
         cancelButton.addTarget(self, action: #selector(cancelDownload), for: .touchDown)
-        contentView.addSubview(cancelButton)
-        cancelButton.setAnchors(top: tilesToLoadLabel.bottomAnchor, leading: contentView.centerXAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(cancelButton, top: tilesToLoadLabel.bottomAnchor, leading: contentView.centerXAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         loadedTilesSlider.minimumValue = 0
         loadedTilesSlider.maximumValue = Float(allTiles)
         loadedTilesSlider.value = 0
-        contentView.addSubview(loadedTilesSlider)
-        loadedTilesSlider.setAnchors(top: startButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(loadedTilesSlider, top: startButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
         
         let errorsInfo = UILabel()
         errorsInfo.text = "unloadedTiles".localize()
         contentView.addSubview(errorsInfo)
         errorsInfo.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
-        contentView.addSubview(errorsValueLabel)
-        errorsValueLabel.setAnchors(top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
         
         deleteButton.setTitle("deleteAll".localize(), for: .normal)
         deleteButton.setTitleColor(.systemBlue, for: .normal)
         deleteButton.setTitleColor(.systemGray, for: .disabled)
         deleteButton.addTarget(self, action: #selector(deleteTiles), for: .touchDown)
-        contentView.addSubview(deleteButton)
-        deleteButton.setAnchors(top: errorsValueLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets).centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(deleteButton, top: errorsValueLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets).centerX(contentView.centerXAnchor)
         
         recalculateTiles()
         

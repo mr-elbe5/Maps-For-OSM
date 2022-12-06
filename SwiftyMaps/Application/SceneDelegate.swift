@@ -14,12 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //TestCenter.testWorld()
         FileController.initialize()
         TileSources.loadInstance()
-        PlacePreferences.loadInstance()
+        LocationPreferences.loadInstance()
         TrackPreferences.loadInstance()
         AppState.initialize()
         AppState.loadInstance()
         //MapTiles.dumpTiles()
-        Places.load()
+        Locations.load()
         Tracks.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -56,13 +56,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func sceneDidEnterBackground(_ scene: UIScene) {
         AppState.instance.save()
-        Places.save()
+        Locations.save()
         Tracks.save()
         if !TrackRecorder.isRecording{
             LocationService.instance.stop()
         }
         TileSources.instance.save()
-        PlacePreferences.instance.save()
+        LocationPreferences.instance.save()
         TrackPreferences.instance.save()
         mainController.mapView.savePosition()
     }
