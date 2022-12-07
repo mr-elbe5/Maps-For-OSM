@@ -9,28 +9,28 @@ import CoreLocation
 
 extension UIViewController{
     
-    func assertPlace(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
-        if let nearestPlace = Locations.placeNextTo(coordinate: coordinate, maxDistance: LocationPreferences.instance.maxLocationMergeDistance){
-            var txt = nearestPlace.description
+    func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
+        if let nearestLocation = Locations.locationNextTo(coordinate: coordinate, maxDistance: LocationPreferences.instance.maxLocationMergeDistance){
+            var txt = nearestLocation.description
             if !txt.isEmpty{
                 txt += ", "
             }
-            txt += nearestPlace.coordinateString
+            txt += nearestLocation.coordinateString
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                let place = Locations.addPlace(coordinate: coordinate)
+                let location = Locations.addLocation(coordinate: coordinate)
                 Locations.save()
-                onComplete?(place)
+                onComplete?(location)
             })
             alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
-                onComplete?(nearestPlace)
+                onComplete?(nearestLocation)
             })
             self.present(alertController, animated: true)
         }
         else{
-            let place = Locations.addPlace(coordinate: coordinate)
+            let location = Locations.addLocation(coordinate: coordinate)
             Locations.save()
-            onComplete?(place)
+            onComplete?(location)
         }
     }
     

@@ -21,6 +21,8 @@ protocol MainMenuDelegate{
     func openTrackList()
     func openTrackPreferences()
     
+    func updateCross()
+    
     func focusUserLocation()
     
     func openSearch()
@@ -28,8 +30,6 @@ protocol MainMenuDelegate{
     func openCamera()
     
     func openInfo()
-    
-    func addLocation()
     
 }
 
@@ -42,7 +42,6 @@ class MainMenuView: UIView {
     var mapMenuControl = UIButton().asIconButton("map")
     var locationMenuControl = UIButton().asIconButton("mappin")
     var trackMenuControl = UIButton().asIconButton("figure.walk")
-    var crossControl = UIButton().asIconButton("plus.circle")
     var currentTrackLine = CurrentTrackLine()
     var licenseView = UIView()
     
@@ -58,13 +57,17 @@ class MainMenuView: UIView {
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        iconLine.addSubviewWithAnchors(locationMenuControl, top: iconLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        iconLine.addSubviewWithAnchors(locationMenuControl, top: iconLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
         locationMenuControl.menu = getLocationMenu()
         locationMenuControl.showsMenuAsPrimaryAction = true
         
-        iconLine.addSubviewWithAnchors(trackMenuControl, top: iconLine.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        iconLine.addSubviewWithAnchors(trackMenuControl, top: iconLine.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
+        
+        let crossControl = UIButton().asIconButton("plus.circle")
+        iconLine.addSubviewWithAnchors(crossControl, top: iconLine.topAnchor, leading: trackMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
+        crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
         
         let focusUserLocationControl = UIButton().asIconButton("record.circle")
         iconLine.addSubviewWithAnchors(focusUserLocationControl, top: iconLine.topAnchor, bottom: iconLine.bottomAnchor)
@@ -76,21 +79,15 @@ class MainMenuView: UIView {
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
         let openCameraControl = UIButton().asIconButton("camera")
-        iconLine.addSubviewWithAnchors(openCameraControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        iconLine.addSubviewWithAnchors(openCameraControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
         let openSearchControl = UIButton().asIconButton("magnifyingglass")
-        iconLine.addSubviewWithAnchors(openSearchControl, top: iconLine.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        iconLine.addSubviewWithAnchors(openSearchControl, top: iconLine.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
         openSearchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
         
         currentTrackLine.setup()
         addSubviewWithAnchors(currentTrackLine, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
-        
-        crossControl.tintColor = UIColor.red
-        addSubviewCentered(crossControl, centerX: centerXAnchor, centerY: centerYAnchor)
-        crossControl.menu = getCrossMenu()
-        crossControl.showsMenuAsPrimaryAction = true
-        crossControl.isHidden = !AppState.instance.showCross
         
         addSubviewWithAnchors(licenseView, top: currentTrackLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
         
@@ -116,7 +113,7 @@ class MainMenuView: UIView {
     
     func getMapMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        if AppState.instance.mapType == .carto{
+        if AppState.shared.mapType == .carto{
             actions.append(UIAction(title: "topoMapType".localize(), image: UIImage(systemName: "map.fill")){ action in
                 self.delegate?.setMapType(.topo)
                 self.mapMenuControl.menu = self.getMapMenu()
@@ -139,47 +136,24 @@ class MainMenuView: UIView {
     
     func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        if AppState.instance.showPins{
-            actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
+        if AppState.shared.showPins{
+            actions.append(UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
                 self.locationMenuControl.menu = self.getLocationMenu()
             })
         }
         else{
-            actions.append(UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
+            actions.append(UIAction(title: "showLocations".localize(), image: UIImage(systemName: "mappin")){ action in
                 self.delegate?.showLocations(true)
                 self.locationMenuControl.menu = self.getLocationMenu()
                 
             })
         }
-        if AppState.instance.showCross{
-            actions.append(UIAction(title: "hideCross".localize(), image: UIImage(systemName: "circle")){ action in
-                AppState.instance.showCross = false
-                self.crossControl.isHidden = true
-                self.locationMenuControl.menu = self.getLocationMenu()
-            })
-        }
-        else{
-            actions.append(UIAction(title: "showCross".localize(), image: UIImage(systemName: "plus.circle")){ action in
-                AppState.instance.showCross = true
-                self.crossControl.isHidden = false
-                self.locationMenuControl.menu = self.getLocationMenu()
-                
-            })
-        }
-        actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+        actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
         })
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openLocationPreferences()
-        })
-        return UIMenu(title: "", children: actions)
-    }
-    
-    func getCrossMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "addPlace".localize(), image: UIImage(systemName: "mappin")){ action in
-            self.delegate?.addLocation()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -225,6 +199,11 @@ class MainMenuView: UIView {
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
     
+    @objc func toggleCross(){
+        AppState.shared.showCross = !AppState.shared.showCross
+        delegate?.updateCross()
+    }
+    
     @objc func focusUserLocation(){
         delegate?.focusUserLocation()
     }
@@ -239,10 +218,6 @@ class MainMenuView: UIView {
     
     @objc func openSearch(){
         delegate?.openSearch()
-    }
-    
-    func activateCross(){
-        crossControl.isHidden = false
     }
     
     func startTrackInfo(){

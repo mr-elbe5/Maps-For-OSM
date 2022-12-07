@@ -35,32 +35,32 @@ class Locations{
         DataController.shared.save(forKey: Locations.storeKey, value: list)
     }
     
-    static func place(at idx: Int) -> Location?{
+    static func location(at idx: Int) -> Location?{
         list[idx]
     }
     
     @discardableResult
-    static func addPlace(coordinate: CLLocationCoordinate2D) -> Location{
+    static func addLocation(coordinate: CLLocationCoordinate2D) -> Location{
         _lock.wait()
         defer{_lock.signal()}
-        let place = Location(coordinate: coordinate)
-        list.append(place)
-        return place
+        let location = Location(coordinate: coordinate)
+        list.append(location)
+        return location
     }
     
-    static func deletePlace(_ place: Location){
+    static func deleteLocation(_ location: Location){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
-            if list[idx] == place{
-                place.deleteAllPhotos()
+            if list[idx] == location{
+                location.deleteAllPhotos()
                 list.remove(at: idx)
                 return
             }
         }
     }
     
-    static func deleteAllPlaces(){
+    static func deleteAllLocations(){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
@@ -69,17 +69,17 @@ class Locations{
         list.removeAll()
     }
     
-    static func placeNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Location?{
+    static func locationNextTo(coordinate: CLLocationCoordinate2D, maxDistance: CLLocationDistance) -> Location?{
         var distance : CLLocationDistance = Double.infinity
-        var nearestPlace : Location? = nil
+        var nearestLocation : Location? = nil
         for location in list{
             let dist = location.coordinate.distance(to: coordinate)
             if dist<maxDistance && dist<distance{
                 distance = dist
-                nearestPlace = location
+                nearestLocation = location
             }
         }
-        return nearestPlace
+        return nearestLocation
     }
     
 }

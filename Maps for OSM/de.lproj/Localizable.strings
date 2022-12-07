@@ -62,26 +62,30 @@
 "openTopoLegalInfo"="Regeln für das Laden von OpenTopoMap.org";
 "mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
 
-// place menu - ControlLayerView
+// location menu - ControlLayerView
 "showCross"="Positionskreuz anzeigen";
 "hideCross"="Positionskreuz ausblenden";
-"showPlaceList"="Ortsliste anzeigen";
-"showPlaces"="Orte (Nadeln) anzeigen";
-"hidePlaces"="Orte (Nadeln) ausblenden";
-"confirmDeletePlaces"="Wollen Sie alle Orte löschen?";
-"deletePlacesHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos werden ebenfalls gelöscht.";
+"showLocationList"="Ortsliste anzeigen";
+"showLocations"="Orte (Nadeln) anzeigen";
+"hideLocations"="Orte (Nadeln) ausblenden";
+"confirmDeleteLocations"="Wollen Sie alle Orte löschen?";
+"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos werden ebenfalls gelöscht.";
 
 // cross menu
-"addPlace"="Ort hinzufügen";
+"addLocation"="Ort hinzufügen";
+"addPhoto"="Foto aufnehmen";
+"addImage"="Bild aus der Bibliothek hinzufügen";
+"crossPosition"="Kreuz-Position";
+"currentPosition"="Aktuelle Position";
 
-// place list - LocationListViewController/LocationCell
-"placeList"="Orte";
+// location list - LocationListViewController/LocationCell
+"locationList"="Orte";
 "showDetails"="Details anzeigen";
-"confirmDeletePlace"="Wollen Sie diesen Ort löschen?";
-"deletePlaceHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos. Sie kann nicht rückgängig gemacht werden.";
+"confirmDeleteLocation"="Wollen Sie diesen Ort löschen?";
+"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos. Sie kann nicht rückgängig gemacht werden.";
 
-// place preferences
-"placePreferences"="Einstellungen für Orte";
+// location preferences
+"locationPreferences"="Einstellungen für Orte";
 "minLocationAccuracy"="Mindesgnauigkeit";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
 "minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";

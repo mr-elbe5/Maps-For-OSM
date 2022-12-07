@@ -50,15 +50,15 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     func setupContent(){
-        if let place = location{
-            hadPhotos = place.hasPhotos
+        if let location = location{
+            hadPhotos = location.hasPhotos
             var header = UILabel(header: "locationData".localize())
             contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             
-            let locationLabel = UILabel(text: place.address)
+            let locationLabel = UILabel(text: location.address)
             contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             
-            let coordinateLabel = UILabel(text: place.coordinateString)
+            let coordinateLabel = UILabel(text: location.coordinateString)
             contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
             
             header = UILabel(header: "description".localize())
@@ -141,7 +141,7 @@ class LocationDetailViewController: PopupScrollViewController{
     @objc func deleteLocation(){
         if let location = location{
             showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-                Locations.deletePlace(location)
+                Locations.deleteLocation(location)
                 self.dismiss(animated: true){
                     self.delegate?.updateMarkerLayer()
                 }
@@ -212,8 +212,8 @@ extension LocationDetailViewController: PhotoListItemDelegate{
     
     func deletePhoto(sender: PhotoListItemView) {
         showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
-            if let place = self.location{
-                place.deletePhoto(photo: sender.photoData)
+            if let location = self.location{
+                location.deletePhoto(photo: sender.photoData)
                 Locations.save()
                 self.delegate?.updateMarkerLayer()
                 for subView in self.photoStackView.subviews{

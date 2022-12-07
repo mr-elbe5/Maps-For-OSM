@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
         mapView.setupTrackLayerView()
         mapView.setupLocationLayerView()
         mapView.locationLayerView.delegate = self
+        mapView.setupCrossView()
         mapView.setupUserLocationView()
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
@@ -50,21 +51,60 @@ extension MainViewController: LocationServiceDelegate{
 
 extension MainViewController: LocationLayerViewDelegate{
     
-    func showLocationDetails(place: Location) {
+    func showLocationDetails(location: Location) {
         let controller = LocationDetailViewController()
-        controller.location = place
+        controller.location = location
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
+    func addImageToLocation(location: Location) {
+        
+    }
+    
 }
 
-extension MainViewController: MainMenuDelegate, MapViewDelegate{
+extension MainViewController: MapViewDelegate{
+    
+    func showDetailsOfCurrentPosition() {
+        
+    }
+    
+    func addLocationAtCurrentPosition() {
+        
+    }
+    
+    func addPhotoAtCurrentPosition() {
+        
+    }
+    
+    func addImageAtCurrentPosition() {
+        
+    }
+    
+    func showDetailsOfCrossPosition() {
+        
+    }
+    
+    func addLocationAtCrossPosition() {
+        
+    }
+    
+    func addImageAtCrossPosition() {
+        
+    }
+    
+}
+
+extension MainViewController: MainMenuDelegate{
+    func updateCross() {
+        mapView.crossView.isHidden = !AppState.shared.showCross
+    }
     
     func setMapType(_ type: MapType) {
-        AppState.instance.mapType = type
-        AppState.instance.save()
+        AppState.shared.mapType = type
+        AppState.shared.save()
         //todo
     }
     
@@ -85,7 +125,7 @@ extension MainViewController: MainMenuDelegate, MapViewDelegate{
     
     func addLocation(){
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        assertPlace(coordinate: coordinate){ place in
+        assertLocation(coordinate: coordinate){ location in
             self.updateMarkerLayer()
         }
     }
@@ -98,8 +138,8 @@ extension MainViewController: MainMenuDelegate, MapViewDelegate{
     }
     
     func showLocations(_ show: Bool) {
-        AppState.instance.showPins = show
-        mapView.locationLayerView.isHidden = !AppState.instance.showPins
+        AppState.shared.showPins = show
+        mapView.locationLayerView.isHidden = !AppState.shared.showPins
     }
     
     func openLocationPreferences(){
@@ -110,8 +150,8 @@ extension MainViewController: MainMenuDelegate, MapViewDelegate{
     
     func startTracking(){
         if let lastLocation = LocationService.instance.location{
-            assertPlace(coordinate: lastLocation.coordinate){ place in
-                TrackRecorder.startRecording(startPoint: place)
+            assertLocation(coordinate: lastLocation.coordinate){ location in
+                TrackRecorder.startRecording(startPoint: location)
                 if let track = TrackRecorder.track{
                     Tracks.visibleTrack = track
                     self.mapView.trackLayerView.setNeedsDisplay()
@@ -219,9 +259,9 @@ extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
         if let location = LocationService.instance.location{
-            assertPlace(coordinate: location.coordinate){ place in
-                let changeState = place.photos.isEmpty
-                place.addPhoto(photo: photo)
+            assertLocation(coordinate: location.coordinate){ location in
+                let changeState = location.photos.isEmpty
+                location.addPhoto(photo: photo)
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -237,7 +277,7 @@ extension MainViewController: PhotoCaptureDelegate{
 extension MainViewController: LocationViewDelegate{
     
     func updateMarkerLayer() {
-        mapView.updatePlaceLayer()
+        mapView.updateLocationLayer()
     }
     
 }
@@ -249,13 +289,13 @@ extension MainViewController: LocationListDelegate{
     }
     
     func deleteLocation(location: Location) {
-        Locations.deletePlace(location)
+        Locations.deleteLocation(location)
         Locations.save()
         updateMarkerLayer()
     }
     
     func deleteAllLocations() {
-        Locations.deleteAllPlaces()
+        Locations.deleteAllLocations()
         self.updateMarkerLayer()
     }
 
@@ -339,7 +379,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()
                 self.mapView.controlLayerView.stopTrackControl()
-                self.mapView.updatePlaceLayer()
+                self.mapView.updateLocationLayer()
             })
             present(alertController, animated: true)
         }

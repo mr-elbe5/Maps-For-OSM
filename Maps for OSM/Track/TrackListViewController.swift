@@ -160,7 +160,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
         if let url = urls.first{
             if let trackpoints = GPXParser.parseFile(url: url){
                 if let startPosition = trackpoints.first{
-                    assertPlace(coordinate: startPosition.coordinate){ location in
+                    assertLocation(coordinate: startPosition.coordinate){ location in
                         let track = Track()
                         for loc in trackpoints{
                             track.trackpoints.append(TrackPoint(location: loc))

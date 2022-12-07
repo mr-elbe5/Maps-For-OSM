@@ -7,7 +7,8 @@
 import UIKit
 
 protocol LocationLayerViewDelegate{
-    func showLocationDetails(place: Location)
+    func showLocationDetails(location: Location)
+    func addImageToLocation(location: Location)
 }
 
 class LocationLayerView: UIView {
@@ -20,8 +21,8 @@ class LocationLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == World.maxZoom{
-            for place in Locations.list{
-                let marker = LocationMarker(place: place)
+            for location in Locations.list{
+                let marker = LocationMarker(location: location)
                 addSubview(marker)
                 marker.menu = getMarkerMenu(marker: marker)
                 marker.showsMenuAsPrimaryAction = true
@@ -30,18 +31,18 @@ class LocationLayerView: UIView {
         else{
             let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
             var groups = Array<LocationGroup>()
-            for place in Locations.list{
+            for location in Locations.list{
                 var grouped = false
                 for group in groups{
-                    if group.isWithinRadius(location: place, radius: planetDist){
-                        group.addLocation(location: place)
+                    if group.isWithinRadius(location: location, radius: planetDist){
+                        group.addLocation(location: location)
                         group.setCenter()
                         grouped = true
                     }
                 }
                 if !grouped{
                     let group = LocationGroup()
-                    group.addLocation(location: place)
+                    group.addLocation(location: location)
                     group.setCenter()
                     groups.append(group)
                 }
@@ -51,8 +52,8 @@ class LocationLayerView: UIView {
                     let marker = LocationGroupMarker(placeGroup: group)
                     addSubview(marker)
                 }
-                else if let place = group.locations.first{
-                    let marker = LocationMarker(place: place)
+                else if let location = group.locations.first{
+                    let marker = LocationMarker(location: location)
                     addSubview(marker)
                     marker.menu = getMarkerMenu(marker: marker)
                     marker.showsMenuAsPrimaryAction = true
@@ -66,17 +67,20 @@ class LocationLayerView: UIView {
     func getMarkerMenu(marker: LocationMarker) -> UIMenu{
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "showDetails".localize()){ action in
-            self.delegate?.showLocationDetails(place: marker.place)
+            self.delegate?.showLocationDetails(location: marker.location)
+        })
+        actions.append(UIAction(title: "addImage".localize()){ action in
+            self.delegate?.addImageToLocation(location: marker.location)
         })
         return UIMenu(title: "", children: actions)
     }
     
     func getMarker(location: Location) -> Marker?{
         for subview in subviews{
-            if let marker = subview as? LocationMarker, marker.place == location{
+            if let marker = subview as? LocationMarker, marker.location == location{
                 return marker
             }
-            if let marker = subview as? LocationGroupMarker, marker.placeGroup.hasLocation(location: location){
+            if let marker = subview as? LocationGroupMarker, marker.locationGroup.hasLocation(location: location){
                 return marker
             }
         }
@@ -93,9 +97,9 @@ class LocationLayerView: UIView {
         let offset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
         for subview in subviews{
             if let marker = subview as? LocationMarker{
-                marker.updatePosition(to: CGPoint(x: (marker.place.mapPoint.x - offset.x)*scale , y: (marker.place.mapPoint.y - offset.y)*scale))
+                marker.updatePosition(to: CGPoint(x: (marker.location.mapPoint.x - offset.x)*scale , y: (marker.location.mapPoint.y - offset.y)*scale))
             }
-            else if let groupPin = subview as? LocationGroupMarker, let center = groupPin.placeGroup.centerPlanetPosition{
+            else if let groupPin = subview as? LocationGroupMarker, let center = groupPin.locationGroup.centerPlanetPosition{
                 groupPin.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
             }
         }

@@ -78,7 +78,7 @@ class TileCacheViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(note, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let typeLabel = UILabel()
-        typeLabel.text = "\("currentMapType:".localize()) \(AppState.instance.mapType)"
+        typeLabel.text = "\("currentMapType:".localize()) \(AppState.shared.mapType)"
         contentView.addSubviewWithAnchors(typeLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         let sourceLabel = UILabel()

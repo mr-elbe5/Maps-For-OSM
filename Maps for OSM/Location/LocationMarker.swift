@@ -13,18 +13,18 @@ class LocationMarker : Marker{
     static var mapPinTrackImage = UIImage(named: "mappin.blue")
     static var mapPinPhotoTrackImage = UIImage(named: "mappin.purple")
     
-    var place : Location
+    var location : Location
     
     override var hasPhotos : Bool{
-        place.hasPhotos
+        location.hasPhotos
     }
     
     override var hasTracks: Bool{
-        place.hasTracks
+        location.hasTracks
     }
     
-    init(place: Location){
-        self.place = place
+    init(location: Location){
+        self.location = location
         super.init(frame: .zero)
         updateImage()
     }

@@ -50,17 +50,17 @@ class AppState: Identifiable, Codable{
     static let startZoom : Int = 4
     static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)
     
-    static var instance = AppState(coordinate: startCoordinate, scale: startScale)
+    static var shared = AppState(coordinate: startCoordinate, scale: startScale)
     
     static var currentUrlTemplate : String{
-        switch instance.mapType{
+        switch shared.mapType{
         case .carto: return TileSources.instance.cartoUrlTemplate
         case .topo: return TileSources.instance.topoUrlTemplate
         }
     }
     
     static var currentTileDirectory : URL{
-        switch instance.mapType{
+        switch shared.mapType{
         case .carto: return cartoDirectory
         case .topo: return topoDirectory
         }
@@ -68,10 +68,10 @@ class AppState: Identifiable, Codable{
     
     static func loadInstance(){
         if let state : AppState = DataController.shared.load(forKey: AppState.storeKey){
-            instance = state
+            shared = state
         }
         else{
-            instance = AppState(coordinate: startCoordinate, scale: startScale)
+            shared = AppState(coordinate: startCoordinate, scale: startScale)
         }
     }
     

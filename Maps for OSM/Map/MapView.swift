@@ -8,7 +8,13 @@ import UIKit
 import CoreLocation
 
 protocol MapViewDelegate{
-    func addLocation()
+    func showDetailsOfCurrentPosition()
+    func addLocationAtCurrentPosition()
+    func addPhotoAtCurrentPosition()
+    func addImageAtCurrentPosition()
+    func showDetailsOfCrossPosition()
+    func addLocationAtCrossPosition()
+    func addImageAtCrossPosition()
 }
 
 class MapView: UIView {
@@ -17,6 +23,7 @@ class MapView: UIView {
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
     var userLocationView = UserLocationView(frame: UserLocationView.frameRect)
+    var crossView = UIButton().asIconButton("plus.circle")
     var controlLayerView = MainMenuView()
     
     var delegate: MapViewDelegate? = nil
@@ -43,7 +50,7 @@ class MapView: UIView {
     
     func setupLocationLayerView(){
         addSubviewFilling(locationLayerView)
-        locationLayerView.isHidden = !AppState.instance.showPins
+        locationLayerView.isHidden = !AppState.shared.showPins
     }
     
     func setupUserLocationView(){
@@ -55,10 +62,41 @@ class MapView: UIView {
     
     func getUserLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "addLocation".localize()){ action in
-            self.delegate?.addLocation()
+        actions.append(UIAction(title: "showDetails".localize()){ action in
+            self.delegate?.showDetailsOfCurrentPosition()
         })
-        return UIMenu(title: "", children: actions)
+        actions.append(UIAction(title: "addLocation".localize()){ action in
+            self.delegate?.addLocationAtCurrentPosition()
+        })
+        actions.append(UIAction(title: "addPhoto".localize()){ action in
+            self.delegate?.addPhotoAtCurrentPosition()
+        })
+        actions.append(UIAction(title: "addImage".localize()){ action in
+            self.delegate?.addImageAtCurrentPosition()
+        })
+        return UIMenu(title: "currentPosition".localize(), children: actions)
+    }
+    
+    func setupCrossView(){
+        crossView.tintColor = UIColor.red
+        addSubviewCentered(crossView, centerX: centerXAnchor, centerY: centerYAnchor)
+        crossView.menu = getCrossMenu()
+        crossView.showsMenuAsPrimaryAction = true
+        crossView.isHidden = !AppState.shared.showCross
+    }
+    
+    func getCrossMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "showDetails".localize()){ action in
+            self.delegate?.showDetailsOfCrossPosition()
+        })
+        actions.append(UIAction(title: "addLocation".localize()){ action in
+            self.delegate?.addLocationAtCrossPosition()
+        })
+        actions.append(UIAction(title: "addImage".localize()){ action in
+            self.delegate?.addImageAtCrossPosition()
+        })
+        return UIMenu(title: "crossPosition".localize(), children: actions)
     }
     
     func setupControlLayerView(){
@@ -70,7 +108,7 @@ class MapView: UIView {
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
     }
     
-    func updatePlaceLayer(){
+    func updateLocationLayer(){
         locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
@@ -81,7 +119,7 @@ class MapView: UIView {
     func zoomTo(zoom: Int, animated: Bool){
         scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
         self.zoom = zoom
-        updatePlaceLayer()
+        updateLocationLayer()
     }
     
     func setRegion(region: CoordinateRegion){
@@ -91,9 +129,9 @@ class MapView: UIView {
     }
     
     func setDefaultLocation(){
-        scaleTo(scale: AppState.instance.scale)
-        scrollView.scrollToScreenCenter(coordinate: AppState.instance.coordinate)
-        updatePlaceLayer()
+        scaleTo(scale: AppState.shared.scale)
+        scrollView.scrollToScreenCenter(coordinate: AppState.shared.coordinate)
+        updateLocationLayer()
     }
     
     func locationDidChange(location: CLLocation) {
@@ -116,12 +154,12 @@ class MapView: UIView {
     }
     
     func updatePosition(){
-        AppState.instance.scale = scrollView.zoomScale
-        AppState.instance.coordinate = scrollView.screenCenterCoordinate
+        AppState.shared.scale = scrollView.zoomScale
+        AppState.shared.coordinate = scrollView.screenCenterCoordinate
     }
     
     func savePosition(){
-        AppState.instance.save()
+        AppState.shared.save()
     }
     
 }

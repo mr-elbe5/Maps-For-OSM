@@ -13,18 +13,18 @@ class LocationGroupMarker : Marker{
     static var mapPinTrackImage = UIImage(named: "mappin.group.blue")
     static var mapPinPhotoTrackImage = UIImage(named: "mappin.group.purple")
     
-    var placeGroup : LocationGroup
+    var locationGroup : LocationGroup
     
     override var hasPhotos : Bool{
-        placeGroup.hasPhotos
+        locationGroup.hasPhotos
     }
     
     override var hasTracks: Bool{
-        placeGroup.hasTracks
+        locationGroup.hasTracks
     }
     
     init(placeGroup: LocationGroup){
-        self.placeGroup = placeGroup
+        self.locationGroup = placeGroup
         super.init(frame: .zero)
         updateImage()
     }

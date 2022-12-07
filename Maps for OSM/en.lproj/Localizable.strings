@@ -61,30 +61,34 @@
 "openTopoLegalInfo"="Legal Info for tiles from OpenTopoMap.org";
 "mapPreferencesSaved"="Map preferences have been saved.";
 
-// place menu - ControlLayerView
+// location menu - ControlLayerView
 "showCross"="Show Position Cross";
 "hideCross"="Hide Position Cross";
-"showPlaceList"="Show Place List";
-"showPlaces"="Show Place Markers (Needles)";
-"hidePlaces"="Hide Place Markers (Needles)";
-"deletePlaces"="Delete all Place Markers";
-"confirmDeletePlaces"="Do you want to delete all place markers?";
-"deletePlacesHint"="This action cannot be undone. Associated photos will also be deleted.";
+"showLocationList"="Show Location List";
+"showLocations"="Show Location Markers (Needles)";
+"hideLocations"="Hide Location Markers (Needles)";
+"deleteLocations"="Delete all Location Markers";
+"confirmDeleteLocations"="Do you want to delete all location markers?";
+"deleteLocationsHint"="This action cannot be undone. Associated photos will also be deleted.";
 
 // cross menu
-"addPlace"="Add Place Marker (Needle)";
+"addLocation"="Add Location Marker (Needle)";
+"addPhoto"="Take Photo";
+"addImage"="Add Image from Library";
+"crossPosition"="Cross Position";
+"currentPosition"="Current Position";
 
-// place list - LocationListViewController/LocationCell
-"placeList"="Places";
+// location list - LocationListViewController/LocationCell
+"locationList"="Locations";
 "showDetails"="Show Details";
-"confirmDeletePlace"="Do you want to delete this place?";
-"deletePlaceHint"="This action cannot be undone and includes associated photos.";
+"confirmDeleteLocation"="Do you want to delete this location?";
+"deleteLocationHint"="This action cannot be undone and includes associated photos.";
 
-// place preferences
-"placePreferences"="Place Preferences";
+// location preferences
+"locationPreferences"="Location Preferences";
 "minLocationAccuracy"="Minimal location accuracy";
-"maxLocationMergeDistance"="Maximal Distance for Merging Places [m]";
-"minZoomToShowLocations"="Minimal Zoom for Showing Places (Needles) [2-18]";
+"maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
+"minZoomToShowLocations"="Minimal Zoom for Showing Locations (Needles) [2-18]";
 
 // track menu - ControlLayerView
 "startRecording"="Record a new Tour";

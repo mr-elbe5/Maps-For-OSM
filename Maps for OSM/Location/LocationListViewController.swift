@@ -58,7 +58,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationListViewController.CELL_IDENT, for: indexPath) as! LocationCell
-        let track = Locations.place(at: indexPath.row)
+        let track = Locations.location(at: indexPath.row)
         cell.location = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)

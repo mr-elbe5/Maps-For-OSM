@@ -42,8 +42,8 @@ class Tracks{
         }
         else{
             var list = TrackList()
-            for place in Locations.list{
-                for track in place.getTracks(){
+            for location in Locations.list{
+                for track in location.getTracks(){
                     list.append(track)
                 }
             }

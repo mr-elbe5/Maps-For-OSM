@@ -42,7 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        AppState.instance.save()
+        AppState.shared.save()
         if TrackRecorder.isRecording{
             if !LocationService.instance.authorizedForTracking{
                 LocationService.instance.requestAlwaysAuthorization()
@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        AppState.instance.save()
+        AppState.shared.save()
         Locations.save()
         Tracks.save()
         if !TrackRecorder.isRecording{
