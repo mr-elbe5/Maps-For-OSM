@@ -23,7 +23,8 @@ class LocationLayerView: UIView {
             for place in Locations.list{
                 let marker = LocationMarker(place: place)
                 addSubview(marker)
-                marker.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
+                marker.menu = getMarkerMenu(marker: marker)
+                marker.showsMenuAsPrimaryAction = true
             }
         }
         else{
@@ -53,12 +54,21 @@ class LocationLayerView: UIView {
                 else if let place = group.locations.first{
                     let marker = LocationMarker(place: place)
                     addSubview(marker)
-                    marker.addTarget(self, action: #selector(showLocationDetails), for: .touchDown)
+                    marker.menu = getMarkerMenu(marker: marker)
+                    marker.showsMenuAsPrimaryAction = true
                 }
             }
             
         }
         updatePosition(offset: offset, scale: scale)
+    }
+    
+    func getMarkerMenu(marker: LocationMarker) -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "showDetails".localize()){ action in
+            self.delegate?.showLocationDetails(place: marker.place)
+        })
+        return UIMenu(title: "", children: actions)
     }
     
     func getMarker(location: Location) -> Marker?{
@@ -94,12 +104,6 @@ class LocationLayerView: UIView {
     func updateLocationState(_ location: Location){
         if let marker = getMarker(location: location){
             marker.updateImage()
-        }
-    }
-    
-    @objc func showLocationDetails(_ sender: AnyObject){
-        if let marker = sender as? LocationMarker{
-            delegate?.showLocationDetails(place: marker.place)
         }
     }
     

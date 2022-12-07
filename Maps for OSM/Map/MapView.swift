@@ -7,13 +7,19 @@
 import UIKit
 import CoreLocation
 
+protocol MapViewDelegate{
+    func addLocation()
+}
+
 class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var placeLayerView = LocationLayerView()
-    var userLocationView = UserLocationView()
-    var controlLayerView = ControlLayerView()
+    var locationLayerView = LocationLayerView()
+    var userLocationView = UserLocationView(frame: UserLocationView.frameRect)
+    var controlLayerView = MainMenuView()
+    
+    var delegate: MapViewDelegate? = nil
     
     var zoom: Int{
         get{scrollView.zoom}
@@ -35,14 +41,24 @@ class MapView: UIView {
         addSubviewFilling(trackLayerView)
     }
     
-    func setupPlaceLayerView(){
-        addSubviewFilling(placeLayerView)
-        placeLayerView.isHidden = !AppState.instance.showPins
+    func setupLocationLayerView(){
+        addSubviewFilling(locationLayerView)
+        locationLayerView.isHidden = !AppState.instance.showPins
     }
     
     func setupUserLocationView(){
         userLocationView.backgroundColor = .clear
-        addSubviewFilling(userLocationView)
+        addSubview(userLocationView)
+        userLocationView.menu = getUserLocationMenu()
+        userLocationView.showsMenuAsPrimaryAction = true
+    }
+    
+    func getUserLocationMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "addLocation".localize()){ action in
+            self.delegate?.addLocation()
+        })
+        return UIMenu(title: "", children: actions)
     }
     
     func setupControlLayerView(){
@@ -55,7 +71,7 @@ class MapView: UIView {
     }
     
     func updatePlaceLayer(){
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -116,7 +132,7 @@ extension MapView : MapScrollViewDelegate{
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
         userLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
-        placeLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)
     }
@@ -126,7 +142,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didChangeZoom() {
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)
     }
     

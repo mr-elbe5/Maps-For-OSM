@@ -7,22 +7,19 @@
 import UIKit
 import CoreLocation
 
-class UserLocationView : UIView{
+class UserLocationView : UIButton{
     
     static var userLocationColor = UIColor.systemBlue
     static var userDirectionColor = UIColor.red
     
-    let locationRadius : CGFloat = 16
+    static let frameRect = CGRect(x: 0, y: 0, width: 32, height: 32)
     
-    var offset = CGPoint()
+    let locationRadius : CGFloat = frameRect.width/2
+    
     var scale : CGFloat = 1.0
     var accuracy: CLLocationAccuracy = 100
     var planetPoint : CGPoint = .zero
     var direction : CLLocationDirection = 0
-    
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return false
-    }
     
     func updateLocationPoint(planetPoint: CGPoint, accuracy: CLLocationAccuracy, offset: CGPoint, scale: CGFloat){
         self.planetPoint = planetPoint
@@ -31,7 +28,9 @@ class UserLocationView : UIView{
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
-        self.offset = offset
+        let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+        let drawCenter = CGPoint(x: (planetPoint.x - mapOffset.x)*scale , y: (planetPoint.y - mapOffset.y)*scale)
+        self.frame = CGRect(x: drawCenter.x - locationRadius , y: drawCenter.y - locationRadius, width: 2*locationRadius, height: 2*locationRadius)
         self.scale = scale
         setNeedsDisplay()
     }
@@ -42,9 +41,7 @@ class UserLocationView : UIView{
     }
     
     override func draw(_ rect: CGRect) {
-        let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
-        let drawCenter = CGPoint(x: (planetPoint.x - mapOffset.x)*scale , y: (planetPoint.y - mapOffset.y)*scale)
-        let drawRect = CGRect(x: drawCenter.x - locationRadius , y: drawCenter.y - locationRadius, width: 2*locationRadius, height: 2*locationRadius)
+        let drawCenter = CGPoint(x: locationRadius, y: locationRadius)
         let ctx = UIGraphicsGetCurrentContext()!
         var color : CGColor!
         if accuracy <= 10{
@@ -55,13 +52,13 @@ class UserLocationView : UIView{
             color = UIColor(red: redFactor, green: 0, blue: 1.0, alpha: 1.0).cgColor
         }
         ctx.beginPath()
-        ctx.addEllipse(in: drawRect.scaleCenteredBy(0.3))
+        ctx.addEllipse(in: UserLocationView.frameRect.scaleCenteredBy(0.3))
         ctx.setFillColor(color)
         ctx.drawPath(using: .fill)
         
         ctx.beginPath()
         ctx.setLineWidth(2.0)
-        ctx.addEllipse(in: drawRect.scaleCenteredBy(0.6))
+        ctx.addEllipse(in: UserLocationView.frameRect.scaleCenteredBy(0.6))
         ctx.setStrokeColor(color)
         ctx.drawPath(using: .stroke)
         

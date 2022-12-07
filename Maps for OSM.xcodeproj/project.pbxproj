@@ -37,7 +37,7 @@
 		4E1B81022732EDA2003ED6B0 /* TrackPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81002732EDA2003ED6B0 /* TrackPreferences.swift */; };
 		4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */; };
 		4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */; };
-		4E1B81142732EDC5003ED6B0 /* ControlLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81052732EDC4003ED6B0 /* ControlLayerView.swift */; };
+		4E1B81142732EDC5003ED6B0 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */; };
 		4E1B81162732EDC5003ED6B0 /* TileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81072732EDC4003ED6B0 /* TileCache.swift */; };
 		4E1B81172732EDC5003ED6B0 /* LocationLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81082732EDC4003ED6B0 /* LocationLayerView.swift */; };
 		4E1B81182732EDC5003ED6B0 /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81092732EDC5003ED6B0 /* LocationMarker.swift */; };
@@ -88,7 +88,7 @@
 		4E55EFAC28DAF93C007AD900 /* TileSources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAB28DAF93C007AD900 /* TileSources.swift */; };
 		4E55EFAE28DAF951007AD900 /* TileSourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */; };
 		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
-		4E68B5BE275F59F00025A80A /* UIViewController+PlaceDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BD275F59F00025A80A /* UIViewController+PlaceDialog.swift */; };
+		4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */; };
 		4E79FBAF275B9326001F0481 /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBAE275B9326001F0481 /* LocationGroup.swift */; };
 		4E79FBB1275BCE0C001F0481 /* LocationGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB0275BCE0C001F0481 /* LocationGroupMarker.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
@@ -149,7 +149,7 @@
 		4E1B81002732EDA2003ED6B0 /* TrackPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPreferences.swift; sourceTree = "<group>"; };
 		4E1B81032732EDC4003ED6B0 /* UserLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationView.swift; sourceTree = "<group>"; };
 		4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLayerView.swift; sourceTree = "<group>"; };
-		4E1B81052732EDC4003ED6B0 /* ControlLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlLayerView.swift; sourceTree = "<group>"; };
+		4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		4E1B81072732EDC4003ED6B0 /* TileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileCache.swift; sourceTree = "<group>"; };
 		4E1B81082732EDC4003ED6B0 /* LocationLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationLayerView.swift; sourceTree = "<group>"; };
 		4E1B81092732EDC5003ED6B0 /* LocationMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarker.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		4E55EFAB28DAF93C007AD900 /* TileSources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSources.swift; sourceTree = "<group>"; };
 		4E55EFAD28DAF951007AD900 /* TileSourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourcesViewController.swift; sourceTree = "<group>"; };
 		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
-		4E68B5BD275F59F00025A80A /* UIViewController+PlaceDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PlaceDialog.swift"; sourceTree = "<group>"; };
+		4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LocationDialog.swift"; sourceTree = "<group>"; };
 		4E79FBAE275B9326001F0481 /* LocationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
 		4E79FBB0275BCE0C001F0481 /* LocationGroupMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupMarker.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
@@ -365,6 +365,7 @@
 				4E31A655293F4C44002080F6 /* UIView+Subviews.swift */,
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */,
+				4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
 				4E025E3C274E420800D56ED7 /* TimeInterval.swift */,
 				4E3A415E28D83CD9004C9D90 /* CLLocation.swift */,
@@ -389,7 +390,6 @@
 				4E79FBAE275B9326001F0481 /* LocationGroup.swift */,
 				4E79FBB0275BCE0C001F0481 /* LocationGroupMarker.swift */,
 				4E79FBB2275BCE67001F0481 /* Marker.swift */,
-				4E68B5BD275F59F00025A80A /* UIViewController+PlaceDialog.swift */,
 				4E90A70C28DE116700CF3A02 /* LocationPreferences.swift */,
 				4E90A70E28DE12F000CF3A02 /* LocationPreferencesViewController.swift */,
 			);
@@ -399,7 +399,7 @@
 		4E3BE7EA26EA7E57000F9069 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				4E1B81052732EDC4003ED6B0 /* ControlLayerView.swift */,
+				4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */,
 				4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */,
 				4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */,
 				4EE1461B28D368370058F3D3 /* MapPoint.swift */,
@@ -596,7 +596,7 @@
 				4EE1461A28D368020058F3D3 /* MapRect.swift in Sources */,
 				4E89173F273688580046AC91 /* LocationDetailViewController.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
-				4E1B81142732EDC5003ED6B0 /* ControlLayerView.swift in Sources */,
+				4E1B81142732EDC5003ED6B0 /* MainMenuView.swift in Sources */,
 				4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */,
 				4E24F47F27345D11004E69C2 /* Insets.swift in Sources */,
 				4E1B81182732EDC5003ED6B0 /* LocationMarker.swift in Sources */,
@@ -615,7 +615,7 @@
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
-				4E68B5BE275F59F00025A80A /* UIViewController+PlaceDialog.swift in Sources */,
+				4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */,
 				4E55EFAC28DAF93C007AD900 /* TileSources.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,

@@ -20,12 +20,13 @@ class MainViewController: UIViewController {
         mapView.frame = view.bounds
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
+        mapView.setupLocationLayerView()
+        mapView.locationLayerView.delegate = self
         mapView.setupUserLocationView()
-        mapView.setupPlaceLayerView()
-        mapView.placeLayerView.delegate = self
         mapView.setupControlLayerView()
         mapView.controlLayerView.delegate = self
         mapView.setDefaultLocation()
+        mapView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,7 +60,7 @@ extension MainViewController: LocationLayerViewDelegate{
     
 }
 
-extension MainViewController: ControlLayerDelegate{
+extension MainViewController: MainMenuDelegate, MapViewDelegate{
     
     func setMapType(_ type: MapType) {
         AppState.instance.mapType = type
@@ -82,26 +83,26 @@ extension MainViewController: ControlLayerDelegate{
         present(controller, animated: true)
     }
     
-    func addPlace(){
+    func addLocation(){
         let coordinate = mapView.scrollView.screenCenterCoordinate
         assertPlace(coordinate: coordinate){ place in
             self.updateMarkerLayer()
         }
     }
     
-    func openPlaceList() {
+    func openLocationList() {
         let controller = LocationListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
     }
     
-    func showPlaces(_ show: Bool) {
+    func showLocations(_ show: Bool) {
         AppState.instance.showPins = show
-        mapView.placeLayerView.isHidden = !AppState.instance.showPins
+        mapView.locationLayerView.isHidden = !AppState.instance.showPins
     }
     
-    func openPlacePreferences(){
+    func openLocationPreferences(){
         let controller = LocationPreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)

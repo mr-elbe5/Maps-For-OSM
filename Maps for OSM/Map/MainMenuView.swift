@@ -6,14 +6,14 @@
 
 import UIKit
 
-protocol ControlLayerDelegate{
+protocol MainMenuDelegate{
     func setMapType(_ type: MapType)
     func openPreloadMap()
     func openMapPreferences()
     
-    func showPlaces(_ show: Bool)
-    func openPlaceList()
-    func openPlacePreferences()
+    func showLocations(_ show: Bool)
+    func openLocationList()
+    func openLocationPreferences()
     
     func startTracking()
     func openTrack(track: Track)
@@ -29,18 +29,18 @@ protocol ControlLayerDelegate{
     
     func openInfo()
     
-    func addPlace()
+    func addLocation()
     
 }
 
-class ControlLayerView: UIView {
+class MainMenuView: UIView {
     
     //MainViewController
-    var delegate : ControlLayerDelegate? = nil
+    var delegate : MainMenuDelegate? = nil
     
-    var controlLine = UIView()
+    var iconLine = UIView()
     var mapMenuControl = UIButton().asIconButton("map")
-    var placeMenuControl = UIButton().asIconButton("mappin")
+    var locationMenuControl = UIButton().asIconButton("mappin")
     var trackMenuControl = UIButton().asIconButton("figure.walk")
     var crossControl = UIButton().asIconButton("plus.circle")
     var currentTrackLine = CurrentTrackLine()
@@ -49,38 +49,38 @@ class ControlLayerView: UIView {
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
         
-        controlLine.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        controlLine.layer.cornerRadius = 10
-        controlLine.layer.masksToBounds = true
-        addSubviewWithAnchors(controlLine, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: doubleInsets)
+        iconLine.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        iconLine.layer.cornerRadius = 10
+        iconLine.layer.masksToBounds = true
+        addSubviewWithAnchors(iconLine, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: doubleInsets)
         
-        controlLine.addSubviewWithAnchors(mapMenuControl, top: controlLine.topAnchor, leading: controlLine.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
+        iconLine.addSubviewWithAnchors(mapMenuControl, top: iconLine.topAnchor, leading: iconLine.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        controlLine.addSubviewWithAnchors(placeMenuControl, top: controlLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
-        placeMenuControl.menu = getPlaceMenu()
-        placeMenuControl.showsMenuAsPrimaryAction = true
+        iconLine.addSubviewWithAnchors(locationMenuControl, top: iconLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        locationMenuControl.menu = getLocationMenu()
+        locationMenuControl.showsMenuAsPrimaryAction = true
         
-        controlLine.addSubviewWithAnchors(trackMenuControl, top: controlLine.topAnchor, leading: placeMenuControl.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
+        iconLine.addSubviewWithAnchors(trackMenuControl, top: iconLine.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 30 , bottom: 0, right: 0))
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
         let focusUserLocationControl = UIButton().asIconButton("record.circle")
-        controlLine.addSubviewWithAnchors(focusUserLocationControl, top: controlLine.topAnchor, bottom: controlLine.bottomAnchor)
-            .centerX(controlLine.centerXAnchor)
+        iconLine.addSubviewWithAnchors(focusUserLocationControl, top: iconLine.topAnchor, bottom: iconLine.bottomAnchor)
+            .centerX(iconLine.centerXAnchor)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
         let infoControl = UIButton().asIconButton("info.circle")
-        controlLine.addSubviewWithAnchors(infoControl, top: controlLine.topAnchor, trailing: controlLine.trailingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
+        iconLine.addSubviewWithAnchors(infoControl, top: iconLine.topAnchor, trailing: iconLine.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
         let openCameraControl = UIButton().asIconButton("camera")
-        controlLine.addSubviewWithAnchors(openCameraControl, top: controlLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        iconLine.addSubviewWithAnchors(openCameraControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
         let openSearchControl = UIButton().asIconButton("magnifyingglass")
-        controlLine.addSubviewWithAnchors(openSearchControl, top: controlLine.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: controlLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
+        iconLine.addSubviewWithAnchors(openSearchControl, top: iconLine.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 30))
         openSearchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
         
         currentTrackLine.setup()
@@ -137,18 +137,18 @@ class ControlLayerView: UIView {
         return UIMenu(title: "", children: actions)
     }
     
-    func getPlaceMenu() -> UIMenu{
+    func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
         if AppState.instance.showPins{
             actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
-                self.delegate?.showPlaces(false)
-                self.placeMenuControl.menu = self.getPlaceMenu()
+                self.delegate?.showLocations(false)
+                self.locationMenuControl.menu = self.getLocationMenu()
             })
         }
         else{
             actions.append(UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
-                self.delegate?.showPlaces(true)
-                self.placeMenuControl.menu = self.getPlaceMenu()
+                self.delegate?.showLocations(true)
+                self.locationMenuControl.menu = self.getLocationMenu()
                 
             })
         }
@@ -156,22 +156,22 @@ class ControlLayerView: UIView {
             actions.append(UIAction(title: "hideCross".localize(), image: UIImage(systemName: "circle")){ action in
                 AppState.instance.showCross = false
                 self.crossControl.isHidden = true
-                self.placeMenuControl.menu = self.getPlaceMenu()
+                self.locationMenuControl.menu = self.getLocationMenu()
             })
         }
         else{
             actions.append(UIAction(title: "showCross".localize(), image: UIImage(systemName: "plus.circle")){ action in
                 AppState.instance.showCross = true
                 self.crossControl.isHidden = false
-                self.placeMenuControl.menu = self.getPlaceMenu()
+                self.locationMenuControl.menu = self.getLocationMenu()
                 
             })
         }
         actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openPlaceList()
+            self.delegate?.openLocationList()
         })
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openPlacePreferences()
+            self.delegate?.openLocationPreferences()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -179,7 +179,7 @@ class ControlLayerView: UIView {
     func getCrossMenu() -> UIMenu{
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "addPlace".localize(), image: UIImage(systemName: "mappin")){ action in
-            self.delegate?.addPlace()
+            self.delegate?.addLocation()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -216,7 +216,7 @@ class ControlLayerView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 == controlLine || $0 == currentTrackLine || $0 is UIButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 == iconLine || $0 == currentTrackLine || $0 is UIButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
