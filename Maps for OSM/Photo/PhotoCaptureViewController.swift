@@ -28,28 +28,21 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     private let photoOutput = AVCapturePhotoOutput()
     
-    override func addButtons(){
-        super.addButtons()
+    override func addCameraButtons(){
         
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
-        buttonView.addSubviewWithAnchors(cameraButton, top: buttonView.topAnchor, leading: buttonView.leadingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
+        cameraButtonView.addSubviewWithAnchors(cameraButton, top: cameraButtonView.topAnchor, leading: cameraButtonView.leadingAnchor, bottom: cameraButtonView.bottomAnchor, insets: defaultInsets)
         
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
-        buttonView.addSubviewWithAnchors(flashButton, top: buttonView.topAnchor, leading: cameraButton.trailingAnchor, bottom: buttonView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))
-    }
-    
-    override func addCaptureButton(){
+        cameraButtonView.addSubviewWithAnchors(flashButton, top: cameraButtonView.topAnchor, leading: cameraButton.trailingAnchor, bottom: cameraButtonView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))
+        
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
         bodyView.addSubviewWithAnchors(captureButton, bottom: bodyView.bottomAnchor, insets: defaultInsets)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
-    }
-    
-    override func enableButtons(flag: Bool){
-        enableCameraButtons(flag: flag)
     }
     
     override func enableCameraButtons(flag: Bool){

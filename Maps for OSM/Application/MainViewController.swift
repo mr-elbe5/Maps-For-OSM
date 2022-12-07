@@ -68,7 +68,7 @@ extension MainViewController: LocationLayerViewDelegate{
 extension MainViewController: MapViewDelegate{
     
     func showDetailsOfCurrentPosition() {
-        
+    
     }
     
     func addLocationAtCurrentPosition() {

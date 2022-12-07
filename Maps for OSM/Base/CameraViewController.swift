@@ -10,7 +10,8 @@ import AVFoundation
 
 class CameraViewController: UIViewController {
     var bodyView = UIView()
-    var buttonView = UIView()
+    var cameraButtonView = UIView()
+    var closeButtonView = UIView()
     var preview = CameraPreviewView()
     var cameraUnavailableLabel = UILabel()
     
@@ -37,15 +38,23 @@ class CameraViewController: UIViewController {
         view.addSubviewFillingSafeArea(bodyView)
         bodyView.backgroundColor = .black
         
-        bodyView.addSubviewWithAnchors(buttonView, top: bodyView.topAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor)
-        buttonView.backgroundColor = .black
+        bodyView.addSubviewWithAnchors(closeButtonView, top: bodyView.topAnchor, trailing: bodyView.trailingAnchor)
+            .setRoundedBorders(radius: 5)
+            .setBackground(.black)
+        let closeButton = UIButton().asIconButton("xmark.circle", color: .white)
+        closeButtonView.addSubviewFilling(closeButton, insets: defaultInsets)
+        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
         
-        addButtons()
+        bodyView.addSubviewWithAnchors(cameraButtonView, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor)
+            .setRoundedBorders(radius: 5)
+            .setBackground(.black)
+        cameraButtonView.backgroundColor = .black
         
-        bodyView.addSubviewWithAnchors(preview, top: buttonView.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
+        addCameraButtons()
         
-        preview.backgroundColor = .black
-        addCaptureButton()
+        bodyView.addSubviewFilling(preview, insets: .zero)
+            .setBackground(.black)
+        
         AVCaptureDevice.askCameraAuthorization(){ result in
             self.preview.session = self.session
             self.sessionQueue.async {
@@ -55,16 +64,7 @@ class CameraViewController: UIViewController {
         
     }
     
-    func addButtons(){
-        let closeButton = UIButton().asIconButton("xmark.circle", color: .white)
-        bodyView.addSubviewWithAnchors(closeButton, top: buttonView.topAnchor, trailing: buttonView.trailingAnchor, bottom: buttonView.bottomAnchor, insets: defaultInsets)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-    }
-    
-    func addCaptureButton(){
-    }
-    
-    func enableButtons(flag: Bool){
+    func addCameraButtons(){
     }
     
     func enableCameraButtons(flag: Bool){
@@ -168,7 +168,7 @@ class CameraViewController: UIViewController {
     }
     
     @objc func changeCamera() {
-        enableButtons(flag: false)
+        enableCameraButtons(flag: false)
         
         sessionQueue.async {
             let currentVideoDevice = self.videoDeviceInput.device
@@ -204,7 +204,7 @@ class CameraViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-                self.enableButtons(flag: true)
+                self.enableCameraButtons(flag: true)
             }
         }
     }

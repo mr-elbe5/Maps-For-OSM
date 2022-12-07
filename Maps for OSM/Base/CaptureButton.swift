@@ -9,22 +9,53 @@ import UIKit
 
 class CaptureButton: UIButton {
     
+    enum ButtonState: Int {
+        case normal, recording
+    }
+    
+    var buttonColor: UIColor = UIColor.red {
+        didSet {
+            innerCircleLayer.fillColor = buttonColor.cgColor
+        }
+    }
+    
+    var outerColor: UIColor = UIColor.white {
+        didSet {
+            innerCircleLayer.fillColor = buttonColor.cgColor
+        }
+    }
+    
+    var buttonState: ButtonState = .normal {
+        didSet {
+            self.setNeedsLayout()
+        }
+    }
+    
+    private var innerPath : UIBezierPath{
+        get{
+            switch buttonState {
+                case .normal:    return innerCircle
+                case .recording: return innerRect
+            }
+        }
+    }
+    
     private var lineWidth: CGFloat {
-        bounds.width * 0.1
+        return bounds.width * 0.1
     }
     
     lazy private var innerCircleLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.path = innerCircle.cgPath
-        layer.fillColor = UIColor.red.cgColor
+        layer.path      = self.innerPath.cgPath
+        layer.fillColor = self.buttonColor.cgColor
         return layer
     }()
     
     lazy private var outerCircleLayer: CAShapeLayer = {
         let layer = CAShapeLayer()
-        layer.path        = outerCircle.cgPath
+        layer.path        = self.outerCircle.cgPath
         layer.fillColor   = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.white.cgColor
+        layer.strokeColor = self.outerColor.cgColor
         layer.lineWidth   = lineWidth
         return layer
     }()
@@ -59,6 +90,7 @@ class CaptureButton: UIButton {
         super.layoutSubviews()
         layer.addSublayer(outerCircleLayer)
         layer.addSublayer(innerCircleLayer)
+        innerCircleLayer.path = innerPath.cgPath
     }
     
 }
