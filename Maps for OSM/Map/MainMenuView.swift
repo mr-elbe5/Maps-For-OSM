@@ -22,12 +22,12 @@ protocol MainMenuDelegate{
     func openTrackPreferences()
     
     func updateCross()
-    
     func focusUserLocation()
+    func refreshMap()
+    
+    func addPhotoAtCurrentPosition()
     
     func openSearch()
-    
-    func openCamera()
     
     func openInfo()
     
@@ -65,14 +65,18 @@ class MainMenuView: UIView {
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
-        let crossControl = UIButton().asIconButton("plus.circle")
-        iconLine.addSubviewWithAnchors(crossControl, top: iconLine.topAnchor, leading: trackMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
-        crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
-        
         let focusUserLocationControl = UIButton().asIconButton("record.circle")
         iconLine.addSubviewWithAnchors(focusUserLocationControl, top: iconLine.topAnchor, bottom: iconLine.bottomAnchor)
             .centerX(iconLine.centerXAnchor)
         focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
+        
+        let crossControl = UIButton().asIconButton("plus.circle")
+        iconLine.addSubviewWithAnchors(crossControl, top: iconLine.topAnchor, trailing: focusUserLocationControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
+        crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
+        
+        let refreshControl = UIButton().asIconButton("arrow.clockwise")
+        iconLine.addSubviewWithAnchors(refreshControl, top: iconLine.topAnchor, leading: focusUserLocationControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
+        refreshControl.addTarget(self, action: #selector(refreshMap), for: .touchDown)
         
         let infoControl = UIButton().asIconButton("info.circle")
         iconLine.addSubviewWithAnchors(infoControl, top: iconLine.topAnchor, trailing: iconLine.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
@@ -208,12 +212,16 @@ class MainMenuView: UIView {
         delegate?.focusUserLocation()
     }
     
+    @objc func refreshMap(){
+        delegate?.refreshMap()
+    }
+    
     @objc func openInfo(){
         delegate?.openInfo()
     }
     
     @objc func openCamera(){
-        delegate?.openCamera()
+        delegate?.addPhotoAtCurrentPosition()
     }
     
     @objc func openSearch(){

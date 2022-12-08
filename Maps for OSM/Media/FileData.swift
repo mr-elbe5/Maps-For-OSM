@@ -7,9 +7,16 @@
 import Foundation
 import UIKit
 
-class PhotoData : Equatable, Identifiable, Codable{
+enum MediaType: String, Codable{
+    case audio
+    case photo
+    case image
+    case video
+}
+
+class FileData : Equatable, Identifiable, Codable{
     
-    static func == (lhs: PhotoData, rhs: PhotoData) -> Bool {
+    static func == (lhs: FileData, rhs: FileData) -> Bool {
         lhs.fileName == rhs.fileName
     }
     
@@ -25,8 +32,12 @@ class PhotoData : Equatable, Identifiable, Codable{
     
     var isNew = false
     
+    var type : MediaType{
+        fatalError("not implemented")
+    }
+    
     var fileName : String {
-        "img_\(id)_\(creationDate.shortFileDate()).jpg"
+        fatalError("not implemented")
     }
     
     var filePath : String{

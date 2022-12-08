@@ -162,6 +162,10 @@ class MapView: UIView {
         AppState.shared.save()
     }
     
+    func refresh(){
+        scrollView.setNeedsDisplay()
+    }
+    
 }
 
 extension MapView : MapScrollViewDelegate{

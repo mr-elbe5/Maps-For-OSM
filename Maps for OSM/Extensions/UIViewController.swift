@@ -44,5 +44,9 @@ extension UIViewController{
         self.present(alertController, animated: true)
     }
     
+    func showError(_ reason: String){
+        showAlert(title: "error".localize(), text: reason.localize())
+    }
+    
 }
 

@@ -19,6 +19,14 @@ extension UIView{
         }
     }
     
+    var iconColor : UIColor{
+        UIColor(red: 0.0, green: 0.5, blue: 0.7, alpha: 1.0)
+    }
+    
+    var lightIconColor : UIColor{
+        UIColor(red: 0.0, green: 0.7, blue: 0.9, alpha: 1.0)
+    }
+    
     var isDarkMode: Bool {
         self.traitCollection.userInterfaceStyle == .dark
     }

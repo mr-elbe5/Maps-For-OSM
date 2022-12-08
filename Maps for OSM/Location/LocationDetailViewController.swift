@@ -18,7 +18,7 @@ class LocationDetailViewController: PopupScrollViewController{
     
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
-    let photoStackView = UIStackView()
+    let fileStackView = UIStackView()
     
     var editMode = false
     
@@ -51,7 +51,7 @@ class LocationDetailViewController: PopupScrollViewController{
     
     func setupContent(){
         if let location = location{
-            hadPhotos = location.hasPhotos
+            hadPhotos = location.hasFiles
             var header = UILabel(header: "locationData".localize())
             contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             
@@ -66,15 +66,15 @@ class LocationDetailViewController: PopupScrollViewController{
             contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             setupDescriptionContainerView()
             
-            header = UILabel(header: "photos".localize())
+            header = UILabel(header: "files".localize())
             contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             
-            photoStackView.setupVertical()
+            fileStackView.setupVertical()
             setupPhotoStackView()
-            contentView.addSubviewWithAnchors(photoStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+            contentView.addSubviewWithAnchors(fileStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
             
             header = UILabel(header: "tracks".localize())
-            contentView.addSubviewWithAnchors(header, top: photoStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(header, top: fileStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         }
     }
     
@@ -105,13 +105,21 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     func setupPhotoStackView(){
-        photoStackView.removeAllArrangedSubviews()
-        photoStackView.removeAllSubviews()
+        fileStackView.removeAllArrangedSubviews()
+        fileStackView.removeAllSubviews()
         guard let location = location else {return}
-        for photo in location.photos{
-            let photoView = PhotoListItemView(data: photo)
-            photoView.delegate = self
-            photoStackView.addArrangedSubview(photoView)
+        for file in location.files{
+            switch file.type{
+            case .photo, .image:
+                if let image = file as? ImageData{
+                    let imageView = ImageListItemView(data: image)
+                    imageView.delegate = self
+                    fileStackView.addArrangedSubview(imageView)
+                }
+                //todo
+            default:
+                return
+            }
         }
     }
     
@@ -154,7 +162,7 @@ class LocationDetailViewController: PopupScrollViewController{
         if let location = location{
             location.note = descriptionView?.text ?? ""
             Locations.save()
-            needsUpdate = location.hasPhotos != hadPhotos
+            needsUpdate = location.hasFiles != hadPhotos
         }
         self.dismiss(animated: true){
             if needsUpdate{
@@ -169,37 +177,37 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let photo = PhotoData()
-        if FileController.copyFile(fromURL: imageURL, toURL: photo.fileURL){
-            location?.addPhoto(photo: photo)
+        let image = ImageData()
+        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
+            location?.addFile(file: image)
             Locations.save()
             delegate?.updateMarkerLayer()
-            let photoView = PhotoListItemView(data: photo)
-            photoView.delegate = self
-            photoStackView.addArrangedSubview(photoView)
+            let imageView = ImageListItemView(data: image)
+            imageView.delegate = self
+            fileStackView.addArrangedSubview(imageView)
         }
         picker.dismiss(animated: false)
     }
     
 }
 
-extension LocationDetailViewController: PhotoListItemDelegate{
+extension LocationDetailViewController: ImageListItemDelegate{
     
-    func viewPhoto(sender: PhotoListItemView) {
-        let photoViewController = PhotoViewController()
-        photoViewController.uiImage = sender.photoData.getImage()
-        photoViewController.modalPresentationStyle = .fullScreen
-        self.present(photoViewController, animated: true)
+    func viewImage(sender: ImageListItemView) {
+        let imageViewController = ImageViewController()
+        imageViewController.uiImage = sender.imageData.getImage()
+        imageViewController.modalPresentationStyle = .fullScreen
+        self.present(imageViewController, animated: true)
     }
     
-    func sharePhoto(sender: PhotoListItemView) {
+    func shareImage(sender: ImageListItemView) {
         let alertController = UIAlertController(title: title, message: "shareImage".localize(), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            FileController.copyImageToLibrary(name: sender.photoData.fileName, fromDir: FileController.privateURL){ result in
+            FileController.copyImageToLibrary(name: sender.imageData.fileName, fromDir: FileController.privateURL){ result in
                 DispatchQueue.main.async {
                     switch result{
                     case .success:
-                        self.showAlert(title: "success".localize(), text: "photoShared".localize())
+                        self.showAlert(title: "success".localize(), text: "imageShared".localize())
                     case .failure(let err):
                         self.showAlert(title: "error".localize(), text: err.errorDescription!)
                     }
@@ -210,16 +218,16 @@ extension LocationDetailViewController: PhotoListItemDelegate{
         self.present(alertController, animated: true)
     }
     
-    func deletePhoto(sender: PhotoListItemView) {
-        showDestructiveApprove(title: "confirmDeletePhoto".localize(), text: "deletePhotoHint".localize()){
+    func deleteImage(sender: ImageListItemView) {
+        showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
             if let location = self.location{
-                location.deletePhoto(photo: sender.photoData)
+                location.deleteFile(file: sender.imageData)
                 Locations.save()
                 self.delegate?.updateMarkerLayer()
-                for subView in self.photoStackView.subviews{
+                for subView in self.fileStackView.subviews{
                     if subView == sender{
-                        self.photoStackView.removeArrangedSubview(subView)
-                        self.photoStackView.removeSubview(subView)
+                        self.fileStackView.removeArrangedSubview(subView)
+                        self.fileStackView.removeSubview(subView)
                         break
                     }
                 }

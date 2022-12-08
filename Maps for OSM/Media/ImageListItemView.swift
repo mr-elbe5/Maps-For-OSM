@@ -7,40 +7,41 @@
 import Foundation
 import UIKit
 
-protocol PhotoListItemDelegate{
-    func viewPhoto(sender: PhotoListItemView)
-    func sharePhoto(sender: PhotoListItemView)
-    func deletePhoto(sender: PhotoListItemView)
+protocol ImageListItemDelegate{
+    func viewImage(sender: ImageListItemView)
+    func shareImage(sender: ImageListItemView)
+    func deleteImage(sender: ImageListItemView)
 }
 
-class PhotoListItemView : UIView{
+class ImageListItemView : UIView{
     
-    var photoData : PhotoData
+    var imageData : ImageData
     
-    var delegate : PhotoListItemDelegate? = nil
+    var delegate : ImageListItemDelegate? = nil
     
-    init(data: PhotoData){
-        self.photoData = data
+    init(data: ImageData){
+        
+        self.imageData = data
         super.init(frame: .zero)
         
         let deleteButton = UIButton().asIconButton("xmark.circle")
         deleteButton.tintColor = UIColor.systemRed
-        deleteButton.addTarget(self, action: #selector(deletePhoto), for: .touchDown)
+        deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchDown)
         addSubviewWithAnchors(deleteButton, top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
         
         let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
-        viewButton.addTarget(self, action: #selector(viewPhoto), for: .touchDown)
+        viewButton.addTarget(self, action: #selector(viewImage), for: .touchDown)
         addSubviewWithAnchors(viewButton, top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
         
         let shareButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
-        shareButton.addTarget(self, action: #selector(sharePhoto), for: .touchDown)
+        shareButton.addTarget(self, action: #selector(shareImage), for: .touchDown)
         addSubviewWithAnchors(shareButton, top: topAnchor, trailing: viewButton.leadingAnchor, insets: flatInsets)
         
         let imageView = UIImageView()
         imageView.setDefaults()
         imageView.setRoundedBorders()
         addSubviewWithAnchors(imageView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
-        imageView.image = photoData.getImage()
+        imageView.image = imageData.getImage()
         imageView.setAspectRatioConstraint()
     }
     
@@ -48,16 +49,16 @@ class PhotoListItemView : UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func viewPhoto(){
-        delegate?.viewPhoto(sender: self)
+    @objc func viewImage(){
+        delegate?.viewImage(sender: self)
     }
     
-    @objc func sharePhoto(){
-        delegate?.sharePhoto(sender: self)
+    @objc func shareImage(){
+        delegate?.shareImage(sender: self)
     }
     
-    @objc func deletePhoto(){
-        delegate?.deletePhoto(sender: self)
+    @objc func deleteImage(){
+        delegate?.deleteImage(sender: self)
     }
     
 }

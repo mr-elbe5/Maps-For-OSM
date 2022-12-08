@@ -20,7 +20,7 @@ class Location : CodableLocation{
         case name
         case address
         case note
-        case photos
+        case files
         case tracks
     }
     
@@ -28,13 +28,13 @@ class Location : CodableLocation{
     var name : String = ""
     var address : String = ""
     var note : String = ""
-    var photos : PhotoList
+    var files : FileList
     
     //deprecated
     private var tracks : TrackList
     
-    var hasPhotos : Bool{
-        !photos.isEmpty
+    var hasFiles : Bool{
+        !files.isEmpty
     }
     
     var hasTracks : Bool{
@@ -43,7 +43,7 @@ class Location : CodableLocation{
     
     override init(coordinate: CLLocationCoordinate2D){
         id = UUID()
-        photos = PhotoList()
+        files = FileList()
         tracks = TrackList()
         super.init(coordinate: coordinate)
         evaluatePlacemark()
@@ -55,7 +55,7 @@ class Location : CodableLocation{
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
-        photos = try values.decodeIfPresent(PhotoList.self, forKey: .photos) ?? Array<PhotoData>()
+        files = try values.decodeIfPresent(FileList.self, forKey: .files) ?? FileList()
         //deprecated
         tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()
         try super.init(from: decoder)
@@ -75,7 +75,7 @@ class Location : CodableLocation{
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
         try container.encode(note, forKey: .note)
-        try container.encode(photos, forKey: .photos)
+        try container.encode(files, forKey: .files)
     }
     
     func evaluatePlacemark(){
@@ -92,18 +92,18 @@ class Location : CodableLocation{
         
     }
     
-    func addPhoto(photo: PhotoData){
-        photos.append(photo)
+    func addFile(file: FileData){
+        files.append(file)
     }
     
-    func deletePhoto(photo: PhotoData){
+    func deleteFile(file: FileData){
         lock.wait()
         defer{lock.signal()}
-        photos.remove(photo)
+        files.remove(file)
     }
     
-    func deleteAllPhotos(){
-        photos.removeAllPhotos()
+    func deleteAllFiles(){
+        files.removeAllFiles()
     }
     
     //deprecated

@@ -53,7 +53,7 @@ class Locations{
         defer{_lock.signal()}
         for idx in 0..<list.count{
             if list[idx] == location{
-                location.deleteAllPhotos()
+                location.deleteAllFiles()
                 list.remove(at: idx)
                 return
             }
@@ -64,7 +64,7 @@ class Locations{
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
-            list[idx].deleteAllPhotos()
+            list[idx].deleteAllFiles()
         }
         list.removeAll()
     }

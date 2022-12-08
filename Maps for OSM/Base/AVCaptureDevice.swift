@@ -31,6 +31,42 @@ extension AVCaptureDevice {
         }
     }
     
+    static func askAudioAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
+        switch AVCaptureDevice.authorizationStatus(for: .audio){
+        case .authorized:
+            callback(.success(()))
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .audio){ granted in
+                if granted{
+                    callback(.success(()))
+                }
+                else{
+                    callback(.failure(AuthorizationError.rejected))
+                }
+            }
+            break
+        default:
+            callback(.failure(AuthorizationError.rejected))
+            break
+        }
+    }
+    
+    static func askVideoAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
+        askCameraAuthorization(){ result  in
+            switch result{
+            case .success(()):
+                askAudioAuthorization(){ _ in
+                    callback(.success(()))
+                }
+                return
+            case .failure:
+                callback(.failure(AuthorizationError.rejected))
+                return
+            }
+        }
+    }
+    
 }
 
 

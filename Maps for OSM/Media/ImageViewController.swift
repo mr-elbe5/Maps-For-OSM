@@ -7,14 +7,13 @@
 import Foundation
 import UIKit
 
-
-class PhotoViewController: PopupScrollViewController, UIScrollViewDelegate {
+class ImageViewController: PopupScrollViewController, UIScrollViewDelegate {
     
     var uiImage : UIImage? = nil
     var imageView : UIImageView? = nil
     
     override func loadView() {
-        title = "Photo"
+        title = "Image".localize()
         super.loadView()
         if let image = uiImage{
             scrollView.maximumZoomScale = 1.0

@@ -81,7 +81,7 @@ class LocationCell: UITableViewCell{
             }
             
             label = UILabel()
-            label.text = String(location.photos.count) + " " + "photos".localize()
+            label.text = String(location.files.count) + " " + "files".localize()
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }
     }
