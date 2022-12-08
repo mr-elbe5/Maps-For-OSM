@@ -11,7 +11,7 @@ class ImageData : FileData{
     
     private var _fileName = ""
     
-    override var type : MediaType{
+    override var type : FileType{
         .image
     }
     

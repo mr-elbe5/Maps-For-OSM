@@ -9,7 +9,7 @@ import UIKit
 
 class PhotoData : ImageData{
     
-    override var type : MediaType{
+    override var type : FileType{
         .photo
     }
     

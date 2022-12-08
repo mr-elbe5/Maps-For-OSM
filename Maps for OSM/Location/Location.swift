@@ -21,6 +21,8 @@ class Location : CodableLocation{
         case address
         case note
         case files
+        //deprecated
+        case photos
         case tracks
     }
     
@@ -56,8 +58,13 @@ class Location : CodableLocation{
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         files = try values.decodeIfPresent(FileList.self, forKey: .files) ?? FileList()
-        //deprecated
+        // start deprecated
+        let photoList = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
+        for photo in photoList{
+            files.append(photo)
+        }
         tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()
+        // end deprectaed
         try super.init(from: decoder)
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()

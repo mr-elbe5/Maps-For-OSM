@@ -16,7 +16,7 @@ class AudioData : FileData{
     var title: String = ""
     var time: Double = 0.0
     
-    override var type : MediaType{
+    override var type : FileType{
         get{
             return .audio
         }

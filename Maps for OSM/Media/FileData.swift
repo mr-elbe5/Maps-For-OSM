@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-enum MediaType: String, Codable{
+enum FileType: String, Codable{
     case audio
     case photo
     case image
@@ -32,7 +32,7 @@ class FileData : Equatable, Identifiable, Codable{
     
     var isNew = false
     
-    var type : MediaType{
+    var type : FileType{
         fatalError("not implemented")
     }
     

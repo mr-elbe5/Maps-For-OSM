@@ -111,7 +111,7 @@ class LocationDetailViewController: PopupScrollViewController{
         for file in location.files{
             switch file.type{
             case .photo, .image:
-                if let image = file as? ImageData{
+                if let image = file.data as? ImageData{
                     let imageView = ImageListItemView(data: image)
                     imageView.delegate = self
                     fileStackView.addArrangedSubview(imageView)
