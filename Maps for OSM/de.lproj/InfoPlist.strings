@@ -1,7 +1,8 @@
 "NSCameraUsageDescription"="Der Zugang zur Kamera wird benötigt, um Fotos aufzunehmen, die dann der aktuellen Position zugeordnet werden.";
 "NSDocumentsFolderUsageDescription"="Das Dokumentenverzeichnis wird für den Import und Export von gpx-Dateien und für Logs verwendet.";
 "NSLocationAlwaysAndWhenInUseUsageDescription"="Die Position wird benötigt, um die aktuelle Position anzuzeigen und ggf. auf einer Tour aufzuzeichnen.";
-"NSLocationAlwaysUsageDescription"="Diese Einstellung wird benötigt, um eine Tour weiterhin aufzuzeichnen, wenn sich die App im Hintergrund befindet.";
+"NSLocationAlwaysUsageDescription"="Diese Einstellung wird benötigt, um eine Tour weiterhin aufzuzeichnen, auch wenn sich die App im Hintergrund befindet.";
 "NSLocationUsageDescription"="Die Position wird benötigt, um die aktuelle Position anzuzeigen und ggf. auf einer Tour aufzuzeichnen.";
 "NSLocationWhenInUseUsageDescription"="Die Position wird benötigt, um die aktuelle Position anzuzeigen und ggf. auf einer Tour aufzuzeichnen.";
 "NSPhotoLibraryUsageDescription"="Der Zugang zur Fotobibliothek wird benötigt, wenn Fotos aus der App in die Bibliothek exportiert oder Fotos aus der Bibliothek einem Ort zugeordnet werden sollen.";
+"NSMicrophoneUsageDescription"="Das Mikrofon wir für die Aufnahme von Audios und Videos benötigt, die dann der aktuellen Position zugeordnet werden.";

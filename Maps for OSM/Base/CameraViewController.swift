@@ -10,8 +10,12 @@ import AVFoundation
 
 class CameraViewController: UIViewController {
     var bodyView = UIView()
-    var cameraButtonView = UIView()
-    var closeButtonView = UIView()
+    var cameraButtonContainerView = UIView()
+    var flashButton = UIButton().asIconButton("bolt.badge.a", color: .white)
+    var cameraButton = UIButton().asIconButton("camera.rotate", color: .white)
+    var closeButtonContainerView = UIView()
+    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
+    var captureButton = CaptureButton()
     var preview = CameraPreviewView()
     var cameraUnavailableLabel = UILabel()
     
@@ -38,22 +42,21 @@ class CameraViewController: UIViewController {
         view.addSubviewFillingSafeArea(bodyView)
         bodyView.backgroundColor = .black
         
-        bodyView.addSubviewWithAnchors(closeButtonView, top: bodyView.topAnchor, trailing: bodyView.trailingAnchor)
-            .setRoundedBorders(radius: 5)
-            .setBackground(.black)
-        let closeButton = UIButton().asIconButton("xmark.circle", color: .white)
-        closeButtonView.addSubviewFilling(closeButton, insets: defaultInsets)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        
-        bodyView.addSubviewWithAnchors(cameraButtonView, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor)
-            .setRoundedBorders(radius: 5)
-            .setBackground(.black)
-        cameraButtonView.backgroundColor = .black
-        
-        addCameraButtons()
-        
         bodyView.addSubviewFilling(preview, insets: .zero)
             .setBackground(.black)
+        
+        bodyView.addSubviewWithAnchors(closeButtonContainerView, top: bodyView.topAnchor, trailing: bodyView.trailingAnchor)
+            .setRoundedBorders(radius: 5)
+            .setBackground(.black)
+        
+        closeButtonContainerView.addSubviewFilling(closeButton, insets: defaultInsets)
+        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
+        
+        bodyView.addSubviewWithAnchors(cameraButtonContainerView, leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor)
+            .setRoundedBorders(radius: 5)
+            .setBackground(.black)
+        
+        addCameraButtons()
         
         AVCaptureDevice.askCameraAuthorization(){ result in
             self.preview.session = self.session

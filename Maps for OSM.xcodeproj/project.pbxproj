@@ -299,6 +299,7 @@
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
+				4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */,
 				4EE1462328D476210058F3D3 /* TestCenter.swift */,
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
 			);
@@ -416,7 +417,6 @@
 		4E3BE7EA26EA7E57000F9069 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */,
 				4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */,
 				4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */,
 				4EE1461B28D368370058F3D3 /* MapPoint.swift */,

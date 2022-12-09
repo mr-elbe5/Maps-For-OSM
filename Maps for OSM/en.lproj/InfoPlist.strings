@@ -1,7 +1,8 @@
 "NSCameraUsageDescription"="Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.";
 "NSDocumentsFolderUsageDescription"="Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.";
 "NSLocationAlwaysAndWhenInUseUsageDescription"="Your location is needed for showing your current position and record it on demand.";
-"NSLocationAlwaysUsageDescription"="This setting is needed for recording your position even if the app is in the background.";
+"NSLocationAlwaysUsageDescription"="This setting is needed for recording your position on tours even if the app is in the background.";
 "NSLocationUsageDescription"="Your location is needed for showing and saving your current position.";
 "NSLocationWhenInUseUsageDescription"="Your location is needed for showing and saving your current position.";
 "NSPhotoLibraryUsageDescription"="The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to a location.";
+"NSMicrophoneUsageDescription"="The microphone is needed for recording audio and video, which will be stored in the app in connection with its location.";

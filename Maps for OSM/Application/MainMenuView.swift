@@ -6,7 +6,7 @@
 
 import UIKit
 
-protocol MainMenuDelegate{
+protocol MainMenuDelegate: MapPositionDelegate{
     func setMapType(_ type: MapType)
     func openPreloadMap()
     func openMapPreferences()
@@ -24,8 +24,6 @@ protocol MainMenuDelegate{
     func updateCross()
     func focusUserLocation()
     func refreshMap()
-    
-    func addPhotoAtCurrentPosition()
     
     func openSearch()
     
@@ -74,21 +72,18 @@ class MainMenuView: UIView {
         iconLine.addSubviewWithAnchors(crossControl, top: iconLine.topAnchor, trailing: focusUserLocationControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
         crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
         
-        let refreshControl = UIButton().asIconButton("arrow.clockwise")
-        iconLine.addSubviewWithAnchors(refreshControl, top: iconLine.topAnchor, leading: focusUserLocationControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
-        refreshControl.addTarget(self, action: #selector(refreshMap), for: .touchDown)
-        
         let infoControl = UIButton().asIconButton("info.circle")
         iconLine.addSubviewWithAnchors(infoControl, top: iconLine.topAnchor, trailing: iconLine.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        let openCameraControl = UIButton().asIconButton("camera")
-        iconLine.addSubviewWithAnchors(openCameraControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
-        openCameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
+        let searchControl = UIButton().asIconButton("magnifyingglass")
+        iconLine.addSubviewWithAnchors(searchControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
+        searchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
         
-        let openSearchControl = UIButton().asIconButton("magnifyingglass")
-        iconLine.addSubviewWithAnchors(openSearchControl, top: iconLine.topAnchor, trailing: openCameraControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
-        openSearchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        let cameraControl = UIButton().asIconButton("camera")
+        iconLine.addSubviewWithAnchors(cameraControl, top: iconLine.topAnchor, trailing: searchControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
+        cameraControl.menu = getCameraMenu()
+        cameraControl.showsMenuAsPrimaryAction = true
         
         currentTrackLine.setup()
         addSubviewWithAnchors(currentTrackLine, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
@@ -129,6 +124,9 @@ class MainMenuView: UIView {
                 self.mapMenuControl.menu = self.getMapMenu()
             })
         }
+        actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "arrow.clockwise")){ action in
+            self.delegate?.refreshMap()
+        })
         actions.append(UIAction(title: "preloadMaps".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
             self.delegate?.openPreloadMap()
         })
@@ -192,6 +190,20 @@ class MainMenuView: UIView {
         return UIMenu(title: "", children: actions)
     }
     
+    func getCameraMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "addPhoto".localize(), image: UIImage(systemName: "camera")){ action in
+            self.delegate?.addPhotoAtCurrentPosition()
+        })
+        actions.append(UIAction(title: "addVideo".localize(), image: UIImage(systemName: "video")){ action in
+            self.delegate?.addVideoAtCurrentPosition()
+        })
+        actions.append(UIAction(title: "addAudio".localize(), image: UIImage(systemName: "mic")){ action in
+            self.delegate?.addAudioAtCurrentPosition()
+        })
+        return UIMenu(title: "", children: actions)
+    }
+    
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
             ($0 == iconLine || $0 == currentTrackLine || $0 is UIButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
@@ -212,16 +224,8 @@ class MainMenuView: UIView {
         delegate?.focusUserLocation()
     }
     
-    @objc func refreshMap(){
-        delegate?.refreshMap()
-    }
-    
     @objc func openInfo(){
         delegate?.openInfo()
-    }
-    
-    @objc func openCamera(){
-        delegate?.addPhotoAtCurrentPosition()
     }
     
     @objc func openSearch(){

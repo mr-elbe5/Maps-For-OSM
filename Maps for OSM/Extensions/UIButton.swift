@@ -22,7 +22,7 @@ extension UIButton{
     @discardableResult
     func asIconButton(_ icon: String, color: UIColor = .darkGray) -> UIButton{
         setImage(UIImage(systemName: icon), for: .normal)
-        self.tintColor = tintColor
+        self.tintColor = color
         self.scaleBy(1.25)
         return self
     }

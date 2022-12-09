@@ -22,9 +22,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     var delegate: PhotoCaptureDelegate? = nil
     
-    var captureButton = CaptureButton()
-    var flashButton = UIButton().asIconButton("bolt.badge.a", color: .white)
-    var cameraButton = UIButton().asIconButton("camera.rotate", color: .white)
+    
     
     private let photoOutput = AVCapturePhotoOutput()
     
@@ -32,17 +30,18 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
-        cameraButtonView.addSubviewWithAnchors(cameraButton, top: cameraButtonView.topAnchor, leading: cameraButtonView.leadingAnchor, bottom: cameraButtonView.bottomAnchor, insets: defaultInsets)
+        cameraButtonContainerView.addSubviewWithAnchors(cameraButton, top: cameraButtonContainerView.topAnchor, leading: cameraButtonContainerView.leadingAnchor, bottom: cameraButtonContainerView.bottomAnchor, insets: defaultInsets)
         
         flashButton.setImage(UIImage(systemName: "bolt.badge.a"), for: .normal)
         flashButton.addTarget(self, action: #selector(toggleFlash), for: .touchDown)
-        cameraButtonView.addSubviewWithAnchors(flashButton, top: cameraButtonView.topAnchor, leading: cameraButton.trailingAnchor, bottom: cameraButtonView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))
+        cameraButtonContainerView.addSubviewWithAnchors(flashButton, top: cameraButtonContainerView.topAnchor, leading: cameraButton.trailingAnchor, trailing: cameraButtonContainerView.trailingAnchor, bottom: cameraButtonContainerView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))
         
         captureButton.addTarget(self, action: #selector(capturePhoto), for: .touchDown)
         bodyView.addSubviewWithAnchors(captureButton, bottom: bodyView.bottomAnchor, insets: defaultInsets)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
+        
     }
     
     override func enableCameraButtons(flag: Bool){

@@ -7,11 +7,13 @@
 import UIKit
 import CoreLocation
 
-protocol MapViewDelegate{
+protocol MapPositionDelegate{
     func showDetailsOfCurrentPosition()
     func addLocationAtCurrentPosition()
     func addPhotoAtCurrentPosition()
     func addImageAtCurrentPosition()
+    func addVideoAtCurrentPosition()
+    func addAudioAtCurrentPosition()
     func showDetailsOfCrossPosition()
     func addLocationAtCrossPosition()
     func addImageAtCrossPosition()
@@ -26,7 +28,7 @@ class MapView: UIView {
     var crossView = UIButton().asIconButton("plus.circle")
     var controlLayerView = MainMenuView()
     
-    var delegate: MapViewDelegate? = nil
+    var delegate: MapPositionDelegate? = nil
     
     var zoom: Int{
         get{scrollView.zoom}
@@ -73,6 +75,12 @@ class MapView: UIView {
         })
         actions.append(UIAction(title: "addImage".localize()){ action in
             self.delegate?.addImageAtCurrentPosition()
+        })
+        actions.append(UIAction(title: "addVideo".localize()){ action in
+            self.delegate?.addVideoAtCurrentPosition()
+        })
+        actions.append(UIAction(title: "addAudio".localize()){ action in
+            self.delegate?.addAudioAtCurrentPosition()
         })
         return UIMenu(title: "currentPosition".localize(), children: actions)
     }

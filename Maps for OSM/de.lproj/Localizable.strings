@@ -25,9 +25,19 @@
 "preferencesSaved"="Einstellungen gespeichert";
 "deleteAll"="Alle löschen";
 
-//map menu - ControlLayerView
+// current location / cross
+"addLocation"="Ort markieren";
+"addPhoto"="Foto aufnehmen";
+"addImage"="Bild aus der Bibliothek hinzufügen";
+"addVideo"="Video aufnehmen";
+"addAudio"="Ton aufnehmen";
+"crossPosition"="Kreuz-Position";
+"currentPosition"="Aktuelle Position";
+
+//map menu
 "cartoMapType"="Standardkarte";
 "topoMapType"="Topografische Karte";
+"refreshMap"="Karte neu anzeigen";
 "preloadMaps"="Kartenkacheln vorladen...";
 
 //map preload view - MapPreloadViewController
@@ -48,7 +58,7 @@
 "confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
 "deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 
-//preferences view - PrefrencesViewController
+//map preferences view - MapPrefrencesViewController
 "mapServers"="Kartenserver";
 "cartoTemplate"="URL-Template für OpenStreetMap-Karten:";
 "elbe5TileURL"="Template für Elbe5.de benutzen";
@@ -62,35 +72,26 @@
 "openTopoLegalInfo"="Regeln für das Laden von OpenTopoMap.org";
 "mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
 
-// location menu - ControlLayerView
-"showCross"="Positionskreuz anzeigen";
-"hideCross"="Positionskreuz ausblenden";
-"showLocationList"="Ortsliste anzeigen";
-"showLocations"="Orte (Nadeln) anzeigen";
-"hideLocations"="Orte (Nadeln) ausblenden";
-"confirmDeleteLocations"="Wollen Sie alle Orte löschen?";
-"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Fotos werden ebenfalls gelöscht.";
+// location menu
 
-// cross menu
-"addLocation"="Ort hinzufügen";
-"addPhoto"="Foto aufnehmen";
-"addImage"="Bild aus der Bibliothek hinzufügen";
-"crossPosition"="Kreuz-Position";
-"currentPosition"="Aktuelle Position";
+"showLocationList"="Ortsliste anzeigen";
+"showLocations"="Markierte Orte anzeigen";
+"hideLocations"="Markierte Orte ausblenden";
+"confirmDeleteLocations"="Wollen Sie alle Markierungen löschen?";
+"deleteLocationsHint"="Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Medien werden ebenfalls gelöscht.";
 
 // location list - LocationListViewController/LocationCell
 "locationList"="Orte";
 "showDetails"="Details anzeigen";
-"confirmDeleteLocation"="Wollen Sie diesen Ort löschen?";
-"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Fotos. Sie kann nicht rückgängig gemacht werden.";
+"confirmDeleteLocation"="Wollen Sie die Markierung für diesen Ort löschen?";
+"deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Medien. Sie kann nicht rückgängig gemacht werden.";
 
-// location preferences
-"locationPreferences"="Einstellungen für Orte";
-"minLocationAccuracy"="Mindesgnauigkeit";
+// location preferences - LocationPreferencesViewController
+"locationPreferences"="Einstellungen für Ortsmarkierungen";
+"minLocationAccuracy"="Mindestgenauigkeit";
 "maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
-"minZoomToShowLocations"="Minimalzoom zur Anzeige von Orten (Nadeln) [2-18]";
 
-// track menu - ControlLayerView
+// track menu
 "startRecording"="Neue Tour aufnehmen";
 "showCurrentTrack"="Aktuelle Tour...";
 "hideTrack"="Tour ausblenden";
@@ -99,7 +100,14 @@
 "confirmDeleteTracks"="Wollen Sie alle Touren löschen?";
 "deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 
-// track / current track - ControlLayerView/TrackDetailView
+// current track
+"startTracking"="Neue Tour aufnehmen";
+"stopTracking"="Aufnahme beenden";
+"saveTrack"="Tour speichern";
+"pause"="Tour pausieren";
+"resume"="Tour fortsetzen";
+
+// track / current track - TrackDetailView
 "track"="Tour";
 "startLocation"="Startposition";
 "distances"="Entfernungen";
@@ -113,17 +121,10 @@
 "trackList"="Touren";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 
-// track preferences
+// track preferences - TrackPreferencesViewController
 "trackPreferences"="Einstellungen für Touraufzeichnungen";
 "minTrackingDistance"="Minimale Entfernung zwischen Tourpunkten [m]";
 "minTrackingInterval"="Minimale Zeit zwischen Tourpunkten [sec]";
-
-//track menu - ControlLayerView
-"startTracking"="Neue Tour starten";
-"stopTracking"="Tour beenden";
-"saveTrack"="Tour speichern";
-"pause"="Pausieren";
-"resume"="Fortsetzen";
 
 //location
 "east"="Ost";

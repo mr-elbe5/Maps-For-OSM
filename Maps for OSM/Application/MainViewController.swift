@@ -46,48 +46,6 @@ class MainViewController: UIViewController {
         self.present(pickerController, animated: true, completion: nil)
     }
     
-    func addAudio(){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let data = AudioData()
-                    let editView = AudioRecorderView()
-                    editView.data = data
-                    //todo
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
-    func addVideo(){
-        AVCaptureDevice.askVideoAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let data = VideoData()
-                    let videoCaptureController = VideoCaptureViewController()
-                    videoCaptureController.data = data
-                    videoCaptureController.delegate = self
-                    videoCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(videoCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("videoNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
 }
 
 extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -125,33 +83,6 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
 }
 
-extension MainViewController: PhotoCaptureDelegate{
-    
-    func photoCaptured(photo: PhotoData) {
-        if let location = LocationService.instance.location{
-            assertLocation(coordinate: location.coordinate){ location in
-                let changeState = location.files.isEmpty
-                location.addFile(file: photo)
-                Locations.save()
-                if changeState{
-                    DispatchQueue.main.async {
-                        self.updateMarkerLayer()
-                    }
-                }
-            }
-        }
-    }
-    
-}
-
-extension MainViewController: VideoCaptureDelegate{
-    
-    func videoCaptured(data: VideoData){
-        
-    }
-    
-}
-
 extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
@@ -180,7 +111,7 @@ extension MainViewController: LocationLayerViewDelegate{
     
 }
 
-extension MainViewController: MapViewDelegate{
+extension MainViewController: MapPositionDelegate{
     
     func showDetailsOfCurrentPosition() {
         if let location = LocationService.instance.location{
@@ -225,6 +156,48 @@ extension MainViewController: MapViewDelegate{
         addImage(location: nil)
     }
     
+    func addAudioAtCurrentPosition(){
+        AVCaptureDevice.askAudioAuthorization(){ result in
+            switch result{
+            case .success(()):
+                DispatchQueue.main.async {
+                    let data = AudioData()
+                    let editView = AudioRecorderView()
+                    editView.data = data
+                    //todo
+                }
+                return
+            case .failure:
+                DispatchQueue.main.async {
+                    self.showError("audioNotAuthorized")
+                }
+                return
+            }
+        }
+    }
+    
+    func addVideoAtCurrentPosition(){
+        AVCaptureDevice.askVideoAuthorization(){ result in
+            switch result{
+            case .success(()):
+                DispatchQueue.main.async {
+                    let data = VideoData()
+                    let videoCaptureController = VideoCaptureViewController()
+                    videoCaptureController.data = data
+                    videoCaptureController.delegate = self
+                    videoCaptureController.modalPresentationStyle = .fullScreen
+                    self.present(videoCaptureController, animated: true)
+                }
+                return
+            case .failure:
+                DispatchQueue.main.async {
+                    self.showError("videoNotAuthorized")
+                }
+                return
+            }
+        }
+    }
+    
     func showDetailsOfCrossPosition() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
         showAlert(title: "crossPosition", text: coordinate.coordinateString)
@@ -247,6 +220,34 @@ extension MainViewController: MapViewDelegate{
     }
     
 }
+
+extension MainViewController: PhotoCaptureDelegate{
+    
+    func photoCaptured(photo: PhotoData) {
+        if let location = LocationService.instance.location{
+            assertLocation(coordinate: location.coordinate){ location in
+                let changeState = location.files.isEmpty
+                location.addFile(file: photo)
+                Locations.save()
+                if changeState{
+                    DispatchQueue.main.async {
+                        self.updateMarkerLayer()
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+extension MainViewController: VideoCaptureDelegate{
+    
+    func videoCaptured(data: VideoData){
+        
+    }
+    
+}
+
 
 extension MainViewController: MainMenuDelegate{
     
@@ -277,13 +278,6 @@ extension MainViewController: MainMenuDelegate{
         let controller = TileSourcesViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
-    }
-    
-    func addLocation(){
-        let coordinate = mapView.scrollView.screenCenterCoordinate
-        assertLocation(coordinate: coordinate){ location in
-            self.updateMarkerLayer()
-        }
     }
     
     func openLocationList() {

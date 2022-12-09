@@ -25,9 +25,20 @@
 "preferencesSaved"="Preferences saved";
 "deleteAll"="Delete All";
 
-//map menu - ControlLayerView
+// current location / cross
+"addLocation"="Mark Location";
+"addPhoto"="Take Photo";
+"addImage"="Add Image from Library";
+"addVideo"="Record Video";
+"addAudio"="Record Audio";
+"crossPosition"="Cross Position";
+"currentPosition"="Current Position";
+
+
+//map menu
 "cartoMapType"="Default Map";
 "topoMapType"="Topographic Map";
+"refreshMap"="Refresh Map";
 "preloadMaps"="Preload Map Tiles...";
 
 //map preload view - MapPreloadViewController
@@ -47,7 +58,7 @@
 "confirmDeleteTiles"="Do you want to delete all loaded map tiles?";
 "deleteTilesHint"="Map tiles will have to be reloaded then.";
 
-//preferences view - PreferencesViewController
+//preferences view - MapPreferencesViewController
 "mapServers"="Map Servers";
 "cartoTemplate"="URL Template for OpenStreetMap Maps:";
 "elbe5TileURL"="Use Template for Elbe5.de";
@@ -61,36 +72,26 @@
 "openTopoLegalInfo"="Legal Info for tiles from OpenTopoMap.org";
 "mapPreferencesSaved"="Map preferences have been saved.";
 
-// location menu - ControlLayerView
-"showCross"="Show Position Cross";
-"hideCross"="Hide Position Cross";
+// location menu
 "showLocationList"="Show Location List";
-"showLocations"="Show Location Markers (Needles)";
-"hideLocations"="Hide Location Markers (Needles)";
+"showLocations"="Show Location Markers";
+"hideLocations"="Hide Location Markers";
 "deleteLocations"="Delete all Location Markers";
 "confirmDeleteLocations"="Do you want to delete all location markers?";
-"deleteLocationsHint"="This action cannot be undone. Associated photos will also be deleted.";
-
-// cross menu
-"addLocation"="Add Location Marker (Needle)";
-"addPhoto"="Take Photo";
-"addImage"="Add Image from Library";
-"crossPosition"="Cross Position";
-"currentPosition"="Current Position";
+"deleteLocationsHint"="This action cannot be undone. Associated media will also be deleted.";
 
 // location list - LocationListViewController/LocationCell
 "locationList"="Locations";
 "showDetails"="Show Details";
-"confirmDeleteLocation"="Do you want to delete this location?";
-"deleteLocationHint"="This action cannot be undone and includes associated photos.";
+"confirmDeleteLocation"="Do you want to delete the marker for this location?";
+"deleteLocationHint"="This action cannot be undone and includes associated media.";
 
-// location preferences
-"locationPreferences"="Location Preferences";
+// location preferences - LocationPreferencesViewController
+"locationPreferences"="Location Marker Preferences";
 "minLocationAccuracy"="Minimal location accuracy";
 "maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
-"minZoomToShowLocations"="Minimal Zoom for Showing Locations (Needles) [2-18]";
 
-// track menu - ControlLayerView
+// track menu
 "startRecording"="Record a new Tour";
 "showCurrentTrack"="Current Tour...";
 "hideTrack"="Hide Tour";
@@ -99,7 +100,14 @@
 "confirmDeleteTracks"="Do you want to delete all tours?";
 "deleteTracksHint"="This action cannot be undone.";
 
-// track/ current track - ControlLayerView/TrackDetailView
+// current track
+"startTracking"="Record new Tour";
+"stopTracking"="Stop Recording";
+"saveTrack"="Save Tour";
+"pause"="Pause Tour";
+"resume"="Resume Tour";
+
+// track/ current track - TrackDetailView
 "track"="Tour";
 "startLocation"="Start Location";
 "distances"="Distances";
@@ -115,7 +123,7 @@
 "trackList"="Tracks";
 "nameOrDescriptionHint"="Please enter a name for this track";
 
-// track preferences
+// track preferences - TrackPreferencesViewController
 "trackPreferences"="Preferences for recording tours";
 "minTrackingDistance"="Minimal distance between trackpoints [m]";
 "minTrackingInterval"="Minimal time between trackpoints [sec]";

@@ -21,8 +21,6 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     var delegate: VideoCaptureDelegate? = nil
     
     var libraryButton = UIButton().asIconButton("photo", color: .white)
-    var recordButton = CaptureButton()
-    var cameraButton = UIButton().asIconButton("camera.rotate", color: .white)
     
     private var movieFileOutput: AVCaptureMovieFileOutput?
     
@@ -37,28 +35,27 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     }
     
     override func addCameraButtons(){
-        libraryButton.addTarget(self, action: #selector(selectVideo), for: .touchDown)
-        view.addSubview(libraryButton)
-        libraryButton.setAnchors(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, insets: defaultInsets)
-            .height(20)
+        
         cameraButton.setImage(UIImage(systemName: "camera.rotate"), for: .normal)
         cameraButton.target(forAction: #selector(changeCamera), withSender: self)
         cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
         view.addSubview(cameraButton)
         cameraButton.setAnchors(top: view.topAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
             .height(20)
-        recordButton.buttonColor = UIColor.red
-        recordButton.addTarget(self, action: #selector(toggleRecording), for: .touchDown)
-        bodyView.addSubview(recordButton)
-        recordButton.setAnchors(bottom: view.bottomAnchor, insets: defaultInsets)
+        
+        captureButton.buttonColor = UIColor.red
+        captureButton.addTarget(self, action: #selector(toggleRecording), for: .touchDown)
+        bodyView.addSubview(captureButton)
+        captureButton.setAnchors(bottom: view.bottomAnchor, insets: defaultInsets)
             .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
+        
     }
     
     override func enableCameraButtons(flag: Bool){
         libraryButton.isEnabled = flag
-        recordButton.isEnabled = flag
+        captureButton.isEnabled = flag
         cameraButton.isEnabled = flag
     }
     
@@ -90,7 +87,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
                 self.session.commitConfiguration()
                 self.movieFileOutput = movieFileOutput
                 DispatchQueue.main.async {
-                    self.recordButton.isEnabled = true
+                    self.captureButton.isEnabled = true
                 }
             }
         }
@@ -142,7 +139,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         }
         
         cameraButton.isEnabled = false
-        recordButton.isEnabled = false
+        captureButton.isEnabled = false
         
         let videoPreviewLayerOrientation = preview.videoPreviewLayer.connection?.videoOrientation
         
@@ -168,8 +165,8 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     
     func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
         DispatchQueue.main.async {
-            self.recordButton.isEnabled = true
-            self.recordButton.buttonState = .recording
+            self.captureButton.isEnabled = true
+            self.captureButton.buttonState = .recording
         }
     }
     
@@ -196,8 +193,8 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             self.cleanup()
         }
         DispatchQueue.main.async {
-            self.recordButton.isEnabled = true
-            self.recordButton.buttonState = .normal
+            self.captureButton.isEnabled = true
+            self.captureButton.buttonState = .normal
         }
     }
     
@@ -224,7 +221,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             guard let isSessionRunning = change.newValue else { return }
             DispatchQueue.main.async {
                 self.cameraButton.isEnabled = isSessionRunning && self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1
-                self.recordButton.isEnabled = isSessionRunning && self.movieFileOutput != nil
+                self.captureButton.isEnabled = isSessionRunning && self.movieFileOutput != nil
             }
         }
         keyValueObservations.append(keyValueObservation)
@@ -234,16 +231,6 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         object: videoDeviceInput.device)
     }
     
-    @objc func selectVideo(){
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.allowsEditing = true
-        pickerController.mediaTypes = ["public.movie"]
-        pickerController.sourceType = .photoLibrary
-        pickerController.modalPresentationStyle = .fullScreen
-        self.present(pickerController, animated: true, completion: nil)
-    }
-        
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let videoURL = info[.mediaURL] as? URL else {return}
         if FileController.copyFile(fromURL: videoURL, toURL: data.fileURL){
