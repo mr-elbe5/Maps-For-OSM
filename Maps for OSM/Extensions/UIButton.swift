@@ -32,7 +32,8 @@ extension UIButton{
         setImage(UIImage(named: image), for: .normal)
         return self
     }
-    
+
+    @discardableResult
     func asTextButton(_ text: String, color: UIColor = .systemBlue, backgroundColor: UIColor? = nil) -> UIButton{
         setTitle(text, for: .normal)
         setTitleColor(color, for: .normal)

@@ -14,8 +14,8 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     var playerItem : AVPlayerItem? = nil
     
     var playProgress = UIProgressView()
-    var rewindButton = UIButton().asIconButton("repeat")
-    var playButton = UIButton().asIconButton("play.fill")
+    var rewindButton = UIButton().asIconButton("repeat", color: .white)
+    var playButton = UIButton().asIconButton("play.fill", color: .white)
     var volumeView = VolumeSlider()
     
     var timeObserverToken : Any? = nil
@@ -40,6 +40,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     override init(frame: CGRect) {
         self.player = AVPlayer()
         super.init(frame: frame)
+        backgroundColor = .black
         setRoundedBorders()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
@@ -52,27 +53,23 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     }
     
     func setupView(){
-        addSubview(playProgress)
+        playProgress.setBackground(.white)
+        addSubviewWithAnchors(playProgress, top: topAnchor, leading: leadingAnchor, insets: defaultInsets)
+            .height(25)
+        
         rewindButton.addTarget(self, action: #selector(rewind), for: .touchDown)
-        addSubview(rewindButton)
+        addSubviewWithAnchors(rewindButton, top: topAnchor, leading: playProgress.trailingAnchor, insets: defaultInsets)
+            .height(20)
+        
         playButton.addTarget(self, action: #selector(togglePlay), for: .touchDown)
-        addSubview(playButton)
+        addSubviewWithAnchors(playButton, top: topAnchor, leading: rewindButton.trailingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+            .height(20)
+        
+        volumeView.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
+        addSubviewWithAnchors(volumeView, top: playProgress.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+            .height(25)
         rewindButton.isEnabled = false
         playButton.isEnabled = false
-        volumeView.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
-        addSubview(volumeView)
-    }
-    
-    func layoutView(){
-        playProgress.setAnchors(leading: leadingAnchor, insets: defaultInsets)
-            .centerY(centerYAnchor)
-        playButton.setAnchors(top: topAnchor, trailing: trailingAnchor, insets: defaultInsets)
-            .height(20)
-        rewindButton.setAnchors(top: topAnchor, trailing: playButton.leadingAnchor, insets: defaultInsets)
-            .height(20)
-        playProgress.trailing(rewindButton.leadingAnchor, inset: defaultInset)
-        volumeView.setAnchors(top: playProgress.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        height(25)
     }
     
     func enablePlayer(){
@@ -165,11 +162,11 @@ class VolumeSlider : UISlider{
         super.init(frame: .zero)
         minimumValue = minValue
         maximumValue = maxValue
-        self.value = value
-        tintColor = iconColor
+        tintColor = .white
         minimumValueImage = UIImage(systemName: "speaker")?.withTintColor(iconColor)
         maximumValueImage = UIImage(systemName: "speaker.3")?.withTintColor(iconColor)
-        self.thumbTintColor = lightIconColor
+        thumbTintColor = .white
+        self.value = value
     }
     
     required init?(coder: NSCoder) {

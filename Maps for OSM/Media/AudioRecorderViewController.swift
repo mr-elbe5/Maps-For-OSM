@@ -8,47 +8,80 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class AudioRecorderView : UIView, AVAudioRecorderDelegate{
+protocol AudioCaptureDelegate{
+    
+    func audioCaptured(data: AudioData)
+}
+
+class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     
     var audioRecorder: AVAudioRecorder? = nil
     var isRecording: Bool = false
     var currentTime: Double = 0.0
     
-    var data : AudioData!
+    var data = AudioData()
     
+    var bodyView = UIView()
+    var closeButtonContainerView = UIView()
+    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
+    
+    var centerContainerView = UIView()
     var player = AudioPlayerView()
     var recordButton = CaptureButton()
+    var saveButton = UIButton()
     var timeLabel = UILabel()
     var progress = AudioProgressView()
     
+    var delegate: AudioCaptureDelegate? = nil
     
-    func setupView() {
-        backgroundColor = .black
+    override func loadView() {
+        super.loadView()
+        view.addSubviewFillingSafeArea(bodyView)
+        bodyView.backgroundColor = .black
+        
+        bodyView.addSubviewWithAnchors(closeButtonContainerView, top: bodyView.topAnchor, trailing: bodyView.trailingAnchor)
+            .setRoundedBorders(radius: 5)
+            .setBackground(.black)
+        
+        closeButtonContainerView.addSubviewFilling(closeButton, insets: defaultInsets)
+        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
+        
+        bodyView.addSubviewWithAnchors(centerContainerView, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor)
+            .centerY(bodyView.centerYAnchor)
+            .setRoundedBorders(radius: 5)
+            .setBackground(.darkGray)
+    
         timeLabel.textAlignment = .center
         timeLabel.textColor = .white
-        addSubview(timeLabel)
+        centerContainerView.addSubviewWithAnchors(timeLabel, top: centerContainerView.topAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
+        
+        centerContainerView.addSubviewWithAnchors(progress, top: timeLabel.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
         progress.setupView()
-        addSubview(progress)
-        recordButton.addTarget(self, action: #selector(toggleRecording), for: .touchUpInside)
-        addSubview(recordButton)
-        self.recordButton.isEnabled = true
+        
+        centerContainerView.addSubviewWithAnchors(player, top: progress.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, bottom: centerContainerView.bottomAnchor, insets: defaultInsets)
+            .height(100).setBackground(.black)
         player.setupView()
-        player.backgroundColor = .systemBackground
-        addSubview(player)
-    }
-
-    func layoutView(){
-        timeLabel.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
-        progress.setAnchors(top: timeLabel.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
-        progress.layoutView()
-        recordButton.setAnchors(top: progress.bottomAnchor, insets: defaultInsets)
-            .centerX(centerXAnchor)
+        player.disablePlayer()
+        
+        saveButton.asTextButton("save".localize(), color: .white)
+        saveButton.setTitleColor(.lightGray, for: .disabled)
+        saveButton.addTarget(self, action: #selector(save), for: .touchDown)
+        bodyView.addSubviewWithAnchors(saveButton, bottom: bodyView.bottomAnchor, insets: defaultInsets)
+            .centerX(bodyView.centerXAnchor)
+        saveButton.isEnabled = false
+        
+        recordButton.addTarget(self, action: #selector(toggleRecording), for: .touchUpInside)
+        bodyView.addSubviewWithAnchors(recordButton, bottom: saveButton.topAnchor, insets: defaultInsets)
+            .centerX(bodyView.centerXAnchor)
             .width(50)
             .height(50)
-        player.setAnchors(top: recordButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        player.layoutView()
-        player.disablePlayer()
+        
+        recordButton.isEnabled = false
         updateTime(time: 0.0)
+        AVCaptureDevice.askAudioAuthorization(){ result in
+            self.enableRecording()
+        }
+        
     }
     
     func enableRecording(){
@@ -112,6 +145,7 @@ class AudioRecorderView : UIView, AVAudioRecorderDelegate{
             player.url = nil
         }
         recordButton.buttonState = .normal
+        saveButton.isEnabled = true
     }
     
     func updateTime(time: Double){
@@ -134,6 +168,17 @@ class AudioRecorderView : UIView, AVAudioRecorderDelegate{
         if !flag {
             finishRecording(success: flag)
         }
+    }
+    
+    @objc func save(){
+        delegate?.audioCaptured(data: data)
+        self.dismiss(animated: true, completion: {
+        })
+    }
+    
+    @objc func close(){
+        self.dismiss(animated: true, completion: {
+        })
     }
     
 }
@@ -180,21 +225,14 @@ class AudioProgressView : UIView{
     var loudLabel = UIImageView(image: UIImage(systemName: "speaker.3"))
     
     func setupView() {
-        backgroundColor = .clear
+        backgroundColor = .black
         lowLabel.tintColor = .white
-        addSubview(lowLabel)
+        addSubviewWithAnchors(lowLabel, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         progress.progressTintColor = .systemRed
         progress.progress = 0.0
-        addSubview(progress)
+        addSubviewWithAnchors(progress, top: topAnchor, leading: lowLabel.trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         loudLabel.tintColor = .white
-        addSubview(loudLabel)
-        
-    }
-    
-    func layoutView(){
-        lowLabel.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        loudLabel.setAnchors(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        progress.setAnchors(top: topAnchor, leading: lowLabel.trailingAnchor, trailing: loudLabel.leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        addSubviewWithAnchors(loudLabel, top: topAnchor, leading: progress.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
     }
     
     func setProgress(_ value: Float){

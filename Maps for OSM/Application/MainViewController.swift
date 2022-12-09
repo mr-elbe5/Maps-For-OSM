@@ -162,9 +162,11 @@ extension MainViewController: MapPositionDelegate{
             case .success(()):
                 DispatchQueue.main.async {
                     let data = AudioData()
-                    let editView = AudioRecorderView()
-                    editView.data = data
-                    //todo
+                    let audioCaptureController = AudioRecorderViewController()
+                    audioCaptureController.delegate = self
+                    audioCaptureController.modalPresentationStyle = .fullScreen
+                    audioCaptureController.data = data
+                    self.present(audioCaptureController, animated: true)
                 }
                 return
             case .failure:
@@ -243,6 +245,14 @@ extension MainViewController: PhotoCaptureDelegate{
 extension MainViewController: VideoCaptureDelegate{
     
     func videoCaptured(data: VideoData){
+        
+    }
+    
+}
+
+extension MainViewController: AudioCaptureDelegate{
+    
+    func audioCaptured(data: AudioData){
         
     }
     
