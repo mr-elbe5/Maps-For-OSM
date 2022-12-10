@@ -155,7 +155,7 @@ class PreferencesViewController: PopupScrollViewController{
             Preferences.shared.minTrackingInterval = CLLocationDistance(val)
         }
         Preferences.shared.save()
-        showDone(title: "ok".localize(), text: "mapPreferencesSaved".localize())
+        showDone(title: "ok".localize(), text: "preferencesSaved".localize())
     }
     
 }

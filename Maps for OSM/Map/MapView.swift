@@ -138,6 +138,7 @@ class MapView: UIView {
     
     func setDefaultLocation(){
         scaleTo(scale: AppState.shared.scale)
+        print("moving to \(AppState.shared.coordinate.shortString)")
         scrollView.scrollToScreenCenter(coordinate: AppState.shared.coordinate)
         updateLocationLayer()
     }
@@ -152,7 +153,7 @@ class MapView: UIView {
     }
     
     func focusUserLocation() {
-        if let location = LocationService.instance.location{
+        if let location = LocationService.shared.location{
             scrollView.scrollToScreenCenter(coordinate: location.coordinate)
         }
     }

@@ -17,9 +17,8 @@ class AppState: Identifiable, Codable{
     static var cartoDirectory : URL!
     static var topoDirectory : URL!
     
-    static func initialize(){
+    static func initializeDirectories(){
         filesDirectory = privateURL.appendingPathComponent("files")
-        //try? FileManager.default.removeItem(atPath: "\(filesDirectory.path)")
         cartoDirectory = filesDirectory.appendingPathComponent("carto")
         topoDirectory = filesDirectory.appendingPathComponent("topo")
         if !FileManager.default.fileExists(atPath: cartoDirectory.path){

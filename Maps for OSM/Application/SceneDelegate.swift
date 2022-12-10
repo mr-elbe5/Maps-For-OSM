@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //TestCenter.testWorld()
         FileController.initialize()
         Preferences.loadInstance()
-        AppState.initialize()
+        AppState.initializeDirectories()
         AppState.loadInstance()
         //MapTiles.dumpTiles()
         Locations.load()
@@ -25,31 +25,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         mainController = MainViewController()
         window?.rootViewController = mainController
         window?.makeKeyAndVisible()
-        LocationService.instance.requestWhenInUseAuthorization()
+        LocationService.shared.requestWhenInUseAuthorization()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        LocationService.instance.stop()
+        LocationService.shared.stop()
         FileController.deleteTemporaryFiles()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        if !LocationService.instance.running{
-            LocationService.instance.start()
+        if !LocationService.shared.running{
+            LocationService.shared.start()
         }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         AppState.shared.save()
         if TrackRecorder.isRecording{
-            if !LocationService.instance.authorizedForTracking{
-                LocationService.instance.requestAlwaysAuthorization()
+            if !LocationService.shared.authorizedForTracking{
+                LocationService.shared.requestAlwaysAuthorization()
             }
         }
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        LocationService.instance.start()
+        LocationService.shared.start()
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -57,7 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Locations.save()
         Tracks.save()
         if !TrackRecorder.isRecording{
-            LocationService.instance.stop()
+            LocationService.shared.stop()
         }
         Preferences.shared.save()
         mainController.mapView.savePosition()

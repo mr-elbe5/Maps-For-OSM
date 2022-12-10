@@ -65,7 +65,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
                     }
                 }
             }
-            else if let location = LocationService.instance.location{
+            else if let location = LocationService.shared.location{
                 assertLocation(coordinate: location.coordinate){ location in
                     let changeState = location.files.isEmpty
                     location.addFile(file: image)
@@ -114,13 +114,13 @@ extension MainViewController: LocationLayerViewDelegate{
 extension MainViewController: MapPositionDelegate{
     
     func showDetailsOfCurrentPosition() {
-        if let location = LocationService.instance.location{
+        if let location = LocationService.shared.location{
             showAlert(title: "currentPosition", text: location.string)
         }
     }
     
     func addLocationAtCurrentPosition() {
-        if let location = LocationService.instance.location{
+        if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
                 Locations.save()
                 DispatchQueue.main.async {
@@ -226,7 +226,7 @@ extension MainViewController: MapPositionDelegate{
 extension MainViewController: PhotoCaptureDelegate{
     
     func photoCaptured(photo: PhotoData) {
-        if let location = LocationService.instance.location{
+        if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.files.isEmpty
                 location.addFile(file: photo)
@@ -303,7 +303,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func startTracking(){
-        if let lastLocation = LocationService.instance.location{
+        if let lastLocation = LocationService.shared.location{
             assertLocation(coordinate: lastLocation.coordinate){ location in
                 TrackRecorder.startRecording(startPoint: location)
                 if let track = TrackRecorder.track{

@@ -25,6 +25,18 @@
 "preferencesSaved"="Preferences saved";
 "deleteAll"="Delete All";
 
+//error
+"error"="Error";
+"copyError"="The file could not be copied.";
+"fileOpenError"="The file could not be opened.";
+"loadError"="The data could not be loaded.";
+"saveError"="The file could not be saved.";
+"timeoutError"="A timeout has been reached.";
+"notComplete"="Some entries are not complete.";
+"readError"="The file could not be read.";
+"unauthorizedError"="This action has not been authorized.";
+"unexpectedError"="There has been an unexpected error.";
+
 // current location / cross
 "addLocation"="Mark Location";
 "addPhoto"="Take Photo";
@@ -34,6 +46,12 @@
 "crossPosition"="Cross Position";
 "currentPosition"="Current Position";
 
+//camera
+"cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
+"cameraNotAvailable"="Camera is not available.";
+"photoLibraryNotAuthorized"="The use of the photo library is not authorized. Please change your settings.";
+"photoShared"="Photo has been copied.";
+"shareImage"="Share Image";
 
 //map menu
 "cartoMapType"="Default Map";
@@ -58,20 +76,6 @@
 "confirmDeleteTiles"="Do you want to delete all loaded map tiles?";
 "deleteTilesHint"="Map tiles will have to be reloaded then.";
 
-//preferences view - MapPreferencesViewController
-"mapServers"="Map Servers";
-"cartoTemplate"="URL Template for OpenStreetMap Maps:";
-"elbe5TileURL"="Use Template for Elbe5.de";
-"osmTileURL"="Use template for OpenStreetMap.org";
-"elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
-"osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
-"topoTemplate"="URL Template for Topographic Maps:";
-"elbe5TopoTileURL"="Use Template for Elbe5.de(topo)";
-"elbe5TopoLegalInfo"="Legal Info for tiles from Elbe5.de(topo)";
-"openTopoTileURL"="Use Template for OpenTopoMap.org";
-"openTopoLegalInfo"="Legal Info for tiles from OpenTopoMap.org";
-"mapPreferencesSaved"="Map preferences have been saved.";
-
 // location menu
 "showLocationList"="Show Location List";
 "showLocations"="Show Location Markers";
@@ -85,11 +89,6 @@
 "showDetails"="Show Details";
 "confirmDeleteLocation"="Do you want to delete the marker for this location?";
 "deleteLocationHint"="This action cannot be undone and includes associated media.";
-
-// location preferences - LocationPreferencesViewController
-"locationPreferences"="Location Marker Preferences";
-"minLocationAccuracy"="Minimal location accuracy";
-"maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
 
 // track menu
 "startRecording"="Record a new Tour";
@@ -123,11 +122,6 @@
 "trackList"="Tracks";
 "nameOrDescriptionHint"="Please enter a name for this track";
 
-// track preferences - TrackPreferencesViewController
-"trackPreferences"="Preferences for recording tours";
-"minTrackingDistance"="Minimal distance between trackpoints [m]";
-"minTrackingInterval"="Minimal time between trackpoints [sec]";
-
 //location
 "east"="East";
 "north"="North";
@@ -149,24 +143,25 @@
 "confirmDeleteTrack"="Do you want to delete this track?";
 "deleteTrackHint"="This action cannot be undone.";
 
-//camera
-"cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
-"cameraNotAvailable"="Camera is not available.";
-"photoLibraryNotAuthorized"="The use of the photo library is not authorized. Please change your settings.";
-"photoShared"="Photo has been copied.";
-"shareImage"="Share Image";
-
-//error
-"error"="Error";
-"copyError"="The file could not be copied.";
-"fileOpenError"="The file could not be opened.";
-"loadError"="The data could not be loaded.";
-"saveError"="The file could not be saved.";
-"timeoutError"="A timeout has been reached.";
-"notComplete"="Some entries are not complete.";
-"readError"="The file could not be read.";
-"unauthorizedError"="This action has not been authorized.";
-"unexpectedError"="There has been an unexpected error.";
+//preferences view
+"preferences"="Preferences";
+"cartoTemplate"="URL Template for OpenStreetMap Maps:";
+"elbe5TileURL"="Use Template for Elbe5.de";
+"osmTileURL"="Use template for OpenStreetMap.org";
+"elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
+"osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
+"topoTemplate"="URL Template for Topographic Maps:";
+"elbe5TopoTileURL"="Use Template for Elbe5.de(topo)";
+"elbe5TopoLegalInfo"="Legal Info for tiles from Elbe5.de(topo)";
+"openTopoTileURL"="Use Template for OpenTopoMap.org";
+"openTopoLegalInfo"="Legal Info for tiles from OpenTopoMap.org";
+"mapPreferencesSaved"="Map preferences have been saved.";
+"locationPreferences"="Location Marker Preferences";
+"minLocationAccuracy"="Minimal location accuracy";
+"maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
+"trackPreferences"="Preferences for recording tours";
+"minTrackingDistance"="Minimal distance between trackpoints [m]";
+"minTrackingInterval"="Minimal time between trackpoints [sec]";
 
 //info
 "appInfoHeader"="General";

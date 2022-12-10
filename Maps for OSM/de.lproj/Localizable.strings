@@ -25,6 +25,18 @@
 "preferencesSaved"="Einstellungen gespeichert";
 "deleteAll"="Alle löschen";
 
+//error
+"error"="Fehler";
+"copyError"="Die Datei konnte nicht kopiert werden.";
+"fileOpenError"="Die Datei konnte nicht geöffnet werden.";
+"loadError"="Die Datei konnte nicht geladen werden.";
+"saveError"="Die Datei konnte nicht gespeichert werden.";
+"timeoutError"="Eine vorgegebene Zeit wurde überschritten.";
+"notComplete"="Einige Eingaben sind nicht vollständig.";
+"readError"="Die Datei konnte nicht gelesen werden.";
+"unauthorizedError"="Diese Aktion wurde nicht autorisiert.";
+"unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
+
 // current location / cross
 "addLocation"="Ort markieren";
 "addPhoto"="Foto aufnehmen";
@@ -33,6 +45,13 @@
 "addAudio"="Ton aufnehmen";
 "crossPosition"="Kreuz-Position";
 "currentPosition"="Aktuelle Position";
+
+//camera
+"cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
+"cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
+"photoLibraryNotAuthorized"="Die Nutzung der Fotobibliothek ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
+"photoShared"="Foto wurde kopiert.";
+"shareImage"="Bild kopieren";
 
 //map menu
 "cartoMapType"="Standardkarte";
@@ -58,20 +77,6 @@
 "confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
 "deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 
-//map preferences view - MapPrefrencesViewController
-"mapServers"="Kartenserver";
-"cartoTemplate"="URL-Template für OpenStreetMap-Karten:";
-"elbe5TileURL"="Template für Elbe5.de benutzen";
-"elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
-"osmTileURL"="Template für OpenStreetMap.org benutzen";
-"osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
-"topoTemplate"="URL-Template für Topografische Karten:";
-"elbe5TopoTileURL"="Template für Elbe5.de(topo) benutzen";
-"elbe5TopoLegalInfo"="Regeln für das Laden von Elbe5.de(topo)";
-"openTopoTileURL"="Template für OpenTopoMap.org benutzen";
-"openTopoLegalInfo"="Regeln für das Laden von OpenTopoMap.org";
-"mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
-
 // location menu
 
 "showLocationList"="Ortsliste anzeigen";
@@ -85,11 +90,6 @@
 "showDetails"="Details anzeigen";
 "confirmDeleteLocation"="Wollen Sie die Markierung für diesen Ort löschen?";
 "deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Medien. Sie kann nicht rückgängig gemacht werden.";
-
-// location preferences - LocationPreferencesViewController
-"locationPreferences"="Einstellungen für Ortsmarkierungen";
-"minLocationAccuracy"="Mindestgenauigkeit";
-"maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
 
 // track menu
 "startRecording"="Neue Tour aufnehmen";
@@ -121,11 +121,6 @@
 "trackList"="Touren";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 
-// track preferences - TrackPreferencesViewController
-"trackPreferences"="Einstellungen für Touraufzeichnungen";
-"minTrackingDistance"="Minimale Entfernung zwischen Tourpunkten [m]";
-"minTrackingInterval"="Minimale Zeit zwischen Tourpunkten [sec]";
-
 //location
 "east"="Ost";
 "north"="Nord";
@@ -147,24 +142,25 @@
 "confirmDeleteTrack"="Wollen Sie diese Tour löschen?";
 "deleteTrackHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 
-//camera
-"cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
-"cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
-"photoLibraryNotAuthorized"="Die Nutzung der Fotobibliothek ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
-"photoShared"="Foto wurde kopiert.";
-"shareImage"="Bild kopieren";
-
-//error
-"error"="Fehler";
-"copyError"="Die Datei konnte nicht kopiert werden.";
-"fileOpenError"="Die Datei konnte nicht geöffnet werden.";
-"loadError"="Die Datei konnte nicht geladen werden.";
-"saveError"="Die Datei konnte nicht gespeichert werden.";
-"timeoutError"="Eine vorgegebene Zeit wurde überschritten.";
-"notComplete"="Einige Eingaben sind nicht vollständig.";
-"readError"="Die Datei konnte nicht gelesen werden.";
-"unauthorizedError"="Diese Aktion wurde nicht autorisiert.";
-"unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
+// preferences view
+"preferences"="Einstellungen";
+"cartoTemplate"="URL-Template für OpenStreetMap-Karten:";
+"elbe5TileURL"="Template für Elbe5.de benutzen";
+"elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
+"osmTileURL"="Template für OpenStreetMap.org benutzen";
+"osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
+"topoTemplate"="URL-Template für Topografische Karten:";
+"elbe5TopoTileURL"="Template für Elbe5.de(topo) benutzen";
+"elbe5TopoLegalInfo"="Regeln für das Laden von Elbe5.de(topo)";
+"openTopoTileURL"="Template für OpenTopoMap.org benutzen";
+"openTopoLegalInfo"="Regeln für das Laden von OpenTopoMap.org";
+"mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
+"locationPreferences"="Einstellungen für Ortsmarkierungen";
+"minLocationAccuracy"="Mindestgenauigkeit";
+"maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
+"trackPreferences"="Einstellungen für Touraufzeichnungen";
+"minTrackingDistance"="Minimale Entfernung zwischen Tourpunkten [m]";
+"minTrackingInterval"="Minimale Zeit zwischen Tourpunkten [sec]";
 
 //info
 "appInfoHeader"="Allgemeines";

@@ -86,7 +86,7 @@ class Location : CodableLocation{
     }
     
     func evaluatePlacemark(){
-        LocationService.instance.getPlacemark(for: self){ result in
+        LocationService.shared.getPlacemark(for: self){ result in
             if let placemark = result{
                 if self.name.isEmpty, let name = placemark.name{
                     self.name = name

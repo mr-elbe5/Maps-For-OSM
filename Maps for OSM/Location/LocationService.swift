@@ -15,7 +15,7 @@ protocol LocationServiceDelegate{
 
 class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
-    static var instance = LocationService()
+    static var shared = LocationService()
     
     var running = false
     
