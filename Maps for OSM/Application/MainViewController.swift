@@ -284,12 +284,6 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
-    func openMapPreferences(){
-        let controller = TileSourcesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func openLocationList() {
         let controller = LocationListViewController()
         controller.modalPresentationStyle = .fullScreen
@@ -302,8 +296,8 @@ extension MainViewController: MainMenuDelegate{
         mapView.locationLayerView.isHidden = !AppState.shared.showPins
     }
     
-    func openLocationPreferences(){
-        let controller = LocationPreferencesViewController()
+    func openPreferences(){
+        let controller = PreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -345,12 +339,6 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
-    func openTrackPreferences(){
-        let controller = TrackPreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
@@ -373,7 +361,7 @@ extension MainViewController: MainMenuDelegate{
 extension MainViewController: TileCacheDelegate{
     
     func deleteTiles() {
-        TileCache.clear()
+        TileProvider.shared.deleteAllTiles()
         self.mapView.clearTiles()
     }
     

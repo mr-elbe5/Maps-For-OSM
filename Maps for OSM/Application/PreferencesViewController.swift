@@ -8,16 +8,23 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class TileSourcesViewController: PopupScrollViewController{
+class PreferencesViewController: PopupScrollViewController{
     
     var cartoUrlTemplateField = LabeledTextField()
     var topoUrlTemplateField = LabeledTextField()
     
+    var minLocationAccuracyField = LabeledTextField()
+    var maxLocationMergeDistanceField = LabeledTextField()
+    
+    var minTrackingDistanceField = LabeledTextField()
+    var minTrackingIntervalField = LabeledTextField()
+    var pinGroupRadiusField = LabeledTextField()
+    
     override func loadView() {
-        title = "mapServers".localize()
+        title = "preferences".localize()
         super.loadView()
         
-        cartoUrlTemplateField.setupView(labelText: "cartoTemplate".localize(), text: TileSources.instance.cartoUrlTemplate, isHorizontal: false)
+        cartoUrlTemplateField.setupView(labelText: "cartoTemplate".localize(), text: Preferences.shared.cartoUrlTemplate, isHorizontal: false)
         contentView.addSubviewWithAnchors(cartoUrlTemplateField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let elbe5Button = UIButton()
@@ -46,7 +53,7 @@ class TileSourcesViewController: PopupScrollViewController{
         osmInfoLink.setTitle("osmLegalInfo".localize(), for: .normal)
         osmInfoLink.addTarget(self, action: #selector(openOSMInfo), for: .touchDown)
         
-        topoUrlTemplateField.setupView(labelText: "topoTemplate".localize(), text: TileSources.instance.cartoUrlTemplate, isHorizontal: false)
+        topoUrlTemplateField.setupView(labelText: "topoTemplate".localize(), text: Preferences.shared.cartoUrlTemplate, isHorizontal: false)
         contentView.addSubviewWithAnchors(topoUrlTemplateField, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let elbe5TopoButton = UIButton()
@@ -75,16 +82,30 @@ class TileSourcesViewController: PopupScrollViewController{
         openTopoInfoLink.setTitle("openTopoLegalInfo".localize(), for: .normal)
         openTopoInfoLink.addTarget(self, action: #selector(openOpenTopoInfo), for: .touchDown)
         
+        minLocationAccuracyField.setupView(labelText: "minLocationAccuracy".localize(), text: String(Int(Preferences.shared.minLocationAccuracy)), isHorizontal: true)
+        contentView.addSubviewWithAnchors(minLocationAccuracyField, top: openTopoInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(Preferences.shared.maxLocationMergeDistance)), isHorizontal: true)
+        contentView.addSubviewWithAnchors(maxLocationMergeDistanceField, top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        minTrackingDistanceField.setupView(labelText: "minTrackingDistance".localize(), text: String(Int(Preferences.shared.minTrackingDistance)), isHorizontal: true)
+        contentView.addSubviewWithAnchors(minTrackingDistanceField, top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        minTrackingIntervalField.setupView(labelText: "minTrackingInterval".localize(), text: String(Int(Preferences.shared.minTrackingInterval)), isHorizontal: true)
+        contentView.addSubviewWithAnchors(minTrackingIntervalField, top: minTrackingDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: openTopoInfoLink.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: minTrackingIntervalField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
+        
+        
     }
     
     @objc func elbe5Template(){
-        cartoUrlTemplateField.text = TileSources.elbe5Url
+        cartoUrlTemplateField.text = Preferences.elbe5Url
     }
     
     @objc func openElbe5Info() {
@@ -92,7 +113,7 @@ class TileSourcesViewController: PopupScrollViewController{
     }
     
     @objc func osmTemplate(){
-        cartoUrlTemplateField.text = TileSources.osmUrl
+        cartoUrlTemplateField.text = Preferences.osmUrl
     }
     
     @objc func openOSMInfo() {
@@ -100,7 +121,7 @@ class TileSourcesViewController: PopupScrollViewController{
     }
     
     @objc func elbe5TopoTemplate(){
-        topoUrlTemplateField.text = TileSources.elbe5TopoUrl
+        topoUrlTemplateField.text = Preferences.elbe5TopoUrl
     }
     
     @objc func openElbe5TopoInfo() {
@@ -108,7 +129,7 @@ class TileSourcesViewController: PopupScrollViewController{
     }
     
     @objc func openTopoTemplate(){
-        topoUrlTemplateField.text = TileSources.openTopoUrl
+        topoUrlTemplateField.text = Preferences.openTopoUrl
     }
     
     @objc func openOpenTopoInfo() {
@@ -117,11 +138,23 @@ class TileSourcesViewController: PopupScrollViewController{
     
     @objc func save(){
         let newTemplate = cartoUrlTemplateField.text
-        if newTemplate != TileSources.instance.cartoUrlTemplate{
-            TileSources.instance.cartoUrlTemplate = newTemplate
-            TileCache.clear()
+        if newTemplate != Preferences.shared.cartoUrlTemplate{
+            Preferences.shared.cartoUrlTemplate = newTemplate
+            TileProvider.shared.deleteAllTiles()
         }
-        TileSources.instance.save()
+        if let val = Int(minLocationAccuracyField.text){
+            Preferences.shared.minLocationAccuracy = CLLocationDistance(val)
+        }
+        if let val = Int(maxLocationMergeDistanceField.text){
+            Preferences.shared.maxLocationMergeDistance = CLLocationDistance(val)
+        }
+        if let val = Int(minTrackingDistanceField.text){
+            Preferences.shared.minTrackingDistance = CLLocationDistance(val)
+        }
+        if let val = Int(minTrackingIntervalField.text){
+            Preferences.shared.minTrackingInterval = CLLocationDistance(val)
+        }
+        Preferences.shared.save()
         showDone(title: "ok".localize(), text: "mapPreferencesSaved".localize())
     }
     

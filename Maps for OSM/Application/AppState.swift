@@ -54,8 +54,8 @@ class AppState: Identifiable, Codable{
     
     static var currentUrlTemplate : String{
         switch shared.mapType{
-        case .carto: return TileSources.instance.cartoUrlTemplate
-        case .topo: return TileSources.instance.topoUrlTemplate
+        case .carto: return Preferences.shared.cartoUrlTemplate
+        case .topo: return Preferences.shared.topoUrlTemplate
         }
     }
     

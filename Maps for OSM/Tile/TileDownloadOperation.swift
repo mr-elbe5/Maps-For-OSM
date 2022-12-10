@@ -22,11 +22,9 @@ class TileDownloadOperation : AsyncOperation {
     }
     
     override func startExecution(){
-        //print("starting \(tile.id)")
-        guard let sourceUrl = TileCache.tileUrl(tile: tile) else {print("could not create map source url"); return}
-        guard let targetUrl = TileCache.fileUrl(tile: tile) else {print("could not create map target url"); return}
-        TileCache.loadTileImage(url: sourceUrl){ data in
-            if let data = data, TileCache.saveTile(fileUrl: targetUrl, data: data){
+        //print("starting download of \(tile.string)")
+        TileProvider.shared.loadTileImage(tile: tile){ success in
+            if success{
                 DispatchQueue.main.async { [self] in
                     delegate?.downloadSucceeded()
                 }

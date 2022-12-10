@@ -171,7 +171,7 @@ class MapView: UIView {
     }
     
     func refresh(){
-        scrollView.setNeedsDisplay()
+        scrollView.tileLayerView.refresh()
     }
     
 }

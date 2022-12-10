@@ -7,25 +7,25 @@
 import UIKit
 
 protocol MainMenuDelegate: MapPositionDelegate{
+    
     func setMapType(_ type: MapType)
     func openPreloadMap()
-    func openMapPreferences()
     
     func showLocations(_ show: Bool)
     func openLocationList()
-    func openLocationPreferences()
     
     func startTracking()
     func openTrack(track: Track)
     func hideTrack()
     func openTrackList()
-    func openTrackPreferences()
     
     func updateCross()
     func focusUserLocation()
     func refreshMap()
     
     func openSearch()
+    
+    func openPreferences()
     
     func openInfo()
     
@@ -76,8 +76,12 @@ class MainMenuView: UIView {
         iconLine.addSubviewWithAnchors(infoControl, top: iconLine.topAnchor, trailing: iconLine.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
+        let preferencesControl = UIButton().asIconButton("gearshape")
+        iconLine.addSubviewWithAnchors(preferencesControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
+        preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        
         let searchControl = UIButton().asIconButton("magnifyingglass")
-        iconLine.addSubviewWithAnchors(searchControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
+        iconLine.addSubviewWithAnchors(searchControl, top: iconLine.topAnchor, trailing: preferencesControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
         searchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
         
         let cameraControl = UIButton().asIconButton("camera")
@@ -130,9 +134,6 @@ class MainMenuView: UIView {
         actions.append(UIAction(title: "preloadMaps".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
             self.delegate?.openPreloadMap()
         })
-        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openMapPreferences()
-        })
         return UIMenu(title: "", children: actions)
     }
     
@@ -153,9 +154,6 @@ class MainMenuView: UIView {
         }
         actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
-        })
-        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openLocationPreferences()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -183,9 +181,6 @@ class MainMenuView: UIView {
         }
         actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openTrackList()
-        })
-        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openTrackPreferences()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -226,6 +221,10 @@ class MainMenuView: UIView {
     
     @objc func openInfo(){
         delegate?.openInfo()
+    }
+    
+    @objc func openPreferences(){
+        delegate?.openPreferences()
     }
     
     @objc func openSearch(){

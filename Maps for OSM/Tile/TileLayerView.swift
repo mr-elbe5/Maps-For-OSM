@@ -71,28 +71,28 @@ class TileLayerView: UIView {
         while x >= currentMaxTiles{
             x -= currentMaxTiles
         }
-        let tile = TileCache.getTile(zoom: zoom, x: x, y: y)
+        let tile = MapTile.getTile(zoom: zoom, x: x, y: y)
         if let image = tile.image{
             //print("draw \(tile.string)")
             image.draw(in: rect)
             return
         }
         mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
-        TileCache.loadTileImage(tile: tile){ data in
-            if let data = data{
-                if TileCache.saveTile(tile: tile, data: data){
-                    DispatchQueue.main.async {
-                        if let image = UIImage(data: data){
-                            tile.image = image
-                            self.setNeedsDisplay(rect)
-                        }
-                    }
-                }
-                else{
-                    print("could not save tile \(tile.string)")
+        //print("load \(tile.string)")
+        TileProvider.shared.loadTileImage(tile: tile){ success in
+            if success{
+                DispatchQueue.main.async {
+                    self.setNeedsDisplay(rect)
                 }
             }
+            else{
+                print("could not load tile \(tile.string)")
+            }
         }
+    }
+    
+    func refresh(){
+        tileLayer.setNeedsDisplay()
     }
     
 }

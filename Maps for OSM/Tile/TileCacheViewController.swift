@@ -218,13 +218,11 @@ class TileCacheViewController: PopupScrollViewController{
                         for y in tileSet.minY...tileSet.maxY{
                             let tile = MapTile(zoom: zoom, x: x, y: y)
                             allTiles += 1
-                            if let fileUrl = TileCache.fileUrl(tile: tile){
-                                if TileCache.tileExists(url: fileUrl){
-                                    existingTiles += 1
-                                    continue
-                                }
-                                tiles.append(tile)
+                            if tile.exists{
+                                existingTiles += 1
+                                continue
                             }
+                            tiles.append(tile)
                         }
                     }
                 }

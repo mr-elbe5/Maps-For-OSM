@@ -13,9 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         //TestCenter.testWorld()
         FileController.initialize()
-        TileSources.loadInstance()
-        LocationPreferences.loadInstance()
-        TrackPreferences.loadInstance()
+        Preferences.loadInstance()
         AppState.initialize()
         AppState.loadInstance()
         //MapTiles.dumpTiles()
@@ -61,9 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !TrackRecorder.isRecording{
             LocationService.instance.stop()
         }
-        TileSources.instance.save()
-        LocationPreferences.instance.save()
-        TrackPreferences.instance.save()
+        Preferences.shared.save()
         mainController.mapView.savePosition()
     }
 
