@@ -36,7 +36,7 @@ class MainMenuView: UIView {
     //MainViewController
     var delegate : MainMenuDelegate? = nil
     
-    var iconLine = UIView()
+    var iconView = UIView()
     var mapMenuControl = UIButton().asIconButton("map")
     var locationMenuControl = UIButton().asIconButton("mappin")
     var trackMenuControl = UIButton().asIconButton("figure.walk")
@@ -45,49 +45,53 @@ class MainMenuView: UIView {
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
+        iconView.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        iconView.layer.cornerRadius = 10
+        iconView.layer.masksToBounds = true
+        addSubviewWithAnchors(iconView, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: flatInsets)
         
-        iconLine.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        iconLine.layer.cornerRadius = 10
-        iconLine.layer.masksToBounds = true
-        addSubviewWithAnchors(iconLine, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: doubleInsets)
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        iconView.addSubviewFilling(stackView, insets: defaultInsets)
         
-        iconLine.addSubviewWithAnchors(mapMenuControl, top: iconLine.topAnchor, leading: iconLine.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 10 , bottom: 0, right: 0))
+        stackView.addArrangedSubview(mapMenuControl)
         mapMenuControl.menu = getMapMenu()
         mapMenuControl.showsMenuAsPrimaryAction = true
         
-        iconLine.addSubviewWithAnchors(locationMenuControl, top: iconLine.topAnchor, leading: mapMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
+        stackView.addArrangedSubview(locationMenuControl)
         locationMenuControl.menu = getLocationMenu()
         locationMenuControl.showsMenuAsPrimaryAction = true
         
-        iconLine.addSubviewWithAnchors(trackMenuControl, top: iconLine.topAnchor, leading: locationMenuControl.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 20 , bottom: 0, right: 0))
+        stackView.addArrangedSubview(trackMenuControl)
         trackMenuControl.menu = getTrackingMenu()
         trackMenuControl.showsMenuAsPrimaryAction = true
         
-        let focusUserLocationControl = UIButton().asIconButton("record.circle")
-        iconLine.addSubviewWithAnchors(focusUserLocationControl, top: iconLine.topAnchor, bottom: iconLine.bottomAnchor)
-            .centerX(iconLine.centerXAnchor)
-        focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
-        
         let crossControl = UIButton().asIconButton("plus.circle")
-        iconLine.addSubviewWithAnchors(crossControl, top: iconLine.topAnchor, trailing: focusUserLocationControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
+        stackView.addArrangedSubview(crossControl)
         crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
         
-        let infoControl = UIButton().asIconButton("info.circle")
-        iconLine.addSubviewWithAnchors(infoControl, top: iconLine.topAnchor, trailing: iconLine.trailingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
-        infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        let preferencesControl = UIButton().asIconButton("gearshape")
-        iconLine.addSubviewWithAnchors(preferencesControl, top: iconLine.topAnchor, trailing: infoControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 10))
-        preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
-        
-        let searchControl = UIButton().asIconButton("magnifyingglass")
-        iconLine.addSubviewWithAnchors(searchControl, top: iconLine.topAnchor, trailing: preferencesControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
-        searchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        let focusUserLocationControl = UIButton().asIconButton("record.circle")
+        stackView.addArrangedSubview(focusUserLocationControl)
+        focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
         
         let cameraControl = UIButton().asIconButton("camera")
-        iconLine.addSubviewWithAnchors(cameraControl, top: iconLine.topAnchor, trailing: searchControl.leadingAnchor, bottom: iconLine.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0 , bottom: 0, right: 20))
+        stackView.addArrangedSubview(cameraControl)
         cameraControl.menu = getCameraMenu()
         cameraControl.showsMenuAsPrimaryAction = true
+        
+        let searchControl = UIButton().asIconButton("magnifyingglass")
+        stackView.addArrangedSubview(searchControl)
+        searchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        
+        let preferencesControl = UIButton().asIconButton("gearshape")
+        stackView.addArrangedSubview(preferencesControl)
+        preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        
+        let infoControl = UIButton().asIconButton("info.circle")
+        stackView.addArrangedSubview(infoControl)
+        infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
         currentTrackLine.setup()
         addSubviewWithAnchors(currentTrackLine, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
@@ -201,7 +205,7 @@ class MainMenuView: UIView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return subviews.contains(where: {
-            ($0 == iconLine || $0 == currentTrackLine || $0 is UIButton || $0 == licenseView) && $0.point(inside: self.convert(point, to: $0), with: event)
+            ($0 == iconView) && $0.point(inside: self.convert(point, to: $0), with: event)
         })
     }
     
