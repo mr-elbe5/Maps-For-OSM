@@ -18,7 +18,7 @@ class LocationDetailViewController: PopupScrollViewController{
     
     let descriptionContainerView = UIView()
     var descriptionView : TextEditArea? = nil
-    let fileStackView = UIStackView()
+    let mediaStackView = UIStackView()
     
     var editMode = false
     
@@ -69,12 +69,12 @@ class LocationDetailViewController: PopupScrollViewController{
             header = UILabel(header: "files".localize())
             contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             
-            fileStackView.setupVertical()
-            setupPhotoStackView()
-            contentView.addSubviewWithAnchors(fileStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+            mediaStackView.setupVertical()
+            setupMediaStackView()
+            contentView.addSubviewWithAnchors(mediaStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
             
             header = UILabel(header: "tracks".localize())
-            contentView.addSubviewWithAnchors(header, top: fileStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(header, top: mediaStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         }
     }
     
@@ -104,9 +104,9 @@ class LocationDetailViewController: PopupScrollViewController{
         }
     }
     
-    func setupPhotoStackView(){
-        fileStackView.removeAllArrangedSubviews()
-        fileStackView.removeAllSubviews()
+    func setupMediaStackView(){
+        mediaStackView.removeAllArrangedSubviews()
+        mediaStackView.removeAllSubviews()
         guard let location = location else {return}
         for file in location.files{
             switch file.type{
@@ -114,11 +114,20 @@ class LocationDetailViewController: PopupScrollViewController{
                 if let image = file.data as? ImageData{
                     let imageView = ImageListItemView(data: image)
                     imageView.delegate = self
-                    fileStackView.addArrangedSubview(imageView)
+                    mediaStackView.addArrangedSubview(imageView)
                 }
-                //todo
-            default:
-                return
+            case .video:
+                if let video = file.data as? VideoData{
+                    let videoView = VideoListItemView(data: video)
+                    videoView.delegate = self
+                    mediaStackView.addArrangedSubview(videoView)
+                }
+            case .audio:
+                if let audio = file.data as? AudioData{
+                    let audioView = AudioListItemView(data: audio)
+                    audioView.delegate = self
+                    mediaStackView.addArrangedSubview(audioView)
+                }
             }
         }
     }
@@ -143,7 +152,7 @@ class LocationDetailViewController: PopupScrollViewController{
             editMode = true
         }
         setupDescriptionContainerView()
-        setupPhotoStackView()
+        setupMediaStackView()
     }
     
     @objc func deleteLocation(){
@@ -184,7 +193,7 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
             delegate?.updateMarkerLayer()
             let imageView = ImageListItemView(data: image)
             imageView.delegate = self
-            fileStackView.addArrangedSubview(imageView)
+            mediaStackView.addArrangedSubview(imageView)
         }
         picker.dismiss(animated: false)
     }
@@ -224,16 +233,103 @@ extension LocationDetailViewController: ImageListItemDelegate{
                 location.deleteFile(file: sender.imageData)
                 Locations.save()
                 self.delegate?.updateMarkerLayer()
-                for subView in self.fileStackView.subviews{
+                for subView in self.mediaStackView.subviews{
                     if subView == sender{
-                        self.fileStackView.removeArrangedSubview(subView)
-                        self.fileStackView.removeSubview(subView)
+                        self.mediaStackView.removeArrangedSubview(subView)
+                        self.mediaStackView.removeSubview(subView)
                         break
                     }
                 }
             }
         }
     }
+    
+}
+
+extension LocationDetailViewController: VideoListItemDelegate{
+    
+    func viewVideo(sender: VideoListItemView) {
+        let videoViewController = VideoViewController()
+        videoViewController.videoURL = sender.videoData.fileURL
+        videoViewController.modalPresentationStyle = .fullScreen
+        self.present(videoViewController, animated: true)
+    }
+    
+    func shareVideo(sender: VideoListItemView) {
+        let alertController = UIAlertController(title: title, message: "shareVideo".localize(), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
+            FileController.copyImageToLibrary(name: sender.videoData.fileName, fromDir: FileController.privateURL){ result in
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success:
+                        self.showAlert(title: "success".localize(), text: "videoShared".localize())
+                    case .failure(let err):
+                        self.showAlert(title: "error".localize(), text: err.errorDescription!)
+                    }
+                }
+            }
+        })
+        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
+        self.present(alertController, animated: true)
+    }
+    
+    func deleteVideo(sender: VideoListItemView) {
+        showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
+            if let location = self.location{
+                location.deleteFile(file: sender.videoData)
+                Locations.save()
+                self.delegate?.updateMarkerLayer()
+                for subView in self.mediaStackView.subviews{
+                    if subView == sender{
+                        self.mediaStackView.removeArrangedSubview(subView)
+                        self.mediaStackView.removeSubview(subView)
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
+    
+}
+
+extension LocationDetailViewController: AudioListItemDelegate{
+    
+    func shareAudio(sender: AudioListItemView) {
+        let alertController = UIAlertController(title: title, message: "shareAudio".localize(), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
+            FileController.copyImageToLibrary(name: sender.audioData.fileName, fromDir: FileController.privateURL){ result in
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success:
+                        self.showAlert(title: "success".localize(), text: "videoShared".localize())
+                    case .failure(let err):
+                        self.showAlert(title: "error".localize(), text: err.errorDescription!)
+                    }
+                }
+            }
+        })
+        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
+        self.present(alertController, animated: true)
+    }
+    
+    func deleteAudio(sender: AudioListItemView) {
+        showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
+            if let location = self.location{
+                location.deleteFile(file: sender.audioData)
+                Locations.save()
+                self.delegate?.updateMarkerLayer()
+                for subView in self.mediaStackView.subviews{
+                    if subView == sender{
+                        self.mediaStackView.removeArrangedSubview(subView)
+                        self.mediaStackView.removeSubview(subView)
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
     
 }
 
