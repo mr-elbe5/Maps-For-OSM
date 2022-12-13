@@ -37,12 +37,13 @@ struct TileProvider{
                 statusCode = httpResponse.statusCode
             }
             if statusCode == 200, let data = data{
+                debug("TileProvider loaded \(tile.shortDescription)")
                 if tries > 1{
                     info("TileProvider got tile in try \(tries)")
                 }
                 DispatchQueue.global(qos: .background).async {
                     if !saveTile(fileUrl: tile.fileUrl, data: data){
-                        error("TileProvider could not save tile \(tile.string)")
+                        error("TileProvider could not save tile \(tile.shortDescription)")
                     }
                 }
                 tile.image = UIImage(data: data)
@@ -50,7 +51,12 @@ struct TileProvider{
                 return
             }
             if let err = err {
-                error("TileProvider loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
+                switch (err as? URLError)?.code {
+                case .some(.timedOut):
+                    error("TileProvider timeout loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
+                default:
+                    error("TileProvider loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
+                }
             }
             else{
                 error("TileProvider loading tile from \(tile.tileUrl.path), statusCode=\(statusCode)")
@@ -79,7 +85,7 @@ struct TileProvider{
             }
             do{
                 try data.write(to: fileUrl, options: .atomic)
-                debug("TileProvider file saved to \(fileUrl)")
+                //debug("TileProvider file saved to \(fileUrl)")
                 return true
             } catch let err{
                 error("TileProvider saving tile: " + err.localizedDescription)
@@ -93,7 +99,7 @@ struct TileProvider{
         do{
             try FileManager.default.removeItem(at: AppState.tileDirectory)
             try FileManager.default.createDirectory(at: AppState.tileDirectory, withIntermediateDirectories: true)
-            debug("TileProvider tile directory deleted")
+            debug("TileProvider tile directory cleared")
         }
         catch let err{
             error("TileProvider", error: err)

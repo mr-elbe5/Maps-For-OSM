@@ -12,10 +12,10 @@ extension UIView{
     
     var transparentColor : UIColor{
         if isDarkMode{
-            return UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.6)
+            return UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         }
         else{
-            return UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6)
+            return UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6)
         }
     }
     

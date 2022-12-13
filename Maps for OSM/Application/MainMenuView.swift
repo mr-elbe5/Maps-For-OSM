@@ -44,7 +44,7 @@ class MainMenuView: UIView {
     
     func setup(){
         let layoutGuide = self.safeAreaLayoutGuide
-        iconView.backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        iconView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         iconView.layer.cornerRadius = 10
         iconView.layer.masksToBounds = true
         addSubviewWithAnchors(iconView, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: flatInsets)
@@ -258,7 +258,7 @@ class MainMenuView: UIView {
 class MapControlLine : UIView{
     
     func setup(){
-        backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
         layer.cornerRadius = 10
         layer.masksToBounds = true
     }

@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 func debug(_ msg: String){
-    //print("error: \(msg)")
+    print("debug: \(msg)")
 }
 
 func info(_ msg: String){

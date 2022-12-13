@@ -41,7 +41,7 @@ class MapTile{
         FileManager.default.fileExists(atPath: fileUrl.path)
     }
     
-    var string : String{
+    var shortDescription : String{
         "\(zoom)-\(x)-\(y)"
     }
     
