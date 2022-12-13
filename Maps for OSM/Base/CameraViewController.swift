@@ -136,7 +136,7 @@ class CameraViewController: UIViewController {
                 defaultVideoDevice = frontCameraDevice
             }
             guard let videoDevice = defaultVideoDevice else {
-                print("Video device is not available.")
+                error("CameraViewController Video device is not available.")
                 isInputAvailable = false
                 session.commitConfiguration()
                 return
@@ -157,13 +157,13 @@ class CameraViewController: UIViewController {
                     self.preview.videoPreviewLayer.connection?.videoOrientation = initialVideoOrientation
                 }
             } else {
-                print("Could not add video device input to the session.")
+                error("CameraViewController Could not add video device input to the session.")
                 isInputAvailable = false
                 session.commitConfiguration()
                 return
             }
-        } catch {
-            print("Could not create video device input: \(error)")
+        } catch let err{
+            error("CameraViewController Could not create video device input", error: err)
             isInputAvailable = false
             session.commitConfiguration()
             return
@@ -178,12 +178,12 @@ class CameraViewController: UIViewController {
             if session.canAddInput(audioDeviceInput) {
                 session.addInput(audioDeviceInput)
             } else {
-                print("Could not add audio device input to the session")
+                error("CameraViewController Could not add audio device input to the session")
                 session.commitConfiguration()
                 return
             }
-        } catch {
-            print("Could not create audio device input: \(error)")
+        } catch let err{
+            error("CameraViewController Could not create audio device input", error: err)
         }
     }
     
@@ -263,8 +263,8 @@ class CameraViewController: UIViewController {
                 
                 device.isSubjectAreaChangeMonitoringEnabled = monitorSubjectAreaChange
                 device.unlockForConfiguration()
-            } catch {
-                print("Could not lock device for configuration: \(error)")
+            } catch let err{
+                error("CameraViewController Could not lock device for configuration", error: err)
             }
         }
     }
@@ -295,7 +295,7 @@ class CameraPreviewView: UIView {
     
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
         guard let layer = layer as? AVCaptureVideoPreviewLayer else {
-            fatalError("bad layer type - AVCaptureVideoPreviewLayer expected")
+            fatalError("CameraPreviewView bad layer type - AVCaptureVideoPreviewLayer expected")
         }
         layer.videoGravity = .resizeAspect
         return layer

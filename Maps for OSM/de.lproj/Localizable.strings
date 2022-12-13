@@ -54,8 +54,6 @@
 "shareImage"="Bild kopieren";
 
 //map menu
-"cartoMapType"="Standardkarte";
-"topoMapType"="Topografische Karte";
 "refreshMap"="Karte neu anzeigen";
 "preloadMaps"="Gespeicherte Kartenkacheln...";
 "regionTooLarge"="Region zu groß";
@@ -64,7 +62,6 @@
 //map preload view - MapPreloadViewController
 "mapPreload"="Kartenkacheln vorladen";
 "mapPreloadNote"="BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server zu machen! ";
-"currentMapType:"="Aktueller Kartentyp:";
 "currentTileSource:"="Aktueller Server:";
 "fromZoom:"="Ab Zoomebene:";
 "toZoom:"="Bis Zoomebene:";
@@ -146,16 +143,11 @@
 
 // preferences view
 "preferences"="Einstellungen";
-"cartoTemplate"="URL-Template für OpenStreetMap-Karten:";
+"urlTemplate"="URL-Template für Kartenkacheln:";
 "elbe5TileURL"="Template für Elbe5.de benutzen";
 "elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
 "osmTileURL"="Template für OpenStreetMap.org benutzen";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
-"topoTemplate"="URL-Template für Topografische Karten:";
-"elbe5TopoTileURL"="Template für Elbe5.de(topo) benutzen";
-"elbe5TopoLegalInfo"="Regeln für das Laden von Elbe5.de(topo)";
-"openTopoTileURL"="Template für OpenTopoMap.org benutzen";
-"openTopoLegalInfo"="Regeln für das Laden von OpenTopoMap.org";
 "mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
 "locationPreferences"="Einstellungen für Ortsmarkierungen";
 "minLocationAccuracy"="Mindestgenauigkeit";

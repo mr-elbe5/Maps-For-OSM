@@ -104,7 +104,7 @@ extension LocationListViewController : LocationCellDelegate{
     }
     
     func viewLocation(location: Location) {
-        let placeController = LocationDetailViewController()
+        let placeController = LocationDetailViewController(location: location)
         placeController.delegate = self
         placeController.location = location
         placeController.modalPresentationStyle = .fullScreen

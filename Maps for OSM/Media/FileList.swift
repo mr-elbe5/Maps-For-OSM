@@ -74,9 +74,5 @@ class FileListData : Identifiable, Codable{
         try container.encode(data, forKey: .data)
     }
     
-    func addActiveFileNames( to fileNames: inout Array<String>){
-        data.addActiveFileNames(to: &fileNames)
-    }
-    
 }
 

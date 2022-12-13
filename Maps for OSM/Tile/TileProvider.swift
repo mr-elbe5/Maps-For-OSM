@@ -30,7 +30,7 @@ struct TileProvider{
     }
     
     private func getDownloadTask(request: URLRequest, tile: MapTile, tries: Int, result: @escaping (Bool) -> Void) -> URLSessionDataTask{
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: request) { (data, response, err) in
             var statusCode = 0
             if (response != nil && response is HTTPURLResponse){
                 let httpResponse = response! as! HTTPURLResponse
@@ -38,22 +38,22 @@ struct TileProvider{
             }
             if statusCode == 200, let data = data{
                 if tries > 1{
-                    print("got tile in try \(tries)")
+                    info("TileProvider got tile in try \(tries)")
                 }
                 DispatchQueue.global(qos: .background).async {
                     if !saveTile(fileUrl: tile.fileUrl, data: data){
-                        print("could not save tile \(tile.string)")
+                        error("TileProvider could not save tile \(tile.string)")
                     }
                 }
                 tile.image = UIImage(data: data)
                 result(true)
                 return
             }
-            if let error = error {
-                print("error loading tile from \(tile.tileUrl.path), error: \(error.localizedDescription)")
+            if let err = err {
+                error("TileProvider loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
             }
             else{
-                print("error loading tile from \(tile.tileUrl.path), statusCode=\(statusCode)")
+                error("TileProvider loading tile from \(tile.tileUrl.path), statusCode=\(statusCode)")
             }
             if tries <= TileProvider.maxTries{
                 retryLoadTileImage(tile: tile, tries: tries + 1){ success in
@@ -72,17 +72,17 @@ struct TileProvider{
                 do{
                     try FileManager.default.createDirectory(at: dirUrl, withIntermediateDirectories: true)
                 }
-                catch{
-                    print("could not create directory")
+                catch let err{
+                    error("TileProvider could not create directory", error: err)
                     return false
                 }
             }
             do{
                 try data.write(to: fileUrl, options: .atomic)
-                //print("file saved to \(shortPath(url))")
+                debug("TileProvider file saved to \(fileUrl)")
                 return true
             } catch let err{
-                print("Error saving tile: " + err.localizedDescription)
+                error("TileProvider saving tile: " + err.localizedDescription)
                 return false
             }
         }
@@ -93,10 +93,10 @@ struct TileProvider{
         do{
             try FileManager.default.removeItem(at: AppState.tileDirectory)
             try FileManager.default.createDirectory(at: AppState.tileDirectory, withIntermediateDirectories: true)
-            //print("tile directory deleted")
+            debug("TileProvider tile directory deleted")
         }
-        catch{
-            print(error)
+        catch let err{
+            error("TileProvider", error: err)
         }
     }
     

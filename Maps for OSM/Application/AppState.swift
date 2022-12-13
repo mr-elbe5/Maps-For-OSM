@@ -19,7 +19,7 @@ class AppState: Identifiable, Codable{
         tileDirectory = privateURL.appendingPathComponent("tiles")
         if !FileManager.default.fileExists(atPath: tileDirectory.path){
             try? FileManager.default.createDirectory(at: tileDirectory, withIntermediateDirectories: true)
-            print("created tile directory")
+            info("created tile directory")
         }
     }
     

@@ -119,8 +119,8 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             }
             
             self.session.commitConfiguration()
-        } catch {
-            print("Error occurred while creating video device input: \(error)")
+        } catch let err{
+            error("VideoCaptureViewController while creating video device input", error: err)
         }
     }
     
@@ -175,9 +175,9 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
                     from connections: [AVCaptureConnection],
                     error: Error?) {
         var success = true
-        if error != nil {
-            print("Video file finishing error: \(String(describing: error))")
-            success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
+        if let error = error {
+            logError("VideoCaptureViewController file finishing error", error: error)
+            success = (((error as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
             let videoData = VideoData()
@@ -202,8 +202,8 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         if FileManager.default.fileExists(atPath: tmpFilePath) {
             do {
                 try FileManager.default.removeItem(atPath: tmpFilePath)
-            } catch {
-                print("Could not remove file at url: \(String(describing: tmpFileURL))")
+            } catch let err{
+                error("VideoCaptureViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
             }
         }
         

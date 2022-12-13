@@ -73,7 +73,7 @@ class FileData : Equatable, Identifiable, Codable{
     }
     
     func saveFile(data: Data){
-        if !FileController.fileExists(dirPath: FileController.privatePath, fileName: fileName){
+        if !fileExists(){
             let url = FileController.getURL(dirURL: FileController.privateURL,fileName: fileName)
             _ = FileController.saveFile(data: data, url: url)
         }
@@ -86,30 +86,8 @@ class FileData : Equatable, Identifiable, Codable{
     func prepareDelete(){
         if FileController.fileExists(dirPath: FileController.privatePath, fileName: fileName){
             if !FileController.deleteFile(dirURL: FileController.privateURL, fileName: fileName){
-                print("error: could not delete file: \(fileName)")
+                error("FileData could not delete file: \(fileName)")
             }
-        }
-    }
-    
-    func isComplete() -> Bool{
-        return fileExists()
-    }
-    
-    func addActiveFileNames( to fileNames: inout Array<String>){
-        fileNames.append(fileName)
-    }
-    
-    func getImage() -> UIImage?{
-        if let data = getFile(){
-            return UIImage(data: data)
-        } else{
-            return nil
-        }
-    }
-    
-    func saveImage(uiImage: UIImage){
-        if let data = uiImage.jpegData(compressionQuality: 0.8){
-            saveFile(data: data)
         }
     }
     

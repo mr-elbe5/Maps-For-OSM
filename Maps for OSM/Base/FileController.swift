@@ -96,8 +96,8 @@ class FileController {
             do{
                 try FileManager.default.createDirectory(at: dirUrl, withIntermediateDirectories: true)
             }
-            catch{
-                print("could not create directory")
+            catch let err{
+                error("FileController could not create directory", error: err)
                 return false
             }
         }
@@ -110,7 +110,7 @@ class FileController {
             try data.write(to: url, options: .atomic)
             return true
         } catch let err{
-            print(err)
+            error("FileController", error: err)
             return false
         }
     }
@@ -121,7 +121,7 @@ class FileController {
             try text.write(to: url, atomically: true, encoding: .utf8)
             return true
         } catch let err{
-            print(err)
+            error("FileController", error: err)
             return false
         }
     }
@@ -135,13 +135,14 @@ class FileController {
             try FileManager.default.copyItem(at: getURL(dirURL: fromDir,fileName: name), to: getURL(dirURL: toDir, fileName: name))
             return true
         } catch let err{
-            print(err)
+            error("FileController", error: err)
             return false
         }
     }
     
     @discardableResult
     static func copyFile(fromURL: URL, toURL: URL, replace: Bool = false) -> Bool{
+        debug("FileController copying from \(fromURL.path) to \(toURL.path)")
         do{
             if replace && fileExists(url: toURL){
                 _ = deleteFile(url: toURL)
@@ -149,7 +150,7 @@ class FileController {
             try FileManager.default.copyItem(at: fromURL, to: toURL)
             return true
         } catch let err{
-            print(err)
+            error("FileController", error: err)
             return false
         }
     }
@@ -282,7 +283,7 @@ class FileController {
             }
         }
         if count > 0{
-            print("\(count) files deleted")
+            info("\(count) files deleted")
         }
     }
     

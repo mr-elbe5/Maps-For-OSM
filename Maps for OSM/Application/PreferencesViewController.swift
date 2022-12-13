@@ -23,7 +23,7 @@ class PreferencesViewController: PopupScrollViewController{
         title = "preferences".localize()
         super.loadView()
         
-        tileUrlTemplateField.setupView(labelText: "cartoTemplate".localize(), text: Preferences.shared.urlTemplate, isHorizontal: false)
+        tileUrlTemplateField.setupView(labelText: "urlTemplate".localize(), text: Preferences.shared.urlTemplate, isHorizontal: false)
         contentView.addSubviewWithAnchors(tileUrlTemplateField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let elbe5Button = UIButton()
@@ -52,34 +52,8 @@ class PreferencesViewController: PopupScrollViewController{
         osmInfoLink.setTitle("osmLegalInfo".localize(), for: .normal)
         osmInfoLink.addTarget(self, action: #selector(openOSMInfo), for: .touchDown)
         
-        let elbe5TopoButton = UIButton()
-        elbe5TopoButton.setTitle("elbe5TopoURL".localize(), for: .normal)
-        elbe5TopoButton.setTitleColor(.systemBlue, for: .normal)
-        elbe5TopoButton.addTarget(self, action: #selector(elbe5TopoTemplate), for: .touchDown)
-        contentView.addSubviewWithAnchors(elbe5TopoButton, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
-        
-        let elbe5TopoInfoLink = UIButton()
-        elbe5TopoInfoLink.setTitleColor(.systemBlue, for: .normal)
-        elbe5TopoInfoLink.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
-        contentView.addSubviewWithAnchors(elbe5TopoInfoLink, top: elbe5TopoButton.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
-        elbe5TopoInfoLink.setTitle("elbe5TopoLegalInfo".localize(), for: .normal)
-        elbe5TopoInfoLink.addTarget(self, action: #selector(openElbe5Info), for: .touchDown)
-        
-        let openTopoButton = UIButton()
-        openTopoButton.setTitle("openTopoTileURL".localize(), for: .normal)
-        openTopoButton.setTitleColor(.systemBlue, for: .normal)
-        openTopoButton.addTarget(self, action: #selector(openTopoTemplate), for: .touchDown)
-        contentView.addSubviewWithAnchors(openTopoButton, top: elbe5TopoInfoLink.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
-        
-        let openTopoInfoLink = UIButton()
-        openTopoInfoLink.setTitleColor(.systemBlue, for: .normal)
-        openTopoInfoLink.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
-        contentView.addSubviewWithAnchors(openTopoInfoLink, top: openTopoButton.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
-        openTopoInfoLink.setTitle("openTopoLegalInfo".localize(), for: .normal)
-        openTopoInfoLink.addTarget(self, action: #selector(openOpenTopoInfo), for: .touchDown)
-        
         minLocationAccuracyField.setupView(labelText: "minLocationAccuracy".localize(), text: String(Int(Preferences.shared.minLocationAccuracy)), isHorizontal: true)
-        contentView.addSubviewWithAnchors(minLocationAccuracyField, top: openTopoInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(minLocationAccuracyField, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(Preferences.shared.maxLocationMergeDistance)), isHorizontal: true)
         contentView.addSubviewWithAnchors(maxLocationMergeDistanceField, top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -114,22 +88,6 @@ class PreferencesViewController: PopupScrollViewController{
     
     @objc func openOSMInfo() {
         UIApplication.shared.open(URL(string: "https://operations.osmfoundation.org/policies/tiles/")!)
-    }
-    
-    @objc func elbe5TopoTemplate(){
-        tileUrlTemplateField.text = Preferences.elbe5TopoUrl
-    }
-    
-    @objc func openElbe5TopoInfo() {
-        UIApplication.shared.open(URL(string: "https://privacy.elbe5.de")!)
-    }
-    
-    @objc func openTopoTemplate(){
-        tileUrlTemplateField.text = Preferences.openTopoUrl
-    }
-    
-    @objc func openOpenTopoInfo() {
-        UIApplication.shared.open(URL(string: "https://opentopomap.org/about")!)
     }
     
     @objc func save(){

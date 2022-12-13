@@ -27,7 +27,7 @@ class VideoData : FileData{
             return "video\(creationDate.fileDate()).mp4"
         }
         set{
-            print("error: setting file name not implemented for VideoItemData")
+            error("VideoDatasetting file name not implemented")
         }
     }
     
@@ -48,14 +48,6 @@ class VideoData : FileData{
         var container = encoder.container(keyedBy: VideoCodingKeys.self)
         try container.encode(title, forKey: .title)
         try container.encode(time, forKey: .time)
-    }
-    
-    override func isComplete() -> Bool{
-        return fileExists()
-    }
-    
-    override func addActiveFileNames( to fileNames: inout Array<String>){
-        fileNames.append(fileName)
     }
     
 }

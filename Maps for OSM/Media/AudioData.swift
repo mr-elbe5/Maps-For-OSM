@@ -27,7 +27,7 @@ class AudioData : FileData{
             return "audio_\(creationDate.fileDate()).m4a"
         }
         set{
-            print("error: setting file name not implemented for AudioItemData")
+            error("AudioData setting file name not implemented for AudioItemData")
         }
     }
     
@@ -48,14 +48,6 @@ class AudioData : FileData{
         var container = encoder.container(keyedBy: AudioCodingKeys.self)
         try container.encode(title, forKey: .title)
         try container.encode(time, forKey: .time)
-    }
-    
-    override func isComplete() -> Bool{
-        return fileExists()
-    }
-    
-    override func addActiveFileNames( to fileNames: inout Array<String>){
-        fileNames.append(fileName)
     }
     
 }

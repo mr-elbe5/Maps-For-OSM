@@ -22,10 +22,19 @@ class LocationDetailViewController: PopupScrollViewController{
     
     var editMode = false
     
-    var location: Location? = nil
+    var location: Location
     var hadPhotos = false
     
     var delegate: LocationViewDelegate? = nil
+    
+    init(location: Location){
+        self.location = location
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         title = "location".localize()
@@ -38,11 +47,11 @@ class LocationDetailViewController: PopupScrollViewController{
     override func setupHeaderView(){
         super.setupHeaderView()
         
-        let addPhotoButton = UIButton().asIconButton("photo", color: .white)
-        headerView.addSubviewWithAnchors(addPhotoButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        addPhotoButton.addTarget(self, action: #selector(addPhoto), for: .touchDown)
+        let addImageButton = UIButton().asIconButton("photo", color: .white)
+        headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        addImageButton.addTarget(self, action: #selector(addImage), for: .touchDown)
         
-        headerView.addSubviewWithAnchors(editButton, top: headerView.topAnchor, leading: addPhotoButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(editButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
         
         headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
@@ -50,37 +59,34 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     func setupContent(){
-        if let location = location{
-            hadPhotos = location.hasFiles
-            var header = UILabel(header: "locationData".localize())
-            contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-            
-            let locationLabel = UILabel(text: location.address)
-            contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-            
-            let coordinateLabel = UILabel(text: location.coordinateString)
-            contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-            
-            header = UILabel(header: "description".localize())
-            contentView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-            contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-            setupDescriptionContainerView()
-            
-            header = UILabel(header: "files".localize())
-            contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-            
-            mediaStackView.setupVertical()
-            setupMediaStackView()
-            contentView.addSubviewWithAnchors(mediaStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
-            
-            header = UILabel(header: "tracks".localize())
-            contentView.addSubviewWithAnchors(header, top: mediaStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-        }
+        hadPhotos = location.hasFiles
+        var header = UILabel(header: "locationData".localize())
+        contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        
+        let locationLabel = UILabel(text: location.address)
+        contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        let coordinateLabel = UILabel(text: location.coordinateString)
+        contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        
+        header = UILabel(header: "description".localize())
+        contentView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+        setupDescriptionContainerView()
+        
+        header = UILabel(header: "files".localize())
+        contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        mediaStackView.setupVertical()
+        setupMediaStackView()
+        contentView.addSubviewWithAnchors(mediaStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+        
+        header = UILabel(header: "tracks".localize())
+        contentView.addSubviewWithAnchors(header, top: mediaStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
     }
     
     func setupDescriptionContainerView(){
         descriptionContainerView.removeAllSubviews()
-        guard let location = location else {return}
         if editMode{
             descriptionView = TextEditArea()
             descriptionView!.text = location.description
@@ -107,7 +113,6 @@ class LocationDetailViewController: PopupScrollViewController{
     func setupMediaStackView(){
         mediaStackView.removeAllArrangedSubviews()
         mediaStackView.removeAllSubviews()
-        guard let location = location else {return}
         for file in location.files{
             switch file.type{
             case .photo, .image:
@@ -132,7 +137,7 @@ class LocationDetailViewController: PopupScrollViewController{
         }
     }
     
-    @objc func addPhoto(){
+    @objc func addImage(){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
@@ -156,23 +161,19 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     @objc func deleteLocation(){
-        if let location = location{
-            showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-                Locations.deleteLocation(location)
-                self.dismiss(animated: true){
-                    self.delegate?.updateMarkerLayer()
-                }
+        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
+            Locations.deleteLocation(self.location)
+            self.dismiss(animated: true){
+                self.delegate?.updateMarkerLayer()
             }
         }
     }
     
     @objc func save(){
         var needsUpdate = false
-        if let location = location{
-            location.note = descriptionView?.text ?? ""
-            Locations.save()
-            needsUpdate = location.hasFiles != hadPhotos
-        }
+        location.note = descriptionView?.text ?? ""
+        Locations.save()
+        needsUpdate = location.hasFiles != hadPhotos
         self.dismiss(animated: true){
             if needsUpdate{
                 self.delegate?.updateMarkerLayer()
@@ -187,8 +188,9 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
         let image = ImageData()
+        //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            location?.addFile(file: image)
+            location.addFile(file: image)
             Locations.save()
             delegate?.updateMarkerLayer()
             let imageView = ImageListItemView(data: image)
@@ -229,16 +231,14 @@ extension LocationDetailViewController: ImageListItemDelegate{
     
     func deleteImage(sender: ImageListItemView) {
         showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
-            if let location = self.location{
-                location.deleteFile(file: sender.imageData)
-                Locations.save()
-                self.delegate?.updateMarkerLayer()
-                for subView in self.mediaStackView.subviews{
-                    if subView == sender{
-                        self.mediaStackView.removeArrangedSubview(subView)
-                        self.mediaStackView.removeSubview(subView)
-                        break
-                    }
+            self.location.deleteFile(file: sender.imageData)
+            Locations.save()
+            self.delegate?.updateMarkerLayer()
+            for subView in self.mediaStackView.subviews{
+                if subView == sender{
+                    self.mediaStackView.removeArrangedSubview(subView)
+                    self.mediaStackView.removeSubview(subView)
+                    break
                 }
             }
         }
@@ -275,16 +275,14 @@ extension LocationDetailViewController: VideoListItemDelegate{
     
     func deleteVideo(sender: VideoListItemView) {
         showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
-            if let location = self.location{
-                location.deleteFile(file: sender.videoData)
-                Locations.save()
-                self.delegate?.updateMarkerLayer()
-                for subView in self.mediaStackView.subviews{
-                    if subView == sender{
-                        self.mediaStackView.removeArrangedSubview(subView)
-                        self.mediaStackView.removeSubview(subView)
-                        break
-                    }
+            self.location.deleteFile(file: sender.videoData)
+            Locations.save()
+            self.delegate?.updateMarkerLayer()
+            for subView in self.mediaStackView.subviews{
+                if subView == sender{
+                    self.mediaStackView.removeArrangedSubview(subView)
+                    self.mediaStackView.removeSubview(subView)
+                    break
                 }
             }
         }
@@ -315,16 +313,14 @@ extension LocationDetailViewController: AudioListItemDelegate{
     
     func deleteAudio(sender: AudioListItemView) {
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
-            if let location = self.location{
-                location.deleteFile(file: sender.audioData)
-                Locations.save()
-                self.delegate?.updateMarkerLayer()
-                for subView in self.mediaStackView.subviews{
-                    if subView == sender{
-                        self.mediaStackView.removeArrangedSubview(subView)
-                        self.mediaStackView.removeSubview(subView)
-                        break
-                    }
+            self.location.deleteFile(file: sender.audioData)
+            Locations.save()
+            self.delegate?.updateMarkerLayer()
+            for subView in self.mediaStackView.subviews{
+                if subView == sender{
+                    self.mediaStackView.removeArrangedSubview(subView)
+                    self.mediaStackView.removeSubview(subView)
+                    break
                 }
             }
         }

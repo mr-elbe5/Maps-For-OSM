@@ -22,7 +22,7 @@ class TileRegion : CoordinateRegion{
         updateTileSets()
         for zoom in tiles.keys{
             if let tileSet = tiles[zoom]{
-                //print("zoom \(zoom): \(tileSet) with size \(tileSet.size)")
+                debug("TileRegion zoom \(zoom): \(tileSet) with size \(tileSet.size)")
                 size += tileSet.size
             }
         }

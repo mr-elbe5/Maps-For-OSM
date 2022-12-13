@@ -54,8 +54,6 @@
 "shareImage"="Share Image";
 
 //map menu
-"cartoMapType"="Default Map";
-"topoMapType"="Topographic Map";
 "refreshMap"="Refresh Map";
 "preloadMaps"="Offline Map Tiles...";
 "regionTooLarge"="Region too large";
@@ -64,13 +62,12 @@
 //map preload view - MapPreloadViewController
 "mapPreload"="Preload Map Tiles";
 "mapPreloadNote"="PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server!";
-"currentMapType:"="Current Map Type:";
 "currentTileSource:"="Current Server:";
 "fromZoom:"="From Zoom Level:";
 "toZoom:"="To Zoom Level:";
 "allTilesForDownload"="Number of all tiles:";
 "existingTiles"="Number of existing tiles:";
-"tilesToLoad"="Numer of tiles to load:";
+"tilesToLoad"="Number of tiles to load:";
 "unloadedTiles"="Number of load errors:";
 "startPreload"="Start Preload";
 "confirmPreload"="Are you sure to have the rights for mass downloads?";
@@ -147,16 +144,11 @@
 
 //preferences view
 "preferences"="Preferences";
-"cartoTemplate"="URL Template for OpenStreetMap Maps:";
+"urlTemplate"="URL Template for Map Tiles:";
 "elbe5TileURL"="Use Template for Elbe5.de";
 "osmTileURL"="Use template for OpenStreetMap.org";
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
-"topoTemplate"="URL Template for Topographic Maps:";
-"elbe5TopoTileURL"="Use Template for Elbe5.de(topo)";
-"elbe5TopoLegalInfo"="Legal Info for tiles from Elbe5.de(topo)";
-"openTopoTileURL"="Use Template for OpenTopoMap.org";
-"openTopoLegalInfo"="Legal Info for tiles from OpenTopoMap.org";
 "mapPreferencesSaved"="Map preferences have been saved.";
 "locationPreferences"="Location Marker Preferences";
 "minLocationAccuracy"="Minimal location accuracy";

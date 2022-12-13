@@ -138,7 +138,7 @@ class MapView: UIView {
     
     func setDefaultLocation(){
         scaleTo(scale: AppState.shared.scale)
-        print("moving to \(AppState.shared.coordinate.shortString)")
+        info("moving to \(AppState.shared.coordinate.shortString)")
         scrollView.scrollToScreenCenter(coordinate: AppState.shared.coordinate)
         updateLocationLayer()
     }

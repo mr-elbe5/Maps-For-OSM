@@ -61,7 +61,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             photoOutput.maxPhotoQualityPrioritization = .quality
             
         } else {
-            print("Could not add photo output to the session")
+            error("PhotoCaptureViewController Could not add photo output to the session")
             isInputAvailable = false
             session.commitConfiguration()
             return
@@ -107,8 +107,8 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             
             self.session.commitConfiguration()
             
-        } catch {
-            print("Error occurred while creating video device input: \(error)")
+        } catch let err{
+            error("PhotoCaptureViewController Error occurred while creating video device input: \(err)")
         }
     }
     
@@ -164,7 +164,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
-            print("Error capturing photo: \(error)")
+            logError("PhotoCaptureViewController capturing photo", error: error)
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
                 data.saveImage(uiImage: image)

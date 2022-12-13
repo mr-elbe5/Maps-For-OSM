@@ -98,7 +98,7 @@ extension MainViewController: LocationServiceDelegate{
 extension MainViewController: LocationLayerViewDelegate{
     
     func showLocationDetails(location: Location) {
-        let controller = LocationDetailViewController()
+        let controller = LocationDetailViewController(location: location)
         controller.location = location
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -171,7 +171,7 @@ extension MainViewController: MapPositionDelegate{
                 return
             case .failure:
                 DispatchQueue.main.async {
-                    self.showError("audioNotAuthorized")
+                    self.showError("MainViewController audioNotAuthorized")
                 }
                 return
             }
@@ -193,7 +193,7 @@ extension MainViewController: MapPositionDelegate{
                 return
             case .failure:
                 DispatchQueue.main.async {
-                    self.showError("videoNotAuthorized")
+                    self.showError("MainViewController videoNotAuthorized")
                 }
                 return
             }

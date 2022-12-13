@@ -26,3 +26,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+func debug(_ msg: String){
+    //print("error: \(msg)")
+}
+
+func info(_ msg: String){
+    print("info: \(msg)")
+}
+
+func warn(_ msg: String){
+    print("warn: \(msg)")
+}
+
+func error(_ msg: String){
+    print("error: \(msg)")
+}
+
+func error(_ msg: String, error: Error){
+    print("error: \(msg): \(error.localizedDescription)")
+}
+
+func error(error: Error){
+    print("error: \(error.localizedDescription)")
+}
+
+func logError(_ msg: String, error: Error){
+    print("error: \(msg): \(error.localizedDescription)")
+}
+
+

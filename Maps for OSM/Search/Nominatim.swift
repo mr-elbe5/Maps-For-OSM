@@ -17,9 +17,9 @@ class Nominatim {
             let queryString = "https://nominatim.openstreetmap.org/search?q=\(queriedName)&format=json&limit=\(Nominatim.maxResults)&polygon_text=1"
             if let queryURL = URL(string: queryString){
                 let session = URLSession.shared
-                session.dataTask(with: queryURL, completionHandler: { data, response, error -> Void in
+                session.dataTask(with: queryURL, completionHandler: { data, response, err -> Void in
                     var result = Array<NominatimLocation>()
-                    if (error != nil) {
+                    if (err != nil) {
                         completion(result)
                     }
                     if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
@@ -37,8 +37,8 @@ class Nominatim {
                                 }
                                 completion(result)
                             }
-                        } catch let e {
-                            print(e)
+                        } catch let err {
+                            error("Nominatim", error: err)
                             completion(result)
                         }
                     } else {
@@ -80,14 +80,15 @@ class NominatimLocation {
     var mapRect : MapRect?{
         //todo
         if let boundingBox = boundingBox, let minLat = Double(boundingBox[0]), let maxLat = Double(boundingBox[1]), let minLon = Double(boundingBox[2]), let maxLon = Double(boundingBox[3]){
-            print("minLat = \(minLat)")
-            print("maxLat = \(maxLat)")
-            print("minLon = \(minLon)")
-            print("maxLon = \(maxLon)")
+            debug("Nominatim: mapRect")
+            debug("minLat = \(minLat)")
+            debug("maxLat = \(maxLat)")
+            debug("minLon = \(minLon)")
+            debug("maxLon = \(maxLon)")
             let topLeft = MapPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLon))
-            print("topLeft = \(topLeft.string)")
+            debug("topLeft = \(topLeft.string)")
             let bottomRight = MapPoint(CLLocationCoordinate2D(latitude: minLat, longitude: maxLon))
-            print("bottomRight = \(bottomRight.string)")
+            debug("bottomRight = \(bottomRight.string)")
             return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
         }
         return nil
