@@ -57,7 +57,9 @@
 "cartoMapType"="Standardkarte";
 "topoMapType"="Topografische Karte";
 "refreshMap"="Karte neu anzeigen";
-"preloadMaps"="Kartenkacheln vorladen...";
+"preloadMaps"="Gespeicherte Kartenkacheln...";
+"regionTooLarge"="Region zu groß";
+"selectSmallerRegion"="Bitte wählen Sie eine kleinere Region";
 
 //map preload view - MapPreloadViewController
 "mapPreload"="Kartenkacheln vorladen";

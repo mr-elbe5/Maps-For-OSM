@@ -269,14 +269,12 @@ extension MainViewController: MainMenuDelegate{
         mapView.crossView.isHidden = !AppState.shared.showCross
     }
     
-    func setMapType(_ type: MapType) {
-        AppState.shared.mapType = type
-        AppState.shared.save()
-        refreshMap()
-    }
-    
     func openPreloadMap() {
         let region = mapView.scrollView.tileRegion
+        if region.size > Preferences.maxRegionSize{
+            showAlert(title: "regionTooLarge".localize(), text: "selectSmallerRegion".localize())
+            return
+        }
         let controller = TileCacheViewController()
         controller.mapRegion = region
         controller.delegate = self
@@ -292,8 +290,8 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func showLocations(_ show: Bool) {
-        AppState.shared.showPins = show
-        mapView.locationLayerView.isHidden = !AppState.shared.showPins
+        AppState.shared.showLocations = show
+        mapView.locationLayerView.isHidden = !AppState.shared.showLocations
     }
     
     func openPreferences(){

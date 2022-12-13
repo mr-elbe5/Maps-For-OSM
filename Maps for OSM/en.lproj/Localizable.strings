@@ -57,7 +57,9 @@
 "cartoMapType"="Default Map";
 "topoMapType"="Topographic Map";
 "refreshMap"="Refresh Map";
-"preloadMaps"="Preload Map Tiles...";
+"preloadMaps"="Offline Map Tiles...";
+"regionTooLarge"="Region too large";
+"selectSmallerRegion"="Please select a smaller region";
 
 //map preload view - MapPreloadViewController
 "mapPreload"="Preload Map Tiles";

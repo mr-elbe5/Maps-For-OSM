@@ -13,11 +13,6 @@ struct TileProvider{
     
     static let maxTries: Int = 3
     
-    let tilesDirectory = "files"
-    
-    let cartoDirectory = "carto"
-    let topoDirectory = "topo"
-    
     func loadTileImage(tile: MapTile, result: @escaping (Bool) -> Void) {
         let request = URLRequest(url: tile.tileUrl, cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 10.0)
         let task = getDownloadTask(request: request, tile: tile, tries: 1, result: result)
@@ -96,8 +91,9 @@ struct TileProvider{
     
     func deleteAllTiles(){
         do{
-            try FileManager.default.removeItem(at: AppState.currentTileDirectory)
-            //print("current tile directory deleted")
+            try FileManager.default.removeItem(at: AppState.tileDirectory)
+            try FileManager.default.createDirectory(at: AppState.tileDirectory, withIntermediateDirectories: true)
+            //print("tile directory deleted")
         }
         catch{
             print(error)
@@ -106,7 +102,7 @@ struct TileProvider{
     
     func dumpTiles(){
         var paths = Array<String>()
-        if let subpaths = FileManager.default.subpaths(atPath: AppState.filesDirectory.path){
+        if let subpaths = FileManager.default.subpaths(atPath: AppState.tileDirectory.path){
             for path in subpaths{
                 /*if !path.hasSuffix(".png"){
                  continue

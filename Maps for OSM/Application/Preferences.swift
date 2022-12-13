@@ -16,8 +16,8 @@ class Preferences: Identifiable, Codable{
     static var shared = Preferences()
     
     static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
-    static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     static var openTopoUrl = "https://a.tile.opentopomap.org/{z}/{x}/{y}.png"
     
     static var defaultMinLocationAccuracy : CLLocationDistance = 5.0
@@ -25,6 +25,8 @@ class Preferences: Identifiable, Codable{
     
     static var defaultMinTrackingDistance : CGFloat = 5 // [m]
     static var defaultMinTrackingInterval : CGFloat = 5 // [sec]
+    
+    static var maxRegionSize = 100000
     
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
@@ -36,8 +38,7 @@ class Preferences: Identifiable, Codable{
     }
     
     enum CodingKeys: String, CodingKey {
-        case cartoUrlTemplate
-        case topoUrlTemplate
+        case urlTemplate
         
         case minLocationAccuracy
         case maxLocationMergeDistance
@@ -46,8 +47,7 @@ class Preferences: Identifiable, Codable{
         case minTrackingInterval
     }
 
-    var cartoUrlTemplate : String = elbe5Url
-    var topoUrlTemplate : String = elbe5TopoUrl
+    var urlTemplate : String = osmUrl
     
     var minLocationAccuracy : CLLocationDistance = defaultMinLocationAccuracy
     var maxLocationMergeDistance : CLLocationDistance = defaultMaxLocationMergeDistance
@@ -60,8 +60,7 @@ class Preferences: Identifiable, Codable{
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        cartoUrlTemplate = try values.decodeIfPresent(String.self, forKey: .cartoUrlTemplate) ?? Preferences.elbe5Url
-        topoUrlTemplate = try values.decodeIfPresent(String.self, forKey: .topoUrlTemplate) ?? Preferences.elbe5TopoUrl
+        urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
         
         minLocationAccuracy = try values.decodeIfPresent(CLLocationDistance.self, forKey: .minLocationAccuracy) ?? Preferences.defaultMinLocationAccuracy
         maxLocationMergeDistance = try values.decodeIfPresent(CLLocationDistance.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
@@ -72,8 +71,7 @@ class Preferences: Identifiable, Codable{
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(cartoUrlTemplate, forKey: .cartoUrlTemplate)
-        try container.encode(topoUrlTemplate, forKey: .topoUrlTemplate)
+        try container.encode(urlTemplate, forKey: .urlTemplate)
         
         try container.encode(minLocationAccuracy, forKey: .minLocationAccuracy)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)

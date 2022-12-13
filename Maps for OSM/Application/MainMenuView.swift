@@ -8,7 +8,7 @@ import UIKit
 
 protocol MainMenuDelegate: MapPositionDelegate{
     
-    func setMapType(_ type: MapType)
+    func refreshMap()
     func openPreloadMap()
     
     func showLocations(_ show: Bool)
@@ -21,7 +21,6 @@ protocol MainMenuDelegate: MapPositionDelegate{
     
     func updateCross()
     func focusUserLocation()
-    func refreshMap()
     
     func openSearch()
     
@@ -120,18 +119,6 @@ class MainMenuView: UIView {
     
     func getMapMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        if AppState.shared.mapType == .carto{
-            actions.append(UIAction(title: "topoMapType".localize(), image: UIImage(systemName: "map.fill")){ action in
-                self.delegate?.setMapType(.topo)
-                self.mapMenuControl.menu = self.getMapMenu()
-            })
-        }
-        else{
-            actions.append(UIAction(title: "cartoMapType".localize(), image: UIImage(systemName: "map")){ action in
-                self.delegate?.setMapType(.carto)
-                self.mapMenuControl.menu = self.getMapMenu()
-            })
-        }
         actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "arrow.clockwise")){ action in
             self.delegate?.refreshMap()
         })
@@ -143,7 +130,7 @@ class MainMenuView: UIView {
     
     func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        if AppState.shared.showPins{
+        if AppState.shared.showLocations{
             actions.append(UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
                 self.locationMenuControl.menu = self.getLocationMenu()

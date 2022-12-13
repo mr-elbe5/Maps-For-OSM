@@ -77,13 +77,9 @@ class TileCacheViewController: PopupScrollViewController{
         note.text = "mapPreloadNote".localize()
         contentView.addSubviewWithAnchors(note, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let typeLabel = UILabel()
-        typeLabel.text = "\("currentMapType:".localize()) \(AppState.shared.mapType)"
-        contentView.addSubviewWithAnchors(typeLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        
         let sourceLabel = UILabel()
-        sourceLabel.text = "\("currentTileSource:".localize()) \(AppState.currentUrlTemplate)"
-        contentView.addSubviewWithAnchors(sourceLabel, top: typeLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        sourceLabel.text = "\("currentTileSource:".localize()) \(Preferences.shared.urlTemplate)"
+        contentView.addSubviewWithAnchors(sourceLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         minZoom = World.minZoom
         maxZoom = World.maxZoom

@@ -52,7 +52,7 @@ class MapView: UIView {
     
     func setupLocationLayerView(){
         addSubviewFilling(locationLayerView)
-        locationLayerView.isHidden = !AppState.shared.showPins
+        locationLayerView.isHidden = !AppState.shared.showLocations
     }
     
     func setupUserLocationView(){

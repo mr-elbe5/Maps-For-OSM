@@ -30,11 +30,11 @@ class MapTile{
     }
     
     var tileUrl: URL{
-        URL(string: AppState.currentUrlTemplate.replacingOccurrences(of: "{z}", with: String(zoom)).replacingOccurrences(of: "{x}", with: String(x)).replacingOccurrences(of: "{y}", with: String(y)))!
+        URL(string: Preferences.shared.urlTemplate.replacingOccurrences(of: "{z}", with: String(zoom)).replacingOccurrences(of: "{x}", with: String(x)).replacingOccurrences(of: "{y}", with: String(y)))!
     }
     
     var fileUrl: URL{
-        AppState.currentTileDirectory.appendingPathComponent("\(zoom)/\(x)/\(y).png")
+        AppState.tileDirectory.appendingPathComponent("\(zoom)/\(x)/\(y).png")
     }
     
     var exists: Bool{
