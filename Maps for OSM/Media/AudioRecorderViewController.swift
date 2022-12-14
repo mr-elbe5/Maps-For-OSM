@@ -19,7 +19,7 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var isRecording: Bool = false
     var currentTime: Double = 0.0
     
-    var data = AudioFile()
+    var audio = AudioFile()
     
     var bodyView = UIView()
     var closeButtonContainerView = UIView()
@@ -33,6 +33,15 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var progress = AudioProgressView()
     
     var delegate: AudioCaptureDelegate? = nil
+    
+    init(){
+        audio.setFileNameFromId()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         super.loadView()
@@ -106,7 +115,7 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
             AVNumberOfChannelsKey: 1,
         ]
         do{
-            audioRecorder = try AVAudioRecorder(url: data.fileURL, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: audio.fileURL, settings: settings)
             if let recorder = audioRecorder{
                 recorder.isMeteringEnabled = true
                 recorder.delegate = self
@@ -137,9 +146,9 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
         audioRecorder?.stop()
         audioRecorder = nil
         if success {
-            player.url = data.fileURL
+            player.url = audio.fileURL
             player.enablePlayer()
-            data.time = (self.currentTime*100).rounded() / 100
+            audio.time = (self.currentTime*100).rounded() / 100
         } else {
             player.disablePlayer()
             player.url = nil
@@ -171,7 +180,7 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func save(){
-        delegate?.audioCaptured(data: data)
+        delegate?.audioCaptured(data: audio)
         self.dismiss(animated: true, completion: {
         })
     }

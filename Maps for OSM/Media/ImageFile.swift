@@ -13,13 +13,8 @@ class ImageFile : MediaFile{
         .image
     }
     
-    override init(){
-        super.init()
+    func setFileNameFromId(){
         fileName = "img_\(id).jpg"
-    }
-    
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
     }
     
     func setFileNameFromURL(_ url: URL){

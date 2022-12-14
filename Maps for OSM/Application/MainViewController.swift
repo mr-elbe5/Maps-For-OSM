@@ -53,7 +53,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
         let image = ImageFile()
-        image.fileName = imageURL.lastPathComponent
+        image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             if let location = pickerController.location{
                 let changeState = location.media.isEmpty
@@ -136,8 +136,7 @@ extension MainViewController: MapPositionDelegate{
             case .success(()):
                 DispatchQueue.main.async {
                     let data = ImageFile()
-                    let imageCaptureController = PhotoCaptureViewController()
-                    imageCaptureController.data = data
+                    let imageCaptureController = PhotoCaptureViewController(image: data)
                     imageCaptureController.delegate = self
                     imageCaptureController.modalPresentationStyle = .fullScreen
                     self.present(imageCaptureController, animated: true)
@@ -165,7 +164,7 @@ extension MainViewController: MapPositionDelegate{
                     let audioCaptureController = AudioRecorderViewController()
                     audioCaptureController.delegate = self
                     audioCaptureController.modalPresentationStyle = .fullScreen
-                    audioCaptureController.data = data
+                    audioCaptureController.audio = data
                     self.present(audioCaptureController, animated: true)
                 }
                 return
@@ -184,8 +183,8 @@ extension MainViewController: MapPositionDelegate{
             case .success(()):
                 DispatchQueue.main.async {
                     let data = VideoFile()
-                    let videoCaptureController = VideoCaptureViewController()
-                    videoCaptureController.data = data
+                    let videoCaptureController = VideoCaptureViewController(video: data)
+                    videoCaptureController.video = data
                     videoCaptureController.delegate = self
                     videoCaptureController.modalPresentationStyle = .fullScreen
                     self.present(videoCaptureController, animated: true)

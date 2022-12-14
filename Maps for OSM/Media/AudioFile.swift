@@ -21,13 +21,8 @@ class AudioFile : MediaFile{
         }
     }
 
-    override var fileName : String {
-        get{
-            return "audio_\(creationDate.fileDate()).m4a"
-        }
-        set{
-            error("AudioData setting file name not implemented for AudioItemData")
-        }
+    func setFileNameFromId(){
+        fileName = "audio_\(id).m4a"
     }
     
     override init(){

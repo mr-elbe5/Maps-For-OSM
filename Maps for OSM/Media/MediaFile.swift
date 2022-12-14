@@ -69,24 +69,25 @@ class MediaFile : Equatable, Identifiable, Codable{
     }
     
     func getFile() -> Data?{
-        let url = FileController.getURL(dirURL: FileController.privateURL,fileName: fileName)
+        let url = FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
+        debug("MediaFile getting data from \(url.path)")
         return FileController.readFile(url: url)
     }
     
     func saveFile(data: Data){
         if !fileExists(){
-            let url = FileController.getURL(dirURL: FileController.privateURL,fileName: fileName)
+            let url = FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
             _ = FileController.saveFile(data: data, url: url)
         }
     }
     
     func fileExists() -> Bool{
-        return FileController.fileExists(dirPath: FileController.privatePath, fileName: fileName)
+        return FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName)
     }
     
     func prepareDelete(){
-        if FileController.fileExists(dirPath: FileController.privatePath, fileName: fileName){
-            if !FileController.deleteFile(dirURL: FileController.privateURL, fileName: fileName){
+        if FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName){
+            if !FileController.deleteFile(dirURL: FileController.mediaDirURL, fileName: fileName){
                 error("FileData could not delete file: \(fileName)")
             }
         }

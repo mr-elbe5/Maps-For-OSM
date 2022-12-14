@@ -16,7 +16,7 @@ protocol VideoCaptureDelegate{
 
 class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var data : VideoFile!
+    var video : VideoFile
     
     var delegate: VideoCaptureDelegate? = nil
     
@@ -27,6 +27,16 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     var tmpFileName = "mptvideo"
     var tmpFilePath : String!
     var tmpFileURL : URL!
+    
+    init(video: VideoFile){
+        video.setFileNameFromId()
+        self.video = video
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         super.loadView()
@@ -233,8 +243,8 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let videoURL = info[.mediaURL] as? URL else {return}
-        if FileController.copyFile(fromURL: videoURL, toURL: data.fileURL){
-            delegate?.videoCaptured(data: data)
+        if FileController.copyFile(fromURL: videoURL, toURL: video.fileURL){
+            delegate?.videoCaptured(data: video)
             picker.dismiss(animated: false){
                 self.dismiss(animated: true)
             }

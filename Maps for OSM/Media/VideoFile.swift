@@ -21,13 +21,8 @@ class VideoFile : MediaFile{
         }
     }
 
-    override var fileName : String {
-        get{
-            return "video\(creationDate.fileDate()).mp4"
-        }
-        set{
-            error("VideoDatasetting file name not implemented")
-        }
+    func setFileNameFromId(){
+        fileName = "video_\(id).mp4"
     }
     
     override init(){
