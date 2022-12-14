@@ -78,7 +78,7 @@ class TileLayerView: UIView {
             return
         }
         mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
-        debug("TileLayerView should load \(tile.shortDescription)")
+        //debug("TileLayerView should load \(tile.shortDescription)")
         TileProvider.shared.loadTileImage(tile: tile){ success in
             if success{
                 DispatchQueue.main.async {

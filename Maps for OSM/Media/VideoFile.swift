@@ -6,17 +6,16 @@
 
 import Foundation
 
-class VideoData : FileData{
+class VideoFile : MediaFile{
     
     enum VideoCodingKeys: String, CodingKey {
         case title
         case time
     }
     
-    var title: String = ""
     var time: Double = 0.0
     
-    override var type : FileType{
+    override var type : MediaType{
         get{
             return .video
         }
@@ -31,14 +30,13 @@ class VideoData : FileData{
         }
     }
     
-    init(){
+    override init(){
         time = 0.0
         super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: VideoCodingKeys.self)
-        title = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
         time = try values.decodeIfPresent(Double.self, forKey: .time) ?? 0.0
         try super.init(from: decoder)
     }
@@ -46,7 +44,6 @@ class VideoData : FileData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: VideoCodingKeys.self)
-        try container.encode(title, forKey: .title)
         try container.encode(time, forKey: .time)
     }
     

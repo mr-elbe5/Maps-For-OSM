@@ -16,7 +16,7 @@ class LocationGroup{
     
     var hasPhotos: Bool{
         for location in locations{
-            if location.hasFiles{
+            if location.hasMedia{
                 return true
             }
         }

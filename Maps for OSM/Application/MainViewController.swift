@@ -52,12 +52,12 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
-        let image = ImageData()
+        let image = ImageFile()
         image.fileName = imageURL.lastPathComponent
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             if let location = pickerController.location{
-                let changeState = location.files.isEmpty
-                location.addFile(file: image)
+                let changeState = location.media.isEmpty
+                location.addMedia(file: image)
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -67,8 +67,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
             }
             else if let location = LocationService.shared.location{
                 assertLocation(coordinate: location.coordinate){ location in
-                    let changeState = location.files.isEmpty
-                    location.addFile(file: image)
+                    let changeState = location.media.isEmpty
+                    location.addMedia(file: image)
                     Locations.save()
                     if changeState{
                         DispatchQueue.main.async {
@@ -135,7 +135,7 @@ extension MainViewController: MapPositionDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = PhotoData()
+                    let data = ImageFile()
                     let imageCaptureController = PhotoCaptureViewController()
                     imageCaptureController.data = data
                     imageCaptureController.delegate = self
@@ -161,7 +161,7 @@ extension MainViewController: MapPositionDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = AudioData()
+                    let data = AudioFile()
                     let audioCaptureController = AudioRecorderViewController()
                     audioCaptureController.delegate = self
                     audioCaptureController.modalPresentationStyle = .fullScreen
@@ -183,7 +183,7 @@ extension MainViewController: MapPositionDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = VideoData()
+                    let data = VideoFile()
                     let videoCaptureController = VideoCaptureViewController()
                     videoCaptureController.data = data
                     videoCaptureController.delegate = self
@@ -225,11 +225,11 @@ extension MainViewController: MapPositionDelegate{
 
 extension MainViewController: PhotoCaptureDelegate{
     
-    func photoCaptured(photo: PhotoData) {
+    func photoCaptured(photo: ImageFile) {
         if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
-                let changeState = location.files.isEmpty
-                location.addFile(file: photo)
+                let changeState = location.media.isEmpty
+                location.addMedia(file: photo)
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -244,7 +244,7 @@ extension MainViewController: PhotoCaptureDelegate{
 
 extension MainViewController: VideoCaptureDelegate{
     
-    func videoCaptured(data: VideoData){
+    func videoCaptured(data: VideoFile){
         
     }
     
@@ -252,7 +252,7 @@ extension MainViewController: VideoCaptureDelegate{
 
 extension MainViewController: AudioCaptureDelegate{
     
-    func audioCaptured(data: AudioData){
+    func audioCaptured(data: AudioFile){
         
     }
     

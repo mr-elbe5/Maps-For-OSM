@@ -10,7 +10,7 @@ import AVFoundation
 
 protocol AudioCaptureDelegate{
     
-    func audioCaptured(data: AudioData)
+    func audioCaptured(data: AudioFile)
 }
 
 class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
@@ -19,7 +19,7 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var isRecording: Bool = false
     var currentTime: Double = 0.0
     
-    var data = AudioData()
+    var data = AudioFile()
     
     var bodyView = UIView()
     var closeButtonContainerView = UIView()

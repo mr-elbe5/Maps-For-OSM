@@ -20,8 +20,7 @@ class Location : CodableLocation{
         case name
         case address
         case note
-        case files
-        //deprecated
+        case media
         case photos
         case tracks
     }
@@ -30,13 +29,11 @@ class Location : CodableLocation{
     var name : String = ""
     var address : String = ""
     var note : String = ""
-    var files : FileList
+    var media : MediaList
+    var tracks : TrackList
     
-    //deprecated
-    private var tracks : TrackList
-    
-    var hasFiles : Bool{
-        !files.isEmpty
+    var hasMedia : Bool{
+        !media.isEmpty
     }
     
     var hasTracks : Bool{
@@ -45,7 +42,7 @@ class Location : CodableLocation{
     
     override init(coordinate: CLLocationCoordinate2D){
         id = UUID()
-        files = FileList()
+        media = MediaList()
         tracks = TrackList()
         super.init(coordinate: coordinate)
         evaluatePlacemark()
@@ -57,11 +54,12 @@ class Location : CodableLocation{
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
-        files = try values.decodeIfPresent(FileList.self, forKey: .files) ?? FileList()
+        media = try values.decodeIfPresent(MediaList.self, forKey: .media) ?? MediaList()
         // start deprecated
-        let photoList = try values.decodeIfPresent(Array<PhotoData>.self, forKey: .photos) ?? Array<PhotoData>()
-        for photo in photoList{
-            files.append(photo)
+        if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
+            for photo in photoList{
+                media.append(photo)
+            }
         }
         tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()
         // end deprectaed
@@ -82,7 +80,7 @@ class Location : CodableLocation{
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
         try container.encode(note, forKey: .note)
-        try container.encode(files, forKey: .files)
+        try container.encode(media, forKey: .media)
     }
     
     func evaluatePlacemark(){
@@ -99,18 +97,18 @@ class Location : CodableLocation{
         
     }
     
-    func addFile(file: FileData){
-        files.append(file)
+    func addMedia(file: MediaFile){
+        media.append(file)
     }
     
-    func deleteFile(file: FileData){
+    func deleteMedia(file: MediaFile){
         lock.wait()
         defer{lock.signal()}
-        files.remove(file)
+        media.remove(file)
     }
     
-    func deleteAllFiles(){
-        files.removeAllFiles()
+    func deleteAllMedia(){
+        media.removeAllFiles()
     }
     
     //deprecated

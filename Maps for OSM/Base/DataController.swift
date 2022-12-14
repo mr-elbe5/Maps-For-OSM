@@ -18,7 +18,7 @@ class DataController{
     
     func save(forKey key: String, value: Codable) {
         let storeString = value.toJSON()
-        debug("DataController storing \(storeString)")
+        debug("DataController storing \(key): \(storeString)")
         store.set(storeString, forKey: key)
     }
     

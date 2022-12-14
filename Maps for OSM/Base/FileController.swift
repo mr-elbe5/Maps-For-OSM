@@ -12,20 +12,29 @@ import Compression
 class FileController {
     
     static let tempDir = NSTemporaryDirectory()
-    
     static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
-    
     static var documentPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true).first!
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
-    static var imageDirURL : URL = FileController.privateURL
-    static var tilesDirURL : URL = FileController.privateURL.appendingPathComponent("files")
+    static var mediaDirURL : URL = privateURL.appendingPathComponent("media")
+    static var tilesDirURL : URL = privateURL.appendingPathComponent("tiles")
     static var gpxDirURL = documentURL.appendingPathComponent("gpx")
     static var logDirURL = documentURL.appendingPathComponent("logs")
     static var backupDirURL = documentURL.appendingPathComponent("backup")
     static var backupImagesDirURL = backupDirURL.appendingPathComponent("images")
     static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles/carto")
+    
+    static func initializeDirectories(){
+        if !FileManager.default.fileExists(atPath: tilesDirURL.path){
+            try? FileManager.default.createDirectory(at: tilesDirURL, withIntermediateDirectories: true)
+            info("created tile directory")
+        }
+        if !FileManager.default.fileExists(atPath: mediaDirURL.path){
+            try? FileManager.default.createDirectory(at: mediaDirURL, withIntermediateDirectories: true)
+            info("created media directory")
+        }
+    }
     
     static var temporaryPath : String {
         tempDir

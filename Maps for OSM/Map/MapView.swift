@@ -167,10 +167,6 @@ class MapView: UIView {
         AppState.shared.coordinate = scrollView.screenCenterCoordinate
     }
     
-    func savePosition(){
-        AppState.shared.save()
-    }
-    
     func refresh(){
         scrollView.tileLayerView.refresh()
     }

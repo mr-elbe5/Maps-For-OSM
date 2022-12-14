@@ -11,14 +11,14 @@ import Photos
 
 
 protocol PhotoCaptureDelegate{
-    func photoCaptured(photo: PhotoData)
+    func photoCaptured(photo: ImageFile)
 }
 
 class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     static var flashMode : AVCaptureDevice.FlashMode = .auto
     
-    var data : PhotoData!
+    var data : ImageFile!
     
     var delegate: PhotoCaptureDelegate? = nil
     

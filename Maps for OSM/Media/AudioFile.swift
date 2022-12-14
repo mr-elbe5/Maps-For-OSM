@@ -6,17 +6,16 @@
 
 import Foundation
 
-class AudioData : FileData{
+class AudioFile : MediaFile{
     
     enum AudioCodingKeys: String, CodingKey {
         case title
         case time
     }
     
-    var title: String = ""
-    var time: Double = 0.0
+    var time: Double
     
-    override var type : FileType{
+    override var type : MediaType{
         get{
             return .audio
         }
@@ -31,14 +30,13 @@ class AudioData : FileData{
         }
     }
     
-    init(){
+    override init(){
         time = 0.0
         super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: AudioCodingKeys.self)
-        title = try values.decode(String.self, forKey: .title)
         time = try values.decode(Double.self, forKey: .time)
         try super.init(from: decoder)
     }
@@ -46,7 +44,6 @@ class AudioData : FileData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: AudioCodingKeys.self)
-        try container.encode(title, forKey: .title)
         try container.encode(time, forKey: .time)
     }
     

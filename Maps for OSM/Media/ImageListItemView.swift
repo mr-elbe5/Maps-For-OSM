@@ -15,11 +15,11 @@ protocol ImageListItemDelegate{
 
 class ImageListItemView : UIView{
     
-    var imageData : ImageData
+    var imageData : ImageFile
     
     var delegate : ImageListItemDelegate? = nil
     
-    init(data: ImageData){
+    init(data: ImageFile){
         
         self.imageData = data
         super.init(frame: .zero)

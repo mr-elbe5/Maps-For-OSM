@@ -11,12 +11,12 @@ import Photos
 
 protocol VideoCaptureDelegate{
     
-    func videoCaptured(data: VideoData)
+    func videoCaptured(data: VideoFile)
 }
 
 class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var data : VideoData!
+    var data : VideoFile!
     
     var delegate: VideoCaptureDelegate? = nil
     
@@ -180,7 +180,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             success = (((error as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
-            let videoData = VideoData()
+            let videoData = VideoFile()
             if let fileData = FileManager.default.contents(atPath: tmpFilePath){
                 let url = FileController.getURL(dirURL: FileController.privateURL,fileName: videoData.fileName)
                 _ = FileController.saveFile(data: fileData, url: url)

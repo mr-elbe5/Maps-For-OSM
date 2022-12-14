@@ -134,8 +134,8 @@
 "location"="Position";
 "locationData"="Positonsangaben";
 "description"="Beschreibung";
-"photos"="Foto(s)";
-"tracks"="Tour(en)";
+"media"="Bilder, Videos und Audios";
+"tracks"="Touren";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
 "deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 "confirmDeleteTrack"="Wollen Sie diese Tour löschen?";

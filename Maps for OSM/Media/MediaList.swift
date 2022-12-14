@@ -6,16 +6,16 @@
 
 import Foundation
 
-typealias FileList = Array<FileListData>
+typealias MediaList = Array<MediaData>
     
-extension FileList{
+extension MediaList{
     
-    mutating func append(_ file: FileData){
-        let listData = FileListData(file: file)
+    mutating func append(_ file: MediaFile){
+        let listData = MediaData(file: file)
         append(listData)
     }
     
-    mutating func remove(_ file: FileData){
+    mutating func remove(_ file: MediaFile){
         for idx in 0..<self.count{
             if self[idx].data == file{
                 FileController.deleteFile(url: file.fileURL)
@@ -34,36 +34,33 @@ extension FileList{
     
 }
 
-class FileListData : Identifiable, Codable{
+class MediaData : Identifiable, Codable{
     
     private enum CodingKeys: CodingKey{
         case type
         case data
     }
     
-    var type : FileType
-    var data : FileData
+    var type : MediaType
+    var data : MediaFile
     
-    init(file: FileData){
+    init(file: MediaFile){
         self.type = file.type
         self.data = file
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        type = try values.decode(FileType.self, forKey: .type)
+        type = try values.decode(MediaType.self, forKey: .type)
         switch type{
         case .audio:
-            data = try values.decode(AudioData.self, forKey: .data)
-            break
-        case .photo:
-            data = try values.decode(PhotoData.self, forKey: .data)
+            data = try values.decode(AudioFile.self, forKey: .data)
             break
         case .image:
-            data = try values.decode(ImageData.self, forKey: .data)
+            data = try values.decode(ImageFile.self, forKey: .data)
             break
         case .video:
-            data = try values.decode(VideoData.self, forKey: .data)
+            data = try values.decode(VideoFile.self, forKey: .data)
             break
         }
     }

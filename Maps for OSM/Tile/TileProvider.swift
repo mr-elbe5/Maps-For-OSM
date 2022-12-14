@@ -37,7 +37,7 @@ struct TileProvider{
                 statusCode = httpResponse.statusCode
             }
             if statusCode == 200, let data = data{
-                debug("TileProvider loaded \(tile.shortDescription)")
+                //debug("TileProvider loaded \(tile.shortDescription)")
                 if tries > 1{
                     info("TileProvider got tile in try \(tries)")
                 }
@@ -97,8 +97,8 @@ struct TileProvider{
     
     func deleteAllTiles(){
         do{
-            try FileManager.default.removeItem(at: AppState.tileDirectory)
-            try FileManager.default.createDirectory(at: AppState.tileDirectory, withIntermediateDirectories: true)
+            try FileManager.default.removeItem(at: FileController.tilesDirURL)
+            try FileManager.default.createDirectory(at: FileController.tilesDirURL, withIntermediateDirectories: true)
             debug("TileProvider tile directory cleared")
         }
         catch let err{
@@ -108,7 +108,7 @@ struct TileProvider{
     
     func dumpTiles(){
         var paths = Array<String>()
-        if let subpaths = FileManager.default.subpaths(atPath: AppState.tileDirectory.path){
+        if let subpaths = FileManager.default.subpaths(atPath: FileController.tilesDirURL.path){
             for path in subpaths{
                 /*if !path.hasSuffix(".png"){
                  continue

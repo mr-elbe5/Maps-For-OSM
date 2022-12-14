@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //TestCenter.testWorld()
         FileController.initialize()
         Preferences.loadInstance()
-        AppState.initializeDirectories()
+        FileController.initializeDirectories()
         AppState.loadInstance()
         //MapTiles.dumpTiles()
         Locations.load()
@@ -41,6 +41,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         AppState.shared.save()
+        Locations.save()
+        Tracks.save()
+        Preferences.shared.save()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()
@@ -53,14 +56,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        AppState.shared.save()
-        Locations.save()
-        Tracks.save()
         if !TrackRecorder.isRecording{
             LocationService.shared.stop()
         }
-        Preferences.shared.save()
-        mainController.mapView.savePosition()
     }
 
 }

@@ -12,17 +12,6 @@ import CoreLocation
 
 class AppState: Identifiable, Codable{
     
-    static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
-    static var tileDirectory : URL!
-    
-    static func initializeDirectories(){
-        tileDirectory = privateURL.appendingPathComponent("tiles")
-        if !FileManager.default.fileExists(atPath: tileDirectory.path){
-            try? FileManager.default.createDirectory(at: tileDirectory, withIntermediateDirectories: true)
-            info("created tile directory")
-        }
-    }
-    
     static var storeKey = "state"
     
     static let startCoordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)

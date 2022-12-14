@@ -16,7 +16,7 @@ class LocationMarker : Marker{
     var location : Location
     
     override var hasPhotos : Bool{
-        location.hasFiles
+        location.hasMedia
     }
     
     override var hasTracks: Bool{

@@ -7,25 +7,24 @@
 import Foundation
 import UIKit
 
-class ImageData : FileData{
+class ImageFile : MediaFile{
     
-    private var _fileName = ""
-    
-    override var type : FileType{
+    override var type : MediaType{
         .image
     }
     
-    override var fileName : String {
-        get{
-            _fileName
-        }
-        set{
-            _fileName = newValue
-        }
+    override init(){
+        super.init()
+        fileName = "img_\(id).jpg"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     func setFileNameFromURL(_ url: URL){
         var name = url.lastPathComponent
+        debug("file name from url is \(name)")
         fileName = name
         if fileExists(){
             info("cannot use file name \(fileName)")

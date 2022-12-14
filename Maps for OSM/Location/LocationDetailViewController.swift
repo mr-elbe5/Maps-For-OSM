@@ -59,7 +59,7 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     func setupContent(){
-        hadPhotos = location.hasFiles
+        hadPhotos = location.hasMedia
         var header = UILabel(header: "locationData".localize())
         contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
@@ -74,7 +74,7 @@ class LocationDetailViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
         setupDescriptionContainerView()
         
-        header = UILabel(header: "files".localize())
+        header = UILabel(header: "media".localize())
         contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         mediaStackView.setupVertical()
@@ -113,22 +113,22 @@ class LocationDetailViewController: PopupScrollViewController{
     func setupMediaStackView(){
         mediaStackView.removeAllArrangedSubviews()
         mediaStackView.removeAllSubviews()
-        for file in location.files{
+        for file in location.media{
             switch file.type{
-            case .photo, .image:
-                if let image = file.data as? ImageData{
+            case .image:
+                if let image = file.data as? ImageFile{
                     let imageView = ImageListItemView(data: image)
                     imageView.delegate = self
                     mediaStackView.addArrangedSubview(imageView)
                 }
             case .video:
-                if let video = file.data as? VideoData{
+                if let video = file.data as? VideoFile{
                     let videoView = VideoListItemView(data: video)
                     videoView.delegate = self
                     mediaStackView.addArrangedSubview(videoView)
                 }
             case .audio:
-                if let audio = file.data as? AudioData{
+                if let audio = file.data as? AudioFile{
                     let audioView = AudioListItemView(data: audio)
                     audioView.delegate = self
                     mediaStackView.addArrangedSubview(audioView)
@@ -173,7 +173,7 @@ class LocationDetailViewController: PopupScrollViewController{
         var needsUpdate = false
         location.note = descriptionView?.text ?? ""
         Locations.save()
-        needsUpdate = location.hasFiles != hadPhotos
+        needsUpdate = location.hasMedia != hadPhotos
         self.dismiss(animated: true){
             if needsUpdate{
                 self.delegate?.updateMarkerLayer()
@@ -187,10 +187,10 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageData()
+        let image = ImageFile()
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            location.addFile(file: image)
+            location.addMedia(file: image)
             Locations.save()
             delegate?.updateMarkerLayer()
             let imageView = ImageListItemView(data: image)
@@ -231,7 +231,7 @@ extension LocationDetailViewController: ImageListItemDelegate{
     
     func deleteImage(sender: ImageListItemView) {
         showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
-            self.location.deleteFile(file: sender.imageData)
+            self.location.deleteMedia(file: sender.imageData)
             Locations.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
@@ -275,7 +275,7 @@ extension LocationDetailViewController: VideoListItemDelegate{
     
     func deleteVideo(sender: VideoListItemView) {
         showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
-            self.location.deleteFile(file: sender.videoData)
+            self.location.deleteMedia(file: sender.videoData)
             Locations.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
@@ -313,7 +313,7 @@ extension LocationDetailViewController: AudioListItemDelegate{
     
     func deleteAudio(sender: AudioListItemView) {
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
-            self.location.deleteFile(file: sender.audioData)
+            self.location.deleteMedia(file: sender.audioData)
             Locations.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
