@@ -38,11 +38,18 @@ class MediaFile : Equatable, Identifiable, Codable{
     var fileName : String
     
     var filePath : String{
-        FileController.getPath(dirPath: FileController.mediaDirURL.path,fileName: fileName)
+        if fileName.isEmpty{
+            error("MediaFile file has no name")
+            return ""
+        }
+        return FileController.getPath(dirPath: FileController.mediaDirURL.path,fileName: fileName)
     }
     
     var fileURL : URL{
-        FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
+        if fileName.isEmpty{
+            error("MediaFile file has no name")
+        }
+        return FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
     }
     
     init(){
@@ -66,6 +73,29 @@ class MediaFile : Equatable, Identifiable, Codable{
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(fileName, forKey: .fileName)
         try container.encode(title, forKey: .title)
+    }
+    
+    func setFileNameFromURL(_ url: URL){
+        var name = url.lastPathComponent
+        debug("file name from url is \(name)")
+        fileName = name
+        if fileExists(){
+            info("cannot use file name \(fileName)")
+            var count = 1
+            var ext = ""
+            if let pntPos = name.lastIndex(of: "."){
+                ext = String(name[pntPos...])
+                name = String(name[..<pntPos])
+            }
+            do{
+                fileName = "\(name)(\(count))\(ext)"
+                if !fileExists(){
+                    info("new file name is \(fileName)")
+                    return
+                }
+                count += 1
+            }
+        }
     }
     
     func getFile() -> Data?{

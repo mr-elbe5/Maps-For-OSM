@@ -19,7 +19,7 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var isRecording: Bool = false
     var currentTime: Double = 0.0
     
-    var audio = AudioFile()
+    var audioFile = AudioFile()
     
     var bodyView = UIView()
     var closeButtonContainerView = UIView()
@@ -33,15 +33,6 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var progress = AudioProgressView()
     
     var delegate: AudioCaptureDelegate? = nil
-    
-    init(){
-        audio.setFileNameFromId()
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func loadView() {
         super.loadView()
@@ -68,7 +59,7 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
         progress.setupView()
         
         centerContainerView.addSubviewWithAnchors(player, top: progress.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, bottom: centerContainerView.bottomAnchor, insets: defaultInsets)
-            .height(100).setBackground(.black)
+            .setBackground(.black)
         player.setupView()
         player.disablePlayer()
         
@@ -114,8 +105,9 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
             AVNumberOfChannelsKey: 1,
         ]
+        debug("AudioRecorderViewController recording on url \(audioFile.fileURL)")
         do{
-            audioRecorder = try AVAudioRecorder(url: audio.fileURL, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: audioFile.fileURL, settings: settings)
             if let recorder = audioRecorder{
                 recorder.isMeteringEnabled = true
                 recorder.delegate = self
@@ -146,9 +138,10 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
         audioRecorder?.stop()
         audioRecorder = nil
         if success {
-            player.url = audio.fileURL
+            debug("AudioRecorderViewController playing on url \(audioFile.fileURL)")
+            player.url = audioFile.fileURL
             player.enablePlayer()
-            audio.time = (self.currentTime*100).rounded() / 100
+            audioFile.time = (self.currentTime*100).rounded() / 100
         } else {
             player.disablePlayer()
             player.url = nil
@@ -180,7 +173,8 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func save(){
-        delegate?.audioCaptured(data: audio)
+        debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
+        delegate?.audioCaptured(data: audioFile)
         self.dismiss(animated: true, completion: {
         })
     }

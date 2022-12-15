@@ -33,9 +33,10 @@ class AudioListItemView : UIView{
         addSubviewWithAnchors(shareButton, top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
         
         let audioView = AudioPlayerView()
-        audioView.setRoundedBorders()
+        audioView.setupView()
         addSubviewWithAnchors(audioView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
         audioView.url = audioData.fileURL
+        audioView.enablePlayer()
     }
     
     required init?(coder: NSCoder) {

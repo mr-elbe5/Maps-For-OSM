@@ -13,31 +13,13 @@ class ImageFile : MediaFile{
         .image
     }
     
-    func setFileNameFromId(){
+    override init(){
+        super.init()
         fileName = "img_\(id).jpg"
     }
     
-    func setFileNameFromURL(_ url: URL){
-        var name = url.lastPathComponent
-        debug("file name from url is \(name)")
-        fileName = name
-        if fileExists(){
-            info("cannot use file name \(fileName)")
-            var count = 1
-            var ext = ""
-            if let pntPos = name.lastIndex(of: "."){
-                ext = String(name[pntPos...])
-                name = String(name[..<pntPos])
-            }
-            do{
-                fileName = "\(name)(\(count))\(ext)"
-                if !fileExists(){
-                    info("new file name is \(fileName)")
-                    return
-                }
-                count += 1
-            }
-        }
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
     
     func getImage() -> UIImage?{

@@ -21,13 +21,10 @@ class VideoFile : MediaFile{
         }
     }
 
-    func setFileNameFromId(){
-        fileName = "video_\(id).mp4"
-    }
-    
     override init(){
         time = 0.0
         super.init()
+        fileName = "video_\(id).mp4"
     }
     
     required init(from decoder: Decoder) throws {

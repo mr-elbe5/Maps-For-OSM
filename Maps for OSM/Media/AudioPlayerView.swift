@@ -16,7 +16,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     var playProgress = UIProgressView()
     var rewindButton = UIButton().asIconButton("repeat", color: .white)
     var playButton = UIButton().asIconButton("play.fill", color: .white)
-    var volumeView = VolumeSlider()
+    var volumeSlider = VolumeSlider()
     
     var timeObserverToken : Any? = nil
     
@@ -27,6 +27,12 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         }
         set{
             _url = newValue
+            if let url = _url{
+                debug("AudioPlayerView playing from url \(url)")
+                if let file = FileController.readFile(url: url){
+                    debug("AudioPlayerView file size is \(file.count)")
+                }
+            }
             playProgress.setProgress(0, animated: false)
             rewindButton.isEnabled = false
             if _url == nil{
@@ -53,6 +59,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     }
     
     func setupView(){
+        setRoundedBorders()
         playProgress.setBackground(.white)
         addSubviewWithAnchors(playProgress, top: topAnchor, leading: leadingAnchor, insets: defaultInsets)
             .height(25)
@@ -65,8 +72,8 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         addSubviewWithAnchors(playButton, top: topAnchor, leading: rewindButton.trailingAnchor, trailing: trailingAnchor, insets: defaultInsets)
             .height(20)
         
-        volumeView.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
-        addSubviewWithAnchors(volumeView, top: playProgress.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        volumeSlider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
+        addSubviewWithAnchors(volumeSlider, top: playProgress.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
             .height(25)
         rewindButton.isEnabled = false
         playButton.isEnabled = false
@@ -79,10 +86,10 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
             playerItem = AVPlayerItem(asset: asset)
             player.replaceCurrentItem(with: playerItem!)
             player.rate = 0
-            player.volume = volumeView.value
+            player.volume = volumeSlider.value
             addPeriodicTimeObserver(duration: asset.duration)
             rewindButton.isEnabled = false
-            volumeView.isEnabled = true
+            volumeSlider.isEnabled = true
         }
     }
     
@@ -93,7 +100,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         playProgress.setProgress(0, animated: false)
         rewindButton.isEnabled = false
         playButton.isEnabled = false
-        volumeView.isEnabled = false
+        volumeSlider.isEnabled = false
     }
     
     func addPeriodicTimeObserver(duration: CMTime) {
@@ -141,7 +148,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     }
     
     @objc func volumeChanged(){
-        player.volume = volumeView.value
+        player.volume = volumeSlider.value
     }
     
     @objc func playerItemDidReachEnd(notification: Notification) {

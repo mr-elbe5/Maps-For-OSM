@@ -18,21 +18,11 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     static var flashMode : AVCaptureDevice.FlashMode = .auto
     
-    var image : ImageFile
+    var imageFile = ImageFile()
     
     var delegate: PhotoCaptureDelegate? = nil
     
     private let photoOutput = AVCapturePhotoOutput()
-    
-    init(image: ImageFile){
-        image.setFileNameFromId()
-        self.image = image
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func addCameraButtons(){
         
@@ -175,8 +165,8 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             logError("PhotoCaptureViewController capturing photo", error: error)
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
-                self.image.saveImage(uiImage: image)
-                delegate?.photoCaptured(photo: self.image)
+                self.imageFile.saveImage(uiImage: image)
+                delegate?.photoCaptured(photo: self.imageFile)
                 self.dismiss(animated: true)
             }
         }

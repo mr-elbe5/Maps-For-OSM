@@ -18,8 +18,13 @@ class VideoPlayerView: UIView {
     
     var url : URL? = nil{
         didSet{
-            if url != nil{
-                let asset = AVURLAsset(url: url!)
+            if let url = url{
+                let asset = AVURLAsset(url: url)
+                debug("VideoPlayerView playing from url \(url)")
+                if let file = FileController.readFile(url: url){
+                    debug("VideoPlayerView file size is \(file.count)")
+                }
+                debug("track count = \(asset.tracks.count)")
                 if let track = asset.tracks(withMediaType: AVMediaType.video).first{
                     let size = track.naturalSize.applying(track.preferredTransform)
                     self.aspectRatio = abs(size.width / size.height)
@@ -45,8 +50,7 @@ class VideoPlayerView: UIView {
         playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         playButton.tintColor = UIColor.white
         playButton.addTarget(self, action: #selector(togglePlay), for: .touchDown)
-        addSubview(playButton)
-        playButton.setAnchors(bottom: bottomAnchor, insets: defaultInsets)
+        addSubviewWithAnchors(playButton, bottom: bottomAnchor, insets: defaultInsets)
             .centerX(centerXAnchor)
     }
 

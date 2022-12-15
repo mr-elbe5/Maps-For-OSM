@@ -11,7 +11,7 @@ import Compression
 
 class FileController {
     
-    static let tempDir = NSTemporaryDirectory()
+    private static let tempDir = NSTemporaryDirectory()
     static var privateURL : URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var documentPath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask,true).first!
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!

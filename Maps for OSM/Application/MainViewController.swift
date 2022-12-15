@@ -135,8 +135,7 @@ extension MainViewController: MapPositionDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = ImageFile()
-                    let imageCaptureController = PhotoCaptureViewController(image: data)
+                    let imageCaptureController = PhotoCaptureViewController()
                     imageCaptureController.delegate = self
                     imageCaptureController.modalPresentationStyle = .fullScreen
                     self.present(imageCaptureController, animated: true)
@@ -164,7 +163,7 @@ extension MainViewController: MapPositionDelegate{
                     let audioCaptureController = AudioRecorderViewController()
                     audioCaptureController.delegate = self
                     audioCaptureController.modalPresentationStyle = .fullScreen
-                    audioCaptureController.audio = data
+                    audioCaptureController.audioFile = data
                     self.present(audioCaptureController, animated: true)
                 }
                 return
@@ -182,9 +181,7 @@ extension MainViewController: MapPositionDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = VideoFile()
-                    let videoCaptureController = VideoCaptureViewController(video: data)
-                    videoCaptureController.video = data
+                    let videoCaptureController = VideoCaptureViewController()
                     videoCaptureController.delegate = self
                     videoCaptureController.modalPresentationStyle = .fullScreen
                     self.present(videoCaptureController, animated: true)
@@ -244,7 +241,18 @@ extension MainViewController: PhotoCaptureDelegate{
 extension MainViewController: VideoCaptureDelegate{
     
     func videoCaptured(data: VideoFile){
-        
+        if let location = LocationService.shared.location{
+            assertLocation(coordinate: location.coordinate){ location in
+                let changeState = location.media.isEmpty
+                location.addMedia(file: data)
+                Locations.save()
+                if changeState{
+                    DispatchQueue.main.async {
+                        self.updateMarkerLayer()
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -252,7 +260,18 @@ extension MainViewController: VideoCaptureDelegate{
 extension MainViewController: AudioCaptureDelegate{
     
     func audioCaptured(data: AudioFile){
-        
+        if let location = LocationService.shared.location{
+            assertLocation(coordinate: location.coordinate){ location in
+                let changeState = location.media.isEmpty
+                location.addMedia(file: data)
+                Locations.save()
+                if changeState{
+                    DispatchQueue.main.async {
+                        self.updateMarkerLayer()
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -400,6 +419,7 @@ extension MainViewController: LocationListDelegate{
     
     func deleteAllLocations() {
         Locations.deleteAllLocations()
+        Locations.save()
         self.updateMarkerLayer()
     }
 

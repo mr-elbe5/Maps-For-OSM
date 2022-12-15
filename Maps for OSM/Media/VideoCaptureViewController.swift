@@ -16,7 +16,7 @@ protocol VideoCaptureDelegate{
 
 class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var video : VideoFile
+    var videoFile = VideoFile()
     
     var delegate: VideoCaptureDelegate? = nil
     
@@ -24,24 +24,16 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     
     private var movieFileOutput: AVCaptureMovieFileOutput?
     
-    var tmpFileName = "mptvideo"
-    var tmpFilePath : String!
-    var tmpFileURL : URL!
+    var tmpFileName = "mptvideo.mp4"
+    var tmpFileURL : URL
     
-    init(video: VideoFile){
-        video.setFileNameFromId()
-        self.video = video
+    init(){
+        tmpFileURL = FileController.temporaryURL.appendingPathComponent(tmpFileName)
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func loadView() {
-        super.loadView()
-        tmpFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((tmpFileName as NSString).appendingPathExtension("mp4")!)
-        tmpFileURL = URL(fileURLWithPath: tmpFilePath)
     }
     
     override func addCameraButtons(){
@@ -190,12 +182,10 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             success = (((error as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
-            let videoData = VideoFile()
-            if let fileData = FileManager.default.contents(atPath: tmpFilePath){
-                let url = FileController.getURL(dirURL: FileController.privateURL,fileName: videoData.fileName)
-                _ = FileController.saveFile(data: fileData, url: url)
+            debug("VideoCaptureViewController outputURL = \(outputFileURL)")
+            if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: videoFile.fileName)){
                 cleanup()
-                delegate?.videoCaptured(data: videoData)
+                delegate?.videoCaptured(data: videoFile)
                 self.dismiss(animated: true)
             }
         }
@@ -209,9 +199,9 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     }
     
     func cleanup() {
-        if FileManager.default.fileExists(atPath: tmpFilePath) {
+        if FileManager.default.fileExists(atPath: tmpFileURL.path) {
             do {
-                try FileManager.default.removeItem(atPath: tmpFilePath)
+                try FileManager.default.removeItem(atPath: tmpFileURL.path)
             } catch let err{
                 error("VideoCaptureViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
             }
@@ -243,8 +233,8 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let videoURL = info[.mediaURL] as? URL else {return}
-        if FileController.copyFile(fromURL: videoURL, toURL: video.fileURL){
-            delegate?.videoCaptured(data: video)
+        if FileController.copyFile(fromURL: videoURL, toURL: videoFile.fileURL){
+            delegate?.videoCaptured(data: videoFile)
             picker.dismiss(animated: false){
                 self.dismiss(animated: true)
             }

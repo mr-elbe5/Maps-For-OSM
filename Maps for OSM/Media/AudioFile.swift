@@ -21,13 +21,10 @@ class AudioFile : MediaFile{
         }
     }
 
-    func setFileNameFromId(){
-        fileName = "audio_\(id).m4a"
-    }
-    
     override init(){
         time = 0.0
         super.init()
+        fileName = "audio_\(id).m4a"
     }
     
     required init(from decoder: Decoder) throws {
