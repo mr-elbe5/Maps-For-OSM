@@ -127,7 +127,7 @@
 		4E025E3A274E3C4300D56ED7 /* CurrentTrackLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTrackLine.swift; sourceTree = "<group>"; };
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E05FECC27592E64005D903B /* LocationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationList.swift; sourceTree = "<group>"; };
-		4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps for OSM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98926E9FC67005A4A94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
-				4E0BD97F26E9FC66005A4A94 /* Maps for OSM */,
+				4E0BD97F26E9FC66005A4A94 /* SwiftyMaps */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -266,12 +266,12 @@
 		4E0BD97E26E9FC66005A4A94 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */,
+				4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4E0BD97F26E9FC66005A4A94 /* Maps for OSM */ = {
+		4E0BD97F26E9FC66005A4A94 /* SwiftyMaps */ = {
 			isa = PBXGroup;
 			children = (
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
@@ -290,7 +290,7 @@
 				4E0D092C26F90D5D00FABB17 /* Track */,
 				4E3BE7EB26EA7EF1000F9069 /* Media */,
 			);
-			path = "Maps for OSM";
+			path = SwiftyMaps;
 			sourceTree = "<group>";
 		};
 		4E0BD99726EA0020005A4A94 /* Application */ = {
@@ -476,9 +476,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4E0BD97C26E9FC66005A4A94 /* Maps for OSM */ = {
+		4E0BD97C26E9FC66005A4A94 /* SwiftyMaps */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "Maps for OSM" */;
+			buildConfigurationList = 4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "SwiftyMaps" */;
 			buildPhases = (
 				4E0BD97926E9FC66005A4A94 /* Sources */,
 				4E0BD97A26E9FC66005A4A94 /* Frameworks */,
@@ -488,11 +488,11 @@
 			);
 			dependencies = (
 			);
-			name = "Maps for OSM";
+			name = SwiftyMaps;
 			packageProductDependencies = (
 			);
 			productName = SwiftyMapViewer;
-			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
+			productReference = 4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -509,7 +509,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps for OSM" */;
+			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -525,7 +525,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4E0BD97C26E9FC66005A4A94 /* Maps for OSM */,
+				4E0BD97C26E9FC66005A4A94 /* SwiftyMaps */,
 			);
 		};
 /* End PBXProject section */
@@ -820,7 +820,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 5UG99476V8;
-				INFOPLIST_FILE = "Maps for OSM/Info.plist";
+				INFOPLIST_FILE = SwiftyMaps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -841,7 +841,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 5UG99476V8;
-				INFOPLIST_FILE = "Maps for OSM/Info.plist";
+				INFOPLIST_FILE = SwiftyMaps/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -857,7 +857,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps for OSM" */ = {
+		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD98F26E9FC67005A4A94 /* Debug */,
@@ -866,7 +866,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "Maps for OSM" */ = {
+		4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "SwiftyMaps" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD99226E9FC67005A4A94 /* Debug */,
