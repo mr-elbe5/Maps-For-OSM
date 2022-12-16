@@ -13,17 +13,12 @@ protocol AudioCaptureDelegate{
     func audioCaptured(data: AudioFile)
 }
 
-class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
+class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDelegate{
     
     var audioRecorder: AVAudioRecorder? = nil
     var isRecording: Bool = false
     var currentTime: Double = 0.0
     
-    var bodyView = UIView()
-    var closeButtonContainerView = UIView()
-    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
-    
-    var centerContainerView = UIView()
     var player = AudioPlayerView()
     var recordButton = CaptureButton()
     var titleField = UITextField()
@@ -34,9 +29,9 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var tmpFileName = "tmpaudio.m4a"
     var tmpFileURL : URL
     
-    init(){
+    override init(){
         tmpFileURL = FileController.temporaryURL.appendingPathComponent(tmpFileName)
-        super.init(nibName: nil, bundle: nil)
+        super.init()
     }
     
     required init?(coder: NSCoder) {
@@ -47,54 +42,44 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     
     override func loadView() {
         super.loadView()
-        view.addSubviewFillingSafeArea(bodyView)
-        bodyView.backgroundColor = .black
+        scrollView.backgroundColor = .black
         
-        bodyView.addSubviewWithAnchors(closeButtonContainerView, top: bodyView.topAnchor, trailing: bodyView.trailingAnchor)
-            .setRoundedBorders(radius: 5)
-            .setBackground(.black)
-        
-        closeButtonContainerView.addSubviewFilling(closeButton, insets: defaultInsets)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        
-        bodyView.addSubviewWithAnchors(centerContainerView, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor)
-            .centerY(bodyView.centerYAnchor)
-            .setRoundedBorders(radius: 5)
-            .setBackground(.darkGray)
-    
         timeLabel.textAlignment = .center
         timeLabel.textColor = .white
-        centerContainerView.addSubviewWithAnchors(timeLabel, top: centerContainerView.topAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(timeLabel, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        centerContainerView.addSubviewWithAnchors(progress, top: timeLabel.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(progress, top: timeLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         progress.setupView()
         
-        centerContainerView.addSubviewWithAnchors(player, top: progress.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(player, top: progress.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             .setBackground(.black)
         player.setupView()
         player.disablePlayer()
+        
+        recordButton.addTarget(self, action: #selector(toggleRecording), for: .touchUpInside)
+        contentView.addSubviewWithAnchors(recordButton, top: player.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
+            .width(50)
+            .height(50)
+        recordButton.isEnabled = false
+        
         titleField.setDefaults(placeholder: "comment".localize())
         titleField.setKeyboardToolbar(doneTitle: "done".localize())
-        centerContainerView.addSubviewWithAnchors(titleField, top: player.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, bottom: centerContainerView.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(titleField, top: recordButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         saveButton.asTextButton("save".localize(), color: .white)
         saveButton.setTitleColor(.lightGray, for: .disabled)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        bodyView.addSubviewWithAnchors(saveButton, bottom: bodyView.bottomAnchor, insets: defaultInsets)
-            .centerX(bodyView.centerXAnchor)
+        contentView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
         saveButton.isEnabled = false
         
-        recordButton.addTarget(self, action: #selector(toggleRecording), for: .touchUpInside)
-        bodyView.addSubviewWithAnchors(recordButton, bottom: saveButton.topAnchor, insets: defaultInsets)
-            .centerX(bodyView.centerXAnchor)
-            .width(50)
-            .height(50)
         
-        recordButton.isEnabled = false
         updateTime(time: 0.0)
         AVCaptureDevice.askAudioAuthorization(){ result in
             self.enableRecording()
         }
-        
+        setupKeyboard()
     }
     
     func enableRecording(){
@@ -206,10 +191,6 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
                 error("AudioRecorderViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
             }
         }
-    }
-    
-    @objc func close(){
-        self.dismiss(animated: true)
     }
     
 }

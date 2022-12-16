@@ -181,13 +181,10 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         }
         if success {
             debug("VideoCaptureViewController outputURL = \(outputFileURL)")
-            let videoFile = VideoFile()
-            if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: videoFile.fileName)){
-                cleanup()
-                self.dismiss(animated: true){
-                    self.delegate?.videoCaptured(data: videoFile)
-                }
-            }
+            let acceptController = VideoAcceptViewController(videoUrl: outputFileURL)
+            acceptController.modalPresentationStyle = .fullScreen
+            acceptController.delegate = self
+            present(acceptController, animated: true)
         }
         else{
             self.cleanup()
@@ -229,6 +226,94 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         selector: #selector(subjectAreaDidChange),
         name: .AVCaptureDeviceSubjectAreaDidChange,
         object: videoDeviceInput.device)
+    }
+    
+}
+
+extension VideoCaptureViewController: VideoAcceptDelegate{
+    
+    func videoAccepted(videoUrl: URL, title: String) {
+        debug("VideoCaptureViewController video accepted")
+        let videoFile = VideoFile()
+        debug("VideoCaptureViewController title = \(title)")
+        videoFile.title = title
+        if FileController.copyFile(fromURL: videoUrl, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: videoFile.fileName)){
+            cleanup()
+            self.dismiss(animated: true){
+                self.delegate?.videoCaptured(data: videoFile)
+            }
+        }
+    }
+    
+    func videoDismissed() {
+        debug("VideoCaptureViewController photo dismissed")
+    }
+    
+    
+    
+    
+}
+
+protocol VideoAcceptDelegate{
+    func videoAccepted(videoUrl: URL, title: String)
+    func videoDismissed()
+}
+
+class VideoAcceptViewController: PopupScrollViewController{
+    
+    var videoUrl : URL
+    
+    var titleField = UITextField()
+    var saveButton = UIButton()
+    var cancelButton = UIButton()
+    
+    var delegate: VideoAcceptDelegate? = nil
+    
+    init(videoUrl: URL){
+        self.videoUrl = videoUrl
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        super.loadView()
+        scrollView.backgroundColor = .black
+        let videoView = VideoPlayerView()
+        videoView.setRoundedBorders()
+        videoView.url = videoUrl
+        videoView.setAspectRatioConstraint()
+        contentView.addSubviewWithAnchors(videoView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        titleField.setDefaults(placeholder: "comment".localize())
+        titleField.backgroundColor = .white
+        titleField.setKeyboardToolbar(doneTitle: "done".localize())
+        contentView.addSubviewWithAnchors(titleField, top: videoView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        saveButton.asTextButton("accept".localize(), color: .systemBlue, backgroundColor: .white)
+        saveButton.addTarget(self, action: #selector(accepted), for: .touchDown)
+        contentView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
+        cancelButton.asTextButton("cancel".localize(), color: .darkGray, backgroundColor: .lightGray)
+        cancelButton.addTarget(self, action: #selector(dismissed), for: .touchDown)
+        contentView.addSubviewWithAnchors(cancelButton, top: saveButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            .centerX(view.centerXAnchor)
+        setupKeyboard()
+    }
+    
+    override func createHeaderView() {
+    }
+    
+    @objc func accepted(){
+        dismiss(animated: false){
+            self.delegate?.videoAccepted(videoUrl: self.videoUrl, title: self.titleField.text!.trim())
+        }
+    }
+    
+    @objc func dismissed(){
+        self .dismiss(animated: false){
+            self.delegate?.videoDismissed()
+        }
     }
     
 }

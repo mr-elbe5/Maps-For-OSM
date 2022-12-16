@@ -44,8 +44,8 @@ class LocationDetailViewController: PopupScrollViewController{
         setupKeyboard()
     }
     
-    override func setupHeaderView(){
-        super.setupHeaderView()
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
         
         let addImageButton = UIButton().asIconButton("photo", color: .white)
         headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)

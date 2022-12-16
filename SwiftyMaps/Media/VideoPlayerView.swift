@@ -95,7 +95,7 @@ class VideoPlayerView: UIView {
                                    relatedBy: .equal,
                                    toItem: self, attribute: .height,
                                    multiplier: aspectRatio, constant: 0)
-        c.priority = UILayoutPriority(900)
+        c.priority = UILayoutPriority(400)
         self.addConstraint(c)
     }
     

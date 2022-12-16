@@ -41,8 +41,8 @@ class TrackDetailViewController: PopupScrollViewController{
         setupKeyboard()
     }
     
-    override func setupHeaderView(){
-        super.setupHeaderView()
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
         
         headerView.addSubviewWithAnchors(mapButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         mapButton.addTarget(self, action: #selector(showTrackOnMap), for: .touchDown)

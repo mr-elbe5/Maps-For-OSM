@@ -164,6 +164,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
                 let acceptController = PhotoAcceptViewController(imageData: image)
+                acceptController.modalPresentationStyle = .fullScreen
                 acceptController.delegate = self
                 present(acceptController, animated: true)
             }
@@ -191,6 +192,7 @@ extension PhotoCaptureViewController: PhotoAcceptDelegate{
         debug("PhotoCaptureViewController photo accepted")
         let imageFile = ImageFile()
         imageFile.saveImage(uiImage: imageData)
+        debug("PhotoCaptureViewController title = \(title)")
         imageFile.title = title
         dismiss(animated: false){
             self.delegate?.photoCaptured(photo: imageFile)
@@ -209,11 +211,10 @@ protocol PhotoAcceptDelegate{
     func photoDismissed()
 }
 
-class PhotoAcceptViewController: UIViewController{
+class PhotoAcceptViewController: PopupScrollViewController{
     
     var imageData : UIImage
     
-    var bodyView = UIView()
     var titleField = UITextField()
     var saveButton = UIButton()
     var cancelButton = UIButton()
@@ -222,25 +223,7 @@ class PhotoAcceptViewController: UIViewController{
     
     init(imageData: UIImage){
         self.imageData = imageData
-        super.init(nibName: nil, bundle: nil)
-        view.addSubviewFillingSafeArea(bodyView)
-        bodyView.backgroundColor = .black
-        
-        let imageView = UIImageView(image: imageData)
-        imageView.setDefaults()
-        imageView.setRoundedBorders()
-        imageView.image = imageData
-        imageView.setAspectRatioConstraint()
-        bodyView.addSubviewWithAnchors(imageView, top: bodyView.topAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
-        bodyView.addSubviewWithAnchors(titleField, top: imageView.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
-        saveButton.asTextButton("accept".localize(), color: .systemBlue, backgroundColor: .white)
-        saveButton.addTarget(self, action: #selector(accepted), for: .touchDown)
-        bodyView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, insets: defaultInsets)
-            .centerX(bodyView.centerXAnchor)
-        cancelButton.asTextButton("cancel".localize(), color: .darkGray, backgroundColor: .lightGray)
-        cancelButton.addTarget(self, action: #selector(dismissed), for: .touchDown)
-        bodyView.addSubviewWithAnchors(cancelButton, top: saveButton.bottomAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
-            .centerX(view.centerXAnchor)
+        super.init()
     }
     
     required init?(coder: NSCoder) {
@@ -249,6 +232,29 @@ class PhotoAcceptViewController: UIViewController{
     
     override func loadView() {
         super.loadView()
+        scrollView.backgroundColor = .black
+        let imageView = UIImageView(image: imageData)
+        imageView.setDefaults()
+        imageView.setRoundedBorders()
+        imageView.image = imageData
+        contentView.addSubviewWithAnchors(imageView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        imageView.setAspectRatioConstraint()
+        titleField.setDefaults(placeholder: "comment".localize())
+        titleField.backgroundColor = .white
+        titleField.setKeyboardToolbar(doneTitle: "done".localize())
+        contentView.addSubviewWithAnchors(titleField, top: imageView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        saveButton.asTextButton("accept".localize(), color: .systemBlue, backgroundColor: .white)
+        saveButton.addTarget(self, action: #selector(accepted), for: .touchDown)
+        contentView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
+        cancelButton.asTextButton("cancel".localize(), color: .darkGray, backgroundColor: .lightGray)
+        cancelButton.addTarget(self, action: #selector(dismissed), for: .touchDown)
+        contentView.addSubviewWithAnchors(cancelButton, top: saveButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            .centerX(view.centerXAnchor)
+        setupKeyboard()
+    }
+    
+    override func createHeaderView() {
     }
     
     @objc func accepted(){
