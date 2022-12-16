@@ -60,8 +60,9 @@ class SearchViewController: PopupScrollViewController{
     
     @objc func showResult(sender: AnyObject){
         if let btn = sender as? ResultButton, let location = btn.location{
-            delegate?.showSearchResult(coordinate: location.coordidate, region: location.region)
-            self.dismiss(animated: false)
+            self.dismiss(animated: false){
+                self.delegate?.showSearchResult(coordinate: location.coordidate, region: location.region)
+            }
         }
     }
     

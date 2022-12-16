@@ -105,9 +105,13 @@ class MediaFile : Equatable, Identifiable, Codable{
     }
     
     func saveFile(data: Data){
+        debug("MediaFile saving file \(fileName)")
         if !fileExists(){
             let url = FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
             _ = FileController.saveFile(data: data, url: url)
+        }
+        else{
+            error("MediaFile exists \(fileName)")
         }
     }
     

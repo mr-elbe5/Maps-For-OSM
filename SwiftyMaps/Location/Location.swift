@@ -90,7 +90,7 @@ class Location : CodableLocation{
                     self.name = name
                 }
                 if self.address.isEmpty{
-                    self.address = "\(placemark.thoroughfare ?? "") \(placemark.subThoroughfare ?? "")n\(placemark.postalCode ?? "") \(placemark.locality ?? "")\n\(placemark.country ?? "")"
+                    self.address = "\(placemark.thoroughfare ?? "") \(placemark.subThoroughfare ?? "")\n\(placemark.postalCode ?? "") \(placemark.locality ?? "")\n\(placemark.country ?? "")"
                 }
             }
         }

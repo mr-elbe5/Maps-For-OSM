@@ -19,8 +19,6 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var isRecording: Bool = false
     var currentTime: Double = 0.0
     
-    var audioFile = AudioFile()
-    
     var bodyView = UIView()
     var closeButtonContainerView = UIView()
     var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
@@ -28,9 +26,22 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     var centerContainerView = UIView()
     var player = AudioPlayerView()
     var recordButton = CaptureButton()
+    var titleField = UITextField()
     var saveButton = UIButton()
     var timeLabel = UILabel()
     var progress = AudioProgressView()
+    
+    var tmpFileName = "tmpaudio.m4a"
+    var tmpFileURL : URL
+    
+    init(){
+        tmpFileURL = FileController.temporaryURL.appendingPathComponent(tmpFileName)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var delegate: AudioCaptureDelegate? = nil
     
@@ -58,11 +69,13 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
         centerContainerView.addSubviewWithAnchors(progress, top: timeLabel.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
         progress.setupView()
         
-        centerContainerView.addSubviewWithAnchors(player, top: progress.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, bottom: centerContainerView.bottomAnchor, insets: defaultInsets)
+        centerContainerView.addSubviewWithAnchors(player, top: progress.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, insets: defaultInsets)
             .setBackground(.black)
         player.setupView()
         player.disablePlayer()
-        
+        titleField.setDefaults(placeholder: "comment".localize())
+        titleField.setKeyboardToolbar(doneTitle: "done".localize())
+        centerContainerView.addSubviewWithAnchors(titleField, top: player.bottomAnchor, leading: centerContainerView.leadingAnchor, trailing: centerContainerView.trailingAnchor, bottom: centerContainerView.bottomAnchor, insets: defaultInsets)
         saveButton.asTextButton("save".localize(), color: .white)
         saveButton.setTitleColor(.lightGray, for: .disabled)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
@@ -105,9 +118,9 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
             AVNumberOfChannelsKey: 1,
         ]
-        debug("AudioRecorderViewController recording on url \(audioFile.fileURL)")
+        debug("AudioRecorderViewController recording on url \(tmpFileURL)")
         do{
-            audioRecorder = try AVAudioRecorder(url: audioFile.fileURL, settings: settings)
+            audioRecorder = try AVAudioRecorder(url: tmpFileURL, settings: settings)
             if let recorder = audioRecorder{
                 recorder.isMeteringEnabled = true
                 recorder.delegate = self
@@ -138,10 +151,9 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
         audioRecorder?.stop()
         audioRecorder = nil
         if success {
-            debug("AudioRecorderViewController playing on url \(audioFile.fileURL)")
-            player.url = audioFile.fileURL
+            debug("AudioRecorderViewController playing on url \(tmpFileURL)")
+            player.url = tmpFileURL
             player.enablePlayer()
-            audioFile.time = (self.currentTime*100).rounded() / 100
         } else {
             player.disablePlayer()
             player.url = nil
@@ -173,15 +185,31 @@ class AudioRecorderViewController : UIViewController, AVAudioRecorderDelegate{
     }
     
     @objc func save(){
+        let audioFile = AudioFile()
+        audioFile.title = titleField.text?.trim() ?? ""
+        audioFile.time = (currentTime*100).rounded() / 100
         debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
-        delegate?.audioCaptured(data: audioFile)
-        self.dismiss(animated: true, completion: {
-        })
+        if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: audioFile.fileName)){
+            cleanup()
+            self.dismiss(animated: true){
+                self.delegate?.audioCaptured(data: audioFile)
+            }
+        }
+        
+    }
+    
+    func cleanup() {
+        if FileManager.default.fileExists(atPath: tmpFileURL.path) {
+            do {
+                try FileManager.default.removeItem(atPath: tmpFileURL.path)
+            } catch let err{
+                error("AudioRecorderViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
+            }
+        }
     }
     
     @objc func close(){
-        self.dismiss(animated: true, completion: {
-        })
+        self.dismiss(animated: true)
     }
     
 }

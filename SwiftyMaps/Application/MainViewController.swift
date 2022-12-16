@@ -159,11 +159,9 @@ extension MainViewController: MapPositionDelegate{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let data = AudioFile()
                     let audioCaptureController = AudioRecorderViewController()
                     audioCaptureController.delegate = self
                     audioCaptureController.modalPresentationStyle = .fullScreen
-                    audioCaptureController.audioFile = data
                     self.present(audioCaptureController, animated: true)
                 }
                 return
@@ -225,7 +223,9 @@ extension MainViewController: PhotoCaptureDelegate{
         if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.media.isEmpty
+                debug("MainViewController adding photo to location, current media count = \(location.media.count)")
                 location.addMedia(file: photo)
+                debug("new media count = \(location.media.count)")
                 Locations.save()
                 if changeState{
                     DispatchQueue.main.async {

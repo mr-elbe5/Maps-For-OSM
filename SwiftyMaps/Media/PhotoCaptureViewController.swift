@@ -18,8 +18,6 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     static var flashMode : AVCaptureDevice.FlashMode = .auto
     
-    var imageFile = ImageFile()
-    
     var delegate: PhotoCaptureDelegate? = nil
     
     private let photoOutput = AVCapturePhotoOutput()
@@ -165,9 +163,9 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             logError("PhotoCaptureViewController capturing photo", error: error)
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
-                self.imageFile.saveImage(uiImage: image)
-                delegate?.photoCaptured(photo: self.imageFile)
-                self.dismiss(animated: true)
+                let acceptController = PhotoAcceptViewController(imageData: image)
+                acceptController.delegate = self
+                present(acceptController, animated: true)
             }
         }
     }
@@ -183,6 +181,83 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
         }
         keyValueObservations.append(keyValueObservation)
         super.addObservers()
+    }
+    
+}
+
+extension PhotoCaptureViewController: PhotoAcceptDelegate{
+    
+    func photoAccepted(imageData: UIImage, title: String) {
+        debug("PhotoCaptureViewController photo accepted")
+        let imageFile = ImageFile()
+        imageFile.saveImage(uiImage: imageData)
+        imageFile.title = title
+        dismiss(animated: false){
+            self.delegate?.photoCaptured(photo: imageFile)
+        }
+    }
+    
+    func photoDismissed() {
+        debug("PhotoCaptureViewController photo dismissed")
+    }
+    
+    
+}
+
+protocol PhotoAcceptDelegate{
+    func photoAccepted(imageData: UIImage, title: String)
+    func photoDismissed()
+}
+
+class PhotoAcceptViewController: UIViewController{
+    
+    var imageData : UIImage
+    
+    var titleField = UITextField()
+    var saveButton = UIButton()
+    var cancelButton = UIButton()
+    
+    var delegate: PhotoAcceptDelegate? = nil
+    
+    init(imageData: UIImage){
+        self.imageData = imageData
+        super.init(nibName: nil, bundle: nil)
+        view.backgroundColor = .black
+        let imageView = UIImageView(image: imageData)
+        imageView.setDefaults()
+        imageView.setRoundedBorders()
+        imageView.image = imageData
+        imageView.setAspectRatioConstraint()
+        view.addSubviewWithAnchors(imageView, top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(titleField, top: imageView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
+        saveButton.setTitle("accept".localize(), for: .normal)
+        saveButton.addTarget(self, action: #selector(accepted), for: .touchDown)
+        view.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, insets: defaultInsets)
+            .centerX(view.centerXAnchor)
+        cancelButton.setTitle("dismiss".localize(), for: .normal)
+        cancelButton.addTarget(self, action: #selector(dismissed), for: .touchDown)
+        view.addSubviewWithAnchors(cancelButton, top: saveButton.bottomAnchor, bottom: view.bottomAnchor, insets: defaultInsets)
+            .centerX(view.centerXAnchor)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        super.loadView()
+    }
+    
+    @objc func accepted(){
+        dismiss(animated: false){
+            self.delegate?.photoAccepted(imageData: self.imageData, title: self.titleField.text!.trim())
+        }
+    }
+    
+    @objc func dismissed(){
+        self .dismiss(animated: false){
+            self.delegate?.photoDismissed()
+        }
     }
     
 }

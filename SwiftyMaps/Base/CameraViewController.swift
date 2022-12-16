@@ -285,8 +285,7 @@ class CameraViewController: UIViewController {
     }
     
     @objc func close(){
-        self.dismiss(animated: true, completion: {
-        })
+        self.dismiss(animated: true)
     }
     
 }

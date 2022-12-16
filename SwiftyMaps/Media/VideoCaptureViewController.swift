@@ -14,9 +14,7 @@ protocol VideoCaptureDelegate{
     func videoCaptured(data: VideoFile)
 }
 
-class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    var videoFile = VideoFile()
+class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecordingDelegate, UINavigationControllerDelegate {
     
     var delegate: VideoCaptureDelegate? = nil
     
@@ -24,7 +22,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
     
     private var movieFileOutput: AVCaptureMovieFileOutput?
     
-    var tmpFileName = "mptvideo.mp4"
+    var tmpFileName = "tmpvideo.mp4"
     var tmpFileURL : URL
     
     init(){
@@ -183,10 +181,12 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         }
         if success {
             debug("VideoCaptureViewController outputURL = \(outputFileURL)")
+            let videoFile = VideoFile()
             if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: videoFile.fileName)){
                 cleanup()
-                delegate?.videoCaptured(data: videoFile)
-                self.dismiss(animated: true)
+                self.dismiss(animated: true){
+                    self.delegate?.videoCaptured(data: videoFile)
+                }
             }
         }
         else{
@@ -229,19 +229,6 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
         selector: #selector(subjectAreaDidChange),
         name: .AVCaptureDeviceSubjectAreaDidChange,
         object: videoDeviceInput.device)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let videoURL = info[.mediaURL] as? URL else {return}
-        if FileController.copyFile(fromURL: videoURL, toURL: videoFile.fileURL){
-            delegate?.videoCaptured(data: videoFile)
-            picker.dismiss(animated: false){
-                self.dismiss(animated: true)
-            }
-        }
-        else{
-            picker.dismiss(animated: true, completion: nil)
-        }
     }
     
 }
