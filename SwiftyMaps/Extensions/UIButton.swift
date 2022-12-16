@@ -10,15 +10,6 @@ import UIKit
 
 extension UIButton{
     
-    func setPrimaryDefaults(placeholder : String = ""){
-        setTitleColor(UIColor.systemTeal, for: .disabled)
-    }
-    
-    func setSecondaryDefaults(placeholder : String = ""){
-        setTitleColor(UIColor.systemGray, for: .normal)
-        setTitleColor(UIColor.systemGray3, for: .disabled)
-    }
-    
     @discardableResult
     func asIconButton(_ icon: String, color: UIColor = .darkGray) -> UIButton{
         setImage(UIImage(systemName: icon), for: .normal)
@@ -42,6 +33,7 @@ extension UIButton{
             self.backgroundColor = bgcol
             layer.cornerRadius = 5
             layer.masksToBounds = true
+            contentEdgeInsets = defaultInsets
         }
         return self
     }

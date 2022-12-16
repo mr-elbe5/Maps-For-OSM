@@ -24,6 +24,8 @@
 "preferences"="Preferences...";
 "preferencesSaved"="Preferences saved";
 "deleteAll"="Delete All";
+"accept"="Accept";
+"dismiss"="Dismiss";
 
 //error
 "error"="Error";

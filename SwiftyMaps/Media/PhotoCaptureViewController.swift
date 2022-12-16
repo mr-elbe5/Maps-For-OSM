@@ -213,6 +213,7 @@ class PhotoAcceptViewController: UIViewController{
     
     var imageData : UIImage
     
+    var bodyView = UIView()
     var titleField = UITextField()
     var saveButton = UIButton()
     var cancelButton = UIButton()
@@ -222,21 +223,23 @@ class PhotoAcceptViewController: UIViewController{
     init(imageData: UIImage){
         self.imageData = imageData
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .black
+        view.addSubviewFillingSafeArea(bodyView)
+        bodyView.backgroundColor = .black
+        
         let imageView = UIImageView(image: imageData)
         imageView.setDefaults()
         imageView.setRoundedBorders()
         imageView.image = imageData
         imageView.setAspectRatioConstraint()
-        view.addSubviewWithAnchors(imageView, top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
-        view.addSubviewWithAnchors(titleField, top: imageView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
-        saveButton.setTitle("accept".localize(), for: .normal)
+        bodyView.addSubviewWithAnchors(imageView, top: bodyView.topAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+        bodyView.addSubviewWithAnchors(titleField, top: imageView.bottomAnchor, leading: bodyView.leadingAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+        saveButton.asTextButton("accept".localize(), color: .systemBlue, backgroundColor: .white)
         saveButton.addTarget(self, action: #selector(accepted), for: .touchDown)
-        view.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, insets: defaultInsets)
-            .centerX(view.centerXAnchor)
-        cancelButton.setTitle("dismiss".localize(), for: .normal)
+        bodyView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, insets: defaultInsets)
+            .centerX(bodyView.centerXAnchor)
+        cancelButton.asTextButton("cancel".localize(), color: .darkGray, backgroundColor: .lightGray)
         cancelButton.addTarget(self, action: #selector(dismissed), for: .touchDown)
-        view.addSubviewWithAnchors(cancelButton, top: saveButton.bottomAnchor, bottom: view.bottomAnchor, insets: defaultInsets)
+        bodyView.addSubviewWithAnchors(cancelButton, top: saveButton.bottomAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
             .centerX(view.centerXAnchor)
     }
     

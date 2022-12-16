@@ -24,6 +24,8 @@
 "preferences"="Einstellungen...";
 "preferencesSaved"="Einstellungen gespeichert";
 "deleteAll"="Alle löschen";
+"accept"="Übernehmen";
+"dismiss"="Ablehnen";
 
 //error
 "error"="Fehler";
