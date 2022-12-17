@@ -24,25 +24,39 @@ class ImageListItemView : UIView{
         self.imageData = data
         super.init(frame: .zero)
         
-        let deleteButton = UIButton().asIconButton("xmark.circle")
-        deleteButton.tintColor = UIColor.systemRed
-        deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchDown)
-        addSubviewWithAnchors(deleteButton, top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
-        
-        let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
-        viewButton.addTarget(self, action: #selector(viewImage), for: .touchDown)
-        addSubviewWithAnchors(viewButton, top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
+        let buttonContainer = UIView()
+        buttonContainer.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+        buttonContainer.setRoundedBorders(radius: 5)
         
         let shareButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
         shareButton.addTarget(self, action: #selector(shareImage), for: .touchDown)
-        addSubviewWithAnchors(shareButton, top: topAnchor, trailing: viewButton.leadingAnchor, insets: flatInsets)
+        buttonContainer.addSubviewWithAnchors(shareButton, top: buttonContainer.topAnchor, leading: buttonContainer.leadingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
+        
+        let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
+        viewButton.addTarget(self, action: #selector(viewImage), for: .touchDown)
+        buttonContainer.addSubviewWithAnchors(viewButton, top: buttonContainer.topAnchor, leading: shareButton.trailingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
+        
+        let deleteButton = UIButton().asIconButton("xmark.circle", color: .systemRed)
+        deleteButton.addTarget(self, action: #selector(deleteImage), for: .touchDown)
+        buttonContainer.addSubviewWithAnchors(deleteButton, top: buttonContainer.topAnchor, leading: viewButton.trailingAnchor, trailing: buttonContainer.trailingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
         let imageView = UIImageView()
         imageView.setDefaults()
         imageView.setRoundedBorders()
-        addSubviewWithAnchors(imageView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
+        addSubviewWithAnchors(imageView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
         imageView.image = imageData.getImage()
         imageView.setAspectRatioConstraint()
+        
+        if !imageData.title.isEmpty{
+            let titleView = UILabel(text: imageData.title)
+            titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+            addSubviewWithAnchors(titleView, top: imageView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        }
+        else{
+            imageView.bottom(bottomAnchor)
+        }
+        
+        addSubviewWithAnchors(buttonContainer, top: topAnchor, trailing: trailingAnchor, insets: defaultInsets)
     }
     
     required init?(coder: NSCoder) {

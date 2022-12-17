@@ -18,6 +18,8 @@ struct Insets{
     
     static var smallInsets : UIEdgeInsets = .init(top: smallInset, left: smallInset, bottom: smallInset, right: smallInset)
     
+    static var halfFlatInsets : UIEdgeInsets = .init(top: smallInset, left: defaultInset, bottom: smallInset, right: defaultInset)
+    
     static var flatInsets : UIEdgeInsets = .init(top: 0, left: defaultInset, bottom: 0, right: defaultInset)
     
     static var flatWideInsets : UIEdgeInsets = .init(top: 0, left: 2*defaultInset, bottom: 0, right: 2*defaultInset)

@@ -47,8 +47,8 @@ class VideoPlayerView: UIView {
         playerLayer.videoGravity = .resizeAspect
         playerLayer.needsDisplayOnBoundsChange = true
         self.layer.addSublayer(playerLayer)
-        playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        playButton.tintColor = UIColor.white
+        playButton.asIconButton("play.fill", color: .white)
+        playButton.scaleBy(2.0)
         playButton.addTarget(self, action: #selector(togglePlay), for: .touchDown)
         addSubviewWithAnchors(playButton, bottom: bottomAnchor, insets: defaultInsets)
             .centerX(centerXAnchor)

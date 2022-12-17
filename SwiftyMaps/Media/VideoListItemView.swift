@@ -9,7 +9,6 @@ import UIKit
 
 protocol VideoListItemDelegate{
     func viewVideo(sender: VideoListItemView)
-    func shareVideo(sender: VideoListItemView)
     func deleteVideo(sender: VideoListItemView)
 }
 
@@ -24,24 +23,34 @@ class VideoListItemView : UIView{
         self.videoData = data
         super.init(frame: .zero)
         
-        let deleteButton = UIButton().asIconButton("xmark.circle")
-        deleteButton.tintColor = UIColor.systemRed
-        deleteButton.addTarget(self, action: #selector(deleteVideo), for: .touchDown)
-        addSubviewWithAnchors(deleteButton, top: topAnchor, trailing: trailingAnchor, insets: flatInsets)
+        let buttonContainer = UIView()
+        buttonContainer.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+        buttonContainer.setRoundedBorders(radius: 5)
         
         let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
         viewButton.addTarget(self, action: #selector(viewVideo), for: .touchDown)
-        addSubviewWithAnchors(viewButton, top: topAnchor, trailing: deleteButton.leadingAnchor, insets: flatInsets)
+        buttonContainer.addSubviewWithAnchors(viewButton, top: buttonContainer.topAnchor, leading: buttonContainer.leadingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
-        let shareButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
-        shareButton.addTarget(self, action: #selector(shareVideo), for: .touchDown)
-        addSubviewWithAnchors(shareButton, top: topAnchor, trailing: viewButton.leadingAnchor, insets: flatInsets)
+        let deleteButton = UIButton().asIconButton("xmark.circle", color: .systemRed)
+        deleteButton.addTarget(self, action: #selector(deleteVideo), for: .touchDown)
+        buttonContainer.addSubviewWithAnchors(deleteButton, top: buttonContainer.topAnchor, leading: viewButton.trailingAnchor, trailing: buttonContainer.trailingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
         let videoView = VideoPlayerView()
         videoView.setRoundedBorders()
-        addSubviewWithAnchors(videoView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
+        addSubviewWithAnchors(videoView, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
         videoView.url = videoData.fileURL
         videoView.setAspectRatioConstraint()
+        
+        if !videoData.title.isEmpty{
+            let titleView = UILabel(text: videoData.title)
+            titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+            addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        }
+        else{
+            videoView.bottom(bottomAnchor)
+        }
+        
+        addSubviewWithAnchors(buttonContainer, top: topAnchor, trailing: trailingAnchor, insets: defaultInsets)
     }
     
     required init?(coder: NSCoder) {
@@ -50,10 +59,6 @@ class VideoListItemView : UIView{
     
     @objc func viewVideo(){
         delegate?.viewVideo(sender: self)
-    }
-    
-    @objc func shareVideo(){
-        delegate?.shareVideo(sender: self)
     }
     
     @objc func deleteVideo(){

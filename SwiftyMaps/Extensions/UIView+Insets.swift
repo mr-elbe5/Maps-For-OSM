@@ -22,6 +22,10 @@ extension UIView{
         Insets.smallInset
     }
     
+    var halfFlatInsets : UIEdgeInsets{
+        Insets.halfFlatInsets
+    }
+    
     var smallInsets : UIEdgeInsets{
         Insets.smallInsets
     }

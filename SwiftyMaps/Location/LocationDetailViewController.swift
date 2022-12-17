@@ -255,24 +255,6 @@ extension LocationDetailViewController: VideoListItemDelegate{
         self.present(videoViewController, animated: true)
     }
     
-    func shareVideo(sender: VideoListItemView) {
-        let alertController = UIAlertController(title: title, message: "shareVideo".localize(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            FileController.copyImageToLibrary(name: sender.videoData.fileName, fromDir: FileController.privateURL){ result in
-                DispatchQueue.main.async {
-                    switch result{
-                    case .success:
-                        self.showAlert(title: "success".localize(), text: "videoShared".localize())
-                    case .failure(let err):
-                        self.showAlert(title: "error".localize(), text: err.errorDescription!)
-                    }
-                }
-            }
-        })
-        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
-        self.present(alertController, animated: true)
-    }
-    
     func deleteVideo(sender: VideoListItemView) {
         showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
             self.location.deleteMedia(file: sender.videoData)
@@ -292,24 +274,6 @@ extension LocationDetailViewController: VideoListItemDelegate{
 }
 
 extension LocationDetailViewController: AudioListItemDelegate{
-    
-    func shareAudio(sender: AudioListItemView) {
-        let alertController = UIAlertController(title: title, message: "shareAudio".localize(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            FileController.copyImageToLibrary(name: sender.audioData.fileName, fromDir: FileController.privateURL){ result in
-                DispatchQueue.main.async {
-                    switch result{
-                    case .success:
-                        self.showAlert(title: "success".localize(), text: "videoShared".localize())
-                    case .failure(let err):
-                        self.showAlert(title: "error".localize(), text: err.errorDescription!)
-                    }
-                }
-            }
-        })
-        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
-        self.present(alertController, animated: true)
-    }
     
     func deleteAudio(sender: AudioListItemView) {
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
