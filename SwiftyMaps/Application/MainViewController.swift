@@ -497,8 +497,9 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                track.name = alertController.textFields![0].text ?? "Route"
-                Locations.save()
+                track.name = alertController.textFields![0].text ?? "Tour"
+                Tracks.addTrack(track: track)
+                Tracks.save()
                 Tracks.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()

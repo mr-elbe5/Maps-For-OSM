@@ -16,13 +16,16 @@ class VideoViewController: PopupViewController {
     
     override func loadView() {
         super.loadView()
+        contentView.backgroundColor = .black
+        
         if let url = videoURL{
             videoView.url = url
-            view.addSubviewWithAnchors(videoView, top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor)
-            volumeView.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
-            view.addSubviewWithAnchors(volumeView, top: videoView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, insets: defaultInsets)
-                .height(25)
+            contentView.addSubviewWithAnchors(videoView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             videoView.setAspectRatioConstraint()
+            
+            volumeView.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
+            view.addSubviewWithAnchors(volumeView, top: videoView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+                .height(25)
         }
     }
     
