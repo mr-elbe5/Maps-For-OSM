@@ -134,7 +134,7 @@ class MainMenuView: UIView {
             })
             
         }
-        if Tracks.visibleTrack != nil {
+        if TrackPool.visibleTrack != nil {
             actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
                 self.delegate?.hideTrack()
                 self.trackMenuControl.menu = self.getTrackingMenu()

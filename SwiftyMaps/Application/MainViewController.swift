@@ -119,7 +119,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
             if let location = pickerController.location{
                 let changeState = location.media.isEmpty
                 location.addMedia(file: image)
-                Locations.save()
+                LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {
                         self.updateMarkerLayer()
@@ -130,7 +130,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
                 assertLocation(coordinate: location.coordinate){ location in
                     let changeState = location.media.isEmpty
                     location.addMedia(file: image)
-                    Locations.save()
+                    LocationPool.save()
                     if changeState{
                         DispatchQueue.main.async {
                             self.updateMarkerLayer()
@@ -188,7 +188,7 @@ extension MainViewController: MapPositionDelegate{
     func addLocationAtCurrentPosition() {
         if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
-                Locations.save()
+                LocationPool.save()
                 DispatchQueue.main.async {
                     self.updateMarkerLayer()
                 }
@@ -267,7 +267,7 @@ extension MainViewController: MapPositionDelegate{
     
     func addLocationAtCrossPosition() {
         assertLocation(coordinate: mapView.scrollView.screenCenterCoordinate){ location in
-            Locations.save()
+            LocationPool.save()
             DispatchQueue.main.async {
                 self.updateMarkerLayer()
             }
@@ -276,7 +276,7 @@ extension MainViewController: MapPositionDelegate{
     
     func addImageAtCrossPosition() {
         assertLocation(coordinate: mapView.scrollView.screenCenterCoordinate){ location in
-            Locations.save()
+            LocationPool.save()
             self.addImage(location: location)
         }
     }
@@ -292,7 +292,7 @@ extension MainViewController: PhotoCaptureDelegate{
                 debug("MainViewController adding photo to location, current media count = \(location.media.count)")
                 location.addMedia(file: photo)
                 debug("new media count = \(location.media.count)")
-                Locations.save()
+                LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {
                         self.updateMarkerLayer()
@@ -311,7 +311,7 @@ extension MainViewController: VideoCaptureDelegate{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.media.isEmpty
                 location.addMedia(file: data)
-                Locations.save()
+                LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {
                         self.updateMarkerLayer()
@@ -330,7 +330,7 @@ extension MainViewController: AudioCaptureDelegate{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.media.isEmpty
                 location.addMedia(file: data)
-                Locations.save()
+                LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {
                         self.updateMarkerLayer()
@@ -389,7 +389,7 @@ extension MainViewController: MainMenuDelegate{
             assertLocation(coordinate: lastLocation.coordinate){ location in
                 TrackRecorder.startRecording(startPoint: location)
                 if let track = TrackRecorder.track{
-                    Tracks.visibleTrack = track
+                    TrackPool.visibleTrack = track
                     self.mapView.trackLayerView.setNeedsDisplay()
                     self.startTrackInfo()
                 }
@@ -409,13 +409,13 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func hideTrack() {
-        Tracks.visibleTrack = nil
+        TrackPool.visibleTrack = nil
         mapView.trackLayerView.setNeedsDisplay()
     }
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = Tracks.list
+        controller.tracks = TrackPool.list
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -478,14 +478,14 @@ extension MainViewController: LocationListDelegate{
     }
     
     func deleteLocation(location: Location) {
-        Locations.deleteLocation(location)
-        Locations.save()
+        LocationPool.deleteLocation(location)
+        LocationPool.save()
         updateMarkerLayer()
     }
     
     func deleteAllLocations() {
-        Locations.deleteAllLocations()
-        Locations.save()
+        LocationPool.deleteAllLocations()
+        LocationPool.save()
         self.updateMarkerLayer()
     }
 
@@ -513,24 +513,24 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     }
     
     private func deleteTrack(track: Track){
-        let isVisibleTrack = track == Tracks.visibleTrack
-        Tracks.deleteTrack(track)
+        let isVisibleTrack = track == TrackPool.visibleTrack
+        TrackPool.deleteTrack(track)
         if isVisibleTrack{
-            Tracks.visibleTrack = nil
+            TrackPool.visibleTrack = nil
             mapView.trackLayerView.setNeedsDisplay()
         }
     }
     
     func deleteAllTracks() {
         cancelActiveTrack()
-        Tracks.deleteAllTracks()
-        Tracks.visibleTrack = nil
+        TrackPool.deleteAllTracks()
+        TrackPool.visibleTrack = nil
         mapView.trackLayerView.setNeedsDisplay()
     }
     
     func showTrackOnMap(track: Track) {
         if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
-            Tracks.visibleTrack = track
+            TrackPool.visibleTrack = track
             mapView.trackLayerView.setNeedsDisplay()
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
             mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
@@ -553,7 +553,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
     
     func cancelActiveTrack() {
         TrackRecorder.stopRecording()
-        Tracks.visibleTrack = nil
+        TrackPool.visibleTrack = nil
         mapView.trackLayerView.setNeedsDisplay()
         stopTrackInfo()
     }
@@ -564,9 +564,9 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                 track.name = alertController.textFields![0].text ?? "Tour"
-                Tracks.addTrack(track: track)
-                Tracks.save()
-                Tracks.visibleTrack = track
+                TrackPool.addTrack(track: track)
+                TrackPool.save()
+                TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()
                 self.stopTrackInfo()

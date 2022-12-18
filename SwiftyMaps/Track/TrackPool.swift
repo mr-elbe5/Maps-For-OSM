@@ -1,9 +1,8 @@
-//
-//  Tracks.swift
-//  SwiftyMaps for OSM
-//
-//  Created by Michael Rönnau on 19.09.22.
-//
+/*
+ SwiftyMaps
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import Foundation
 
@@ -22,7 +21,7 @@ extension TrackList{
     
 }
 
-class Tracks{
+class TrackPool{
     
     static var storeKey = "tracks"
     
@@ -38,17 +37,7 @@ class Tracks{
     
     static func load(){
         if let list : TrackList = DataController.shared.load(forKey: storeKey){
-            Tracks.list = list
-        }
-        else{
-            var list = TrackList()
-            for location in Locations.list{
-                for track in location.getTracks(){
-                    list.append(track)
-                }
-            }
-            save()
-            Tracks.list = list
+            TrackPool.list = list
         }
     }
     

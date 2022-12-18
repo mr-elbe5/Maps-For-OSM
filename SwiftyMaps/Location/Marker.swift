@@ -10,11 +10,7 @@ class Marker : UIButton{
     
     var baseFrame : CGRect = .zero
     
-    var hasPhotos : Bool{
-        false
-    }
-    
-    var hasTracks: Bool{
+    var hasMedia : Bool{
         false
     }
     

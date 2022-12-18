@@ -30,20 +30,14 @@ class Location : CodableLocation{
     var address : String = ""
     var note : String = ""
     var media : MediaList
-    var tracks : TrackList
     
     var hasMedia : Bool{
         !media.isEmpty
     }
     
-    var hasTracks : Bool{
-        !tracks.isEmpty
-    }
-    
     override init(coordinate: CLLocationCoordinate2D){
         id = UUID()
         media = MediaList()
-        tracks = TrackList()
         super.init(coordinate: coordinate)
         evaluatePlacemark()
     }
@@ -55,14 +49,21 @@ class Location : CodableLocation{
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         media = try values.decodeIfPresent(MediaList.self, forKey: .media) ?? MediaList()
-        // start deprecated
-        if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
-            for photo in photoList{
-                media.append(photo)
+        if AppState.shared.version < AppState.currentVersion{
+            if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
+                info("Location moving photos to media")
+                for photo in photoList{
+                    media.append(photo)
+                }
+            }
+            if let tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks), !tracks.isEmpty{
+                info("Location moving tracks to Tracks")
+                for track in tracks{
+                    TrackPool.addTrack(track: track)
+                }
+                TrackPool.save()
             }
         }
-        tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks) ?? TrackList()
-        // end deprectaed
         try super.init(from: decoder)
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
@@ -109,11 +110,6 @@ class Location : CodableLocation{
     
     func deleteAllMedia(){
         media.removeAllFiles()
-    }
-    
-    //deprecated
-    func getTracks() -> TrackList{
-        tracks
     }
     
 }

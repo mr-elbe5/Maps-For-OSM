@@ -14,22 +14,24 @@ class AppState: Identifiable, Codable{
     
     static var storeKey = "state"
     
+    static let currentVersion : Int = 2
     static let startCoordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)
     static let startZoom : Int = 4
     static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)
     
-    static var shared = AppState(coordinate: startCoordinate, scale: startScale)
+    static var shared = AppState()
     
     static func loadInstance(){
         if let state : AppState = DataController.shared.load(forKey: AppState.storeKey){
             shared = state
         }
         else{
-            shared = AppState(coordinate: startCoordinate, scale: startScale)
+            shared = AppState()
         }
     }
     
     enum CodingKeys: String, CodingKey {
+        case version
         case scale
         case latitude
         case longitude
@@ -37,28 +39,35 @@ class AppState: Identifiable, Codable{
         case showCross
     }
 
+    var version: Int
     var scale : Double
     var coordinate : CLLocationCoordinate2D
     var showLocations : Bool = true
     var showCross : Bool = false
     
-    init(coordinate: CLLocationCoordinate2D, scale: Double){
-        self.scale = scale
-        self.coordinate = coordinate
+    init(){
+        version = AppState.currentVersion
+        self.scale = AppState.startScale
+        self.coordinate = AppState.startCoordinate
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        scale = try values.decode(Double.self, forKey: .scale)
-        let lat = try values.decode(Double.self, forKey: .latitude)
-        let lon = try values.decode(Double.self, forKey: .longitude)
-        coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        version = try values.decodeIfPresent(Int.self, forKey: .version) ?? 1
+        scale = try values.decodeIfPresent(Double.self, forKey: .scale) ?? AppState.startScale
+        if let lat = try values.decodeIfPresent(Double.self, forKey: .latitude), let lon = try values.decodeIfPresent(Double.self, forKey: .longitude){
+            coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        }
+        else{
+            coordinate = AppState.startCoordinate
+        }
         showLocations = try values.decodeIfPresent(Bool.self, forKey: .showLocations) ?? true
         showCross = try values.decodeIfPresent(Bool.self, forKey: .showCross) ?? false
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(version, forKey: .version)
         try container.encode(scale, forKey: .scale)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)

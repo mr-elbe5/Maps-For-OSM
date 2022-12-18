@@ -67,7 +67,7 @@ class LocationCell: UITableViewCell{
             label = UILabel()
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
-            label.text = location.coordinateString
+            label.text = location.note
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
@@ -82,12 +82,9 @@ class LocationCell: UITableViewCell{
             
             label = UILabel()
             label.text = String(location.media.count) + " " + "media".localize()
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            label = UILabel()
-            label.text = String(location.tracks.count) + " " + "tracks".localize()
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }
     }
     

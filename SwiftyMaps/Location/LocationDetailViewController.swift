@@ -16,8 +16,8 @@ class LocationDetailViewController: PopupScrollViewController{
     let editButton = UIButton().asIconButton("pencil.circle", color: .white)
     let deleteButton = UIButton().asIconButton("trash", color: .white)
     
-    let descriptionContainerView = UIView()
-    var descriptionView : TextEditArea? = nil
+    let noteContainerView = UIView()
+    var noteEditView : TextEditArea? = nil
     let mediaStackView = UIStackView()
     
     var editMode = false
@@ -69,13 +69,13 @@ class LocationDetailViewController: PopupScrollViewController{
         let coordinateLabel = UILabel(text: location.coordinateString)
         contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        header = UILabel(header: "description".localize())
+        header = UILabel(header: "note".localize())
         contentView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubviewWithAnchors(descriptionContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-        setupDescriptionContainerView()
+        contentView.addSubviewWithAnchors(noteContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
+        setupNoteContainerView()
         
         header = UILabel(header: "media".localize())
-        contentView.addSubviewWithAnchors(header, top: descriptionContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(header, top: noteContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         mediaStackView.setupVertical()
         setupMediaStackView()
@@ -85,28 +85,29 @@ class LocationDetailViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(header, top: mediaStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
     }
     
-    func setupDescriptionContainerView(){
-        descriptionContainerView.removeAllSubviews()
+    func setupNoteContainerView(){
+        noteContainerView.removeAllSubviews()
         if editMode{
-            descriptionView = TextEditArea()
-            descriptionView!.text = location.description
-            descriptionView?.setGrayRoundedBorders()
-            descriptionView?.setDefaults()
-            descriptionView?.isScrollEnabled = false
-            descriptionView?.setKeyboardToolbar(doneTitle: "done".localize())
-            descriptionContainerView.addSubviewWithAnchors(descriptionView!, top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, insets: defaultInsets)
+            let noteEditView = TextEditArea()
+            noteEditView.text = location.note
+            noteEditView.setGrayRoundedBorders()
+            noteEditView.setDefaults()
+            noteEditView.isScrollEnabled = false
+            noteEditView.setKeyboardToolbar(doneTitle: "done".localize())
+            noteContainerView.addSubviewWithAnchors(noteEditView, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, insets: defaultInsets)
+            self.noteEditView = noteEditView
             
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
             saveButton.setTitleColor(.systemBlue, for: .normal)
             saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-            descriptionContainerView.addSubviewWithAnchors(saveButton, top: descriptionView!.bottomAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
-                .centerX(descriptionContainerView.centerXAnchor)
+            noteContainerView.addSubviewWithAnchors(saveButton, top: noteEditView.bottomAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
+                .centerX(noteContainerView.centerXAnchor)
         }
         else{
-            descriptionView = nil
-            let descriptionLabel = UILabel(text: location.description)
-            descriptionContainerView.addSubviewWithAnchors(descriptionLabel, top: descriptionContainerView.topAnchor, leading: descriptionContainerView.leadingAnchor, trailing: descriptionContainerView.trailingAnchor, bottom: descriptionContainerView.bottomAnchor, insets: defaultInsets)
+            self.noteEditView = nil
+            let noteLabel = UILabel(text: location.note)
+            noteContainerView.addSubviewWithAnchors(noteLabel, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
         }
     }
     
@@ -156,13 +157,13 @@ class LocationDetailViewController: PopupScrollViewController{
             editButton.tintColor = .systemBlue
             editMode = true
         }
-        setupDescriptionContainerView()
+        setupNoteContainerView()
         setupMediaStackView()
     }
     
     @objc func deleteLocation(){
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-            Locations.deleteLocation(self.location)
+            LocationPool.deleteLocation(self.location)
             self.dismiss(animated: true){
                 self.delegate?.updateMarkerLayer()
             }
@@ -171,8 +172,8 @@ class LocationDetailViewController: PopupScrollViewController{
     
     @objc func save(){
         var needsUpdate = false
-        location.note = descriptionView?.text ?? ""
-        Locations.save()
+        location.note = noteEditView?.text ?? ""
+        LocationPool.save()
         needsUpdate = location.hasMedia != hadPhotos
         self.dismiss(animated: true){
             if needsUpdate{
@@ -191,7 +192,7 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             location.addMedia(file: image)
-            Locations.save()
+            LocationPool.save()
             delegate?.updateMarkerLayer()
             let imageView = ImageListItemView(data: image)
             imageView.delegate = self
@@ -232,7 +233,7 @@ extension LocationDetailViewController: ImageListItemDelegate{
     func deleteImage(sender: ImageListItemView) {
         showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
             self.location.deleteMedia(file: sender.imageData)
-            Locations.save()
+            LocationPool.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
@@ -258,7 +259,7 @@ extension LocationDetailViewController: VideoListItemDelegate{
     func deleteVideo(sender: VideoListItemView) {
         showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
             self.location.deleteMedia(file: sender.videoData)
-            Locations.save()
+            LocationPool.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
@@ -278,7 +279,7 @@ extension LocationDetailViewController: AudioListItemDelegate{
     func deleteAudio(sender: AudioListItemView) {
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
             self.location.deleteMedia(file: sender.audioData)
-            Locations.save()
+            LocationPool.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{

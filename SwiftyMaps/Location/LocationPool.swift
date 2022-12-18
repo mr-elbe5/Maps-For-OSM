@@ -8,7 +8,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Locations{
+class LocationPool{
     
     static var storeKey = "locations"
     
@@ -21,18 +21,18 @@ class Locations{
     }
     
     static func load(){
-        if let list : LocationList = DataController.shared.load(forKey: Locations.storeKey){
-            Locations.list = list
+        if let list : LocationList = DataController.shared.load(forKey: LocationPool.storeKey){
+            LocationPool.list = list
         }
         else{
-            Locations.list = LocationList()
+            LocationPool.list = LocationList()
         }
     }
     
     static func save(){
         _lock.wait()
         defer{_lock.signal()}
-        DataController.shared.save(forKey: Locations.storeKey, value: list)
+        DataController.shared.save(forKey: LocationPool.storeKey, value: list)
     }
     
     static func location(at idx: Int) -> Location?{

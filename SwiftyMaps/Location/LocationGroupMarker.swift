@@ -9,18 +9,12 @@ import UIKit
 class LocationGroupMarker : Marker{
     
     static var mapPinDefaultImage = UIImage(named: "mappin.group.green")
-    static var mapPinPhotoImage = UIImage(named: "mappin.group.red")
-    static var mapPinTrackImage = UIImage(named: "mappin.group.blue")
-    static var mapPinPhotoTrackImage = UIImage(named: "mappin.group.purple")
+    static var mapPinMediaImage = UIImage(named: "mappin.group.red")
     
     var locationGroup : LocationGroup
     
-    override var hasPhotos : Bool{
-        locationGroup.hasPhotos
-    }
-    
-    override var hasTracks: Bool{
-        locationGroup.hasTracks
+    override var hasMedia : Bool{
+        locationGroup.hasMedia
     }
     
     init(placeGroup: LocationGroup){
@@ -34,7 +28,7 @@ class LocationGroupMarker : Marker{
     }
     
     override func updateImage(){
-        if let image = hasPhotos ? (hasTracks ? LocationGroupMarker.mapPinPhotoTrackImage : LocationGroupMarker.mapPinPhotoImage) : (hasTracks ? LocationGroupMarker.mapPinTrackImage : LocationGroupMarker.mapPinDefaultImage){
+        if let image = hasMedia ? LocationGroupMarker.mapPinMediaImage : LocationGroupMarker.mapPinDefaultImage{
             baseFrame = CGRect(x: -image.size.width/2, y: -image.size.height*4/5, width: image.size.width, height: image.size.height)
             setImage(image, for: .normal)
         }

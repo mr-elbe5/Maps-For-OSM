@@ -10,7 +10,7 @@ import CoreLocation
 extension UIViewController{
     
     func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
-        if let nearestLocation = Locations.locationNextTo(coordinate: coordinate, maxDistance: Preferences.shared.maxLocationMergeDistance){
+        if let nearestLocation = LocationPool.locationNextTo(coordinate: coordinate, maxDistance: Preferences.shared.maxLocationMergeDistance){
             var txt = nearestLocation.description
             if !txt.isEmpty{
                 txt += ", "
@@ -18,8 +18,8 @@ extension UIViewController{
             txt += nearestLocation.coordinateString
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
-                let location = Locations.addLocation(coordinate: coordinate)
-                Locations.save()
+                let location = LocationPool.addLocation(coordinate: coordinate)
+                LocationPool.save()
                 onComplete?(location)
             })
             alertController.addAction(UIAlertAction(title: "yes".localize(), style: .cancel) { action in
@@ -28,8 +28,8 @@ extension UIViewController{
             self.present(alertController, animated: true)
         }
         else{
-            let location = Locations.addLocation(coordinate: coordinate)
-            Locations.save()
+            let location = LocationPool.addLocation(coordinate: coordinate)
+            LocationPool.save()
             onComplete?(location)
         }
     }

@@ -11,12 +11,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        AppState.loadInstance()
         FileController.initialize()
         Preferences.loadInstance()
         FileController.initializeDirectories()
-        AppState.loadInstance()
-        Locations.load()
-        Tracks.load()
+        LocationPool.load()
+        TrackPool.load()
+        AppState.shared.version = AppState.currentVersion
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -39,8 +40,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         AppState.shared.save()
-        Locations.save()
-        Tracks.save()
+        LocationPool.save()
+        TrackPool.save()
         Preferences.shared.save()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{

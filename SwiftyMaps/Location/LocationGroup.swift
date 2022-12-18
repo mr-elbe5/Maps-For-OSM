@@ -14,18 +14,9 @@ class LocationGroup{
     var centerPlanetPosition: CGPoint? = nil
     var locations = LocationList()
     
-    var hasPhotos: Bool{
+    var hasMedia: Bool{
         for location in locations{
             if location.hasMedia{
-                return true
-            }
-        }
-        return false
-    }
-    
-    var hasTracks: Bool{
-        for location in locations{
-            if location.hasTracks{
                 return true
             }
         }
