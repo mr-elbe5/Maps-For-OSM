@@ -135,7 +135,7 @@
 // location view / editor view
 "location"="Position";
 "locationData"="Positonsangaben";
-"description"="Beschreibung";
+"note"="Notiz";
 "media"="Bilder, Videos und Audios";
 "tracks"="Touren";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";

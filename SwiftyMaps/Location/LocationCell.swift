@@ -71,11 +71,11 @@ class LocationCell: UITableViewCell{
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            if !description.isEmpty{
+            if !location.note.isEmpty{
                 label = UILabel()
                 label.numberOfLines = 0
                 label.lineBreakMode = .byWordWrapping
-                label.text = location.description
+                label.text = location.note
                 cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 nextAnchor = label.bottomAnchor
             }

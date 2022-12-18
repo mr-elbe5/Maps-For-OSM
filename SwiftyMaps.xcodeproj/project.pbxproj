@@ -91,6 +91,7 @@
 		4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */; };
 		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
 		4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */; };
+		4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A00F4294F5390009151E3 /* CLPlacemark.swift */; };
 		4E79FBAF275B9326001F0481 /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBAE275B9326001F0481 /* LocationGroup.swift */; };
 		4E79FBB1275BCE0C001F0481 /* LocationGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB0275BCE0C001F0481 /* LocationGroupMarker.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
@@ -210,6 +211,7 @@
 		4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LocationDialog.swift"; sourceTree = "<group>"; };
+		4E6A00F4294F5390009151E3 /* CLPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLPlacemark.swift; sourceTree = "<group>"; };
 		4E79FBAE275B9326001F0481 /* LocationGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
 		4E79FBB0275BCE0C001F0481 /* LocationGroupMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupMarker.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
 				4E025E3C274E420800D56ED7 /* TimeInterval.swift */,
 				4E3A415E28D83CD9004C9D90 /* CLLocation.swift */,
+				4E6A00F4294F5390009151E3 /* CLPlacemark.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageFile.swift in Sources */,
+				4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */,
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
 				4E31A656293F4C44002080F6 /* UIView+Subviews.swift in Sources */,
 				4EF4771C2941F62800294B21 /* ImageListItemView.swift in Sources */,

@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileController.initialize()
         Preferences.loadInstance()
         FileController.initializeDirectories()
-        LocationPool.load()
         TrackPool.load()
+        LocationPool.load()
         AppState.shared.version = AppState.currentVersion
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -40,9 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         AppState.shared.save()
+        Preferences.shared.save()
         LocationPool.save()
         TrackPool.save()
-        Preferences.shared.save()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()

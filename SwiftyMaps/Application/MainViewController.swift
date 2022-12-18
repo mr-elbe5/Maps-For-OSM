@@ -181,7 +181,15 @@ extension MainViewController: MapPositionDelegate{
     
     func showDetailsOfCurrentPosition() {
         if let location = LocationService.shared.location{
-            showAlert(title: "currentPosition", text: location.string)
+            LocationService.shared.getPlacemark(for: location){ placemark in
+                var str : String
+                if let placemark = placemark{
+                    str = placemark.locationString
+                } else{
+                    str = location.string
+                }
+                self.showAlert(title: "currentPosition", text: str)
+            }
         }
     }
     
