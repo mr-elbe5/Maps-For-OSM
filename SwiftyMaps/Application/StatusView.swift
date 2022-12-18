@@ -7,19 +7,17 @@
 import Foundation
 import UIKit
 
-class CurrentTrackLine : UIView{
+class StatusView : UIView{
     
     var distanceLabel = UILabel()
     var distanceUpLabel = UILabel()
     var distanceDownLabel = UILabel()
     var timeLabel = UILabel()
     
-    var pauseResumeButton = UIButton()
-    
     var timer : Timer? = nil
     
     func setup(){
-        backgroundColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+        backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
@@ -50,13 +48,7 @@ class CurrentTrackLine : UIView{
         timeLabel.textColor = .darkGray
         addSubviewWithAnchors(timeLabel, top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor)
         
-        pauseResumeButton.tintColor = .darkGray
-        addSubviewWithAnchors(pauseResumeButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
-        updatePauseResumeButton()
-        pauseResumeButton.addTarget(self, action: #selector(pauseResume), for: .touchDown)
-        
         updateInfo()
-        self.isHidden = true
     }
     
     func startInfo(){
@@ -81,27 +73,6 @@ class CurrentTrackLine : UIView{
     @objc func updateTime(){
         if let track = TrackRecorder.track{
             timeLabel.text = track.durationUntilNow.hmsString()
-        }
-    }
-    
-    @objc func pauseResume(){
-        if let _ = TrackRecorder.track{
-            if TrackRecorder.isRecording{
-                TrackRecorder.pauseRecording()
-            }
-            else{
-                TrackRecorder.resumeRecording()
-            }
-            updatePauseResumeButton()
-        }
-    }
-    
-    func updatePauseResumeButton(){
-        if TrackRecorder.isRecording{
-            pauseResumeButton.setImage(UIImage(systemName: "pause"), for: .normal)
-        }
-        else{
-            pauseResumeButton.setImage(UIImage(systemName: "play"), for: .normal)
         }
     }
     

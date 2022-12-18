@@ -35,24 +35,18 @@ class MainMenuView: UIView {
     //MainViewController
     var delegate : MainMenuDelegate? = nil
     
-    var iconView = UIView()
     var mapMenuControl = UIButton().asIconButton("map")
     var locationMenuControl = UIButton().asIconButton("mappin")
     var trackMenuControl = UIButton().asIconButton("figure.walk")
-    var currentTrackLine = CurrentTrackLine()
-    var licenseView = UIView()
     
     func setup(){
-        let layoutGuide = self.safeAreaLayoutGuide
-        iconView.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
-        iconView.layer.cornerRadius = 10
-        iconView.layer.masksToBounds = true
-        addSubviewWithAnchors(iconView, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: flatInsets)
-        
+        backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
-        iconView.addSubviewFilling(stackView, insets: defaultInsets)
+        addSubviewFilling(stackView, insets: defaultInsets)
         
         stackView.addArrangedSubview(mapMenuControl)
         mapMenuControl.menu = getMapMenu()
@@ -69,7 +63,6 @@ class MainMenuView: UIView {
         let crossControl = UIButton().asIconButton("plus.circle")
         stackView.addArrangedSubview(crossControl)
         crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
-        
         
         let focusUserLocationControl = UIButton().asIconButton("record.circle")
         stackView.addArrangedSubview(focusUserLocationControl)
@@ -92,29 +85,6 @@ class MainMenuView: UIView {
         stackView.addArrangedSubview(infoControl)
         infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
         
-        currentTrackLine.setup()
-        addSubviewWithAnchors(currentTrackLine, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 2*defaultInset, bottom: 2*defaultInset, right: 2*defaultInset))
-        
-        addSubviewWithAnchors(licenseView, top: currentTrackLine.bottomAnchor, trailing: layoutGuide.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
-        
-        var label = UILabel()
-        label.textColor = .darkGray
-        label.font = .preferredFont(forTextStyle: .footnote)
-        licenseView.addSubviewWithAnchors(label, top: licenseView.topAnchor, leading: licenseView.leadingAnchor, bottom: licenseView.bottomAnchor)
-        label.text = "© "
-        
-        let link = UIButton()
-        link.setTitleColor(.systemBlue, for: .normal)
-        link.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
-        licenseView.addSubviewWithAnchors(link, top: licenseView.topAnchor, leading: label.trailingAnchor, bottom: licenseView.bottomAnchor)
-        link.setTitle("OpenStreetMap", for: .normal)
-        link.addTarget(self, action: #selector(openOSMUrl), for: .touchDown)
-        
-        label = UILabel()
-        label.textColor = .darkGray
-        label.font = .preferredFont(forTextStyle: .footnote)
-        licenseView.addSubviewWithAnchors(label, top: licenseView.topAnchor, leading: link.trailingAnchor, trailing: licenseView.trailingAnchor, bottom: licenseView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: defaultInset))
-        label.text = " contributors"
     }
     
     func getMapMenu() -> UIMenu{
@@ -190,17 +160,6 @@ class MainMenuView: UIView {
         return UIMenu(title: "", children: actions)
     }
     
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        return subviews.contains(where: {
-            ($0 == iconView) && $0.point(inside: self.convert(point, to: $0), with: event)
-        })
-    }
-    
-    // attribution link
-    @objc func openOSMUrl() {
-        UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
-    }
-    
     @objc func toggleCross(){
         AppState.shared.showCross = !AppState.shared.showCross
         delegate?.updateCross()
@@ -222,48 +181,8 @@ class MainMenuView: UIView {
         delegate?.openSearch()
     }
     
-    func startTrackInfo(){
-        currentTrackLine.startInfo()
-        currentTrackLine.updatePauseResumeButton()
-    }
-    
-    func pauseTrackInfo(){
-        currentTrackLine.updatePauseResumeButton()
-    }
-    
-    func resumeTrackInfo(){
-        currentTrackLine.updatePauseResumeButton()
-    }
-    
-    func updateTrackInfo(){
-        currentTrackLine.updateInfo()
-    }
-    
-    func stopTrackInfo(){
-        currentTrackLine.stopInfo()
-    }
-    
-    func startTrackControl(){
-        trackMenuControl.menu = getTrackingMenu()
-        startTrackInfo()
-    }
-    
-    func stopTrackControl(){
-        trackMenuControl.menu = getTrackingMenu()
-        stopTrackInfo()
-    }
-    
 }
 
-class MapControlLine : UIView{
-    
-    func setup(){
-        backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
-        layer.cornerRadius = 10
-        layer.masksToBounds = true
-    }
-    
-}
 
 
 

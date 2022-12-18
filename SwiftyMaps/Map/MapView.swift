@@ -26,7 +26,6 @@ class MapView: UIView {
     var locationLayerView = LocationLayerView()
     var userLocationView = UserLocationView(frame: UserLocationView.frameRect)
     var crossView = UIButton().asIconButton("plus.circle")
-    var controlLayerView = MainMenuView()
     
     var delegate: MapPositionDelegate? = nil
     
@@ -106,11 +105,6 @@ class MapView: UIView {
         })
         return UIMenu(title: "crossPosition".localize(), children: actions)
     }
-    
-    func setupControlLayerView(){
-        addSubviewFilling(controlLayerView)
-        controlLayerView.setup()
-    }
 
     func clearTiles(){
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
@@ -145,11 +139,6 @@ class MapView: UIView {
     
     func locationDidChange(location: CLLocation) {
         userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
-        if TrackRecorder.isRecording{
-            TrackRecorder.updateTrack(with: location)
-            trackLayerView.setNeedsDisplay()
-            controlLayerView.updateTrackInfo()
-        }
     }
     
     func focusUserLocation() {

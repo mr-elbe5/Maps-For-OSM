@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E025E3B274E3C4300D56ED7 /* CurrentTrackLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3A274E3C4300D56ED7 /* CurrentTrackLine.swift */; };
+		4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3A274E3C4300D56ED7 /* StatusView.swift */; };
 		4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3C274E420800D56ED7 /* TimeInterval.swift */; };
 		4E05FECD27592E64005D903B /* LocationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E05FECC27592E64005D903B /* LocationList.swift */; };
 		4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */; };
@@ -106,7 +106,6 @@
 		4EE1461C28D368370058F3D3 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461B28D368370058F3D3 /* MapPoint.swift */; };
 		4EE1461E28D368870058F3D3 /* CoordinateSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */; };
 		4EE1462028D368D60058F3D3 /* MapSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461F28D368D60058F3D3 /* MapSize.swift */; };
-		4EE1462428D476210058F3D3 /* TestCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462328D476210058F3D3 /* TestCenter.swift */; };
 		4EE1462E28D49F510058F3D3 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462D28D49F510058F3D3 /* World.swift */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
 		4EE6A891275A6E19007FBC67 /* MediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6A890275A6E19007FBC67 /* MediaList.swift */; };
@@ -124,7 +123,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4E025E3A274E3C4300D56ED7 /* CurrentTrackLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTrackLine.swift; sourceTree = "<group>"; };
+		4E025E3A274E3C4300D56ED7 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E05FECC27592E64005D903B /* LocationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationList.swift; sourceTree = "<group>"; };
 		4E0BD97D26E9FC66005A4A94 /* SwiftyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,7 +225,6 @@
 		4EE1461B28D368370058F3D3 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
 		4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateSpan.swift; sourceTree = "<group>"; };
 		4EE1461F28D368D60058F3D3 /* MapSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSize.swift; sourceTree = "<group>"; };
-		4EE1462328D476210058F3D3 /* TestCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCenter.swift; sourceTree = "<group>"; };
 		4EE1462D28D49F510058F3D3 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollView.swift; sourceTree = "<group>"; };
 		4EE6A890275A6E19007FBC67 /* MediaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaList.swift; sourceTree = "<group>"; };
@@ -303,7 +301,7 @@
 				4E55B2B02944B0EA005D2BFB /* Preferences.swift */,
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
-				4EE1462328D476210058F3D3 /* TestCenter.swift */,
+				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -345,7 +343,6 @@
 		4E0D092C26F90D5D00FABB17 /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				4E025E3A274E3C4300D56ED7 /* CurrentTrackLine.swift */,
 				4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */,
 				4EA45A632747CA22001F3533 /* GPXParser.swift */,
 				4E2088E22743A24E0097BFBA /* Track.swift */,
@@ -563,7 +560,6 @@
 				4EF4771C2941F62800294B21 /* ImageListItemView.swift in Sources */,
 				4EE6A891275A6E19007FBC67 /* MediaList.swift in Sources */,
 				4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */,
-				4EE1462428D476210058F3D3 /* TestCenter.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */,
 				4EF477102941E94900294B21 /* VideoFile.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */,
@@ -589,7 +585,7 @@
 				4E2088E52743A4280097BFBA /* TrackRecorder.swift in Sources */,
 				4E24F48027345D11004E69C2 /* UITextView.swift in Sources */,
 				4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */,
-				4E025E3B274E3C4300D56ED7 /* CurrentTrackLine.swift in Sources */,
+				4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
