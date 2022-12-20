@@ -32,9 +32,8 @@ class MainViewController: UIViewController {
         mainMenuView.delegate = self
         setupStatusView(layoutGuide: layoutGuide)
         setupLicenseView(layoutGuide: layoutGuide)
-        
-        mapView.setDefaultLocation()
         mapView.delegate = self
+        mapView.setDefaultLocation()
     }
     
     func setupMainMenuView(layoutGuide: UILayoutGuide){
@@ -81,7 +80,6 @@ class MainViewController: UIViewController {
         self.present(pickerController, animated: true, completion: nil)
     }
     
-    // attribution link
     @objc func openOSMUrl() {
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
