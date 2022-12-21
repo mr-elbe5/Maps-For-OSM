@@ -43,7 +43,7 @@ class ImageListItemView : UIView{
         let imageView = UIImageView()
         imageView.setDefaults()
         imageView.setRoundedBorders()
-        addSubviewWithAnchors(imageView, top: shareButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
+        addSubviewWithAnchors(imageView, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
         imageView.image = imageData.getImage()
         imageView.setAspectRatioConstraint()
         

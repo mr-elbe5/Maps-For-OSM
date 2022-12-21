@@ -46,7 +46,7 @@ class AppState: Identifiable, Codable{
     var showCross : Bool = false
     
     init(){
-        version = AppState.currentVersion
+        version = 1
         self.scale = AppState.startScale
         self.coordinate = AppState.startCoordinate
     }

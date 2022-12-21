@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileController.initializeDirectories()
         TrackPool.load()
         LocationPool.load()
+        //FileController.logFileInfo()
         AppState.shared.version = AppState.currentVersion
+        AppState.shared.save()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene

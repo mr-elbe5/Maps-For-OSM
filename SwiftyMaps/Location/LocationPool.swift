@@ -8,6 +8,8 @@ import Foundation
 import CoreLocation
 import UIKit
 
+typealias LocationList = Array<Location>
+
 class LocationPool{
     
     static var storeKey = "locations"

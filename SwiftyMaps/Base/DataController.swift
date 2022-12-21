@@ -18,12 +18,13 @@ class DataController{
     
     func save(forKey key: String, value: Codable) {
         let storeString = value.toJSON()
-        debug("DataController storing \(key): \(storeString)")
+        //debug("DataController storing \(key): \(storeString)")
         store.set(storeString, forKey: key)
     }
     
     func load<T : Codable>(forKey key: String) -> T? {
         if let storedString = store.value(forKey: key) as? String {
+            //debug("DataController loading \(key): \(storedString)")
             return T.fromJSON(encoded: storedString)
         }
         info("no saved data available for \(key)")

@@ -51,10 +51,15 @@ class TrackPool{
         list[idx]
     }
     
-    static func addTrack(track: Track){
+    @discardableResult
+    static func addTrack(track: Track) -> Bool{
         _lock.wait()
         defer{_lock.signal()}
-        list.append(track)
+        if !list.contains(track){
+            list.append(track)
+            return true
+        }
+        return false
     }
     
     static func deleteTrack(_ track: Track){

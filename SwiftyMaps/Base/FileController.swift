@@ -25,6 +25,8 @@ class FileController {
     static var backupImagesDirURL = backupDirURL.appendingPathComponent("images")
     static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles/carto")
     
+    static var oldImageDirURL = privateURL
+    
     static func initializeDirectories(){
         if !FileManager.default.fileExists(atPath: tilesDirURL.path){
             try? FileManager.default.createDirectory(at: tilesDirURL, withIntermediateDirectories: true)
@@ -305,7 +307,7 @@ class FileController {
         for name in names{
             print(name)
         }
-        names = listAllFiles(dirPath: FileController.privateURL.path)
+        names = listAllFiles(dirPath: FileController.mediaDirURL.path)
         for name in names{
             print(name)
         }

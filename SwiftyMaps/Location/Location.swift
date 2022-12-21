@@ -16,7 +16,6 @@ class Location : CodableLocation{
     
     private enum CodingKeys: String, CodingKey {
         case id
-        case hasPlacemark
         case name
         case address
         case note
@@ -43,30 +42,48 @@ class Location : CodableLocation{
     }
     
     required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         media = try values.decodeIfPresent(MediaList.self, forKey: .media) ?? MediaList()
-        if AppState.shared.version < AppState.currentVersion{
-            if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
-                info("Location moving photos to media")
-                for photo in photoList{
-                    media.append(photo)
-                }
-            }
-            if let tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks), !tracks.isEmpty{
-                info("Location moving tracks to Tracks")
-                for track in tracks{
-                    TrackPool.addTrack(track: track)
-                }
-                TrackPool.save()
-            }
-        }
         try super.init(from: decoder)
+        if AppState.shared.version < AppState.currentVersion{
+            try transferOldPhotosAndTracks(values: values)
+        }
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
+        }
+    }
+    
+    private func transferOldPhotosAndTracks(values: KeyedDecodingContainer<CodingKeys>) throws{
+        info("Location transferring old data")
+        if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
+            info("Location moving photos to media")
+            for photo in photoList{
+                let oldURL = FileController.getURL(dirURL: FileController.oldImageDirURL,fileName: photo.fileName)
+                if FileController.fileExists(url: oldURL){
+                    if FileController.copyFile(fromURL: oldURL, toURL: photo.fileURL){
+                        info("copied old photo \(photo.fileName) to media directory")
+                    }
+                    if FileController.deleteFile(url: oldURL){
+                        info("deleted old photo \(photo.fileName)")
+                    }
+                    media.append(photo)
+                    debug("photo file \(photo.fileName) exists: \(photo.fileExists())")
+                }
+            }
+        }
+        if let tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks), !tracks.isEmpty{
+            info("Location moving tracks to Tracks")
+            for track in tracks{
+                if TrackPool.addTrack(track: track){
+                    info("added old track from location to track pool")
+                }
+            }
+            info("saving track pool including old tracks")
+            TrackPool.save()
         }
     }
     

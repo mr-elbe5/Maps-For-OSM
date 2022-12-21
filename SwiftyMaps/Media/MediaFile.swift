@@ -64,7 +64,7 @@ class MediaFile : Equatable, Identifiable, Codable{
         id = try values.decode(UUID.self, forKey: .id)
         creationDate = try values.decode(Date.self, forKey: .creationDate)
         fileName = try values.decode(String.self, forKey: .fileName)
-        title = try values.decode(String.self, forKey: .title)
+        title = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
     }
     
     func encode(to encoder: Encoder) throws {
