@@ -9,10 +9,7 @@ import UIKit
 
 class PopupViewController: UIViewController {
     
-    var headerView = UIView()
-    var contentView = UIView()
-    
-    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
+    var headerView : UIView? = nil
     
     init(){
         super.init(nibName: nil, bundle: nil)
@@ -26,21 +23,26 @@ class PopupViewController: UIViewController {
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
-        setupHeaderView()
-        view.addSubviewWithAnchors(headerView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
-        
-        view.addSubviewWithAnchors(contentView, top: headerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+        createHeaderView()
+        if let headerView = headerView{
+            view.addSubviewWithAnchors(headerView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
+        }
     }
     
-    func setupHeaderView(){
-        headerView.backgroundColor = .black
+    func createHeaderView(){
+        let headerView = UIView()
+        setupHeaderView(headerView: headerView)
+        self.headerView = headerView
+    }
+    
+    func setupHeaderView(headerView: UIView){
+        headerView.backgroundColor = .systemBackground
         if let title = title{
-            let label = UILabel()
-            label.text = title
-            label.textColor = .white
+            let label = UILabel(header: title)
             headerView.addSubviewWithAnchors(label, top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
                 .centerX(headerView.centerXAnchor)
         }
+        let closeButton = UIButton().asIconButton("xmark.circle", color: .label)
         headerView.addSubviewWithAnchors(closeButton, top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
     }

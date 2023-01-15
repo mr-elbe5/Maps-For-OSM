@@ -7,34 +7,18 @@
 import Foundation
 import UIKit
 
-class PopupScrollViewController: UIViewController {
+class PopupScrollViewController: PopupViewController {
     
-    var headerView : UIView? = nil
     var scrollView = UIScrollView()
     var contentView = UIView()
     
     var scrollVertical : Bool = true
     var scrollHorizontal : Bool = false
     
-    var closeButton = UIButton().asIconButton("xmark.circle", color: .white)
-    
-    init(){
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func loadView() {
         super.loadView()
         view.backgroundColor = .systemGroupedBackground
         let guide = view.safeAreaLayoutGuide
-        createHeaderView()
-        
-        if let headerView = headerView{
-            view.addSubviewWithAnchors(headerView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
-        }
         view.addSubviewWithAnchors(scrollView, top: headerView?.bottomAnchor ?? guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         scrollView.backgroundColor = .systemBackground
         scrollView.addSubviewWithAnchors(contentView, top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor)
@@ -52,24 +36,7 @@ class PopupScrollViewController: UIViewController {
         }
     }
     
-    func createHeaderView(){
-        let headerView = UIView()
-        setupHeaderView(headerView: headerView)
-        self.headerView = headerView
-    }
     
-    func setupHeaderView(headerView: UIView){
-        headerView.backgroundColor = .black
-        if let title = title{
-            let label = UILabel()
-            label.text = title
-            label.textColor = .white
-            headerView.addSubviewWithAnchors(label, top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-                .centerX(headerView.centerXAnchor)
-        }
-        headerView.addSubviewWithAnchors(closeButton, top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-    }
     
     func setupKeyboard(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
@@ -104,10 +71,6 @@ class PopupScrollViewController: UIViewController {
     @objc func keyboardWillHide(notification:NSNotification){
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset
-    }
-    
-    @objc func close(){
-        self.dismiss(animated: true)
     }
     
 }

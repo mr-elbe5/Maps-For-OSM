@@ -11,11 +11,15 @@ class VideoViewController: PopupViewController {
     
     var videoURL : URL? = nil
     
+    var contentView = UIView()
     var videoView = VideoPlayerView()
     var volumeView = VolumeSlider()
     
     override func loadView() {
         super.loadView()
+        view.backgroundColor = .systemGroupedBackground
+        let guide = view.safeAreaLayoutGuide
+        view.addSubviewWithAnchors(contentView, top: headerView?.bottomAnchor ?? guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         contentView.backgroundColor = .black
         
         if let url = videoURL{

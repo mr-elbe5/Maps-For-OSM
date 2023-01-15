@@ -68,7 +68,6 @@ class MapScrollView : UIScrollView{
     var screenCoordinateSpan : CoordinateSpan{
         let topLeft = coordinate(screenPoint: CGPoint(x: 0, y: 0))
         let bottomRight = coordinate(screenPoint: CGPoint(x: bounds.width, y: bounds.height))
-        //todo
         return CoordinateSpan(latitudeDelta: topLeft.latitude - bottomRight.latitude, longitudeDelta: topLeft.longitude - bottomRight.longitude)
     }
     

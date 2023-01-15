@@ -34,8 +34,8 @@ class TrackListViewController: PopupTableViewController{
         tableView.register(TrackCell.self, forCellReuseIdentifier: TrackListViewController.CELL_IDENT)
     }
     
-    override func setupHeaderView(){
-        super.setupHeaderView()
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
         
         let deleteButton = UIButton().asIconButton("trash", color: .red)
         headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
