@@ -182,11 +182,11 @@ extension MainViewController: MapPositionDelegate{
             LocationService.shared.getPlacemark(for: location){ placemark in
                 var str : String
                 if let placemark = placemark{
-                    str = placemark.locationString
+                    str = placemark.locationString + "\n" + location.coordinate.coordinateString
                 } else{
-                    str = location.string
+                    str = location.coordinate.coordinateString
                 }
-                self.showAlert(title: "currentPosition", text: str)
+                self.showAlert(title: "currentPosition".localize(), text: str)
             }
         }
     }
@@ -268,7 +268,16 @@ extension MainViewController: MapPositionDelegate{
     
     func showDetailsOfCrossPosition() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        showAlert(title: "crossPosition", text: coordinate.coordinateString)
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        LocationService.shared.getPlacemark(for: location){ placemark in
+            var str : String
+            if let placemark = placemark{
+                str = placemark.locationString + "\n" + location.coordinate.coordinateString
+            } else{
+                str = location.coordinate.coordinateString
+            }
+            self.showAlert(title: "crossPosition".localize(), text: str)
+        }
     }
     
     func addLocationAtCrossPosition() {

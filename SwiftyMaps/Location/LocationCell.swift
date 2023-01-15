@@ -81,7 +81,7 @@ class LocationCell: UITableViewCell{
             }
             
             label = UILabel()
-            label.text = String(location.media.count) + " " + "media".localize()
+            label.text = "mediaCount".localize() + String(location.media.count)
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             

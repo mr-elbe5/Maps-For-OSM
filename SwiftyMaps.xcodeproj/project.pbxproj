@@ -98,7 +98,6 @@
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
-		4EB76A9C2760F2FF00D64B6D /* TrackListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* TileCacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
@@ -217,7 +216,6 @@
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
-		4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListItemView.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCacheViewController.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -349,7 +347,6 @@
 				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
 				4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
-				4EB76A9B2760F2FF00D64B6D /* TrackListItemView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
 				4E2088E62743AA670097BFBA /* TrackPoint.swift */,
 				4E2088E42743A4280097BFBA /* TrackRecorder.swift */,
@@ -591,7 +588,6 @@
 				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,
-				4EB76A9C2760F2FF00D64B6D /* TrackListItemView.swift in Sources */,
 				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
 				4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* UserLocationView.swift in Sources */,

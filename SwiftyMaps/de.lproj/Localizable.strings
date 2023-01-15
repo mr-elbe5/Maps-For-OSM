@@ -129,7 +129,7 @@
 "west"="West";
 "locationNotAuthorized"="Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen.";
 "saveLocation"="Position speichern";
-"yourPosition"="Deine Position";
+"currentPosition"="Aktuelle Position";
 "useLocation"="Vorhandene Position benutzen?";
 
 // location view / editor view
@@ -137,6 +137,7 @@
 "locationData"="Positonsangaben";
 "note"="Notiz";
 "media"="Bilder, Videos und Audios";
+"mediaCount"="Anzahl Bilder, Videos und Audios: ";
 "tracks"="Touren";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
 "deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";

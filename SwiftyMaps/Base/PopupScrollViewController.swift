@@ -21,7 +21,7 @@ class PopupScrollViewController: PopupViewController {
         let guide = view.safeAreaLayoutGuide
         view.addSubviewWithAnchors(scrollView, top: headerView?.bottomAnchor ?? guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         scrollView.backgroundColor = .systemBackground
-        scrollView.addSubviewWithAnchors(contentView, top: scrollView.topAnchor, leading: scrollView.leadingAnchor, bottom: scrollView.bottomAnchor)
+        scrollView.addSubviewWithAnchors(contentView, top: scrollView.topAnchor, leading: scrollView.leadingAnchor)
         if scrollVertical{
             contentView.bottom(scrollView.bottomAnchor)
         }
