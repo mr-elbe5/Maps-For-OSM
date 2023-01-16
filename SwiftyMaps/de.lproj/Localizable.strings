@@ -161,20 +161,20 @@
 
 //info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden. Das Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen. Der vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und auf Karten von Europa im Carto-Stil beschränkt. Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und nur ein beschränkter Teil der Kacheln (carto und topo) ist vorgeneriert (bis Zoom 11).\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
 "appIconsHeader"="Symbole";
-"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck). Wenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.";
+"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen des Symbols wird ein Menü für das Markieren, das Anzeigen detaillierter Angaben oder das Erstellen von Fotos, Audios und Videos angezeigt.";
 
-"locationMarkerInfoText"="Ort mit Positionsangabe";
-"locationPhotoMarkerInfoText"="Ort mit Positionsangabe und zugeordneten Fotos";
-"locationTrackMarkerInfoText"="Ort mit Positionsangabe und zugeordneten Touren";
-"locationPhotoTrackMarkerInfoText"="Ort mit Positionsangabe und zugeordneten Fotos und Touren";
-"locationDetailsInfoText"="Durch Antippen der Nadel wird die Detailansicht geöffnet (siehe unten)";
-"locationDefaultGroupInfoText"="Gruppe von Orten ohne Extras";
-"locationPhotoGroupInfoText"="Gruppe von Orten mit Fotos";
+"locationMarkerInfoText"="Markierter Ort";
+"locationPhotoMarkerInfoText"="Markierter Ort mit zugeordneten Medien (Fotos, Audios oder Videos)";
+"locationTrackMarkerInfoText"="Markierter Ort mit zugeordneten Touren";
+"locationPhotoTrackMarkerInfoText"="Markierter Ort mit zugeordneten Medien und Touren";
+"locationDetailsInfoText"="Durch Antippen des Symbols wird ein Menü für das Hinzufügen von Fotos und die Anzeige einer Detailansicht (siehe unten) angezeigt.";
+"locationDefaultGroupInfoText"="Gruppe von Orten";
+"locationPhotoGroupInfoText"="Gruppe von Orten mit Medien";
 "locationTrackGroupInfoText"="Gruppe von Orten mit Touren";
-"locationPhotoTrackGroupInfoText"="Gruppe von Orten mit Fotos und Touren";
+"locationPhotoTrackGroupInfoText"="Gruppe von Orten mit Medien und Touren";
 "locationGroupInfoText"="Eine Gruppennadel wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.";
 
 "mapMenuInfoText"="Kartenmenü";

@@ -162,20 +162,20 @@
 
 //info
 "appInfoHeader"="General";
-"appInfoText"="This App is based on data from OpenStreetMap but not associated with the OpenStreetMap organization. Loading of map tiles from the configured server may only take place in accordance with the respective published terms of use. The default server, maps.elbe5.de, is a private server and restricted to the Europe map in carto style. Once loaded tiles are stored in the app until all tiles are deleted.";
+"appInfoText"="This App is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and only part of its tiles (carto and topo) has been pregenerated (up to zoom 11).\nOnce loaded tiles are cached in the app until all tiles are deleted.";
 
 "appIconsHeader"="Icons";
-"userLocationInfoText"="Shows the current position and direction (red triangle). If the position is not exact, the color moves to purple.";
+"userLocationInfoText"="Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nBy tapping the icon a menu opens for marking, showing detailed infos or creating photos, audios and videos.";
 
-"locationMarkerInfoText"="Location marker for location with data";
-"locationPhotoMarkerInfoText"="Location marker for location with data and assigned photos";
-"locationTrackMarkerInfoText"="Location marker for location with data and assigned tracks";
-"locationPhotoTrackMarkerInfoText"="Location marker for location with data and assigned photos and tracks";
-"locationDetailsInfoText"="By tapping the needle a detail view is opened (see below)";
-"locationDefaultGroupInfoText"="Marker for group of simple locations";
-"locationPhotoGroupInfoText"="Marker for group of locations with assigned photos";
-"locationTrackGroupInfoText"="Marker for locations with assigned tracks";
-"locationPhotoTrackGroupInfoText"="Marker for locations with assigned photos and tracks";
+"locationMarkerInfoText"="Marked location";
+"locationPhotoMarkerInfoText"="Marked location with assigned media (photos, audios or videos)";
+"locationTrackMarkerInfoText"="Marked location with assigned tracks";
+"locationPhotoTrackMarkerInfoText"="Marked location with assigned media and tracks";
+"locationDetailsInfoText"="By tapping the marker a menu opens for adding photos or showing a detail view (see below)";
+"locationDefaultGroupInfoText"="Marker for location group";
+"locationPhotoGroupInfoText"="Marker for location group with assigned media";
+"locationTrackGroupInfoText"="Marker for location group with assigned tracks";
+"locationPhotoTrackGroupInfoText"="Marker for location group with assigned media and tracks";
 "locationGroupInfoText"="A group needle can be split into single locations by zooming in.";
 
 "mapMenuInfoText"="Map Menu";
