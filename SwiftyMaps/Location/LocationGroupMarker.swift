@@ -8,6 +8,9 @@ import UIKit
 
 class LocationGroupMarker : Marker{
     
+    static var mapPinDefaultImage = UIImage(named: "mappin.group.green")!
+    static var mapPinMediaImage = UIImage(named: "mappin.group.red")!
+    
     var locationGroup : LocationGroup
     
     override var hasMedia : Bool{
@@ -26,10 +29,10 @@ class LocationGroupMarker : Marker{
     
     override func updateImage(){
         if hasMedia{
-            asIconButton("camera.circle", color: .systemRed)
+            setImage(LocationGroupMarker.mapPinMediaImage, for: .normal)
         }
         else{
-            asIconButton("mappin.circle", color: .systemRed)
+            setImage(LocationGroupMarker.mapPinDefaultImage, for: .normal)
         }
     }
     

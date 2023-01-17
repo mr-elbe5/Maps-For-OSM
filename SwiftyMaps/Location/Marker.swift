@@ -8,7 +8,7 @@ import UIKit
 
 class Marker : UIButton{
     
-    static var baseFrame = CGRect(x: -16,y: -16, width: 32, height: 32)
+    static var baseFrame = CGRect(x: -16,y: -32, width: 32, height: 32)
     
     var hasMedia : Bool{
         false
