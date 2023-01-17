@@ -178,7 +178,33 @@ extension MainViewController: LocationLayerViewDelegate{
     }
     
     func mergeGroup(group: LocationGroup) {
-        //todo
+        let count = group.locations.count
+        if count < 2{
+            return
+        }
+        var lat = 0.0
+        var lon = 0.0
+        var note = ""
+        var mediaList = MediaList()
+        for location in group.locations{
+            lat += location.coordinate.latitude
+            lon += location.coordinate.longitude
+            note += location.note
+            for mediaFile in location.media{
+                mediaList.append(mediaFile)
+            }
+        }
+        lat = lat/Double(count)
+        lon = lon/Double(count)
+        try? mediaList.sort(by: MediaData.areInIncreasingDateOrder)
+        let mergedLocation = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        mergedLocation.note = note
+        mergedLocation.media = mediaList
+        mergedLocation.evaluatePlacemark()
+        LocationPool.list.append(mergedLocation)
+        LocationPool.list.removeAllOf(group.locations)
+        LocationPool.save()
+        updateMarkerLayer()
     }
     
 }

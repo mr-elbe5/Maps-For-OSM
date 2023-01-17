@@ -79,10 +79,8 @@ class LocationDetailViewController: PopupScrollViewController{
         
         mediaStackView.setupVertical()
         setupMediaStackView()
-        contentView.addSubviewWithAnchors(mediaStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
+        contentView.addSubviewWithAnchors(mediaStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
         
-        header = UILabel(header: "tracks".localize())
-        contentView.addSubviewWithAnchors(header, top: mediaStackView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
     }
     
     func setupNoteContainerView(){

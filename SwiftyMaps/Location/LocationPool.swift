@@ -10,6 +10,25 @@ import UIKit
 
 typealias LocationList = Array<Location>
 
+extension LocationList{
+    
+    mutating func remove(_ location: Location){
+        for idx in 0..<self.count{
+            if self[idx] == location{
+                self.remove(at: idx)
+                return
+            }
+        }
+    }
+    
+    mutating func removeAllOf(_ list: LocationList){
+        for location in list{
+            remove(location)
+        }
+    }
+    
+}
+
 class LocationPool{
     
     static var storeKey = "locations"

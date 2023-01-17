@@ -36,6 +36,10 @@ extension MediaList{
 
 class MediaData : Identifiable, Codable{
     
+    static func areInIncreasingDateOrder(media1: MediaData, media2: MediaData) throws -> Bool{
+        return media2.data.creationDate >= media1.data.creationDate
+    }
+    
     private enum CodingKeys: CodingKey{
         case type
         case data
