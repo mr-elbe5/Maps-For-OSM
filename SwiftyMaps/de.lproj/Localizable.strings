@@ -39,7 +39,7 @@
 "unauthorizedError"="Diese Aktion wurde nicht autorisiert.";
 "unexpectedError"="Ein unerwarteter Fehler ist aufgetreten.";
 
-// current location / cross
+// current location / cross / marker
 "addLocation"="Ort markieren";
 "addPhoto"="Foto aufnehmen";
 "addImage"="Bild aus der Bibliothek hinzufügen";
@@ -47,6 +47,7 @@
 "addAudio"="Ton aufnehmen";
 "crossPosition"="Kreuz-Position";
 "currentPosition"="Aktuelle Position";
+"mergeGroup"="Markierungen der Gruppe zusammenführen";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";

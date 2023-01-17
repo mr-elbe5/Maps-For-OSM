@@ -25,7 +25,7 @@ class MapView: UIView {
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
     var userLocationView = UserLocationView(frame: UserLocationView.frameRect)
-    var crossView = UIButton().asIconButton("plus.circle")
+    var crossView = UIButton().asIconButton("plus.circle", color: .systemBlue)
     
     var delegate: MapPositionDelegate? = nil
     
@@ -85,7 +85,6 @@ class MapView: UIView {
     }
     
     func setupCrossView(){
-        crossView.tintColor = UIColor.red
         addSubviewCentered(crossView, centerX: centerXAnchor, centerY: centerYAnchor)
         crossView.menu = getCrossMenu()
         crossView.showsMenuAsPrimaryAction = true

@@ -173,6 +173,14 @@ extension MainViewController: LocationLayerViewDelegate{
         addImage(location: location)
     }
     
+    func showGroupDetails(group: LocationGroup) {
+        //todo
+    }
+    
+    func mergeGroup(group: LocationGroup) {
+        //todo
+    }
+    
 }
 
 extension MainViewController: MapPositionDelegate{

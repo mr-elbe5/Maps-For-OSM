@@ -9,6 +9,8 @@ import UIKit
 protocol LocationLayerViewDelegate{
     func showLocationDetails(location: Location)
     func addImageToLocation(location: Location)
+    func showGroupDetails(group: LocationGroup)
+    func mergeGroup(group: LocationGroup)
 }
 
 class LocationLayerView: UIView {
@@ -51,6 +53,8 @@ class LocationLayerView: UIView {
                 if group.locations.count > 1{
                     let marker = LocationGroupMarker(placeGroup: group)
                     addSubview(marker)
+                    marker.menu = getGroupMarkerMenu(marker: marker)
+                    marker.showsMenuAsPrimaryAction = true
                 }
                 else if let location = group.locations.first{
                     let marker = LocationMarker(location: location)
@@ -71,6 +75,17 @@ class LocationLayerView: UIView {
         })
         actions.append(UIAction(title: "addImage".localize()){ action in
             self.delegate?.addImageToLocation(location: marker.location)
+        })
+        return UIMenu(title: "", children: actions)
+    }
+    
+    func getGroupMarkerMenu(marker: LocationGroupMarker) -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "showDetails".localize()){ action in
+            self.delegate?.showGroupDetails(group: marker.locationGroup)
+        })
+        actions.append(UIAction(title: "mergeGroup".localize()){ action in
+            self.delegate?.mergeGroup(group: marker.locationGroup)
         })
         return UIMenu(title: "", children: actions)
     }
@@ -99,8 +114,8 @@ class LocationLayerView: UIView {
             if let marker = subview as? LocationMarker{
                 marker.updatePosition(to: CGPoint(x: (marker.location.mapPoint.x - offset.x)*scale , y: (marker.location.mapPoint.y - offset.y)*scale))
             }
-            else if let groupPin = subview as? LocationGroupMarker, let center = groupPin.locationGroup.centerPlanetPosition{
-                groupPin.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
+            else if let groupMarker = subview as? LocationGroupMarker, let center = groupMarker.locationGroup.centerPlanetPosition{
+                groupMarker.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
             }
         }
     }

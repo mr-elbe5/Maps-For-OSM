@@ -39,7 +39,7 @@
 "unauthorizedError"="This action has not been authorized.";
 "unexpectedError"="There has been an unexpected error.";
 
-// current location / cross
+// current location / cross / marker
 "addLocation"="Mark Location";
 "addPhoto"="Take Photo";
 "addImage"="Add Image from Library";
@@ -47,6 +47,7 @@
 "addAudio"="Record Audio";
 "crossPosition"="Cross Position";
 "currentPosition"="Current Position";
+"mergeGroup"="Merge Markers of Group";
 
 //camera
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
