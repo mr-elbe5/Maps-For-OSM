@@ -8,7 +8,7 @@ import UIKit
 
 
 protocol LocationCellDelegate{
-    func deleteLocation(location: Location, approved: Bool)
+    func deleteLocationFromCell(location: Location)
     func viewLocation(location: Location)
     func showLocationOnMap(location: Location)
 }
@@ -90,7 +90,7 @@ class LocationCell: UITableViewCell{
     
     @objc func deleteLocation() {
         if let location = location{
-            delegate?.deleteLocation(location: location, approved: false)
+            delegate?.deleteLocationFromCell(location: location)
         }
     }
     

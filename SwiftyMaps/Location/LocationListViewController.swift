@@ -11,7 +11,7 @@ import CoreLocation
 
 protocol LocationListDelegate: LocationViewDelegate{
     func showLocationOnMap(location: Location)
-    func deleteLocation(location: Location)
+    func deleteLocationFromList(location: Location)
     func deleteAllLocations()
 }
 
@@ -87,20 +87,11 @@ extension LocationListViewController : LocationCellDelegate{
         }
     }
     
-    func deleteLocation(location: Location, approved: Bool) {
-        if approved{
-            deleteLocation(place: location)
+    func deleteLocationFromCell(location: Location) {
+        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
+            self.delegate?.deleteLocationFromList(location: location)
+            self.tableView.reloadData()
         }
-        else{
-            showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationInfo".localize()){
-                self.deleteLocation(place: location)
-            }
-        }
-    }
-    
-    private func deleteLocation(place: Location){
-        delegate?.deleteLocation(location: place)
-        self.tableView.reloadData()
     }
     
     func viewLocation(location: Location) {

@@ -41,6 +41,14 @@ class Location : CodableLocation{
         evaluatePlacemark()
     }
     
+    init(location: Location, newCoordinate: CLLocationCoordinate2D){
+        id = location.id
+        note = location.note
+        media = location.media
+        super.init(coordinate: newCoordinate)
+        evaluatePlacemark()
+    }
+    
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()

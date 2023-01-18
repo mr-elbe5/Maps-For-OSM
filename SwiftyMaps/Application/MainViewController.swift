@@ -173,38 +173,43 @@ extension MainViewController: LocationLayerViewDelegate{
         addImage(location: location)
     }
     
+    func moveLocationToScreenCenter(location: Location) {
+        let centerCoordinate = mapView.scrollView.screenCenterCoordinate
+        //coordinate of location is read only
+        let newLocation = Location(location: location, newCoordinate: centerCoordinate)
+        showDestructiveApprove(title: "confirmMoveLocation".localize(), text: "\("newLocationHint".localize())\n\(newLocation.coordinateString)"){
+            LocationPool.list.append(newLocation)
+            LocationPool.list.remove(location)
+            LocationPool.save()
+            self.updateMarkerLayer()
+        }
+    }
+    
+    func deleteLocation(location: Location) {
+        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
+            LocationPool.deleteLocation(location)
+            LocationPool.save()
+            self.updateMarkerLayer()
+        }
+    }
+    
     func showGroupDetails(group: LocationGroup) {
-        //todo
+        if let coordinate = group.centralCoordinate{
+            let str = "\(coordinate.coordinateString)\n\(group.locations.count) \("location(s)".localize())"
+            self.showAlert(title: "groupCenter".localize(), text: str)
+            
+        }
     }
     
     func mergeGroup(group: LocationGroup) {
-        let count = group.locations.count
-        if count < 2{
-            return
-        }
-        var lat = 0.0
-        var lon = 0.0
-        var note = ""
-        var mediaList = MediaList()
-        for location in group.locations{
-            lat += location.coordinate.latitude
-            lon += location.coordinate.longitude
-            note += location.note
-            for mediaFile in location.media{
-                mediaList.append(mediaFile)
+        if let mergedLocation = group.centralLocation{
+            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinateString)"){
+                LocationPool.list.append(mergedLocation)
+                LocationPool.list.removeAllOf(group.locations)
+                LocationPool.save()
+                self.updateMarkerLayer()
             }
         }
-        lat = lat/Double(count)
-        lon = lon/Double(count)
-        try? mediaList.sort(by: MediaData.areInIncreasingDateOrder)
-        let mergedLocation = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-        mergedLocation.note = note
-        mergedLocation.media = mediaList
-        mergedLocation.evaluatePlacemark()
-        LocationPool.list.append(mergedLocation)
-        LocationPool.list.removeAllOf(group.locations)
-        LocationPool.save()
-        updateMarkerLayer()
     }
     
 }
@@ -526,7 +531,7 @@ extension MainViewController: LocationListDelegate{
         mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
     }
     
-    func deleteLocation(location: Location) {
+    func deleteLocationFromList(location: Location) {
         LocationPool.deleteLocation(location)
         LocationPool.save()
         updateMarkerLayer()

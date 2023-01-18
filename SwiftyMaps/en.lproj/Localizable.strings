@@ -45,9 +45,16 @@
 "addImage"="Add Image from Library";
 "addVideo"="Record Video";
 "addAudio"="Record Audio";
+"moveToScreenCenter"="Move Location to Screen Center (Cross Position)";
+"confirmMoveLocation"="Move Location to new Position?";
+"newLocationHint"="This cannot be undone. The new position is:";
+"deleteLocation"="Delete Location";
 "crossPosition"="Cross Position";
 "currentPosition"="Current Position";
-"mergeGroup"="Merge Markers of Group";
+"groupCenter"="Group Center";
+"location(s)"="location(s)";
+"mergeGroup"="Merge Locations of Group";
+"confirmMergeGroup"="Merge Group to one Location?";
 
 //camera
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";

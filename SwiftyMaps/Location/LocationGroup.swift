@@ -23,6 +23,49 @@ class LocationGroup{
         return false
     }
     
+    var centralCoordinate: CLLocationCoordinate2D?{
+        let count = locations.count
+        if count < 2{
+            return nil
+        }
+        var lat = 0.0
+        var lon = 0.0
+        for location in locations{
+            lat += location.coordinate.latitude
+            lon += location.coordinate.longitude
+        }
+        lat = lat/Double(count)
+        lon = lon/Double(count)
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+    
+    var centralLocation: Location?{
+        let count = locations.count
+        if count < 2{
+            return nil
+        }
+        var lat = 0.0
+        var lon = 0.0
+        var note = ""
+        var mediaList = MediaList()
+        for location in locations{
+            lat += location.coordinate.latitude
+            lon += location.coordinate.longitude
+            note += location.note
+            for mediaFile in location.media{
+                mediaList.append(mediaFile)
+            }
+        }
+        lat = lat/Double(count)
+        lon = lon/Double(count)
+        try? mediaList.sort(by: MediaData.areInIncreasingDateOrder)
+        let location = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        location.evaluatePlacemark()
+        location.note = note
+        location.media = mediaList
+        return location
+    }
+    
     func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
         //debug("LocationGroup checking radius")
         if let center = center{

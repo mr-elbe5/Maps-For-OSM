@@ -45,9 +45,16 @@
 "addImage"="Bild aus der Bibliothek hinzufügen";
 "addVideo"="Video aufnehmen";
 "addAudio"="Ton aufnehmen";
+"moveToScreenCenter"="Ort auf Bildschirmmitte (Kreuz) verschieben";
+"confirmMoveLocation"="Auf neue Position verschieben?";
+"newLocationHint"="Diese Aktion kann nicht rückgängig gemacht werden. Die neue Position ist:";
+"deleteLocation"="Ort löschen";
 "crossPosition"="Kreuz-Position";
 "currentPosition"="Aktuelle Position";
-"mergeGroup"="Markierungen der Gruppe zusammenführen";
+"groupCenter"="Gruppenzentrum";
+"location(s)"="Ort(e)";
+"mergeGroup"="Orte der Gruppe zusammenführen";
+"confirmMergeGroup"="Gruppe zu einem Ort zusammenfassen?";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";

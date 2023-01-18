@@ -9,6 +9,8 @@ import UIKit
 protocol LocationLayerViewDelegate{
     func showLocationDetails(location: Location)
     func addImageToLocation(location: Location)
+    func moveLocationToScreenCenter(location: Location)
+    func deleteLocation(location: Location)
     func showGroupDetails(group: LocationGroup)
     func mergeGroup(group: LocationGroup)
 }
@@ -75,6 +77,12 @@ class LocationLayerView: UIView {
         })
         actions.append(UIAction(title: "addImage".localize()){ action in
             self.delegate?.addImageToLocation(location: marker.location)
+        })
+        actions.append(UIAction(title: "moveToScreenCenter".localize()){ action in
+            self.delegate?.moveLocationToScreenCenter(location: marker.location)
+        })
+        actions.append(UIAction(title: "delete".localize()){ action in
+            self.delegate?.deleteLocation(location: marker.location)
         })
         return UIMenu(title: "", children: actions)
     }
