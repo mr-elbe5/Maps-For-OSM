@@ -168,27 +168,28 @@
 "minTrackingInterval"="Minimale Zeit zwischen Tourpunkten [sec]";
 
 //info
+//general info
 "appInfoHeader"="Allgemeines";
 "appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und nur ein beschränkter Teil der Kacheln (carto und topo) ist vorgeneriert (bis Zoom 11).\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
-"appIconsHeader"="Symbole";
-"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen des Symbols wird ein Menü für das Markieren, das Anzeigen detaillierter Angaben oder das Erstellen von Fotos, Audios und Videos angezeigt.";
-
+//map icons
+"appIconsHeader"="Symbole auf der Karte";
+"userLocationInfoText"="Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen detaillierter Angaben oder das Hinzufügen von Medien(Fotos, Audios und Videos).";
+"crossLocationInfoText"="Mitte der sichtbaren Karte (ausblendbar).\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen der Position oder das Hinzufügen eines Bildes.";
 "locationMarkerInfoText"="Markierter Ort";
 "locationPhotoMarkerInfoText"="Markierter Ort mit zugeordneten Medien (Fotos, Audios oder Videos)";
-"locationTrackMarkerInfoText"="Markierter Ort mit zugeordneten Touren";
-"locationPhotoTrackMarkerInfoText"="Markierter Ort mit zugeordneten Medien und Touren";
-"locationDetailsInfoText"="Durch Antippen des Symbols wird ein Menü für das Hinzufügen von Fotos und die Anzeige einer Detailansicht (siehe unten) angezeigt.";
+"locationDetailsInfoText"="Durch Antippen öffnet sich ein Menü für das Hinzufügen von Bildern, die Anzeige einer Detailansicht (siehe unten), zum Verschieben auf die Kreuzposition (zu Korrekturzwecken) und zum Löschen.";
 "locationDefaultGroupInfoText"="Gruppe von Orten";
 "locationPhotoGroupInfoText"="Gruppe von Orten mit Medien";
-"locationTrackGroupInfoText"="Gruppe von Orten mit Touren";
-"locationPhotoTrackGroupInfoText"="Gruppe von Orten mit Medien und Touren";
-"locationGroupInfoText"="Eine Gruppennadel wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.";
+"locationGroupInfoText"="Eine Gruppennadel wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.\nDurch Antippen öffnet sich ein Menü für das Anzeigen der Position und das Zusammenlegen der enthaltenen Orte.";
 
+//top menu
+"topMenuInfoHeader"="Hauptmenü";
+    //map
 "mapMenuInfoText"="Kartenmenü";
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
-
+    //locations
 "locationMenuInfoText"="Orte";
 "locationIconInfoText"="Kreuz zum Markieren eines Ortes anzeigen";
 "addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung (Nadel) erstellt werden. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann diese benutzt werden.";
@@ -196,7 +197,7 @@
 "showLocationsInfoText"="Nadeln auf der Karte einblenden";
 "hideLocationsInfoText"="Nadeln auf der Karte ausblenden";
 "deleteLocationsInfoText"="Löschen aller Orte und der aller zugeordneten Fotos und Touren";
-
+    //tracks
 "trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour starten";
 "startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehöriger Ort für die Startposition erstellt und die Tour diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann die Tour diesem Ort zugeordnet werden.";
@@ -204,11 +205,13 @@
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
 "deleteTracksInfoText"="Alle Touren löschen";
-
+//cross
+"crossIconInfoText"="Kreuz für Bildschirmmitte anzeigen oder ausblenden (siehe oben)";
+//center
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
 
-"cameraIconInfoText"="Ein Foto machen";
-"addPhotoLocationInfoText"="Wenn eine Foto aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann das Foto diesem Ort zugeordnet werden.";
+"cameraIconInfoText"="Ein Foto machen oder ein Audio oder Video aufnehmen";
+"addMediaLocationInfoText"="Wenn eine Foto, Audio oder Video aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann das Ergebnis diesem Ort zugeordnet werden.";
 
 "gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
 

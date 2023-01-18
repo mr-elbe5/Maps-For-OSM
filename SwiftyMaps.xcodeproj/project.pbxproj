@@ -100,6 +100,7 @@
 		4ECFC99F26FBB8AF0083977B /* TileCacheViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */; };
 		4ED55ECE2976B17400C679AF /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECC2976B17300C679AF /* LocationGroup.swift */; };
 		4ED55ECF2976B17400C679AF /* LocationGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECD2976B17400C679AF /* LocationGroupMarker.swift */; };
+		4ED55ED12978407F00C679AF /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ED02978407F00C679AF /* InfoText.swift */; };
 		4ED5DF44273E831B00549AF8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Location.swift */; };
 		4EE1461A28D368020058F3D3 /* MapRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461928D368020058F3D3 /* MapRect.swift */; };
 		4EE1461C28D368370058F3D3 /* MapPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1461B28D368370058F3D3 /* MapPoint.swift */; };
@@ -218,6 +219,7 @@
 		4ECFC99E26FBB8AF0083977B /* TileCacheViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileCacheViewController.swift; sourceTree = "<group>"; };
 		4ED55ECC2976B17300C679AF /* LocationGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
 		4ED55ECD2976B17400C679AF /* LocationGroupMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationGroupMarker.swift; sourceTree = "<group>"; };
+		4ED55ED02978407F00C679AF /* InfoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoText.swift; sourceTree = "<group>"; };
 		4ED5DF43273E831B00549AF8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4EE1461928D368020058F3D3 /* MapRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRect.swift; sourceTree = "<group>"; };
 		4EE1461B28D368370058F3D3 /* MapPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPoint.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			children = (
 				4E24F45B27345D11004E69C2 /* IconInfoText.swift */,
 				4E0BD9AF26EA0170005A4A94 /* InfoViewController.swift */,
+				4ED55ED02978407F00C679AF /* InfoText.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -644,6 +647,7 @@
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
 				4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */,
+				4ED55ED12978407F00C679AF /* InfoText.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* TileProvider.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */,

@@ -26,27 +26,28 @@ class InfoViewController: PopupScrollViewController {
         
         // user location
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
-        // map location
+        // cross
+        stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", text: "crossLocationInfoText".localize(), iconColor: .systemBlue))
+        // location
         stackView.addArrangedSubview(IconInfoText(image: "mappin.green", text: "locationMarkerInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(image: "mappin.red", text: "locationPhotoMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.blue", text: "locationTrackMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.purple", text: "locationPhotoTrackMarkerInfoText".localize()))
-        stackView.addArrangedSubview(UILabel(text: "locationDetailsInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "locationDetailsInfoText".localize(), leftInset: subInset))
+        //location group
         stackView.addArrangedSubview(IconInfoText(image: "mappin.group.green", text: "locationDefaultGroupInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(image: "mappin.group.red", text: "locationPhotoGroupInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.blue", text: "locationTrackGroupInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.purple", text: "locationPhotoTrackGroupInfoText".localize()))
-        stackView.addArrangedSubview(UILabel(text: "locationGroupInfoText".localize()))
-        // map menu
+        stackView.addArrangedSubview(InfoText(text: "locationGroupInfoText".localize(), leftInset: subInset))
+        
+        // top menu
         stackView.addSpacer()
+        stackView.addArrangedSubview(UILabel(header: "topMenuInfoHeader".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "map", text: "mapMenuInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "square.and.arrow.down", text: "preloadIconInfoText".localize(),leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "trash", text: "deleteTilesInfoText".localize(), iconColor: .red, leftInset: subInset))
+        
         // location menu
         stackView.addSpacer()
         stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "locationMenuInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", text: "locationIconInfoText".localize(),leftInset: subInset))
-        stackView.addArrangedSubview(UILabel(text: "addLocationInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "addLocationInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "list.bullet", text: "locationListInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "mappin", text: "showLocationsInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "mappin.slash", text: "hideLocationsInfoText".localize(), leftInset: subInset))
@@ -55,18 +56,20 @@ class InfoViewController: PopupScrollViewController {
         stackView.addSpacer()
         stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "trackMenuInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "startTrackInfoText".localize(), leftInset: subInset))
-        stackView.addArrangedSubview(UILabel(text: "startTrackLocationInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "startTrackLocationInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "figure.walk", text: "currentTrackInfoText".localize(), iconColor: .green, leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "eye.slash", text: "hideTrackInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "list.bullet", text: "trackListInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "trash", text: "deleteTracksInfoText".localize(), iconColor: .red, leftInset: subInset))
+        //cross
+        stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", text: "crossIconInfoText".localize()))
         // center
         stackView.addSpacer()
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "centerIconInfoText".localize()))
         // camera
         stackView.addSpacer()
         stackView.addArrangedSubview(IconInfoText(icon: "camera", text: "cameraIconInfoText".localize()))
-        stackView.addArrangedSubview(UILabel(text: "addPhotoLocationInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "addMediaLocationInfoText".localize(), leftInset: subInset))
         // preferences
         stackView.addSpacer()
         stackView.addArrangedSubview(IconInfoText(icon: "gearshape", text: "gearIconInfoText".localize()))
@@ -80,7 +83,7 @@ class InfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "photo", text: "locationDetailImageInfoText".localize()))
         stackView.addArrangedSubview(IconInfoText(icon: "trash", text: "locationDetailTrashInfoText".localize(), iconColor: .red))
         stackView.addArrangedSubview(IconInfoText(icon: "pencil.circle", text: "locationDetailPencilInfoText".localize()))
-        stackView.addArrangedSubview(UILabel(text: "locationDetailEditInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "locationDetailEditInfoText".localize(), leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "square.and.arrow.up", text: "locationDetailShareImageInfo".localize(), iconColor: .blue, leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", text: "locationDetailViewImageInfo".localize(), iconColor: .blue, leftInset: subInset))
         // info for track detail
@@ -90,7 +93,7 @@ class InfoViewController: PopupScrollViewController {
         // info for preload
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "tilePreloadInfoHeader".localize()))
-        stackView.addArrangedSubview(UILabel(text: "preloadInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "preloadInfoText".localize(), leftInset: subInset))
         // info for location list
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "locationListInfoHeader".localize()))
@@ -104,11 +107,9 @@ class InfoViewController: PopupScrollViewController {
         // info for preferences
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "preferencesInfoHeader".localize()))
-        stackView.addArrangedSubview(UILabel(text: "urlInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "urlInfoText".localize(), leftInset: subInset))
         stackView.addSpacer()
-        stackView.addArrangedSubview(UILabel(text: "maxLocationMergeDistance".localize() + ": " + "maxLocationMergeDistanceInfoText".localize()))
-        stackView.addSpacer()
-        stackView.addArrangedSubview(UILabel(text: "useLog".localize() + ": " + "logInfoText".localize()))
+        stackView.addArrangedSubview(InfoText(text: "maxLocationMergeDistance".localize() + ": " + "maxLocationMergeDistanceInfoText".localize(), leftInset: subInset))
     }
     
 }
