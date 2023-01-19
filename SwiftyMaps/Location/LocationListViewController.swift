@@ -12,7 +12,6 @@ import CoreLocation
 protocol LocationListDelegate: LocationViewDelegate{
     func showLocationOnMap(location: Location)
     func deleteLocationFromList(location: Location)
-    func deleteAllLocations()
 }
 
 class LocationListViewController: PopupTableViewController{
@@ -27,21 +26,6 @@ class LocationListViewController: PopupTableViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationCell.self, forCellReuseIdentifier: LocationListViewController.CELL_IDENT)
-    }
-    
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        
-        let deleteButton = UIButton().asIconButton("trash", color: .red)
-        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addTarget(self, action: #selector(deleteAllLocations), for: .touchDown)
-    }
-    
-    @objc func deleteAllLocations(){
-        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
-            self.delegate?.deleteAllLocations()
-            self.tableView.reloadData()
-        }
     }
     
 }

@@ -65,7 +65,10 @@
 
 //map menu
 "refreshMap"="Refresh Map";
-"preloadMaps"="Offline Map Tiles...";
+"preloadTiles"="Offline Map Tiles...";
+"deleteAllTiles"="Delete Map Tiles";
+"confirmDeleteTiles"="Do you want to delete all loaded map tiles?";
+"deleteTilesHint"="Map tiles will have to be reloaded.";
 "regionTooLarge"="Region too large";
 "selectSmallerRegion"="Please select a smaller region";
 
@@ -82,8 +85,6 @@
 "startPreload"="Start Preload";
 "confirmPreload"="Are you sure to have the rights for mass downloads?";
 "preloadHint"="You can find links to legal infos under preferences.";
-"confirmDeleteTiles"="Do you want to delete all loaded map tiles?";
-"deleteTilesHint"="Map tiles will have to be reloaded then.";
 
 // location menu
 "showLocationList"="Show Location List";
@@ -96,6 +97,7 @@
 // location list - LocationListViewController/LocationCell
 "locationList"="Locations";
 "showDetails"="Show Details";
+"deleteAllLocations"="Delete all Markers";
 "confirmDeleteLocation"="Do you want to delete the marker for this location?";
 "deleteLocationHint"="This action cannot be undone and includes associated media.";
 
@@ -104,9 +106,9 @@
 "showCurrentTrack"="Current Tour...";
 "hideTrack"="Hide Tour";
 "showTrackList"="Saved Tours...";
-"deleteTracks"="Delete all Tours";
-"confirmDeleteTracks"="Do you want to delete all tours?";
-"deleteTracksHint"="This action cannot be undone.";
+"deleteAllTracks"="Delete all Tours";
+"confirmDeleteAllTracks"="Do you want to delete all tours?";
+"deleteAllTracksHint"="This action cannot be undone.";
 
 // current track
 "startTracking"="Record new Tour";
@@ -128,8 +130,12 @@
 "resume"="Resume";
 
 // track list - TrackListViewController/TrackCell
-"trackList"="Tracks";
-"nameOrDescriptionHint"="Please enter a name for this track";
+"trackList"="Tours";
+"nameOrDescriptionHint"="Please enter a name for this tour";
+
+// search
+"search"="Search Place";
+"searchPlaceholder"="Place";
 
 //location
 "east"="East";
@@ -156,8 +162,9 @@
 //preferences view
 "preferences"="Preferences";
 "urlTemplate"="URL Template for Map Tiles:";
-"elbe5TileURL"="Use Template for Elbe5.de";
-"osmTileURL"="Use template for OpenStreetMap.org";
+"elbe5TileURL"="Use Template for tiles from Elbe5.de";
+"elbe5TopoTileURL"="Use Template for topographic tiles from Elbe5.de";
+"osmTileURL"="Use template for tiles from OpenStreetMap.org";
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "mapPreferencesSaved"="Map preferences have been saved.";
@@ -171,23 +178,24 @@
 //info
 //general info
 "appInfoHeader"="General";
-"appInfoText"="This App is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and only part of its tiles (carto and topo) has been pregenerated (up to zoom 11).\nOnce loaded tiles are cached in the app until all tiles are deleted.";
+"appInfoText"="This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and only part of its tiles (carto and topo) have been pre-generated (up to zoom 11).\nOnce loaded tiles are cached in the app until all tiles are deleted.";
 
 //map icons
 "appIconsHeader"="Icons on the Map";
-"userLocationInfoText"="Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nBy tapping a menu opens for marking, showing detailed infos or adding media (photos, audios and videos).";
-"crossLocationInfoText"="Center of the visible map (hideable).\nBy tapping the icon a menu opens for marking, showing position info or adding an image.";
+"userLocationInfoText"="Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nOn tapping a menu opens for marking, showing detailed infos or adding media (photos, audios and videos).";
+"crossLocationInfoText"="Center of the visible map (hideable).\nOn tapping a menu opens for marking, showing position info or adding an image.";
 "locationMarkerInfoText"="Marked location";
 "locationPhotoMarkerInfoText"="Marked location with assigned media (photos, audios or videos)";
-"locationDetailsInfoText"="By tapping a menu opens for adding images, showing a detail view (see below), moving to the cross position (for correctional purposes) and deleting.";
+"locationDetailsInfoText"="On tapping a menu opens for adding images, showing a detail view (see below), moving to the cross position (for correctional purposes) and deleting.";
 "locationDefaultGroupInfoText"="Marker for location group";
 "locationPhotoGroupInfoText"="Marker for location group with assigned media";
-"locationGroupInfoText"="A group needle can be split into single locations by zooming in.\nBy tapping a menu opens for showing the position and for merging included locations to one.";
+"locationGroupInfoText"="A group marker is split into single locations by zooming in.\nOn tapping a menu opens for showing the position and for merging included locations.";
 
 //top menu
 "topMenuInfoHeader"="Main Menu";
     //map
 "mapMenuInfoText"="Map Menu";
+"reloadIconInfoText"="Reload the map";
 "preloadIconInfoText"="Initiates preloading the currently visible map section (active only for reasonable zoom levels - see preferences)";
 "deleteTilesInfoText"="Delete all stored tiles immediately";
     //locations
@@ -199,9 +207,9 @@
 "hideLocationsInfoText"="Hide needles on the map";
 "deleteLocationsInfoText"="Delete all locations and all assigned photos and tracks";
     //tracks
-"trackMenuInfoText"="Track Menu";
-"startTrackInfoText"="Start new track";
-"startTrackLocationInfoText"="When a track is started, a location is created and the track is assigned to this location. If a location already exists in the direct vicinity, the track can be assigned to this location.";
+"trackMenuInfoText"="Tour Menu";
+"startTrackInfoText"="Record a new tour";
+"startTrackLocationInfoText"="When a tour is recorded, the current data like covered distance, height and time are shown in the status line.";
 "currentTrackInfoText"="Open current track (see below)";
 "hideTrackInfoText"="Hide track";
 "trackListInfoText"="List of all tracks (see below)";
@@ -210,12 +218,14 @@
 "crossIconInfoText"="Show or hide cross at screen center (see above)";
     //center
 "centerIconInfoText"="Center the current position on the map";
-
+    //camera
 "cameraIconInfoText"="Take a photo or record a video or audio";
 "addMediaLocationInfoText"="When you take a photo, audio or video, a marker for its location is created and the photo is assigned to this location. If a location already exists in the direct vicinity, the result can be assigned to this location.";
-
+    //search
+"searchIconInfoText"="Search for Places";
+    //preferences
 "gearIconInfoText"="Open Preferences (see below)";
-
+    //info
 "infoIconInfoText"="This Information";
 
 // info for location detail

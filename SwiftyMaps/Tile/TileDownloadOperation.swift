@@ -22,7 +22,7 @@ class TileDownloadOperation : AsyncOperation {
     }
     
     override func startExecution(){
-        debug("TileDownloadOperation starting download of \(tile.shortDescription)")
+        //debug("TileDownloadOperation starting download of \(tile.shortDescription)")
         TileProvider.shared.loadTileImage(tile: tile){ success in
             if success{
                 DispatchQueue.main.async { [self] in

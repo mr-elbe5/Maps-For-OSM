@@ -7,11 +7,7 @@
 import Foundation
 import UIKit
 
-protocol TileCacheDelegate{
-    func deleteTiles()
-}
-
-class TileCacheViewController: PopupScrollViewController{
+class PreloadViewController: PopupScrollViewController{
     
     var mapRegion: TileRegion? = nil
     
@@ -64,8 +60,6 @@ class TileCacheViewController: PopupScrollViewController{
     var errorsValueLabel = UILabel()
     
     var deleteButton = UIButton()
-    
-    var delegate : TileCacheDelegate? = nil
     
     override func loadView() {
         title = "mapPreload".localize()
@@ -157,13 +151,7 @@ class TileCacheViewController: PopupScrollViewController{
         errorsInfo.text = "unloadedTiles".localize()
         contentView.addSubviewWithAnchors(errorsInfo, top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
-        contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
-        
-        deleteButton.setTitle("deleteAll".localize(), for: .normal)
-        deleteButton.setTitleColor(.systemBlue, for: .normal)
-        deleteButton.setTitleColor(.systemGray, for: .disabled)
-        deleteButton.addTarget(self, action: #selector(deleteTiles), for: .touchDown)
-        contentView.addSubviewWithAnchors(deleteButton, top: errorsValueLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets).centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
         recalculateTiles()
         
@@ -269,18 +257,9 @@ class TileCacheViewController: PopupScrollViewController{
         cancelButton.isEnabled = false
     }
     
-    @objc func deleteTiles(){
-        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
-            self.delegate?.deleteTiles()
-            self.recalculateTiles()
-            self.startButton.isEnabled = true
-            self.cancelButton.isEnabled = false
-        }
-    }
-    
 }
 
-extension TileCacheViewController: DownloadDelegate{
+extension PreloadViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1

@@ -66,6 +66,9 @@
 //map menu
 "refreshMap"="Karte neu anzeigen";
 "preloadMaps"="Gespeicherte Kartenkacheln...";
+"deleteAllTiles"="Kartenkacheln löschen";
+"confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
+"deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 "regionTooLarge"="Region zu groß";
 "selectSmallerRegion"="Bitte wählen Sie eine kleinere Region";
 
@@ -83,8 +86,6 @@
 "startPreload"="Vorladen starten";
 "confirmPreload"="Haben Sie die Rechte für Massendownloads?";
 "preloadHint"="Sie finden Links zu den Regeln in den Einstellungen.";
-"confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
-"deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
 
 // location menu
 
@@ -97,6 +98,7 @@
 // location list - LocationListViewController/LocationCell
 "locationList"="Orte";
 "showDetails"="Details anzeigen";
+"deleteAllLocations"="Alle Markierungen löschen";
 "confirmDeleteLocation"="Wollen Sie die Markierung für diesen Ort löschen?";
 "deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Medien. Sie kann nicht rückgängig gemacht werden.";
 
@@ -105,9 +107,9 @@
 "showCurrentTrack"="Aktuelle Tour...";
 "hideTrack"="Tour ausblenden";
 "showTrackList"="Touren...";
-"deleteTracks"="Alle Touren löschen";
-"confirmDeleteTracks"="Wollen Sie alle Touren löschen?";
-"deleteTracksHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
+"deleteAllTracks"="Alle Touren löschen";
+"confirmDeleteAllTracks"="Wollen Sie alle Touren löschen?";
+"deleteTracksAllHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
 
 // current track
 "startTracking"="Neue Tour aufnehmen";
@@ -129,6 +131,11 @@
 // track list - TrackListViewController/TrackCell
 "trackList"="Touren";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
+
+// search
+"searchPlace"="Ort suchen";
+"searchPlaceholder"="Ort";
+"search"="Suchen";
 
 //location
 "east"="Ost";
@@ -155,9 +162,10 @@
 // preferences view
 "preferences"="Einstellungen";
 "urlTemplate"="URL-Template für Kartenkacheln:";
-"elbe5TileURL"="Template für Elbe5.de benutzen";
+"elbe5TileURL"="Template für Kacheln von Elbe5.de";
+"elbe5TopoTileURL"="Template für topografische Kacheln von Elbe5.de";
 "elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
-"osmTileURL"="Template für OpenStreetMap.org benutzen";
+"osmTileURL"="Template für Kacheln von OpenStreetMap.org";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
 "locationPreferences"="Einstellungen für Ortsmarkierungen";
@@ -181,12 +189,13 @@
 "locationDetailsInfoText"="Durch Antippen öffnet sich ein Menü für das Hinzufügen von Bildern, die Anzeige einer Detailansicht (siehe unten), zum Verschieben auf die Kreuzposition (zu Korrekturzwecken) und zum Löschen.";
 "locationDefaultGroupInfoText"="Gruppe von Orten";
 "locationPhotoGroupInfoText"="Gruppe von Orten mit Medien";
-"locationGroupInfoText"="Eine Gruppennadel wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.\nDurch Antippen öffnet sich ein Menü für das Anzeigen der Position und das Zusammenlegen der enthaltenen Orte.";
+"locationGroupInfoText"="Eine Gruppenmarkierung wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.\nDurch Antippen öffnet sich ein Menü für das Anzeigen der Position und das Zusammenlegen der enthaltenen Orte.";
 
 //top menu
 "topMenuInfoHeader"="Hauptmenü";
     //map
 "mapMenuInfoText"="Kartenmenü";
+"reloadIconInfoText"="Karte neu anzeigen";
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
     //locations
@@ -196,25 +205,25 @@
 "locationListInfoText"="Liste aller Orte (siehe unten)";
 "showLocationsInfoText"="Nadeln auf der Karte einblenden";
 "hideLocationsInfoText"="Nadeln auf der Karte ausblenden";
-"deleteLocationsInfoText"="Löschen aller Orte und der aller zugeordneten Fotos und Touren";
     //tracks
 "trackMenuInfoText"="Touren";
-"startTrackInfoText"="Neue Tour starten";
-"startTrackLocationInfoText"="Wenn eine Tour gestartet wird, wird auch eine zugehöriger Ort für die Startposition erstellt und die Tour diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann die Tour diesem Ort zugeordnet werden.";
+"startTrackInfoText"="Neue Tour aufnehmen";
+"startTrackLocationInfoText"="Wenn eine Tour aufgenommen wird, werden die aktuellen Daten wie zurückgelegte Strecke, Höhenmeter und Zeit in der Statuszeile angezeigt.";
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
-"deleteTracksInfoText"="Alle Touren löschen";
-//cross
+    //cross
 "crossIconInfoText"="Kreuz für Bildschirmmitte anzeigen oder ausblenden (siehe oben)";
-//center
+    //center
 "centerIconInfoText"="Aktuellen Standort auf der Karte zentrieren";
-
+    //camera
 "cameraIconInfoText"="Ein Foto machen oder ein Audio oder Video aufnehmen";
 "addMediaLocationInfoText"="Wenn eine Foto, Audio oder Video aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann das Ergebnis diesem Ort zugeordnet werden.";
-
+    //search
+"searchIconInfoText"="Suche nach Orten";
+    //preferences
 "gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
-
+    //info
 "infoIconInfoText"="Diese Information";
 
 // info for location detail

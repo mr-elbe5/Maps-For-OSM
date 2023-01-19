@@ -9,21 +9,22 @@ import UIKit
 import CoreLocation
 
 protocol SearchDelegate{
-    func showSearchResult(coordinate: CLLocationCoordinate2D, region: CoordinateRegion?)
+    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?)
 }
 
 class SearchViewController: PopupScrollViewController{
     
-    var searchField = LabeledTextField()
+    var searchField = UITextField()
     var resultView = UIStackView()
     
     var delegate : SearchDelegate? = nil
     
     override func loadView() {
-        title = "search".localize()
+        title = "searchPlace".localize()
         super.loadView()
         
-        searchField.setupView(labelText: "searchField".localize(), text: "", isHorizontal: false)
+        searchField.placeholder = "searchPlaceholder".localize()
+        searchField.borderStyle = .roundedRect
         contentView.addSubviewWithAnchors(searchField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let searchButton = UIButton()
@@ -40,8 +41,8 @@ class SearchViewController: PopupScrollViewController{
     
     @objc func search(){
         resultView.removeAllArrangedSubviews()
-        if !searchField.text.isEmpty{
-            Nominatim.getLocation(of: searchField.text){ (locations: Array<NominatimLocation>) in
+        if let text = searchField.text, !text.isEmpty{
+            Nominatim.getLocation(of: text){ (locations: Array<NominatimLocation>) in
                 if !locations.isEmpty{
                     DispatchQueue.main.async {
                         for loc in locations{
@@ -61,7 +62,7 @@ class SearchViewController: PopupScrollViewController{
     @objc func showResult(sender: AnyObject){
         if let btn = sender as? ResultButton, let location = btn.location{
             self.dismiss(animated: false){
-                self.delegate?.showSearchResult(coordinate: location.coordidate, region: location.region)
+                self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
             }
         }
     }

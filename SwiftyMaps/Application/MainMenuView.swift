@@ -9,15 +9,18 @@ import UIKit
 protocol MainMenuDelegate: MapPositionDelegate{
     
     func refreshMap()
-    func openPreloadMap()
+    func openPreloadTiles()
+    func deleteAllTiles()
     
     func showLocations(_ show: Bool)
     func openLocationList()
+    func deleteAllLocations()
     
     func startTracking()
     func openTrack(track: Track)
     func hideTrack()
     func openTrackList()
+    func deleteAllTracks()
     
     func updateCross()
     func focusUserLocation()
@@ -92,8 +95,11 @@ class MainMenuView: UIView {
         actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "arrow.clockwise")){ action in
             self.delegate?.refreshMap()
         })
-        actions.append(UIAction(title: "preloadMaps".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
-            self.delegate?.openPreloadMap()
+        actions.append(UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
+            self.delegate?.openPreloadTiles()
+        })
+        actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.deleteAllTiles()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -115,6 +121,9 @@ class MainMenuView: UIView {
         }
         actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
+        })
+        actions.append(UIAction(title: "deleteAllLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.deleteAllLocations()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -142,6 +151,9 @@ class MainMenuView: UIView {
         }
         actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openTrackList()
+        })
+        actions.append(UIAction(title: "deleteAllTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.deleteAllTracks()
         })
         return UIMenu(title: "", children: actions)
     }

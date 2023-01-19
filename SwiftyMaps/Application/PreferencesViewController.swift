@@ -32,10 +32,16 @@ class PreferencesViewController: PopupScrollViewController{
         elbe5Button.addTarget(self, action: #selector(elbe5Template), for: .touchDown)
         contentView.addSubviewWithAnchors(elbe5Button, top: tileUrlTemplateField.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
         
+        let elbe5TopoButton = UIButton()
+        elbe5TopoButton.setTitle("elbe5TopoTileURL".localize(), for: .normal)
+        elbe5TopoButton.setTitleColor(.systemBlue, for: .normal)
+        elbe5TopoButton.addTarget(self, action: #selector(elbe5TopoTemplate), for: .touchDown)
+        contentView.addSubviewWithAnchors(elbe5TopoButton, top: elbe5Button.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        
         let elbe5InfoLink = UIButton()
         elbe5InfoLink.setTitleColor(.systemBlue, for: .normal)
         elbe5InfoLink.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
-        contentView.addSubviewWithAnchors(elbe5InfoLink, top: elbe5Button.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(elbe5InfoLink, top: elbe5TopoButton.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
         elbe5InfoLink.setTitle("elbe5LegalInfo".localize(), for: .normal)
         elbe5InfoLink.addTarget(self, action: #selector(openElbe5Info), for: .touchDown)
         
@@ -76,6 +82,10 @@ class PreferencesViewController: PopupScrollViewController{
     
     @objc func elbe5Template(){
         tileUrlTemplateField.text = Preferences.elbe5Url
+    }
+    
+    @objc func elbe5TopoTemplate(){
+        tileUrlTemplateField.text = Preferences.elbe5TopoUrl
     }
     
     @objc func openElbe5Info() {

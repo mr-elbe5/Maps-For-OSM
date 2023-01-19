@@ -16,6 +16,7 @@ class Preferences: Identifiable, Codable{
     static var shared = Preferences()
     
     static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     
     static var defaultMinLocationAccuracy : CLLocationDistance = 5.0

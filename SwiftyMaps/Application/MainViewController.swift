@@ -407,17 +407,23 @@ extension MainViewController: MainMenuDelegate{
         mapView.crossView.isHidden = !AppState.shared.showCross
     }
     
-    func openPreloadMap() {
+    func openPreloadTiles() {
         let region = mapView.scrollView.tileRegion
         if region.size > Preferences.maxRegionSize{
             showAlert(title: "regionTooLarge".localize(), text: "selectSmallerRegion".localize())
             return
         }
-        let controller = TileCacheViewController()
+        let controller = PreloadViewController()
         controller.mapRegion = region
-        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
+    }
+    
+    func deleteAllTiles(){
+        showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
+            TileProvider.shared.deleteAllTiles()
+            self.mapView.clearTiles()
+        }
     }
     
     func openLocationList() {
@@ -430,6 +436,14 @@ extension MainViewController: MainMenuDelegate{
     func showLocations(_ show: Bool) {
         AppState.shared.showLocations = show
         mapView.locationLayerView.isHidden = !AppState.shared.showLocations
+    }
+    
+    func deleteAllLocations(){
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+            LocationPool.deleteAllLocations()
+            LocationPool.save()
+            self.updateMarkerLayer()
+        }
     }
     
     func openPreferences(){
@@ -475,6 +489,15 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
+    func deleteAllTracks() {
+        showDestructiveApprove(title: "confirmDeleteAllTracks".localize(), text: "deleteAllTracksHint".localize()){
+            self.cancelActiveTrack()
+            TrackPool.deleteAllTracks()
+            TrackPool.visibleTrack = nil
+            self.mapView.trackLayerView.setNeedsDisplay()
+        }
+    }
+    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
@@ -494,27 +517,18 @@ extension MainViewController: MainMenuDelegate{
     
 }
 
-extension MainViewController: TileCacheDelegate{
-    
-    func deleteTiles() {
-        TileProvider.shared.deleteAllTiles()
-        self.mapView.clearTiles()
-    }
-    
-}
-
 extension MainViewController: SearchDelegate{
     
-    func showSearchResult(coordinate: CLLocationCoordinate2D, region: CoordinateRegion?) {
-        if let region = region{
-            mapView.setRegion(region: region)
+    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?) {
+        if let mapRect = mapRect{
+            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
+            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: mapRect, scaledBounds: mapView.bounds)*0.9, animated: true)
         }
         else{
             mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
         }
     }
     
-
 }
 
 extension MainViewController: LocationViewDelegate{
@@ -535,12 +549,6 @@ extension MainViewController: LocationListDelegate{
         LocationPool.deleteLocation(location)
         LocationPool.save()
         updateMarkerLayer()
-    }
-    
-    func deleteAllLocations() {
-        LocationPool.deleteAllLocations()
-        LocationPool.save()
-        self.updateMarkerLayer()
     }
 
 }
@@ -573,13 +581,6 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             TrackPool.visibleTrack = nil
             mapView.trackLayerView.setNeedsDisplay()
         }
-    }
-    
-    func deleteAllTracks() {
-        cancelActiveTrack()
-        TrackPool.deleteAllTracks()
-        TrackPool.visibleTrack = nil
-        mapView.trackLayerView.setNeedsDisplay()
     }
     
     func showTrackOnMap(track: Track) {

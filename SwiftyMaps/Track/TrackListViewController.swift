@@ -12,7 +12,6 @@ import CoreLocation
 protocol TrackListDelegate{
     func showTrackOnMap(track: Track)
     func deleteTrack(track: Track, approved: Bool)
-    func deleteAllTracks()
     func cancelActiveTrack()
     func saveActiveTrack()
 }
@@ -37,20 +36,9 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        let deleteButton = UIButton().asIconButton("trash", color: .red)
-        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addTarget(self, action: #selector(deleteAllTracks), for: .touchDown)
-        
         let loadButton = UIButton().asIconButton("arrow.down.square", color: .white)
-        headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: deleteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
-    }
-    
-    @objc func deleteAllTracks(){
-        showDestructiveApprove(title: "confirmDeleteAllTracks".localize(), text: "deleteAllTracksHint".localize()){
-            self.delegate?.deleteAllTracks()
-            self.tableView.reloadData()
-        }
     }
     
     @objc func loadTrack(){
