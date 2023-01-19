@@ -65,7 +65,7 @@
 
 //map menu
 "refreshMap"="Karte neu anzeigen";
-"preloadMaps"="Gespeicherte Kartenkacheln...";
+"preloadTiles"="Gespeicherte Kartenkacheln...";
 "deleteAllTiles"="Kartenkacheln löschen";
 "confirmDeleteTiles"="Wollen Sie alle geladenen Kartenkacheln löschen?";
 "deleteTilesHint"="Die Kacheln müssen anschliessend neu geladen werden.";
@@ -104,7 +104,11 @@
 
 // track menu
 "startRecording"="Neue Tour aufnehmen";
-"showCurrentTrack"="Aktuelle Tour...";
+"pauseRecording"="Aufnahme pausieren";
+"resumeRecording"="Aufnahme fortsetzen";
+"cancelRecording"="Aufnahme abbrechen";
+"saveRecordedTour"="Aufgenommene Tour speichern";
+"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 "hideTrack"="Tour ausblenden";
 "showTrackList"="Touren...";
 "deleteAllTracks"="Alle Touren löschen";
@@ -130,7 +134,6 @@
 
 // track list - TrackListViewController/TrackCell
 "trackList"="Touren";
-"nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 
 // search
 "searchPlace"="Ort suchen";

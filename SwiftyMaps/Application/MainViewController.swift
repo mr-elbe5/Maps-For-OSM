@@ -84,27 +84,6 @@ class MainViewController: UIViewController {
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
     
-    func startTrackInfo(){
-        statusView.startInfo()
-        
-    }
-    
-    func pauseTrackInfo(){
-        
-    }
-    
-    func resumeTrackInfo(){
-        
-    }
-    
-    func updateTrackInfo(){
-        statusView.updateInfo()
-    }
-    
-    func stopTrackInfo(){
-        statusView.stopInfo()
-    }
-    
 }
 
 extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -149,7 +128,7 @@ extension MainViewController: LocationServiceDelegate{
         if TrackRecorder.isRecording{
             TrackRecorder.updateTrack(with: location)
             mapView.trackLayerView.setNeedsDisplay()
-            updateTrackInfo()
+            statusView.updateInfo()
         }
     }
     
@@ -396,7 +375,6 @@ extension MainViewController: AudioCaptureDelegate{
     
 }
 
-
 extension MainViewController: MainMenuDelegate{
     
     func refreshMap() {
@@ -452,28 +430,51 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
-    func startTracking(){
-        if let lastLocation = LocationService.shared.location{
-            assertLocation(coordinate: lastLocation.coordinate){ location in
-                TrackRecorder.startRecording(startPoint: location)
-                if let track = TrackRecorder.track{
-                    TrackPool.visibleTrack = track
-                    self.mapView.trackLayerView.setNeedsDisplay()
-                    self.startTrackInfo()
-                }
+    func startRecording(){
+        if let location = LocationService.shared.location{
+            TrackRecorder.startRecording(startPoint: TrackPoint(coordinate: location.coordinate))
+            if let track = TrackRecorder.track{
+                TrackPool.visibleTrack = track
+                self.mapView.trackLayerView.setNeedsDisplay()
+                self.statusView.startInfo()
             }
         }
     }
     
-    func openTrack(track: Track) {
-        let controller = TrackDetailViewController()
-        controller.track = track
-        controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        if track == TrackRecorder.track{
-            controller.activeDelegate = self
+    func pauseRecording() {
+        TrackRecorder.pauseRecording()
+        self.statusView.pauseInfo()
+    }
+    
+    func resumeRecording() {
+        TrackRecorder.resumeRecording()
+        self.statusView.resumeInfo()
+    }
+    
+    func cancelRecording() {
+        TrackRecorder.stopRecording()
+        TrackPool.visibleTrack = nil
+        mapView.trackLayerView.setNeedsDisplay()
+        statusView.stopInfo()
+    }
+    test
+    func saveRecordedTour() {
+        if let track = TrackRecorder.track{
+            let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+            alertController.addTextField()
+            alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                track.name = alertController.textFields![0].text ?? "Tour"
+                TrackPool.addTrack(track: track)
+                TrackPool.save()
+                TrackPool.visibleTrack = track
+                self.mapView.trackLayerView.setNeedsDisplay()
+                TrackRecorder.stopRecording()
+                self.statusView.stopInfo()
+                self.mapView.updateLocationLayer()
+                self.mainMenuView.updateTrackMenu()
+            })
+            present(alertController, animated: true)
         }
-        present(controller, animated: true)
     }
     
     func hideTrack() {
@@ -491,7 +492,7 @@ extension MainViewController: MainMenuDelegate{
     
     func deleteAllTracks() {
         showDestructiveApprove(title: "confirmDeleteAllTracks".localize(), text: "deleteAllTracksHint".localize()){
-            self.cancelActiveTrack()
+            self.cancelRecording()
             TrackPool.deleteAllTracks()
             TrackPool.visibleTrack = nil
             self.mapView.trackLayerView.setNeedsDisplay()
@@ -553,7 +554,7 @@ extension MainViewController: LocationListDelegate{
 
 }
 
-extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrackDelegate{
+extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func viewTrackDetails(track: Track) {
         let trackController = TrackDetailViewController()
@@ -589,46 +590,12 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate, ActiveTrac
             mapView.trackLayerView.setNeedsDisplay()
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
             mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
+            mainMenuView.updateTrackMenu()
         }
     }
     
     func updateTrackLayer() {
         mapView.trackLayerView.setNeedsDisplay()
-    }
-    
-    func pauseActiveTrack() {
-        TrackRecorder.pauseRecording()
-        pauseTrackInfo()
-    }
-    
-    func resumeActiveTrack() {
-        TrackRecorder.resumeRecording()
-        resumeTrackInfo()
-    }
-    
-    func cancelActiveTrack() {
-        TrackRecorder.stopRecording()
-        TrackPool.visibleTrack = nil
-        mapView.trackLayerView.setNeedsDisplay()
-        stopTrackInfo()
-    }
-    
-    func saveActiveTrack() {
-        if let track = TrackRecorder.track{
-            let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-            alertController.addTextField()
-            alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                track.name = alertController.textFields![0].text ?? "Tour"
-                TrackPool.addTrack(track: track)
-                TrackPool.save()
-                TrackPool.visibleTrack = track
-                self.mapView.trackLayerView.setNeedsDisplay()
-                TrackRecorder.stopRecording()
-                self.stopTrackInfo()
-                self.mapView.updateLocationLayer()
-            })
-            present(alertController, animated: true)
-        }
     }
     
 }

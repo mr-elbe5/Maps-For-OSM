@@ -12,8 +12,6 @@ import CoreLocation
 protocol TrackListDelegate{
     func showTrackOnMap(track: Track)
     func deleteTrack(track: Track, approved: Bool)
-    func cancelActiveTrack()
-    func saveActiveTrack()
 }
 
 class TrackListViewController: PopupTableViewController{
@@ -36,7 +34,7 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        let loadButton = UIButton().asIconButton("arrow.down.square", color: .white)
+        let loadButton = UIButton().asIconButton("arrow.down.square", color: .black)
         headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
     }
@@ -132,14 +130,6 @@ extension TrackListViewController : TrackCellDelegate{
         tableView.reloadData()
     }
     
-    func cancelActiveTrack() {
-        delegate?.cancelActiveTrack()
-    }
-    
-    func saveActiveTrack() {
-        delegate?.saveActiveTrack()
-    }
-    
 }
 
 extension TrackListViewController : UIDocumentPickerDelegate{
@@ -159,7 +149,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
                             track.name = alertController.textFields![0].text ?? url.lastPathComponent
                             TrackPool.addTrack(track: track)
-                            LocationPool.save()
+                            TrackPool.save()
                             self.tracks?.append(track)
                             self.tableView.reloadData()
                         })

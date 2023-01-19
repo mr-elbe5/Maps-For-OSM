@@ -103,7 +103,11 @@
 
 // track menu
 "startRecording"="Record a new Tour";
-"showCurrentTrack"="Current Tour...";
+"pauseRecording"="Pause Recording";
+"resumeRecording"="Resume Recording";
+"cancelRecording"="Cancel Recording";
+"saveRecordedTour"="Save Recorded Tour";
+"nameOrDescriptionHint"="Please enter a name for this tour";
 "hideTrack"="Hide Tour";
 "showTrackList"="Saved Tours...";
 "deleteAllTracks"="Delete all Tours";
@@ -131,7 +135,6 @@
 
 // track list - TrackListViewController/TrackCell
 "trackList"="Tours";
-"nameOrDescriptionHint"="Please enter a name for this tour";
 
 // search
 "search"="Search Place";
