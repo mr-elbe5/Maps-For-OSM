@@ -51,6 +51,7 @@
 "deleteLocation"="Ort löschen";
 "crossPosition"="Kreuz-Position";
 "currentPosition"="Aktuelle Position";
+"group"="Gruppe";
 "groupCenter"="Gruppenzentrum";
 "location(s)"="Ort(e)";
 "mergeGroup"="Orte der Gruppe zusammenführen";
@@ -103,24 +104,17 @@
 "deleteLocationHint"="Diese Aktion beinhaltet auch die zugeordneten Medien. Sie kann nicht rückgängig gemacht werden.";
 
 // track menu
-"startRecording"="Neue Tour aufnehmen";
-"pauseRecording"="Aufnahme pausieren";
-"resumeRecording"="Aufnahme fortsetzen";
-"cancelRecording"="Aufnahme abbrechen";
-"saveRecordedTour"="Aufgenommene Tour speichern";
+"startRecording"="Neue Tour aufzeichnen";
+"pauseRecording"="Aufzeichnung pausieren";
+"resumeRecording"="Aufzeichnung fortsetzen";
+"cancelRecording"="Aufzeichnung abbrechen";
+"saveRecordedTour"="Aufgezeichnete Tour speichern";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 "hideTrack"="Tour ausblenden";
 "showTrackList"="Touren...";
 "deleteAllTracks"="Alle Touren löschen";
 "confirmDeleteAllTracks"="Wollen Sie alle Touren löschen?";
 "deleteTracksAllHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
-
-// current track
-"startTracking"="Neue Tour aufnehmen";
-"stopTracking"="Aufnahme beenden";
-"saveTrack"="Tour speichern";
-"pause"="Tour pausieren";
-"resume"="Tour fortsetzen";
 
 // track / current track - TrackDetailView
 "track"="Tour";
@@ -130,7 +124,6 @@
 "upDistance"="Aufwärts";
 "downDistance"="Abwärts";
 "duration"="Dauer";
-"currentTrack"="Aktuelle Tour";
 
 // track list - TrackListViewController/TrackCell
 "trackList"="Touren";
@@ -159,6 +152,10 @@
 "tracks"="Touren";
 "confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
 "deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
+"confirmDeleteAudio"="Wollen Sie diese Aufnahme löschen?";
+"deleteAudioHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
+"confirmDeleteVideo"="Wollen Sie dieses Video löschen?";
+"deleteVideoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 "confirmDeleteTrack"="Wollen Sie diese Tour löschen?";
 "deleteTrackHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 
@@ -181,7 +178,7 @@
 //info
 //general info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und nur ein beschränkter Teil der Kacheln (carto und topo) ist vorgeneriert (bis Zoom 11).\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und nur ein beschränkter Teil der Kacheln (carto und topo) ist vorgeneriert (bis Zoom 11).\nAktuelle Informationen dazu finden sich unter www.elbe5.de.\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
 //map icons
 "appIconsHeader"="Symbole auf der Karte";
@@ -202,12 +199,12 @@
 "preloadIconInfoText"="Vorladen des aktuell sichtbaren Kartenausschnitts (siehe unten)";
 "deleteTilesInfoText"="Alle geladenen Kacheln löschen";
     //locations
-"locationMenuInfoText"="Orte";
-"locationIconInfoText"="Kreuz zum Markieren eines Ortes anzeigen";
-"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung (Nadel) erstellt werden. Existiert in der unmittelbaren Nähe bereits eine Markierung, kann diese benutzt werden.";
-"locationListInfoText"="Liste aller Orte (siehe unten)";
-"showLocationsInfoText"="Nadeln auf der Karte einblenden";
-"hideLocationsInfoText"="Nadeln auf der Karte ausblenden";
+"locationMenuInfoText"="Markierte Orte";
+"addLocationInfoText"="Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung (Nadel) erstellt werden. Existiert in der unmittelbaren Nähe bereits ein markierter Ort, kann dieser benutzt werden.";
+"locationListInfoText"="Liste aller markierten Orte (siehe unten)";
+"showLocationsInfoText"="Markierte Orte auf der Karte einblenden";
+"hideLocationsInfoText"="Markierte Orte auf der Karte ausblenden";
+"deleteLocationsInfoText"="Alle markierten Orte einschliesslich der zugeordneten Medien löschen";
     //tracks
 "trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour aufnehmen";
@@ -215,6 +212,7 @@
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
+"deleteTracksInfoText"="Alle Touren löschen";
     //cross
 "crossIconInfoText"="Kreuz für Bildschirmmitte anzeigen oder ausblenden (siehe oben)";
     //center
@@ -223,7 +221,7 @@
 "cameraIconInfoText"="Ein Foto machen oder ein Audio oder Video aufnehmen";
 "addMediaLocationInfoText"="Wenn eine Foto, Audio oder Video aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann das Ergebnis diesem Ort zugeordnet werden.";
     //search
-"searchIconInfoText"="Suche nach Orten";
+"searchIconInfoText"="Suche nach beliebigen Orten auf der Karte";
     //preferences
 "gearIconInfoText"="Voreinstellungen ändern (siehe unten)";
     //info
@@ -234,7 +232,7 @@
 "locationDetailImageInfoText"="Hinzufügen eines Bildes aus der Photobibliothek";
 "locationDetailTrashInfoText"="Löschen dieses Ortes";
 "locationDetailPencilInfoText"="Editiermodus ein- und ausschalten";
-"locationDetailEditInfoText"="Im Editiermodus können die Beschreibung geändert und Bilder gelöscht werden.";
+"locationDetailEditInfoText"="Im Editiermodus können die Notizen geändert werden.";
 "locationDetailShareImageInfo"="Bild in die Photobibliothek kopieren";
 "locationDetailViewImageInfo"="Bild im Bildbetrachter ansehen";
 
@@ -243,10 +241,9 @@
 "preloadInfoText"="Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert. Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden.";
 
 // info for location list
-"locationListInfoHeader"="Ortsliste";
-"locationListPencilInfoText"="Editiermodus ein- und ausschalten";
+"locationListInfoHeader"="Liste markierter Orte";
 "locationListMapInfoText"="Den Ort auf der Karte anzeigen";
-"locationListViewInfoText"="Orts-Detailansicht öffnen (siehe oben)";
+"locationListViewInfoText"="Detailansicht öffnen (siehe oben)";
 "locationListEditInfoText"="Im Editiermodus können einzelne Orte gelöscht werden.";
 
 // info for track details

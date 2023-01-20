@@ -13,8 +13,8 @@ protocol LocationViewDelegate{
 
 class LocationDetailViewController: PopupScrollViewController{
     
-    let editButton = UIButton().asIconButton("pencil.circle", color: .white)
-    let deleteButton = UIButton().asIconButton("trash", color: .white)
+    let editButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let deleteButton = UIButton().asIconButton("trash", color: .red)
     
     let noteContainerView = UIView()
     var noteEditView : TextEditArea? = nil
@@ -47,7 +47,7 @@ class LocationDetailViewController: PopupScrollViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        let addImageButton = UIButton().asIconButton("photo", color: .white)
+        let addImageButton = UIButton().asIconButton("photo", color: .label)
         headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addImageButton.addTarget(self, action: #selector(addImage), for: .touchDown)
         
@@ -156,7 +156,6 @@ class LocationDetailViewController: PopupScrollViewController{
             editMode = true
         }
         setupNoteContainerView()
-        setupMediaStackView()
     }
     
     @objc func deleteLocation(){
@@ -169,14 +168,10 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     @objc func save(){
-        var needsUpdate = false
         location.note = noteEditView?.text ?? ""
         LocationPool.save()
-        needsUpdate = location.hasMedia != hadPhotos
-        self.dismiss(animated: true){
-            if needsUpdate{
-                self.delegate?.updateMarkerLayer()
-            }
+        if editMode{
+            toggleEditMode()
         }
     }
     

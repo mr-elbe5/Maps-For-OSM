@@ -47,12 +47,11 @@ class LocationCell: UITableViewCell{
             deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
             cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
+            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             
-            let mapButton = UIButton().asIconButton("map")
-            mapButton.tintColor = UIColor.systemBlue
+            let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addTarget(self, action: #selector(showLocationOnMap), for: .touchDown)
             cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor

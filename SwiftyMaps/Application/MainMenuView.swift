@@ -20,7 +20,7 @@ protocol MainMenuDelegate: MapPositionDelegate{
     func pauseRecording()
     func resumeRecording()
     func cancelRecording()
-    func saveRecordedTour()
+    func saveRecordedTrack()
     func hideTrack()
     func openTrackList()
     func deleteAllTracks()
@@ -151,7 +151,7 @@ class MainMenuView: UIView {
                 self.updateTrackMenu()
             })
             actions.append(UIAction(title: "saveRecordedTour".localize(), image: UIImage(systemName: "square.and.arrow.down")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)){ action in
-                self.delegate?.saveRecordedTour()
+                self.delegate?.saveRecordedTrack()
                 self.updateTrackMenu()
             })
         }

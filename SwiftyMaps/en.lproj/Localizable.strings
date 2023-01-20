@@ -51,6 +51,7 @@
 "deleteLocation"="Delete Location";
 "crossPosition"="Cross Position";
 "currentPosition"="Current Position";
+"group"="Group";
 "groupCenter"="Group Center";
 "location(s)"="location(s)";
 "mergeGroup"="Merge Locations of Group";
@@ -102,39 +103,32 @@
 "deleteLocationHint"="This action cannot be undone and includes associated media.";
 
 // track menu
-"startRecording"="Record a new Tour";
+"startRecording"="Record a new Track";
 "pauseRecording"="Pause Recording";
 "resumeRecording"="Resume Recording";
 "cancelRecording"="Cancel Recording";
-"saveRecordedTour"="Save Recorded Tour";
-"nameOrDescriptionHint"="Please enter a name for this tour";
-"hideTrack"="Hide Tour";
-"showTrackList"="Saved Tours...";
-"deleteAllTracks"="Delete all Tours";
-"confirmDeleteAllTracks"="Do you want to delete all tours?";
+"saveRecordedTrack"="Save Recorded Track";
+"nameOrDescriptionHint"="Please enter a name for this track";
+"hideTrack"="Hide Track";
+"showTrackList"="Saved Tracks...";
+"deleteAllTracks"="Delete all Tracks";
+"confirmDeleteAllTracks"="Do you want to delete all tracks?";
 "deleteAllTracksHint"="This action cannot be undone.";
 
-// current track
-"startTracking"="Record new Tour";
-"stopTracking"="Stop Recording";
-"saveTrack"="Save Tour";
-"pause"="Pause Tour";
-"resume"="Resume Tour";
-
 // track/ current track - TrackDetailView
-"track"="Tour";
+"track"="Track";
 "startLocation"="Start Location";
 "distances"="Distances";
 "distance"="Distance";
 "upDistance"="Upwards";
 "downDistance"="Downwards";
 "duration"="Duration";
-"currentTrack"="Current Tour";
+"currentTrack"="Current Track";
 "pause"="Pause";
 "resume"="Resume";
 
 // track list - TrackListViewController/TrackCell
-"trackList"="Tours";
+"trackList"="Tracks";
 
 // search
 "search"="Search Place";
@@ -156,9 +150,13 @@
 "note"="Note";
 "media"="Images, Videos and Audios";
 "mediaCount"="Image, Video and Audio count: ";
-"tracks"="Tours";
+"tracks"="Tracks";
 "confirmDeletePhoto"="Do you want to delete this photo?";
 "deletePhotoHint"="This action is executed immediately and cannot be undone.";
+"confirmDeleteAudio"="Do you want to delete this recording?";
+"deleteAudioHint"="This action is executed immediately and cannot be undone.";
+"confirmDeleteVideo"="Do you want to delete this video?";
+"deleteVideoHint"="This action is executed immediately and cannot be undone.";
 "confirmDeleteTrack"="Do you want to delete this track?";
 "deleteTrackHint"="This action cannot be undone.";
 
@@ -174,14 +172,14 @@
 "locationPreferences"="Location Marker Preferences";
 "minLocationAccuracy"="Minimal location accuracy";
 "maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
-"trackPreferences"="Preferences for recording tours";
+"trackPreferences"="Preferences for recording tracks";
 "minTrackingDistance"="Minimal distance between trackpoints [m]";
 "minTrackingInterval"="Minimal time between trackpoints [sec]";
 
 //info
 //general info
 "appInfoHeader"="General";
-"appInfoText"="This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and only part of its tiles (carto and topo) have been pre-generated (up to zoom 11).\nOnce loaded tiles are cached in the app until all tiles are deleted.";
+"appInfoText"="This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and only part of its tiles (carto and topo) have been pre-generated (up to zoom 11).\nUp-to-date information is found at www.elbe5.de.\nOnce loaded tiles are cached in the app until all tiles are deleted.";
 
 //map icons
 "appIconsHeader"="Icons on the Map";
@@ -210,9 +208,9 @@
 "hideLocationsInfoText"="Hide needles on the map";
 "deleteLocationsInfoText"="Delete all locations and all assigned photos and tracks";
     //tracks
-"trackMenuInfoText"="Tour Menu";
-"startTrackInfoText"="Record a new tour";
-"startTrackLocationInfoText"="When a tour is recorded, the current data like covered distance, height and time are shown in the status line.";
+"trackMenuInfoText"="Track Menu";
+"startTrackInfoText"="Record a new track";
+"startTrackLocationInfoText"="When a track is recorded, the current data like covered distance, height and time are shown in the status line.";
 "currentTrackInfoText"="Open current track (see below)";
 "hideTrackInfoText"="Hide track";
 "trackListInfoText"="List of all tracks (see below)";
@@ -236,7 +234,7 @@
 "locationDetailImageInfoText"="Add a photo to this location";
 "locationDetailTrashInfoText"="Delete this location";
 "locationDetailPencilInfoText"="Switch edit mode off and on";
-"locationDetailEditInfoText"="In edit mode the desciption can be changed and photos can be deleted.";
+"locationDetailEditInfoText"="In edit mode the notes can be edited.";
 "locationDetailShareImageInfo"="Copy image to the photo library";
 "locationDetailViewImageInfo"="View image in the viewer";
 
@@ -246,7 +244,6 @@
 
 // info for location list
 "locationListInfoHeader"="List of Locations";
-"locationListPencilInfoText"="Switch edit mode on and off";
 "locationListMapInfoText"="Show the location on the map";
 "locationListViewInfoText"="Show location detail view (see below)";
 

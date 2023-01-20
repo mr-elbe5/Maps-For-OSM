@@ -28,11 +28,11 @@ class ImageListItemView : UIView{
         buttonContainer.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         buttonContainer.setRoundedBorders(radius: 5)
         
-        let shareButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
+        let shareButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
         shareButton.addTarget(self, action: #selector(shareImage), for: .touchDown)
         buttonContainer.addSubviewWithAnchors(shareButton, top: buttonContainer.topAnchor, leading: buttonContainer.leadingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
-        let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
+        let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
         viewButton.addTarget(self, action: #selector(viewImage), for: .touchDown)
         buttonContainer.addSubviewWithAnchors(viewButton, top: buttonContainer.topAnchor, leading: shareButton.trailingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         

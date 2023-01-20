@@ -84,7 +84,7 @@ class LocationLayerView: UIView {
         actions.append(UIAction(title: "delete".localize()){ action in
             self.delegate?.deleteLocation(location: marker.location)
         })
-        return UIMenu(title: "", children: actions)
+        return UIMenu(title: marker.location.name, children: actions)
     }
     
     func getGroupMarkerMenu(marker: LocationGroupMarker) -> UIMenu{
@@ -95,7 +95,7 @@ class LocationLayerView: UIView {
         actions.append(UIAction(title: "mergeGroup".localize()){ action in
             self.delegate?.mergeGroup(group: marker.locationGroup)
         })
-        return UIMenu(title: "", children: actions)
+        return UIMenu(title: "group".localize(), children: actions)
     }
     
     func getMarker(location: Location) -> Marker?{

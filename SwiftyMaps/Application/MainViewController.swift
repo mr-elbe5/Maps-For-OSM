@@ -457,13 +457,16 @@ extension MainViewController: MainMenuDelegate{
         mapView.trackLayerView.setNeedsDisplay()
         statusView.stopInfo()
     }
-    test
-    func saveRecordedTour() {
+    func saveRecordedTrack() {
         if let track = TrackRecorder.track{
             let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
             alertController.addTextField()
             alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                track.name = alertController.textFields![0].text ?? "Tour"
+                var name = alertController.textFields![0].text
+                if name == nil || name!.isEmpty{
+                    name = "Tour"
+                }
+                track.name = name!
                 TrackPool.addTrack(track: track)
                 TrackPool.save()
                 TrackPool.visibleTrack = track

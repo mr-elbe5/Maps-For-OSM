@@ -27,7 +27,7 @@ class VideoListItemView : UIView{
         buttonContainer.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         buttonContainer.setRoundedBorders(radius: 5)
         
-        let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
+        let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
         viewButton.addTarget(self, action: #selector(viewVideo), for: .touchDown)
         buttonContainer.addSubviewWithAnchors(viewButton, top: buttonContainer.topAnchor, leading: buttonContainer.leadingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
