@@ -152,7 +152,8 @@ class Track : Hashable, Codable{
     }
     
     func smoothen(){
-        removeRedundant(maxDeviation: 5)
+        //removeRedundant(maxDeviation: 5)
+        removeUnstable()
     }
     
     func removeRedundant(maxDeviation: CGFloat){
@@ -174,6 +175,30 @@ class Track : Hashable, Codable{
             }
         }
         debug("removing redundant trackpoints ending with \(trackpoints.count)")
+    }
+    
+    func removeUnstable(){
+        //let latDistFactor = CLLocationCoordinate2D.getLatitudeDistanceFactor(latitude: trackpoints[0].coordinate.latitude)
+        var i = 1
+        var lastCoordinate = trackpoints[0].coordinate
+        var lastDir: Int? = nil
+        var lastDiff: Int? = nil
+        while i + 1 < trackpoints.count{
+            let co = trackpoints[i].coordinate
+            let dir = lastCoordinate.direction(to: co)
+            if let lastDir = lastDir{
+                let diff = abs(dir - lastDir)
+                debug("d = \(diff)")
+                if diff > 150, let lastDiff = lastDiff, lastDiff > 150{
+                    debug("zigzag at \(i)")
+                    
+                }
+                lastDiff = diff
+            }
+            lastCoordinate = co
+            lastDir = dir
+            i += 1
+        }
     }
     
 }
