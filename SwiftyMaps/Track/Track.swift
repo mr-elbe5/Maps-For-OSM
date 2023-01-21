@@ -151,5 +151,30 @@ class Track : Hashable, Codable{
         }
     }
     
+    func smoothen(){
+        removeRedundant(maxDeviation: 5)
+    }
+    
+    func removeRedundant(maxDeviation: CGFloat){
+        debug("removing redundant trackpoints starting with \(trackpoints.count)")
+        var i = 0
+        while i + 2 < trackpoints.count{
+            let c0 = trackpoints[i].coordinate
+            let c1 = trackpoints[i + 1].coordinate
+            let c2 = trackpoints[i + 2].coordinate
+            //calculate expected middle coordinated between outer coordinates by triangles
+            let expectedLatitude = (c2.latitude - c0.latitude)/(c2.longitude - c0.longitude) * (c1.longitude - c0.longitude) + c0.latitude
+            let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: c1.longitude)
+            //check for middle coordinate being close to expected coordinate
+            if c1.distance(to: expectedCoordinate) < maxDeviation{
+                trackpoints.remove(at: i+1)
+            }
+            else{
+                i += 1
+            }
+        }
+        debug("removing redundant trackpoints ending with \(trackpoints.count)")
+    }
+    
 }
 

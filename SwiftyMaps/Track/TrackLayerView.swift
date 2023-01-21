@@ -30,24 +30,37 @@ class TrackLayerView: UIView {
         setNeedsDisplay()
     }
     
+    func getDrawPoints(track: Track) -> Array<CGPoint>{
+        var points = Array<CGPoint>()
+        if let offset = offset{
+            let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+            for idx in 0..<track.trackpoints.count{
+                let mapPoint = MapPoint(track.trackpoints[idx].coordinate)
+                let drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
+                points.append(drawPoint)
+            }
+        }
+        return points
+    }
+    
     override func draw(_ rect: CGRect) {
         if let track = TrackPool.visibleTrack{
-            if !track.trackpoints.isEmpty, let offset = offset{
-                let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
-                let color = UIColor.systemOrange.cgColor
+            if !track.trackpoints.isEmpty{
+                let drawPoints = getDrawPoints(track: track)
                 let ctx = UIGraphicsGetCurrentContext()!
                 ctx.beginPath()
-                var mapPoint = MapPoint(track.trackpoints[0].coordinate)
-                var drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
-                ctx.move(to: drawPoint)
-                for idx in 1..<track.trackpoints.count{
-                    mapPoint = MapPoint(track.trackpoints[idx].coordinate)
-                    drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
-                    ctx.addLine(to: drawPoint)
+                ctx.move(to: drawPoints[0])
+                for idx in 1..<drawPoints.count{
+                    ctx.addLine(to: drawPoints[idx])
                 }
-                ctx.setStrokeColor(color)
+                ctx.setStrokeColor(UIColor.systemOrange.cgColor)
                 ctx.setLineWidth(4.0)
                 ctx.drawPath(using: .stroke)
+                ctx.setFillColor(UIColor.black.cgColor)
+                for idx in 0..<drawPoints.count{
+                    let pnt = drawPoints[idx]
+                    ctx.fillEllipse(in: CGRect(x: pnt.x - 1 , y: pnt.y - 1, width: 2, height: 2))
+                }
             }
         }
     }

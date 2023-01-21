@@ -22,16 +22,11 @@ class TrackDetailViewController: PopupScrollViewController{
     
     var track: Track? = nil
     
-    var isActiveTrack : Bool{
-        track != nil && track == TrackRecorder.track
-    }
-    
     let mapButton = UIButton().asIconButton("map", color: .white)
     let deleteButton = UIButton().asIconButton("trash", color: .white)
     
     // MainViewController
     var delegate : TrackDetailDelegate? = nil
-    var activeDelegate : ActiveTrackDelegate? = nil
     
     override func loadView() {
         title = "track".localize()
@@ -81,46 +76,29 @@ class TrackDetailViewController: PopupScrollViewController{
             let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
             contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
             
-            if isActiveTrack{
-                let cancelButton = UIButton()
-                cancelButton.setTitle("cancel".localize(), for: .normal)
-                cancelButton.setTitleColor(.systemBlue, for: .normal)
-                cancelButton.setGrayRoundedBorders()
-                contentView.addSubviewWithAnchors(cancelButton, top: durationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-                cancelButton.addTarget(self, action: #selector(cancel), for: .touchDown)
+            let smoothenButton = UIButton().asTextButton("smoothen".localize(), color: .systemBlue)
+            smoothenButton.addTarget(self, action: #selector(smoothenTrack), for: .touchDown)
+            contentView.addSubviewWithAnchors(smoothenButton, top: durationLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
+                .centerX(contentView.centerXAnchor)
                 
-                let saveButton = UIButton()
-                saveButton.setTitle("save".localize(), for: .normal)
-                saveButton.setTitleColor(.systemBlue, for: .normal)
-                saveButton.setGrayRoundedBorders()
-                contentView.addSubviewWithAnchors(saveButton, top: cancelButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-                saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-            }
-            else{
-                durationLabel.bottom(contentView.bottomAnchor)
-            }
         }
         
     }
     
     @objc func showTrackOnMap(){
         if let track = track{
-            delegate?.showTrackOnMap(track: track)
-        }
-    }
-    
-    @objc func cancel(){
-        if isActiveTrack{
             self.dismiss(animated: true){
-                self.activeDelegate?.cancelActiveTrack()
+                self.delegate?.showTrackOnMap(track: track)
             }
         }
     }
     
-    @objc func save(){
-        if isActiveTrack{
+    @objc func smoothenTrack(){
+        if let track = track{
+            track.smoothen()
+            TrackPool.save()
             self.dismiss(animated: true){
-                self.activeDelegate?.saveActiveTrack()
+                self.delegate?.showTrackOnMap(track: track)
             }
         }
     }
