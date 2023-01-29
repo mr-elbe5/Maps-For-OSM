@@ -25,8 +25,9 @@ class Track : Hashable, Codable{
         case downDistance
     }
     
-    static var minTrackingInterval = 5.0
-    static var maxDeviationDistance = 5.0
+    static var minTrackingInterval = 5.0 // seconds
+    static var maxHorizontalDeviation = 3.0 // meters
+    static var maxVerticalDeviation = 1.0 // meters
     
     var id : UUID
     var startTime : Date
@@ -115,6 +116,7 @@ class Track : Hashable, Codable{
             endTime = time
         }
         var last : TrackPoint? = nil
+        trackpoints.invalidate()
         for tp in trackpoints{
             if let last = last{
                 distance += last.coordinate.distance(to: tp.coordinate)
@@ -131,22 +133,23 @@ class Track : Hashable, Codable{
         }
     }
     
-    func updateTrack(_ location: CLLocation) -> Bool{
+    func addLocation(_ location: CLLocation) -> Bool{
+        let tp = TrackPoint(location: location)
         let lastTP = trackpoints.last
         if let lastTP = lastTP{
             let interval = lastTP.timestamp.distance(to: location.timestamp)
             if interval < Track.minTrackingInterval{
                 return false
             }
-            let tp = TrackPoint(location: location)
             tp.calculateDeltas(to: lastTP)
+            if tp.distance(from: lastTP) < Track.maxHorizontalDeviation{
+                return false
+            }
             trackpoints.append(tp)
             var trackpointsChanged = false
-            //start corrections
-            if removeRedundant(from: trackpoints.count - 3){
+            if removeRedundant(backFrom: trackpoints.count - 1){
                 trackpointsChanged = true
             }
-            // end corrections
             if trackpointsChanged{
                 distance = trackpoints.distance
                 upDistance = trackpoints.upDistance
@@ -164,22 +167,26 @@ class Track : Hashable, Codable{
             }
             endTime = tp.timestamp
         }
+        else{
+            tp.valid = true
+            trackpoints.append(tp)
+        }
         return true
     }
     
-    func removeRedundant(from i: Int) -> Bool{
-        if i < 0 || i + 2 >= trackpoints.count{
+    func removeRedundant(backFrom last: Int) -> Bool{
+        if last < 2 || last + 2 >= trackpoints.count{
             return false
         }
-        let c0 = trackpoints[i].coordinate
-        let c1 = trackpoints[i + 1].coordinate
-        let c2 = trackpoints[i + 2].coordinate
+        let c0 = trackpoints[last - 2].coordinate
+        let c1 = trackpoints[last - 1].coordinate
+        let c2 = trackpoints[last].coordinate
         //calculate expected middle coordinated between outer coordinates by triangles
         let expectedLatitude = (c2.latitude - c0.latitude)/(c2.longitude - c0.longitude) * (c1.longitude - c0.longitude) + c0.latitude
         let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: c1.longitude)
         //check for middle coordinate being close to expected coordinate
-        if c1.distance(to: expectedCoordinate) < Track.maxDeviationDistance{
-            trackpoints.remove(at: i + 1)
+        if c1.distance(to: expectedCoordinate) < Track.maxHorizontalDeviation{
+            trackpoints.remove(at: last - 1)
             return true
         }
         return false
@@ -189,39 +196,11 @@ class Track : Hashable, Codable{
         debug("removing redundant trackpoints starting with \(trackpoints.count)")
         var i = 0
         while i + 2 < trackpoints.count{
-            if !removeRedundant(from: i){
+            if !removeRedundant(backFrom: i){
                 i += 1
             }
         }
         debug("removing redundant trackpoints ending with \(trackpoints.count)")
-        //removeUnstable()
-    }
-    
-    func removeUnstable(){
-        //let latDistFactor = CLLocationCoordinate2D.getLatitudeDistanceFactor(latitude: trackpoints[0].coordinate.latitude)
-        var i = 1
-        var lastCoordinate = trackpoints[0].coordinate
-        var lastDir: Int? = nil
-        var lastDiff: Int? = nil
-        while i + 1 < trackpoints.count{
-            let co = trackpoints[i].coordinate
-            let dir = lastCoordinate.direction(to: co)
-            if let ldir = lastDir{
-                let diff = abs(dir - ldir)
-                debug("d = \(diff)")
-                if diff > 150, let ldiff = lastDiff, ldiff > 150{
-                    debug("zigzag at \(i)")
-                    trackpoints.remove(at: i-1)
-                    lastCoordinate = trackpoints[i-1].coordinate
-                    lastDir = nil
-                    lastDiff = nil
-                }
-                lastDiff = diff
-            }
-            lastCoordinate = co
-            lastDir = dir
-            i += 1
-        }
     }
     
 }

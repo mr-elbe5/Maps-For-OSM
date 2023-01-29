@@ -23,7 +23,7 @@ class TrackRecorder{
     
     static func updateTrack(with location: CLLocation) -> Bool{
         if let track = track{
-            return track.updateTrack(location)
+            return track.addLocation(location)
         }
         return false
     }
