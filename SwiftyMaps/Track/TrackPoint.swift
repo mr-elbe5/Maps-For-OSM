@@ -13,19 +13,7 @@ class TrackPoint: CodableLocation{
     var timeDiff: CGFloat = 0
     var horizontalDistance: CGFloat = 0
     var verticalDistance: CGFloat = 0
-    var horizontalSpeed: CGFloat = 0
-    var verticalSpeed: CGFloat = 0
     
-    var valid = false
-    
-    func calculateDeltas(to tp: TrackPoint){
-        guard timeDiff != 0 else {return}
-        timeDiff = tp.timestamp.distance(to: timestamp)
-        horizontalDistance = tp.coordinate.distance(to: coordinate)
-        verticalDistance = altitude - tp.altitude
-        horizontalSpeed = horizontalDistance/timeDiff
-        verticalSpeed = verticalDistance/timeDiff
-    }
 }
 
 typealias TrackPointList = Array<TrackPoint>
@@ -89,16 +77,6 @@ extension TrackPointList{
             return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
         }
         return nil
-    }
-    
-    func invalidate(){
-        if count == 0{
-            return
-        }
-        self[0].valid = true
-        for i in 1..<count{
-            self[i].valid = false
-        }
     }
     
 }

@@ -116,7 +116,6 @@ class Track : Hashable, Codable{
             endTime = time
         }
         var last : TrackPoint? = nil
-        trackpoints.invalidate()
         for tp in trackpoints{
             if let last = last{
                 distance += last.coordinate.distance(to: tp.coordinate)
@@ -134,24 +133,23 @@ class Track : Hashable, Codable{
     }
     
     func addLocation(_ location: CLLocation) -> Bool{
-        let tp = TrackPoint(location: location)
-        let lastTP = trackpoints.last
-        if let lastTP = lastTP{
+        if let lastTP = trackpoints.last{
             let interval = lastTP.timestamp.distance(to: location.timestamp)
             if interval < Track.minTrackingInterval{
                 return false
             }
-            tp.calculateDeltas(to: lastTP)
-            if tp.distance(from: lastTP) < Track.maxHorizontalDeviation{
+            let distance = lastTP.distance(from: lastTP)
+            if distance < Track.maxHorizontalDeviation{
                 return false
             }
-            trackpoints.append(tp)
             var trackpointsChanged = false
+            let tp = TrackPoint(location: location)
+            trackpoints.append(tp)
             if removeRedundant(backFrom: trackpoints.count - 1){
                 trackpointsChanged = true
             }
             if trackpointsChanged{
-                distance = trackpoints.distance
+                self.distance = trackpoints.distance
                 upDistance = trackpoints.upDistance
                 downDistance = trackpoints.downDistance
             }
@@ -165,12 +163,12 @@ class Track : Hashable, Codable{
                     downDistance -= tp.verticalDistance
                 }
             }
-            endTime = tp.timestamp
         }
         else{
-            tp.valid = true
+            let tp = TrackPoint(location: location)
             trackpoints.append(tp)
         }
+        endTime = location.timestamp
         return true
     }
     
@@ -178,15 +176,17 @@ class Track : Hashable, Codable{
         if last < 2 || last + 2 >= trackpoints.count{
             return false
         }
-        let c0 = trackpoints[last - 2].coordinate
-        let c1 = trackpoints[last - 1].coordinate
-        let c2 = trackpoints[last].coordinate
+        let tp0 = trackpoints[last - 2]
+        let tp1 = trackpoints[last - 1]
+        let tp2 = trackpoints[last]
         //calculate expected middle coordinated between outer coordinates by triangles
-        let expectedLatitude = (c2.latitude - c0.latitude)/(c2.longitude - c0.longitude) * (c1.longitude - c0.longitude) + c0.latitude
-        let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: c1.longitude)
+        let expectedLatitude = (tp2.coordinate.latitude - tp0.coordinate.latitude)/(tp2.coordinate.longitude - tp0.coordinate.longitude) * (tp1.coordinate.longitude - tp0.coordinate.longitude) + tp0.coordinate.latitude
+        let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: tp1.coordinate.longitude)
         //check for middle coordinate being close to expected coordinate
-        if c1.distance(to: expectedCoordinate) < Track.maxHorizontalDeviation{
+        if tp1.coordinate.distance(to: expectedCoordinate) < Track.maxHorizontalDeviation{
             trackpoints.remove(at: last - 1)
+            tp2.horizontalDistance = tp0.coordinate.distance(to: tp2.coordinate)
+            tp2.verticalDistance = tp2.altitude - tp0.altitude
             return true
         }
         return false
