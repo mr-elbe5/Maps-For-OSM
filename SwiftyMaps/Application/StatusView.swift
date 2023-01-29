@@ -12,6 +12,7 @@ class StatusView : UIView{
     var distanceLabel = UILabel()
     var distanceUpLabel = UILabel()
     var distanceDownLabel = UILabel()
+    var lastDistanceLabel = UILabel()
     var timeLabel = UILabel()
     
     var timer : Timer? = nil
@@ -42,13 +43,21 @@ class StatusView : UIView{
         distanceDownLabel.text = "0m"
         addSubviewWithAnchors(distanceDownLabel, top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor)
         
+        let lastDistanceIcon = UIImageView(image: UIImage(systemName: "plus.forwardslash.minus"))
+        lastDistanceIcon.tintColor = .darkGray
+        addSubviewWithAnchors(lastDistanceIcon, top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        lastDistanceLabel.textColor = .darkGray
+        lastDistanceLabel.text = "0/0"
+        addSubviewWithAnchors(lastDistanceLabel, top: topAnchor, leading: lastDistanceIcon.trailingAnchor, bottom: bottomAnchor)
+        
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
         timeIcon.tintColor = .darkGray
-        addSubviewWithAnchors(timeIcon, top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        addSubviewWithAnchors(timeIcon, top: topAnchor, leading: lastDistanceLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         timeLabel.textColor = .darkGray
         addSubviewWithAnchors(timeLabel, top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor)
         
         updateInfo()
+        isHidden = true
     }
     
     func startInfo(){
@@ -61,6 +70,7 @@ class StatusView : UIView{
             distanceLabel.text = "\(Int(track.distance))m"
             distanceUpLabel.text = "\(Int(track.upDistance))m"
             distanceDownLabel.text = "\(Int(track.downDistance))m"
+            lastDistanceLabel.text = "\(Int(track.trackpoints.last?.horizontalDistance ?? 0))/\(Int(track.trackpoints.last?.verticalDistance ?? 0))"
         }
     }
     

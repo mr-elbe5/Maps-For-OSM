@@ -126,8 +126,9 @@ extension MainViewController: LocationServiceDelegate{
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
         if TrackRecorder.isRecording{
-            TrackRecorder.updateTrack(with: location)
-            mapView.trackLayerView.setNeedsDisplay()
+            if TrackRecorder.updateTrack(with: location){
+                mapView.trackLayerView.setNeedsDisplay()
+            }
             statusView.updateInfo()
         }
     }
@@ -387,10 +388,6 @@ extension MainViewController: MainMenuDelegate{
     
     func openPreloadTiles() {
         let region = mapView.scrollView.tileRegion
-        if region.size > Preferences.maxRegionSize{
-            showAlert(title: "regionTooLarge".localize(), text: "selectSmallerRegion".localize())
-            return
-        }
         let controller = PreloadViewController()
         controller.mapRegion = region
         controller.modalPresentationStyle = .fullScreen

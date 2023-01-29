@@ -10,7 +10,7 @@ import CoreLocation
 extension UIViewController{
     
     func assertLocation(coordinate: CLLocationCoordinate2D, onComplete: ((Location) -> Void)? = nil){
-        if let nearestLocation = LocationPool.locationNextTo(coordinate: coordinate, maxDistance: Preferences.shared.maxLocationMergeDistance){
+        if let nearestLocation = LocationPool.locationNextTo(coordinate: coordinate){
             var txt = nearestLocation.name
             if !txt.isEmpty{
                 txt += ", "

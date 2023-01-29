@@ -143,7 +143,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                         for loc in trackpoints{
                             track.trackpoints.append(TrackPoint(location: loc))
                         }
-                        track.evaluateTrackpoints()
+                        track.evaluateImportedTrackpoints()
                         let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
                         alertController.addTextField()
                         alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in

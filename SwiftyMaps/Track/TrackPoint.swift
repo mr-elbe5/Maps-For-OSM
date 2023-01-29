@@ -8,11 +8,55 @@ import Foundation
 import CoreLocation
 import UIKit
 
-typealias TrackPoint = CodableLocation
+class TrackPoint: CodableLocation{
+    
+    var timeDiff: CGFloat = 0
+    var horizontalDistance: CGFloat = 0
+    var verticalDistance: CGFloat = 0
+    var horizontalSpeed: CGFloat = 0
+    var verticalSpeed: CGFloat = 0
+    
+    func calculateDeltas(to tp: TrackPoint){
+        guard timeDiff != 0 else {return}
+        timeDiff = tp.timestamp.distance(to: timestamp)
+        horizontalDistance = tp.coordinate.distance(to: coordinate)
+        verticalDistance = altitude - tp.altitude
+        horizontalSpeed = horizontalDistance/timeDiff
+        verticalSpeed = verticalDistance/timeDiff
+    }
+}
 
 typealias TrackPointList = Array<TrackPoint>
 
 extension TrackPointList{
+    
+    var distance: CGFloat{
+        var d: CGFloat = 0
+        for tp in self{
+            d += tp.horizontalDistance
+        }
+        return d
+    }
+    
+    var upDistance: CGFloat{
+        var d: CGFloat = 0
+        for tp in self{
+            if tp.verticalDistance > 0{
+                d += tp.verticalDistance
+            }
+        }
+        return d
+    }
+    
+    var downDistance: CGFloat{
+        var d: CGFloat = 0
+        for tp in self{
+            if tp.verticalDistance < 0{
+                d -= tp.verticalDistance
+            }
+        }
+        return d
+    }
     
     var boundingCoordinates: (topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D)?{
         get{

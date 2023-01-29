@@ -114,8 +114,6 @@ class InfoViewController: PopupScrollViewController {
         stackView.addSpacer()
         stackView.addArrangedSubview(UILabel(header: "preferencesInfoHeader".localize()))
         stackView.addArrangedSubview(InfoText(text: "urlInfoText".localize(), leftInset: subInset))
-        stackView.addSpacer()
-        stackView.addArrangedSubview(InfoText(text: "maxLocationMergeDistance".localize() + ": " + "maxLocationMergeDistanceInfoText".localize(), leftInset: subInset))
     }
     
 }

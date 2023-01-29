@@ -169,12 +169,6 @@
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "mapPreferencesSaved"="Map preferences have been saved.";
-"locationPreferences"="Location Marker Preferences";
-"minLocationAccuracy"="Minimal location accuracy";
-"maxLocationMergeDistance"="Maximal Distance for Merging Locations [m]";
-"trackPreferences"="Preferences for recording tracks";
-"minTrackingDistance"="Minimal distance between trackpoints [m]";
-"minTrackingInterval"="Minimal time between trackpoints [sec]";
 
 //info
 //general info
@@ -260,8 +254,7 @@
 //info for preferences
 "preferencesInfoHeader"="Preferences";
 "urlInfoText"="The URL templates are server specific and have to return png files (tiles). You must be sure to have the rights for downloading the tiles and that you do not start inappropriate mass downloads.";
-"maxLocationMergeDistanceInfoText"="Maximal distance for using a nearby location (with prompt)";
-"logInfoText"="Here logging can be switched on or off. On save a log file is created in SwiftyMaps/logs. This might be read by other apps, so it should be deleted after use.";
+
 
 
 

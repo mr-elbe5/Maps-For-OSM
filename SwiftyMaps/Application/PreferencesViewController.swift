@@ -12,13 +12,6 @@ class PreferencesViewController: PopupScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
     
-    var minLocationAccuracyField = LabeledTextField()
-    var maxLocationMergeDistanceField = LabeledTextField()
-    
-    var minTrackingDistanceField = LabeledTextField()
-    var minTrackingIntervalField = LabeledTextField()
-    var pinGroupRadiusField = LabeledTextField()
-    
     override func loadView() {
         title = "preferences".localize()
         super.loadView()
@@ -58,23 +51,11 @@ class PreferencesViewController: PopupScrollViewController{
         osmInfoLink.setTitle("osmLegalInfo".localize(), for: .normal)
         osmInfoLink.addTarget(self, action: #selector(openOSMInfo), for: .touchDown)
         
-        minLocationAccuracyField.setupView(labelText: "minLocationAccuracy".localize(), text: String(Int(Preferences.shared.minLocationAccuracy)), isHorizontal: true)
-        contentView.addSubviewWithAnchors(minLocationAccuracyField, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        maxLocationMergeDistanceField.setupView(labelText: "maxLocationMergeDistance".localize(), text: String(Int(Preferences.shared.maxLocationMergeDistance)), isHorizontal: true)
-        contentView.addSubviewWithAnchors(maxLocationMergeDistanceField, top: minLocationAccuracyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        minTrackingDistanceField.setupView(labelText: "minTrackingDistance".localize(), text: String(Int(Preferences.shared.minTrackingDistance)), isHorizontal: true)
-        contentView.addSubviewWithAnchors(minTrackingDistanceField, top: maxLocationMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        minTrackingIntervalField.setupView(labelText: "minTrackingInterval".localize(), text: String(Int(Preferences.shared.minTrackingInterval)), isHorizontal: true)
-        contentView.addSubviewWithAnchors(minTrackingIntervalField, top: minTrackingDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: minTrackingIntervalField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: osmInfoLink.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         
@@ -104,18 +85,6 @@ class PreferencesViewController: PopupScrollViewController{
         let newTemplate = tileUrlTemplateField.text
         if newTemplate != Preferences.shared.urlTemplate{
             Preferences.shared.urlTemplate = newTemplate
-        }
-        if let val = Int(minLocationAccuracyField.text){
-            Preferences.shared.minLocationAccuracy = CLLocationDistance(val)
-        }
-        if let val = Int(maxLocationMergeDistanceField.text){
-            Preferences.shared.maxLocationMergeDistance = CLLocationDistance(val)
-        }
-        if let val = Int(minTrackingDistanceField.text){
-            Preferences.shared.minTrackingDistance = CLLocationDistance(val)
-        }
-        if let val = Int(minTrackingIntervalField.text){
-            Preferences.shared.minTrackingInterval = CLLocationDistance(val)
         }
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())

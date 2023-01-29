@@ -21,10 +21,11 @@ class TrackRecorder{
         isRecording = true
     }
     
-    static func updateTrack(with location: CLLocation){
+    static func updateTrack(with location: CLLocation) -> Bool{
         if let track = track{
-            track.updateTrack(location)
+            return track.updateTrack(location)
         }
+        return false
     }
     
     static func pauseRecording(){

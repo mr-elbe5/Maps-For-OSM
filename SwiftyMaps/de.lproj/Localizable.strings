@@ -168,12 +168,6 @@
 "osmTileURL"="Template für Kacheln von OpenStreetMap.org";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
-"locationPreferences"="Einstellungen für Ortsmarkierungen";
-"minLocationAccuracy"="Mindestgenauigkeit";
-"maxLocationMergeDistance"="Maximale Entfernung zum Zusammenlegen von Orten [m]";
-"trackPreferences"="Einstellungen für Touraufzeichnungen";
-"minTrackingDistance"="Minimale Entfernung zwischen Tourpunkten [m]";
-"minTrackingInterval"="Minimale Zeit zwischen Tourpunkten [sec]";
 
 //info
 //general info
@@ -260,8 +254,7 @@
 //info for preferences
 "preferencesInfoHeader"="Voreinstellungen";
 "urlInfoText"="Die URL Templates sind serverspezifisch und müssen png-Dateien (Kacheln) liefern. Es muss sichergestellt sein, dass die Rechte zum Download der Kacheln vorliegen und dass keine unangemessenen Massendownloads erfolgen.";
-"maxLocationMergeDistanceInfoText"="Maximale Entfernung zur Nutzung eines nahen Ortes (mit Abfrage)";
-"logInfoText"="Hier kann Logging an- und ausgeschaltet werden. Beim Speichern wird eine Log-Datei in SwiftyMaps/logs erzeugt. Diese könnte für andere Apps lesbar sein, sodass sie nach Gebrauch gelöscht werden sollte.";
+
 
 
 

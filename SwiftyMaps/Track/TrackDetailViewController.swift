@@ -96,7 +96,7 @@ class TrackDetailViewController: PopupScrollViewController{
     @objc func smoothenTrack(){
         if let track = track{
             track.smoothen()
-            TrackPool.save()
+            //TrackPool.save()
             self.dismiss(animated: true){
                 self.delegate?.showTrackOnMap(track: track)
             }

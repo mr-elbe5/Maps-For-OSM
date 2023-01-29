@@ -25,6 +25,9 @@ class Track : Hashable, Codable{
         case downDistance
     }
     
+    static var minTrackingInterval = 5.0
+    static var maxDeviationDistance = 5.0
+    
     var id : UUID
     var startTime : Date
     var pauseTime : Date? = nil
@@ -89,30 +92,6 @@ class Track : Hashable, Codable{
         hasher.combine(id)
     }
     
-    func updateTrack(_ location: CLLocation){
-        let lastTP = trackpoints.last
-        if let tp = lastTP{
-            if tp.coordinate.distance(to: location.coordinate) < Preferences.shared.minTrackingDistance{
-                return
-            }
-            let interval = tp.timestamp.distance(to: location.timestamp)
-            if interval < Preferences.shared.minTrackingInterval{
-                return
-            }
-            self.distance += tp.coordinate.distance(to: location.coordinate)
-            let vDist = location.altitude - tp.altitude
-            if vDist > 0{
-                upDistance += vDist
-            }
-            else{
-                //invert negative
-                downDistance -= vDist
-            }
-            endTime = location.timestamp
-        }
-        trackpoints.append(TrackPoint(location: location))
-    }
-    
     func pauseTracking(){
         pauseTime = Date()
     }
@@ -124,7 +103,8 @@ class Track : Hashable, Codable{
         }
     }
     
-    func evaluateTrackpoints(){
+    //todo treat as normal trackpoints
+    func evaluateImportedTrackpoints(){
         distance = 0
         upDistance = 0
         downDistance = 0
@@ -151,30 +131,70 @@ class Track : Hashable, Codable{
         }
     }
     
-    func smoothen(){
-        //removeRedundant(maxDeviation: 5)
-        removeUnstable()
+    func updateTrack(_ location: CLLocation) -> Bool{
+        let lastTP = trackpoints.last
+        if let lastTP = lastTP{
+            let interval = lastTP.timestamp.distance(to: location.timestamp)
+            if interval < Track.minTrackingInterval{
+                return false
+            }
+            let tp = TrackPoint(location: location)
+            tp.calculateDeltas(to: lastTP)
+            trackpoints.append(tp)
+            var trackpointsChanged = false
+            //start corrections
+            if removeRedundant(from: trackpoints.count - 3){
+                trackpointsChanged = true
+            }
+            // end corrections
+            if trackpointsChanged{
+                distance = trackpoints.distance
+                upDistance = trackpoints.upDistance
+                downDistance = trackpoints.downDistance
+            }
+            else{
+                self.distance += tp.horizontalDistance
+                if tp.verticalDistance > 0{
+                    upDistance += tp.verticalDistance
+                }
+                else{
+                    //invert negative
+                    downDistance -= tp.verticalDistance
+                }
+            }
+            endTime = tp.timestamp
+        }
+        return true
     }
     
-    func removeRedundant(maxDeviation: CGFloat){
+    func removeRedundant(from i: Int) -> Bool{
+        if i < 0 || i + 2 >= trackpoints.count{
+            return false
+        }
+        let c0 = trackpoints[i].coordinate
+        let c1 = trackpoints[i + 1].coordinate
+        let c2 = trackpoints[i + 2].coordinate
+        //calculate expected middle coordinated between outer coordinates by triangles
+        let expectedLatitude = (c2.latitude - c0.latitude)/(c2.longitude - c0.longitude) * (c1.longitude - c0.longitude) + c0.latitude
+        let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: c1.longitude)
+        //check for middle coordinate being close to expected coordinate
+        if c1.distance(to: expectedCoordinate) < Track.maxDeviationDistance{
+            trackpoints.remove(at: i + 1)
+            return true
+        }
+        return false
+    }
+    
+    func smoothen(){
         debug("removing redundant trackpoints starting with \(trackpoints.count)")
         var i = 0
         while i + 2 < trackpoints.count{
-            let c0 = trackpoints[i].coordinate
-            let c1 = trackpoints[i + 1].coordinate
-            let c2 = trackpoints[i + 2].coordinate
-            //calculate expected middle coordinated between outer coordinates by triangles
-            let expectedLatitude = (c2.latitude - c0.latitude)/(c2.longitude - c0.longitude) * (c1.longitude - c0.longitude) + c0.latitude
-            let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: c1.longitude)
-            //check for middle coordinate being close to expected coordinate
-            if c1.distance(to: expectedCoordinate) < maxDeviation{
-                trackpoints.remove(at: i+1)
-            }
-            else{
+            if !removeRedundant(from: i){
                 i += 1
             }
         }
         debug("removing redundant trackpoints ending with \(trackpoints.count)")
+        //removeUnstable()
     }
     
     func removeUnstable(){
@@ -186,12 +206,15 @@ class Track : Hashable, Codable{
         while i + 1 < trackpoints.count{
             let co = trackpoints[i].coordinate
             let dir = lastCoordinate.direction(to: co)
-            if let lastDir = lastDir{
-                let diff = abs(dir - lastDir)
+            if let ldir = lastDir{
+                let diff = abs(dir - ldir)
                 debug("d = \(diff)")
-                if diff > 150, let lastDiff = lastDiff, lastDiff > 150{
+                if diff > 150, let ldiff = lastDiff, ldiff > 150{
                     debug("zigzag at \(i)")
-                    
+                    trackpoints.remove(at: i-1)
+                    lastCoordinate = trackpoints[i-1].coordinate
+                    lastDir = nil
+                    lastDiff = nil
                 }
                 lastDiff = diff
             }
