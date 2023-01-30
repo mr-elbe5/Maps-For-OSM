@@ -133,17 +133,22 @@ class Track : Hashable, Codable{
     }
     
     func addLocation(_ location: CLLocation) -> Bool{
-        if let lastTP = trackpoints.last{
-            let interval = lastTP.timestamp.distance(to: location.timestamp)
-            if interval < Track.minTrackingInterval{
+        if let previousTrackpoint = trackpoints.last{
+            let timeDiff = previousTrackpoint.timestamp.distance(to: location.timestamp)
+            if timeDiff < Track.minTrackingInterval{
                 return false
             }
-            let distance = lastTP.distance(from: lastTP)
+            let distance = location.distance(from: previousTrackpoint)
             if distance < Track.maxHorizontalDeviation{
                 return false
             }
             var trackpointsChanged = false
             let tp = TrackPoint(location: location)
+            tp.updateDeltas(from: previousTrackpoint, distance: distance)
+            tp.checkValidity()
+            if !tp.valid{
+                return false
+            }
             trackpoints.append(tp)
             if removeRedundant(backFrom: trackpoints.count - 1){
                 trackpointsChanged = true
@@ -185,8 +190,7 @@ class Track : Hashable, Codable{
         //check for middle coordinate being close to expected coordinate
         if tp1.coordinate.distance(to: expectedCoordinate) < Track.maxHorizontalDeviation{
             trackpoints.remove(at: last - 1)
-            tp2.horizontalDistance = tp0.coordinate.distance(to: tp2.coordinate)
-            tp2.verticalDistance = tp2.altitude - tp0.altitude
+            tp2.updateDeltas(from: tp0)
             return true
         }
         return false

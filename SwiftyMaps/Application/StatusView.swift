@@ -12,7 +12,7 @@ class StatusView : UIView{
     var distanceLabel = UILabel()
     var distanceUpLabel = UILabel()
     var distanceDownLabel = UILabel()
-    var lastDistanceLabel = UILabel()
+    var speedLabel = UILabel()
     var timeLabel = UILabel()
     
     var timer : Timer? = nil
@@ -43,16 +43,16 @@ class StatusView : UIView{
         distanceDownLabel.text = "0m"
         addSubviewWithAnchors(distanceDownLabel, top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor)
         
-        let lastDistanceIcon = UIImageView(image: UIImage(systemName: "plus.forwardslash.minus"))
-        lastDistanceIcon.tintColor = .darkGray
-        addSubviewWithAnchors(lastDistanceIcon, top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
-        lastDistanceLabel.textColor = .darkGray
-        lastDistanceLabel.text = "0/0"
-        addSubviewWithAnchors(lastDistanceLabel, top: topAnchor, leading: lastDistanceIcon.trailingAnchor, bottom: bottomAnchor)
+        let speedIcon = UIImageView(image: UIImage(systemName: "speedometer"))
+        speedIcon.tintColor = .darkGray
+        addSubviewWithAnchors(speedIcon, top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        speedLabel.textColor = .darkGray
+        speedLabel.text = "0km/h"
+        addSubviewWithAnchors(speedLabel, top: topAnchor, leading: speedIcon.trailingAnchor, bottom: bottomAnchor)
         
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
         timeIcon.tintColor = .darkGray
-        addSubviewWithAnchors(timeIcon, top: topAnchor, leading: lastDistanceLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
+        addSubviewWithAnchors(timeIcon, top: topAnchor, leading: speedLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
         timeLabel.textColor = .darkGray
         addSubviewWithAnchors(timeLabel, top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor)
         
@@ -70,7 +70,10 @@ class StatusView : UIView{
             distanceLabel.text = "\(Int(track.distance))m"
             distanceUpLabel.text = "\(Int(track.upDistance))m"
             distanceDownLabel.text = "\(Int(track.downDistance))m"
-            lastDistanceLabel.text = "\(Int(track.trackpoints.last?.horizontalDistance ?? 0))/\(Int(track.trackpoints.last?.verticalDistance ?? 0))"
+            if let tp = track.trackpoints.last{
+                speedLabel.text = "\(tp.kmhSpeed)km/h"
+                speedLabel.textColor = tp.valid ? .darkGray : .red
+            }
         }
     }
     
