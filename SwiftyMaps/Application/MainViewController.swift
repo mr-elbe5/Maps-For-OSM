@@ -429,7 +429,7 @@ extension MainViewController: MainMenuDelegate{
     
     func startRecording(){
         if let location = LocationService.shared.location{
-            TrackRecorder.startRecording(startPoint: TrackPoint(coordinate: location.coordinate))
+            TrackRecorder.startRecording(startPoint: Trackpoint(location: location))
             if let track = TrackRecorder.track{
                 TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()

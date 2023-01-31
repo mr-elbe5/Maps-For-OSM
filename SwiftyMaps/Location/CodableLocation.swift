@@ -12,7 +12,7 @@ class CodableLocation : CLLocation, Codable{
     
     var lock = DispatchSemaphore(value: 1)
     
-    private enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case latitude
         case longitude
         case altitude
@@ -38,6 +38,11 @@ class CodableLocation : CLLocation, Codable{
     init(location: CLLocation){
         mapPoint = MapPoint(location.coordinate)
         super.init(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: location.horizontalAccuracy, verticalAccuracy: location.verticalAccuracy, course: location.course, courseAccuracy: location.courseAccuracy, speed: location.speed, speedAccuracy: location.speedAccuracy, timestamp: location.timestamp)
+    }
+    
+    override init(coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance, horizontalAccuracy: CLLocationAccuracy, verticalAccuracy: CLLocationAccuracy, course: CLLocationDirection, courseAccuracy: CLLocationDirectionAccuracy, speed: CLLocationSpeed, speedAccuracy: CLLocationSpeedAccuracy, timestamp: Date){
+        mapPoint = MapPoint(coordinate)
+        super.init(coordinate: coordinate, altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, courseAccuracy: courseAccuracy, speed: speed, speedAccuracy: speedAccuracy, timestamp: timestamp)
     }
     
     required init?(coder: NSCoder) {

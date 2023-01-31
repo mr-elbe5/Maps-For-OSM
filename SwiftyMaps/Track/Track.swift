@@ -35,7 +35,7 @@ class Track : Hashable, Codable{
     var pauseLength : TimeInterval = 0
     var endTime : Date
     var name : String
-    var trackpoints : TrackPointList
+    var trackpoints : TrackpointList
     var distance : CGFloat
     var upDistance : CGFloat
     var downDistance : CGFloat
@@ -59,7 +59,7 @@ class Track : Hashable, Codable{
         name = "trk"
         startTime = Date()
         endTime = Date()
-        trackpoints = TrackPointList()
+        trackpoints = TrackpointList()
         distance = 0
         upDistance = 0
         downDistance = 0
@@ -71,7 +71,7 @@ class Track : Hashable, Codable{
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
         endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
-        trackpoints = try values.decodeIfPresent(TrackPointList.self, forKey: .trackpoints) ?? TrackPointList()
+        trackpoints = try values.decodeIfPresent(TrackpointList.self, forKey: .trackpoints) ?? TrackpointList()
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
         downDistance = try values.decodeIfPresent(CGFloat.self, forKey: .downDistance) ?? 0
@@ -115,7 +115,7 @@ class Track : Hashable, Codable{
         if let time = trackpoints.last?.timestamp{
             endTime = time
         }
-        var last : TrackPoint? = nil
+        var last : Trackpoint? = nil
         for tp in trackpoints{
             if let last = last{
                 distance += last.coordinate.distance(to: tp.coordinate)
@@ -143,10 +143,9 @@ class Track : Hashable, Codable{
                 return false
             }
             var trackpointsChanged = false
-            let tp = TrackPoint(location: location)
+            let tp = Trackpoint(location: location)
             tp.updateDeltas(from: previousTrackpoint, distance: distance)
-            tp.checkValidity()
-            if !tp.valid{
+            if !tp.horizontallyValid{
                 return false
             }
             trackpoints.append(tp)
@@ -170,7 +169,7 @@ class Track : Hashable, Codable{
             }
         }
         else{
-            let tp = TrackPoint(location: location)
+            let tp = Trackpoint(location: location)
             trackpoints.append(tp)
         }
         endTime = location.timestamp

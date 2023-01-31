@@ -13,10 +13,10 @@ class TrackRecorder{
     static var track : Track? = nil
     static var isRecording : Bool = false
     
-    static func startRecording(startPoint: TrackPoint){
+    static func startRecording(startPoint: Trackpoint){
         if track == nil{
             track = Track()
-            track!.trackpoints.append(TrackPoint(location: startPoint))
+            track!.trackpoints.append(Trackpoint(location: startPoint))
         }
         isRecording = true
     }

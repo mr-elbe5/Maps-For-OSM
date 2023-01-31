@@ -23,7 +23,7 @@ class GPXParser : XMLParser{
         delegate = self
     }
     
-    var trackpoints = [TrackPoint]()
+    var trackpoints = [Trackpoint]()
     
     private var currentTrackPointData : TrackPointData? = nil
     private var currentElement : String? = nil
@@ -63,7 +63,7 @@ extension GPXParser : XMLParserDelegate{
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "trkpt" || elementName == "wpt", let tp = currentTrackPointData{
-            trackpoints.append(TrackPoint(coordinate: tp.coordinate, altitude: tp.altitude, timestamp: tp.time ?? Date()))
+            trackpoints.append(Trackpoint(coordinate: tp.coordinate, altitude: tp.altitude, timestamp: tp.time ?? Date()))
             currentTrackPointData = nil
         }
         currentElement = nil

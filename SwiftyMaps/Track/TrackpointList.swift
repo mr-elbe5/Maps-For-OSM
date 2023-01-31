@@ -8,35 +8,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TrackPoint: CodableLocation{
-    
-    var timeDiff: CGFloat = 0
-    var horizontalDistance: CGFloat = 0
-    var verticalDistance: CGFloat = 0
-    
-    var valid = true
-    
-    var kmhSpeed: Int{
-        guard timeDiff > 0 else { return 0}
-        // km/h
-        let v = horizontalDistance/timeDiff
-        return Int(v * 3.6)
-    }
-    
-    func updateDeltas(from tp: TrackPoint, distance: CGFloat? = nil){
-        timeDiff = tp.timestamp.distance(to: timestamp)
-        horizontalDistance = distance ?? tp.coordinate.distance(to: coordinate)
-        verticalDistance = altitude - tp.altitude
-    }
-    
-    func checkValidity(){
-        valid = speedAccuracy < speed
-    }
-}
+typealias TrackpointList = Array<Trackpoint>
 
-typealias TrackPointList = Array<TrackPoint>
-
-extension TrackPointList{
+extension TrackpointList{
     
     var distance: CGFloat{
         var d: CGFloat = 0
