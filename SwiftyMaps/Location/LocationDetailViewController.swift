@@ -66,7 +66,7 @@ class LocationDetailViewController: PopupScrollViewController{
         let locationLabel = UILabel(text: location.address)
         contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let coordinateLabel = UILabel(text: location.coordinateString)
+        let coordinateLabel = UILabel(text: location.coordinate.asString)
         contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         header = UILabel(header: "note".localize())

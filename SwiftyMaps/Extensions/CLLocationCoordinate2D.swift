@@ -46,7 +46,7 @@ extension CLLocationCoordinate2D : Equatable{
         return Int(round(atan * 180 / Double.pi)) + 90
     }
     
-    public var coordinateString : String{
+    public var asString : String{
         let latitudeText = latitude > 0 ? "north".localize() : "south".localize()
         let longitudeText = longitude > 0 ? "east".localize() : "west".localize()
         return String(format: "%.04f", abs(latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(longitude)) + "° "  + longitudeText

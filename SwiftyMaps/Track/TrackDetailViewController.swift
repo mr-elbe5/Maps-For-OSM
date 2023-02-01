@@ -49,7 +49,7 @@ class TrackDetailViewController: PopupScrollViewController{
             var header = UILabel(header: "startLocation".localize())
             contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
             
-            let coordinateLabel = UILabel(text: track.trackpoints[0].coordinateString)
+            let coordinateLabel = UILabel(text: track.trackpoints[0].coordinate.asString)
             contentView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
             
             let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")

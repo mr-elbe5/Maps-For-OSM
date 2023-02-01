@@ -9,7 +9,7 @@ import CoreLocation
 
 class GPXParser : XMLParser{
     
-    static func parseFile(url: URL) -> [CLLocation]?{
+    static func parseFile(url: URL) -> [Trackpoint]?{
         if let data = FileController.readFile(url: url){
             let parser = GPXParser(data: data)
             guard parser.parse() else { return nil }

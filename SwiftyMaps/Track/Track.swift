@@ -138,7 +138,7 @@ class Track : Hashable, Codable{
             if timeDiff < Track.minTrackingInterval{
                 return false
             }
-            let distance = location.distance(from: previousTrackpoint)
+            let distance = location.coordinate.distance(to: previousTrackpoint.coordinate)
             if distance < Track.maxHorizontalDeviation{
                 return false
             }

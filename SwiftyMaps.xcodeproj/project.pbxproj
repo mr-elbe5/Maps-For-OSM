@@ -76,7 +76,6 @@
 		4E31A658293F4CCC002080F6 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31A657293F4CCC002080F6 /* UIView.swift */; };
 		4E31A65A293F4D3E002080F6 /* UIViewController+Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */; };
 		4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A415E28D83CD9004C9D90 /* CLLocation.swift */; };
-		4E3A416128D83D51004C9D90 /* CodableLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416028D83D51004C9D90 /* CodableLocation.swift */; };
 		4E3A416528D85357004C9D90 /* TrackPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416428D85357004C9D90 /* TrackPool.swift */; };
 		4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416628D8896F004C9D90 /* Nominatim.swift */; };
 		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
@@ -196,7 +195,6 @@
 		4E31A657293F4CCC002080F6 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Insets.swift"; sourceTree = "<group>"; };
 		4E3A415E28D83CD9004C9D90 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
-		4E3A416028D83D51004C9D90 /* CodableLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableLocation.swift; sourceTree = "<group>"; };
 		4E3A416428D85357004C9D90 /* TrackPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPool.swift; sourceTree = "<group>"; };
 		4E3A416628D8896F004C9D90 /* Nominatim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nominatim.swift; sourceTree = "<group>"; };
 		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
@@ -396,7 +394,6 @@
 		4E30799228D783F8005FBEF0 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A416028D83D51004C9D90 /* CodableLocation.swift */,
 				4ED5DF43273E831B00549AF8 /* Location.swift */,
 				4E1D0E23274C223C00F3D584 /* LocationCell.swift */,
 				4E89173E273688580046AC91 /* LocationDetailViewController.swift */,
@@ -603,7 +600,6 @@
 				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
-				4E3A416128D83D51004C9D90 /* CodableLocation.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
 				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,

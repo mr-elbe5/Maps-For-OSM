@@ -15,7 +15,7 @@ extension UIViewController{
             if !txt.isEmpty{
                 txt += ", "
             }
-            txt += nearestLocation.coordinateString
+            txt += nearestLocation.coordinate.asString
             let alertController = UIAlertController(title: "useLocation".localize(), message: txt, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "no".localize(), style: .default) { action in
                 let location = LocationPool.addLocation(coordinate: coordinate)

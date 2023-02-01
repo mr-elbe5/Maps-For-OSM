@@ -155,11 +155,9 @@ extension MainViewController: LocationLayerViewDelegate{
     
     func moveLocationToScreenCenter(location: Location) {
         let centerCoordinate = mapView.scrollView.screenCenterCoordinate
-        //coordinate of location is read only
-        let newLocation = Location(location: location, newCoordinate: centerCoordinate)
-        showDestructiveApprove(title: "confirmMoveLocation".localize(), text: "\("newLocationHint".localize())\n\(newLocation.coordinateString)"){
-            LocationPool.list.append(newLocation)
-            LocationPool.list.remove(location)
+        showDestructiveApprove(title: "confirmMoveLocation".localize(), text: "\("newLocationHint".localize())\n\(centerCoordinate.asString)"){
+            location.coordinate = centerCoordinate
+            location.evaluatePlacemark()
             LocationPool.save()
             self.updateMarkerLayer()
         }
@@ -175,7 +173,7 @@ extension MainViewController: LocationLayerViewDelegate{
     
     func showGroupDetails(group: LocationGroup) {
         if let coordinate = group.centralCoordinate{
-            let str = "\(coordinate.coordinateString)\n\(group.locations.count) \("location(s)".localize())"
+            let str = "\(coordinate.asString)\n\(group.locations.count) \("location(s)".localize())"
             self.showAlert(title: "groupCenter".localize(), text: str)
             
         }
@@ -183,7 +181,7 @@ extension MainViewController: LocationLayerViewDelegate{
     
     func mergeGroup(group: LocationGroup) {
         if let mergedLocation = group.centralLocation{
-            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinateString)"){
+            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
                 LocationPool.list.append(mergedLocation)
                 LocationPool.list.removeAllOf(group.locations)
                 LocationPool.save()
@@ -201,9 +199,9 @@ extension MainViewController: MapPositionDelegate{
             LocationService.shared.getPlacemark(for: location){ placemark in
                 var str : String
                 if let placemark = placemark{
-                    str = placemark.locationString + "\n" + location.coordinate.coordinateString
+                    str = placemark.locationString + "\n" + location.coordinate.asString
                 } else{
-                    str = location.coordinate.coordinateString
+                    str = location.coordinate.asString
                 }
                 self.showAlert(title: "currentPosition".localize(), text: str)
             }
@@ -291,9 +289,9 @@ extension MainViewController: MapPositionDelegate{
         LocationService.shared.getPlacemark(for: location){ placemark in
             var str : String
             if let placemark = placemark{
-                str = placemark.locationString + "\n" + location.coordinate.coordinateString
+                str = placemark.locationString + "\n" + location.coordinate.asString
             } else{
-                str = location.coordinate.coordinateString
+                str = location.coordinate.asString
             }
             self.showAlert(title: "crossPosition".localize(), text: str)
         }
@@ -429,7 +427,7 @@ extension MainViewController: MainMenuDelegate{
     
     func startRecording(){
         if let location = LocationService.shared.location{
-            TrackRecorder.startRecording(startPoint: Trackpoint(location: location))
+            TrackRecorder.startRecording(startLocation: location)
             if let track = TrackRecorder.track{
                 TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()

@@ -66,7 +66,7 @@ class TrackCell: UITableViewCell{
             cellBody.addSubviewWithAnchors(header, top: showOnMapButton.bottomAnchor, leading: cellBody.leadingAnchor, insets: defaultInsets)
             
             let tp = track.trackpoints.isEmpty ? nil : track.trackpoints[0]
-            let coordinateLabel = UILabel(text: tp?.coordinateString ?? "")
+            let coordinateLabel = UILabel(text: tp?.coordinate.asString ?? "")
             cellBody.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: flatInsets)
             
             let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")

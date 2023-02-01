@@ -8,14 +8,27 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Trackpoint: CodableLocation{
+class Trackpoint: Codable, Identifiable{
     
     enum CodingKeys: String, CodingKey{
+        case latitude
+        case longitude
+        case altitude
+        case timestamp
         case horizontalAccuracy
         case verticalAccuracy
         case speed
         case speedAccuracy
     }
+    
+    var coordinate: CLLocationCoordinate2D
+    var altitude: Double
+    var timestamp: Date
+    var mapPoint: MapPoint
+    var horizontalAccuracy: Double = 0
+    var verticalAccuracy: Double = 0
+    var speed: Double = 0
+    var speedAccuracy: Double = 0
     
     var timeDiff: CGFloat = 0
     var horizontalDistance: CGFloat = 0
@@ -37,44 +50,56 @@ class Trackpoint: CodableLocation{
     }
     
     // for gpx parser
-    override init(coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance, timestamp: Date){
-        super.init(coordinate: coordinate, altitude: altitude, timestamp: timestamp)
+    init(coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance, timestamp: Date){
+        self.coordinate = coordinate
+        self.altitude = altitude
+        self.timestamp = timestamp
+        mapPoint = MapPoint(coordinate)
     }
     
     // for track recorder
-    override init(location: CLLocation){
-        super.init(location: location)
+    init(location: CLLocation){
+        mapPoint = MapPoint(location.coordinate)
+        coordinate = location.coordinate
+        altitude = location.altitude
+        timestamp = location.timestamp
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("not implemented")
     }
     
     public required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodableLocation.CodingKeys.self)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
-        let coord = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let tpvalues = try decoder.container(keyedBy: CodingKeys.self)
-        super.init(coordinate: coord,
-                   altitude: try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0,
-                   horizontalAccuracy: try tpvalues.decodeIfPresent(Double.self, forKey: .horizontalAccuracy) ?? 0,
-                   verticalAccuracy: try tpvalues.decodeIfPresent(Double.self, forKey: .verticalAccuracy) ?? 0,
-                   course: 0,
-                   courseAccuracy: 0,
-                   speed: try tpvalues.decodeIfPresent(Double.self, forKey: .speed) ?? 0,
-                   speedAccuracy: try tpvalues.decodeIfPresent(Double.self, forKey: .speedAccuracy) ?? 0,
-                   timestamp: try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date())
-        mapPoint = MapPoint(coord)
+        coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        mapPoint = MapPoint(coordinate)
+        altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
+        timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
+        horizontalAccuracy = try values.decodeIfPresent(Double.self, forKey: .horizontalAccuracy) ?? 0
+        verticalAccuracy = try values.decodeIfPresent(Double.self, forKey: .verticalAccuracy) ?? 0
+        speed = try values.decodeIfPresent(Double.self, forKey: .speed) ?? 0
+        speedAccuracy = try values.decodeIfPresent(Double.self, forKey: .speedAccuracy) ?? 0
     }
     
-    override public func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(coordinate.latitude, forKey: .latitude)
+        try container.encode(coordinate.longitude, forKey: .longitude)
+        try container.encode(altitude, forKey: .altitude)
+        try container.encode(timestamp, forKey: .timestamp)
         try container.encode(horizontalAccuracy, forKey: .horizontalAccuracy)
         try container.encode(verticalAccuracy, forKey: .verticalAccuracy)
         try container.encode(speed, forKey: .speed)
         try container.encode(speedAccuracy, forKey: .speedAccuracy)
+    }
+    
+    init(coordinate: CLLocationCoordinate2D){
+        mapPoint = MapPoint(coordinate)
+        self.coordinate = coordinate
+        altitude = 0
+        timestamp = Date()
     }
     
     func updateDeltas(from tp: Trackpoint, distance: CGFloat? = nil){

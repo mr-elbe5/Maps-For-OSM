@@ -8,7 +8,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Location : CodableLocation{
+class Location : NSObject, Codable, Identifiable{
     
     static func == (lhs: Location, rhs: Location) -> Bool {
         lhs.id == rhs.id
@@ -16,6 +16,10 @@ class Location : CodableLocation{
     
     private enum CodingKeys: String, CodingKey {
         case id
+        case latitude
+        case longitude
+        case altitude
+        case timestamp
         case name
         case address
         case note
@@ -25,6 +29,10 @@ class Location : CodableLocation{
     }
     
     var id : UUID
+    var coordinate: CLLocationCoordinate2D
+    var altitude: Double
+    var timestamp: Date
+    var mapPoint: MapPoint
     var name : String = ""
     var address : String = ""
     var note : String = ""
@@ -34,29 +42,31 @@ class Location : CodableLocation{
         !media.isEmpty
     }
     
-    override init(coordinate: CLLocationCoordinate2D){
+    init(coordinate: CLLocationCoordinate2D){
         id = UUID()
         media = MediaList()
-        super.init(coordinate: coordinate)
-        evaluatePlacemark()
-    }
-    
-    init(location: Location, newCoordinate: CLLocationCoordinate2D){
-        id = location.id
-        note = location.note
-        media = location.media
-        super.init(coordinate: newCoordinate)
+        mapPoint = MapPoint(coordinate)
+        self.coordinate = coordinate
+        altitude = 0
+        timestamp = Date()
+        super.init()
         evaluatePlacemark()
     }
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
+        let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
+        coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        mapPoint = MapPoint(coordinate)
+        altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
+        timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         media = try values.decodeIfPresent(MediaList.self, forKey: .media) ?? MediaList()
-        try super.init(from: decoder)
+        super.init()
         if AppState.shared.version < AppState.currentVersion{
             try transferOldPhotosAndTracks(values: values)
         }
@@ -99,10 +109,13 @@ class Location : CodableLocation{
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(coordinate.latitude, forKey: .latitude)
+        try container.encode(coordinate.longitude, forKey: .longitude)
+        try container.encode(altitude, forKey: .altitude)
+        try container.encode(timestamp, forKey: .timestamp)
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
         try container.encode(note, forKey: .note)
@@ -128,8 +141,6 @@ class Location : CodableLocation{
     }
     
     func deleteMedia(file: MediaFile){
-        lock.wait()
-        defer{lock.signal()}
         media.remove(file)
     }
     

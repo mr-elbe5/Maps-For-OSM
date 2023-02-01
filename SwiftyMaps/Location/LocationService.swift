@@ -47,6 +47,17 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
         authorizationStatus == .authorizedAlways
     }
     
+    func getPlacemark(for location: Location, result: @escaping(CLPlacemark?) -> Void){
+        geocoder.reverseGeocodeLocation(CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), completionHandler: { (placemarks, error) in
+            if error == nil, let placemark =  placemarks?[0]{
+                result(placemark)
+            }
+            else{
+                result(nil)
+            }
+        })
+    }
+    
     func getPlacemark(for location: CLLocation, result: @escaping(CLPlacemark?) -> Void){
         geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
             if error == nil, let placemark =  placemarks?[0]{
