@@ -59,7 +59,7 @@ class PreferencesViewController: PopupScrollViewController{
         osmInfoLink.addTarget(self, action: #selector(openOSMInfo), for: .touchDown)
         
         followTrackSwitch.setupView(labelText: "followTrack".localize(), isOn: Preferences.shared.followTrack)
-        contentView.addSubviewWithAnchors(followTrackSwitch, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(followTrackSwitch, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)

@@ -310,16 +310,16 @@
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
 				4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */,
 				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
+				4E5F8C8B298D18F700D1CE5C /* MainViewController+Location.swift */,
+				4E5F8C89298D16F300D1CE5C /* MainViewController+Media.swift */,
+				4E5F8C87298D168E00D1CE5C /* MainViewController+Menu.swift */,
+				4E5F8C91298D19F800D1CE5C /* MainViewController+Preferences.swift */,
+				4E5F8C8F298D19DD00D1CE5C /* MainViewController+Search.swift */,
+				4E5F8C8D298D192000D1CE5C /* MainViewController+Track.swift */,
 				4E55B2B02944B0EA005D2BFB /* Preferences.swift */,
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
-				4E5F8C87298D168E00D1CE5C /* MainViewController+Menu.swift */,
-				4E5F8C89298D16F300D1CE5C /* MainViewController+Media.swift */,
-				4E5F8C8B298D18F700D1CE5C /* MainViewController+Location.swift */,
-				4E5F8C8D298D192000D1CE5C /* MainViewController+Track.swift */,
-				4E5F8C8F298D19DD00D1CE5C /* MainViewController+Search.swift */,
-				4E5F8C91298D19F800D1CE5C /* MainViewController+Preferences.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";

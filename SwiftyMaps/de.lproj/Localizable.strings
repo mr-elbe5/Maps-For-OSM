@@ -167,7 +167,8 @@
 "elbe5LegalInfo"="Regeln für das Laden von Elbe5.de";
 "osmTileURL"="Template für Kacheln von OpenStreetMap.org";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
-"mapPreferencesSaved"="Karteneinstellungen wurden gesichert.";
+"followTrack"="Position bei Touraufzeichnung folgen";
+"preferencesSaved"="Einstellungen wurden gesichert.";
 
 //info
 //general info

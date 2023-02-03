@@ -168,7 +168,8 @@
 "osmTileURL"="Use template for tiles from OpenStreetMap.org";
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
-"mapPreferencesSaved"="Map preferences have been saved.";
+"followTrack"="Follow Position on Tour Recording";
+"preferencesSaved"="Preferences have been saved.";
 
 //info
 //general info
