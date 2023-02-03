@@ -28,8 +28,8 @@ class MainViewController: UIViewController {
         mapView.setupUserLocationView()
         setupMainMenuView(layoutGuide: layoutGuide)
         mainMenuView.delegate = self
-        setupStatusView(layoutGuide: layoutGuide)
         setupLicenseView(layoutGuide: layoutGuide)
+        setupStatusView(layoutGuide: layoutGuide)
         mapView.delegate = self
         mapView.setDefaultLocation()
     }
@@ -39,13 +39,8 @@ class MainViewController: UIViewController {
         mainMenuView.setup()
     }
     
-    func setupStatusView(layoutGuide: UILayoutGuide){
-        statusView.setup()
-        view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: flatInsets)
-    }
-    
     func setupLicenseView(layoutGuide: UILayoutGuide){
-        view.addSubviewWithAnchors(licenseView, trailing: layoutGuide.trailingAnchor, bottom: statusView.topAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(licenseView, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: defaultInsets)
         
         var label = UILabel()
         label.textColor = .darkGray
@@ -65,6 +60,11 @@ class MainViewController: UIViewController {
         label.font = .preferredFont(forTextStyle: .footnote)
         licenseView.addSubviewWithAnchors(label, top: licenseView.topAnchor, leading: link.trailingAnchor, trailing: licenseView.trailingAnchor, bottom: licenseView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: defaultInset))
         label.text = " contributors"
+    }
+    
+    func setupStatusView(layoutGuide: UILayoutGuide){
+        statusView.setup()
+        view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
     }
     
     @objc func openOSMUrl() {

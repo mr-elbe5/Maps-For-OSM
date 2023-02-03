@@ -72,7 +72,6 @@ class StatusView : UIView{
             distanceDownLabel.text = "\(Int(track.downDistance))m"
             if let tp = track.trackpoints.last{
                 speedLabel.text = "\(tp.kmhSpeed)km/h"
-                speedLabel.textColor = tp.horizontallyValid ? .darkGray : .red
             }
         }
     }

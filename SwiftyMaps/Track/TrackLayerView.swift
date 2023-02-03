@@ -57,10 +57,10 @@ class TrackLayerView: UIView {
                 ctx.setLineWidth(4.0)
                 ctx.drawPath(using: .stroke)
                 ctx.setFillColor(UIColor.black.cgColor)
-                for idx in 0..<drawPoints.count{
+                /*for idx in 0..<drawPoints.count{
                     let pnt = drawPoints[idx]
                     ctx.fillEllipse(in: CGRect(x: pnt.x - 1 , y: pnt.y - 1, width: 2, height: 2))
-                }
+                }*/
             }
         }
     }
