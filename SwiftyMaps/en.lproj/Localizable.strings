@@ -88,9 +88,9 @@
 "preloadHint"="You can find links to legal infos under preferences.";
 
 // location menu
-"showLocationList"="Show Location List";
 "showLocations"="Show Location Markers";
 "hideLocations"="Hide Location Markers";
+"showLocationList"="Marked Locations...";
 "deleteLocations"="Delete all Location Markers";
 "confirmDeleteLocations"="Do you want to delete all location markers?";
 "deleteLocationsHint"="This action cannot be undone. Associated media will also be deleted.";
@@ -110,7 +110,7 @@
 "saveRecordedTrack"="Save Recorded Track";
 "nameOrDescriptionHint"="Please enter a name for this track";
 "hideTrack"="Hide Track";
-"showTrackList"="Saved Tracks...";
+"showTrackList"="Recorded Tracks...";
 "deleteAllTracks"="Delete all Tracks";
 "confirmDeleteAllTracks"="Do you want to delete all tracks?";
 "deleteAllTracksHint"="This action cannot be undone.";
@@ -204,7 +204,7 @@
     //tracks
 "trackMenuInfoText"="Track Menu";
 "startTrackInfoText"="Record a new track";
-"startTrackLocationInfoText"="When a track is recorded, the current data like covered distance, height and time are shown in the status line.";
+"startTrackLocationInfoText"="When a track is recorded, the current data like covered distance, height, speed and time are shown in the status line.";
 "currentTrackInfoText"="Open current track (see below)";
 "hideTrackInfoText"="Hide track";
 "trackListInfoText"="List of all tracks (see below)";

@@ -30,9 +30,11 @@ class Preferences: Identifiable, Codable{
     
     enum CodingKeys: String, CodingKey {
         case urlTemplate
+        case followTrack
     }
 
     var urlTemplate : String = osmUrl
+    var followTrack : Bool = false
     
     init(){
     }
@@ -40,11 +42,13 @@ class Preferences: Identifiable, Codable{
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
+        followTrack = try values.decodeIfPresent(Bool.self, forKey: .followTrack) ?? false
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
+        try container.encode(followTrack, forKey: .followTrack)
     }
     
     func save(){

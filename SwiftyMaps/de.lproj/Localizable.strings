@@ -90,7 +90,7 @@
 
 // location menu
 
-"showLocationList"="Ortsliste anzeigen";
+"showLocationList"="Markierte Orte...";
 "showLocations"="Markierte Orte anzeigen";
 "hideLocations"="Markierte Orte ausblenden";
 "confirmDeleteLocations"="Wollen Sie alle Markierungen löschen?";
@@ -111,7 +111,7 @@
 "saveRecordedTour"="Aufgezeichnete Tour speichern";
 "nameOrDescriptionHint"="Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein.";
 "hideTrack"="Tour ausblenden";
-"showTrackList"="Touren...";
+"showTrackList"="Aufgezeichnete Touren...";
 "deleteAllTracks"="Alle Touren löschen";
 "confirmDeleteAllTracks"="Wollen Sie alle Touren löschen?";
 "deleteTracksAllHint"="Diese Aktion kann nicht rückgängig gemacht werden.";
@@ -202,7 +202,7 @@
     //tracks
 "trackMenuInfoText"="Touren";
 "startTrackInfoText"="Neue Tour aufnehmen";
-"startTrackLocationInfoText"="Wenn eine Tour aufgenommen wird, werden die aktuellen Daten wie zurückgelegte Strecke, Höhenmeter und Zeit in der Statuszeile angezeigt.";
+"startTrackLocationInfoText"="Wenn eine Tour aufgenommen wird, werden die aktuellen Daten wie zurückgelegte Strecke, Höhenmeter, Geschwindigkeit und Zeit in der Statuszeile angezeigt.";
 "currentTrackInfoText"="Aktuelle Tour öffnen (siehe unten)";
 "hideTrackInfoText"="Tour ausblenden";
 "trackListInfoText"="Liste aller Touren öffnen (siehe unten)";
