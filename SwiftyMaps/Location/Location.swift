@@ -80,7 +80,8 @@ class Location : NSObject, Codable, Identifiable{
         if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
             info("Location moving photos to media")
             for photo in photoList{
-                let oldURL = FileController.getURL(dirURL: FileController.oldImageDirURL,fileName: photo.fileName)
+                let oldFileName = "img_\(photo.id)_\(photo.creationDate.shortFileDate()).jpg"
+                let oldURL = FileController.getURL(dirURL: FileController.oldImageDirURL,fileName: oldFileName)
                 if FileController.fileExists(url: oldURL){
                     if FileController.copyFile(fromURL: oldURL, toURL: photo.fileURL){
                         info("copied old photo \(photo.fileName) to media directory")
