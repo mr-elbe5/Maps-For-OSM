@@ -84,12 +84,16 @@ extension MainViewController: LocationServiceDelegate{
                     mapView.focusUserLocation()
                 }
             }
-            statusView.updateInfo()
+            statusView.updateTrackInfo()
+        }
+        if statusView.isDetailed{
+            statusView.updateDetailInfo(location: location)
         }
     }
     
     func directionDidChange(direction: CLLocationDirection) {
         mapView.setDirection(direction)
+        statusView.updateDirection(direction: direction)
     }
     
 }

@@ -68,7 +68,6 @@ class PreferencesViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(saveButton, top: followTrackSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
-        
     }
     
     @objc func elbe5Template(){
@@ -103,5 +102,6 @@ class PreferencesViewController: PopupScrollViewController{
     }
     
 }
+
     
 

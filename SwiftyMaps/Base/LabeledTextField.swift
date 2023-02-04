@@ -46,5 +46,9 @@ class LabeledTextField : UIView, UITextFieldDelegate{
         }
     }
     
+    func updateText(_ text: String){
+        textField.text = text
+    }
+    
 }
 

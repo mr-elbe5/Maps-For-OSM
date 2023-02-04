@@ -65,26 +65,26 @@ extension MainViewController: MainMenuDelegate{
             if let track = TrackRecorder.track{
                 TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
-                self.statusView.startInfo()
+                self.statusView.startTrackInfo()
             }
         }
     }
     
     func pauseRecording() {
         TrackRecorder.pauseRecording()
-        self.statusView.pauseInfo()
+        self.statusView.pauseTrackInfo()
     }
     
     func resumeRecording() {
         TrackRecorder.resumeRecording()
-        self.statusView.resumeInfo()
+        self.statusView.resumeTrackInfo()
     }
     
     func cancelRecording() {
         TrackRecorder.stopRecording()
         TrackPool.visibleTrack = nil
         mapView.trackLayerView.setNeedsDisplay()
-        statusView.stopInfo()
+        statusView.stopTrackInfo()
     }
     func saveRecordedTrack() {
         if let track = TrackRecorder.track{
@@ -101,7 +101,7 @@ extension MainViewController: MainMenuDelegate{
                 TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()
-                self.statusView.stopInfo()
+                self.statusView.stopTrackInfo()
                 self.mapView.updateLocationLayer()
                 self.mainMenuView.updateTrackMenu()
             })
