@@ -25,10 +25,6 @@ class Track : Hashable, Codable{
         case downDistance
     }
     
-    static var minTrackingInterval = 5.0 // seconds
-    static var maxHorizontalDeviation = 3.0 // meters
-    static var maxVerticalDeviation = 1.0 // meters
-    
     var id : UUID
     var startTime : Date
     var pauseTime : Date? = nil
@@ -135,19 +131,19 @@ class Track : Hashable, Codable{
     func addLocation(_ location: CLLocation) -> Bool{
         if let previousTrackpoint = trackpoints.last{
             let timeDiff = previousTrackpoint.timestamp.distance(to: location.timestamp)
-            if timeDiff < Track.minTrackingInterval{
+            if timeDiff < Preferences.shared.minTrackpointTimeDelta{
                 return false
             }
             let distance = location.coordinate.distance(to: previousTrackpoint.coordinate)
-            if distance < Track.maxHorizontalDeviation{
+            if distance < Preferences.shared.minTrackpointHorizontalDelta{
                 return false
             }
             var trackpointsChanged = false
             let tp = Trackpoint(location: location)
             tp.updateDeltas(from: previousTrackpoint, distance: distance)
-            if !tp.horizontallyValid{
+            /*if !tp.horizontallyValid{
                 return false
-            }
+            }*/
             trackpoints.append(tp)
             if removeRedundant(backFrom: trackpoints.count - 1){
                 trackpointsChanged = true
@@ -187,7 +183,7 @@ class Track : Hashable, Codable{
         let expectedLatitude = (tp2.coordinate.latitude - tp0.coordinate.latitude)/(tp2.coordinate.longitude - tp0.coordinate.longitude) * (tp1.coordinate.longitude - tp0.coordinate.longitude) + tp0.coordinate.latitude
         let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: tp1.coordinate.longitude)
         //check for middle coordinate being close to expected coordinate
-        if tp1.coordinate.distance(to: expectedCoordinate) < Track.maxHorizontalDeviation{
+        if tp1.coordinate.distance(to: expectedCoordinate) < Preferences.shared.minTrackpointHorizontalDelta{
             trackpoints.remove(at: last - 1)
             tp2.updateDeltas(from: tp0)
             return true

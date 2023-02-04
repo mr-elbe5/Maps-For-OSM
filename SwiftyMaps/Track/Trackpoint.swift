@@ -95,18 +95,12 @@ class Trackpoint: Codable, Identifiable{
         try container.encode(speedAccuracy, forKey: .speedAccuracy)
     }
     
-    init(coordinate: CLLocationCoordinate2D){
-        mapPoint = MapPoint(coordinate)
-        self.coordinate = coordinate
-        altitude = 0
-        timestamp = Date()
-    }
-    
     func updateDeltas(from tp: Trackpoint, distance: CGFloat? = nil){
         timeDiff = tp.timestamp.distance(to: timestamp)
         horizontalDistance = distance ?? tp.coordinate.distance(to: coordinate)
         verticalDistance = altitude - tp.altitude
-        if verticalAccuracy > verticalDistance{
+        if verticalDistance < Preferences.shared.minTrackpointHorizontalDelta{
+            altitude = tp.altitude
             verticalDistance = 0
         }
     }

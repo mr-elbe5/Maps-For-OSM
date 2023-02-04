@@ -168,6 +168,9 @@
 "osmTileURL"="Template für Kacheln von OpenStreetMap.org";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "followTrack"="Position bei Touraufzeichnung folgen";
+"minTrackpointTimeDelta"="Minimale Zeit zwischen Trackpoints";
+"minTrackpointHorizontalDelta"="Minimale horizontale Distanz zwischen Trackpoints";
+"minTrackpointVerticalDelta"="Minimale vertikale Distanz zwischen Trackpoints";
 "preferencesSaved"="Einstellungen wurden gesichert.";
 
 //info

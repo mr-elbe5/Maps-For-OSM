@@ -169,6 +169,9 @@
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "followTrack"="Follow Position on Tour Recording";
+"minTrackpointTimeDelta"="Minimal Time between Trackpoints";
+"minTrackpointHorizontalDelta"="Minimal Distance between Trackpoints";
+"minTrackpointVerticalDelta"="Minimal Vertical Distance between Trackpoints";
 "preferencesSaved"="Preferences have been saved.";
 
 //info

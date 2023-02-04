@@ -16,6 +16,9 @@ class PreferencesViewController: PopupScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
+    var minTrackpointTimeDeltaField = LabeledTextField()
+    var minTrackpointHorizontalDeltaField = LabeledTextField()
+    var minTrackpointVerticalDeltaField = LabeledTextField()
     
     var delegate: PreferencesDelegate? = nil
     
@@ -61,11 +64,20 @@ class PreferencesViewController: PopupScrollViewController{
         followTrackSwitch.setupView(labelText: "followTrack".localize(), isOn: Preferences.shared.followTrack)
         contentView.addSubviewWithAnchors(followTrackSwitch, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
+        minTrackpointTimeDeltaField.setupView(labelText: "minTrackpointTimeDelta".localize(), text: String(Preferences.shared.minTrackpointTimeDelta), isHorizontal: false)
+        contentView.addSubviewWithAnchors(minTrackpointTimeDeltaField, top: followTrackSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        minTrackpointHorizontalDeltaField.setupView(labelText: "minTrackpointHorizontalDelta".localize(), text: String(Preferences.shared.minTrackpointHorizontalDelta), isHorizontal: false)
+        contentView.addSubviewWithAnchors(minTrackpointHorizontalDeltaField, top: minTrackpointTimeDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        minTrackpointVerticalDeltaField.setupView(labelText: "minTrackpointVerticalDelta".localize(), text: String(Preferences.shared.minTrackpointVerticalDelta), isHorizontal: false)
+        contentView.addSubviewWithAnchors(minTrackpointVerticalDeltaField, top: minTrackpointHorizontalDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: followTrackSwitch.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: minTrackpointVerticalDeltaField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
     }
@@ -96,6 +108,18 @@ class PreferencesViewController: PopupScrollViewController{
             Preferences.shared.urlTemplate = newTemplate
         }
         Preferences.shared.followTrack = followTrackSwitch.isOn
+        var val = Double(minTrackpointTimeDeltaField.text)
+        if let val = val{
+            Preferences.shared.minTrackpointTimeDelta = val
+        }
+        val = Double(minTrackpointHorizontalDeltaField.text)
+        if let val = val{
+            Preferences.shared.minTrackpointHorizontalDelta = val
+        }
+        val = Double(minTrackpointVerticalDeltaField.text)
+        if let val = val{
+            Preferences.shared.minTrackpointVerticalDelta = val
+        }
         delegate?.updateFollowTrack()
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
