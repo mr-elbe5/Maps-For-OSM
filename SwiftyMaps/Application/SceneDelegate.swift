@@ -11,13 +11,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        info("SceneDelegate will connect")
         AppState.loadInstance()
         FileController.initialize()
         Preferences.loadInstance()
         FileController.initializeDirectories()
         TrackPool.load()
         LocationPool.load()
-        //FileController.logFileInfo()
         AppState.shared.version = AppState.currentVersion
         AppState.shared.save()
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -30,17 +30,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
+        info("SceneDelegate did disconnect")
         LocationService.shared.stop()
         FileController.deleteTemporaryFiles()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
+        info("SceneDelegate becoming active")
         if !LocationService.shared.running{
             LocationService.shared.start()
         }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
+        info("SceneDelegate resigning active")
         AppState.shared.save()
         Preferences.shared.save()
         LocationPool.save()
@@ -53,10 +56,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        LocationService.shared.start()
+        info("SceneDelegate entering foreground")
+        if !LocationService.shared.running{
+            LocationService.shared.start()
+        }
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
+        info("SceneDelegate entering background")
         if !TrackRecorder.isRecording{
             LocationService.shared.stop()
         }
