@@ -60,12 +60,12 @@
 //detail status
 "coordinate"="Koordinaten";
 "altitude"="Höhe";
-"horizontalDeviation"="max. Distanzabweichung";
-"verticalDeviation"="max. Höhenabweichung";
+"horizontalDelta"="max. horiz. Abweichung";
+"verticalDelta"="max. vert. Abweichung";
 "speed"="Geschwindigkeit";
 "speedDeviation"="max. Geschwindigkeitsabweichung";
 "positionValid"="Position ausreichend genau";
-"invalid"="ungültig";
+"unknown"="unbekannt";
 
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";

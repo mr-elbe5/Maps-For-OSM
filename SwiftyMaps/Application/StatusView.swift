@@ -40,7 +40,7 @@ class StatusView : UIView{
         layer.masksToBounds = true
         
         addSubviewWithAnchors(detailView, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: .zero)
-        addSubviewWithAnchors(defaultView, top: detailView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0))
+        addSubviewWithAnchors(defaultView, top: detailView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
         setupDetailView()
         setupDefaultView()
     }
@@ -108,28 +108,28 @@ class StatusView : UIView{
             let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
             distanceIcon.tintColor = .darkGray
             defaultView.addSubviewWithAnchors(distanceIcon, top: defaultView.topAnchor, leading: defaultView.leadingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
-            distanceLabel = UILabel(text: "0m")
+            distanceLabel = UILabel(text: "0 m")
             distanceLabel!.textColor = .darkGray
             defaultView.addSubviewWithAnchors(distanceLabel!, top: defaultView.topAnchor, leading: distanceIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
             
             let distanceUpIcon = UIImageView(image: UIImage(systemName: "arrow.up"))
             distanceUpIcon.tintColor = .darkGray
             defaultView.addSubviewWithAnchors(distanceUpIcon, top: defaultView.topAnchor, leading: distanceLabel!.trailingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
-            distanceUpLabel = UILabel(text: "0m")
+            distanceUpLabel = UILabel(text: "0 m")
             distanceUpLabel!.textColor = .darkGray
             defaultView.addSubviewWithAnchors(distanceUpLabel!, top: defaultView.topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
             
             let distanceDownIcon = UIImageView(image: UIImage(systemName: "arrow.down"))
             distanceDownIcon.tintColor = .darkGray
             defaultView.addSubviewWithAnchors(distanceDownIcon, top: defaultView.topAnchor, leading: distanceUpLabel!.trailingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
-            distanceDownLabel = UILabel(text: "0m")
+            distanceDownLabel = UILabel(text: "0 m")
             distanceDownLabel!.textColor = .darkGray
             defaultView.addSubviewWithAnchors(distanceDownLabel!, top: defaultView.topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
             
             let speedIcon = UIImageView(image: UIImage(systemName: "speedometer"))
             speedIcon.tintColor = .darkGray
             defaultView.addSubviewWithAnchors(speedIcon, top: defaultView.topAnchor, leading: distanceDownLabel!.trailingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
-            speedLabel = UILabel(text: "0km/h")
+            speedLabel = UILabel(text: "0 km/h")
             speedLabel!.textColor = .darkGray
             defaultView.addSubviewWithAnchors(speedLabel!, top: defaultView.topAnchor, leading: speedIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
             
@@ -163,22 +163,22 @@ class StatusView : UIView{
     
     func updateTrackInfo(){
         if let track = TrackRecorder.track{
-            distanceLabel?.text = "\(Int(track.distance))m"
-            distanceUpLabel?.text = "\(Int(track.upDistance))m"
-            distanceDownLabel?.text = "\(Int(track.downDistance))m"
+            distanceLabel?.text = "\(Int(track.distance)) m"
+            distanceUpLabel?.text = "\(Int(track.upDistance)) m"
+            distanceDownLabel?.text = "\(Int(track.downDistance)) m"
             if let tp = track.trackpoints.last{
-                speedLabel?.text = "\(tp.kmhSpeed)km/h"
+                speedLabel?.text = "\(tp.kmhSpeed) km/h"
             }
         }
     }
     
     func updateDetailInfo(location: CLLocation){
         coordinateLabel?.text = location.coordinate.asString
-        altitudeLabel?.text = "\(Int(location.altitude))m"
-        currentSpeedLabel?.text = "\(Int(max(0,location.speed*3.6)))km/h"
-        horizontalDeltaLabel?.text = location.horizontalAccuracy < 0 ? "invalid".localize() : "\(Int(location.horizontalAccuracy))m"
-        verticalDeltaLabel?.text = location.verticalAccuracy < 0 ? "invalid".localize() : "\(Int(location.verticalAccuracy))m"
-        speedDeviationLabel?.text = location.speedAccuracy < 0 ? "invalid".localize() : "\(Int(location.speedDeviation*100))%"
+        altitudeLabel?.text = "\(Int(location.altitude)) m"
+        currentSpeedLabel?.text = "\(Int(max(0,location.speed*3.6))) km/h"
+        horizontalDeltaLabel?.text = location.horizontalAccuracy < 0 ? "unknown".localize() : "\(Int(location.horizontalAccuracy)) m"
+        verticalDeltaLabel?.text = location.verticalAccuracy < 0 ? "unknown".localize() : "\(Int(location.verticalAccuracy)) m"
+        speedDeviationLabel?.text = location.speedAccuracy < 0 ? "unknown".localize() : "\(Int(location.speedDeviation*100)) %"
         positionValidLabel?.text = location.horizontallyValid ? "yes".localize() : "no".localize()
     }
     
