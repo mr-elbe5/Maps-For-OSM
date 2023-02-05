@@ -141,9 +141,9 @@ class Track : Hashable, Codable{
             var trackpointsChanged = false
             let tp = Trackpoint(location: location)
             tp.updateDeltas(from: previousTrackpoint, distance: distance)
-            /*if !tp.horizontallyValid{
+            if !tp.horizontallyValid{
                 return false
-            }*/
+            }
             trackpoints.append(tp)
             if removeRedundant(backFrom: trackpoints.count - 1){
                 trackpointsChanged = true
@@ -166,6 +166,9 @@ class Track : Hashable, Codable{
         }
         else{
             let tp = Trackpoint(location: location)
+            if !tp.horizontallyValid{
+                return false
+            }
             trackpoints.append(tp)
         }
         endTime = location.timestamp
