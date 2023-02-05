@@ -141,9 +141,9 @@ class Track : Hashable, Codable{
             var trackpointsChanged = false
             let tp = Trackpoint(location: location)
             tp.updateDeltas(from: previousTrackpoint, distance: distance)
-            /*if !tp.horizontallyValid{
+            if !tp.horizontallyValid{
                 return false
-            }*/
+            }
             trackpoints.append(tp)
             if removeRedundant(backFrom: trackpoints.count - 1){
                 trackpointsChanged = true
@@ -173,7 +173,7 @@ class Track : Hashable, Codable{
     }
     
     func removeRedundant(backFrom last: Int) -> Bool{
-        if last < 2 || last + 2 >= trackpoints.count{
+        if last < 2 || last >= trackpoints.count{
             return false
         }
         let tp0 = trackpoints[last - 2]

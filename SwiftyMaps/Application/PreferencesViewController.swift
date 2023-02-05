@@ -16,9 +16,11 @@ class PreferencesViewController: PopupScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
+    var showTrackpointsSwitch = LabeledSwitchView()
     var minTrackpointTimeDeltaField = LabeledTextField()
     var minTrackpointHorizontalDeltaField = LabeledTextField()
     var minTrackpointVerticalDeltaField = LabeledTextField()
+    var maxDeviationFactorField = LabeledTextField()
     
     var delegate: PreferencesDelegate? = nil
     
@@ -64,8 +66,11 @@ class PreferencesViewController: PopupScrollViewController{
         followTrackSwitch.setupView(labelText: "followTrack".localize(), isOn: Preferences.shared.followTrack)
         contentView.addSubviewWithAnchors(followTrackSwitch, top: osmInfoLink.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
+        showTrackpointsSwitch.setupView(labelText: "showTrackpoints".localize(), isOn: Preferences.shared.showTrackpoints)
+        contentView.addSubviewWithAnchors(showTrackpointsSwitch, top: followTrackSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        
         minTrackpointTimeDeltaField.setupView(labelText: "minTrackpointTimeDelta".localize(), text: String(Preferences.shared.minTrackpointTimeDelta), isHorizontal: false)
-        contentView.addSubviewWithAnchors(minTrackpointTimeDeltaField, top: followTrackSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(minTrackpointTimeDeltaField, top: showTrackpointsSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         minTrackpointHorizontalDeltaField.setupView(labelText: "minTrackpointHorizontalDelta".localize(), text: String(Preferences.shared.minTrackpointHorizontalDelta), isHorizontal: false)
         contentView.addSubviewWithAnchors(minTrackpointHorizontalDeltaField, top: minTrackpointTimeDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -73,11 +78,14 @@ class PreferencesViewController: PopupScrollViewController{
         minTrackpointVerticalDeltaField.setupView(labelText: "minTrackpointVerticalDelta".localize(), text: String(Preferences.shared.minTrackpointVerticalDelta), isHorizontal: false)
         contentView.addSubviewWithAnchors(minTrackpointVerticalDeltaField, top: minTrackpointHorizontalDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
+        maxDeviationFactorField.setupView(labelText: "maxDeviationFactor".localize(), text: String(Int(Preferences.shared.maxDeviationFactor * 100 - 100)), isHorizontal: false)
+        contentView.addSubviewWithAnchors(maxDeviationFactorField, top: minTrackpointVerticalDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: minTrackpointVerticalDeltaField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: maxDeviationFactorField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
     }
@@ -108,6 +116,7 @@ class PreferencesViewController: PopupScrollViewController{
             Preferences.shared.urlTemplate = newTemplate
         }
         Preferences.shared.followTrack = followTrackSwitch.isOn
+        Preferences.shared.showTrackpoints = showTrackpointsSwitch.isOn
         var val = Double(minTrackpointTimeDeltaField.text)
         if let val = val{
             Preferences.shared.minTrackpointTimeDelta = val
@@ -119,6 +128,10 @@ class PreferencesViewController: PopupScrollViewController{
         val = Double(minTrackpointVerticalDeltaField.text)
         if let val = val{
             Preferences.shared.minTrackpointVerticalDelta = val
+        }
+        val = Double(maxDeviationFactorField.text)
+        if let val = val{
+            Preferences.shared.maxDeviationFactor = val/100.0 + 1
         }
         delegate?.updateFollowTrack()
         Preferences.shared.save()

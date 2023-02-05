@@ -57,6 +57,16 @@
 "mergeGroup"="Orte der Gruppe zusammenführen";
 "confirmMergeGroup"="Gruppe zu einem Ort zusammenfassen?";
 
+//detail status
+"coordinate"="Koordinaten";
+"altitude"="Höhe";
+"horizontalDeviation"="max. Distanzabweichung";
+"verticalDeviation"="max. Höhenabweichung";
+"speed"="Geschwindigkeit";
+"speedDeviation"="max. Geschwindigkeitsabweichung";
+"positionValid"="Position ausreichend genau";
+"invalid"="ungültig";
+
 //camera
 "cameraNotAuthorized"="Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen.";
 "cameraNotAvailable"="Die Kamera steht nicht zur Verfügung.";
@@ -168,9 +178,11 @@
 "osmTileURL"="Template für Kacheln von OpenStreetMap.org";
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "followTrack"="Position bei Touraufzeichnung folgen";
-"minTrackpointTimeDelta"="Minimale Zeit zwischen Trackpoints";
-"minTrackpointHorizontalDelta"="Minimale horizontale Distanz zwischen Trackpoints";
-"minTrackpointVerticalDelta"="Minimale vertikale Distanz zwischen Trackpoints";
+"showTrackpoints"="Einzelne Wegpunke auf Tour anzeigen";
+"minTrackpointTimeDelta"="Minimale Zeit zwischen Wegpunkten";
+"minTrackpointHorizontalDelta"="Minimale horizontale Distanz zwischen Wegpunkten";
+"minTrackpointVerticalDelta"="Minimale vertikale Distanz zwischen Wegpunkten";
+"maxDeviationFactor"="Maximale Abweichung bei GPS-Koordinaten [%]";
 "preferencesSaved"="Einstellungen wurden gesichert.";
 
 //info

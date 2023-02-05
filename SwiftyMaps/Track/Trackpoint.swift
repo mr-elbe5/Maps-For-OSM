@@ -34,12 +34,16 @@ class Trackpoint: Codable, Identifiable{
     var horizontalDistance: CGFloat = 0
     var verticalDistance: CGFloat = 0
     
+    var speedDeviation: Double{
+        speedAccuracy < 0 ? -1 : speedAccuracy / speed
+    }
+    
     var horizontallyValid: Bool{
-        horizontalAccuracy < horizontalDistance && speedAccuracy < speed
+        horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.minTrackpointHorizontalDelta && speedDeviation < Preferences.shared.maxDeviationFactor
     }
     
     var verticallyValid: Bool{
-        verticalAccuracy < verticalDistance
+        verticalAccuracy != -1 && verticalAccuracy < Preferences.shared.minTrackpointVerticalDelta
     }
     
     var kmhSpeed: Int{
@@ -63,6 +67,10 @@ class Trackpoint: Codable, Identifiable{
         coordinate = location.coordinate
         altitude = location.altitude
         timestamp = location.timestamp
+        horizontalAccuracy = location.horizontalAccuracy
+        verticalAccuracy = location.verticalAccuracy
+        speed = location.speed
+        speedAccuracy = location.speedAccuracy
     }
     
     required init?(coder: NSCoder) {

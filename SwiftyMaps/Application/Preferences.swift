@@ -31,17 +31,21 @@ class Preferences: Identifiable, Codable{
     enum CodingKeys: String, CodingKey {
         case urlTemplate
         case followTrack
+        case showTrackpoints
         case minTrackpointTimeDelta
         case minTrackpointHorizontalDelta
         case minTrackpointVerticalDelta
+        case maxDeviationFactor
     }
 
     var urlTemplate : String = osmUrl
     var followTrack : Bool = false
+    var showTrackpoints : Bool = false
     
     var minTrackpointTimeDelta: Double = 5
     var minTrackpointHorizontalDelta: Double = 3
     var minTrackpointVerticalDelta: Double = 2
+    var maxDeviationFactor: Double = 2
     
     init(){
     }
@@ -50,18 +54,22 @@ class Preferences: Identifiable, Codable{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
         followTrack = try values.decodeIfPresent(Bool.self, forKey: .followTrack) ?? false
+        showTrackpoints = try values.decodeIfPresent(Bool.self, forKey: .showTrackpoints) ?? false
         minTrackpointTimeDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointTimeDelta) ?? 5
         minTrackpointHorizontalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointHorizontalDelta) ?? 3
         minTrackpointVerticalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointVerticalDelta) ?? 2
+        maxDeviationFactor = try values.decodeIfPresent(Double.self, forKey: .maxDeviationFactor) ?? 2
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(followTrack, forKey: .followTrack)
+        try container.encode(showTrackpoints, forKey: .showTrackpoints)
         try container.encode(minTrackpointTimeDelta, forKey: .minTrackpointTimeDelta)
         try container.encode(minTrackpointHorizontalDelta, forKey: .minTrackpointHorizontalDelta)
         try container.encode(minTrackpointVerticalDelta, forKey: .minTrackpointVerticalDelta)
+        try container.encode(maxDeviationFactor, forKey: .maxDeviationFactor)
     }
     
     func save(){

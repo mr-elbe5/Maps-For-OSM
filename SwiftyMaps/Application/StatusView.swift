@@ -29,9 +29,10 @@ class StatusView : UIView{
     var coordinateLabel : UILabel? = nil
     var altitudeLabel : UILabel? = nil
     var currentSpeedLabel : UILabel? = nil
-    var horizontalAccuracyLabel : UILabel? = nil
-    var verticalAccuracyLabel : UILabel? = nil
-    var speedAccuracyLabel : UILabel? = nil
+    var horizontalDeltaLabel : UILabel? = nil
+    var verticalDeltaLabel : UILabel? = nil
+    var speedDeviationLabel : UILabel? = nil
+    var positionValidLabel : UILabel? = nil
     
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
@@ -49,9 +50,10 @@ class StatusView : UIView{
         coordinateLabel = nil
         altitudeLabel = nil
         currentSpeedLabel = nil
-        horizontalAccuracyLabel = nil
-        verticalAccuracyLabel = nil
-        speedAccuracyLabel = nil
+        horizontalDeltaLabel = nil
+        verticalDeltaLabel = nil
+        speedDeviationLabel = nil
+        positionValidLabel = nil
         if isDetailed{
             var label = UILabel(text: "\("coordinate".localize()):")
             coordinateLabel = UILabel()
@@ -68,20 +70,25 @@ class StatusView : UIView{
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(currentSpeedLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            horizontalAccuracyLabel = UILabel()
-            label = UILabel(text: "\("horizontalAccuracy".localize()):")
+            horizontalDeltaLabel = UILabel()
+            label = UILabel(text: "\("horizontalDelta".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(horizontalAccuracyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(horizontalDeltaLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            verticalAccuracyLabel = UILabel()
-            label = UILabel(text: "\("verticalAccuracy".localize()):")
+            verticalDeltaLabel = UILabel()
+            label = UILabel(text: "\("verticalDelta".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(verticalAccuracyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(verticalDeltaLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            speedAccuracyLabel = UILabel()
-            label = UILabel(text: "\("speedAccuracy".localize()):")
+            speedDeviationLabel = UILabel()
+            label = UILabel(text: "\("speedDeviation".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(speedAccuracyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(speedDeviationLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            nextAnchor = label.bottomAnchor
+            positionValidLabel = UILabel()
+            label = UILabel(text: "\("positionValid".localize()):")
+            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(positionValidLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             label.bottom(detailView.bottomAnchor)
         }
@@ -169,9 +176,10 @@ class StatusView : UIView{
         coordinateLabel?.text = location.coordinate.asString
         altitudeLabel?.text = "\(Int(location.altitude))m"
         currentSpeedLabel?.text = "\(Int(max(0,location.speed*3.6)))km/h"
-        horizontalAccuracyLabel?.text = "\(Int(location.horizontalAccuracy))m"
-        verticalAccuracyLabel?.text = "\(Int(location.verticalAccuracy))m"
-        speedAccuracyLabel?.text = "\(Int(max(0,location.speedAccuracy*3.6)))km/h"
+        horizontalDeltaLabel?.text = location.horizontalAccuracy < 0 ? "invalid".localize() : "\(Int(location.horizontalAccuracy))m"
+        verticalDeltaLabel?.text = location.verticalAccuracy < 0 ? "invalid".localize() : "\(Int(location.verticalAccuracy))m"
+        speedDeviationLabel?.text = location.speedAccuracy < 0 ? "invalid".localize() : "\(Int(location.speedDeviation*100))%"
+        positionValidLabel?.text = location.horizontallyValid ? "yes".localize() : "no".localize()
     }
     
     func updateDirection(direction: CLLocationDirection) {

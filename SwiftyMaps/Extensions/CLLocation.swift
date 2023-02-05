@@ -18,4 +18,16 @@ extension CLLocation{
         coordinate.distance(to: location.coordinate)
     }
     
+    var speedDeviation: Double{
+        speedAccuracy < 0 ? -1 : speedAccuracy / speed
+    }
+    
+    var horizontallyValid: Bool{
+        horizontalAccuracy >= 0 && speedAccuracy >= 0 && horizontalAccuracy < Preferences.shared.minTrackpointHorizontalDelta && speedDeviation < Preferences.shared.maxDeviationFactor
+    }
+    
+    var verticallyValid: Bool{
+        verticalAccuracy >= 0 && verticalAccuracy < Preferences.shared.minTrackpointVerticalDelta
+    }
+    
 }

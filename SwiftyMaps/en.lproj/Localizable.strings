@@ -57,6 +57,16 @@
 "mergeGroup"="Merge Locations of Group";
 "confirmMergeGroup"="Merge Group to one Location?";
 
+//detail status
+"coordinate"="Coordinates";
+"altitude"="Altitude";
+"horizontalDeviation"="Max. Horiz. Deviation";
+"verticalDeviation"="Max. Vert. Deviation";
+"speed"="Speed";
+"speedDeviation"="Max. Speed Deviation";
+"positionValid"="Acceptable Accuracy of Position";
+"invalid"="invalid";
+
 //camera
 "cameraNotAuthorized"="Camera use is not authorized. Please change your settings.";
 "cameraNotAvailable"="Camera is not available.";
@@ -169,9 +179,11 @@
 "elbe5LegalInfo"="Legal Info for tiles from Elbe5.de";
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "followTrack"="Follow Position on Tour Recording";
+"showTrackpoints"="Show single trackpoints on track";
 "minTrackpointTimeDelta"="Minimal Time between Trackpoints";
 "minTrackpointHorizontalDelta"="Minimal Distance between Trackpoints";
 "minTrackpointVerticalDelta"="Minimal Vertical Distance between Trackpoints";
+"maxDeviationFactor"="Maximal Deviation of GPS Coordinates [%]";
 "preferencesSaved"="Preferences have been saved.";
 
 //info
