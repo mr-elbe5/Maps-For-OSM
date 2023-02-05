@@ -19,6 +19,11 @@ class Preferences: Identifiable, Codable{
     static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     
+    static var defaultMinTrackpointTimeDelta: Double = 5
+    static var defaultMinTrackpointHorizontalDelta: Double = 5
+    static var defaultMinTrackpointVerticalDelta: Double = 2
+    static var defaultMaxDeviationFactor: Double = 3
+    
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
             shared = prefs
@@ -42,10 +47,10 @@ class Preferences: Identifiable, Codable{
     var followTrack : Bool = false
     var showTrackpoints : Bool = false
     
-    var minTrackpointTimeDelta: Double = 5
-    var minTrackpointHorizontalDelta: Double = 3
-    var minTrackpointVerticalDelta: Double = 2
-    var maxDeviationFactor: Double = 2
+    var minTrackpointTimeDelta: Double = defaultMinTrackpointTimeDelta
+    var minTrackpointHorizontalDelta: Double = defaultMinTrackpointHorizontalDelta
+    var minTrackpointVerticalDelta: Double = defaultMinTrackpointVerticalDelta
+    var maxDeviationFactor: Double = defaultMaxDeviationFactor
     
     init(){
     }
@@ -55,10 +60,10 @@ class Preferences: Identifiable, Codable{
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
         followTrack = try values.decodeIfPresent(Bool.self, forKey: .followTrack) ?? false
         showTrackpoints = try values.decodeIfPresent(Bool.self, forKey: .showTrackpoints) ?? false
-        minTrackpointTimeDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointTimeDelta) ?? 5
-        minTrackpointHorizontalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointHorizontalDelta) ?? 3
-        minTrackpointVerticalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointVerticalDelta) ?? 2
-        maxDeviationFactor = try values.decodeIfPresent(Double.self, forKey: .maxDeviationFactor) ?? 2
+        minTrackpointTimeDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointTimeDelta) ?? Preferences.defaultMinTrackpointTimeDelta
+        minTrackpointHorizontalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointHorizontalDelta) ?? Preferences.defaultMinTrackpointHorizontalDelta
+        minTrackpointVerticalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointVerticalDelta) ?? Preferences.defaultMinTrackpointVerticalDelta
+        maxDeviationFactor = try values.decodeIfPresent(Double.self, forKey: .maxDeviationFactor) ?? Preferences.defaultMaxDeviationFactor
     }
     
     func encode(to encoder: Encoder) throws {

@@ -46,7 +46,18 @@ class TrackLayerView: UIView {
     override func draw(_ rect: CGRect) {
         if let track = TrackPool.visibleTrack{
             if !track.trackpoints.isEmpty{
-                let drawPoints = getDrawPoints(track: track)
+                var drawPoints = Array<CGPoint>()
+                var validities = Array<Bool>()
+                if let offset = offset{
+                    let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+                    for idx in 0..<track.trackpoints.count{
+                        let trackpoint = track.trackpoints[idx]
+                        let mapPoint = MapPoint(trackpoint.coordinate)
+                        let drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
+                        drawPoints.append(drawPoint)
+                        validities.append(trackpoint.horizontallyValid)
+                    }
+                }
                 let ctx = UIGraphicsGetCurrentContext()!
                 ctx.beginPath()
                 ctx.move(to: drawPoints[0])
@@ -60,7 +71,8 @@ class TrackLayerView: UIView {
                 if Preferences.shared.showTrackpoints{
                     for idx in 0..<drawPoints.count{
                         let pnt = drawPoints[idx]
-                        ctx.fillEllipse(in: CGRect(x: pnt.x - 1 , y: pnt.y - 1, width: 2, height: 2))
+                        ctx.setFillColor(validities[idx] ? UIColor.black.cgColor : UIColor.red.cgColor)
+                        ctx.fillEllipse(in: CGRect(x: pnt.x - 1 , y: pnt.y - 1, width: 4, height: 4))
                     }
                 }
             }
