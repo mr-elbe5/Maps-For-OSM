@@ -60,10 +60,10 @@
 //detail status
 "coordinate"="Koordinaten";
 "altitude"="Höhe";
-"horizontalDelta"="max. horiz. Abweichung";
-"verticalDelta"="max. vert. Abweichung";
+"horizontalUncertainty"="horizontale Unsicherheit";
+"verticalUncertainty"="vertikale Unsicherheit";
 "speed"="Geschwindigkeit";
-"speedDeviation"="max. Geschwindigkeitsabweichung";
+"speedUncertaintyFactor"="Geschwindigkeitsunsicherheit (Faktor)";
 "positionValid"="Position ausreichend genau";
 "unknown"="unbekannt";
 
@@ -179,10 +179,10 @@
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "followTrack"="Position bei Touraufzeichnung folgen";
 "showTrackpoints"="Einzelne Wegpunke auf Tour anzeigen";
-"minTrackpointTimeDelta"="Minimale Zeit zwischen Wegpunkten";
-"minTrackpointHorizontalDelta"="Minimale horizontale Distanz zwischen Wegpunkten";
-"minTrackpointVerticalDelta"="Minimale vertikale Distanz zwischen Wegpunkten";
-"maxDeviationFactor"="Maximale Abweichung bei GPS-Koordinaten [%]";
+"trackpointInterval"="Zeit zwischen Wegpunkten";
+"maxHorizontalUncertainty"="Maximale horizontale Unsicherheit";
+"maxVerticalUncertainty"="Maximale vertikale Unsicherheit";
+"maxSpeedUncertaintyFactor"="Maximaler Geschwindigkeits-Unsicherheitsfaktor";
 "preferencesSaved"="Einstellungen wurden gesichert.";
 
 //info

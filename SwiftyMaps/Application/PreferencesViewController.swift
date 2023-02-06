@@ -17,10 +17,10 @@ class PreferencesViewController: PopupScrollViewController{
     var tileUrlTemplateField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
     var showTrackpointsSwitch = LabeledSwitchView()
-    var minTrackpointTimeDeltaField = LabeledTextField()
-    var minTrackpointHorizontalDeltaField = LabeledTextField()
-    var minTrackpointVerticalDeltaField = LabeledTextField()
-    var maxDeviationFactorField = LabeledTextField()
+    var trackpointIntervalField = LabeledTextField()
+    var maxHorizontalUncertaintyField = LabeledTextField()
+    var maxVerticalUncertaintyField = LabeledTextField()
+    var maxSpeedUncertaintyFactorField = LabeledTextField()
     
     var delegate: PreferencesDelegate? = nil
     
@@ -69,23 +69,23 @@ class PreferencesViewController: PopupScrollViewController{
         showTrackpointsSwitch.setupView(labelText: "showTrackpoints".localize(), isOn: Preferences.shared.showTrackpoints)
         contentView.addSubviewWithAnchors(showTrackpointsSwitch, top: followTrackSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        minTrackpointTimeDeltaField.setupView(labelText: "minTrackpointTimeDelta".localize(), text: String(Preferences.shared.minTrackpointTimeDelta), isHorizontal: false)
-        contentView.addSubviewWithAnchors(minTrackpointTimeDeltaField, top: showTrackpointsSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        trackpointIntervalField.setupView(labelText: "trackpointInterval".localize(), text: String(Preferences.shared.trackpointInterval), isHorizontal: false)
+        contentView.addSubviewWithAnchors(trackpointIntervalField, top: showTrackpointsSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        minTrackpointHorizontalDeltaField.setupView(labelText: "minTrackpointHorizontalDelta".localize(), text: String(Preferences.shared.minTrackpointHorizontalDelta), isHorizontal: false)
-        contentView.addSubviewWithAnchors(minTrackpointHorizontalDeltaField, top: minTrackpointTimeDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxHorizontalUncertaintyField.setupView(labelText: "maxHorizontalUncertainty".localize(), text: String(Preferences.shared.maxHorizontalUncertainty), isHorizontal: false)
+        contentView.addSubviewWithAnchors(maxHorizontalUncertaintyField, top: trackpointIntervalField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        minTrackpointVerticalDeltaField.setupView(labelText: "minTrackpointVerticalDelta".localize(), text: String(Preferences.shared.minTrackpointVerticalDelta), isHorizontal: false)
-        contentView.addSubviewWithAnchors(minTrackpointVerticalDeltaField, top: minTrackpointHorizontalDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxVerticalUncertaintyField.setupView(labelText: "maxVerticalUncertainty".localize(), text: String(Preferences.shared.maxVerticalUncertainty), isHorizontal: false)
+        contentView.addSubviewWithAnchors(maxVerticalUncertaintyField, top: maxHorizontalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        maxDeviationFactorField.setupView(labelText: "maxDeviationFactor".localize(), text: String(Int(Preferences.shared.maxDeviationFactor * 100 - 100)), isHorizontal: false)
-        contentView.addSubviewWithAnchors(maxDeviationFactorField, top: minTrackpointVerticalDeltaField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        maxSpeedUncertaintyFactorField.setupView(labelText: "maxSpeedUncertaintyFactor".localize(), text: String(Int(Preferences.shared.maxSpeedUncertaintyFactor)), isHorizontal: false)
+        contentView.addSubviewWithAnchors(maxSpeedUncertaintyFactorField, top: maxVerticalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: maxDeviationFactorField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: maxSpeedUncertaintyFactorField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
     }
@@ -117,21 +117,21 @@ class PreferencesViewController: PopupScrollViewController{
         }
         Preferences.shared.followTrack = followTrackSwitch.isOn
         Preferences.shared.showTrackpoints = showTrackpointsSwitch.isOn
-        var val = Double(minTrackpointTimeDeltaField.text)
+        var val = Double(trackpointIntervalField.text)
         if let val = val{
-            Preferences.shared.minTrackpointTimeDelta = val
+            Preferences.shared.trackpointInterval = val
         }
-        val = Double(minTrackpointHorizontalDeltaField.text)
+        val = Double(maxHorizontalUncertaintyField.text)
         if let val = val{
-            Preferences.shared.minTrackpointHorizontalDelta = val
+            Preferences.shared.maxHorizontalUncertainty = val
         }
-        val = Double(minTrackpointVerticalDeltaField.text)
+        val = Double(maxVerticalUncertaintyField.text)
         if let val = val{
-            Preferences.shared.minTrackpointVerticalDelta = val
+            Preferences.shared.maxVerticalUncertainty = val
         }
-        val = Double(maxDeviationFactorField.text)
+        val = Double(maxSpeedUncertaintyFactorField.text)
         if let val = val{
-            Preferences.shared.maxDeviationFactor = val/100.0 + 1
+            Preferences.shared.maxSpeedUncertaintyFactor = val
         }
         delegate?.updateFollowTrack()
         Preferences.shared.save()

@@ -19,10 +19,10 @@ class Preferences: Identifiable, Codable{
     static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
     static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     
-    static var defaultMinTrackpointTimeDelta: Double = 5
-    static var defaultMinTrackpointHorizontalDelta: Double = 5
-    static var defaultMinTrackpointVerticalDelta: Double = 2
-    static var defaultMaxDeviationFactor: Double = 3
+    static var defaultTrackpointInterval: Double = 3
+    static var defaultMaxHorizontalUncertainty: Double = 3
+    static var defaultMaxVerticalUncertainty: Double = 1.5
+    static var defaultMaxSpeedUncertaintyFactor: Double = 2
     
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
@@ -37,20 +37,20 @@ class Preferences: Identifiable, Codable{
         case urlTemplate
         case followTrack
         case showTrackpoints
-        case minTrackpointTimeDelta
-        case minTrackpointHorizontalDelta
-        case minTrackpointVerticalDelta
-        case maxDeviationFactor
+        case trackpointInterval
+        case maxHorizontalUncertainty
+        case maxVerticalUncertainty
+        case maxSpeedUncertaintyFactor
     }
 
     var urlTemplate : String = osmUrl
     var followTrack : Bool = false
     var showTrackpoints : Bool = false
     
-    var minTrackpointTimeDelta: Double = defaultMinTrackpointTimeDelta
-    var minTrackpointHorizontalDelta: Double = defaultMinTrackpointHorizontalDelta
-    var minTrackpointVerticalDelta: Double = defaultMinTrackpointVerticalDelta
-    var maxDeviationFactor: Double = defaultMaxDeviationFactor
+    var trackpointInterval: Double = defaultTrackpointInterval
+    var maxHorizontalUncertainty: Double = defaultMaxHorizontalUncertainty
+    var maxVerticalUncertainty: Double = defaultMaxVerticalUncertainty
+    var maxSpeedUncertaintyFactor: Double = defaultMaxSpeedUncertaintyFactor
     
     init(){
     }
@@ -60,10 +60,10 @@ class Preferences: Identifiable, Codable{
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
         followTrack = try values.decodeIfPresent(Bool.self, forKey: .followTrack) ?? false
         showTrackpoints = try values.decodeIfPresent(Bool.self, forKey: .showTrackpoints) ?? false
-        minTrackpointTimeDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointTimeDelta) ?? Preferences.defaultMinTrackpointTimeDelta
-        minTrackpointHorizontalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointHorizontalDelta) ?? Preferences.defaultMinTrackpointHorizontalDelta
-        minTrackpointVerticalDelta = try values.decodeIfPresent(Double.self, forKey: .minTrackpointVerticalDelta) ?? Preferences.defaultMinTrackpointVerticalDelta
-        maxDeviationFactor = try values.decodeIfPresent(Double.self, forKey: .maxDeviationFactor) ?? Preferences.defaultMaxDeviationFactor
+        trackpointInterval = try values.decodeIfPresent(Double.self, forKey: .trackpointInterval) ?? Preferences.defaultTrackpointInterval
+        maxHorizontalUncertainty = try values.decodeIfPresent(Double.self, forKey: .maxHorizontalUncertainty) ?? Preferences.defaultMaxHorizontalUncertainty
+        maxVerticalUncertainty = try values.decodeIfPresent(Double.self, forKey: .maxVerticalUncertainty) ?? Preferences.defaultMaxVerticalUncertainty
+        maxSpeedUncertaintyFactor = try values.decodeIfPresent(Double.self, forKey: .maxSpeedUncertaintyFactor) ?? Preferences.defaultMaxSpeedUncertaintyFactor
     }
     
     func encode(to encoder: Encoder) throws {
@@ -71,10 +71,10 @@ class Preferences: Identifiable, Codable{
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(followTrack, forKey: .followTrack)
         try container.encode(showTrackpoints, forKey: .showTrackpoints)
-        try container.encode(minTrackpointTimeDelta, forKey: .minTrackpointTimeDelta)
-        try container.encode(minTrackpointHorizontalDelta, forKey: .minTrackpointHorizontalDelta)
-        try container.encode(minTrackpointVerticalDelta, forKey: .minTrackpointVerticalDelta)
-        try container.encode(maxDeviationFactor, forKey: .maxDeviationFactor)
+        try container.encode(trackpointInterval, forKey: .trackpointInterval)
+        try container.encode(maxHorizontalUncertainty, forKey: .maxHorizontalUncertainty)
+        try container.encode(maxVerticalUncertainty, forKey: .maxVerticalUncertainty)
+        try container.encode(maxSpeedUncertaintyFactor, forKey: .maxSpeedUncertaintyFactor)
     }
     
     func save(){

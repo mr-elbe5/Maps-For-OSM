@@ -28,10 +28,10 @@ class StatusView : UIView{
     
     var coordinateLabel : UILabel? = nil
     var altitudeLabel : UILabel? = nil
-    var currentSpeedLabel : UILabel? = nil
-    var horizontalDeltaLabel : UILabel? = nil
-    var verticalDeltaLabel : UILabel? = nil
-    var speedDeviationLabel : UILabel? = nil
+    var gpsSpeed : UILabel? = nil
+    var horizontalUncertaintyLabel : UILabel? = nil
+    var verticalUncertaintyLabel : UILabel? = nil
+    var speedUncertaintyFactorLabel : UILabel? = nil
     var positionValidLabel : UILabel? = nil
     
     func setup(){
@@ -49,10 +49,10 @@ class StatusView : UIView{
         detailView.removeAllSubviews()
         coordinateLabel = nil
         altitudeLabel = nil
-        currentSpeedLabel = nil
-        horizontalDeltaLabel = nil
-        verticalDeltaLabel = nil
-        speedDeviationLabel = nil
+        gpsSpeed = nil
+        horizontalUncertaintyLabel = nil
+        verticalUncertaintyLabel = nil
+        speedUncertaintyFactorLabel = nil
         positionValidLabel = nil
         if isDetailed{
             var label = UILabel(text: "\("coordinate".localize()):")
@@ -65,25 +65,25 @@ class StatusView : UIView{
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(altitudeLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            currentSpeedLabel = UILabel()
+            gpsSpeed = UILabel()
             label = UILabel(text: "\("speed".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(currentSpeedLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(gpsSpeed!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            horizontalDeltaLabel = UILabel()
-            label = UILabel(text: "\("horizontalDelta".localize()):")
+            horizontalUncertaintyLabel = UILabel()
+            label = UILabel(text: "\("horizontalUncertainty".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(horizontalDeltaLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            verticalDeltaLabel = UILabel()
-            label = UILabel(text: "\("verticalDelta".localize()):")
+            verticalUncertaintyLabel = UILabel()
+            label = UILabel(text: "\("verticalUncertainty".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(verticalDeltaLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(verticalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
-            speedDeviationLabel = UILabel()
-            label = UILabel(text: "\("speedDeviation".localize()):")
+            speedUncertaintyFactorLabel = UILabel()
+            label = UILabel(text: "\("speedUncertaintyFactor".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(speedDeviationLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+            detailView.addSubviewWithAnchors(speedUncertaintyFactorLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             positionValidLabel = UILabel()
             label = UILabel(text: "\("positionValid".localize()):")
@@ -175,10 +175,10 @@ class StatusView : UIView{
     func updateDetailInfo(location: CLLocation){
         coordinateLabel?.text = location.coordinate.asString
         altitudeLabel?.text = "\(Int(location.altitude)) m"
-        currentSpeedLabel?.text = "\(Int(max(0,location.speed*3.6))) km/h"
-        horizontalDeltaLabel?.text = location.horizontalAccuracy < 0 ? "unknown".localize() : "\(Int(location.horizontalAccuracy)) m"
-        verticalDeltaLabel?.text = location.verticalAccuracy < 0 ? "unknown".localize() : "\(Int(location.verticalAccuracy)) m"
-        speedDeviationLabel?.text = location.speedAccuracy < 0 ? "unknown".localize() : "\(Int(location.speedDeviation*100)) %"
+        gpsSpeed?.text = "\(Int(max(0,location.speed*3.6))) km/h"
+        horizontalUncertaintyLabel?.text = location.horizontalAccuracy < 0 ? "unknown".localize() : "\(Int(location.horizontalAccuracy)) m"
+        verticalUncertaintyLabel?.text = location.verticalAccuracy < 0 ? "unknown".localize() : "\(Int(location.verticalAccuracy)) m"
+        speedUncertaintyFactorLabel?.text = location.speedAccuracy < 0 ? "unknown".localize() : "\(Int(location.speedUncertaintyFactor))"
         positionValidLabel?.text = location.horizontallyValid ? "yes".localize() : "no".localize()
     }
     

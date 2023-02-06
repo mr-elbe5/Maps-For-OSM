@@ -60,10 +60,10 @@
 //detail status
 "coordinate"="Coordinates";
 "altitude"="Altitude";
-"horizontalDelta"="Max. Horiz. Deviation";
-"verticalDelta"="Max. Vert. Deviation";
+"horizontalUncertainty"="Horizontal Uncertainty";
+"verticalUncertainty"="Vertical Uncertainty";
 "speed"="Speed";
-"speedDeviation"="Max. Speed Deviation";
+"speedUncertaintyFactor"="Speed Uncertainty (Factor)";
 "positionValid"="Acceptable Accuracy of Position";
 "unknown"="unknown";
 
@@ -180,10 +180,10 @@
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "followTrack"="Follow Position on Tour Recording";
 "showTrackpoints"="Show single trackpoints on track";
-"minTrackpointTimeDelta"="Minimal Time between Trackpoints";
-"minTrackpointHorizontalDelta"="Minimal Distance between Trackpoints";
-"minTrackpointVerticalDelta"="Minimal Vertical Distance between Trackpoints";
-"maxDeviationFactor"="Maximal Deviation of GPS Coordinates [%]";
+"trackpointInterval"="Time between Trackpoints";
+"maxHorizontalUncertainty"="Maximal Horizontal Uncertainty";
+"maxVerticalUncertainty"="Maximal Vertical Uncertainty";
+"maxSpeedUncertaintyFactor"="Maximal Speed Uncertainty Factor";
 "preferencesSaved"="Preferences have been saved.";
 
 //info

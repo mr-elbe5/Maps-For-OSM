@@ -9,14 +9,22 @@ import CoreLocation
 
 extension CLLocationCoordinate2D : Equatable{
     
+    static var equatorMeters = 40075017.0
+    static var circleMeters = 40007863.0
+    
+    static var equatorMetersPerDegree = equatorMeters/360
+    static var circleMetersPerDegree = circleMeters/360
+    
+    static var degreeToRadFactor = Double.pi/180
+    
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
     
     public func distance(to coord: CLLocationCoordinate2D) -> CLLocationDistance{
         let lat = (self.latitude + coord.latitude) / 2
-        let latMetersPerDegree = 111.132
-        let lonMetersPerDegree = 111.132 * cos(lat/180*Double.pi)
+        let latMetersPerDegree = CLLocationCoordinate2D.circleMetersPerDegree
+        let lonMetersPerDegree = CLLocationCoordinate2D.equatorMetersPerDegree * cos(lat*CLLocationCoordinate2D.degreeToRadFactor)
         let latDelta = abs(self.latitude - coord.latitude)
         let lonDelta = abs(self.longitude - coord.longitude)
         return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))
@@ -26,7 +34,7 @@ extension CLLocationCoordinate2D : Equatable{
         let lat = (self.latitude + coord.latitude) / 2
         let angle = lat/180*Double.pi
         let latMetersPerDegree = 111132.954 - 559.822 * cos( 2 * angle ) + 1.175 * cos( 4 * angle) - 0.0023 * cos( 6 * angle)
-        let lonMetersPerDegree = 111132.954 * cos ( latitude/180*Double.pi )
+        let lonMetersPerDegree = 111132.954 * cos ( latitude*CLLocationCoordinate2D.degreeToRadFactor )
         let latDelta = abs(self.latitude - coord.latitude)
         let lonDelta = abs(self.longitude - coord.longitude)
         return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))

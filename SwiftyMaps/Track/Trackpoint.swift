@@ -39,11 +39,11 @@ class Trackpoint: Codable, Identifiable{
     }
     
     var horizontallyValid: Bool{
-        horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.minTrackpointHorizontalDelta && speedDeviation < Preferences.shared.maxDeviationFactor
+        horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && speedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
     }
     
     var verticallyValid: Bool{
-        verticalAccuracy != -1 && verticalAccuracy < Preferences.shared.minTrackpointVerticalDelta
+        verticalAccuracy != -1 && verticalAccuracy < Preferences.shared.maxVerticalUncertainty
     }
     
     var kmhSpeed: Int{
@@ -107,7 +107,7 @@ class Trackpoint: Codable, Identifiable{
         timeDiff = tp.timestamp.distance(to: timestamp)
         horizontalDistance = distance ?? tp.coordinate.distance(to: coordinate)
         verticalDistance = altitude - tp.altitude
-        if verticalDistance < Preferences.shared.minTrackpointHorizontalDelta{
+        if verticalDistance < Preferences.shared.maxHorizontalUncertainty{
             altitude = tp.altitude
             verticalDistance = 0
         }
