@@ -14,10 +14,6 @@ extension CLLocation{
         "lat: \(coordinate.latitude), lon: \(coordinate.longitude), acc: \(horizontalAccuracy), speed: \(speed), course: \(course), time: \(timestamp.timestampString())"
     }
     
-    func distanceTo(location: CLLocation) -> CLLocationDistance{
-        coordinate.distance(to: location.coordinate)
-    }
-    
     var speedDeviation: Double{
         speedAccuracy < 0 ? -1 : speedAccuracy / speed
     }
