@@ -88,6 +88,8 @@ class PreferencesViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(saveButton, top: maxSpeedUncertaintyFactorField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
+        setupKeyboard()
+        
     }
     
     @objc func elbe5Template(){

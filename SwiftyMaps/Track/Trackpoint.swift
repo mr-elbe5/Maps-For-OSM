@@ -39,7 +39,8 @@ class Trackpoint: Codable, Identifiable{
     }
     
     var horizontallyValid: Bool{
-        horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && speedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
+        //horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && speedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
+        horizontalAccuracy != -1  && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty
     }
     
     var verticallyValid: Bool{

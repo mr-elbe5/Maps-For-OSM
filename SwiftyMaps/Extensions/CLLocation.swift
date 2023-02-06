@@ -19,7 +19,8 @@ extension CLLocation{
     }
     
     var horizontallyValid: Bool{
-        horizontalAccuracy >= 0 && speedAccuracy >= 0 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && speedUncertaintyFactor < Preferences.shared.maxSpeedUncertaintyFactor
+        //horizontalAccuracy >= 0 && speedAccuracy >= 0 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && speedUncertaintyFactor < Preferences.shared.maxSpeedUncertaintyFactor
+        horizontalAccuracy >= 0 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty
     }
     
     var verticallyValid: Bool{

@@ -60,8 +60,8 @@
 //detail status
 "coordinate"="Koordinaten";
 "altitude"="Höhe";
-"horizontalUncertainty"="horizontale Unsicherheit";
-"verticalUncertainty"="vertikale Unsicherheit";
+"horizontalUncertainty"="Horizontale Unsicherheit";
+"verticalUncertainty"="Vertikale Unsicherheit";
 "speed"="Geschwindigkeit";
 "speedUncertaintyFactor"="Geschwindigkeitsunsicherheit (Faktor)";
 "positionValid"="Position ausreichend genau";

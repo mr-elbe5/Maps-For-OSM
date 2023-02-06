@@ -60,31 +60,37 @@ class StatusView : UIView{
             detailView.addSubviewWithAnchors(label, top: detailView.topAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(coordinateLabel!, top: detailView.topAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             var nextAnchor = label.bottomAnchor
+            
             altitudeLabel = UILabel()
             label = UILabel(text: "\("altitude".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(altitudeLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             gpsSpeed = UILabel()
             label = UILabel(text: "\("speed".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(gpsSpeed!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             horizontalUncertaintyLabel = UILabel()
             label = UILabel(text: "\("horizontalUncertainty".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             verticalUncertaintyLabel = UILabel()
             label = UILabel(text: "\("verticalUncertainty".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(verticalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             speedUncertaintyFactorLabel = UILabel()
             label = UILabel(text: "\("speedUncertaintyFactor".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(speedUncertaintyFactorLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
+            
             positionValidLabel = UILabel()
             label = UILabel(text: "\("positionValid".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
