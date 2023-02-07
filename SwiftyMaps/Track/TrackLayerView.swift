@@ -47,7 +47,6 @@ class TrackLayerView: UIView {
         if let track = TrackPool.visibleTrack{
             if !track.trackpoints.isEmpty{
                 var drawPoints = Array<CGPoint>()
-                var validities = Array<Bool>()
                 if let offset = offset{
                     let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
                     for idx in 0..<track.trackpoints.count{
@@ -55,7 +54,6 @@ class TrackLayerView: UIView {
                         let mapPoint = MapPoint(trackpoint.coordinate)
                         let drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
                         drawPoints.append(drawPoint)
-                        validities.append(trackpoint.horizontallyValid)
                     }
                 }
                 let ctx = UIGraphicsGetCurrentContext()!
@@ -71,7 +69,6 @@ class TrackLayerView: UIView {
                 if Preferences.shared.showTrackpoints{
                     for idx in 0..<drawPoints.count{
                         let pnt = drawPoints[idx]
-                        ctx.setFillColor(validities[idx] ? UIColor.black.cgColor : UIColor.red.cgColor)
                         ctx.fillEllipse(in: CGRect(x: pnt.x - 1 , y: pnt.y - 1, width: 4, height: 4))
                     }
                 }
