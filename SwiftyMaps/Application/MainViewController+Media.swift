@@ -137,9 +137,9 @@ extension MainViewController: PhotoCaptureDelegate{
         if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.media.isEmpty
-                debug("MainViewController adding photo to location, current media count = \(location.media.count)")
+                //Log.debug("MainViewController adding photo to location, current media count = \(location.media.count)")
                 location.addMedia(file: photo)
-                debug("new media count = \(location.media.count)")
+                //Log.debug("new media count = \(location.media.count)")
                 LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {

@@ -27,12 +27,6 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         }
         set{
             _url = newValue
-            if let url = _url{
-                debug("AudioPlayerView playing from url \(url)")
-                if let file = FileController.readFile(url: url){
-                    debug("AudioPlayerView file size is \(file.count)")
-                }
-            }
             playProgress.setProgress(0, animated: false)
             rewindButton.isEnabled = false
             if _url == nil{

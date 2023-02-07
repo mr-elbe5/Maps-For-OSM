@@ -100,7 +100,7 @@ class Trackpoint: Codable, Identifiable{
         timeDiff = tp.timestamp.distance(to: timestamp)
         horizontalDistance = distance ?? tp.coordinate.distance(to: coordinate)
         verticalDistance = altitude - tp.altitude
-        if verticalDistance < Preferences.shared.maxHorizontalUncertainty{
+        if abs(verticalDistance) < Preferences.shared.minVerticalTrackpointDistance{
             altitude = tp.altitude
             verticalDistance = 0
         }

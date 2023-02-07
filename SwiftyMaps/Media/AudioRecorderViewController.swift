@@ -103,7 +103,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
             AVNumberOfChannelsKey: 1,
         ]
-        debug("AudioRecorderViewController recording on url \(tmpFileURL)")
+        //Log.debug("AudioRecorderViewController recording on url \(tmpFileURL)")
         do{
             audioRecorder = try AVAudioRecorder(url: tmpFileURL, settings: settings)
             if let recorder = audioRecorder{
@@ -136,7 +136,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         audioRecorder?.stop()
         audioRecorder = nil
         if success {
-            debug("AudioRecorderViewController playing on url \(tmpFileURL)")
+            //Log.debug("AudioRecorderViewController playing on url \(tmpFileURL)")
             player.url = tmpFileURL
             player.enablePlayer()
         } else {
@@ -173,7 +173,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         let audioFile = AudioFile()
         audioFile.title = titleField.text?.trim() ?? ""
         audioFile.time = (currentTime*100).rounded() / 100
-        debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
+        //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
         if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: audioFile.fileName)){
             cleanup()
             self.dismiss(animated: true){
@@ -188,7 +188,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
             do {
                 try FileManager.default.removeItem(atPath: tmpFileURL.path)
             } catch let err{
-                error("AudioRecorderViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
+                Log.error("AudioRecorderViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
             }
         }
     }

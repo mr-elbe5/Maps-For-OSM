@@ -120,7 +120,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             
             self.session.commitConfiguration()
         } catch let err{
-            error("VideoCaptureViewController while creating video device input", error: err)
+            Log.error("VideoCaptureViewController while creating video device input", error: err)
         }
     }
     
@@ -176,11 +176,11 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
                     error: Error?) {
         var success = true
         if let error = error {
-            logError("VideoCaptureViewController file finishing error", error: error)
+            Log.error(msg: "VideoCaptureViewController file finishing error", error: error)
             success = (((error as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
-            debug("VideoCaptureViewController outputURL = \(outputFileURL)")
+            //Log.debug("VideoCaptureViewController outputURL = \(outputFileURL)")
             let acceptController = VideoAcceptViewController(videoUrl: outputFileURL)
             acceptController.modalPresentationStyle = .fullScreen
             acceptController.delegate = self
@@ -200,7 +200,7 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
             do {
                 try FileManager.default.removeItem(atPath: tmpFileURL.path)
             } catch let err{
-                error("VideoCaptureViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
+                Log.error("VideoCaptureViewController Could not remove file at url: \(String(describing: tmpFileURL))", error: err)
             }
         }
         
@@ -233,9 +233,9 @@ class VideoCaptureViewController: CameraViewController, AVCaptureFileOutputRecor
 extension VideoCaptureViewController: VideoAcceptDelegate{
     
     func videoAccepted(videoUrl: URL, title: String) {
-        debug("VideoCaptureViewController video accepted")
+        //Log.debug("VideoCaptureViewController video accepted")
         let videoFile = VideoFile()
-        debug("VideoCaptureViewController title = \(title)")
+        //Log.debug("VideoCaptureViewController title = \(title)")
         videoFile.title = title
         if FileController.copyFile(fromURL: videoUrl, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: videoFile.fileName)){
             cleanup()
@@ -246,7 +246,7 @@ extension VideoCaptureViewController: VideoAcceptDelegate{
     }
     
     func videoDismissed() {
-        debug("VideoCaptureViewController photo dismissed")
+        //Log.debug("VideoCaptureViewController photo dismissed")
     }
     
     

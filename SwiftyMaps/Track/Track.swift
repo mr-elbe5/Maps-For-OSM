@@ -126,6 +126,7 @@ class Track : Hashable, Codable{
             }
             last = tp
         }
+        removeAllRedundant()
     }
     
     func addLocation(_ location: CLLocation) -> Bool{
@@ -139,10 +140,12 @@ class Track : Hashable, Codable{
             if tp.timeDiff < Preferences.shared.trackpointInterval{
                 return false
             }
-            if tp.horizontalDistance < Preferences.shared.minHorizontalTrackpointDistance && tp.verticalDistance < Preferences.shared.minVerticalTrackpointDistance{
+            if tp.horizontalDistance < Preferences.shared.minHorizontalTrackpointDistance && tp.verticalDistance == 0{
                 return false
             }
+            //debug("tp.alt = \(tp.altitude)")
             trackpoints.append(tp)
+            //debug("vertDist = \(tp.verticalDistance)")
             if removeRedundant(backFrom: trackpoints.count - 1){
                 self.distance = trackpoints.distance
                 upDistance = trackpoints.upDistance
@@ -186,15 +189,15 @@ class Track : Hashable, Codable{
         return false
     }
     
-    func smoothen(){
-        debug("removing redundant trackpoints starting with \(trackpoints.count)")
+    func removeAllRedundant(){
+        Log.info("removing redundant trackpoints starting with \(trackpoints.count)")
         var i = 0
         while i + 2 < trackpoints.count{
             if !removeRedundant(backFrom: i){
                 i += 1
             }
         }
-        debug("removing redundant trackpoints ending with \(trackpoints.count)")
+        Log.info("removing redundant trackpoints ending with \(trackpoints.count)")
     }
     
 }

@@ -20,11 +20,6 @@ class VideoPlayerView: UIView {
         didSet{
             if let url = url{
                 let asset = AVURLAsset(url: url)
-                debug("VideoPlayerView playing from url \(url)")
-                if let file = FileController.readFile(url: url){
-                    debug("VideoPlayerView file size is \(file.count)")
-                }
-                debug("track count = \(asset.tracks.count)")
                 if let track = asset.tracks(withMediaType: AVMediaType.video).first{
                     let size = track.naturalSize.applying(track.preferredTransform)
                     self.aspectRatio = abs(size.width / size.height)

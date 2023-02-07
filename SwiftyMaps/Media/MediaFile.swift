@@ -39,7 +39,7 @@ class MediaFile : Equatable, Identifiable, Codable{
     
     var filePath : String{
         if fileName.isEmpty{
-            error("MediaFile file has no name")
+            Log.error("MediaFile file has no name")
             return ""
         }
         return FileController.getPath(dirPath: FileController.mediaDirURL.path,fileName: fileName)
@@ -47,7 +47,7 @@ class MediaFile : Equatable, Identifiable, Codable{
     
     var fileURL : URL{
         if fileName.isEmpty{
-            error("MediaFile file has no name")
+            Log.error("MediaFile file has no name")
         }
         return FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
     }
@@ -77,10 +77,10 @@ class MediaFile : Equatable, Identifiable, Codable{
     
     func setFileNameFromURL(_ url: URL){
         var name = url.lastPathComponent
-        debug("file name from url is \(name)")
+        //Log.debug("file name from url is \(name)")
         fileName = name
         if fileExists(){
-            info("cannot use file name \(fileName)")
+            Log.info("cannot use file name \(fileName)")
             var count = 1
             var ext = ""
             if let pntPos = name.lastIndex(of: "."){
@@ -90,7 +90,7 @@ class MediaFile : Equatable, Identifiable, Codable{
             do{
                 fileName = "\(name)(\(count))\(ext)"
                 if !fileExists(){
-                    info("new file name is \(fileName)")
+                    Log.info("new file name is \(fileName)")
                     return
                 }
                 count += 1
@@ -100,18 +100,16 @@ class MediaFile : Equatable, Identifiable, Codable{
     
     func getFile() -> Data?{
         let url = FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
-        debug("MediaFile getting data from \(url.path)")
         return FileController.readFile(url: url)
     }
     
     func saveFile(data: Data){
-        debug("MediaFile saving file \(fileName)")
         if !fileExists(){
             let url = FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
             _ = FileController.saveFile(data: data, url: url)
         }
         else{
-            error("MediaFile exists \(fileName)")
+            Log.error("MediaFile exists \(fileName)")
         }
     }
     
@@ -122,7 +120,7 @@ class MediaFile : Equatable, Identifiable, Codable{
     func prepareDelete(){
         if FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName){
             if !FileController.deleteFile(dirURL: FileController.mediaDirURL, fileName: fileName){
-                error("FileData could not delete file: \(fileName)")
+                Log.error("FileData could not delete file: \(fileName)")
             }
         }
     }

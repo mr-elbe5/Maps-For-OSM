@@ -50,7 +50,7 @@ class GPXCreator : NSObject{
       </trk>
     </gpx>
     """
-        debug("GPXCreator trackString: \(str)")
+        //Log.debug("GPXCreator trackString: \(str)")
         return str
     }
     

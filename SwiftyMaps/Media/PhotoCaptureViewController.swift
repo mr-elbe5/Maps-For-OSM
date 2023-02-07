@@ -57,7 +57,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             photoOutput.maxPhotoQualityPrioritization = .quality
             
         } else {
-            error("PhotoCaptureViewController Could not add photo output to the session")
+            Log.error("PhotoCaptureViewController Could not add photo output to the session")
             isInputAvailable = false
             session.commitConfiguration()
             return
@@ -104,7 +104,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
             self.session.commitConfiguration()
             
         } catch let err{
-            error("PhotoCaptureViewController Error occurred while creating video device input: \(err)")
+            Log.error("PhotoCaptureViewController Error occurred while creating video device input: \(err)")
         }
     }
     
@@ -160,7 +160,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
-            logError("PhotoCaptureViewController capturing photo", error: error)
+            Log.error(msg: "PhotoCaptureViewController capturing photo", error: error)
         } else {
             if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
                 let acceptController = PhotoAcceptViewController(imageData: image)
@@ -189,10 +189,10 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
 extension PhotoCaptureViewController: PhotoAcceptDelegate{
     
     func photoAccepted(imageData: UIImage, title: String) {
-        debug("PhotoCaptureViewController photo accepted")
+        //Log.debug("PhotoCaptureViewController photo accepted")
         let imageFile = ImageFile()
         imageFile.saveImage(uiImage: imageData)
-        debug("PhotoCaptureViewController title = \(title)")
+        //Log.debug("PhotoCaptureViewController title = \(title)")
         imageFile.title = title
         dismiss(animated: false){
             self.delegate?.photoCaptured(photo: imageFile)
@@ -200,7 +200,7 @@ extension PhotoCaptureViewController: PhotoAcceptDelegate{
     }
     
     func photoDismissed() {
-        debug("PhotoCaptureViewController photo dismissed")
+        //Log.debug("PhotoCaptureViewController photo dismissed")
     }
     
     

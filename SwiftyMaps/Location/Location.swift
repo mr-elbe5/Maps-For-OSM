@@ -76,32 +76,32 @@ class Location : NSObject, Codable, Identifiable{
     }
     
     private func transferOldPhotosAndTracks(values: KeyedDecodingContainer<CodingKeys>) throws{
-        info("Location transferring old data")
+        Log.info("Location transferring old data")
         if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
-            info("Location moving photos to media")
+            Log.info("Location moving photos to media")
             for photo in photoList{
                 let oldFileName = "img_\(photo.id)_\(photo.creationDate.shortFileDate()).jpg"
                 let oldURL = FileController.getURL(dirURL: FileController.oldImageDirURL,fileName: oldFileName)
                 if FileController.fileExists(url: oldURL){
                     if FileController.copyFile(fromURL: oldURL, toURL: photo.fileURL){
-                        info("copied old photo \(photo.fileName) to media directory")
+                        Log.info("copied old photo \(photo.fileName) to media directory")
                     }
                     if FileController.deleteFile(url: oldURL){
-                        info("deleted old photo \(photo.fileName)")
+                        Log.info("deleted old photo \(photo.fileName)")
                     }
                     media.append(photo)
-                    debug("photo file \(photo.fileName) exists: \(photo.fileExists())")
+                    //Log.debug("photo file \(photo.fileName) exists: \(photo.fileExists())")
                 }
             }
         }
         if let tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks), !tracks.isEmpty{
-            info("Location moving tracks to Tracks")
+            Log.info("Location moving tracks to Tracks")
             for track in tracks{
                 if TrackPool.addTrack(track: track){
-                    info("added old track from location to track pool")
+                    Log.info("added old track from location to track pool")
                 }
             }
-            info("saving track pool including old tracks")
+            Log.info("saving track pool including old tracks")
             TrackPool.save()
         }
     }

@@ -24,17 +24,18 @@ class FileController {
     static var backupDirURL = documentURL.appendingPathComponent("backup")
     static var backupImagesDirURL = backupDirURL.appendingPathComponent("images")
     static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles/carto")
+    static var logFileURL = logDirURL.appendingPathComponent("log.txt")
     
     static var oldImageDirURL = privateURL
     
     static func initializeDirectories(){
         if !FileManager.default.fileExists(atPath: tilesDirURL.path){
             try? FileManager.default.createDirectory(at: tilesDirURL, withIntermediateDirectories: true)
-            info("created tile directory")
+            Log.info("created tile directory")
         }
         if !FileManager.default.fileExists(atPath: mediaDirURL.path){
             try? FileManager.default.createDirectory(at: mediaDirURL, withIntermediateDirectories: true)
-            info("created media directory")
+            Log.info("created media directory")
         }
     }
     
@@ -108,7 +109,7 @@ class FileController {
                 try FileManager.default.createDirectory(at: dirUrl, withIntermediateDirectories: true)
             }
             catch let err{
-                error("FileController could not create directory", error: err)
+                Log.error("FileController could not create directory", error: err)
                 return false
             }
         }
@@ -121,7 +122,7 @@ class FileController {
             try data.write(to: url, options: .atomic)
             return true
         } catch let err{
-            error("FileController", error: err)
+            Log.error("FileController", error: err)
             return false
         }
     }
@@ -132,7 +133,7 @@ class FileController {
             try text.write(to: url, atomically: true, encoding: .utf8)
             return true
         } catch let err{
-            error("FileController", error: err)
+            Log.error("FileController", error: err)
             return false
         }
     }
@@ -146,14 +147,14 @@ class FileController {
             try FileManager.default.copyItem(at: getURL(dirURL: fromDir,fileName: name), to: getURL(dirURL: toDir, fileName: name))
             return true
         } catch let err{
-            error("FileController", error: err)
+            Log.error("FileController", error: err)
             return false
         }
     }
     
     @discardableResult
     static func copyFile(fromURL: URL, toURL: URL, replace: Bool = false) -> Bool{
-        debug("FileController copying from \(fromURL.path) to \(toURL.path)")
+        //Log.debug("FileController copying from \(fromURL.path) to \(toURL.path)")
         do{
             if replace && fileExists(url: toURL){
                 _ = deleteFile(url: toURL)
@@ -161,7 +162,7 @@ class FileController {
             try FileManager.default.copyItem(at: fromURL, to: toURL)
             return true
         } catch let err{
-            error("FileController", error: err)
+            Log.error("FileController", error: err)
             return false
         }
     }
@@ -294,7 +295,7 @@ class FileController {
             }
         }
         if count > 0{
-            info("\(count) files deleted")
+            Log.info("\(count) files deleted")
         }
     }
     

@@ -39,11 +39,11 @@ struct TileProvider{
             if statusCode == 200, let data = data{
                 //debug("TileProvider loaded \(tile.shortDescription)")
                 if tries > 1{
-                    info("TileProvider got tile in try \(tries)")
+                    Log.info("TileProvider got tile in try \(tries)")
                 }
                 DispatchQueue.global(qos: .background).async {
                     if !saveTile(fileUrl: tile.fileUrl, data: data){
-                        error("TileProvider could not save tile \(tile.shortDescription)")
+                        Log.error("TileProvider could not save tile \(tile.shortDescription)")
                     }
                 }
                 tile.image = UIImage(data: data)
@@ -53,13 +53,13 @@ struct TileProvider{
             if let err = err {
                 switch (err as? URLError)?.code {
                 case .some(.timedOut):
-                    error("TileProvider timeout loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
+                    Log.error("TileProvider timeout loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
                 default:
-                    error("TileProvider loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
+                    Log.error("TileProvider loading tile from \(tile.tileUrl.path), error: \(err.localizedDescription)")
                 }
             }
             else{
-                error("TileProvider loading tile from \(tile.tileUrl.path), statusCode=\(statusCode)")
+                Log.error("TileProvider loading tile from \(tile.tileUrl.path), statusCode=\(statusCode)")
             }
             if tries <= TileProvider.maxTries{
                 retryLoadTileImage(tile: tile, tries: tries + 1){ success in
@@ -79,7 +79,7 @@ struct TileProvider{
                     try FileManager.default.createDirectory(at: dirUrl, withIntermediateDirectories: true)
                 }
                 catch let err{
-                    error("TileProvider could not create directory", error: err)
+                    Log.error("TileProvider could not create directory", error: err)
                     return false
                 }
             }
@@ -88,7 +88,7 @@ struct TileProvider{
                 //debug("TileProvider file saved to \(fileUrl)")
                 return true
             } catch let err{
-                error("TileProvider saving tile: " + err.localizedDescription)
+                Log.error("TileProvider saving tile: " + err.localizedDescription)
                 return false
             }
         }
@@ -99,10 +99,10 @@ struct TileProvider{
         do{
             try FileManager.default.removeItem(at: FileController.tilesDirURL)
             try FileManager.default.createDirectory(at: FileController.tilesDirURL, withIntermediateDirectories: true)
-            debug("TileProvider tile directory cleared")
+            //Log.debug("TileProvider tile directory cleared")
         }
         catch let err{
-            error("TileProvider", error: err)
+            Log.error("TileProvider", error: err)
         }
     }
     

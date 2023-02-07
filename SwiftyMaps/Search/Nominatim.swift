@@ -38,7 +38,7 @@ class Nominatim {
                                 completion(result)
                             }
                         } catch let err {
-                            error("Nominatim", error: err)
+                            Log.error("Nominatim", error: err)
                             completion(result)
                         }
                     } else {

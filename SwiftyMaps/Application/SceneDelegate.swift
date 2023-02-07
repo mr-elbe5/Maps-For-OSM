@@ -11,7 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        info("SceneDelegate will connect")
+        Log.info("SceneDelegate will connect")
         AppState.loadInstance()
         FileController.initialize()
         Preferences.loadInstance()
@@ -30,20 +30,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        info("SceneDelegate did disconnect")
+        Log.info("SceneDelegate did disconnect")
         LocationService.shared.stop()
         FileController.deleteTemporaryFiles()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        info("SceneDelegate becoming active")
+        Log.info("SceneDelegate becoming active")
         if !LocationService.shared.running{
             LocationService.shared.start()
         }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        info("SceneDelegate resigning active")
+        Log.info("SceneDelegate resigning active")
         AppState.shared.save()
         Preferences.shared.save()
         LocationPool.save()
@@ -53,17 +53,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 LocationService.shared.requestAlwaysAuthorization()
             }
         }
+        Log.save()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
-        info("SceneDelegate entering foreground")
+        Log.info("SceneDelegate entering foreground")
         if !LocationService.shared.running{
             LocationService.shared.start()
         }
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        info("SceneDelegate entering background")
+        Log.info("SceneDelegate entering background")
         if !TrackRecorder.isRecording{
             LocationService.shared.stop()
         }
@@ -72,4 +73,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 
 var mainController : MainViewController!
-

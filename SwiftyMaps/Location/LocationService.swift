@@ -70,7 +70,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     }
     
     func start(){
-        debug("LocationService start")
+        Log.info("LocationService start")
         lock.wait()
         defer{lock.signal()}
         if authorized, !running{
@@ -90,7 +90,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     }
     
     func stop(){
-        debug("LocationService stop")
+        Log.info("LocationService stop")
         if running{
             stopUpdatingLocation()
             stopUpdatingHeading()
@@ -118,7 +118,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        debug("LocationService pause")
+        Log.info("LocationService pause")
         running = false
         if let loc = location{
             let monitoredRegion = CLCircularRegion(center: loc.coordinate, radius: 5.0, identifier: "monitoredRegion")
@@ -127,7 +127,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     }
     
     func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        debug("LocationService resume")
+        Log.info("LocationService resume")
         running = true
     }
     

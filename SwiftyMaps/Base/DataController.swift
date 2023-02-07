@@ -27,7 +27,7 @@ class DataController{
             //debug("DataController loading \(key): \(storedString)")
             return T.fromJSON(encoded: storedString)
         }
-        info("no saved data available for \(key)")
+        Log.info("no saved data available for \(key)")
         return nil
     }
     

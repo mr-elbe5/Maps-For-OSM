@@ -74,12 +74,7 @@ class TrackDetailViewController: PopupScrollViewController{
             contentView.addSubviewWithAnchors(downDistanceLabel, top: upDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
             
             let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
-            contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
-            
-            let smoothenButton = UIButton().asTextButton("smoothen".localize(), color: .systemBlue)
-            smoothenButton.addTarget(self, action: #selector(smoothenTrack), for: .touchDown)
-            contentView.addSubviewWithAnchors(smoothenButton, top: durationLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
-                .centerX(contentView.centerXAnchor)
+            contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
                 
         }
         
@@ -87,16 +82,6 @@ class TrackDetailViewController: PopupScrollViewController{
     
     @objc func showTrackOnMap(){
         if let track = track{
-            self.dismiss(animated: true){
-                self.delegate?.showTrackOnMap(track: track)
-            }
-        }
-    }
-    
-    @objc func smoothenTrack(){
-        if let track = track{
-            track.smoothen()
-            //TrackPool.save()
             self.dismiss(animated: true){
                 self.delegate?.showTrackOnMap(track: track)
             }

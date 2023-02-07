@@ -31,7 +31,7 @@ class TileDownloadOperation : AsyncOperation {
             }
             else{
                 DispatchQueue.main.async { [self] in
-                    error("TileDownloadOperation loading \(tile.shortDescription)")
+                    Log.error("TileDownloadOperation loading \(tile.shortDescription)")
                     delegate?.downloadWithError()
                 }
             }
