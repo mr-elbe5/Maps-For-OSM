@@ -21,8 +21,10 @@ class Preferences: Identifiable, Codable{
     
     static var defaultTrackpointInterval: Double = 3
     static var defaultMaxHorizontalUncertainty: Double = 3
-    static var defaultMaxVerticalUncertainty: Double = 1.5
     static var defaultMaxSpeedUncertaintyFactor: Double = 2
+    
+    static var defaultMinHorizontalTrackpointDistance: Double = 3
+    static var defaultMinVerticalTrackpointDistance: Double = 1.5
     
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
@@ -39,8 +41,9 @@ class Preferences: Identifiable, Codable{
         case showTrackpoints
         case trackpointInterval
         case maxHorizontalUncertainty
-        case maxVerticalUncertainty
         case maxSpeedUncertaintyFactor
+        case minHorizontalTrackpointDistance
+        case minVerticalTrackpointDistance
     }
 
     var urlTemplate : String = osmUrl
@@ -49,8 +52,9 @@ class Preferences: Identifiable, Codable{
     
     var trackpointInterval: Double = defaultTrackpointInterval
     var maxHorizontalUncertainty: Double = defaultMaxHorizontalUncertainty
-    var maxVerticalUncertainty: Double = defaultMaxVerticalUncertainty
     var maxSpeedUncertaintyFactor: Double = defaultMaxSpeedUncertaintyFactor
+    var minHorizontalTrackpointDistance = defaultMinHorizontalTrackpointDistance
+    var minVerticalTrackpointDistance = defaultMinVerticalTrackpointDistance
     
     init(){
     }
@@ -62,8 +66,9 @@ class Preferences: Identifiable, Codable{
         showTrackpoints = try values.decodeIfPresent(Bool.self, forKey: .showTrackpoints) ?? false
         trackpointInterval = try values.decodeIfPresent(Double.self, forKey: .trackpointInterval) ?? Preferences.defaultTrackpointInterval
         maxHorizontalUncertainty = try values.decodeIfPresent(Double.self, forKey: .maxHorizontalUncertainty) ?? Preferences.defaultMaxHorizontalUncertainty
-        maxVerticalUncertainty = try values.decodeIfPresent(Double.self, forKey: .maxVerticalUncertainty) ?? Preferences.defaultMaxVerticalUncertainty
         maxSpeedUncertaintyFactor = try values.decodeIfPresent(Double.self, forKey: .maxSpeedUncertaintyFactor) ?? Preferences.defaultMaxSpeedUncertaintyFactor
+        minHorizontalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minHorizontalTrackpointDistance) ?? Preferences.defaultMinHorizontalTrackpointDistance
+        minVerticalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minVerticalTrackpointDistance) ?? Preferences.defaultMinVerticalTrackpointDistance
     }
     
     func encode(to encoder: Encoder) throws {
@@ -73,8 +78,9 @@ class Preferences: Identifiable, Codable{
         try container.encode(showTrackpoints, forKey: .showTrackpoints)
         try container.encode(trackpointInterval, forKey: .trackpointInterval)
         try container.encode(maxHorizontalUncertainty, forKey: .maxHorizontalUncertainty)
-        try container.encode(maxVerticalUncertainty, forKey: .maxVerticalUncertainty)
         try container.encode(maxSpeedUncertaintyFactor, forKey: .maxSpeedUncertaintyFactor)
+        try container.encode(minHorizontalTrackpointDistance, forKey: .minHorizontalTrackpointDistance)
+        try container.encode(minVerticalTrackpointDistance, forKey: .minVerticalTrackpointDistance)
     }
     
     func save(){

@@ -64,7 +64,7 @@
 "verticalUncertainty"="Vertical Uncertainty";
 "speed"="Speed";
 "speedUncertaintyFactor"="Speed Uncertainty (Factor)";
-"positionValid"="Acceptable Accuracy of Position";
+"positionValidityHint"="When recoding tracks, positions with red values are dicarded.";
 "unknown"="unknown";
 
 //camera
@@ -182,8 +182,9 @@
 "showTrackpoints"="Show single trackpoints on track";
 "trackpointInterval"="Time between Trackpoints";
 "maxHorizontalUncertainty"="Maximal Horizontal Uncertainty";
-"maxVerticalUncertainty"="Maximal Vertical Uncertainty";
 "maxSpeedUncertaintyFactor"="Maximal Speed Uncertainty Factor";
+"minHorizontalTrackpointDistance"="Minimal Trackpoint Distance";
+"minVerticalTrackpointDistance"="Minimal Trackpoint Height Difference";
 "preferencesSaved"="Preferences have been saved.";
 
 //info

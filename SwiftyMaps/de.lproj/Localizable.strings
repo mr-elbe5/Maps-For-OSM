@@ -64,7 +64,7 @@
 "verticalUncertainty"="Vertikale Unsicherheit";
 "speed"="Geschwindigkeit";
 "speedUncertaintyFactor"="Geschwindigkeitsunsicherheit (Faktor)";
-"positionValid"="Position ausreichend genau";
+"positionValidityHint"="Bei Touraufzeichnungen werden Positionen mit roten Werten verworfen.";
 "unknown"="unbekannt";
 
 //camera
@@ -181,8 +181,9 @@
 "showTrackpoints"="Einzelne Wegpunke auf Tour anzeigen";
 "trackpointInterval"="Zeit zwischen Wegpunkten";
 "maxHorizontalUncertainty"="Maximale horizontale Unsicherheit";
-"maxVerticalUncertainty"="Maximale vertikale Unsicherheit";
 "maxSpeedUncertaintyFactor"="Maximaler Geschwindigkeits-Unsicherheitsfaktor";
+"minHorizontalTrackpointDistance"="Minimale Wegpunkt-Entfernung";
+"minVerticalTrackpointDistance"="Minimale Wegpunkt-Höhendifferenz";
 "preferencesSaved"="Einstellungen wurden gesichert.";
 
 //info

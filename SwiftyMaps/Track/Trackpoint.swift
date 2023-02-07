@@ -15,36 +15,31 @@ class Trackpoint: Codable, Identifiable{
         case longitude
         case altitude
         case timestamp
-        case horizontalAccuracy
-        case verticalAccuracy
         case speed
-        case speedAccuracy
+        case valid
     }
     
     var coordinate: CLLocationCoordinate2D
     var altitude: Double
     var timestamp: Date
     var mapPoint: MapPoint
+    var valid: Bool = true
+    
+    var horizontalDistance: CGFloat = 0
+    var verticalDistance: CGFloat = 0
+    var timeDiff: CGFloat = 0
+    
+    // gps values
     var horizontalAccuracy: Double = 0
-    var verticalAccuracy: Double = 0
     var speed: Double = 0
     var speedAccuracy: Double = 0
     
-    var timeDiff: CGFloat = 0
-    var horizontalDistance: CGFloat = 0
-    var verticalDistance: CGFloat = 0
-    
-    var speedDeviation: Double{
+    var gpsSpeedDeviation: Double{
         speedAccuracy < 0 ? -1 : speedAccuracy / speed
     }
     
     var horizontallyValid: Bool{
-        //horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && speedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
-        horizontalAccuracy != -1  && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty
-    }
-    
-    var verticallyValid: Bool{
-        verticalAccuracy != -1 && verticalAccuracy < Preferences.shared.maxVerticalUncertainty
+        horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && gpsSpeedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
     }
     
     var kmhSpeed: Int{
@@ -69,7 +64,6 @@ class Trackpoint: Codable, Identifiable{
         altitude = location.altitude
         timestamp = location.timestamp
         horizontalAccuracy = location.horizontalAccuracy
-        verticalAccuracy = location.verticalAccuracy
         speed = location.speed
         speedAccuracy = location.speedAccuracy
     }
@@ -86,10 +80,7 @@ class Trackpoint: Codable, Identifiable{
         mapPoint = MapPoint(coordinate)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
-        horizontalAccuracy = try values.decodeIfPresent(Double.self, forKey: .horizontalAccuracy) ?? 0
-        verticalAccuracy = try values.decodeIfPresent(Double.self, forKey: .verticalAccuracy) ?? 0
-        speed = try values.decodeIfPresent(Double.self, forKey: .speed) ?? 0
-        speedAccuracy = try values.decodeIfPresent(Double.self, forKey: .speedAccuracy) ?? 0
+        valid = try values.decodeIfPresent(Bool.self, forKey: .valid) ?? true
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -98,10 +89,11 @@ class Trackpoint: Codable, Identifiable{
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(altitude, forKey: .altitude)
         try container.encode(timestamp, forKey: .timestamp)
-        try container.encode(horizontalAccuracy, forKey: .horizontalAccuracy)
-        try container.encode(verticalAccuracy, forKey: .verticalAccuracy)
-        try container.encode(speed, forKey: .speed)
-        try container.encode(speedAccuracy, forKey: .speedAccuracy)
+        try container.encode(valid, forKey: .valid)
+    }
+    
+    func checkValidity(){
+        valid = horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && gpsSpeedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
     }
     
     func updateDeltas(from tp: Trackpoint, distance: CGFloat? = nil){

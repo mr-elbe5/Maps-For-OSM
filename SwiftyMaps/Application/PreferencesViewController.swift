@@ -19,8 +19,9 @@ class PreferencesViewController: PopupScrollViewController{
     var showTrackpointsSwitch = LabeledSwitchView()
     var trackpointIntervalField = LabeledTextField()
     var maxHorizontalUncertaintyField = LabeledTextField()
-    var maxVerticalUncertaintyField = LabeledTextField()
     var maxSpeedUncertaintyFactorField = LabeledTextField()
+    var minHorizontalTrackpointDistanceField = LabeledTextField()
+    var minVerticalTrackpointDistanceField = LabeledTextField()
     
     var delegate: PreferencesDelegate? = nil
     
@@ -75,17 +76,20 @@ class PreferencesViewController: PopupScrollViewController{
         maxHorizontalUncertaintyField.setupView(labelText: "maxHorizontalUncertainty".localize(), text: String(Preferences.shared.maxHorizontalUncertainty), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxHorizontalUncertaintyField, top: trackpointIntervalField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        maxVerticalUncertaintyField.setupView(labelText: "maxVerticalUncertainty".localize(), text: String(Preferences.shared.maxVerticalUncertainty), isHorizontal: false)
-        contentView.addSubviewWithAnchors(maxVerticalUncertaintyField, top: maxHorizontalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
         maxSpeedUncertaintyFactorField.setupView(labelText: "maxSpeedUncertaintyFactor".localize(), text: String(Int(Preferences.shared.maxSpeedUncertaintyFactor)), isHorizontal: false)
-        contentView.addSubviewWithAnchors(maxSpeedUncertaintyFactorField, top: maxVerticalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(maxSpeedUncertaintyFactorField, top: maxHorizontalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        minHorizontalTrackpointDistanceField.setupView(labelText: "minHorizontalTrackpointDistance".localize(), text: String(Preferences.shared.minHorizontalTrackpointDistance), isHorizontal: false)
+        contentView.addSubviewWithAnchors(minHorizontalTrackpointDistanceField, top: maxSpeedUncertaintyFactorField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        minVerticalTrackpointDistanceField.setupView(labelText: "minVerticalTrackpointDistance".localize(), text: String(Preferences.shared.minVerticalTrackpointDistance), isHorizontal: false)
+        contentView.addSubviewWithAnchors(minVerticalTrackpointDistanceField, top: minHorizontalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: maxSpeedUncertaintyFactorField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: minVerticalTrackpointDistanceField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         setupKeyboard()
@@ -127,13 +131,17 @@ class PreferencesViewController: PopupScrollViewController{
         if let val = val{
             Preferences.shared.maxHorizontalUncertainty = val
         }
-        val = Double(maxVerticalUncertaintyField.text)
-        if let val = val{
-            Preferences.shared.maxVerticalUncertainty = val
-        }
         val = Double(maxSpeedUncertaintyFactorField.text)
         if let val = val{
             Preferences.shared.maxSpeedUncertaintyFactor = val
+        }
+        val = Double(minHorizontalTrackpointDistanceField.text)
+        if let val = val{
+            Preferences.shared.minHorizontalTrackpointDistance = val
+        }
+        val = Double(minVerticalTrackpointDistanceField.text)
+        if let val = val{
+            Preferences.shared.minVerticalTrackpointDistance = val
         }
         delegate?.updateFollowTrack()
         Preferences.shared.save()

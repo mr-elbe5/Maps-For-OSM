@@ -32,7 +32,6 @@ class StatusView : UIView{
     var horizontalUncertaintyLabel : UILabel? = nil
     var verticalUncertaintyLabel : UILabel? = nil
     var speedUncertaintyFactorLabel : UILabel? = nil
-    var positionValidLabel : UILabel? = nil
     
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
@@ -53,7 +52,6 @@ class StatusView : UIView{
         horizontalUncertaintyLabel = nil
         verticalUncertaintyLabel = nil
         speedUncertaintyFactorLabel = nil
-        positionValidLabel = nil
         if isDetailed{
             var label = UILabel(text: "\("coordinate".localize()):")
             coordinateLabel = UILabel()
@@ -79,23 +77,15 @@ class StatusView : UIView{
             detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            verticalUncertaintyLabel = UILabel()
-            label = UILabel(text: "\("verticalUncertainty".localize()):")
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(verticalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
             speedUncertaintyFactorLabel = UILabel()
             label = UILabel(text: "\("speedUncertaintyFactor".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(speedUncertaintyFactorLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            positionValidLabel = UILabel()
-            label = UILabel(text: "\("positionValid".localize()):")
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(positionValidLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
+            label = UILabel(text: "\("positionValidityHint".localize())")
+            label.numberOfLines = 0
+            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, insets: defaultInsets)
             label.bottom(detailView.bottomAnchor)
         }
     }
@@ -109,7 +99,6 @@ class StatusView : UIView{
         timeLabel = nil
         compassLabel = nil
         
-        var compassLabel : UILabel? = nil
         if TrackRecorder.track != nil{
             let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
             distanceIcon.tintColor = .darkGray
@@ -150,7 +139,7 @@ class StatusView : UIView{
             let compassIcon = UIImageView(image: UIImage(systemName: "safari"))
             compassIcon.tintColor = .darkGray
             defaultView.addSubviewWithAnchors(compassIcon, top: defaultView.topAnchor, leading: defaultView.leadingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
-            compassLabel=UILabel(text: "0°")
+            compassLabel = UILabel(text: "0°")
             compassLabel!.textColor = .darkGray
             defaultView.addSubviewWithAnchors(compassLabel!, top: defaultView.topAnchor, leading: compassIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
         }
@@ -183,9 +172,9 @@ class StatusView : UIView{
         altitudeLabel?.text = "\(Int(location.altitude)) m"
         gpsSpeed?.text = "\(Int(max(0,location.speed*3.6))) km/h"
         horizontalUncertaintyLabel?.text = location.horizontalAccuracy < 0 ? "unknown".localize() : "\(Int(location.horizontalAccuracy)) m"
-        verticalUncertaintyLabel?.text = location.verticalAccuracy < 0 ? "unknown".localize() : "\(Int(location.verticalAccuracy)) m"
+        horizontalUncertaintyLabel?.textColor = location.horizontalAccuracyValid ? .darkGray : .red
         speedUncertaintyFactorLabel?.text = location.speedAccuracy < 0 ? "unknown".localize() : "\(Int(location.speedUncertaintyFactor))"
-        positionValidLabel?.text = location.horizontallyValid ? "yes".localize() : "no".localize()
+        speedUncertaintyFactorLabel?.textColor = location.speedAccuracyValid ? .darkGray : .red
     }
     
     func updateDirection(direction: CLLocationDirection) {

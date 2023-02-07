@@ -129,26 +129,21 @@ class Track : Hashable, Codable{
     }
     
     func addLocation(_ location: CLLocation) -> Bool{
+        let tp = Trackpoint(location: location)
+        tp.checkValidity()
+        if !tp.horizontallyValid{
+            return false
+        }
         if let previousTrackpoint = trackpoints.last{
-            let timeDiff = previousTrackpoint.timestamp.distance(to: location.timestamp)
-            if timeDiff < Preferences.shared.trackpointInterval{
+            tp.updateDeltas(from: previousTrackpoint)
+            if tp.timeDiff < Preferences.shared.trackpointInterval{
                 return false
             }
-            let distance = location.coordinate.distance(to: previousTrackpoint.coordinate)
-            if distance < Preferences.shared.maxHorizontalUncertainty{
-                return false
-            }
-            var trackpointsChanged = false
-            let tp = Trackpoint(location: location)
-            tp.updateDeltas(from: previousTrackpoint, distance: distance)
-            if !tp.horizontallyValid{
+            if tp.horizontalDistance < Preferences.shared.minHorizontalTrackpointDistance && tp.verticalDistance < Preferences.shared.minVerticalTrackpointDistance{
                 return false
             }
             trackpoints.append(tp)
             if removeRedundant(backFrom: trackpoints.count - 1){
-                trackpointsChanged = true
-            }
-            if trackpointsChanged{
                 self.distance = trackpoints.distance
                 upDistance = trackpoints.upDistance
                 downDistance = trackpoints.downDistance
@@ -165,13 +160,10 @@ class Track : Hashable, Codable{
             }
         }
         else{
-            let tp = Trackpoint(location: location)
-            if !tp.horizontallyValid{
-                return false
-            }
             trackpoints.append(tp)
+            startTime = tp.timestamp
         }
-        endTime = location.timestamp
+        endTime = tp.timestamp
         return true
     }
     
