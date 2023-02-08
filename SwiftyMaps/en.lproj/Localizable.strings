@@ -180,12 +180,14 @@
 "osmLegalInfo"="Legal Info for tiles from OpenStreetMap.org";
 "followTrack"="Follow Position on Tour Recording";
 "showTrackpoints"="Show single trackpoints on track";
-"trackpointInterval"="Time between Trackpoints";
-"maxHorizontalUncertainty"="Maximal Horizontal Uncertainty";
+"trackpointInterval"="Time between Trackpoints [s]";
+"maxHorizontalUncertainty"="Maximal Horizontal Uncertainty [m]";
 "maxSpeedUncertaintyFactor"="Maximal Speed Uncertainty Factor";
-"minHorizontalTrackpointDistance"="Minimal Trackpoint Distance";
-"minVerticalTrackpointDistance"="Minimal Trackpoint Height Difference";
+"minHorizontalTrackpointDistance"="Minimal Trackpoint Distance [m]";
+"minVerticalTrackpointDistance"="Minimal Trackpoint Height Difference [m]";
+"maxTrackpointInLineDeviation"="Maximal Deviation for Trackpoints in Line [m]";
 "preferencesSaved"="Preferences have been saved.";
+"saveLog"="Save Log";
 
 //info
 //general info

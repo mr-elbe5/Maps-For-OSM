@@ -179,12 +179,14 @@
 "osmLegalInfo"="Regeln für das Laden von OpenStreetMap.org";
 "followTrack"="Position bei Touraufzeichnung folgen";
 "showTrackpoints"="Einzelne Wegpunke auf Tour anzeigen";
-"trackpointInterval"="Zeit zwischen Wegpunkten";
-"maxHorizontalUncertainty"="Maximale horizontale Unsicherheit";
+"trackpointInterval"="Zeit zwischen Wegpunkten [s]";
+"maxHorizontalUncertainty"="Maximale horizontale Unsicherheit [m]";
 "maxSpeedUncertaintyFactor"="Maximaler Geschwindigkeits-Unsicherheitsfaktor";
-"minHorizontalTrackpointDistance"="Minimale Wegpunkt-Entfernung";
-"minVerticalTrackpointDistance"="Minimale Wegpunkt-Höhendifferenz";
+"minHorizontalTrackpointDistance"="Minimale Wegpunkt-Entfernung [m]";
+"minVerticalTrackpointDistance"="Minimale Wegpunkt-Höhendifferenz [m]";
+"maxTrackpointInLineDeviation"="Maximale Abweichung von Wegpunkten einer Linie [m]";
 "preferencesSaved"="Einstellungen wurden gesichert.";
+"saveLog"="Log sichern";
 
 //info
 //general info

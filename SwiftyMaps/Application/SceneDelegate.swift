@@ -53,7 +53,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 LocationService.shared.requestAlwaysAuthorization()
             }
         }
-        Log.save()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

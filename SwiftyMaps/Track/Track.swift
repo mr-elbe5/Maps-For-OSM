@@ -146,7 +146,7 @@ class Track : Hashable, Codable{
             //debug("tp.alt = \(tp.altitude)")
             trackpoints.append(tp)
             //debug("vertDist = \(tp.verticalDistance)")
-            if removeRedundant(backFrom: trackpoints.count - 1){
+            if Preferences.shared.maxTrackpointInLineDeviation != 0 && removeRedundant(backFrom: trackpoints.count - 1){
                 self.distance = trackpoints.distance
                 upDistance = trackpoints.upDistance
                 downDistance = trackpoints.downDistance
@@ -181,7 +181,7 @@ class Track : Hashable, Codable{
         let expectedLatitude = (tp2.coordinate.latitude - tp0.coordinate.latitude)/(tp2.coordinate.longitude - tp0.coordinate.longitude) * (tp1.coordinate.longitude - tp0.coordinate.longitude) + tp0.coordinate.latitude
         let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: tp1.coordinate.longitude)
         //check for middle coordinate being close to expected coordinate
-        if tp1.coordinate.distance(to: expectedCoordinate) < Preferences.shared.maxHorizontalUncertainty{
+        if tp1.coordinate.distance(to: expectedCoordinate) <= Preferences.shared.maxTrackpointInLineDeviation{
             trackpoints.remove(at: last - 1)
             tp2.updateDeltas(from: tp0)
             return true

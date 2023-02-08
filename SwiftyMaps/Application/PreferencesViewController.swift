@@ -22,6 +22,7 @@ class PreferencesViewController: PopupScrollViewController{
     var maxSpeedUncertaintyFactorField = LabeledTextField()
     var minHorizontalTrackpointDistanceField = LabeledTextField()
     var minVerticalTrackpointDistanceField = LabeledTextField()
+    var maxTrackpointInLineDeviationField = LabeledTextField()
     
     var delegate: PreferencesDelegate? = nil
     
@@ -85,11 +86,21 @@ class PreferencesViewController: PopupScrollViewController{
         minVerticalTrackpointDistanceField.setupView(labelText: "minVerticalTrackpointDistance".localize(), text: String(Preferences.shared.minVerticalTrackpointDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(minVerticalTrackpointDistanceField, top: minHorizontalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
+        maxTrackpointInLineDeviationField.setupView(labelText: "maxTrackpointInLineDeviation".localize(), text: String(Preferences.shared.maxTrackpointInLineDeviation), isHorizontal: false)
+        contentView.addSubviewWithAnchors(maxTrackpointInLineDeviationField, top: minVerticalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: minVerticalTrackpointDistanceField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
+        let saveLogButton = UIButton()
+        saveLogButton.setTitle("saveLog".localize(), for: .normal)
+        saveLogButton.setTitleColor(.systemBlue, for: .normal)
+        saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
+        contentView.addSubviewWithAnchors(saveLogButton, top: saveButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         setupKeyboard()
@@ -143,9 +154,17 @@ class PreferencesViewController: PopupScrollViewController{
         if let val = val{
             Preferences.shared.minVerticalTrackpointDistance = val
         }
+        val = Double(maxTrackpointInLineDeviationField.text)
+        if let val = val{
+            Preferences.shared.maxTrackpointInLineDeviation = val
+        }
         delegate?.updateFollowTrack()
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
+    }
+    
+    @objc func saveLog(){
+        Log.save()
     }
     
 }
