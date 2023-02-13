@@ -62,7 +62,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
-        let track = tracks?[indexPath.row]
+        let track = tracks?.reversed()[indexPath.row]
         cell.track = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)

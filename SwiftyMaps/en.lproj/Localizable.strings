@@ -192,7 +192,7 @@
 //info
 //general info
 "appInfoHeader"="General";
-"appInfoText"="This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and only part of its tiles (carto and topo) have been pre-generated (up to zoom 11).\nUp-to-date information is found at www.elbe5.de.\nOnce loaded tiles are cached in the app until all tiles are deleted.";
+"appInfoText"="This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server, covers Europe only and tiles have been pre-generated only up to zoom level 13.\nUp-to-date information is found at en.elbe5.de/maps.html.\nOnce loaded tiles are cached in the app until all tiles are deleted.";
 
 //map icons
 "appIconsHeader"="Icons on the Map";

@@ -191,7 +191,7 @@
 //info
 //general info
 "appInfoHeader"="Allgemeines";
-"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und nur ein beschränkter Teil der Kacheln (carto und topo) ist vorgeneriert (bis Zoom 11).\nAktuelle Informationen dazu finden sich unter www.elbe5.de.\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
+"appInfoText"="Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server, deckt nur Europa ab und Kacheln sind nur bis Zoomebene 13 vorgeneriert.\nAktuelle Informationen dazu finden sich unter www.elbe5.de/maps.html.\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.";
 
 //map icons
 "appIconsHeader"="Symbole auf der Karte";
