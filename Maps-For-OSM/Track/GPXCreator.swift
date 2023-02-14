@@ -1,5 +1,5 @@
 /*
- SwiftyMaps
+ Maps For OSM
  App for display and use of OSM maps without MapKit
  Copyright: Michael Rönnau mr@elbe5.de
  */
@@ -34,7 +34,7 @@ class GPXCreator : NSObject{
     static func trackString(track: Track) -> String{
         var str = """
     <?xml version='1.0' encoding='UTF-8'?>
-    <gpx version="1.1" creator="SwiftyMaps" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <gpx version="1.1" creator="Maps For OSM" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
       <metadata>
         <name>\(track.name)</name>
       </metadata>

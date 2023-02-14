@@ -20,7 +20,7 @@
 "start"="Start";
 "close"="Close";
 "backup"="Backup";
-"backupSaved"="Backup has been saved in 'SwiftyMaps for OSM/backup'";
+"backupSaved"="Backup has been saved in 'Maps for OSM/backup'";
 "preferences"="Preferences...";
 "preferencesSaved"="Preferences saved";
 "deleteAll"="Delete All";
