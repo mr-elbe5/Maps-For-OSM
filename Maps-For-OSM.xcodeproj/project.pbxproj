@@ -270,7 +270,7 @@
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
-				4E0BD97F26E9FC66005A4A94 /* SwiftyMaps */,
+				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4E0BD97F26E9FC66005A4A94 /* SwiftyMaps */ = {
+		4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM */ = {
 			isa = PBXGroup;
 			children = (
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
@@ -302,7 +302,7 @@
 				4E0D092C26F90D5D00FABB17 /* Track */,
 				4E3BE7EB26EA7EF1000F9069 /* Media */,
 			);
-			path = SwiftyMaps;
+			path = "Maps-For-OSM";
 			sourceTree = "<group>";
 		};
 		4E0BD99726EA0020005A4A94 /* Application */ = {
@@ -527,7 +527,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps" */;
+			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps-For-OSM" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -844,7 +844,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 5UG99476V8;
-				INFOPLIST_FILE = SwiftyMaps/Info.plist;
+				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -865,7 +865,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 5UG99476V8;
-				INFOPLIST_FILE = SwiftyMaps/Info.plist;
+				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -881,7 +881,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "SwiftyMaps" */ = {
+		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps-For-OSM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD98F26E9FC67005A4A94 /* Debug */,
