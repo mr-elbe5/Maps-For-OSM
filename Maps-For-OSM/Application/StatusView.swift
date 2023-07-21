@@ -171,9 +171,13 @@ class StatusView : UIView{
         coordinateLabel?.text = location.coordinate.asString
         altitudeLabel?.text = "\(Int(location.altitude)) m"
         gpsSpeed?.text = "\(Int(max(0,location.speed*3.6))) km/h"
-        horizontalUncertaintyLabel?.text = location.horizontalAccuracy < 0 ? "unknown".localize() : "\(Int(location.horizontalAccuracy)) m"
+        horizontalUncertaintyLabel?.text = location.horizontalAccuracy < 0 ? "?" : "\(String(floor(location.horizontalAccuracy))) m"
         horizontalUncertaintyLabel?.textColor = location.horizontalAccuracyValid ? .darkGray : .red
-        speedUncertaintyFactorLabel?.text = location.speedAccuracy < 0 ? "unknown".localize() : "\(Int(location.speedUncertaintyFactor))"
+        var s = "?"
+        if location.speedAccuracy > 0 && location.speedAccuracyValid{
+            s = String(floor(location.speedAccuracy))
+        }
+        speedUncertaintyFactorLabel?.text = s
         speedUncertaintyFactorLabel?.textColor = location.speedAccuracyValid ? .darkGray : .red
     }
     
