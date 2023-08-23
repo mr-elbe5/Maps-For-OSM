@@ -1,3 +1,7 @@
+This project is discontinued on GitHub.
+
+You can find it on Gitea at https://git.elbe5cloud.de/miro/SwiftyMaps
+
 # SwiftyMaps
  
 View maps from OpenStreetMap (app is not affiliated with OSM organization).
