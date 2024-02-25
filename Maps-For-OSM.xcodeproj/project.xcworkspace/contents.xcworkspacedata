@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/miro/Developer/_github/Maps-For-OSM/Maps-For-OSM.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
