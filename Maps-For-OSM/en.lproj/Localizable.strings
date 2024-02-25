@@ -26,6 +26,8 @@
 "deleteAll"="Delete All";
 "accept"="Accept";
 "dismiss"="Dismiss";
+"imageLibrary"="Image Library";
+"exportImages"="Export Images";
 
 //error
 "error"="Error";

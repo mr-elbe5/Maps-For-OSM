@@ -100,7 +100,14 @@ class PreferencesViewController: PopupScrollViewController{
         saveLogButton.setTitle("saveLog".localize(), for: .normal)
         saveLogButton.setTitleColor(.systemBlue, for: .normal)
         saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveLogButton, top: saveButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveLogButton, top: saveButton.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
+        let exportButton = UIButton()
+        exportButton.setTitle("exportImages".localize(), for: .normal)
+        exportButton.setTitleColor(.systemBlue, for: .normal)
+        exportButton.addTarget(self, action: #selector(export), for: .touchDown)
+        contentView.addSubviewWithAnchors(exportButton, top: saveLogButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         setupKeyboard()
@@ -165,6 +172,31 @@ class PreferencesViewController: PopupScrollViewController{
     
     @objc func saveLog(){
         Log.save()
+    }
+    
+    @objc func export(){
+        let alertController = UIAlertController(title: title, message: "exportImages".localize(), preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
+            var numCopied = 0
+            var numErrors = 0
+            for location in LocationPool.list{
+                for media in location.media{
+                    FileController.copyImageToLibrary(name: media.data.fileName, fromDir: FileController.mediaDirURL){ result in
+                        switch result{
+                        case .success:
+                            numCopied += 1
+                        case .failure(let err):
+                            numErrors += 1
+                        }
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.showAlert(title: "success".localize(), text: "\(numCopied) imagesExported, \(numErrors) errors")
+            }
+        })
+        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
+        self.present(alertController, animated: true)
     }
     
 }

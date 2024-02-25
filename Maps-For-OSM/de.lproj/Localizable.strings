@@ -26,6 +26,8 @@
 "deleteAll"="Alle löschen";
 "accept"="Übernehmen";
 "dismiss"="Ablehnen";
+"imageLibrary"="Bilderbibliothek";
+"exportImages"="Bilder exportieren";
 
 //error
 "error"="Fehler";

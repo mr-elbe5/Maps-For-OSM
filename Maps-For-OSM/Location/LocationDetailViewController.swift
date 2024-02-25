@@ -208,7 +208,7 @@ extension LocationDetailViewController: ImageListItemDelegate{
     func shareImage(sender: ImageListItemView) {
         let alertController = UIAlertController(title: title, message: "shareImage".localize(), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            FileController.copyImageToLibrary(name: sender.imageData.fileName, fromDir: FileController.privateURL){ result in
+            FileController.copyImageToLibrary(name: sender.imageData.fileName, fromDir: FileController.mediaDirURL){ result in
                 DispatchQueue.main.async {
                     switch result{
                     case .success:
