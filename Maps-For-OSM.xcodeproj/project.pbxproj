@@ -104,6 +104,7 @@
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
+		4EC0349F2B8BD134003E9FA9 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0349E2B8BD134003E9FA9 /* Backup.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */; };
 		4ED55ECE2976B17400C679AF /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECC2976B17300C679AF /* LocationGroup.swift */; };
@@ -230,6 +231,7 @@
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
+		4EC0349E2B8BD134003E9FA9 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadViewController.swift; sourceTree = "<group>"; };
 		4ED55ECC2976B17300C679AF /* LocationGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
+				4EC0349E2B8BD134003E9FA9 /* Backup.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				4E2088E32743A24E0097BFBA /* Track.swift in Sources */,
 				4EF477122941E98400294B21 /* MediaFile.swift in Sources */,
 				4E4790CD299297F6008EEA0A /* Log.swift in Sources */,
+				4EC0349F2B8BD134003E9FA9 /* Backup.swift in Sources */,
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E30798F28D74EB2005FBEF0 /* TileRegion.swift in Sources */,

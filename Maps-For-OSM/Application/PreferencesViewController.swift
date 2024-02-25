@@ -177,20 +177,7 @@ class PreferencesViewController: PopupScrollViewController{
     @objc func export(){
         let alertController = UIAlertController(title: title, message: "exportImages".localize(), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            var numCopied = 0
-            var numErrors = 0
-            for location in LocationPool.list{
-                for media in location.media{
-                    FileController.copyImageToLibrary(name: media.data.fileName, fromDir: FileController.mediaDirURL){ result in
-                        switch result{
-                        case .success:
-                            numCopied += 1
-                        case .failure(let err):
-                            numErrors += 1
-                        }
-                    }
-                }
-            }
+            let (numCopied,numErrors) = Backup.export()
             DispatchQueue.main.async {
                 self.showAlert(title: "success".localize(), text: "\(numCopied) imagesExported, \(numErrors) errors")
             }
