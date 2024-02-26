@@ -19,25 +19,9 @@ class FileController {
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var mediaDirURL : URL = privateURL.appendingPathComponent("media")
     static var tilesDirURL : URL = privateURL.appendingPathComponent("tiles")
-    static var gpxDirURL = documentURL.appendingPathComponent("gpx")
-    static var logDirURL = documentURL.appendingPathComponent("logs")
+    static var exportGpxDirURL = documentURL.appendingPathComponent("gpx")
+    static var exportMediaDirURL = documentURL.appendingPathComponent("media")
     static var backupDirURL = documentURL.appendingPathComponent("backup")
-    static var backupImagesDirURL = backupDirURL.appendingPathComponent("images")
-    static var backupTilesDirURL = backupDirURL.appendingPathComponent("tiles/carto")
-    static var logFileURL = logDirURL.appendingPathComponent("log.txt")
-    
-    static var oldImageDirURL = privateURL
-    
-    static func initializeDirectories(){
-        if !FileManager.default.fileExists(atPath: tilesDirURL.path){
-            try? FileManager.default.createDirectory(at: tilesDirURL, withIntermediateDirectories: true)
-            Log.info("created tile directory")
-        }
-        if !FileManager.default.fileExists(atPath: mediaDirURL.path){
-            try? FileManager.default.createDirectory(at: mediaDirURL, withIntermediateDirectories: true)
-            Log.info("created media directory")
-        }
-    }
     
     static var temporaryPath : String {
         tempDir
@@ -53,11 +37,11 @@ class FileController {
     
     static func initialize() {
         try! FileManager.default.createDirectory(at: FileController.privateURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileController.gpxDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileController.logDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.tilesDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.mediaDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.exportGpxDirURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: FileController.backupDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileController.backupImagesDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileController.backupTilesDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileController.exportMediaDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     static func getPath(dirPath: String, fileName: String ) -> String

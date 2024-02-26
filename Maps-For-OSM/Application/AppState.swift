@@ -92,5 +92,11 @@ class AppState: Identifiable, Codable{
         return nil
     }
     
+    static func loadFromFile(url: URL){
+        if let string = FileController.readTextFile(url: url),let data : AppState = AppState.fromJSON(encoded: string){
+            shared = data
+        }
+    }
+    
 }
 

@@ -89,7 +89,7 @@
 		4E55B2BB294774A5005D2BFB /* AudioListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */; };
 		4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA928DAEC5B007AD900 /* AppState.swift */; };
 		4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */; };
-		4E577A222B8C808900E89139 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E577A212B8C808900E89139 /* ExportViewController.swift */; };
+		4E577A222B8C808900E89139 /* BackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E577A212B8C808900E89139 /* BackupViewController.swift */; };
 		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
 		4E5F8C88298D168E00D1CE5C /* MainViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C87298D168E00D1CE5C /* MainViewController+Menu.swift */; };
 		4E5F8C8A298D16F300D1CE5C /* MainViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C89298D16F300D1CE5C /* MainViewController+Media.swift */; };
@@ -105,7 +105,6 @@
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
-		4EC0349F2B8BD134003E9FA9 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0349E2B8BD134003E9FA9 /* Backup.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */; };
 		4ED55ECE2976B17400C679AF /* LocationGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECC2976B17300C679AF /* LocationGroup.swift */; };
@@ -218,7 +217,7 @@
 		4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioListItemView.swift; sourceTree = "<group>"; };
 		4E55EFA928DAEC5B007AD900 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		4E577A212B8C808900E89139 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
+		4E577A212B8C808900E89139 /* BackupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupViewController.swift; sourceTree = "<group>"; };
 		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		4E5F8C87298D168E00D1CE5C /* MainViewController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Menu.swift"; sourceTree = "<group>"; };
 		4E5F8C89298D16F300D1CE5C /* MainViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Media.swift"; sourceTree = "<group>"; };
@@ -233,7 +232,6 @@
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
-		4EC0349E2B8BD134003E9FA9 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadViewController.swift; sourceTree = "<group>"; };
 		4ED55ECC2976B17300C679AF /* LocationGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationGroup.swift; sourceTree = "<group>"; };
@@ -329,8 +327,7 @@
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
-				4EC0349E2B8BD134003E9FA9 /* Backup.swift */,
-				4E577A212B8C808900E89139 /* ExportViewController.swift */,
+				4E577A212B8C808900E89139 /* BackupViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -586,7 +583,7 @@
 				4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
-				4E577A222B8C808900E89139 /* ExportViewController.swift in Sources */,
+				4E577A222B8C808900E89139 /* BackupViewController.swift in Sources */,
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageFile.swift in Sources */,
 				4E5F8C8E298D192000D1CE5C /* MainViewController+Track.swift in Sources */,
@@ -666,7 +663,6 @@
 				4E2088E32743A24E0097BFBA /* Track.swift in Sources */,
 				4EF477122941E98400294B21 /* MediaFile.swift in Sources */,
 				4E4790CD299297F6008EEA0A /* Log.swift in Sources */,
-				4EC0349F2B8BD134003E9FA9 /* Backup.swift in Sources */,
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
 				4E30798F28D74EB2005FBEF0 /* TileRegion.swift in Sources */,
@@ -857,7 +853,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -880,7 +876,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";

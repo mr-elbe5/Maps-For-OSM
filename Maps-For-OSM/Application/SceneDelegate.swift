@@ -15,7 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppState.loadInstance()
         FileController.initialize()
         Preferences.loadInstance()
-        FileController.initializeDirectories()
         TrackPool.load()
         LocationPool.load()
         AppState.shared.version = AppState.currentVersion

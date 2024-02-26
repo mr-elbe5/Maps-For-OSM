@@ -67,42 +67,8 @@ class Location : NSObject, Codable, Identifiable{
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         media = try values.decodeIfPresent(MediaList.self, forKey: .media) ?? MediaList()
         super.init()
-        if AppState.shared.version < AppState.currentVersion{
-            try transferOldPhotosAndTracks(values: values)
-        }
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
-        }
-    }
-    
-    private func transferOldPhotosAndTracks(values: KeyedDecodingContainer<CodingKeys>) throws{
-        Log.info("Location transferring old data")
-        if let photoList = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .photos){
-            Log.info("Location moving photos to media")
-            for photo in photoList{
-                let oldFileName = "img_\(photo.id)_\(photo.creationDate.shortFileDate()).jpg"
-                let oldURL = FileController.getURL(dirURL: FileController.oldImageDirURL,fileName: oldFileName)
-                if FileController.fileExists(url: oldURL){
-                    if FileController.copyFile(fromURL: oldURL, toURL: photo.fileURL){
-                        Log.info("copied old photo \(photo.fileName) to media directory")
-                    }
-                    if FileController.deleteFile(url: oldURL){
-                        Log.info("deleted old photo \(photo.fileName)")
-                    }
-                    media.append(photo)
-                    //Log.debug("photo file \(photo.fileName) exists: \(photo.fileExists())")
-                }
-            }
-        }
-        if let tracks = try values.decodeIfPresent(TrackList.self, forKey: .tracks), !tracks.isEmpty{
-            Log.info("Location moving tracks to Tracks")
-            for track in tracks{
-                if TrackPool.addTrack(track: track){
-                    Log.info("added old track from location to track pool")
-                }
-            }
-            Log.info("saving track pool including old tracks")
-            TrackPool.save()
         }
     }
     

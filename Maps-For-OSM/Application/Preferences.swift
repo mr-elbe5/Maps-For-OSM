@@ -102,4 +102,10 @@ class Preferences: Identifiable, Codable{
         return nil
     }
     
+    static func loadFromFile(url: URL){
+        if let string = FileController.readTextFile(url: url),let data : Preferences = Preferences.fromJSON(encoded: string){
+            shared = data
+        }
+    }
+    
 }

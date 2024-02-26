@@ -56,6 +56,12 @@ class TrackPool{
         return nil
     }
     
+    static func loadFromFile(url: URL){
+        if let string = FileController.readTextFile(url: url),let data : TrackList = TrackList.fromJSON(encoded: string){
+            list = data
+        }
+    }
+    
     static func track(at idx: Int) -> Track?{
         list[idx]
     }

@@ -41,7 +41,7 @@ class TrackListViewController: PopupTableViewController{
     
     @objc func loadTrack(){
         let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
-        filePicker.directoryURL = FileController.gpxDirURL
+        filePicker.directoryURL = FileController.exportGpxDirURL
         filePicker.allowsMultipleSelection = false
         filePicker.delegate = self
         filePicker.modalPresentationStyle = .fullScreen
@@ -107,6 +107,7 @@ extension TrackListViewController : TrackCellDelegate{
     func exportTrack(track: Track) {
         if let url = GPXCreator.createTemporaryFile(track: track){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
+            controller.directoryURL = FileController.exportGpxDirURL
             present(controller, animated: true) {
                 FileController.logFileInfo()
             }

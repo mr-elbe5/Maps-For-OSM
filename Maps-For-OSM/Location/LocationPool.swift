@@ -67,6 +67,12 @@ class LocationPool{
         return nil
     }
     
+    static func loadFromFile(url: URL){
+        if let string = FileController.readTextFile(url: url),let data : LocationList = LocationList.fromJSON(encoded: string){
+            list = data
+        }
+    }
+    
     static func location(at idx: Int) -> Location?{
         list[idx]
     }

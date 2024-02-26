@@ -19,8 +19,6 @@
 "yourText"="Dein Text...";
 "start"="Start";
 "close"="Schliessen";
-"backup"="Backup";
-"backupSaved"="Backup wurde in 'Maps for OSM/backup' gespeichert.";
 "preferences"="Einstellungen...";
 "preferencesSaved"="Einstellungen gespeichert";
 "deleteAll"="Alle löschen";
@@ -170,11 +168,17 @@
 "confirmDeleteTrack"="Wollen Sie diese Tour löschen?";
 "deleteTrackHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 
-//export view
+//backup view
 "export"="Export";
 "exportImages"="Alle Bilder nach 'Fotos' exportieren";
+"imagesExported"="%@ Bilder wurden in 'Fotos' exportiert";
 "exportMedia"="Alle Bilder und Videos exportieren";
+"mediaExported"="%@ Bilder und Videos wurden exportiert";
+"backup"="Backup";
 "createBackup"="Backup Zip erzeugen";
+"backupSaved"="Backup wurde in 'Maps for OSM/backup' gespeichert.";
+"restoreBackup"="Von Backup wiederherstellen";
+"restoreDone"="Wiederherstellung fertig";
 
 // preferences view
 "preferences"="Einstellungen";

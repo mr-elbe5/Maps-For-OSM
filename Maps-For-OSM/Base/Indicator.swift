@@ -31,6 +31,7 @@ class Indicator{
         activityIndicator.frame = CGRect(x: 0, y:0, width: 40, height: 40)
             activityIndicator.style = .large
         activityIndicator.center = CGPoint(x: indicatorView.bounds.width / 2, y: indicatorView.bounds.height / 2)
+        activityIndicator.color = .blue
 
             indicatorView.addSubview(activityIndicator)
             window.addSubview(indicatorView)
