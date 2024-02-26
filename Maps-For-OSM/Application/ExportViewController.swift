@@ -52,7 +52,7 @@ class ExportViewController: PopupScrollViewController{
     
     @objc func exportMedia(){
         let urls = Backup.getMediaUrls()
-        let documentPickerController = UIDocumentPickerViewController(forExporting: urls)
+        let documentPickerController = UIDocumentPickerViewController(forExporting: urls, asCopy: true)
         self.present(documentPickerController, animated: true, completion: {
             //self.navigationController?.popViewController(animated: true)
         })
