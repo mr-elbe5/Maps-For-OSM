@@ -58,6 +58,15 @@ class LocationPool{
         DataController.shared.save(forKey: LocationPool.storeKey, value: list)
     }
     
+    static func saveAsFile() -> URL?{
+        let value = list.toJSON()
+        let url = FileController.temporaryURL.appendingPathComponent(storeKey + ".json")
+        if FileController.saveFile(text: value, url: url){
+            return url
+        }
+        return nil
+    }
+    
     static func location(at idx: Int) -> Location?{
         list[idx]
     }

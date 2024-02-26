@@ -89,6 +89,7 @@
 		4E55B2BB294774A5005D2BFB /* AudioListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */; };
 		4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA928DAEC5B007AD900 /* AppState.swift */; };
 		4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */; };
+		4E577A222B8C808900E89139 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E577A212B8C808900E89139 /* ExportViewController.swift */; };
 		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
 		4E5F8C88298D168E00D1CE5C /* MainViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C87298D168E00D1CE5C /* MainViewController+Menu.swift */; };
 		4E5F8C8A298D16F300D1CE5C /* MainViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C89298D16F300D1CE5C /* MainViewController+Media.swift */; };
@@ -217,6 +218,7 @@
 		4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioListItemView.swift; sourceTree = "<group>"; };
 		4E55EFA928DAEC5B007AD900 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		4E577A212B8C808900E89139 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		4E5F8C87298D168E00D1CE5C /* MainViewController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Menu.swift"; sourceTree = "<group>"; };
 		4E5F8C89298D16F300D1CE5C /* MainViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Media.swift"; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
 				4EC0349E2B8BD134003E9FA9 /* Backup.swift */,
+				4E577A212B8C808900E89139 /* ExportViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
+				4E577A222B8C808900E89139 /* ExportViewController.swift in Sources */,
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageFile.swift in Sources */,
 				4E5F8C8E298D192000D1CE5C /* MainViewController+Track.swift in Sources */,
@@ -862,7 +866,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -885,7 +889,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

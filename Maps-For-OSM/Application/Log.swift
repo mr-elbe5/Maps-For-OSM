@@ -8,11 +8,8 @@ import Foundation
 
 class Log{
     
-    private static var logString = "";
-    
     private static func log(_ str: String){
         print(str)
-        logString += str + "\n"
     }
 
     static func debug(_ msg: String){
@@ -41,13 +38,6 @@ class Log{
 
     static func error(msg: String, error: Error){
         log("error: \(msg): \(error.localizedDescription)")
-    }
-
-    static func save(){
-        if !logString.isEmpty{
-            FileController.saveFile(text: logString, url: FileController.logFileURL)
-            logString = ""
-        }
     }
     
 }

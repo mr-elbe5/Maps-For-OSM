@@ -214,6 +214,35 @@ class FileController {
         }
     }
     
+    static func copyVideoToLibrary(name: String, fromDir: URL, callback: @escaping (Result<Void, FileError>) -> Void){
+        askPhotoLibraryAuthorization(){ result in
+            switch result{
+            case .success(()):
+                let url = getURL(dirURL: fromDir, fileName: name)
+                if let data = readFile(url: url){
+                    PHPhotoLibrary.shared().performChanges {
+                        let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: .photo, data: data, options: nil)
+                    } completionHandler: { success, error in
+                        if let error {
+                            print("Error saving video: \(error.localizedDescription)")
+                            callback(.failure(.save))
+                            return
+                        }
+                        callback(.success(()))
+                        return
+                    }
+                }
+                else{
+                    callback(.failure(.read))
+                }
+                break
+            case .failure:
+                callback(.failure(.unauthorized))
+            }
+        }
+    }
+    
     static func copyImageFromLibrary(name: String, fromDir: URL, callback: @escaping ( Result<Void, FileError>) -> Void){
         askPhotoLibraryAuthorization(){ result in
             switch result{

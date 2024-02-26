@@ -83,5 +83,14 @@ class AppState: Identifiable, Codable{
         DataController.shared.save(forKey: AppState.storeKey, value: self)
     }
     
+    static func saveAsFile() -> URL?{
+        let value = shared.toJSON()
+        let url = FileController.temporaryURL.appendingPathComponent(storeKey + ".json")
+        if FileController.saveFile(text: value, url: url){
+            return url
+        }
+        return nil
+    }
     
 }
+

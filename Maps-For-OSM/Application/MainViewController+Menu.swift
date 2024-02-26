@@ -52,6 +52,12 @@ extension MainViewController: MainMenuDelegate{
         }
     }
     
+    func openExport(){
+        let controller = ExportViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
     func openPreferences(){
         let controller = PreferencesViewController()
         controller.modalPresentationStyle = .fullScreen

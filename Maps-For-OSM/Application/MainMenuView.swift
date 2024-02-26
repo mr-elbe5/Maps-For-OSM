@@ -30,6 +30,8 @@ protocol MainMenuDelegate: MapPositionDelegate{
     
     func openSearch()
     
+    func openExport()
+    
     func openPreferences()
     
     func openInfo()
@@ -82,6 +84,10 @@ class MainMenuView: UIView {
         let searchControl = UIButton().asIconButton("magnifyingglass")
         stackView.addArrangedSubview(searchControl)
         searchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        
+        let exportControl = UIButton().asIconButton("square.and.arrow.up")
+        stackView.addArrangedSubview(exportControl)
+        exportControl.addTarget(self, action: #selector(openExport), for: .touchDown)
         
         let preferencesControl = UIButton().asIconButton("gearshape")
         stackView.addArrangedSubview(preferencesControl)
@@ -209,6 +215,10 @@ class MainMenuView: UIView {
     
     @objc func openInfo(){
         delegate?.openInfo()
+    }
+    
+    @objc func openExport(){
+        delegate?.openExport()
     }
     
     @objc func openPreferences(){

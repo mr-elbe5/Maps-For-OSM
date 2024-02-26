@@ -27,7 +27,6 @@
 "accept"="Accept";
 "dismiss"="Dismiss";
 "imageLibrary"="Image Library";
-"exportImages"="Export Images and Videos";
 
 //error
 "error"="Error";
@@ -171,6 +170,12 @@
 "deleteVideoHint"="This action is executed immediately and cannot be undone.";
 "confirmDeleteTrack"="Do you want to delete this track?";
 "deleteTrackHint"="This action cannot be undone.";
+
+//export view
+"export"="Export";
+"exportImages"="Export all Images to 'Photos'";
+"exportMedia"="Export all Images and Videos";
+"createBackup"="Create Backup Zip";
 
 //preferences view
 "preferences"="Preferences";

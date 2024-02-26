@@ -26,8 +26,7 @@
 "deleteAll"="Alle löschen";
 "accept"="Übernehmen";
 "dismiss"="Ablehnen";
-"imageLibrary"="Bilderbibliothek";
-"exportImages"="Bilder und Videos exportieren";
+"imageLibrary"="Fotobibliothek";
 
 //error
 "error"="Fehler";
@@ -170,6 +169,12 @@
 "deleteVideoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 "confirmDeleteTrack"="Wollen Sie diese Tour löschen?";
 "deleteTrackHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
+
+//export view
+"export"="Export";
+"exportImages"="Alle Bilder nach 'Fotos' exportieren";
+"exportMedia"="Alle Bilder und Videos exportieren";
+"createBackup"="Backup Zip erzeugen";
 
 // preferences view
 "preferences"="Einstellungen";

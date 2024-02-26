@@ -47,6 +47,15 @@ class TrackPool{
         DataController.shared.save(forKey: storeKey, value: list)
     }
     
+    static func saveAsFile() -> URL?{
+        let value = list.toJSON()
+        let url = FileController.temporaryURL.appendingPathComponent(storeKey + ".json")
+        if FileController.saveFile(text: value, url: url){
+            return url
+        }
+        return nil
+    }
+    
     static func track(at idx: Int) -> Track?{
         list[idx]
     }

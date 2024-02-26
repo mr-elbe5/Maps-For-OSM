@@ -93,21 +93,7 @@ class PreferencesViewController: PopupScrollViewController{
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addTarget(self, action: #selector(save), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let saveLogButton = UIButton()
-        saveLogButton.setTitle("saveLog".localize(), for: .normal)
-        saveLogButton.setTitleColor(.systemBlue, for: .normal)
-        saveLogButton.addTarget(self, action: #selector(saveLog), for: .touchDown)
-        contentView.addSubviewWithAnchors(saveLogButton, top: saveButton.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let exportButton = UIButton()
-        exportButton.setTitle("exportImages".localize(), for: .normal)
-        exportButton.setTitleColor(.systemBlue, for: .normal)
-        exportButton.addTarget(self, action: #selector(export), for: .touchDown)
-        contentView.addSubviewWithAnchors(exportButton, top: saveLogButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         setupKeyboard()
@@ -168,22 +154,6 @@ class PreferencesViewController: PopupScrollViewController{
         delegate?.updateFollowTrack()
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
-    }
-    
-    @objc func saveLog(){
-        Log.save()
-    }
-    
-    @objc func export(){
-        let alertController = UIAlertController(title: title, message: "exportImages".localize(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            let (numCopied,numErrors) = Backup.export()
-            DispatchQueue.main.async {
-                self.showAlert(title: "success".localize(), text: "\(numCopied) imagesExported, \(numErrors) errors")
-            }
-        })
-        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
-        self.present(alertController, animated: true)
     }
     
 }
