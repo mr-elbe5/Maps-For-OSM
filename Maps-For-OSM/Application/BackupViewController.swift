@@ -186,10 +186,13 @@ class BackupViewController: PopupScrollViewController{
         AppState.loadFromFile(url: url)
         url = FileController.temporaryURL.appendingPathComponent(Preferences.storeKey + ".json")
         Preferences.loadFromFile(url: url)
+        Preferences.shared.save()
         url = FileController.temporaryURL.appendingPathComponent(LocationPool.storeKey + ".json")
         LocationPool.loadFromFile(url: url)
+        LocationPool.save()
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
         TrackPool.loadFromFile(url: url)
+        TrackPool.save()
         FileController.deleteTemporaryFiles()
         return true
     }

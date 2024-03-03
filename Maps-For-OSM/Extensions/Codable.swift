@@ -12,7 +12,13 @@ extension Decodable{
         if let data = Data(base64Encoded: encoded){
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
-            return try? decoder.decode(T.self, from : data)
+            do{
+                let result:T = try decoder.decode(T.self, from : data)
+                return result
+            }
+            catch (let err){
+                print(err)
+            }
         }
         return nil
     }
@@ -21,7 +27,13 @@ extension Decodable{
         if let data =  encoded.data(using: .utf8){
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
-            return try? decoder.decode(T.self, from : data)
+            do{
+                let result:T = try decoder.decode(T.self, from : data)
+                return result
+            }
+            catch (let err){
+                print(err)
+            }
         }
         return nil
     }

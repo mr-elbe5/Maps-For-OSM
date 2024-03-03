@@ -313,6 +313,9 @@ class FileController {
     }
     
     static func deleteTemporaryFiles(){
+        if !FileManager.default.fileExists(atPath: temporaryPath){
+            return
+        }
         deleteAllFiles(dirURL: temporaryURL)
     }
     
