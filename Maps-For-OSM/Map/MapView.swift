@@ -10,9 +10,8 @@ import CoreLocation
 protocol MapPositionDelegate{
     func showDetailsOfCurrentPosition()
     func addLocationAtCurrentPosition()
-    func addPhotoAtCurrentPosition()
+    func openCameraAtCurrentPosition()
     func addImageAtCurrentPosition()
-    func addVideoAtCurrentPosition()
     func addAudioAtCurrentPosition()
     func showDetailsOfCrossPosition()
     func addLocationAtCrossPosition()
@@ -69,14 +68,11 @@ class MapView: UIView {
         actions.append(UIAction(title: "addLocation".localize()){ action in
             self.delegate?.addLocationAtCurrentPosition()
         })
-        actions.append(UIAction(title: "addPhoto".localize()){ action in
-            self.delegate?.addPhotoAtCurrentPosition()
+        actions.append(UIAction(title: "openCamera".localize()){ action in
+            self.delegate?.openCameraAtCurrentPosition()
         })
         actions.append(UIAction(title: "addImage".localize()){ action in
             self.delegate?.addImageAtCurrentPosition()
-        })
-        actions.append(UIAction(title: "addVideo".localize()){ action in
-            self.delegate?.addVideoAtCurrentPosition()
         })
         actions.append(UIAction(title: "addAudio".localize()){ action in
             self.delegate?.addAudioAtCurrentPosition()

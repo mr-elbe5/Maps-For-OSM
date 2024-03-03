@@ -22,10 +22,8 @@
 		4E0BD9BD26EA0239005A4A94 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B826EA0239005A4A94 /* Date.swift */; };
 		4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9B926EA0239005A4A94 /* String.swift */; };
 		4E0BD9BF26EA0239005A4A94 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9BA26EA0239005A4A94 /* URL.swift */; };
-		4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */; };
 		4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */; };
 		4E0BD9CE26EA02BA005A4A94 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C426EA02BA005A4A94 /* LocationService.swift */; };
-		4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */; };
 		4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */; };
 		4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9D526EA037F005A4A94 /* DataController.swift */; };
 		4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9D626EA037F005A4A94 /* FileController.swift */; };
@@ -78,12 +76,20 @@
 		4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A415E28D83CD9004C9D90 /* CLLocation.swift */; };
 		4E3A416528D85357004C9D90 /* TrackPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416428D85357004C9D90 /* TrackPool.swift */; };
 		4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416628D8896F004C9D90 /* Nominatim.swift */; };
-		4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */; };
+		4E4424822B94FA100007A26F /* CameraViewController+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */; };
+		4E4424832B94FA100007A26F /* CameraInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247A2B94FA0F0007A26F /* CameraInfoViewController.swift */; };
+		4E4424842B94FA100007A26F /* CameraViewController+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247B2B94FA0F0007A26F /* CameraViewController+Controls.swift */; };
+		4E4424852B94FA100007A26F /* CameraViewController+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247C2B94FA100007A26F /* CameraViewController+Photo.swift */; };
+		4E4424862B94FA100007A26F /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247D2B94FA100007A26F /* PreviewView.swift */; };
+		4E4424872B94FA100007A26F /* CameraViewController+Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247E2B94FA100007A26F /* CameraViewController+Observers.swift */; };
+		4E4424882B94FA100007A26F /* CameraViewController+Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247F2B94FA100007A26F /* CameraViewController+Session.swift */; };
+		4E4424892B94FA100007A26F /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424802B94FA100007A26F /* CameraViewController.swift */; };
+		4E44248A2B94FA100007A26F /* CameraIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424812B94FA100007A26F /* CameraIconButton.swift */; };
+		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4790CD299297F6008EEA0A /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4790CC299297F6008EEA0A /* Log.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B02944B0EA005D2BFB /* Preferences.swift */; };
 		4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */; };
-		4E55B2B529476E7A005D2BFB /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B429476E7A005D2BFB /* VideoViewController.swift */; };
 		4E55B2B729476EE9005D2BFB /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B629476EE9005D2BFB /* PopupViewController.swift */; };
 		4E55B2B929477345005D2BFB /* VideoListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B829477345005D2BFB /* VideoListItemView.swift */; };
 		4E55B2BB294774A5005D2BFB /* AudioListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */; };
@@ -120,7 +126,6 @@
 		4EE6A891275A6E19007FBC67 /* MediaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6A890275A6E19007FBC67 /* MediaList.swift */; };
 		4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */; };
 		4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770B2941E37000294B21 /* ImagePickerController.swift */; };
-		4EF4770E2941E8ED00294B21 /* VideoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770D2941E8ED00294B21 /* VideoCaptureViewController.swift */; };
 		4EF477102941E94900294B21 /* VideoFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770F2941E94900294B21 /* VideoFile.swift */; };
 		4EF477122941E98400294B21 /* MediaFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477112941E98400294B21 /* MediaFile.swift */; };
 		4EF477142941EBC600294B21 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477132941EBC600294B21 /* ImageFile.swift */; };
@@ -149,10 +154,8 @@
 		4E0BD9B826EA0239005A4A94 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		4E0BD9B926EA0239005A4A94 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		4E0BD9BA26EA0239005A4A94 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
-		4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		4E0BD9C426EA02BA005A4A94 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
-		4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureVideoOrientation.swift; sourceTree = "<group>"; };
 		4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureDevice.swift; sourceTree = "<group>"; };
 		4E0BD9D526EA037F005A4A94 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		4E0BD9D626EA037F005A4A94 /* FileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
@@ -206,12 +209,20 @@
 		4E3A415E28D83CD9004C9D90 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		4E3A416428D85357004C9D90 /* TrackPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPool.swift; sourceTree = "<group>"; };
 		4E3A416628D8896F004C9D90 /* Nominatim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nominatim.swift; sourceTree = "<group>"; };
-		4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
+		4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Video.swift"; sourceTree = "<group>"; };
+		4E44247A2B94FA0F0007A26F /* CameraInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraInfoViewController.swift; sourceTree = "<group>"; };
+		4E44247B2B94FA0F0007A26F /* CameraViewController+Controls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Controls.swift"; sourceTree = "<group>"; };
+		4E44247C2B94FA100007A26F /* CameraViewController+Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Photo.swift"; sourceTree = "<group>"; };
+		4E44247D2B94FA100007A26F /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		4E44247E2B94FA100007A26F /* CameraViewController+Observers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Observers.swift"; sourceTree = "<group>"; };
+		4E44247F2B94FA100007A26F /* CameraViewController+Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Session.swift"; sourceTree = "<group>"; };
+		4E4424802B94FA100007A26F /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		4E4424812B94FA100007A26F /* CameraIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraIconButton.swift; sourceTree = "<group>"; };
+		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E4790CC299297F6008EEA0A /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E55B2B02944B0EA005D2BFB /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		4E55B2B429476E7A005D2BFB /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E55B2B629476EE9005D2BFB /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		4E55B2B829477345005D2BFB /* VideoListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListItemView.swift; sourceTree = "<group>"; };
 		4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioListItemView.swift; sourceTree = "<group>"; };
@@ -247,7 +258,6 @@
 		4EE6A890275A6E19007FBC67 /* MediaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaList.swift; sourceTree = "<group>"; };
 		4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4EF4770B2941E37000294B21 /* ImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
-		4EF4770D2941E8ED00294B21 /* VideoCaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCaptureViewController.swift; sourceTree = "<group>"; };
 		4EF4770F2941E94900294B21 /* VideoFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFile.swift; sourceTree = "<group>"; };
 		4EF477112941E98400294B21 /* MediaFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFile.swift; sourceTree = "<group>"; };
 		4EF477132941EBC600294B21 /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
@@ -304,6 +314,7 @@
 				4E3BE7EA26EA7E57000F9069 /* Map */,
 				4E9A245B275379B8004B43BE /* Tile */,
 				4E0D092C26F90D5D00FABB17 /* Track */,
+				4E44248B2B94FACA0007A26F /* Camera */,
 				4E3BE7EB26EA7EF1000F9069 /* Media */,
 			);
 			path = "Maps-For-OSM";
@@ -348,9 +359,6 @@
 				4E92113A2741127500DC5226 /* AsyncOperation.swift */,
 				4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */,
 				4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */,
-				4E0BD9C926EA02BA005A4A94 /* AVCaptureVideoOrientation.swift */,
-				4E0BD9C226EA02BA005A4A94 /* CameraViewController.swift */,
-				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
 				4E0BD9D526EA037F005A4A94 /* DataController.swift */,
 				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
@@ -456,6 +464,7 @@
 		4E3BE7EB26EA7EF1000F9069 /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
 				4EF477152941EC8E00294B21 /* AudioFile.swift */,
 				4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */,
 				4EF477192941EED600294B21 /* AudioPlayerView.swift */,
@@ -465,14 +474,28 @@
 				4EF477132941EBC600294B21 /* ImageFile.swift */,
 				4EF4771B2941F62800294B21 /* ImageListItemView.swift */,
 				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
-				4E47891426F9C10000369E17 /* PhotoCaptureViewController.swift */,
-				4EF4770D2941E8ED00294B21 /* VideoCaptureViewController.swift */,
 				4EF4770F2941E94900294B21 /* VideoFile.swift */,
 				4E55B2B829477345005D2BFB /* VideoListItemView.swift */,
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
-				4E55B2B429476E7A005D2BFB /* VideoViewController.swift */,
 			);
 			path = Media;
+			sourceTree = "<group>";
+		};
+		4E44248B2B94FACA0007A26F /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				4E4424812B94FA100007A26F /* CameraIconButton.swift */,
+				4E44247A2B94FA0F0007A26F /* CameraInfoViewController.swift */,
+				4E4424802B94FA100007A26F /* CameraViewController.swift */,
+				4E44247B2B94FA0F0007A26F /* CameraViewController+Controls.swift */,
+				4E44247E2B94FA100007A26F /* CameraViewController+Observers.swift */,
+				4E44247C2B94FA100007A26F /* CameraViewController+Photo.swift */,
+				4E44247F2B94FA100007A26F /* CameraViewController+Session.swift */,
+				4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */,
+				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
+				4E44247D2B94FA100007A26F /* PreviewView.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 		4E9A245B275379B8004B43BE /* Tile */ = {
@@ -577,14 +600,16 @@
 			files = (
 				4ED55ECF2976B17400C679AF /* LocationGroupMarker.swift in Sources */,
 				4E24F47D27345D11004E69C2 /* UIButton.swift in Sources */,
+				4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */,
 				4E2088E72743AA670097BFBA /* Trackpoint.swift in Sources */,
-				4E55B2B529476E7A005D2BFB /* VideoViewController.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */,
+				4E4424852B94FA100007A26F /* CameraViewController+Photo.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
 				4E577A222B8C808900E89139 /* BackupViewController.swift in Sources */,
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
+				4E4424872B94FA100007A26F /* CameraViewController+Observers.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageFile.swift in Sources */,
 				4E5F8C8E298D192000D1CE5C /* MainViewController+Track.swift in Sources */,
 				4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */,
@@ -621,7 +646,6 @@
 				4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */,
 				4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
-				4E0BD9CC26EA02BA005A4A94 /* CameraViewController.swift in Sources */,
 				4E5F8C8A298D16F300D1CE5C /* MainViewController+Media.swift in Sources */,
 				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,
@@ -632,17 +656,17 @@
 				4E24F47527345D11004E69C2 /* CGRect.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4E55B2B729476EE9005D2BFB /* PopupViewController.swift in Sources */,
-				4E0BD9D326EA02BA005A4A94 /* AVCaptureVideoOrientation.swift in Sources */,
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,
 				4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */,
+				4E4424862B94FA100007A26F /* PreviewView.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
-				4E47891526F9C10000369E17 /* PhotoCaptureViewController.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,
 				4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */,
 				4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */,
 				4EE1462028D368D60058F3D3 /* MapSize.swift in Sources */,
 				4E1D0E1E274BCDD200F3D584 /* GPXCreator.swift in Sources */,
 				4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */,
+				4E4424822B94FA100007A26F /* CameraViewController+Video.swift in Sources */,
 				4ED55ECE2976B17400C679AF /* LocationGroup.swift in Sources */,
 				4E24F47C27345D11004E69C2 /* Indicator.swift in Sources */,
 				4EE1461C28D368370058F3D3 /* MapPoint.swift in Sources */,
@@ -675,19 +699,23 @@
 				4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */,
 				4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView+Design.swift in Sources */,
+				4E4424842B94FA100007A26F /* CameraViewController+Controls.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
 				4E55B2B929477345005D2BFB /* VideoListItemView.swift in Sources */,
-				4EF4770E2941E8ED00294B21 /* VideoCaptureViewController.swift in Sources */,
+				4E4424832B94FA100007A26F /* CameraInfoViewController.swift in Sources */,
 				4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */,
+				4E4424882B94FA100007A26F /* CameraViewController+Session.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
 				4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */,
+				4E4424892B94FA100007A26F /* CameraViewController.swift in Sources */,
 				4ED55ED12978407F00C679AF /* InfoText.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* TileProvider.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */,
+				4E44248A2B94FA100007A26F /* CameraIconButton.swift in Sources */,
 				4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */,
 				4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */,
 				4E31A654293F4B94002080F6 /* UIView+Anchors.swift in Sources */,
@@ -780,7 +808,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -837,7 +865,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -853,7 +881,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -862,7 +890,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -876,7 +904,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -885,7 +913,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

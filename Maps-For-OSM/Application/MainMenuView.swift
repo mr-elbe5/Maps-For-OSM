@@ -184,11 +184,8 @@ class MainMenuView: UIView {
     
     func getCameraMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "addPhoto".localize(), image: UIImage(systemName: "camera")){ action in
-            self.delegate?.addPhotoAtCurrentPosition()
-        })
-        actions.append(UIAction(title: "addVideo".localize(), image: UIImage(systemName: "video")){ action in
-            self.delegate?.addVideoAtCurrentPosition()
+        actions.append(UIAction(title: "openCamera".localize(), image: UIImage(systemName: "camera")){ action in
+            self.delegate?.openCameraAtCurrentPosition()
         })
         actions.append(UIAction(title: "addAudio".localize(), image: UIImage(systemName: "mic")){ action in
             self.delegate?.addAudioAtCurrentPosition()

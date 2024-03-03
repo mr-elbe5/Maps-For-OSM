@@ -27,15 +27,15 @@ extension MainViewController{
     }
     
     //MapPositionDelegate
-    func addPhotoAtCurrentPosition() {
+    func openCameraAtCurrentPosition() {
         AVCaptureDevice.askCameraAuthorization(){ result in
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let imageCaptureController = PhotoCaptureViewController()
-                    imageCaptureController.delegate = self
-                    imageCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(imageCaptureController, animated: true)
+                    let cameraCaptureController = CameraViewController()
+                    cameraCaptureController.delegate = self
+                    cameraCaptureController.modalPresentationStyle = .fullScreen
+                    self.present(cameraCaptureController, animated: true)
                 }
                 return
             case .failure:
@@ -67,27 +67,6 @@ extension MainViewController{
             case .failure:
                 DispatchQueue.main.async {
                     self.showError("MainViewController audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
-    //MapPositionDelegate
-    func addVideoAtCurrentPosition(){
-        AVCaptureDevice.askVideoAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let videoCaptureController = VideoCaptureViewController()
-                    videoCaptureController.delegate = self
-                    videoCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(videoCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController videoNotAuthorized")
                 }
                 return
             }
@@ -131,14 +110,14 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
 }
 
-extension MainViewController: PhotoCaptureDelegate{
+extension MainViewController: CameraCaptureDelegate{
     
-    func photoCaptured(photo: ImageFile) {
+    func photoCaptured(url: URL) {
         if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.media.isEmpty
                 //Log.debug("MainViewController adding photo to location, current media count = \(location.media.count)")
-                location.addMedia(file: photo)
+                //location.addMedia(file: photo)
                 //Log.debug("new media count = \(location.media.count)")
                 LocationPool.save()
                 if changeState{
@@ -150,15 +129,11 @@ extension MainViewController: PhotoCaptureDelegate{
         }
     }
     
-}
-
-extension MainViewController: VideoCaptureDelegate{
-    
-    func videoCaptured(data: VideoFile){
+    func videoCaptured(url: URL){
         if let location = LocationService.shared.location{
             assertLocation(coordinate: location.coordinate){ location in
                 let changeState = location.media.isEmpty
-                location.addMedia(file: data)
+                //location.addMedia(file: data)
                 LocationPool.save()
                 if changeState{
                     DispatchQueue.main.async {
