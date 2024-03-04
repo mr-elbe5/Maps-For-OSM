@@ -17,8 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Preferences.loadInstance()
         TrackPool.load()
         LocationPool.load()
-        AppState.shared.version = AppState.currentVersion
-        AppState.shared.save()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene

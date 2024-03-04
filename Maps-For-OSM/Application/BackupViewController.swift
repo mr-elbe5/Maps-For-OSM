@@ -16,7 +16,6 @@ class BackupViewController: PopupScrollViewController{
         title = "export".localize()
         super.loadView()
         
-        
         let exportImagesButton = UIButton()
         exportImagesButton.setTitle("exportImages".localize(), for: .normal)
         exportImagesButton.setTitleColor(.systemBlue, for: .normal)
@@ -86,17 +85,10 @@ class BackupViewController: PopupScrollViewController{
         spinner.startAnimating()
         contentView.addSubview(spinner)
         spinner.setAnchors(centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor)
-        DispatchQueue.main.async {
-            var numCopied = 0
-            for location in LocationPool.list{
-                for media in location.media{
-                    FileController.copyFile(fromURL: FileController.mediaDirURL.appendingPathComponent(media.data.fileName), toURL: FileController.exportMediaDirURL.appendingPathComponent(media.data.fileName), replace: true)
-                    numCopied += 1
-                }
-            }
+        Backup.exportToPhotoLibrary(){ result in
             spinner.stopAnimating()
             self.contentView.removeSubview(spinner)
-            self.showDone(title: "success".localize(), text: "mediaExported".localize(i: numCopied))
+            self.showDone(title: "success".localize(), text: "mediaExported".localize(i: result))
         }
     }
     
@@ -107,9 +99,7 @@ class BackupViewController: PopupScrollViewController{
         contentView.addSubview(spinner)
         spinner.setAnchors(centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor)
         DispatchQueue.main.async {
-            if let url = self.createBackupFile(name: fileName){
-                var urls = [URL]()
-                urls.append(url)
+            if let url = Backup.createBackupFile(name: fileName){
                 self.showDone(title: "success".localize(), text: "backupSaved".localize())
             }
             spinner.stopAnimating()
@@ -125,78 +115,6 @@ class BackupViewController: PopupScrollViewController{
         self.present(documentPickerController, animated: true, completion: nil)
     }
     
-    func createBackupFile(name: String) -> URL?{
-        do {
-            FileController.deleteTemporaryFiles()
-            var paths = Array<URL>()
-            let zipFileURL = FileController.backupDirURL.appendingPathComponent(name)
-            paths.append(FileController.mediaDirURL)
-            for track in TrackPool.list{
-                if let trackFileURL = GPXCreator.createTemporaryFile(track: track){
-                    paths.append(trackFileURL)
-                }
-            }
-            if let url = LocationPool.saveAsFile(){
-                paths.append(url)
-            }
-            if let url = TrackPool.saveAsFile(){
-                paths.append(url)
-            }
-            if let url = Preferences.saveAsFile(){
-                paths.append(url)
-            }
-            if let url = AppState.saveAsFile(){
-                paths.append(url)
-            }
-            try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
-                print(progress)
-            })
-            return zipFileURL
-        }
-        catch let err {
-            print(err)
-            Log.error("could not create zip file")
-        }
-        return nil
-    }
-    
-    func unzipBackupFile(zipFileURL: URL) -> Bool{
-        do {
-            FileController.deleteTemporaryFiles()
-            try FileManager.default.createDirectory(at: FileController.temporaryURL, withIntermediateDirectories: true)
-            try Zip.unzipFile(zipFileURL, destination: FileController.temporaryURL, overwrite: true, password: nil, progress: { (progress) -> () in
-                print(progress)
-            })
-            return true
-        }
-        catch (let err){
-            print(err.localizedDescription)
-            Log.error("could not read zip file")
-        }
-        return false
-    }
-    
-    func restoreBackupFile() -> Bool{
-        FileController.deleteAllFiles(dirURL: FileController.mediaDirURL)
-        let fileNames = FileController.listAllFiles(dirPath: FileController.temporaryURL.appendingPathComponent("media").path)
-        for name in fileNames{
-            FileController.copyFile(fromURL: FileController.temporaryURL.appendingPathComponent("media").appendingPathComponent(name), toURL: FileController.mediaDirURL.appendingPathComponent(name), replace: true)
-        }
-        var url = FileController.temporaryURL.appendingPathComponent(AppState.storeKey + ".json")
-        AppState.loadFromFile(url: url)
-        url = FileController.temporaryURL.appendingPathComponent(Preferences.storeKey + ".json")
-        Preferences.loadFromFile(url: url)
-        Preferences.shared.save()
-        url = FileController.temporaryURL.appendingPathComponent(LocationPool.storeKey + ".json")
-        LocationPool.loadFromFile(url: url)
-        LocationPool.save()
-        url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
-        TrackPool.loadFromFile(url: url)
-        TrackPool.save()
-        FileController.deleteTemporaryFiles()
-        return true
-    }
-    
 }
 
 extension BackupViewController: UIDocumentPickerDelegate{
@@ -210,8 +128,8 @@ extension BackupViewController: UIDocumentPickerDelegate{
         contentView.addSubview(spinner)
         spinner.setAnchors(centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor)
         DispatchQueue.main.async {
-            if self.unzipBackupFile(zipFileURL: url){
-                if self.restoreBackupFile(){
+            if Backup.unzipBackupFile(zipFileURL: url){
+                if Backup.restoreBackupFile(){
                     self.showDone(title: "success".localize(), text: "restoreDone".localize())
                 }
             }

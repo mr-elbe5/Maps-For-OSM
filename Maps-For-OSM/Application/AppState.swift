@@ -13,7 +13,7 @@ class AppState: Identifiable, Codable{
     
     static var storeKey = "state"
     
-    static let currentVersion : Int = 2
+    static let currentVersion : Int = 3
     static let startCoordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)
     static let startZoom : Int = 4
     static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)

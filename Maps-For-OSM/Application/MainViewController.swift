@@ -17,6 +17,15 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
+        if AppState.shared.version < AppState.currentVersion{
+            let controller = VersionUpdateController()
+            controller.modalPresentationStyle = .fullScreen
+            present(controller, animated: true)
+        }
+    }
+    
+    func setupViews(){
         let layoutGuide = view.safeAreaLayoutGuide
         view.addSubviewFilling(mapView)
         mapView.frame = view.bounds

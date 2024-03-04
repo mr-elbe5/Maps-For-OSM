@@ -87,6 +87,8 @@
 		4E44248A2B94FA100007A26F /* CameraIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424812B94FA100007A26F /* CameraIconButton.swift */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4424912B95C2FF0007A26F /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */; };
+		4E4424932B9617580007A26F /* VersionUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424922B9617580007A26F /* VersionUpdateController.swift */; };
+		4E4424952B961D690007A26F /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424942B961D690007A26F /* Backup.swift */; };
 		4E4790CD299297F6008EEA0A /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4790CC299297F6008EEA0A /* Log.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B02944B0EA005D2BFB /* Preferences.swift */; };
@@ -221,6 +223,8 @@
 		4E4424812B94FA100007A26F /* CameraIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraIconButton.swift; sourceTree = "<group>"; };
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
+		4E4424922B9617580007A26F /* VersionUpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionUpdateController.swift; sourceTree = "<group>"; };
+		4E4424942B961D690007A26F /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		4E4790CC299297F6008EEA0A /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E55B2B02944B0EA005D2BFB /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -341,6 +345,8 @@
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
 				4E577A212B8C808900E89139 /* BackupViewController.swift */,
+				4E4424922B9617580007A26F /* VersionUpdateController.swift */,
+				4E4424942B961D690007A26F /* Backup.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -608,6 +614,7 @@
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */,
 				4E4424852B94FA100007A26F /* CameraViewController+Photo.swift in Sources */,
+				4E4424952B961D690007A26F /* Backup.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
 				4E577A222B8C808900E89139 /* BackupViewController.swift in Sources */,
@@ -707,6 +714,7 @@
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
+				4E4424932B9617580007A26F /* VersionUpdateController.swift in Sources */,
 				4E55B2B929477345005D2BFB /* VideoListItemView.swift in Sources */,
 				4E4424832B94FA100007A26F /* CameraInfoViewController.swift in Sources */,
 				4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */,

@@ -94,6 +94,15 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
             print("saved photo with locaIdentifier \(s)")
             self.completionHandler(self)
+            if let asset = PhotoLibrary.fetchAsset(localIdentifier: s){
+                let editingInput = asset.requestContentEditingInput(with: nil, completionHandler:{ editingInput, hashables in
+                    if let url = editingInput?.fullSizeImageURL{
+                        print(url)
+                        let data = FileController.readFile(url: url)
+                        print(data?.count ?? 0)
+                    }
+                })
+            }
         })
     }
 }
