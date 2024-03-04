@@ -27,7 +27,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.</string>
 	<key>NSDocumentsFolderUsageDescription</key>
-	<string>Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.</string>
+	<string>Access to the documents folder is needed for export and backups</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your location is needed for showing your current position and record it on demand.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -36,8 +36,8 @@
 	<string>Your location is needed for showing and saving your current position.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is needed for showing and saving your current position.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>The microphone is needed for recording audio and video, which will be stored in the app in connection with its location.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The microphone is needed for recording audio and video, which will be stored in the app in connection with its location.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to a location.</string>
 	<key>UIApplicationSceneManifest</key>
