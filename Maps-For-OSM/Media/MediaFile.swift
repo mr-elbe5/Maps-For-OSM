@@ -24,11 +24,13 @@ class MediaFile : Equatable, Identifiable, Codable{
         case id
         case creationDate
         case fileName
+        case localIdentifier
         case title
     }
     
     var id: UUID
     var creationDate: Date
+    var localIdentifier: String
     var title: String
     
     var type : MediaType{
@@ -56,6 +58,7 @@ class MediaFile : Equatable, Identifiable, Codable{
         id = UUID()
         creationDate = Date()
         fileName = ""
+        localIdentifier = ""
         title = ""
     }
     
@@ -64,6 +67,7 @@ class MediaFile : Equatable, Identifiable, Codable{
         id = try values.decode(UUID.self, forKey: .id)
         creationDate = try values.decode(Date.self, forKey: .creationDate)
         fileName = try values.decode(String.self, forKey: .fileName)
+        localIdentifier = try values.decode(String.self, forKey: .localIdentifier)
         title = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
     }
     
@@ -72,6 +76,7 @@ class MediaFile : Equatable, Identifiable, Codable{
         try container.encode(id, forKey: .id)
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(fileName, forKey: .fileName)
+        try container.encode(localIdentifier, forKey: .localIdentifier)
         try container.encode(title, forKey: .title)
     }
     

@@ -1,3 +1,9 @@
+/*
+ Maps For OSM
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
+
 import UIKit
 import AVFoundation
 import CoreLocation
@@ -85,28 +91,10 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             completionHandler(self)
             return
         }
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized {
-                PHPhotoLibrary.shared().performChanges({
-                    let options = PHAssetResourceCreationOptions()
-                    let creationRequest = PHAssetCreationRequest.forAsset()
-                    options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }
-                    var resourceType = PHAssetResourceType.photo
-                    if  ( resolvedSettings.deferredPhotoProxyDimensions.width > 0 ) && ( resolvedSettings.deferredPhotoProxyDimensions.height > 0 ) {
-                        resourceType = PHAssetResourceType.photoProxy
-                    }
-                    creationRequest.addResource(with: resourceType, data: self.photoData!, options: options)
-                    creationRequest.location = self.location
-                }, completionHandler: { _, error in
-                    if let error = error {
-                        print("Error occurred while saving photo to photo library: \(error)")
-                    }
-                    self.completionHandler(self)
-                })
-            } else {
-                self.completionHandler(self)
-            }
-        }
+        PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
+            print("saved photo with locaIdentifier \(s)")
+            self.completionHandler(self)
+        })
     }
 }
 

@@ -1,3 +1,9 @@
+/*
+ Maps For OSM
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
+
 import UIKit
 import AVFoundation
 import CoreLocation
@@ -80,24 +86,10 @@ extension CameraViewController{
             success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
-            PHPhotoLibrary.requestAuthorization { status in
-                if status == .authorized {
-                    PHPhotoLibrary.shared().performChanges({
-                        let options = PHAssetResourceCreationOptions()
-                        options.shouldMoveFile = true
-                        let creationRequest = PHAssetCreationRequest.forAsset()
-                        creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
-                        creationRequest.location = self.locationManager.location
-                    }, completionHandler: { success, error in
-                        if !success {
-                            print("E5Cam couldn't save the movie to your photo library: \(String(describing: error))")
-                        }
-                        cleanup()
-                    })
-                } else {
-                    cleanup()
-                }
-            }
+            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: self.locationManager.location, resultHandler: { localIdentifier in
+                print("saved video with localIdentifier \(localIdentifier)")
+                cleanup()
+            })
         } else {
             cleanup()
         }

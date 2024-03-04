@@ -86,6 +86,7 @@
 		4E4424892B94FA100007A26F /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424802B94FA100007A26F /* CameraViewController.swift */; };
 		4E44248A2B94FA100007A26F /* CameraIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424812B94FA100007A26F /* CameraIconButton.swift */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
+		4E4424912B95C2FF0007A26F /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */; };
 		4E4790CD299297F6008EEA0A /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4790CC299297F6008EEA0A /* Log.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B02944B0EA005D2BFB /* Preferences.swift */; };
@@ -219,6 +220,7 @@
 		4E4424802B94FA100007A26F /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4E4424812B94FA100007A26F /* CameraIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraIconButton.swift; sourceTree = "<group>"; };
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		4E4790CC299297F6008EEA0A /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E55B2B02944B0EA005D2BFB /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				4E44247F2B94FA100007A26F /* CameraViewController+Session.swift */,
 				4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */,
 				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
+				4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */,
 				4E44247D2B94FA100007A26F /* PreviewView.swift */,
 			);
 			path = Camera;
@@ -620,6 +623,7 @@
 				4EE6A891275A6E19007FBC67 /* MediaList.swift in Sources */,
 				4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* InfoViewController.swift in Sources */,
+				4E4424912B95C2FF0007A26F /* PhotoLibrary.swift in Sources */,
 				4E5F8C90298D19DD00D1CE5C /* MainViewController+Search.swift in Sources */,
 				4EF477102941E94900294B21 /* VideoFile.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */,
