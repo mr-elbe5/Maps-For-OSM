@@ -55,7 +55,6 @@
 		4E24F47527345D11004E69C2 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45D27345D11004E69C2 /* CGRect.swift */; };
 		4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46227345D11004E69C2 /* UILabel.swift */; };
 		4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46327345D11004E69C2 /* UIStackView.swift */; };
-		4E24F47C27345D11004E69C2 /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46427345D11004E69C2 /* Indicator.swift */; };
 		4E24F47D27345D11004E69C2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46527345D11004E69C2 /* UIButton.swift */; };
 		4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46627345D11004E69C2 /* UITextField.swift */; };
 		4E24F47F27345D11004E69C2 /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46727345D11004E69C2 /* Insets.swift */; };
@@ -190,7 +189,6 @@
 		4E24F45D27345D11004E69C2 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		4E24F46227345D11004E69C2 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		4E24F46327345D11004E69C2 /* UIStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
-		4E24F46427345D11004E69C2 /* Indicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		4E24F46527345D11004E69C2 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4E24F46627345D11004E69C2 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		4E24F46727345D11004E69C2 /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
@@ -368,7 +366,6 @@
 				4E0BD9D626EA037F005A4A94 /* FileController.swift */,
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
 				4EF4770B2941E37000294B21 /* ImagePickerController.swift */,
-				4E24F46427345D11004E69C2 /* Indicator.swift */,
 				4E24F46727345D11004E69C2 /* Insets.swift */,
 				4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */,
 				4E24F46B27345D11004E69C2 /* LabeledTextField.swift */,
@@ -676,7 +673,6 @@
 				4E24F47B27345D11004E69C2 /* UIStackView.swift in Sources */,
 				4E4424822B94FA100007A26F /* CameraViewController+Video.swift in Sources */,
 				4ED55ECE2976B17400C679AF /* LocationGroup.swift in Sources */,
-				4E24F47C27345D11004E69C2 /* Indicator.swift in Sources */,
 				4EE1461C28D368370058F3D3 /* MapPoint.swift in Sources */,
 				4E31A65A293F4D3E002080F6 /* UIViewController+Insets.swift in Sources */,
 				4E30799128D7520E005FBEF0 /* CoordinateRegion.swift in Sources */,
