@@ -78,8 +78,7 @@ class MainMenuView: UIView {
         
         let cameraControl = UIButton().asIconButton("camera")
         stackView.addArrangedSubview(cameraControl)
-        cameraControl.menu = getCameraMenu()
-        cameraControl.showsMenuAsPrimaryAction = true
+        cameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
         
         let searchControl = UIButton().asIconButton("magnifyingglass")
         stackView.addArrangedSubview(searchControl)
@@ -182,17 +181,6 @@ class MainMenuView: UIView {
         return UIMenu(title: "", children: actions)
     }
     
-    func getCameraMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "openCamera".localize(), image: UIImage(systemName: "camera")){ action in
-            self.delegate?.openCameraAtCurrentPosition()
-        })
-        actions.append(UIAction(title: "addAudio".localize(), image: UIImage(systemName: "mic")){ action in
-            self.delegate?.addAudioAtCurrentPosition()
-        })
-        return UIMenu(title: "", children: actions)
-    }
-    
     func updateLocationMenu(){
         self.locationMenuControl.menu = self.getLocationMenu()
     }
@@ -208,6 +196,10 @@ class MainMenuView: UIView {
     
     @objc func focusUserLocation(){
         delegate?.focusUserLocation()
+    }
+    
+    @objc func openCamera(){
+        delegate?.openCameraAtCurrentPosition()
     }
     
     @objc func openInfo(){

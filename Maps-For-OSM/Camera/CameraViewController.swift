@@ -9,9 +9,9 @@ import AVFoundation
 import CoreLocation
 import Photos
 
-protocol CameraCaptureDelegate{
-    func photoCaptured(url: URL)
-    func videoCaptured(url: URL)
+protocol CameraDelegate{
+    func photoCaptured(photo: ImageFile)
+    func videoCaptured(video: VideoFile)
 }
 
 class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVCapturePhotoOutputReadinessCoordinatorDelegate {
@@ -32,6 +32,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     let captureModeControl = UISegmentedControl()
     let hdrVideoModeButton = CameraIconButton()
     let flashModeButton = CameraIconButton()
+    let closeButton = UIButton()
     let zoomLabel = UILabel(text: "1.0x")
     
     let cameraUnavailableLabel = UILabel(text: "Camera Unavailable")
@@ -96,7 +97,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     var keyValueObservations = [NSKeyValueObservation]()
     var systemPreferredCameraContext = 0
     
-    var delegate: CameraCaptureDelegate? = nil
+    var delegate: CameraDelegate? = nil
     
     override func loadView() {
         super.loadView()

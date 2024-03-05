@@ -62,12 +62,43 @@ class PhotoLibrary{
         }
     }
     
-    static func fetchAsset(localIdentifier: String) -> PHAsset?{
-        let assets = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil)
-        if assets.count == 1{
-            return assets[0]
+    static func fetchAsset(localIdentifier: String, resultHandler: @escaping (PHAsset?) -> Void){
+        PHPhotoLibrary.requestAuthorization(for: .readWrite){ status in
+            if status == .authorized {
+                let options = PHFetchOptions()
+                options.includeHiddenAssets = false
+                options.predicate = NSPredicate(format: "mediaType = \(PHAssetMediaType.image.rawValue)") // Only images
+                let assets = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: options)
+                if assets.count == 1{
+                    resultHandler(assets[0])
+                    return
+                }
+                resultHandler(nil)
+            }
         }
-        return nil
+    }
+    
+    static func getFile(localIdentifier: String, resultHandler: @escaping (Data?) -> Void){
+        PHPhotoLibrary.requestAuthorization(for: .readWrite){ status in
+            if status == .authorized {
+                print("get file authorized")
+                PhotoLibrary.fetchAsset(localIdentifier: localIdentifier){ asset in
+                    if let asset = asset{
+                        print("got asset")
+                        asset.requestContentEditingInput(with: nil, completionHandler:{ editingInput, hashables in
+                                if let url = editingInput?.fullSizeImageURL{
+                                    print("url = \(url)")
+                                    let data = FileController.readFile(url: url)
+                                    print("data size = \(data?.count ?? 0)")
+                                    resultHandler(data)
+                                    return
+                                }
+                            })
+                    }
+                }
+            }
+        }
+        resultHandler(nil)
     }
     
 }

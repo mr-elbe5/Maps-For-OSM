@@ -44,12 +44,36 @@ extension CameraViewController{
                 }
             })
             photoCaptureProcessor.location = self.locationManager.location
+            photoCaptureProcessor.delegate = self
             self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = photoCaptureProcessor
             self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureProcessor)
             self.photoOutputReadinessCoordinator.stopTrackingCaptureRequest(using: photoSettings.uniqueID)
         }
     }
     
+}
+
+extension CameraViewController: PhotoCaptureProcessorDelegate{
+    
+    func photoCaptured(localIdentifier: String) {
+        DispatchQueue.main.async{
+            PhotoLibrary.getFile(localIdentifier: localIdentifier){ data in
+                if let data = data, let image = UIImage(data: data){
+                    print("got image")
+                    let imageFile = ImageFile()
+                    imageFile.saveImage(uiImage: image)
+                    print("image saved")
+                    self.dismiss(animated: true)
+                    self.delegate?.photoCaptured(photo: imageFile)
+                }
+            }
+        }
+    }
+    
+}
+
+protocol PhotoCaptureProcessorDelegate{
+    func photoCaptured(localIdentifier: String)
 }
 
 class PhotoCaptureProcessor: NSObject {
@@ -62,6 +86,8 @@ class PhotoCaptureProcessor: NSObject {
     private var photoData: Data?
     
     var location: CLLocation?
+    
+    var delegate: PhotoCaptureProcessorDelegate? = nil
 
     init(with requestedPhotoSettings: AVCapturePhotoSettings, completionHandler: @escaping (PhotoCaptureProcessor) -> Void) {
         self.requestedPhotoSettings = requestedPhotoSettings
@@ -94,15 +120,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
             print("saved photo with locaIdentifier \(s)")
             self.completionHandler(self)
-            if let asset = PhotoLibrary.fetchAsset(localIdentifier: s){
-                let editingInput = asset.requestContentEditingInput(with: nil, completionHandler:{ editingInput, hashables in
-                    if let url = editingInput?.fullSizeImageURL{
-                        print(url)
-                        let data = FileController.readFile(url: url)
-                        print(data?.count ?? 0)
-                    }
-                })
-            }
+            self.delegate?.photoCaptured(localIdentifier: s)
         })
     }
 }

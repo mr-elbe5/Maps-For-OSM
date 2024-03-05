@@ -92,14 +92,12 @@ class Backup{
                         if let data = media.data.getFile(){
                             if media.type == .image{
                                 PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
-                                    media.data.localIdentifier = localIdentifier
                                     numCopied += 1
                                 })
                             }
                         }
                     case .video:
                         PhotoLibrary.saveVideo(outputFileURL: media.data.fileURL, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
-                            media.data.localIdentifier = localIdentifier
                             numCopied += 1
                         })
                     default:

@@ -113,10 +113,6 @@ class MediaFile : Equatable, Identifiable, Codable{
         }
     }
     
-    func saveToPhotoLibrary(data: Data) -> String{
-        
-    }
-    
     func fileExists() -> Bool{
         return FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName)
     }

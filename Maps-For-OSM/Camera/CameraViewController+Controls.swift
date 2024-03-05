@@ -31,11 +31,16 @@ extension CameraViewController{
         bodyView.addSubview(flashModeButton)
         flashModeButton.setAnchors(top: bodyView.topAnchor, leading: hdrVideoModeButton.trailingAnchor, insets: defaultInsets)
         
+        closeButton.setImage(UIImage(systemName: "x.circle"), for: .normal)
+        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
+        bodyView.addSubview(closeButton)
+        closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+        
         let infoButton = CameraIconButton()
         infoButton.setup(icon: "info.circle")
         infoButton.addTarget(self, action: #selector(openInfo), for: .touchDown)
         bodyView.addSubview(infoButton)
-        infoButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+        infoButton.setAnchors(top: bodyView.topAnchor, trailing: closeButton.leadingAnchor, insets: defaultInsets)
         
         zoomLabel.textColor = .white
         bodyView.addSubview(zoomLabel)
@@ -247,6 +252,10 @@ extension CameraViewController{
     @objc func openInfo(){
         let controller = CameraInfoViewController()
         self.present(controller, animated: false)
+    }
+    
+    @objc func close(){
+        self.dismiss(animated: true)
     }
     
     @objc func toggleCaptureMode() {

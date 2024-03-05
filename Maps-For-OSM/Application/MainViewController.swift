@@ -19,9 +19,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         if AppState.shared.version < AppState.currentVersion{
-            let controller = VersionUpdateController()
-            controller.modalPresentationStyle = .fullScreen
-            present(controller, animated: true)
+            //todo
         }
     }
     
