@@ -112,35 +112,9 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 extension MainViewController: CameraDelegate{
     
-    func photoCaptured(photo: ImageFile) {
-        if let location = LocationService.shared.location{
-            assertLocation(coordinate: location.coordinate){ location in
-                let changeState = location.media.isEmpty
-                //Log.debug("MainViewController adding photo to location, current media count = \(location.media.count)")
-                location.addMedia(file: photo)
-                //Log.debug("new media count = \(location.media.count)")
-                LocationPool.save()
-                if changeState{
-                    DispatchQueue.main.async {
-                        self.updateMarkerLayer()
-                    }
-                }
-            }
-        }
-    }
-    
-    func videoCaptured(video: VideoFile){
-        if let location = LocationService.shared.location{
-            assertLocation(coordinate: location.coordinate){ location in
-                let changeState = location.media.isEmpty
-                location.addMedia(file: video)
-                LocationPool.save()
-                if changeState{
-                    DispatchQueue.main.async {
-                        self.updateMarkerLayer()
-                    }
-                }
-            }
+    func markersChanged() {
+        DispatchQueue.main.async {
+            self.updateMarkerLayer()
         }
     }
     

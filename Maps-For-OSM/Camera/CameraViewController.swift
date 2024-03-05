@@ -10,8 +10,7 @@ import CoreLocation
 import Photos
 
 protocol CameraDelegate{
-    func photoCaptured(photo: ImageFile)
-    func videoCaptured(video: VideoFile)
+    func markersChanged()
 }
 
 class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVCapturePhotoOutputReadinessCoordinatorDelegate {

@@ -64,6 +64,7 @@ extension CameraViewController{
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+        
         func cleanup() {
             let path = outputFileURL.path
             if FileManager.default.fileExists(atPath: path) {
@@ -80,14 +81,28 @@ extension CameraViewController{
                 }
             }
         }
+        
         var success = true
         if error != nil {
             print("Movie file finishing error: \(String(describing: error))")
             success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
-            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: self.locationManager.location, resultHandler: { localIdentifier in
-                print("saved video with localIdentifier \(localIdentifier)")
+            let data = FileController.readFile(url: outputFileURL)!
+            let videoFile = VideoFile()
+            videoFile.saveFile(data: data)
+            print("video saved locally")
+            if let location = LocationService.shared.location{
+                assertLocation(coordinate: location.coordinate){ location in
+                    let changeState = location.media.isEmpty
+                    location.addMedia(file: videoFile)
+                    LocationPool.save()
+                    if changeState{
+                        self.delegate?.markersChanged()
+                    }
+                }
+            }
+            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: self.locationManager.location, resultHandler: { success in
                 cleanup()
             })
         } else {
@@ -108,6 +123,7 @@ extension CameraViewController{
             self.supportedInterfaceOrientations = UIInterfaceOrientationMask.all
             self.setNeedsUpdateOfSupportedInterfaceOrientations()
         }
+        
     }
     
 }

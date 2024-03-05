@@ -55,16 +55,20 @@ extension CameraViewController{
 
 extension CameraViewController: PhotoCaptureProcessorDelegate{
     
-    func photoCaptured(localIdentifier: String) {
+    func photoCaptured(data: Data?) {
         DispatchQueue.main.async{
-            PhotoLibrary.getFile(localIdentifier: localIdentifier){ data in
-                if let data = data, let image = UIImage(data: data){
-                    print("got image")
-                    let imageFile = ImageFile()
-                    imageFile.saveImage(uiImage: image)
-                    print("image saved")
-                    self.dismiss(animated: true)
-                    self.delegate?.photoCaptured(photo: imageFile)
+            if let data = data, let image = UIImage(data: data){
+                let imageFile = ImageFile()
+                imageFile.saveImage(uiImage: image)
+                if let location = LocationService.shared.location{
+                    self.assertLocation(coordinate: location.coordinate){ location in
+                        let changeState = location.media.isEmpty
+                        location.addMedia(file: imageFile)
+                        LocationPool.save()
+                        if changeState{
+                            self.delegate?.markersChanged()
+                        }
+                    }
                 }
             }
         }
@@ -73,7 +77,7 @@ extension CameraViewController: PhotoCaptureProcessorDelegate{
 }
 
 protocol PhotoCaptureProcessorDelegate{
-    func photoCaptured(localIdentifier: String)
+    func photoCaptured(data: Data?)
 }
 
 class PhotoCaptureProcessor: NSObject {
@@ -117,11 +121,10 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             completionHandler(self)
             return
         }
-        PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
-            print("saved photo with locaIdentifier \(s)")
+        PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { success in
             self.completionHandler(self)
-            self.delegate?.photoCaptured(localIdentifier: s)
         })
+        self.delegate?.photoCaptured(data: self.photoData)
     }
 }
 
