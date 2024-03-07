@@ -19,7 +19,6 @@ class MediaFile : Equatable, Identifiable, Codable{
         lhs.fileName == rhs.fileName
     }
     
-    
     private enum CodingKeys: CodingKey{
         case id
         case creationDate

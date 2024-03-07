@@ -31,7 +31,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     let captureModeControl = UISegmentedControl()
     let hdrVideoModeButton = CameraIconButton()
     let flashModeButton = CameraIconButton()
-    let closeButton = UIButton()
+    let closeButton = CameraIconButton()
     let zoomLabel = UILabel(text: "1.0x")
     
     let cameraUnavailableLabel = UILabel(text: "Camera Unavailable")

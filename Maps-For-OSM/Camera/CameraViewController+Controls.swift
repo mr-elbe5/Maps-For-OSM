@@ -31,7 +31,7 @@ extension CameraViewController{
         bodyView.addSubview(flashModeButton)
         flashModeButton.setAnchors(top: bodyView.topAnchor, leading: hdrVideoModeButton.trailingAnchor, insets: defaultInsets)
         
-        closeButton.setImage(UIImage(systemName: "x.circle"), for: .normal)
+        closeButton.setup(icon: "x.circle")
         closeButton.addTarget(self, action: #selector(close), for: .touchDown)
         bodyView.addSubview(closeButton)
         closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)

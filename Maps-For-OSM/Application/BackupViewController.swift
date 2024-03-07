@@ -16,25 +16,18 @@ class BackupViewController: PopupScrollViewController{
         title = "export".localize()
         super.loadView()
         
-        let exportImagesButton = UIButton()
-        exportImagesButton.setTitle("exportImages".localize(), for: .normal)
-        exportImagesButton.setTitleColor(.systemBlue, for: .normal)
-        exportImagesButton.addTarget(self, action: #selector(exportImages), for: .touchDown)
-        contentView.addSubviewWithAnchors(exportImagesButton, top: contentView.topAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        let exportMediaButton = UIButton()
-        exportMediaButton.setTitle("exportMedia".localize(), for: .normal)
-        exportMediaButton.setTitleColor(.systemBlue, for: .normal)
-        exportMediaButton.addTarget(self, action: #selector(exportMedia), for: .touchDown)
-        contentView.addSubviewWithAnchors(exportMediaButton, top: exportImagesButton.bottomAnchor, insets: doubleInsets)
+        let exportToPhotoLibraryButton = UIButton()
+        exportToPhotoLibraryButton.setTitle("exportToPhotoLibrary".localize(), for: .normal)
+        exportToPhotoLibraryButton.setTitleColor(.systemBlue, for: .normal)
+        exportToPhotoLibraryButton.addTarget(self, action: #selector(exportToPhotoLibrary), for: .touchDown)
+        contentView.addSubviewWithAnchors(exportToPhotoLibraryButton, top: contentView.topAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         let createBackupButton = UIButton()
         createBackupButton.setTitle("createBackup".localize(), for: .normal)
         createBackupButton.setTitleColor(.systemBlue, for: .normal)
         createBackupButton.addTarget(self, action: #selector(createBackup), for: .touchDown)
-        contentView.addSubviewWithAnchors(createBackupButton, top: exportMediaButton.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(createBackupButton, top: exportToPhotoLibraryButton.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         let restoreBackupButton = UIButton()
@@ -43,52 +36,42 @@ class BackupViewController: PopupScrollViewController{
         restoreBackupButton.addTarget(self, action: #selector(restoreBackup), for: .touchDown)
         contentView.addSubviewWithAnchors(restoreBackupButton, top: createBackupButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
-        
     }
+
     
-    @objc func exportImages(){
-        let alertController = UIAlertController(title: title, message: "exportImages".localize(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "ok".localize(), style: .default) { action in
-            let spinner = UIActivityIndicatorView(style: .large)
-            spinner.startAnimating()
-            self.contentView.addSubview(spinner)
-            spinner.setAnchors(centerX: self.contentView.centerXAnchor, centerY: self.contentView.centerYAnchor)
-            DispatchQueue.main.async {
-                var numCopied = 0
-                for location in LocationPool.list{
-                    for media in location.media{
-                        if let image = media.data as? ImageFile{
-                            FileController.copyImageToLibrary(name: image.fileName, fromDir: FileController.mediaDirURL){ result in
-                                switch result{
-                                case .success:
-                                    numCopied += 1
-                                case .failure:
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-                spinner.stopAnimating()
-                self.contentView.removeSubview(spinner)
-                DispatchQueue.main.async {
-                    self.showAlert(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
-                }
-            }
-        })
-        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
-        self.present(alertController, animated: true)
-    }
-    
-    @objc func exportMedia(){
+    @objc func exportToPhotoLibrary(){
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.startAnimating()
         contentView.addSubview(spinner)
         spinner.setAnchors(centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor)
-        Backup.exportToPhotoLibrary(){ result in
-            spinner.stopAnimating()
-            self.contentView.removeSubview(spinner)
-            self.showDone(title: "success".localize(), text: "mediaExported".localize(i: result))
+        DispatchQueue.global(qos: .userInitiated).async {
+            var numCopied = 0
+            for location in LocationPool.list{
+                for media in location.media{
+                    switch (media.type){
+                    case .image:
+                        if let data = media.data.getFile(){
+                            if media.type == .image{
+                                PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
+                                    numCopied += 1
+                                })
+                            }
+                        }
+                    case .video:
+                        PhotoLibrary.saveVideo(outputFileURL: media.data.fileURL, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
+                            numCopied += 1
+                        })
+                    default:
+                        break
+                    }
+                }
+                LocationPool.save()
+            }
+            DispatchQueue.main.async {
+                spinner.stopAnimating()
+                self.contentView.removeSubview(spinner)
+                self.showDone(title: "success".localize(), text: "mediaExported".localize(i: numCopied))
+            }
         }
     }
     

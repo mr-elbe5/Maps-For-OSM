@@ -25,6 +25,8 @@
 "accept"="Übernehmen";
 "dismiss"="Ablehnen";
 "imageLibrary"="Fotobibliothek";
+"confirmDelete"="Löschen bitte bestätigen";
+"info"="Info";
 
 //error
 "error"="Fehler";
@@ -153,14 +155,14 @@
 "useLocation"="Vorhandene Position benutzen?";
 
 // location view / editor view
-"location"="Position";
+"location"="Ort";
 "locationData"="Positonsangaben";
 "note"="Notiz";
 "media"="Bilder, Videos und Audios";
 "mediaCount"="Anzahl Bilder, Videos und Audios: ";
 "tracks"="Touren";
-"confirmDeletePhoto"="Wollen Sie dieses Foto löschen?";
-"deletePhotoHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
+"confirmDeleteImage"="Wollen Sie dieses Bild löschen?";
+"deleteImageHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 "confirmDeleteAudio"="Wollen Sie diese Aufnahme löschen?";
 "deleteAudioHint"="Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden.";
 "confirmDeleteVideo"="Wollen Sie dieses Video löschen?";
@@ -170,10 +172,8 @@
 
 //backup view
 "export"="Export";
-"exportImages"="Alle Bilder nach 'Fotos' exportieren";
-"imagesExported"="%@ Bilder wurden in 'Fotos' exportiert";
-"exportMedia"="Alle Bilder und Videos exportieren";
-"mediaExported"="%@ Bilder und Videos wurden exportiert";
+"exportToPhotoLibrary"="Alle Bilder und Videos nach 'Fotos' exportieren";
+"mediaExported"="%@ Bilder und Videos wurden in 'Fotos' exportiert";
 "backup"="Backup";
 "createBackup"="Backup Zip erzeugen";
 "backupSaved"="Backup wurde in 'Maps for OSM/backup' gespeichert.";
@@ -280,6 +280,23 @@
 "trackListPinInfoText"="Die Tour auf der Karte anzeigen";
 "trackListViewInfoText"="Tour-Detailansicht öffnen (siehe oben)";
 "trackListEditInfoText"="Im Editiermodus können einzelne Touren gelöscht werden.";
+
+//info for camera
+"backLensSelector" = "Die Objektivauswahl unten links wählt die rückwärtige Kamera aus (wennn es mehr als eine gibt).";
+"This lens selector on the bottom left lets you choose a back lens, if there are more than one.";
+"cameraSelector"="Die Kameraauswahl wechselt zwischen Selfie- und rückwärtiger Kamera.";
+"captureButton"="Der rote Auslöseknopf löst das Aufnehmen eines Fotos oder die Aufnahme eines Videos aus. Bei laufender Videoaufnahme erscheint das Innere als Quadrat. Antippen beendet die Aufnahme und speichert das Video.";
+"flashModeAuto" ="Der Blitz ist im Automodus";
+"flashModeOff"="Der Blitz ist aus";
+"flashModeOn"="Der Blitz ist an";
+"hdrMode"="Du bist im HDR-Modus (nur im Video-Modus, antippen zum Wechseln)";
+"infoMode" ="Öffnet diese Info";
+"noHDRMode"="Du bist nicht im HDR-Modus (nur im Video-Modus, antippen zum Wechseln)";
+"photoMode"="Dieses Icon startet den Fotomodus (Aufnehmen von Fotos)";
+"screenActions"="Auf dem Vorschaufenster kannst du einen Punkt antippen, um Fokus und Belichtung für diesen Punkt zu optimieren. Du kannst auch mit zwei Fingern zoomen (Software-Zoom).";
+"Unable to capture media"="Keine Aufnahme möglich";
+"videoMode"="Dieses Icon startet den Videomodus (Aufnehmen von Videos)";
+"zoomIndicator"="Der Text unterhalb des Modusselektors zeigt den aktuellen Vergrößerungsfaktor. Dies ist ein Software-Zoom, der durch den Zwei-Finger-Zoom erzeugt wird. Er erstellt ein Foto oder Video eines Ausschnitts des Sensors, der auf volle Größe skaliert wird.";
 
 //info for preferences
 "preferencesInfoHeader"="Voreinstellungen";

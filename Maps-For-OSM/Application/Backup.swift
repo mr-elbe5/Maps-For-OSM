@@ -82,35 +82,4 @@ class Backup{
         return true
     }
     
-    static func exportToPhotoLibrary(resultHandler: @escaping(Int) -> Void){
-        DispatchQueue.global(qos: .userInitiated).async {
-            var numCopied = 0
-            for location in LocationPool.list{
-                for media in location.media{
-                    switch (media.type){
-                    case .image:
-                        if let data = media.data.getFile(){
-                            if media.type == .image{
-                                PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
-                                    numCopied += 1
-                                })
-                            }
-                        }
-                    case .video:
-                        PhotoLibrary.saveVideo(outputFileURL: media.data.fileURL, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
-                            numCopied += 1
-                        })
-                    default:
-                        break
-                    }
-                }
-                LocationPool.save()
-            }
-            DispatchQueue.main.async {
-                resultHandler(numCopied)
-            }
-        }
-    }
-    
-    
 }
