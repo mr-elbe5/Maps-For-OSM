@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,7 +27,6 @@
 		4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */; };
 		4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9D526EA037F005A4A94 /* DataController.swift */; };
 		4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9D626EA037F005A4A94 /* FileController.swift */; };
-		4E0BD9DB26EA043D005A4A94 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD9DD26EA043D005A4A94 /* Localizable.strings */; };
 		4E0BD9E426EA04EE005A4A94 /* AuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */; };
 		4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9E226EA04EE005A4A94 /* FileError.swift */; };
 		4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80F02732ED43003ED6B0 /* MainViewController.swift */; };
@@ -65,6 +64,8 @@
 		4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46F27345D11004E69C2 /* UIImageView.swift */; };
 		4E24F48827345D11004E69C2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47027345D11004E69C2 /* UIImage.swift */; };
 		4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47227345D11004E69C2 /* UIScrollView.swift */; };
+		4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579012B99C26700481B23 /* Localizable.xcstrings */; };
+		4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */; };
 		4E30798F28D74EB2005FBEF0 /* TileRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30798E28D74EB1005FBEF0 /* TileRegion.swift */; };
 		4E30799128D7520E005FBEF0 /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */; };
 		4E31A652293F4B47002080F6 /* UIView+Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31A651293F4B47002080F6 /* UIView+Insets.swift */; };
@@ -134,7 +135,6 @@
 		4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */; };
 		4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477192941EED600294B21 /* AudioPlayerView.swift */; };
 		4EF4771C2941F62800294B21 /* ImageListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4771B2941F62800294B21 /* ImageListItemView.swift */; };
-		4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EF5FA7927820B2D0004583B /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,8 +160,6 @@
 		4E0BD9CA26EA02BA005A4A94 /* AVCaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureDevice.swift; sourceTree = "<group>"; };
 		4E0BD9D526EA037F005A4A94 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		4E0BD9D626EA037F005A4A94 /* FileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
-		4E0BD9DC26EA043D005A4A94 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4E0BD9DE26EA0467005A4A94 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4E0BD9E026EA04EE005A4A94 /* AuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationError.swift; sourceTree = "<group>"; };
 		4E0BD9E226EA04EE005A4A94 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
 		4E1B80F02732ED43003ED6B0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +197,9 @@
 		4E24F46F27345D11004E69C2 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4E24F47027345D11004E69C2 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		4E24F47227345D11004E69C2 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
+		4E2579012B99C26700481B23 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		4E2579052B99C3AF00481B23 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		4E30798E28D74EB1005FBEF0 /* TileRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileRegion.swift; sourceTree = "<group>"; };
 		4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateRegion.swift; sourceTree = "<group>"; };
 		4E31A651293F4B47002080F6 /* UIView+Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Insets.swift"; sourceTree = "<group>"; };
@@ -267,8 +268,6 @@
 		4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		4EF477192941EED600294B21 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		4EF4771B2941F62800294B21 /* ImageListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListItemView.swift; sourceTree = "<group>"; };
-		4EF5FA7827820B2D0004583B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4EF5FA7A27820B300004583B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,8 +304,8 @@
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
-				4EF5FA7927820B2D0004583B /* InfoPlist.strings */,
-				4E0BD9DD26EA043D005A4A94 /* Localizable.strings */,
+				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
+				4E2579012B99C26700481B23 /* Localizable.xcstrings */,
 				4E0BD99726EA0020005A4A94 /* Application */,
 				4E24F48B27345DD5004E69C2 /* Extensions */,
 				4E0BD99E26EA010A005A4A94 /* Base */,
@@ -588,8 +587,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */,
-				4EF5FA7727820B2D0004583B /* InfoPlist.strings in Resources */,
-				4E0BD9DB26EA043D005A4A94 /* Localizable.strings in Resources */,
+				4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */,
+				4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */,
 				4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -734,26 +733,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				4E0BD98C26E9FC67005A4A94 /* Base */,
+				4E2579052B99C3AF00481B23 /* mul */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		4E0BD9DD26EA043D005A4A94 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E0BD9DC26EA043D005A4A94 /* en */,
-				4E0BD9DE26EA0467005A4A94 /* de */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		4EF5FA7927820B2D0004583B /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EF5FA7827820B2D0004583B /* en */,
-				4EF5FA7A27820B300004583B /* de */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -813,6 +795,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -870,6 +853,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -897,6 +881,7 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -920,6 +905,7 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
