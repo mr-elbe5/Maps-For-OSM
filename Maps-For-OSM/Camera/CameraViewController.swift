@@ -59,6 +59,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     let sessionQueue = DispatchQueue(label: "session queue")
     var setupResult: SessionSetupResult = .success
     
+    var isCaptureEnabled = false
+    // check for isCaptureEnabled!
     var currentDeviceInput: AVCaptureDeviceInput!
     var currentDevice: AVCaptureDevice{
         currentDeviceInput.device
@@ -106,6 +108,12 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         previewView.fillView(view: bodyView)
         discoverDeviceTypes()
         addControls()
+        if !isCaptureEnabled{
+            let sampleView = UIImageView(image: UIImage(named: "sample"))
+            sampleView.setAspectRatioConstraint()
+            previewView.addSubview(sampleView)
+            sampleView.setAnchors(centerX: previewView.centerXAnchor, centerY: previewView.centerYAnchor)
+        }
     }
     
     func discoverDeviceTypes(){
@@ -123,6 +131,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     func resetZoomForNewDevice(){
+        if !isCaptureEnabled{
+            return
+        }
         currentDevice.videoZoomFactor = 1.0
         currentZoom = 1.0
         currentZoomAtBegin = 1.0
@@ -156,6 +167,12 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
         sessionQueue.async {
             self.configureSession()
+        }
+        if !isCaptureEnabled{
+            let sampleView = UIImageView(image: UIImage(named: "sample"))
+            sampleView.setAspectRatioConstraint()
+            previewView.addSubview(sampleView)
+            sampleView.setAnchors(centerX: previewView.centerXAnchor, centerY: previewView.centerYAnchor)
         }
     }
     
@@ -220,21 +237,24 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             do {
                 let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
                 self.session.beginConfiguration()
-                self.session.removeInput(self.currentDeviceInput)
-                if self.session.canAddInput(videoDeviceInput) {
-                    NotificationCenter.default.removeObserver(self, name: .AVCaptureDeviceSubjectAreaDidChange, object: self.currentDevice)
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: videoDeviceInput.device)
-                    self.session.addInput(videoDeviceInput)
-                    self.currentDeviceInput = videoDeviceInput
-                    DispatchQueue.main.async {
-                        self.createDeviceRotationCoordinator()
+                if let currentDeviceInput = self.currentDeviceInput{
+                    self.session.removeInput(currentDeviceInput)
+                    if self.session.canAddInput(videoDeviceInput) {
+                        NotificationCenter.default.removeObserver(self, name: .AVCaptureDeviceSubjectAreaDidChange, object: self.currentDevice)
+                        NotificationCenter.default.addObserver(self, selector: #selector(self.subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: videoDeviceInput.device)
+                        self.session.addInput(videoDeviceInput)
+                        self.currentDeviceInput = videoDeviceInput
+                        self.isCaptureEnabled = true
+                        DispatchQueue.main.async {
+                            self.createDeviceRotationCoordinator()
+                        }
+                    } else {
+                        self.session.addInput(currentDeviceInput)
                     }
-                } else {
-                    self.session.addInput(self.currentDeviceInput)
                 }
-                if let connection = self.movieFileOutput?.connection(with: .video) {
+                if self.isCaptureEnabled, let connection = self.movieFileOutput?.connection(with: .video) {
                     self.session.sessionPreset = .high
-                    self.selectedMovieMode10BitDeviceFormat = self.tenBitVariantOfFormat(activeFormat: self.currentDeviceInput.device.activeFormat)
+                    self.selectedMovieMode10BitDeviceFormat = self.tenBitVariantOfFormat(activeFormat: self.currentDevice.activeFormat)
                     if self.selectedMovieMode10BitDeviceFormat != nil {
                         DispatchQueue.main.async {
                             self.hdrVideoModeButton.isEnabled = true
@@ -273,6 +293,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     func createDeviceRotationCoordinator() {
+        if !isCaptureEnabled{
+            return
+        }
         videoDeviceRotationCoordinator = AVCaptureDevice.RotationCoordinator(device: currentDevice, previewLayer: previewView.videoPreviewLayer)
         previewView.videoPreviewLayer.connection?.videoRotationAngle = videoDeviceRotationCoordinator.videoRotationAngleForHorizonLevelPreview
         
@@ -287,7 +310,9 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                exposureMode: AVCaptureDevice.ExposureMode,
                at devicePoint: CGPoint,
                monitorSubjectAreaChange: Bool) {
-        
+        if !isCaptureEnabled{
+            return
+        }
         sessionQueue.async {
             let device = self.currentDevice
             do {
@@ -316,13 +341,15 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     
     func setUpPhotoSettings() -> AVCapturePhotoSettings {
         var photoSettings = AVCapturePhotoSettings()
-        
+        if !isCaptureEnabled{
+            return photoSettings
+        }
         if self.photoOutput.availablePhotoCodecTypes.contains(AVVideoCodecType.jpeg) {
             photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         } else {
             photoSettings = AVCapturePhotoSettings()
         }
-        if self.currentDevice.isFlashAvailable {
+        if currentDevice.isFlashAvailable {
             photoSettings.flashMode = flashMode
         }
         photoSettings.maxPhotoDimensions = self.photoOutput.maxPhotoDimensions
@@ -334,7 +361,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     func tenBitVariantOfFormat(activeFormat: AVCaptureDevice.Format) -> AVCaptureDevice.Format? {
-        let formats = self.currentDevice.formats
+        if !isCaptureEnabled{
+            return nil
+        }
+        let formats = currentDevice.formats
         let formatIndex = formats.firstIndex(of: activeFormat)!
         
         let activeDimensions = CMVideoFormatDescriptionGetDimensions(activeFormat.formatDescription)

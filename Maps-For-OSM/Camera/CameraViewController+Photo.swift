@@ -12,9 +12,13 @@ import Photos
 extension CameraViewController{
     
     func configurePhotoOutput() {
-        let supportedMaxPhotoDimensions = self.currentDevice.activeFormat.supportedMaxPhotoDimensions
-        let largestDimension = supportedMaxPhotoDimensions.last
-        self.photoOutput.maxPhotoDimensions = largestDimension!
+        if !isCaptureEnabled{
+            return
+        }
+        let supportedMaxPhotoDimensions = currentDevice.activeFormat.supportedMaxPhotoDimensions
+        if let largestDimension = supportedMaxPhotoDimensions.last{
+            self.photoOutput.maxPhotoDimensions = largestDimension
+        }
         self.photoOutput.isLivePhotoCaptureEnabled = false
         self.photoOutput.maxPhotoQualityPrioritization = .quality
         self.photoOutput.isResponsiveCaptureEnabled = self.photoOutput.isResponsiveCaptureSupported
@@ -27,6 +31,9 @@ extension CameraViewController{
     }
     
     func capturePhoto() {
+        if !isCaptureEnabled{
+            return
+        }
         if self.photoSettings == nil {
             print("No photo settings to capture")
             return
@@ -44,40 +51,12 @@ extension CameraViewController{
                 }
             })
             photoCaptureProcessor.location = self.locationManager.location
-            photoCaptureProcessor.delegate = self
             self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = photoCaptureProcessor
             self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureProcessor)
             self.photoOutputReadinessCoordinator.stopTrackingCaptureRequest(using: photoSettings.uniqueID)
         }
     }
     
-}
-
-extension CameraViewController: PhotoCaptureProcessorDelegate{
-    
-    func photoCaptured(data: Data?) {
-        DispatchQueue.main.async{
-            if let data = data, let image = UIImage(data: data){
-                let imageFile = ImageFile()
-                imageFile.saveImage(uiImage: image)
-                if let location = LocationService.shared.location{
-                    self.assertLocation(coordinate: location.coordinate){ location in
-                        let changeState = location.media.isEmpty
-                        location.addMedia(file: imageFile)
-                        LocationPool.save()
-                        if changeState{
-                            self.delegate?.markersChanged()
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-}
-
-protocol PhotoCaptureProcessorDelegate{
-    func photoCaptured(data: Data?)
 }
 
 class PhotoCaptureProcessor: NSObject {
@@ -90,8 +69,6 @@ class PhotoCaptureProcessor: NSObject {
     private var photoData: Data?
     
     var location: CLLocation?
-    
-    var delegate: PhotoCaptureProcessorDelegate? = nil
 
     init(with requestedPhotoSettings: AVCapturePhotoSettings, completionHandler: @escaping (PhotoCaptureProcessor) -> Void) {
         self.requestedPhotoSettings = requestedPhotoSettings
@@ -121,10 +98,9 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             completionHandler(self)
             return
         }
-        PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { success in
+        PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
+            print("saved photo with locaIdentifier \(s)")
             self.completionHandler(self)
         })
-        self.delegate?.photoCaptured(data: self.photoData)
     }
 }
-

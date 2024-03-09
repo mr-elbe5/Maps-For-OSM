@@ -99,13 +99,14 @@ extension CameraViewController{
     
     func enableControls(_ enable: Bool){
         //print("enable controls: \(enable)")
-        backLensControl.isHidden = currentPosition == .front || !enable
-        backLensControl.isEnabled = currentPosition == .back && enable
-        cameraButton.isEnabled = enable
-        captureButton.isEnabled = enable
         captureModeControl.isEnabled = enable
         hdrVideoModeButton.isEnabled = enable && !isPhotoMode
         hdrVideoModeButton.isHidden = !enable || isPhotoMode
+        flashModeButton.isEnabled = enable
+        backLensControl.isHidden = currentPosition == .front || !enable
+        backLensControl.isEnabled = currentPosition == .back && enable
+        captureButton.isEnabled = enable
+        cameraButton.isEnabled = enable
     }
     
     func updateZoomLabel(){
@@ -126,6 +127,9 @@ extension CameraViewController{
     }
     
     @objc func changeCamera() {
+        if !isCaptureEnabled{
+            return
+        }
         enableControls(false)
         self.selectedMovieMode10BitDeviceFormat = nil
         var newVideoDevice: AVCaptureDevice? = nil
@@ -154,6 +158,9 @@ extension CameraViewController{
     }
     
     @objc func changeBackLens() {
+        if !isCaptureEnabled{
+            return
+        }
         if currentPosition != .back{
             print("back lens cannot change when front lens is active")
             return
@@ -171,13 +178,19 @@ extension CameraViewController{
     }
     
     @objc func focusAndExposeTap() {
+        if !isCaptureEnabled{
+            return
+        }
         let devicePoint = previewView.videoPreviewLayer.captureDevicePointConverted(fromLayerPoint: tapGestureRecognizer.location(in: tapGestureRecognizer.view))
         focus(with: .autoFocus, exposureMode: .autoExpose, at: devicePoint, monitorSubjectAreaChange: true)
     }
     
     @objc func zoomTap() {
+        if !isCaptureEnabled{
+            return
+        }
         switch pinchGestureRecognizer.state{
-        case .began: 
+        case .began:
             currentZoomAtBegin = currentZoom
         case .ended:
             currentZoomAtBegin = 1.0
@@ -199,6 +212,9 @@ extension CameraViewController{
     }
     
     @objc func capture() {
+        if !isCaptureEnabled{
+            return
+        }
         if isPhotoMode{
             capturePhoto()
         }
@@ -208,6 +224,9 @@ extension CameraViewController{
     }
     
     @objc func toggleHDRVideoMode() {
+        if !isCaptureEnabled{
+            return
+        }
         if isPhotoMode{
             print("use hdr only in video mode")
             return
@@ -235,6 +254,9 @@ extension CameraViewController{
     }
     
     @objc func toggleFlashMode(){
+        if !isCaptureEnabled{
+            return
+        }
         switch flashMode{
         case .auto:
             flashMode = .off
@@ -259,6 +281,9 @@ extension CameraViewController{
     }
     
     @objc func toggleCaptureMode() {
+        if !isCaptureEnabled{
+            return
+        }
         isPhotoMode = !isPhotoMode
         //print("isPhotoMode = \(cameraSettings.isPhotoMode)")
         enableControls(false)

@@ -46,6 +46,9 @@ extension CameraViewController{
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if !isCaptureEnabled{
+            return
+        }
         if context == &systemPreferredCameraContext {
             guard let systemPreferredCamera = change?[.newKey] as? AVCaptureDevice else { return }
             if let movieFileOutput = self.movieFileOutput, movieFileOutput.isRecording {
