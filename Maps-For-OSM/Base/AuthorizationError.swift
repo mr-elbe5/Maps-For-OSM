@@ -1,21 +1,13 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
 import Foundation
 
-enum AuthorizationError: Swift.Error {
-    case rejected
-    case unexpected
-}
-
-extension AuthorizationError: LocalizedError {
+struct AuthorizationError: Swift.Error {
     var errorDescription: String? {
-        switch self {
-        case .rejected: return "rejectedError".localize()
-        case .unexpected: return "unexpectedError".localize()
-        }
+        return "authorizationError".localize(table: "Base")
     }
 }

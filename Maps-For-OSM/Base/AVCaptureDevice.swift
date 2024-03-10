@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -21,12 +21,12 @@ extension AVCaptureDevice {
                     callback(.success(()))
                 }
                 else{
-                    callback(.failure(AuthorizationError.rejected))
+                    callback(.failure(AuthorizationError()))
                 }
             }
             break
         default:
-            callback(.failure(AuthorizationError.rejected))
+            callback(.failure(AuthorizationError()))
             break
         }
     }
@@ -42,12 +42,12 @@ extension AVCaptureDevice {
                     callback(.success(()))
                 }
                 else{
-                    callback(.failure(AuthorizationError.rejected))
+                    callback(.failure(AuthorizationError()))
                 }
             }
             break
         default:
-            callback(.failure(AuthorizationError.rejected))
+            callback(.failure(AuthorizationError()))
             break
         }
     }
@@ -61,7 +61,7 @@ extension AVCaptureDevice {
                 }
                 return
             case .failure:
-                callback(.failure(AuthorizationError.rejected))
+                callback(.failure(AuthorizationError()))
                 return
             }
         }

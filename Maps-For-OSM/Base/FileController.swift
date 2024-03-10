@@ -162,12 +162,12 @@ class FileController {
                     callback(.success(()))
                 }
                 else{
-                    callback(.failure(AuthorizationError.rejected))
+                    callback(.failure(AuthorizationError()))
                 }
             }
             break
         default:
-            callback(.failure(AuthorizationError.rejected))
+            callback(.failure(AuthorizationError()))
             break
         }
     }

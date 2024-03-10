@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -64,7 +64,6 @@ extension CameraViewController{
     }
     
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
-        
         func cleanup() {
             let path = outputFileURL.path
             if FileManager.default.fileExists(atPath: path) {
@@ -81,28 +80,19 @@ extension CameraViewController{
                 }
             }
         }
-        
         var success = true
         if error != nil {
             print("Movie file finishing error: \(String(describing: error))")
             success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
-            let data = FileController.readFile(url: outputFileURL)!
-            let videoFile = VideoFile()
-            videoFile.saveFile(data: data)
-            print("video saved locally")
-            if let location = LocationService.shared.location{
-                assertLocation(coordinate: location.coordinate){ location in
-                    let changeState = location.media.isEmpty
-                    location.addMedia(file: videoFile)
-                    LocationPool.save()
-                    if changeState{
-                        self.delegate?.markersChanged()
-                    }
+            if let delegate = delegate{
+                DispatchQueue.main.async{
+                    delegate.videoCaptured(data: FileController.readFile(url: outputFileURL)!)
                 }
             }
-            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: self.locationManager.location, resultHandler: { success in
+            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: self.locationManager.location, resultHandler: { localIdentifier in
+                print("saved video with localIdentifier \(localIdentifier)")
                 cleanup()
             })
         } else {
@@ -123,7 +113,6 @@ extension CameraViewController{
             self.supportedInterfaceOrientations = UIInterfaceOrientationMask.all
             self.setNeedsUpdateOfSupportedInterfaceOrientations()
         }
-        
     }
     
 }

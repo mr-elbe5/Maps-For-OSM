@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -22,7 +22,15 @@ extension CameraViewController{
             let userDefaults = UserDefaults.standard
             if !userDefaults.bool(forKey: "setInitialUserPreferredCamera") || defaultVideoDevice == nil {
                 let backVideoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera], mediaType: .video, position: .back)
-                defaultVideoDevice = backVideoDeviceDiscoverySession.devices.first
+                if let device = backVideoDeviceDiscoverySession.devices.first{
+                    defaultVideoDevice = device
+                }
+                else{
+                    let frontVideoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera], mediaType: .video, position: .front)
+                    if let device = frontVideoDeviceDiscoverySession.devices.first{
+                        defaultVideoDevice = device
+                    }
+                }
                 AVCaptureDevice.userPreferredCamera = defaultVideoDevice
                 userDefaults.set(true, forKey: "setInitialUserPreferredCamera")
             }
@@ -39,6 +47,7 @@ extension CameraViewController{
             if session.canAddInput(videoDeviceInput) {
                 session.addInput(videoDeviceInput)
                 self.currentDeviceInput = videoDeviceInput
+                self.isCaptureEnabled = true
                 self.resetZoomForNewDevice()
                 DispatchQueue.main.async {
                     self.createDeviceRotationCoordinator()

@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -41,8 +41,8 @@ extension CLLocationCoordinate2D : Equatable{
     }
     
     public var asString : String{
-        let latitudeText = latitude > 0 ? "north".localize() : "south".localize()
-        let longitudeText = longitude > 0 ? "east".localize() : "west".localize()
+        let latitudeText = latitude > 0 ? "north".localize(table: "Location") : "south".localize(table: "Location")
+        let longitudeText = longitude > 0 ? "east".localize(table: "Location") : "west".localize(table: "Location")
         return String(format: "%.04f", abs(latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(longitude)) + "° "  + longitudeText
     }
     

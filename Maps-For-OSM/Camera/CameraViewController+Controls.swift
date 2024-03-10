@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -31,16 +31,20 @@ extension CameraViewController{
         bodyView.addSubview(flashModeButton)
         flashModeButton.setAnchors(top: bodyView.topAnchor, leading: hdrVideoModeButton.trailingAnchor, insets: defaultInsets)
         
-        closeButton.setup(icon: "x.circle")
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-        bodyView.addSubview(closeButton)
-        closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+        var rightAnchor = bodyView.trailingAnchor
+        if !CameraViewController.isMainController{
+            closeButton.setup(icon: "x.circle")
+            closeButton.addTarget(self, action: #selector(close), for: .touchDown)
+            bodyView.addSubview(closeButton)
+            closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
+            rightAnchor = closeButton.leadingAnchor
+        }
         
         let infoButton = CameraIconButton()
         infoButton.setup(icon: "info.circle")
         infoButton.addTarget(self, action: #selector(openInfo), for: .touchDown)
         bodyView.addSubview(infoButton)
-        infoButton.setAnchors(top: bodyView.topAnchor, trailing: closeButton.leadingAnchor, insets: defaultInsets)
+        infoButton.setAnchors(top: bodyView.topAnchor, trailing: rightAnchor, insets: defaultInsets)
         
         zoomLabel.textColor = .white
         bodyView.addSubview(zoomLabel)
@@ -190,7 +194,7 @@ extension CameraViewController{
             return
         }
         switch pinchGestureRecognizer.state{
-        case .began:
+        case .began: 
             currentZoomAtBegin = currentZoom
         case .ended:
             currentZoomAtBegin = 1.0
@@ -277,7 +281,9 @@ extension CameraViewController{
     }
     
     @objc func close(){
-        self.dismiss(animated: true)
+        if !CameraViewController.isMainController{
+            self.dismiss(animated: true)
+        }
     }
     
     @objc func toggleCaptureMode() {

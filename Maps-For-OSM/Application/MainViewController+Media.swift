@@ -92,15 +92,14 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
                     }
                 }
             }
-            else if let location = LocationService.shared.location{
-                assertLocation(coordinate: location.coordinate){ location in
-                    let changeState = location.media.isEmpty
-                    location.addMedia(file: image)
-                    LocationPool.save()
-                    if changeState{
-                        DispatchQueue.main.async {
-                            self.updateMarkerLayer()
-                        }
+            else if let coordinate = LocationService.shared.location?.coordinate{
+                let location = LocationPool.getLocation(coordinate: coordinate)
+                let changeState = location.media.isEmpty
+                location.addMedia(file: image)
+                LocationPool.save()
+                if changeState{
+                    DispatchQueue.main.async {
+                        self.updateMarkerLayer()
                     }
                 }
             }
@@ -111,6 +110,36 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 }
 
 extension MainViewController: CameraDelegate{
+    
+    func photoCaptured(data: Data) {
+        let imageFile = ImageFile()
+        imageFile.saveFile(data: data)
+        print("photo saved locally")
+        if let coordinate = LocationService.shared.location?.coordinate{
+            let location = LocationPool.getLocation(coordinate: coordinate)
+            let changeState = location.media.isEmpty
+            location.addMedia(file: imageFile)
+            LocationPool.save()
+            if changeState{
+                self.markersChanged()
+            }
+        }
+    }
+    
+    func videoCaptured(data: Data) {
+        let videoFile = VideoFile()
+        videoFile.saveFile(data: data)
+        print("video saved locally")
+        if let coordinate = LocationService.shared.location?.coordinate{
+            let location = LocationPool.getLocation(coordinate: coordinate)
+            let changeState = location.media.isEmpty
+            location.addMedia(file: videoFile)
+            LocationPool.save()
+            if changeState{
+                self.markersChanged()
+            }
+        }
+    }
     
     func markersChanged() {
         DispatchQueue.main.async {
@@ -123,15 +152,14 @@ extension MainViewController: CameraDelegate{
 extension MainViewController: AudioCaptureDelegate{
     
     func audioCaptured(data: AudioFile){
-        if let location = LocationService.shared.location{
-            assertLocation(coordinate: location.coordinate){ location in
-                let changeState = location.media.isEmpty
-                location.addMedia(file: data)
-                LocationPool.save()
-                if changeState{
-                    DispatchQueue.main.async {
-                        self.updateMarkerLayer()
-                    }
+        if let coordinate = LocationService.shared.location?.coordinate{
+            let location = LocationPool.getLocation(coordinate: coordinate)
+            let changeState = location.media.isEmpty
+            location.addMedia(file: data)
+            LocationPool.save()
+            if changeState{
+                DispatchQueue.main.async {
+                    self.updateMarkerLayer()
                 }
             }
         }

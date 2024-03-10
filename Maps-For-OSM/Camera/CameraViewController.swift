@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -10,10 +10,13 @@ import CoreLocation
 import Photos
 
 protocol CameraDelegate{
-    func markersChanged()
+    func photoCaptured(data: Data)
+    func videoCaptured(data: Data)
 }
 
 class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVCapturePhotoOutputReadinessCoordinatorDelegate {
+    
+    static var isMainController = false
     
     static var discoverableDeviceTypes : [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera, .builtInUltraWideCamera,.builtInTelephotoCamera]
     static var maxLensZoomFactor = 10.0
@@ -34,7 +37,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     let closeButton = CameraIconButton()
     let zoomLabel = UILabel(text: "1.0x")
     
-    let cameraUnavailableLabel = UILabel(text: "Camera Unavailable")
+    let cameraUnavailableLabel = UILabel(text: "cameraUnavailable".localize(table: "Camera"))
     
     let backLensControl = UISegmentedControl()
     let captureButton = CaptureButton()
@@ -108,12 +111,6 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         previewView.fillView(view: bodyView)
         discoverDeviceTypes()
         addControls()
-        if !isCaptureEnabled{
-            let sampleView = UIImageView(image: UIImage(named: "sample"))
-            sampleView.setAspectRatioConstraint()
-            previewView.addSubview(sampleView)
-            sampleView.setAnchors(centerX: previewView.centerXAnchor, centerY: previewView.centerYAnchor)
-        }
     }
     
     func discoverDeviceTypes(){
@@ -167,12 +164,14 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         }
         sessionQueue.async {
             self.configureSession()
-        }
-        if !isCaptureEnabled{
-            let sampleView = UIImageView(image: UIImage(named: "sample"))
-            sampleView.setAspectRatioConstraint()
-            previewView.addSubview(sampleView)
-            sampleView.setAnchors(centerX: previewView.centerXAnchor, centerY: previewView.centerYAnchor)
+            if !self.isCaptureEnabled{
+                DispatchQueue.main.async {
+                    let sampleView = UIImageView(image: UIImage(named: "sample"))
+                    sampleView.setAspectRatioConstraint()
+                    self.previewView.addSubview(sampleView)
+                    sampleView.setAnchors(centerX: self.previewView.centerXAnchor, centerY: self.previewView.centerYAnchor)
+                }
+            }
         }
     }
     
@@ -188,33 +187,17 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 
             case .notAuthorized:
                 DispatchQueue.main.async {
-                    let changePrivacySetting = "E5Cam doesn't have permission to use the camera, please change privacy settings"
-                    let message = NSLocalizedString(changePrivacySetting, comment: "Alert message when the user has denied access to the camera")
-                    let alertController = UIAlertController(title: "E5Cam", message: message, preferredStyle: .alert)
-                    
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"),
-                                                            style: .cancel,
-                                                            handler: nil))
-                    
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"),
-                                                            style: .`default`,
-                                                            handler: { _ in
-                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!,
-                                                  options: [:],
-                                                  completionHandler: nil)
+                    let alertController = UIAlertController(title: "E5Cam", message: "noPrivacyPermission".localize(table: "Camera"), preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "ok".localize(table: "Base"), style: .cancel, handler: nil))
+                    alertController.addAction(UIAlertAction(title: "settings".localize(table: "Base"), style: .`default`, handler: { _ in
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
                     }))
-                    
                     self.present(alertController, animated: true, completion: nil)
                 }
             case .configurationFailed:
                 DispatchQueue.main.async {
-                    let alertMsg = "Alert message when something goes wrong during capture session configuration"
-                    let message = NSLocalizedString("Unable to capture media", comment: alertMsg)
-                    let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
-                    
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"),
-                                                            style: .cancel,
-                                                            handler: nil))
+                    let alertController = UIAlertController(title: "E5Cam", message: "captureFailed".localize(table: "Camera"), preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "ok".localize(table: "Base"), style: .cancel, handler: nil))
                     self.present(alertController, animated: true, completion: nil)
                 }
             }

@@ -2557,6 +2557,7 @@
     },
     "OK" : {
       "comment" : "Alert OK button",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3191,6 +3192,7 @@
     },
     "Settings" : {
       "comment" : "Alert button to open Settings",
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3855,6 +3857,7 @@
       }
     },
     "Unable to capture media" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -50,6 +50,7 @@ extension CameraViewController{
                     self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = nil
                 }
             })
+            photoCaptureProcessor.delegate = self.delegate
             photoCaptureProcessor.location = self.locationManager.location
             self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = photoCaptureProcessor
             self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureProcessor)
@@ -64,10 +65,10 @@ class PhotoCaptureProcessor: NSObject {
     private(set) var requestedPhotoSettings: AVCapturePhotoSettings
     
     lazy var context = CIContext()
-    
     private let completionHandler: (PhotoCaptureProcessor) -> Void
     private var photoData: Data?
     
+    var delegate: CameraDelegate? = nil
     var location: CLLocation?
 
     init(with requestedPhotoSettings: AVCapturePhotoSettings, completionHandler: @escaping (PhotoCaptureProcessor) -> Void) {
@@ -98,9 +99,15 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             completionHandler(self)
             return
         }
+        if let delegate = delegate{
+            DispatchQueue.main.async{
+                delegate.photoCaptured(data: self.photoData!)
+            }
+        }
         PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
             print("saved photo with locaIdentifier \(s)")
             self.completionHandler(self)
         })
     }
 }
+

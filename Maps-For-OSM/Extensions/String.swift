@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -11,6 +11,10 @@ extension String {
     
     func localize() -> String{
         return NSLocalizedString(self,comment: "")
+    }
+    
+    func localize(table: String) -> String{
+        return NSLocalizedString(self,tableName: table, comment: "")
     }
     
     func localize(i: Int) -> String{

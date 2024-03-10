@@ -66,6 +66,9 @@
 		4E24F48A27345D11004E69C2 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F47227345D11004E69C2 /* UIScrollView.swift */; };
 		4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579012B99C26700481B23 /* Localizable.xcstrings */; };
 		4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */; };
+		4E2579132B9DB5B200481B23 /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
+		4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
+		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E30798F28D74EB2005FBEF0 /* TileRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30798E28D74EB1005FBEF0 /* TileRegion.swift */; };
 		4E30799128D7520E005FBEF0 /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */; };
 		4E31A652293F4B47002080F6 /* UIView+Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31A651293F4B47002080F6 /* UIView+Insets.swift */; };
@@ -105,7 +108,6 @@
 		4E5F8C8E298D192000D1CE5C /* MainViewController+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8D298D192000D1CE5C /* MainViewController+Track.swift */; };
 		4E5F8C90298D19DD00D1CE5C /* MainViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8F298D19DD00D1CE5C /* MainViewController+Search.swift */; };
 		4E5F8C92298D19F800D1CE5C /* MainViewController+Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C91298D19F800D1CE5C /* MainViewController+Preferences.swift */; };
-		4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */; };
 		4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A00F4294F5390009151E3 /* CLPlacemark.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E89173F273688580046AC91 /* LocationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationDetailViewController.swift */; };
@@ -200,6 +202,9 @@
 		4E2579012B99C26700481B23 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		4E2579052B99C3AF00481B23 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
+		4E2579102B9DB5B200481B23 /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
+		4E2579112B9DB5B200481B23 /* Location.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Location.xcstrings; sourceTree = "<group>"; };
+		4E2579122B9DB5B200481B23 /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
 		4E30798E28D74EB1005FBEF0 /* TileRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileRegion.swift; sourceTree = "<group>"; };
 		4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateRegion.swift; sourceTree = "<group>"; };
 		4E31A651293F4B47002080F6 /* UIView+Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Insets.swift"; sourceTree = "<group>"; };
@@ -239,7 +244,6 @@
 		4E5F8C8D298D192000D1CE5C /* MainViewController+Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Track.swift"; sourceTree = "<group>"; };
 		4E5F8C8F298D19DD00D1CE5C /* MainViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Search.swift"; sourceTree = "<group>"; };
 		4E5F8C91298D19F800D1CE5C /* MainViewController+Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Preferences.swift"; sourceTree = "<group>"; };
-		4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LocationDialog.swift"; sourceTree = "<group>"; };
 		4E6A00F4294F5390009151E3 /* CLPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLPlacemark.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* LocationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
@@ -302,10 +306,13 @@
 			isa = PBXGroup;
 			children = (
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
-				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
-				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
+				4E2579102B9DB5B200481B23 /* Base.xcstrings */,
+				4E2579122B9DB5B200481B23 /* Camera.xcstrings */,
+				4E2579112B9DB5B200481B23 /* Location.xcstrings */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
 				4E2579012B99C26700481B23 /* Localizable.xcstrings */,
+				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
+				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
 				4E0BD99726EA0020005A4A94 /* Application */,
 				4E24F48B27345DD5004E69C2 /* Extensions */,
 				4E0BD99E26EA010A005A4A94 /* Base */,
@@ -417,7 +424,6 @@
 				4E31A655293F4C44002080F6 /* UIView+Subviews.swift */,
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */,
-				4E68B5BD275F59F00025A80A /* UIViewController+LocationDialog.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
 				4E025E3C274E420800D56ED7 /* TimeInterval.swift */,
 				4E3A415E28D83CD9004C9D90 /* CLLocation.swift */,
@@ -590,6 +596,9 @@
 				4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */,
 				4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */,
 				4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */,
+				4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */,
+				4E2579132B9DB5B200481B23 /* Base.xcstrings in Resources */,
+				4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,7 +717,6 @@
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
 				4E55B2B929477345005D2BFB /* VideoListItemView.swift in Sources */,
 				4E4424832B94FA100007A26F /* CameraInfoViewController.swift in Sources */,
-				4E68B5BE275F59F00025A80A /* UIViewController+LocationDialog.swift in Sources */,
 				4E4424882B94FA100007A26F /* CameraViewController+Session.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
@@ -881,6 +889,10 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -905,6 +917,10 @@
 				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

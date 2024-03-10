@@ -120,4 +120,23 @@ class LocationPool{
         return nearestLocation
     }
     
+    @discardableResult
+    static func getLocation(coordinate: CLLocationCoordinate2D) -> Location{
+        var distance : CLLocationDistance = Double.infinity
+        var nearestLocation : Location? = nil
+        for location in list{
+            let dist = location.coordinate.distance(to: coordinate)
+            if dist<maxMergeDistance && dist<distance{
+                distance = dist
+                nearestLocation = location
+            }
+        }
+        if let location = nearestLocation{
+            return location
+        }
+        let location = LocationPool.addLocation(coordinate: coordinate)
+        save()
+        return location
+    }
+    
 }

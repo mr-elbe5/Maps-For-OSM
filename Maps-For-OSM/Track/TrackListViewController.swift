@@ -139,23 +139,21 @@ extension TrackListViewController : UIDocumentPickerDelegate{
         if let url = urls.first{
             if let trackpoints = GPXParser.parseFile(url: url){
                 if let startPosition = trackpoints.first{
-                    assertLocation(coordinate: startPosition.coordinate){ location in
-                        let track = Track()
-                        for tp in trackpoints{
-                            track.trackpoints.append(tp)
-                        }
-                        track.evaluateImportedTrackpoints()
-                        let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-                        alertController.addTextField()
-                        alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                            track.name = alertController.textFields![0].text ?? url.lastPathComponent
-                            TrackPool.addTrack(track: track)
-                            TrackPool.save()
-                            self.tracks?.append(track)
-                            self.tableView.reloadData()
-                        })
-                        self.present(alertController, animated: true)
+                    let track = Track()
+                    for tp in trackpoints{
+                        track.trackpoints.append(tp)
                     }
+                    track.evaluateImportedTrackpoints()
+                    let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
+                    alertController.addTextField()
+                    alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
+                        track.name = alertController.textFields![0].text ?? url.lastPathComponent
+                        TrackPool.addTrack(track: track)
+                        TrackPool.save()
+                        self.tracks?.append(track)
+                        self.tableView.reloadData()
+                    })
+                    self.present(alertController, animated: true)
                 }
             }
         }

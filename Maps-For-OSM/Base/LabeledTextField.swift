@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -34,7 +34,7 @@ class LabeledTextField : UIView, UITextFieldDelegate{
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         addSubview(textField)
-        textField.setKeyboardToolbar(doneTitle: "done".localize())
+        textField.setKeyboardToolbar(doneTitle: "done".localize(table: "Base"))
         
         if isHorizontal{
             label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: centerXAnchor, bottom: bottomAnchor)

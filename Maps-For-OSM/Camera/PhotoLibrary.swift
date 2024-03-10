@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -13,9 +13,10 @@ class PhotoLibrary{
     
     static var defaultFileType: AVFileType = .jpg
     
-    static func savePhoto(photoData: Data, fileType: AVFileType?, location: CLLocation?, resultHandler: @escaping (Bool) -> Void){
+    static func savePhoto(photoData: Data, fileType: AVFileType?, location: CLLocation?, resultHandler: @escaping (String) -> Void){
         PHPhotoLibrary.requestAuthorization { status in
             if status == PHAuthorizationStatus.authorized {
+                var localIdentifier: String = ""
                 PHPhotoLibrary.shared().performChanges({
                     let options = PHAssetResourceCreationOptions()
                     let creationRequest = PHAssetCreationRequest.forAsset()
@@ -23,37 +24,40 @@ class PhotoLibrary{
                     let resourceType = PHAssetResourceType.photo
                     creationRequest.addResource(with: resourceType, data: photoData, options: options)
                     creationRequest.location = location
+                    localIdentifier = creationRequest.placeholderForCreatedAsset!.localIdentifier
                 }, completionHandler: { _, error in
                     if let error = error {
                         print("Error. occurred while saving photo to photo library: \(error)")
                     }
                     DispatchQueue.main.async{
-                        resultHandler(true)
+                        resultHandler(localIdentifier)
                     }
                 })
             } else {
-                resultHandler(false)
+                resultHandler("")
             }
         }
     }
     
-    static func saveVideo(outputFileURL: URL, location: CLLocation?, resultHandler: @escaping (Bool) -> Void){
+    static func saveVideo(outputFileURL: URL, location: CLLocation?, resultHandler: @escaping (String) -> Void){
         PHPhotoLibrary.requestAuthorization { status in
             if status == .authorized {
+                var localIdentifier: String = ""
                 PHPhotoLibrary.shared().performChanges({
                     let options = PHAssetResourceCreationOptions()
                     options.shouldMoveFile = true
                     let creationRequest = PHAssetCreationRequest.forAsset()
                     creationRequest.addResource(with: .video, fileURL: outputFileURL, options: options)
                     creationRequest.location = location
+                    localIdentifier = creationRequest.placeholderForCreatedAsset!.localIdentifier
                 }, completionHandler: { success, error in
                     if let error = error {
                         print("Error. occurred while saving video to photo library: \(error)")
                     }
-                    resultHandler(true)
+                    resultHandler(localIdentifier)
                 })
             } else {
-                resultHandler(false)
+                resultHandler("")
             }
         }
     }

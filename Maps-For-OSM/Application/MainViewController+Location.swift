@@ -73,12 +73,10 @@ extension MainViewController: MapPositionDelegate{
     }
     
     func addLocationAtCurrentPosition() {
-        if let location = LocationService.shared.location{
-            assertLocation(coordinate: location.coordinate){ location in
-                LocationPool.save()
-                DispatchQueue.main.async {
-                    self.updateMarkerLayer()
-                }
+        if let coordinate = LocationService.shared.location?.coordinate{
+            LocationPool.getLocation(coordinate: coordinate)
+            DispatchQueue.main.async {
+                self.updateMarkerLayer()
             }
         }
     }
@@ -98,19 +96,15 @@ extension MainViewController: MapPositionDelegate{
     }
     
     func addLocationAtCrossPosition() {
-        assertLocation(coordinate: mapView.scrollView.screenCenterCoordinate){ location in
-            LocationPool.save()
-            DispatchQueue.main.async {
-                self.updateMarkerLayer()
-            }
+        LocationPool.getLocation(coordinate: mapView.scrollView.screenCenterCoordinate)
+        DispatchQueue.main.async {
+            self.updateMarkerLayer()
         }
     }
     
     func addImageAtCrossPosition() {
-        assertLocation(coordinate: mapView.scrollView.screenCenterCoordinate){ location in
-            LocationPool.save()
-            self.addImage(location: location)
-        }
+        let location = LocationPool.getLocation(coordinate: mapView.scrollView.screenCenterCoordinate)
+        addImage(location: location)
     }
     
 }

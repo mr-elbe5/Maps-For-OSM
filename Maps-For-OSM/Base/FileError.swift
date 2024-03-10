@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ E5Cam
+ Simple Camera
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
@@ -16,10 +16,10 @@ enum FileError: Swift.Error {
 extension FileError: LocalizedError {
     var errorDescription: String? {
         switch self {
-        case .read: return "readError".localize()
-        case .save: return "saveError".localize()
-        case .unauthorized: return "unauthorizedError".localize()
-        case .unexpected: return "unexpectedError".localize()
+        case .read: return "readFileError".localize(table: "Base")
+        case .save: return "saveFileError".localize(table: "Base")
+        case .unauthorized: return "unauthorizedError".localize(table: "Base")
+        case .unexpected: return "unexpectedError".localize(table: "Base")
         }
     }
 }
