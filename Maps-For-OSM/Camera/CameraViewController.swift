@@ -167,9 +167,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             if !self.isCaptureEnabled{
                 DispatchQueue.main.async {
                     let sampleView = UIImageView(image: UIImage(named: "sample"))
-                    sampleView.setAspectRatioConstraint()
+                    sampleView.contentMode = .scaleAspectFill
                     self.previewView.addSubview(sampleView)
                     sampleView.setAnchors(centerX: self.previewView.centerXAnchor, centerY: self.previewView.centerYAnchor)
+                        .width(self.previewView.widthAnchor)
                 }
             }
         }
