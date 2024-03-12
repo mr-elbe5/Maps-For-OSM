@@ -138,7 +138,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if let url = urls.first{
             if let trackpoints = GPXParser.parseFile(url: url){
-                if let startPosition = trackpoints.first{
+                if trackpoints.count > 0{
                     let track = Track()
                     for tp in trackpoints{
                         track.trackpoints.append(tp)

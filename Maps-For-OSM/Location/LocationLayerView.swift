@@ -21,6 +21,7 @@ class LocationLayerView: UIView {
     var delegate : LocationLayerViewDelegate? = nil
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
+        //print("setupMarkers, zoom=\(zoom),offset=\(offset),scale=\(scale)")
         for subview in subviews {
             subview.removeFromSuperview()
         }

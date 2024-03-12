@@ -111,6 +111,7 @@ class MapView: UIView {
     
     func scaleTo(scale: Double, animated : Bool = false){
         scrollView.setZoomScale(scale, animated: animated)
+        scrollView.setZoomFromScale(scale: scale)
     }
     
     func zoomTo(zoom: Int, animated: Bool){

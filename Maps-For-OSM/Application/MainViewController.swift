@@ -15,16 +15,27 @@ class MainViewController: UIViewController {
     var statusView = StatusView()
     var licenseView = UIView()
     
+    override func loadView() {
+        super.loadView()
+        setupViews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        if AppState.shared.version < AppState.currentVersion{
-            //todo
-        }
+        mapView.setDefaultLocation()
     }
     
     func setupViews(){
         let layoutGuide = view.safeAreaLayoutGuide
+        setupMapView(layoutGuide: layoutGuide)
+        setupMainMenuView(layoutGuide: layoutGuide)
+        mainMenuView.delegate = self
+        setupLicenseView(layoutGuide: layoutGuide)
+        setupStatusView(layoutGuide: layoutGuide)
+        mapView.delegate = self
+    }
+    
+    func setupMapView(layoutGuide: UILayoutGuide){
         view.addSubviewFilling(mapView)
         mapView.frame = view.bounds
         mapView.setupScrollView()
@@ -33,12 +44,6 @@ class MainViewController: UIViewController {
         mapView.locationLayerView.delegate = self
         mapView.setupCrossView()
         mapView.setupUserLocationView()
-        setupMainMenuView(layoutGuide: layoutGuide)
-        mainMenuView.delegate = self
-        setupLicenseView(layoutGuide: layoutGuide)
-        setupStatusView(layoutGuide: layoutGuide)
-        mapView.delegate = self
-        mapView.setDefaultLocation()
     }
     
     func setupMainMenuView(layoutGuide: UILayoutGuide){

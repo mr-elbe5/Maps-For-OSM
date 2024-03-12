@@ -74,6 +74,13 @@ class MapScrollView : UIScrollView{
         TileRegion(topLeft: coordinate(screenPoint: CGPoint(x: 0, y: 0)), bottomRight: coordinate(screenPoint: CGPoint(x: visibleSize.width, y: visibleSize.height)), maxZoom: World.maxZoom)
     }
     
+    func setZoomFromScale(scale: Double){
+        let zoom = World.maxZoom - World.zoomLevelFromScale(scale: 1.0/scale)
+        if zoom != self.zoom{
+            self.zoom = zoom
+        }
+    }
+    
     func contentPoint(screenPoint: CGPoint) -> CGPoint{
         CGPoint(x: screenPoint.x + contentOffset.x, y: screenPoint.y + contentOffset.y)
     }
