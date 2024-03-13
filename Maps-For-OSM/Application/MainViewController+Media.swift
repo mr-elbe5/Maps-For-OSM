@@ -111,14 +111,12 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 extension MainViewController: CameraDelegate{
     
-    func photoCaptured(data: Data) {
-        let exif = ExifData(data: data)
-        print(exif.toDictionary)
-        let imageFile = ImageFile()
-        imageFile.saveFile(data: data)
-        print("photo saved locally")
-        if let coordinate = LocationService.shared.location?.coordinate{
-            let location = LocationPool.getLocation(coordinate: coordinate)
+    func photoCaptured(data: Data, cllocation: CLLocation?) {
+        if let cllocation = cllocation{
+            let imageFile = ImageFile()
+            imageFile.saveFile(data: data)
+            print("photo saved locally")
+            let location = LocationPool.getLocation(coordinate: cllocation.coordinate)
             let changeState = location.media.isEmpty
             location.addMedia(file: imageFile)
             LocationPool.save()
@@ -139,12 +137,12 @@ extension MainViewController: CameraDelegate{
         return dataWithEXIF as Data
     }
     
-    func videoCaptured(data: Data) {
-        let videoFile = VideoFile()
-        videoFile.saveFile(data: data)
-        print("video saved locally")
-        if let coordinate = LocationService.shared.location?.coordinate{
-            let location = LocationPool.getLocation(coordinate: coordinate)
+    func videoCaptured(data: Data, cllocation: CLLocation?) {
+        if let cllocation = cllocation{
+            let videoFile = VideoFile()
+            videoFile.saveFile(data: data)
+            print("video saved locally")
+            let location = LocationPool.getLocation(coordinate: cllocation.coordinate)
             let changeState = location.media.isEmpty
             location.addMedia(file: videoFile)
             LocationPool.save()

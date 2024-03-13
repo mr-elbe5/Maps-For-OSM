@@ -87,7 +87,7 @@ class BackupViewController: PopupScrollViewController{
     @objc func importFromPhotoLibrary(){
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         configuration.filter = PHPickerFilter.any(of: [.images, .videos])
-        configuration.preferredAssetRepresentationMode = .current
+        configuration.preferredAssetRepresentationMode = .automatic
         configuration.selection = .ordered
         configuration.selectionLimit = 0
         configuration.disabledCapabilities = [.search, .stagingArea]
@@ -103,7 +103,7 @@ class BackupViewController: PopupScrollViewController{
         contentView.addSubview(spinner)
         spinner.setAnchors(centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor)
         DispatchQueue.main.async {
-            if let url = Backup.createBackupFile(name: fileName){
+            if let _ = Backup.createBackupFile(name: fileName){
                 self.showDone(title: "success".localize(), text: "backupSaved".localize())
             }
             spinner.stopAnimating()
@@ -125,18 +125,24 @@ extension BackupViewController: PHPickerViewControllerDelegate{
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         for result in results{
+            var location: CLLocation? = nil
+            if let ident = result.assetIdentifier{
+                if let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [ident], options: nil).firstObject{
+                    location = fetchResult.location
+                }
+            }
             let itemProvider = result.itemProvider
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) {  image, error in
                     if let image = image {
-                        print("got image \(image.description)")
+                        print("got image \(image.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                     }
                 }
             }
             else{
                 itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
                     if let url = url {
-                        print("got video url: \(url)")
+                        print("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                     }
                 }
             }

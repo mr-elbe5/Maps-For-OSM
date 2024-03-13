@@ -86,12 +86,13 @@ extension CameraViewController{
             success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
+            let location = self.locationManager.location
             if let delegate = delegate{
                 DispatchQueue.main.async{
-                    delegate.videoCaptured(data: FileController.readFile(url: outputFileURL)!)
+                    delegate.videoCaptured(data: FileController.readFile(url: outputFileURL)!, cllocation: location)
                 }
             }
-            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: self.locationManager.location, resultHandler: { localIdentifier in
+            PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: location, resultHandler: { localIdentifier in
                 print("saved video with localIdentifier \(localIdentifier)")
                 cleanup()
             })

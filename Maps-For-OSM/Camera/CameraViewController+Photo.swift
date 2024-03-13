@@ -78,55 +78,6 @@ class PhotoCaptureProcessor: NSObject {
     
 }
 
-class LocationCustomizer: NSObject, AVCapturePhotoFileDataRepresentationCustomizer{
-    
-    var location: CLLocation? = nil
-    
-    func replacementMetadata(for photo: AVCapturePhoto) -> [String : Any]?{
-        let metadata = photo.metadata
-        var map = [String : Any]()
-        for key in metadata.keys{
-            if let value = metadata[key]{
-                map.updateValue(checkValue(key: key, value: value), forKey: key)
-            }
-        }
-        map[kCGImagePropertyGPSDictionary as String] = getGPSValue()
-        print(map)
-        return map
-    }
-    
-    func checkValue(key: String, value: Any) -> Any{
-        if key == kCGImagePropertyExifDictionary as String, let location = location{
-            if let subMap = value as? [String: Any]{
-                var map = [String: Any]()
-                for subKey in subMap.keys{
-                    if let subValue = subMap[key]{
-                        map.updateValue(subValue, forKey: subKey)
-                    }
-                    
-                }
-                map.updateValue(String(location.coordinate.latitude), forKey: kCGImagePropertyGPSLatitude as String)
-                map.updateValue(String(location.coordinate.longitude), forKey: kCGImagePropertyGPSLongitude as String)
-                map.updateValue(String(location.altitude), forKey: kCGImagePropertyGPSAltitude as String)
-                print(map)
-                return map
-            }
-        }
-        return value
-    }
-    
-    func getGPSValue() -> [String: Any]{
-        var map = [String: Any]()
-        if let location = location{
-            map.updateValue(String(location.coordinate.latitude), forKey: kCGImagePropertyGPSLatitude as String)
-            map.updateValue(String(location.coordinate.longitude), forKey: kCGImagePropertyGPSLongitude as String)
-            map.updateValue(String(location.altitude), forKey: kCGImagePropertyGPSAltitude as String)
-        }
-        return map
-    }
-    
-}
-
 extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
@@ -134,11 +85,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             print("Error capturing photo: \(error)")
             return
         }
-        let customizer = LocationCustomizer()
-        customizer.location = location
-        self.photoData = photo.fileDataRepresentation(with: customizer)
-        let exif = ExifData(data: photoData!)
-        print(exif.toDictionary)
+        self.photoData = photo.fileDataRepresentation()
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
@@ -154,7 +101,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         }
         if let delegate = delegate{
             DispatchQueue.main.async{
-                delegate.photoCaptured(data: self.photoData!)
+                delegate.photoCaptured(data: self.photoData!, cllocation: self.location)
             }
         }
         PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
