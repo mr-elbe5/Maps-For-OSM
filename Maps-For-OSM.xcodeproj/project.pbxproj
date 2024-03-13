@@ -493,7 +493,6 @@
 		4E44248B2B94FACA0007A26F /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				4EAB349D2BA1B198004D187D /* ExifData.swift */,
 				4E4424812B94FA100007A26F /* CameraIconButton.swift */,
 				4E44247A2B94FA0F0007A26F /* CameraInfoViewController.swift */,
 				4E4424802B94FA100007A26F /* CameraViewController.swift */,
@@ -503,6 +502,7 @@
 				4E44247F2B94FA100007A26F /* CameraViewController+Session.swift */,
 				4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */,
 				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
+				4EAB349D2BA1B198004D187D /* ExifData.swift */,
 				4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */,
 				4E44247D2B94FA100007A26F /* PreviewView.swift */,
 			);

@@ -112,6 +112,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 extension MainViewController: CameraDelegate{
     
     func photoCaptured(data: Data) {
+        let exif = ExifData(data: data)
+        print(exif.toDictionary)
         let imageFile = ImageFile()
         imageFile.saveFile(data: data)
         print("photo saved locally")
@@ -124,6 +126,17 @@ extension MainViewController: CameraDelegate{
                 self.markersChanged()
             }
         }
+    }
+    
+    func getImageWithImageData(data: Data, properties: NSDictionary) -> Data{
+
+        let imageRef: CGImageSource = CGImageSourceCreateWithData((data as CFData), nil)!
+        let uti: CFString = CGImageSourceGetType(imageRef)!
+        let dataWithEXIF: NSMutableData = NSMutableData(data: data)
+        let destination: CGImageDestination = CGImageDestinationCreateWithData((dataWithEXIF as CFMutableData), uti, 1, nil)!
+        CGImageDestinationAddImageFromSource(destination, imageRef, 0, (properties as CFDictionary))
+        CGImageDestinationFinalize(destination)
+        return dataWithEXIF as Data
     }
     
     func videoCaptured(data: Data) {
