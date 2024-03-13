@@ -1686,6 +1686,23 @@
         }
       }
     },
+    "importFromPhotoLibrary" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus Fotos importieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import from Photos"
+          }
+        }
+      }
+    },
     "info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2555,18 +2572,6 @@
         }
       }
     },
-    "OK" : {
-      "comment" : "Alert OK button",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        }
-      }
-    },
     "osmLegalInfo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3186,18 +3191,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select a smaller region"
-          }
-        }
-      }
-    },
-    "Settings" : {
-      "comment" : "Alert button to open Settings",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einstellungen"
           }
         }
       }
@@ -3852,17 +3845,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tracks"
-          }
-        }
-      }
-    },
-    "Unable to capture media" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keine Aufnahme möglich"
           }
         }
       }

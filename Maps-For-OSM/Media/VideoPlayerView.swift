@@ -20,9 +20,16 @@ class VideoPlayerView: UIView {
         didSet{
             if let url = url{
                 let asset = AVURLAsset(url: url)
-                if let track = asset.tracks(withMediaType: AVMediaType.video).first{
-                    let size = track.naturalSize.applying(track.preferredTransform)
-                    self.aspectRatio = abs(size.width / size.height)
+                Task(){
+                    do{
+                        if let track = try await asset.loadTracks(withMediaType: AVMediaType.video).first{
+                            let size = try await track.load(.naturalSize)
+                            self.aspectRatio = abs(size.width / size.height)
+                        }
+                    }
+                    catch let(err){
+                        print(err)
+                    }
                 }
                 let item = AVPlayerItem(asset: asset)
                 player.replaceCurrentItem(with: item)
