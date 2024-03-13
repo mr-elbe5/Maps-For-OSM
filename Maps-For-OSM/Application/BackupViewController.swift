@@ -9,6 +9,8 @@ import UIKit
 import CoreLocation
 import Zip
 import UniformTypeIdentifiers
+import Photos
+import PhotosUI
 
 class BackupViewController: PopupScrollViewController{
     
@@ -23,11 +25,18 @@ class BackupViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(exportToPhotoLibraryButton, top: contentView.topAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
+        let importFromPhotoLibraryButton = UIButton()
+        importFromPhotoLibraryButton.setTitle("importFromPhotoLibrary".localize(), for: .normal)
+        importFromPhotoLibraryButton.setTitleColor(.systemBlue, for: .normal)
+        importFromPhotoLibraryButton.addTarget(self, action: #selector(importFromPhotoLibrary), for: .touchDown)
+        contentView.addSubviewWithAnchors(importFromPhotoLibraryButton, top: exportToPhotoLibraryButton.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
         let createBackupButton = UIButton()
         createBackupButton.setTitle("createBackup".localize(), for: .normal)
         createBackupButton.setTitleColor(.systemBlue, for: .normal)
         createBackupButton.addTarget(self, action: #selector(createBackup), for: .touchDown)
-        contentView.addSubviewWithAnchors(createBackupButton, top: exportToPhotoLibraryButton.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(createBackupButton, top: importFromPhotoLibraryButton.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         let restoreBackupButton = UIButton()
@@ -75,6 +84,18 @@ class BackupViewController: PopupScrollViewController{
         }
     }
     
+    @objc func importFromPhotoLibrary(){
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = PHPickerFilter.any(of: [.images, .videos])
+        configuration.preferredAssetRepresentationMode = .current
+        configuration.selection = .ordered
+        configuration.selectionLimit = 0
+        configuration.disabledCapabilities = [.search, .stagingArea]
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
     @objc func createBackup(){
         let fileName = "maps4osm_backup_\(Date().shortFileDate()).zip"
         let spinner = UIActivityIndicatorView(style: .large)
@@ -96,6 +117,31 @@ class BackupViewController: PopupScrollViewController{
         documentPickerController.directoryURL = FileController.backupDirURL
         documentPickerController.delegate = self
         self.present(documentPickerController, animated: true, completion: nil)
+    }
+    
+}
+
+extension BackupViewController: PHPickerViewControllerDelegate{
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        for result in results{
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) {  image, error in
+                    if let image = image {
+                        print("got image \(image.description)")
+                    }
+                }
+            }
+            else{
+                itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
+                    if let url = url {
+                        print("got video url: \(url)")
+                    }
+                }
+            }
+        }
+        picker.dismiss(animated: false)
     }
     
 }
