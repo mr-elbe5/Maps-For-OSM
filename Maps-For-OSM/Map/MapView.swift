@@ -8,14 +8,8 @@ import UIKit
 import CoreLocation
 
 protocol MapPositionDelegate{
-    func showDetailsOfCurrentPosition()
-    func addLocationAtCurrentPosition()
-    func openCameraAtCurrentPosition()
-    func addImageAtCurrentPosition()
-    func addAudioAtCurrentPosition()
+    func showDetailsOfUserLocation()
     func showDetailsOfCrossPosition()
-    func addLocationAtCrossPosition()
-    func addImageAtCrossPosition()
 }
 
 class MapView: UIView {
@@ -54,51 +48,19 @@ class MapView: UIView {
     }
     
     func setupUserLocationView(){
+        userLocationView.addAction(UIAction(){ action in
+            self.delegate?.showDetailsOfUserLocation()
+        }, for: .touchDown)
         userLocationView.backgroundColor = .clear
         addSubview(userLocationView)
-        userLocationView.menu = getUserLocationMenu()
-        userLocationView.showsMenuAsPrimaryAction = true
-    }
-    
-    func getUserLocationMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "showDetails".localize()){ action in
-            self.delegate?.showDetailsOfCurrentPosition()
-        })
-        actions.append(UIAction(title: "addPlace".localize()){ action in
-            self.delegate?.addLocationAtCurrentPosition()
-        })
-        actions.append(UIAction(title: "openCamera".localize()){ action in
-            self.delegate?.openCameraAtCurrentPosition()
-        })
-        actions.append(UIAction(title: "addImage".localize()){ action in
-            self.delegate?.addImageAtCurrentPosition()
-        })
-        actions.append(UIAction(title: "addAudio".localize()){ action in
-            self.delegate?.addAudioAtCurrentPosition()
-        })
-        return UIMenu(title: "currentPosition".localize(), children: actions)
     }
     
     func setupCrossView(){
-        addSubviewCentered(crossView, centerX: centerXAnchor, centerY: centerYAnchor)
-        crossView.menu = getCrossMenu()
-        crossView.showsMenuAsPrimaryAction = true
-        crossView.isHidden = !AppState.shared.showCross
-    }
-    
-    func getCrossMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "showDetails".localize()){ action in
+        crossView.addAction(UIAction(){ action in
             self.delegate?.showDetailsOfCrossPosition()
-        })
-        actions.append(UIAction(title: "addPlace".localize()){ action in
-            self.delegate?.addLocationAtCrossPosition()
-        })
-        actions.append(UIAction(title: "addImage".localize()){ action in
-            self.delegate?.addImageAtCrossPosition()
-        })
-        return UIMenu(title: "crossPosition".localize(), children: actions)
+        }, for: .touchDown)
+        addSubviewCentered(crossView, centerX: centerXAnchor, centerY: centerYAnchor)
+        crossView.isHidden = !AppState.shared.showCross
     }
 
     func clearTiles(){
@@ -188,6 +150,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
 }
+
 
 
 

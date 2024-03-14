@@ -10,6 +10,7 @@ protocol MainMenuDelegate: MapPositionDelegate{
     
     func refreshMap()
     func openPreloadTiles()
+    func changeTileSource()
     func deleteAllTiles()
     
     func showLocations(_ show: Bool)
@@ -27,6 +28,8 @@ protocol MainMenuDelegate: MapPositionDelegate{
     
     func updateCross()
     func focusUserLocation()
+    
+    func openCameraAtUserLocation()
     
     func openSearch()
     
@@ -105,6 +108,9 @@ class MainMenuView: UIView {
         })
         actions.append(UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
             self.delegate?.openPreloadTiles()
+        })
+        actions.append(UIAction(title: "changeTileSource".localize(), image: UIImage(systemName: "map")){ action in
+            self.delegate?.changeTileSource()
         })
         actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAllTiles()
@@ -199,7 +205,7 @@ class MainMenuView: UIView {
     }
     
     @objc func openCamera(){
-        delegate?.openCameraAtCurrentPosition()
+        delegate?.openCameraAtUserLocation()
     }
     
     @objc func openInfo(){

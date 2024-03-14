@@ -25,6 +25,12 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
+    func changeTileSource() {
+        let controller = TileSourceViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
     func deleteAllTiles(){
         showDestructiveApprove(title: "confirmDeleteTiles".localize(), text: "deleteTilesHint".localize()){
             TileProvider.shared.deleteAllTiles()

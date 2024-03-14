@@ -26,52 +26,7 @@ extension MainViewController{
         addImage(location: place)
     }
     
-    //MapPositionDelegate
-    func openCameraAtCurrentPosition() {
-        AVCaptureDevice.askCameraAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let cameraCaptureController = CameraViewController()
-                    cameraCaptureController.delegate = self
-                    cameraCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(cameraCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
-                }
-                return
-            }
-        }
-    }
     
-    //MapPositionDelegate
-    func addImageAtCurrentPosition() {
-        addImage(location: nil)
-    }
-    
-    //MapPositionDelegate
-    func addAudioAtCurrentPosition(){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.delegate = self
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(audioCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
     
 }
 

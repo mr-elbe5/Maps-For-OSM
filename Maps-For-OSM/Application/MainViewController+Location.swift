@@ -6,6 +6,7 @@
 
 import UIKit
 import CoreLocation
+import AVFoundation
 
 extension MainViewController: PlaceLayerViewDelegate{
     
@@ -40,11 +41,6 @@ extension MainViewController: PlaceLayerViewDelegate{
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
-        if let coordinate = group.centralCoordinate{
-            let str = "\(coordinate.asString)\n\(group.places.count) \("place(s)".localize())"
-            self.showAlert(title: "groupCenter".localize(), text: str)
-            
-        }
     }
     
     func mergeGroup(group: PlaceGroup) {
@@ -62,53 +58,18 @@ extension MainViewController: PlaceLayerViewDelegate{
 
 extension MainViewController: MapPositionDelegate{
     
-    func showDetailsOfCurrentPosition() {
-        if let location = LocationService.shared.location{
-            LocationService.shared.getPlacemark(for: location){ placemark in
-                var str : String
-                if let placemark = placemark{
-                    str = placemark.locationString + "\n" + location.coordinate.asString
-                } else{
-                    str = location.coordinate.asString
-                }
-                self.showAlert(title: "currentPosition".localize(), text: str)
-            }
-        }
-    }
-    
-    func addLocationAtCurrentPosition() {
-        if let coordinate = LocationService.shared.location?.coordinate{
-            PlacePool.getPlace(coordinate: coordinate)
-            DispatchQueue.main.async {
-                self.updateMarkerLayer()
-            }
-        }
+    func showDetailsOfUserLocation() {
+        let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
+        let controller = UserLocationViewController(coordinate: coordinate)
+        controller.delegate = self
+        present(controller, animated: true)
     }
     
     func showDetailsOfCrossPosition() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        LocationService.shared.getPlacemark(for: location){ placemark in
-            var str : String
-            if let placemark = placemark{
-                str = placemark.locationString + "\n" + location.coordinate.asString
-            } else{
-                str = location.coordinate.asString
-            }
-            self.showAlert(title: "crossPosition".localize(), text: str)
-        }
-    }
-    
-    func addLocationAtCrossPosition() {
-        PlacePool.getPlace(coordinate: mapView.scrollView.screenCenterCoordinate)
-        DispatchQueue.main.async {
-            self.updateMarkerLayer()
-        }
-    }
-    
-    func addImageAtCrossPosition() {
-        let location = PlacePool.getPlace(coordinate: mapView.scrollView.screenCenterCoordinate)
-        addImage(location: location)
+        let controller = CrossLocationViewController(coordinate: coordinate)
+        controller.delegate = self
+        present(controller, animated: true)
     }
     
 }
@@ -124,6 +85,79 @@ extension MainViewController: PlaceViewDelegate{
 extension MainViewController: PlaceGroupViewDelegate{
     
     
+    
+}
+
+extension MainViewController: CrossLocationDelegate{
+    
+    func addPlaceAtCrossPosition() {
+        PlacePool.getPlace(coordinate: mapView.scrollView.screenCenterCoordinate)
+        DispatchQueue.main.async {
+            self.updateMarkerLayer()
+        }
+    }
+    
+    func addImageAtCrossPosition() {
+        let location = PlacePool.getPlace(coordinate: mapView.scrollView.screenCenterCoordinate)
+        addImage(location: location)
+    }
+    
+}
+
+extension MainViewController: UserLocationDelegate{
+    
+    func addPlaceAtUserLocation() {
+        if let coordinate = LocationService.shared.location?.coordinate{
+            PlacePool.getPlace(coordinate: coordinate)
+            DispatchQueue.main.async {
+                self.updateMarkerLayer()
+            }
+        }
+    }
+    
+    func openCameraAtUserLocation() {
+        AVCaptureDevice.askCameraAuthorization(){ result in
+            switch result{
+            case .success(()):
+                DispatchQueue.main.async {
+                    let cameraCaptureController = CameraViewController()
+                    cameraCaptureController.delegate = self
+                    cameraCaptureController.modalPresentationStyle = .fullScreen
+                    self.present(cameraCaptureController, animated: true)
+                }
+                return
+            case .failure:
+                DispatchQueue.main.async {
+                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
+                }
+                return
+            }
+        }
+    }
+    
+    func addImageAtUserLocation() {
+        addImage(location: nil)
+    }
+    
+    func addAudioAtUserLocation(){
+        AVCaptureDevice.askAudioAuthorization(){ result in
+            switch result{
+            case .success(()):
+                DispatchQueue.main.async {
+                    let audioCaptureController = AudioRecorderViewController()
+                    audioCaptureController.delegate = self
+                    audioCaptureController.modalPresentationStyle = .fullScreen
+                    self.present(audioCaptureController, animated: true)
+                }
+                return
+            case .failure:
+                DispatchQueue.main.async {
+                    self.showError("MainViewController audioNotAuthorized")
+                }
+                return
+            }
+        }
+    }
     
 }
 

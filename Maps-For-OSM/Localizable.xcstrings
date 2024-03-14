@@ -451,6 +451,23 @@
         }
       }
     },
+    "changeTileSource" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenquelle wechseln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Map Source"
+          }
+        }
+      }
+    },
     "close" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1504,13 +1521,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Position bei Touraufzeichnung folgen"
+            "value" : "Position bei Tour folgen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Follow Position on Tour Recording"
+            "value" : "Follow Position on Tour"
           }
         }
       }
@@ -3573,6 +3590,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preload Tiles"
+          }
+        }
+      }
+    },
+    "tileSource" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenquelle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tile Source"
+          }
+        }
+      }
+    },
+    "tileSourceSaved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenquelle gespeichert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tile source saved"
           }
         }
       }

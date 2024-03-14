@@ -40,7 +40,6 @@ class Preferences: Identifiable, Codable{
     enum CodingKeys: String, CodingKey {
         case urlTemplate
         case followTrack
-        case showTrackpoints
         case trackpointInterval
         case maxHorizontalUncertainty
         case maxSpeedUncertaintyFactor
@@ -67,7 +66,6 @@ class Preferences: Identifiable, Codable{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
         followTrack = try values.decodeIfPresent(Bool.self, forKey: .followTrack) ?? false
-        showTrackpoints = try values.decodeIfPresent(Bool.self, forKey: .showTrackpoints) ?? false
         trackpointInterval = try values.decodeIfPresent(Double.self, forKey: .trackpointInterval) ?? Preferences.defaultTrackpointInterval
         maxHorizontalUncertainty = try values.decodeIfPresent(Double.self, forKey: .maxHorizontalUncertainty) ?? Preferences.defaultMaxHorizontalUncertainty
         maxSpeedUncertaintyFactor = try values.decodeIfPresent(Double.self, forKey: .maxSpeedUncertaintyFactor) ?? Preferences.defaultMaxSpeedUncertaintyFactor
@@ -80,8 +78,6 @@ class Preferences: Identifiable, Codable{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(followTrack, forKey: .followTrack)
-        try container.encode(showTrackpoints, forKey: .showTrackpoints)
-        try container.encode(trackpointInterval, forKey: .trackpointInterval)
         try container.encode(maxHorizontalUncertainty, forKey: .maxHorizontalUncertainty)
         try container.encode(maxSpeedUncertaintyFactor, forKey: .maxSpeedUncertaintyFactor)
         try container.encode(minHorizontalTrackpointDistance, forKey: .minHorizontalTrackpointDistance)
