@@ -52,7 +52,9 @@ class PlaceGroupViewController: PopupScrollViewController{
         
         let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
         headerView.addSubviewWithAnchors(mergeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        mergeButton.addTarget(self, action: #selector(mergePlaces), for: .touchDown)
+        mergeButton.addAction(UIAction(){ action in
+            self.mergePlaces()
+        }, for: .touchDown)
         
     }
     
@@ -80,7 +82,7 @@ class PlaceGroupViewController: PopupScrollViewController{
         
     }
     
-    @objc func mergePlaces(){
+    func mergePlaces(){
         
     }
     

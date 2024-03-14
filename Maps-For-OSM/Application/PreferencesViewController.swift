@@ -52,7 +52,9 @@ class PreferencesViewController: PopupScrollViewController{
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
-        saveButton.addTarget(self, action: #selector(save), for: .touchDown)
+        saveButton.addAction(UIAction(){ action in
+            self.save()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
@@ -60,7 +62,7 @@ class PreferencesViewController: PopupScrollViewController{
         
     }
     
-    @objc func save(){
+    func save(){
         Preferences.shared.followTrack = followTrackSwitch.isOn
         var val = Double(trackpointIntervalField.text)
         if let val = val{

@@ -83,6 +83,22 @@ class MainViewController: UIViewController {
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
     
+    func addImage(location: Place?){
+        let pickerController = ImagePickerController()
+        pickerController.location = location
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.mediaTypes = ["public.image"]
+        pickerController.sourceType = .photoLibrary
+        pickerController.modalPresentationStyle = .fullScreen
+        self.present(pickerController, animated: true, completion: nil)
+    }
+    
+    //LocationLayerViewDelegate
+    func addImageToPlace(place: Place) {
+        addImage(location: place)
+    }
+    
 }
 
 extension MainViewController: LocationServiceDelegate{

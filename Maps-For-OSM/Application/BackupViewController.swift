@@ -21,34 +21,42 @@ class BackupViewController: PopupScrollViewController{
         let exportToPhotoLibraryButton = UIButton()
         exportToPhotoLibraryButton.setTitle("exportToPhotoLibrary".localize(), for: .normal)
         exportToPhotoLibraryButton.setTitleColor(.systemBlue, for: .normal)
-        exportToPhotoLibraryButton.addTarget(self, action: #selector(exportToPhotoLibrary), for: .touchDown)
+        exportToPhotoLibraryButton.addAction(UIAction(){ action in
+            self.exportToPhotoLibrary()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(exportToPhotoLibraryButton, top: contentView.topAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         let importFromPhotoLibraryButton = UIButton()
         importFromPhotoLibraryButton.setTitle("importFromPhotoLibrary".localize(), for: .normal)
         importFromPhotoLibraryButton.setTitleColor(.systemBlue, for: .normal)
-        importFromPhotoLibraryButton.addTarget(self, action: #selector(importFromPhotoLibrary), for: .touchDown)
+        importFromPhotoLibraryButton.addAction(UIAction(){ action in
+            self.importFromPhotoLibrary()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(importFromPhotoLibraryButton, top: exportToPhotoLibraryButton.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         let createBackupButton = UIButton()
         createBackupButton.setTitle("createBackup".localize(), for: .normal)
         createBackupButton.setTitleColor(.systemBlue, for: .normal)
-        createBackupButton.addTarget(self, action: #selector(createBackup), for: .touchDown)
+        createBackupButton.addAction(UIAction(){ action in
+            self.createBackup()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(createBackupButton, top: importFromPhotoLibraryButton.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
         let restoreBackupButton = UIButton()
         restoreBackupButton.setTitle("restoreBackup".localize(), for: .normal)
         restoreBackupButton.setTitleColor(.systemBlue, for: .normal)
-        restoreBackupButton.addTarget(self, action: #selector(restoreBackup), for: .touchDown)
+        restoreBackupButton.addAction(UIAction(){ action in
+            self.restoreBackup()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(restoreBackupButton, top: createBackupButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
 
     
-    @objc func exportToPhotoLibrary(){
+    func exportToPhotoLibrary(){
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.startAnimating()
         contentView.addSubview(spinner)
@@ -84,7 +92,7 @@ class BackupViewController: PopupScrollViewController{
         }
     }
     
-    @objc func importFromPhotoLibrary(){
+    func importFromPhotoLibrary(){
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         configuration.filter = PHPickerFilter.any(of: [.images, .videos])
         configuration.preferredAssetRepresentationMode = .automatic
@@ -96,7 +104,7 @@ class BackupViewController: PopupScrollViewController{
         present(picker, animated: true)
     }
     
-    @objc func createBackup(){
+    func createBackup(){
         let fileName = "maps4osm_backup_\(Date().shortFileDate()).zip"
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.startAnimating()
@@ -111,7 +119,7 @@ class BackupViewController: PopupScrollViewController{
         }
     }
     
-    @objc func restoreBackup(){
+    func restoreBackup(){
         let types = UTType.types(tag: "zip", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
         let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
         documentPickerController.directoryURL = FileController.backupDirURL

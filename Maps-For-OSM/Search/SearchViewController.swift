@@ -30,7 +30,9 @@ class SearchViewController: PopupScrollViewController{
         let searchButton = UIButton()
         searchButton.setTitle("search".localize(), for: .normal)
         searchButton.setTitleColor(.systemBlue, for: .normal)
-        searchButton.addTarget(self, action: #selector(search), for: .touchDown)
+        searchButton.addAction(UIAction(){ action in
+            self.search()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(searchButton, top: searchField.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         
@@ -39,18 +41,19 @@ class SearchViewController: PopupScrollViewController{
         
     }
     
-    @objc func search(){
+    func search(){
         resultView.removeAllArrangedSubviews()
         if let text = searchField.text, !text.isEmpty{
             Nominatim.getLocation(of: text){ (locations: Array<NominatimLocation>) in
                 if !locations.isEmpty{
                     DispatchQueue.main.async {
                         for loc in locations{
-                            let btn = ResultButton()
-                            btn.location = loc
+                            let btn = UIButton()
                             btn.setTitle(loc.name, for: .normal)
                             btn.setTitleColor(.black, for: .normal)
-                            btn.addTarget(self, action: #selector(self.showResult), for: .touchDown)
+                            btn.addAction(UIAction(){ action in
+                                self.showResult(location: loc)
+                            }, for: .touchDown)
                             self.resultView.addArrangedSubview(btn)
                         }
                     }
@@ -59,20 +62,11 @@ class SearchViewController: PopupScrollViewController{
         }
     }
     
-    @objc func showResult(sender: AnyObject){
-        if let btn = sender as? ResultButton, let location = btn.location{
-            self.dismiss(animated: false){
-                self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
-            }
+    func showResult(location: NominatimLocation){
+        self.dismiss(animated: false){
+            self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
         }
     }
     
 }
-
-class ResultButton : UIButton{
-    
-    var location: NominatimLocation? = nil
-    
-}
-    
 

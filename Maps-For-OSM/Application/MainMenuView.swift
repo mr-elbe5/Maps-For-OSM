@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import CoreLocation
 
 protocol MainMenuDelegate: MapPositionDelegate{
     
@@ -29,7 +30,7 @@ protocol MainMenuDelegate: MapPositionDelegate{
     func updateCross()
     func focusUserLocation()
     
-    func openCameraAtUserLocation()
+    func openCamera(at coordinate: CLLocationCoordinate2D)
     
     func openSearch()
     
@@ -73,31 +74,48 @@ class MainMenuView: UIView {
         
         let crossControl = UIButton().asIconButton("plus.circle")
         stackView.addArrangedSubview(crossControl)
-        crossControl.addTarget(self, action: #selector(toggleCross), for: .touchDown)
+        crossControl.addAction(UIAction(){ action in
+            AppState.shared.showCross = !AppState.shared.showCross
+            self.delegate?.updateCross()
+        }, for: .touchDown)
         
         let focusUserLocationControl = UIButton().asIconButton("record.circle")
         stackView.addArrangedSubview(focusUserLocationControl)
-        focusUserLocationControl.addTarget(self, action: #selector(focusUserLocation), for: .touchDown)
+        focusUserLocationControl.addAction(UIAction(){ action in
+            self.delegate?.focusUserLocation()
+        }, for: .touchDown)
         
         let cameraControl = UIButton().asIconButton("camera")
         stackView.addArrangedSubview(cameraControl)
-        cameraControl.addTarget(self, action: #selector(openCamera), for: .touchDown)
+        cameraControl.addAction(UIAction(){ action in
+            if let coordinate = LocationService.shared.location?.coordinate{
+                self.delegate?.openCamera(at: coordinate)
+            }
+        }, for: .touchDown)
         
         let searchControl = UIButton().asIconButton("magnifyingglass")
         stackView.addArrangedSubview(searchControl)
-        searchControl.addTarget(self, action: #selector(openSearch), for: .touchDown)
+        searchControl.addAction(UIAction(){ action in
+            self.delegate?.openSearch()
+        }, for: .touchDown)
         
         let exportControl = UIButton().asIconButton("square.and.arrow.up")
         stackView.addArrangedSubview(exportControl)
-        exportControl.addTarget(self, action: #selector(openExport), for: .touchDown)
+        exportControl.addAction(UIAction(){ action in
+            self.delegate?.openExport()
+        }, for: .touchDown)
         
         let preferencesControl = UIButton().asIconButton("gearshape")
         stackView.addArrangedSubview(preferencesControl)
-        preferencesControl.addTarget(self, action: #selector(openPreferences), for: .touchDown)
+        preferencesControl.addAction(UIAction(){ action in
+            self.delegate?.openPreferences()
+        }, for: .touchDown)
         
         let infoControl = UIButton().asIconButton("info.circle")
         stackView.addArrangedSubview(infoControl)
-        infoControl.addTarget(self, action: #selector(openInfo), for: .touchDown)
+        infoControl.addAction(UIAction(){ action in
+            self.delegate?.openInfo()
+        }, for: .touchDown)
         
     }
     
@@ -195,34 +213,7 @@ class MainMenuView: UIView {
         self.trackMenuControl.menu = self.getTrackingMenu()
     }
     
-    @objc func toggleCross(){
-        AppState.shared.showCross = !AppState.shared.showCross
-        delegate?.updateCross()
-    }
     
-    @objc func focusUserLocation(){
-        delegate?.focusUserLocation()
-    }
-    
-    @objc func openCamera(){
-        delegate?.openCameraAtUserLocation()
-    }
-    
-    @objc func openInfo(){
-        delegate?.openInfo()
-    }
-    
-    @objc func openExport(){
-        delegate?.openExport()
-    }
-    
-    @objc func openPreferences(){
-        delegate?.openPreferences()
-    }
-    
-    @objc func openSearch(){
-        delegate?.openSearch()
-    }
     
 }
 

@@ -60,13 +60,19 @@ class PlaceDetailViewController: PopupScrollViewController{
         
         let addImageButton = UIButton().asIconButton("photo", color: .label)
         headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        addImageButton.addTarget(self, action: #selector(addImage), for: .touchDown)
+        addImageButton.addAction(UIAction(){ action in
+            self.addImage()
+        }, for: .touchDown)
         
         headerView.addSubviewWithAnchors(editButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
+        editButton.addAction(UIAction(){ action in
+            self.toggleEditMode()
+        }, for: .touchDown)
         
         headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
+        deleteButton.addAction(UIAction(){ action in
+            self.deletePlace()
+        }, for: .touchDown)
     }
     
     func setupContent(){
@@ -109,7 +115,9 @@ class PlaceDetailViewController: PopupScrollViewController{
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
             saveButton.setTitleColor(.systemBlue, for: .normal)
-            saveButton.addTarget(self, action: #selector(save), for: .touchDown)
+            saveButton.addAction(UIAction(){ action in
+                self.save()
+            }, for: .touchDown)
             noteContainerView.addSubviewWithAnchors(saveButton, top: noteEditView.bottomAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
                 .centerX(noteContainerView.centerXAnchor)
         }
@@ -147,7 +155,7 @@ class PlaceDetailViewController: PopupScrollViewController{
         }
     }
     
-    @objc func addImage(){
+    func addImage(){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
@@ -157,7 +165,7 @@ class PlaceDetailViewController: PopupScrollViewController{
         self.present(pickerController, animated: true, completion: nil)
     }
     
-    @objc func toggleEditMode(){
+    func toggleEditMode(){
         if editMode{
             editButton.tintColor = .white
             editMode = false
@@ -169,7 +177,7 @@ class PlaceDetailViewController: PopupScrollViewController{
         setupNoteContainerView()
     }
     
-    @objc func deletePlace(){
+    func deletePlace(){
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
             PlacePool.deletePlace(self.place)
             self.dismiss(animated: true){
@@ -178,7 +186,7 @@ class PlaceDetailViewController: PopupScrollViewController{
         }
     }
     
-    @objc func save(){
+    func save(){
         place.note = noteEditView?.text ?? ""
         PlacePool.save()
         if editMode{
