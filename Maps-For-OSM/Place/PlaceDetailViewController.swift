@@ -11,6 +11,17 @@ protocol PlaceViewDelegate{
     func updateMarkerLayer()
 }
 
+/*func getMarkerMenu(marker: PlaceMarker) -> UIMenu{
+    var actions = Array<UIAction>()
+    actions.append(UIAction(title: "addImage".localize()){ action in
+        self.delegate?.addImageToPlace(place: marker.place)
+    })
+    actions.append(UIAction(title: "moveToScreenCenter".localize()){ action in
+        self.delegate?.movePlaceToScreenCenter(place: marker.place)
+    })
+    return UIMenu(title: marker.place.name, children: actions)
+}*/
+
 class PlaceDetailViewController: PopupScrollViewController{
     
     let editButton = UIButton().asIconButton("pencil.circle", color: .label)

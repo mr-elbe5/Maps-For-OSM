@@ -66,10 +66,10 @@ class PlaceGroup{
         return place
     }
     
-    func isWithinRadius(location: Place, radius: CGFloat) -> Bool{
+    func isWithinRadius(place: Place, radius: CGFloat) -> Bool{
         //debug("LocationGroup checking radius")
         if let center = center{
-            let dist = center.distance(to: location.coordinate)
+            let dist = center.distance(to: place.coordinate)
             //debug("dist = \(dist) at radius \(radius)")
             return dist <= radius
         }
@@ -82,8 +82,8 @@ class PlaceGroup{
         places.contains(location)
     }
     
-    func addLocation(location: Place){
-        places.append(location)
+    func addPlace(place: Place){
+        places.append(place)
     }
     
     func setCenter(){

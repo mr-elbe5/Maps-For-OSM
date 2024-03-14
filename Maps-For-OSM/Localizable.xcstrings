@@ -416,6 +416,23 @@
         }
       }
     },
+    "center" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zentrum"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Center"
+          }
+        }
+      }
+    },
     "centerIconInfoText" : {
       "comment" : "center",
       "extractionState" : "manual",
@@ -2490,6 +2507,23 @@
         }
       }
     },
+    "placeGroup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppe von Orten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place Group"
+          }
+        }
+      }
+    },
     "placeGroupInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2687,6 +2721,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Marked place with assigned media (photos, audios or videos)"
+          }
+        }
+      }
+    },
+    "places" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Places"
           }
         }
       }

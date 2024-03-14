@@ -65,7 +65,7 @@ class MapView: UIView {
         actions.append(UIAction(title: "showDetails".localize()){ action in
             self.delegate?.showDetailsOfCurrentPosition()
         })
-        actions.append(UIAction(title: "addLocation".localize()){ action in
+        actions.append(UIAction(title: "addPlace".localize()){ action in
             self.delegate?.addLocationAtCurrentPosition()
         })
         actions.append(UIAction(title: "openCamera".localize()){ action in
@@ -92,7 +92,7 @@ class MapView: UIView {
         actions.append(UIAction(title: "showDetails".localize()){ action in
             self.delegate?.showDetailsOfCrossPosition()
         })
-        actions.append(UIAction(title: "addLocation".localize()){ action in
+        actions.append(UIAction(title: "addPlace".localize()){ action in
             self.delegate?.addLocationAtCrossPosition()
         })
         actions.append(UIAction(title: "addImage".localize()){ action in

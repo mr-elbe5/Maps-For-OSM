@@ -19,7 +19,7 @@ extension MainViewController: PlaceLayerViewDelegate{
     
     func movePlaceToScreenCenter(place: Place) {
         let centerCoordinate = mapView.scrollView.screenCenterCoordinate
-        showDestructiveApprove(title: "confirmMoveLocation".localize(), text: "\("newLocationHint".localize())\n\(centerCoordinate.asString)"){
+        showDestructiveApprove(title: "confirmMovePlace".localize(), text: "\("newLocationHint".localize())\n\(centerCoordinate.asString)"){
             place.coordinate = centerCoordinate
             place.evaluatePlacemark()
             PlacePool.save()
@@ -28,7 +28,7 @@ extension MainViewController: PlaceLayerViewDelegate{
     }
     
     func deletePlace(place: Place) {
-        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
+        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
             PlacePool.deletePlace(place)
             PlacePool.save()
             self.updateMarkerLayer()
@@ -36,8 +36,12 @@ extension MainViewController: PlaceLayerViewDelegate{
     }
     
     func showGroupDetails(group: PlaceGroup) {
+        let controller = PlaceGroupViewController(group: group)
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
         if let coordinate = group.centralCoordinate{
-            let str = "\(coordinate.asString)\n\(group.places.count) \("location(s)".localize())"
+            let str = "\(coordinate.asString)\n\(group.places.count) \("place(s)".localize())"
             self.showAlert(title: "groupCenter".localize(), text: str)
             
         }
@@ -114,6 +118,12 @@ extension MainViewController: PlaceViewDelegate{
     func updateMarkerLayer() {
         mapView.updateLocationLayer()
     }
+    
+}
+
+extension MainViewController: PlaceGroupViewDelegate{
+    
+    
     
 }
 
