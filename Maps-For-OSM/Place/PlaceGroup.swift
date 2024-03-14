@@ -8,15 +8,15 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class LocationGroup{
+class PlaceGroup{
     
     var center: CLLocationCoordinate2D? = nil
     var centerPlanetPosition: CGPoint? = nil
-    var locations = LocationList()
+    var places = PlaceList()
     
     var hasMedia: Bool{
-        for location in locations{
-            if location.hasMedia{
+        for place in places{
+            if place.hasMedia{
                 return true
             }
         }
@@ -24,23 +24,23 @@ class LocationGroup{
     }
     
     var centralCoordinate: CLLocationCoordinate2D?{
-        let count = locations.count
+        let count = places.count
         if count < 2{
             return nil
         }
         var lat = 0.0
         var lon = 0.0
-        for location in locations{
-            lat += location.coordinate.latitude
-            lon += location.coordinate.longitude
+        for place in places{
+            lat += place.coordinate.latitude
+            lon += place.coordinate.longitude
         }
         lat = lat/Double(count)
         lon = lon/Double(count)
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
-    var centralLocation: Location?{
-        let count = locations.count
+    var centralPlace: Place?{
+        let count = places.count
         if count < 2{
             return nil
         }
@@ -48,25 +48,25 @@ class LocationGroup{
         var lon = 0.0
         var note = ""
         var mediaList = MediaList()
-        for location in locations{
-            lat += location.coordinate.latitude
-            lon += location.coordinate.longitude
-            note += location.note
-            for mediaFile in location.media{
+        for place in places{
+            lat += place.coordinate.latitude
+            lon += place.coordinate.longitude
+            note += place.note
+            for mediaFile in place.media{
                 mediaList.append(mediaFile)
             }
         }
         lat = lat/Double(count)
         lon = lon/Double(count)
         try? mediaList.sort(by: MediaData.areInIncreasingDateOrder)
-        let location = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-        location.evaluatePlacemark()
-        location.note = note
-        location.media = mediaList
-        return location
+        let place = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        place.evaluatePlacemark()
+        place.note = note
+        place.media = mediaList
+        return place
     }
     
-    func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
+    func isWithinRadius(location: Place, radius: CGFloat) -> Bool{
         //debug("LocationGroup checking radius")
         if let center = center{
             let dist = center.distance(to: location.coordinate)
@@ -78,12 +78,12 @@ class LocationGroup{
         }
     }
     
-    func hasLocation(location: Location) -> Bool{
-        locations.contains(location)
+    func hasLocation(location: Place) -> Bool{
+        places.contains(location)
     }
     
-    func addLocation(location: Location){
-        locations.append(location)
+    func addLocation(location: Place){
+        places.append(location)
     }
     
     func setCenter(){
@@ -92,7 +92,7 @@ class LocationGroup{
         var minLat : CGFloat? = nil
         var maxLat : CGFloat? = nil
         
-        for loc in locations{
+        for loc in places{
             minLon = min(minLon ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
             maxLon = max(maxLon ?? -CGFloat.greatestFiniteMagnitude, loc.coordinate.longitude)
             minLat = min(minLat ?? CGFloat.greatestFiniteMagnitude, loc.coordinate.latitude)

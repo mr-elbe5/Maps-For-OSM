@@ -22,7 +22,7 @@ class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var locationLayerView = LocationLayerView()
+    var locationLayerView = PlaceLayerView()
     var userLocationView = UserLocationView(frame: UserLocationView.frameRect)
     var crossView = UIButton().asIconButton("plus.circle", color: .systemBlue)
     

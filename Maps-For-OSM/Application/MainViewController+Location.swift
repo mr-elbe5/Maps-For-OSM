@@ -7,48 +7,48 @@
 import UIKit
 import CoreLocation
 
-extension MainViewController: LocationLayerViewDelegate{
+extension MainViewController: PlaceLayerViewDelegate{
     
-    func showLocationDetails(location: Location) {
-        let controller = LocationDetailViewController(location: location)
-        controller.location = location
+    func showPlaceDetails(place: Place) {
+        let controller = PlaceDetailViewController(location: place)
+        controller.place = place
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
-    func moveLocationToScreenCenter(location: Location) {
+    func movePlaceToScreenCenter(place: Place) {
         let centerCoordinate = mapView.scrollView.screenCenterCoordinate
         showDestructiveApprove(title: "confirmMoveLocation".localize(), text: "\("newLocationHint".localize())\n\(centerCoordinate.asString)"){
-            location.coordinate = centerCoordinate
-            location.evaluatePlacemark()
-            LocationPool.save()
+            place.coordinate = centerCoordinate
+            place.evaluatePlacemark()
+            PlacePool.save()
             self.updateMarkerLayer()
         }
     }
     
-    func deleteLocation(location: Location) {
+    func deletePlace(place: Place) {
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-            LocationPool.deleteLocation(location)
-            LocationPool.save()
+            PlacePool.deletePlace(place)
+            PlacePool.save()
             self.updateMarkerLayer()
         }
     }
     
-    func showGroupDetails(group: LocationGroup) {
+    func showGroupDetails(group: PlaceGroup) {
         if let coordinate = group.centralCoordinate{
-            let str = "\(coordinate.asString)\n\(group.locations.count) \("location(s)".localize())"
+            let str = "\(coordinate.asString)\n\(group.places.count) \("location(s)".localize())"
             self.showAlert(title: "groupCenter".localize(), text: str)
             
         }
     }
     
-    func mergeGroup(group: LocationGroup) {
-        if let mergedLocation = group.centralLocation{
+    func mergeGroup(group: PlaceGroup) {
+        if let mergedLocation = group.centralPlace{
             showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
-                LocationPool.list.append(mergedLocation)
-                LocationPool.list.removeAllOf(group.locations)
-                LocationPool.save()
+                PlacePool.list.append(mergedLocation)
+                PlacePool.list.removeAllOf(group.places)
+                PlacePool.save()
                 self.updateMarkerLayer()
             }
         }
@@ -74,7 +74,7 @@ extension MainViewController: MapPositionDelegate{
     
     func addLocationAtCurrentPosition() {
         if let coordinate = LocationService.shared.location?.coordinate{
-            LocationPool.getLocation(coordinate: coordinate)
+            PlacePool.getPlace(coordinate: coordinate)
             DispatchQueue.main.async {
                 self.updateMarkerLayer()
             }
@@ -96,20 +96,20 @@ extension MainViewController: MapPositionDelegate{
     }
     
     func addLocationAtCrossPosition() {
-        LocationPool.getLocation(coordinate: mapView.scrollView.screenCenterCoordinate)
+        PlacePool.getPlace(coordinate: mapView.scrollView.screenCenterCoordinate)
         DispatchQueue.main.async {
             self.updateMarkerLayer()
         }
     }
     
     func addImageAtCrossPosition() {
-        let location = LocationPool.getLocation(coordinate: mapView.scrollView.screenCenterCoordinate)
+        let location = PlacePool.getPlace(coordinate: mapView.scrollView.screenCenterCoordinate)
         addImage(location: location)
     }
     
 }
 
-extension MainViewController: LocationViewDelegate{
+extension MainViewController: PlaceViewDelegate{
     
     func updateMarkerLayer() {
         mapView.updateLocationLayer()
@@ -117,15 +117,15 @@ extension MainViewController: LocationViewDelegate{
     
 }
 
-extension MainViewController: LocationListDelegate{
+extension MainViewController: PlaceListDelegate{
     
-    func showLocationOnMap(location: Location) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
+    func showPlaceOnMap(place: Place) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
     
-    func deleteLocationFromList(location: Location) {
-        LocationPool.deleteLocation(location)
-        LocationPool.save()
+    func deletePlaceFromList(place: Place) {
+        PlacePool.deletePlace(place)
+        PlacePool.save()
         updateMarkerLayer()
     }
 

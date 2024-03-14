@@ -21,7 +21,7 @@ class Backup{
                     paths.append(trackFileURL)
                 }
             }
-            if let url = LocationPool.saveAsFile(){
+            if let url = PlacePool.saveAsFile(){
                 paths.append(url)
             }
             if let url = TrackPool.saveAsFile(){
@@ -72,9 +72,9 @@ class Backup{
         url = FileController.temporaryURL.appendingPathComponent(Preferences.storeKey + ".json")
         Preferences.loadFromFile(url: url)
         Preferences.shared.save()
-        url = FileController.temporaryURL.appendingPathComponent(LocationPool.storeKey + ".json")
-        LocationPool.loadFromFile(url: url)
-        LocationPool.save()
+        url = FileController.temporaryURL.appendingPathComponent(PlacePool.storeKey + ".json")
+        PlacePool.loadFromFile(url: url)
+        PlacePool.save()
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
         TrackPool.loadFromFile(url: url)
         TrackPool.save()

@@ -9,41 +9,41 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol LocationListDelegate: LocationViewDelegate{
-    func showLocationOnMap(location: Location)
-    func deleteLocationFromList(location: Location)
+protocol PlaceListDelegate: PlaceViewDelegate{
+    func showPlaceOnMap(place: Place)
+    func deletePlaceFromList(place: Place)
 }
 
-class LocationListViewController: PopupTableViewController{
+class PlaceListViewController: PopupTableViewController{
 
-    private static let CELL_IDENT = "locationCell"
+    private static let CELL_IDENT = "placeCell"
     
-    var delegate: LocationListDelegate? = nil
+    var delegate: PlaceListDelegate? = nil
     
     override func loadView() {
-        title = "locationList".localize()
+        title = "placeList".localize()
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationListViewController.CELL_IDENT)
+        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
     }
     
 }
 
-extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
+extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        LocationPool.size
+        PlacePool.size
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: LocationListViewController.CELL_IDENT, for: indexPath) as! LocationCell
-        let track = LocationPool.location(at: indexPath.row)
-        cell.location = track
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
+        let track = PlacePool.place(at: indexPath.row)
+        cell.place = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -63,32 +63,32 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension LocationListViewController : LocationCellDelegate{
+extension PlaceListViewController : PlaceCellDelegate{
     
-    func showLocationOnMap(location: Location) {
+    func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showLocationOnMap(location: location)
+            self.delegate?.showPlaceOnMap(place: place)
         }
     }
     
-    func deleteLocationFromCell(location: Location) {
-        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-            self.delegate?.deleteLocationFromList(location: location)
+    func deletePlaceFromCell(place: Place) {
+        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
+            self.delegate?.deletePlaceFromList(place: place)
             self.tableView.reloadData()
         }
     }
     
-    func viewLocation(location: Location) {
-        let placeController = LocationDetailViewController(location: location)
+    func viewPlace(place: Place) {
+        let placeController = PlaceDetailViewController(location: place)
         placeController.delegate = self
-        placeController.location = location
+        placeController.place = place
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)
     }
     
 }
 
-extension LocationListViewController: LocationViewDelegate{
+extension PlaceListViewController: PlaceViewDelegate{
     
     func updateMarkerLayer() {
         delegate?.updateMarkerLayer()

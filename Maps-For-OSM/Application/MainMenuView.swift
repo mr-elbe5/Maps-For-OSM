@@ -115,22 +115,22 @@ class MainMenuView: UIView {
     func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
         if AppState.shared.showLocations{
-            actions.append(UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
+            actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
                 self.updateLocationMenu()
             })
         }
         else{
-            actions.append(UIAction(title: "showLocations".localize(), image: UIImage(systemName: "mappin")){ action in
+            actions.append(UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
                 self.delegate?.showLocations(true)
                 self.updateLocationMenu()
                 
             })
         }
-        actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+        actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
         })
-        actions.append(UIAction(title: "deleteAllLocations".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+        actions.append(UIAction(title: "deleteAllPlaces".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAllLocations()
         })
         return UIMenu(title: "", children: actions)

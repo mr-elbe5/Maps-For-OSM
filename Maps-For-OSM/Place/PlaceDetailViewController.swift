@@ -7,11 +7,11 @@
 import Foundation
 import UIKit
 
-protocol LocationViewDelegate{
+protocol PlaceViewDelegate{
     func updateMarkerLayer()
 }
 
-class LocationDetailViewController: PopupScrollViewController{
+class PlaceDetailViewController: PopupScrollViewController{
     
     let editButton = UIButton().asIconButton("pencil.circle", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .red)
@@ -22,13 +22,13 @@ class LocationDetailViewController: PopupScrollViewController{
     
     var editMode = false
     
-    var location: Location
+    var place: Place
     var hadPhotos = false
     
-    var delegate: LocationViewDelegate? = nil
+    var delegate: PlaceViewDelegate? = nil
     
-    init(location: Location){
-        self.location = location
+    init(location: Place){
+        self.place = location
         super.init()
     }
     
@@ -37,7 +37,7 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     override func loadView() {
-        title = "location".localize()
+        title = "place".localize()
         super.loadView()
         scrollView.setupVertical()
         setupContent()
@@ -55,18 +55,18 @@ class LocationDetailViewController: PopupScrollViewController{
         editButton.addTarget(self, action: #selector(toggleEditMode), for: .touchDown)
         
         headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
+        deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
     }
     
     func setupContent(){
-        hadPhotos = location.hasMedia
-        var header = UILabel(header: "locationData".localize())
+        hadPhotos = place.hasMedia
+        var header = UILabel(header: "placeData".localize())
         contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
-        let locationLabel = UILabel(text: location.address)
+        let locationLabel = UILabel(text: place.address)
         contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let coordinateLabel = UILabel(text: location.coordinate.asString)
+        let coordinateLabel = UILabel(text: place.coordinate.asString)
         contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         header = UILabel(header: "note".localize())
@@ -87,7 +87,7 @@ class LocationDetailViewController: PopupScrollViewController{
         noteContainerView.removeAllSubviews()
         if editMode{
             let noteEditView = TextEditArea()
-            noteEditView.text = location.note
+            noteEditView.text = place.note
             noteEditView.setGrayRoundedBorders()
             noteEditView.setDefaults()
             noteEditView.isScrollEnabled = false
@@ -104,7 +104,7 @@ class LocationDetailViewController: PopupScrollViewController{
         }
         else{
             self.noteEditView = nil
-            let noteLabel = UILabel(text: location.note)
+            let noteLabel = UILabel(text: place.note)
             noteContainerView.addSubviewWithAnchors(noteLabel, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
         }
     }
@@ -112,7 +112,7 @@ class LocationDetailViewController: PopupScrollViewController{
     func setupMediaStackView(){
         mediaStackView.removeAllArrangedSubviews()
         mediaStackView.removeAllSubviews()
-        for file in location.media{
+        for file in place.media{
             switch file.type{
             case .image:
                 if let image = file.data as? ImageFile{
@@ -158,9 +158,9 @@ class LocationDetailViewController: PopupScrollViewController{
         setupNoteContainerView()
     }
     
-    @objc func deleteLocation(){
-        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-            LocationPool.deleteLocation(self.location)
+    @objc func deletePlace(){
+        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
+            PlacePool.deletePlace(self.place)
             self.dismiss(animated: true){
                 self.delegate?.updateMarkerLayer()
             }
@@ -168,8 +168,8 @@ class LocationDetailViewController: PopupScrollViewController{
     }
     
     @objc func save(){
-        location.note = noteEditView?.text ?? ""
-        LocationPool.save()
+        place.note = noteEditView?.text ?? ""
+        PlacePool.save()
         if editMode{
             toggleEditMode()
         }
@@ -177,15 +177,15 @@ class LocationDetailViewController: PopupScrollViewController{
     
 }
 
-extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
         let image = ImageFile()
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            location.addMedia(file: image)
-            LocationPool.save()
+            place.addMedia(file: image)
+            PlacePool.save()
             delegate?.updateMarkerLayer()
             let imageView = ImageListItemView(data: image)
             imageView.delegate = self
@@ -196,7 +196,7 @@ extension LocationDetailViewController: UIImagePickerControllerDelegate, UINavig
     
 }
 
-extension LocationDetailViewController: ImageListItemDelegate{
+extension PlaceDetailViewController: ImageListItemDelegate{
     
     func viewImage(sender: ImageListItemView) {
         let imageViewController = ImageViewController()
@@ -225,8 +225,8 @@ extension LocationDetailViewController: ImageListItemDelegate{
     
     func deleteImage(sender: ImageListItemView) {
         showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
-            self.location.deleteMedia(file: sender.imageData)
-            LocationPool.save()
+            self.place.deleteMedia(file: sender.imageData)
+            PlacePool.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
@@ -240,7 +240,7 @@ extension LocationDetailViewController: ImageListItemDelegate{
     
 }
 
-extension LocationDetailViewController: VideoListItemDelegate{
+extension PlaceDetailViewController: VideoListItemDelegate{
     
     func viewVideo(sender: VideoListItemView) {
         let videoViewController = VideoViewController()
@@ -251,8 +251,8 @@ extension LocationDetailViewController: VideoListItemDelegate{
     
     func deleteVideo(sender: VideoListItemView) {
         showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
-            self.location.deleteMedia(file: sender.videoData)
-            LocationPool.save()
+            self.place.deleteMedia(file: sender.videoData)
+            PlacePool.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
@@ -267,12 +267,12 @@ extension LocationDetailViewController: VideoListItemDelegate{
     
 }
 
-extension LocationDetailViewController: AudioListItemDelegate{
+extension PlaceDetailViewController: AudioListItemDelegate{
     
     func deleteAudio(sender: AudioListItemView) {
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
-            self.location.deleteMedia(file: sender.audioData)
-            LocationPool.save()
+            self.place.deleteMedia(file: sender.audioData)
+            PlacePool.save()
             self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{

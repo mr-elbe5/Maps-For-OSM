@@ -7,21 +7,21 @@
 import UIKit
 
 
-protocol LocationCellDelegate{
-    func deleteLocationFromCell(location: Location)
-    func viewLocation(location: Location)
-    func showLocationOnMap(location: Location)
+protocol PlaceCellDelegate{
+    func deletePlaceFromCell(place: Place)
+    func viewPlace(place: Place)
+    func showPlaceOnMap(place: Place)
 }
 
-class LocationCell: UITableViewCell{
+class PlaceCell: UITableViewCell{
     
-    var location : Location? = nil {
+    var place : Place? = nil {
         didSet {
             updateCell()
         }
     }
     
-    var delegate: LocationCellDelegate? = nil
+    var delegate: PlaceCellDelegate? = nil
     
     var cellBody = UIView()
     
@@ -42,17 +42,17 @@ class LocationCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if let location = location{
+        if let location = place{
             let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addTarget(self, action: #selector(deleteLocation), for: .touchDown)
+            deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
             cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addTarget(self, action: #selector(viewLocation), for: .touchDown)
+            viewButton.addTarget(self, action: #selector(viewPlace), for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
-            mapButton.addTarget(self, action: #selector(showLocationOnMap), for: .touchDown)
+            mapButton.addTarget(self, action: #selector(showPlaceOnMap), for: .touchDown)
             cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor
             
@@ -87,21 +87,21 @@ class LocationCell: UITableViewCell{
         }
     }
     
-    @objc func deleteLocation() {
-        if let location = location{
-            delegate?.deleteLocationFromCell(location: location)
+    @objc func deletePlace() {
+        if let place = place{
+            delegate?.deletePlaceFromCell(place: place)
         }
     }
     
-    @objc func viewLocation(){
-        if location != nil{
-            delegate?.viewLocation(location: location!)
+    @objc func viewPlace(){
+        if place != nil{
+            delegate?.viewPlace(place: place!)
         }
     }
     
-    @objc func showLocationOnMap(){
-        if location != nil{
-            delegate?.showLocationOnMap(location: location!)
+    @objc func showPlaceOnMap(){
+        if place != nil{
+            delegate?.showPlaceOnMap(place: place!)
         }
     }
     

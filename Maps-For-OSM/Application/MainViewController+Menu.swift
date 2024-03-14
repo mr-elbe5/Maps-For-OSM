@@ -33,7 +33,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func openLocationList() {
-        let controller = LocationListViewController()
+        let controller = PlaceListViewController()
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
         present(controller, animated: true)
@@ -45,9 +45,9 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func deleteAllLocations(){
-        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
-            LocationPool.deleteAllLocations()
-            LocationPool.save()
+        showDestructiveApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
+            PlacePool.deleteAllPlaces()
+            PlacePool.save()
             self.updateMarkerLayer()
         }
     }

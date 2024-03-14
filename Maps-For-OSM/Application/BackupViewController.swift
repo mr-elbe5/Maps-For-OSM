@@ -55,7 +55,7 @@ class BackupViewController: PopupScrollViewController{
         spinner.setAnchors(centerX: contentView.centerXAnchor, centerY: contentView.centerYAnchor)
         DispatchQueue.global(qos: .userInitiated).async {
             var numCopied = 0
-            for location in LocationPool.list{
+            for location in PlacePool.list{
                 for media in location.media{
                     switch (media.type){
                     case .image:
@@ -74,7 +74,7 @@ class BackupViewController: PopupScrollViewController{
                         break
                     }
                 }
-                LocationPool.save()
+                PlacePool.save()
             }
             DispatchQueue.main.async {
                 spinner.stopAnimating()

@@ -8,54 +8,58 @@ import Foundation
 import CoreLocation
 import UIKit
 
-typealias LocationList = Array<Location>
+typealias PlaceList = Array<Place>
 
-extension LocationList{
+extension PlaceList{
     
-    mutating func remove(_ location: Location){
+    mutating func remove(_ place: Place){
         for idx in 0..<self.count{
-            if self[idx] == location{
+            if self[idx] == place{
                 self.remove(at: idx)
                 return
             }
         }
     }
     
-    mutating func removeAllOf(_ list: LocationList){
-        for location in list{
-            remove(location)
+    mutating func removeAllOf(_ list: PlaceList){
+        for place in list{
+            remove(place)
         }
     }
     
 }
 
-class LocationPool{
+class PlacePool{
     
-    static var storeKey = "locations"
+    static var storeKey = "places"
+    static var oldStoreKey = "locations"
     
     static var maxMergeDistance = 10.0
     
     static private var _lock = DispatchSemaphore(value: 1)
     
-    static var list = LocationList()
+    static var list = PlaceList()
     
     static var size : Int{
         list.count
     }
     
     static func load(){
-        if let list : LocationList = DataController.shared.load(forKey: LocationPool.storeKey){
-            LocationPool.list = list
+        if let list : PlaceList = DataController.shared.load(forKey: PlacePool.storeKey){
+            PlacePool.list = list
+        }
+        if let list : PlaceList = DataController.shared.load(forKey: PlacePool.oldStoreKey){
+            PlacePool.list = list
         }
         else{
-            LocationPool.list = LocationList()
+            PlacePool.list = PlaceList()
         }
     }
     
     static func save(){
         _lock.wait()
         defer{_lock.signal()}
-        DataController.shared.save(forKey: LocationPool.storeKey, value: list)
+        DataController.shared.save(forKey: PlacePool.storeKey, value: list)
     }
     
     static func saveAsFile() -> URL?{
@@ -68,37 +72,37 @@ class LocationPool{
     }
     
     static func loadFromFile(url: URL){
-        if let string = FileController.readTextFile(url: url),let data : LocationList = LocationList.fromJSON(encoded: string){
+        if let string = FileController.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
             list = data
         }
     }
     
-    static func location(at idx: Int) -> Location?{
+    static func place(at idx: Int) -> Place?{
         list[idx]
     }
     
     @discardableResult
-    static func addLocation(coordinate: CLLocationCoordinate2D) -> Location{
+    static func addPlace(coordinate: CLLocationCoordinate2D) -> Place{
         _lock.wait()
         defer{_lock.signal()}
-        let location = Location(coordinate: coordinate)
-        list.append(location)
-        return location
+        let place = Place(coordinate: coordinate)
+        list.append(place)
+        return place
     }
     
-    static func deleteLocation(_ location: Location){
+    static func deletePlace(_ place: Place){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
-            if list[idx] == location{
-                location.deleteAllMedia()
+            if list[idx] == place{
+                place.deleteAllMedia()
                 list.remove(at: idx)
                 return
             }
         }
     }
     
-    static func deleteAllLocations(){
+    static func deleteAllPlaces(){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
@@ -107,36 +111,36 @@ class LocationPool{
         list.removeAll()
     }
     
-    static func locationNextTo(coordinate: CLLocationCoordinate2D) -> Location?{
+    static func placeNextTo(coordinate: CLLocationCoordinate2D) -> Place?{
         var distance : CLLocationDistance = Double.infinity
-        var nearestLocation : Location? = nil
-        for location in list{
-            let dist = location.coordinate.distance(to: coordinate)
+        var nearestLocation : Place? = nil
+        for place in list{
+            let dist = place.coordinate.distance(to: coordinate)
             if dist<maxMergeDistance && dist<distance{
                 distance = dist
-                nearestLocation = location
+                nearestLocation = place
             }
         }
         return nearestLocation
     }
     
     @discardableResult
-    static func getLocation(coordinate: CLLocationCoordinate2D) -> Location{
+    static func getPlace(coordinate: CLLocationCoordinate2D) -> Place{
         var distance : CLLocationDistance = Double.infinity
-        var nearestLocation : Location? = nil
-        for location in list{
-            let dist = location.coordinate.distance(to: coordinate)
+        var nearestPlace : Place? = nil
+        for place in list{
+            let dist = place.coordinate.distance(to: coordinate)
             if dist<maxMergeDistance && dist<distance{
                 distance = dist
-                nearestLocation = location
+                nearestPlace = place
             }
         }
-        if let location = nearestLocation{
-            return location
+        if let place = nearestPlace{
+            return place
         }
-        let location = LocationPool.addLocation(coordinate: coordinate)
+        let place = PlacePool.addPlace(coordinate: coordinate)
         save()
-        return location
+        return place
     }
     
 }

@@ -9,6 +9,6 @@ import UIKit
 
 class ImagePickerController: UIImagePickerController{
     
-    var location: Location? = nil
+    var location: Place? = nil
     
 }

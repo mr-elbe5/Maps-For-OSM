@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileController.initialize()
         Preferences.loadInstance()
         TrackPool.load()
-        LocationPool.load()
+        PlacePool.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Log.info("SceneDelegate resigning active")
         AppState.shared.save()
         Preferences.shared.save()
-        LocationPool.save()
+        PlacePool.save()
         TrackPool.save()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{

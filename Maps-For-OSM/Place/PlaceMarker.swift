@@ -6,19 +6,19 @@
 
 import UIKit
 
-class LocationMarker : Marker{
+class PlaceMarker : Marker{
     
     static var mapPinDefaultImage = UIImage(named: "mappin.green")
     static var mapPinMediaImage = UIImage(named: "mappin.red")
     
-    var location : Location
+    var place : Place
     
     override var hasMedia : Bool{
-        location.hasMedia
+        place.hasMedia
     }
     
-    init(location: Location){
-        self.location = location
+    init(place: Place){
+        self.place = place
         super.init(frame: .zero)
         updateImage()
     }
@@ -29,10 +29,10 @@ class LocationMarker : Marker{
     
     override func updateImage(){
         if hasMedia{
-            setImage(LocationMarker.mapPinMediaImage, for: .normal)
+            setImage(PlaceMarker.mapPinMediaImage, for: .normal)
         }
         else{
-            setImage(LocationMarker.mapPinDefaultImage, for: .normal)
+            setImage(PlaceMarker.mapPinDefaultImage, for: .normal)
         }
     }
     
