@@ -34,7 +34,6 @@ class LocationViewController: PopupScrollViewController{
     }
     
     override func loadView() {
-        title = "crossLocation".localize()
         super.loadView()
         scrollView.setupVertical()
         setupContent()
@@ -66,42 +65,35 @@ class LocationViewController: PopupScrollViewController{
         let coordinateLabel = UILabel(text: coordinate.asString)
         contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        let createPlaceButton = UIButton()
-        createPlaceButton.setTitle("createPlace".localize(), for: .normal)
-        createPlaceButton.setTitleColor(.systemBlue, for: .normal)
+        let createPlaceButton = UIButton().asTextButton("createPlace".localize())
+        createPlaceButton.setRoundedBorders()
         createPlaceButton.addAction(UIAction(){ action in
             self.delegate?.addPlace(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let openCameraButton = UIButton()
-        openCameraButton.setTitle("openCamera".localize(), for: .normal)
-        openCameraButton.setTitleColor(.systemBlue, for: .normal)
+        let openCameraButton = UIButton().asTextButton("openCamera".localize())
+        openCameraButton.setRoundedBorders()
         openCameraButton.addAction(UIAction(){ action in
             self.delegate?.openCamera(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(openCameraButton, top: createPlaceButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(openCameraButton, top: createPlaceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let addImageButton = UIButton()
-        addImageButton.setTitle("addImage".localize(), for: .normal)
+        let addImageButton = UIButton().asTextButton("addImage".localize())
         addImageButton.setTitleColor(.systemBlue, for: .normal)
+        addImageButton.setRoundedBorders()
         addImageButton.addAction(UIAction(){ action in
             self.delegate?.addImage(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(addImageButton, top: openCameraButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(addImageButton, top: openCameraButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let addAudioButton = UIButton()
-        addAudioButton.setTitle("addAudio".localize(), for: .normal)
+        let addAudioButton = UIButton().asTextButton("addAudio".localize())
         addAudioButton.setTitleColor(.systemBlue, for: .normal)
+        addAudioButton.setRoundedBorders()
         addAudioButton.addAction(UIAction(){ action in
             self.delegate?.addAudio(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
+        contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
     }
     

@@ -33,7 +33,6 @@ extension UIButton{
             self.backgroundColor = bgcol
             layer.cornerRadius = 5
             layer.masksToBounds = true
-            contentEdgeInsets = defaultInsets
         }
         return self
     }

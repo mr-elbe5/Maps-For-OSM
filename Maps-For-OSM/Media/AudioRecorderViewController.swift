@@ -212,8 +212,8 @@ class AudioSession{
                         try session.setCategory(.playAndRecord, mode: .default)
                         try session.overrideOutputAudioPort(.speaker)
                         try session.setActive(true)
-                        session.requestRecordPermission() { allowed in
-                            isEnabled = true
+                        AVAudioApplication.requestRecordPermission{allowed in
+                            isEnabled = allowed
                             callback(.success(()))
                         }
                     } catch {
