@@ -9,16 +9,9 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol PlaceListDelegate: PlaceViewDelegate{
-    func showPlaceOnMap(place: Place)
-    func deletePlaceFromList(place: Place)
-}
-
 class PlaceListViewController: PopupTableViewController{
 
     private static let CELL_IDENT = "placeCell"
-    
-    var delegate: PlaceListDelegate? = nil
     
     override func loadView() {
         title = "placeList".localize()
@@ -67,13 +60,13 @@ extension PlaceListViewController : PlaceCellDelegate{
     
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showPlaceOnMap(place: place)
+            mainViewController.showPlaceOnMap(place: place)
         }
     }
     
     func deletePlaceFromCell(place: Place) {
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            self.delegate?.deletePlaceFromList(place: place)
+            mainViewController.deletePlaceFromList(place: place)
             self.tableView.reloadData()
         }
     }
@@ -91,7 +84,7 @@ extension PlaceListViewController : PlaceCellDelegate{
 extension PlaceListViewController: PlaceViewDelegate{
     
     func updateMarkerLayer() {
-        delegate?.updateMarkerLayer()
+        mainViewController?.updateMarkerLayer()
     }
     
 }

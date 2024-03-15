@@ -101,7 +101,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkRunning()
         if authorized, let loc = location{
-            mainController.locationDidChange(location: loc)
+            mainViewController.locationDidChange(location: loc)
         }
     }
     
@@ -110,11 +110,11 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
         if loc.horizontalAccuracy == -1{
             return
         }
-        mainController.locationDidChange(location: loc)
+        mainViewController.locationDidChange(location: loc)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        mainController.directionDidChange(direction: newHeading.trueHeading)
+        mainViewController.directionDidChange(direction: newHeading.trueHeading)
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {

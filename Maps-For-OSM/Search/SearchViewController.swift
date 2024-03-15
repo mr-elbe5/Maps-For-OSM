@@ -8,16 +8,10 @@ import Foundation
 import UIKit
 import CoreLocation
 
-protocol SearchDelegate{
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?)
-}
-
 class SearchViewController: PopupScrollViewController{
     
     var searchField = UITextField()
     var resultView = UIStackView()
-    
-    var delegate : SearchDelegate? = nil
     
     override func loadView() {
         title = "searchPlace".localize()
@@ -64,7 +58,7 @@ class SearchViewController: PopupScrollViewController{
     
     func showResult(location: NominatimLocation){
         self.dismiss(animated: false){
-            self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
+            mainViewController.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
         }
     }
     

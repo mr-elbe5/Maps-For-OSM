@@ -7,29 +7,12 @@
 import Foundation
 import UIKit
 
-protocol PlaceGroupViewDelegate{
-    func updateMarkerLayer()
-}
-
-/*
- func getGroupMarkerMenu(marker: PlaceGroupMarker) -> UIMenu{
-     var actions = Array<UIAction>()
-     actions.append(UIAction(title: "mergeGroup".localize()){ action in
-         self.delegate?.mergeGroup(group: marker.placeGroup)
-     })
-     return UIMenu(title: "group".localize(), children: actions)
- 
- }
- */
-
 class PlaceGroupViewController: PopupScrollViewController{
     
     let noteContainerView = UIView()
     let placeStackView = UIStackView()
     
     var group: PlaceGroup
-    
-    var delegate: PlaceGroupViewDelegate? = nil
     
     init(group: PlaceGroup){
         self.group = group

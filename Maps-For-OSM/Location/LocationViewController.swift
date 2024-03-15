@@ -8,16 +8,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-protocol LocationViewDelegate{
-    func addPlace(at coordinate: CLLocationCoordinate2D)
-    func openCamera(at coordinate: CLLocationCoordinate2D)
-    func addImage(at coordinate: CLLocationCoordinate2D)
-    func addAudio(at coordinate: CLLocationCoordinate2D)
-}
-
 class LocationViewController: PopupScrollViewController{
-    
-    var delegate: LocationViewDelegate? = nil
     
     var coordinate: CLLocationCoordinate2D
     
@@ -76,7 +67,7 @@ class LocationViewController: PopupScrollViewController{
         createPlaceButton.setRoundedBorders()
         createPlaceButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            self.delegate?.addPlace(at: self.coordinate)
+            mainViewController.addPlace(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -84,7 +75,7 @@ class LocationViewController: PopupScrollViewController{
         openCameraButton.setRoundedBorders()
         openCameraButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            self.delegate?.openCamera(at: self.coordinate)
+            mainViewController.openCamera(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(openCameraButton, top: createPlaceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -93,7 +84,7 @@ class LocationViewController: PopupScrollViewController{
         addImageButton.setRoundedBorders()
         addImageButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            self.delegate?.addImage(at: self.coordinate)
+            mainViewController.addImage(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addImageButton, top: openCameraButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -102,7 +93,7 @@ class LocationViewController: PopupScrollViewController{
         addAudioButton.setRoundedBorders()
         addAudioButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            self.delegate?.addAudio(at: self.coordinate)
+            mainViewController.addAudio(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         

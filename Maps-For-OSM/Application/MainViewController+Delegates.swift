@@ -42,7 +42,6 @@ extension MainViewController: MainMenuDelegate{
     func openLocationList() {
         let controller = PlaceListViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
         present(controller, animated: true)
     }
     
@@ -68,7 +67,6 @@ extension MainViewController: MainMenuDelegate{
     func openPreferences(){
         let controller = PreferencesViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
         present(controller, animated: true)
     }
     
@@ -131,7 +129,6 @@ extension MainViewController: MainMenuDelegate{
         let controller = TrackListViewController()
         controller.tracks = TrackPool.list
         controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
         present(controller, animated: true)
     }
     
@@ -157,26 +154,6 @@ extension MainViewController: MainMenuDelegate{
     func openSearch() {
         let controller = SearchViewController()
         controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-    
-}
-
-extension MainViewController: MapPositionDelegate{
-    
-    func showDetailsOfCurrentLocation() {
-        let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
-        let controller = LocationViewController(coordinate: coordinate, title: "currentLocation".localize())
-        controller.delegate = self
-        present(controller, animated: true)
-    }
-    
-    func showDetailsOfCrossLocation() {
-        let coordinate = mapView.scrollView.screenCenterCoordinate
-        let controller = LocationViewController(coordinate: coordinate, title: "crossLocation".localize())
-        controller.modalPresentationStyle = .popover
-        controller.delegate = self
         present(controller, animated: true)
     }
     
@@ -212,7 +189,6 @@ extension MainViewController: PlaceLayerViewDelegate{
     
     func showGroupDetails(group: PlaceGroup) {
         let controller = PlaceGroupViewController(group: group)
-        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -230,161 +206,12 @@ extension MainViewController: PlaceLayerViewDelegate{
     
 }
 
-extension MainViewController: PreferencesDelegate{
-    
-    func updateFollowTrack(){
-        if Preferences.shared.followTrack{
-            if TrackRecorder.isRecording{
-                mapView.focusUserLocation()
-            }
-        }
-    }
-    
-}
-
-extension MainViewController: SearchDelegate{
-    
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?) {
-        if let mapRect = mapRect{
-            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: mapRect, scaledBounds: mapView.bounds)*0.9, animated: true)
-        }
-        else{
-            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
-        }
-    }
-    
-}
-
-extension MainViewController: TrackDetailDelegate, TrackListDelegate{
-    
-    func viewTrackDetails(track: Track) {
-        let trackController = TrackDetailViewController()
-        trackController.track = track
-        trackController.delegate = self
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
-    }
-    
-    func deleteTrack(track: Track, approved: Bool) {
-        if approved{
-            deleteTrack(track: track)
-        }
-        else{
-            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-                self.deleteTrack(track: track)
-            }
-        }
-    }
-    
-    private func deleteTrack(track: Track){
-        let isVisibleTrack = track == TrackPool.visibleTrack
-        TrackPool.deleteTrack(track)
-        if isVisibleTrack{
-            TrackPool.visibleTrack = nil
-            mapView.trackLayerView.setNeedsDisplay()
-        }
-    }
-    
-    func showTrackOnMap(track: Track) {
-        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
-            TrackPool.visibleTrack = track
-            mapView.trackLayerView.setNeedsDisplay()
-            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
-            mainMenuView.updateTrackMenu()
-        }
-    }
-    
-    func updateTrackLayer() {
-        mapView.trackLayerView.setNeedsDisplay()
-    }
-    
-}
-
 extension MainViewController: PlaceViewDelegate{
     
     func updateMarkerLayer() {
         mapView.updateLocationLayer()
     }
     
-}
-
-extension MainViewController: PlaceGroupViewDelegate{
-    
-    
-    
-}
-
-extension MainViewController: LocationViewDelegate{
-    
-    func addPlace(at coordinate: CLLocationCoordinate2D) {
-        if let coordinate = LocationService.shared.location?.coordinate{
-            PlacePool.getPlace(coordinate: coordinate)
-            DispatchQueue.main.async {
-                self.updateMarkerLayer()
-            }
-        }
-    }
-    
-    func openCamera(at coordinate: CLLocationCoordinate2D) {
-        AVCaptureDevice.askCameraAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let cameraCaptureController = CameraViewController()
-                    cameraCaptureController.delegate = self
-                    cameraCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(cameraCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
-                }
-                return
-            }
-        }
-    }
-    
-    func addImage(at coordinate: CLLocationCoordinate2D) {
-        addImage(location: nil)
-    }
-    
-    func addAudio(at coordinate: CLLocationCoordinate2D){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.delegate = self
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(audioCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
-}
-
-extension MainViewController: PlaceListDelegate{
-    
-    func showPlaceOnMap(place: Place) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
-    }
-    
-    func deletePlaceFromList(place: Place) {
-        PlacePool.deletePlace(place)
-        PlacePool.save()
-        updateMarkerLayer()
-    }
-
 }
 
 /// media delegates

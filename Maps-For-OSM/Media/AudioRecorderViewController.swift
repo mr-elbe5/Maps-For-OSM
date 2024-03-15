@@ -38,8 +38,6 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         fatalError("init(coder:) has not been implemented")
     }
     
-    var delegate: AudioCaptureDelegate? = nil
-    
     override func loadView() {
         super.loadView()
         scrollView.backgroundColor = .black
@@ -177,7 +175,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: audioFile.fileName)){
             cleanup()
             self.dismiss(animated: true){
-                self.delegate?.audioCaptured(data: audioFile)
+                mainViewController.audioCaptured(data: audioFile)
             }
         }
         

@@ -9,19 +9,11 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TrackListDelegate{
-    func showTrackOnMap(track: Track)
-    func deleteTrack(track: Track, approved: Bool)
-}
-
 class TrackListViewController: PopupTableViewController{
 
     private static let CELL_IDENT = "trackCell"
     
     var tracks: TrackList? = nil
-    
-    // MainViewController
-    var delegate: TrackListDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
@@ -87,12 +79,11 @@ extension TrackListViewController : TrackDetailDelegate{
     
     func showTrackOnMap(track: Track) {
         self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: track)
+            mainViewController.showTrackOnMap(track: track)
         }
     }
     
 }
-
 
 extension TrackListViewController : TrackCellDelegate{
     
@@ -126,7 +117,7 @@ extension TrackListViewController : TrackCellDelegate{
     }
     
     private func deleteTrack(track: Track){
-        delegate?.deleteTrack(track: track, approved: true)
+        mainViewController?.deleteTrack(track: track, approved: true)
         tracks?.remove(track)
         tableView.reloadData()
     }

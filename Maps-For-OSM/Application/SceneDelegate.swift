@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        mainController = MainViewController()
-        window?.rootViewController = mainController
+        mainViewController = MainViewController()
+        window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
         LocationService.shared.requestWhenInUseAuthorization()
     }
@@ -68,4 +68,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
-var mainController : MainViewController!
+var mainViewController : MainViewController!
