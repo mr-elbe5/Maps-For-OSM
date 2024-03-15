@@ -41,13 +41,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bild aus der Bibliothek hinzufügen"
+            "value" : "Bild aus Fotos hinzufügen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add Image from Library"
+            "value" : "Add Image from Photos"
           }
         }
       }
@@ -752,6 +752,23 @@
         }
       }
     },
+    "createPlace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markierung erstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Marker"
+          }
+        }
+      }
+    },
     "crossIconInfoText" : {
       "comment" : "cross",
       "extractionState" : "manual",
@@ -766,6 +783,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show or hide cross at screen center (see above)"
+          }
+        }
+      }
+    },
+    "crossLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kreuzposition"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cross Location"
           }
         }
       }
@@ -800,6 +834,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cross Position"
+          }
+        }
+      }
+    },
+    "currentLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktuelle Position"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Position"
+          }
+        }
+      }
+    },
+    "currentLocationInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen detaillierter Angaben oder das Hinzufügen von Medien(Fotos, Audios und Videos)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nOn tapping a menu opens for marking, showing detailed infos or adding media (photos, audios and videos)."
           }
         }
       }
@@ -2212,6 +2280,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ok"
+          }
+        }
+      }
+    },
+    "openCamera" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kamera"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera"
           }
         }
       }
@@ -4066,23 +4151,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL Template for Map Tiles:"
-          }
-        }
-      }
-    },
-    "userLocationInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen detaillierter Angaben oder das Hinzufügen von Medien(Fotos, Audios und Videos)."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nOn tapping a menu opens for marking, showing detailed infos or adding media (photos, audios and videos)."
           }
         }
       }

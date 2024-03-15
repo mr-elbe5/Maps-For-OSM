@@ -23,6 +23,8 @@ class LocationViewController: PopupScrollViewController{
     
     let locationLabel = UILabel(text: "")
     
+    var frameSize = CGSize(width: 300, height: 350)
+    
     init(coordinate: CLLocationCoordinate2D, title: String){
         self.coordinate = coordinate
         super.init()
@@ -52,22 +54,28 @@ class LocationViewController: PopupScrollViewController{
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        view.frame = CGRect(origin: CGPoint(x: view.frame.width/2 - frameSize.width/2, y: view.frame.height/2 - frameSize.height/2), size: frameSize)
+    }
+    
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
     }
     
     func setupContent(){
-        let header = UILabel(header: "position".localize())
-        contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        
-        contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        view.setRoundedBorders(radius: 10)
+        locationLabel.textAlignment = .center
+        contentView.addSubviewWithAnchors(locationLabel, top: contentView.topAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
         
         let coordinateLabel = UILabel(text: coordinate.asString)
-        contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, insets: flatInsets)
+            .centerX(contentView.centerXAnchor)
         
         let createPlaceButton = UIButton().asTextButton("createPlace".localize())
         createPlaceButton.setRoundedBorders()
         createPlaceButton.addAction(UIAction(){ action in
+            self.dismiss(animated: false)
             self.delegate?.addPlace(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -75,6 +83,7 @@ class LocationViewController: PopupScrollViewController{
         let openCameraButton = UIButton().asTextButton("openCamera".localize())
         openCameraButton.setRoundedBorders()
         openCameraButton.addAction(UIAction(){ action in
+            self.dismiss(animated: false)
             self.delegate?.openCamera(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(openCameraButton, top: createPlaceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -83,6 +92,7 @@ class LocationViewController: PopupScrollViewController{
         addImageButton.setTitleColor(.systemBlue, for: .normal)
         addImageButton.setRoundedBorders()
         addImageButton.addAction(UIAction(){ action in
+            self.dismiss(animated: false)
             self.delegate?.addImage(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addImageButton, top: openCameraButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -91,6 +101,7 @@ class LocationViewController: PopupScrollViewController{
         addAudioButton.setTitleColor(.systemBlue, for: .normal)
         addAudioButton.setRoundedBorders()
         addAudioButton.addAction(UIAction(){ action in
+            self.dismiss(animated: false)
             self.delegate?.addAudio(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)

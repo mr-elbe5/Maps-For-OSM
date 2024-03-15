@@ -43,7 +43,7 @@ class MainViewController: UIViewController {
         mapView.setupLocationLayerView()
         mapView.locationLayerView.delegate = self
         mapView.setupCrossView()
-        mapView.setupUserLocationView()
+        mapView.setupCurrentLocationView()
     }
     
     func setupMainMenuView(layoutGuide: UILayoutGuide){

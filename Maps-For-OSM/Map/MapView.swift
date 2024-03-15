@@ -8,8 +8,8 @@ import UIKit
 import CoreLocation
 
 protocol MapPositionDelegate{
-    func showDetailsOfUserLocation()
-    func showDetailsOfCrossPosition()
+    func showDetailsOfCurrentLocation()
+    func showDetailsOfCrossLocation()
 }
 
 class MapView: UIView {
@@ -17,8 +17,8 @@ class MapView: UIView {
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
     var locationLayerView = PlaceLayerView()
-    var userLocationView = UserLocationView(frame: UserLocationView.frameRect)
-    var crossView = UIButton().asIconButton("plus.circle", color: .systemBlue)
+    var currentLocationView = CurrentLocationView(frame: CurrentLocationView.frameRect)
+    var crossLocationView = UIButton().asIconButton("plus.circle", color: .systemBlue)
     
     var delegate: MapPositionDelegate? = nil
     
@@ -47,20 +47,20 @@ class MapView: UIView {
         locationLayerView.isHidden = !AppState.shared.showLocations
     }
     
-    func setupUserLocationView(){
-        userLocationView.addAction(UIAction(){ action in
-            self.delegate?.showDetailsOfUserLocation()
+    func setupCurrentLocationView(){
+        currentLocationView.addAction(UIAction(){ action in
+            self.delegate?.showDetailsOfCurrentLocation()
         }, for: .touchDown)
-        userLocationView.backgroundColor = .clear
-        addSubview(userLocationView)
+        currentLocationView.backgroundColor = .clear
+        addSubview(currentLocationView)
     }
     
     func setupCrossView(){
-        crossView.addAction(UIAction(){ action in
-            self.delegate?.showDetailsOfCrossPosition()
+        crossLocationView.addAction(UIAction(){ action in
+            self.delegate?.showDetailsOfCrossLocation()
         }, for: .touchDown)
-        addSubviewCentered(crossView, centerX: centerXAnchor, centerY: centerYAnchor)
-        crossView.isHidden = !AppState.shared.showCross
+        addSubviewCentered(crossLocationView, centerX: centerXAnchor, centerY: centerYAnchor)
+        crossLocationView.isHidden = !AppState.shared.showCross
     }
 
     func clearTiles(){
@@ -95,7 +95,7 @@ class MapView: UIView {
     }
     
     func locationDidChange(location: CLLocation) {
-        userLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
+        currentLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func focusUserLocation() {
@@ -105,7 +105,7 @@ class MapView: UIView {
     }
     
     func setDirection(_ direction: CLLocationDirection) {
-        userLocationView.updateDirection(direction: direction)
+        currentLocationView.updateDirection(direction: direction)
     }
     
     func updatePosition(){
@@ -124,7 +124,7 @@ extension MapView : MapScrollViewDelegate{
     func didScroll() {
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
-        userLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        currentLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)

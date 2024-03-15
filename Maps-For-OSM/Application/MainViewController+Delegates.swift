@@ -15,7 +15,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func updateCross() {
-        mapView.crossView.isHidden = !AppState.shared.showCross
+        mapView.crossLocationView.isHidden = !AppState.shared.showCross
     }
     
     func openPreloadTiles() {
@@ -165,16 +165,17 @@ extension MainViewController: MainMenuDelegate{
 
 extension MainViewController: MapPositionDelegate{
     
-    func showDetailsOfUserLocation() {
+    func showDetailsOfCurrentLocation() {
         let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
-        let controller = LocationViewController(coordinate: coordinate, title: "userLocation".localize())
+        let controller = LocationViewController(coordinate: coordinate, title: "currentLocation".localize())
         controller.delegate = self
         present(controller, animated: true)
     }
     
-    func showDetailsOfCrossPosition() {
+    func showDetailsOfCrossLocation() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
         let controller = LocationViewController(coordinate: coordinate, title: "crossLocation".localize())
+        controller.modalPresentationStyle = .popover
         controller.delegate = self
         present(controller, animated: true)
     }

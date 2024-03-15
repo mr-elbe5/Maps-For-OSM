@@ -7,10 +7,10 @@
 import UIKit
 import CoreLocation
 
-class UserLocationView : UIButton{
+class CurrentLocationView : UIButton{
     
-    static var userLocationColor = UIColor.systemBlue
-    static var userDirectionColor = UIColor.red
+    static var currentLocationColor = UIColor.systemBlue
+    static var currentDirectionColor = UIColor.red
     
     static let frameRect = CGRect(x: 0, y: 0, width: 32, height: 32)
     
@@ -45,27 +45,27 @@ class UserLocationView : UIButton{
         let ctx = UIGraphicsGetCurrentContext()!
         var color : CGColor!
         if accuracy <= 10{
-            color = UserLocationView.userLocationColor.cgColor
+            color = CurrentLocationView.currentLocationColor.cgColor
         }
         else{
             let redFactor = max(1.0, accuracy/100.0)
             color = UIColor(red: redFactor, green: 0, blue: 1.0, alpha: 1.0).cgColor
         }
         ctx.beginPath()
-        ctx.addEllipse(in: UserLocationView.frameRect.scaleCenteredBy(0.3))
+        ctx.addEllipse(in: CurrentLocationView.frameRect.scaleCenteredBy(0.3))
         ctx.setFillColor(color)
         ctx.drawPath(using: .fill)
         
         ctx.beginPath()
         ctx.setLineWidth(2.0)
-        ctx.addEllipse(in: UserLocationView.frameRect.scaleCenteredBy(0.6))
+        ctx.addEllipse(in: CurrentLocationView.frameRect.scaleCenteredBy(0.6))
         ctx.setStrokeColor(color)
         ctx.drawPath(using: .stroke)
         
         let angle1 = (direction - 15)*CGFloat.pi/180
         let angle2 = (direction + 15)*CGFloat.pi/180
         ctx.beginPath()
-        ctx.setFillColor(UserLocationView.userDirectionColor.cgColor)
+        ctx.setFillColor(CurrentLocationView.currentDirectionColor.cgColor)
         ctx.move(to: drawCenter)
         ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle1), y: drawCenter.y - locationRadius * cos(angle1)))
         ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle2), y: drawCenter.y - locationRadius * cos(angle2)))

@@ -25,7 +25,7 @@ class InfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(UILabel(header: "appIconsHeader".localize()))
         
         // user location
-        stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "userLocationInfoText".localize(), iconColor: UserLocationView.userLocationColor))
+        stackView.addArrangedSubview(IconInfoText(icon: "record.circle", text: "currentLocationInfoText".localize(), iconColor: CurrentLocationView.currentLocationColor))
         // cross
         stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", text: "crossLocationInfoText".localize(), iconColor: .systemBlue))
         // location
