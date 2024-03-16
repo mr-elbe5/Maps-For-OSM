@@ -7,7 +7,7 @@
 import UIKit
 import CoreLocation
 
-protocol MainMenuDelegate: MapPositionDelegate{
+protocol MainMenuDelegate{
     
     func refreshMap()
     func openPreloadTiles()
@@ -212,8 +212,6 @@ class MainMenuView: UIView {
     func updateTrackMenu(){
         self.trackMenuControl.menu = self.getTrackingMenu()
     }
-    
-    
     
 }
 

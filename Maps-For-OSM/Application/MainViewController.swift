@@ -80,30 +80,11 @@ class MainViewController: UIViewController {
         view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
     }
     
-    func addPlace(at coordinate: CLLocationCoordinate2D) {
-        if let coordinate = LocationService.shared.location?.coordinate{
-            PlacePool.getPlace(coordinate: coordinate)
-            DispatchQueue.main.async {
-                self.updateMarkerLayer()
-            }
-        }
-    }
-    
     func updateFollowTrack(){
         if Preferences.shared.followTrack{
             if TrackRecorder.isRecording{
                 mapView.focusUserLocation()
             }
-        }
-    }
-    
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?) {
-        if let mapRect = mapRect{
-            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: mapRect, scaledBounds: mapView.bounds)*0.9, animated: true)
-        }
-        else{
-            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
         }
     }
     

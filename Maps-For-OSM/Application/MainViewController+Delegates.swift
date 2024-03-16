@@ -153,6 +153,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openSearch() {
         let controller = SearchViewController()
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -184,7 +185,7 @@ extension MainViewController: LocationServiceDelegate{
     
 }
 
-extension MainViewController: LocationViewDelegate{
+extension MainViewController: MapPositionDelegate{
     
     func showDetailsOfCurrentLocation() {
         let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
@@ -204,7 +205,7 @@ extension MainViewController: LocationViewDelegate{
     
 }
 
-extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate{
+extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate, LocationViewDelegate {
     
     func showPlaceOnMap(place: Place) {
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
@@ -231,6 +232,16 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
             self.updateMarkerLayer()
         }
     }
+    
+    func addPlace(at coordinate: CLLocationCoordinate2D) {
+        if let coordinate = LocationService.shared.location?.coordinate{
+            PlacePool.getPlace(coordinate: coordinate)
+            DispatchQueue.main.async {
+                self.updateMarkerLayer()
+            }
+        }
+    }
+    
     
     func showGroupDetails(group: PlaceGroup) {
         let controller = PlaceGroupViewController(group: group)
@@ -293,6 +304,20 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func updateTrackLayer() {
         mapView.trackLayerView.setNeedsDisplay()
+    }
+    
+}
+
+extension MainViewController: SearchDelegate{
+    
+    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?) {
+        if let mapRect = mapRect{
+            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
+            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: mapRect, scaledBounds: mapView.bounds)*0.9, animated: true)
+        }
+        else{
+            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
+        }
     }
     
 }
