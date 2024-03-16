@@ -159,164 +159,28 @@ extension MainViewController: MainMenuDelegate{
     
 }
 
-extension MainViewController: PlaceLayerViewDelegate{
+extension MainViewController: LocationServiceDelegate{
     
-    func showPlaceDetails(place: Place) {
-        let controller = PlaceDetailViewController(location: place)
-        controller.place = place
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func movePlaceToScreenCenter(place: Place) {
-        let centerCoordinate = mapView.scrollView.screenCenterCoordinate
-        showDestructiveApprove(title: "confirmMovePlace".localize(), text: "\("newLocationHint".localize())\n\(centerCoordinate.asString)"){
-            place.coordinate = centerCoordinate
-            place.evaluatePlacemark()
-            PlacePool.save()
-            self.updateMarkerLayer()
-        }
-    }
-    
-    func deletePlace(place: Place) {
-        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            PlacePool.deletePlace(place)
-            PlacePool.save()
-            self.updateMarkerLayer()
-        }
-    }
-    
-    func showGroupDetails(group: PlaceGroup) {
-        let controller = PlaceGroupViewController(group: group)
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func mergeGroup(group: PlaceGroup) {
-        if let mergedLocation = group.centralPlace{
-            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
-                PlacePool.list.append(mergedLocation)
-                PlacePool.list.removeAllOf(group.places)
-                PlacePool.save()
-                self.updateMarkerLayer()
-            }
-        }
-    }
-    
-}
-
-extension MainViewController: PlaceViewDelegate{
-    
-    func updateMarkerLayer() {
-        mapView.updateLocationLayer()
-    }
-    
-}
-
-/// media delegates
-
-extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
-        let image = ImageFile()
-        image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            if let location = pickerController.location{
-                let changeState = location.media.isEmpty
-                location.addMedia(file: image)
-                PlacePool.save()
-                if changeState{
-                    DispatchQueue.main.async {
-                        self.updateMarkerLayer()
-                    }
+    func locationDidChange(location: CLLocation) {
+        mapView.locationDidChange(location: location)
+        if TrackRecorder.isRecording{
+            if TrackRecorder.updateTrack(with: location){
+                mapView.trackLayerView.setNeedsDisplay()
+                if Preferences.shared.followTrack{
+                    mapView.focusUserLocation()
                 }
             }
-            else if let coordinate = LocationService.shared.location?.coordinate{
-                let location = PlacePool.getPlace(coordinate: coordinate)
-                let changeState = location.media.isEmpty
-                location.addMedia(file: image)
-                PlacePool.save()
-                if changeState{
-                    DispatchQueue.main.async {
-                        self.updateMarkerLayer()
-                    }
-                }
-            }
+            statusView.updateTrackInfo()
         }
-        picker.dismiss(animated: false)
+        if statusView.isDetailed{
+            statusView.updateDetailInfo(location: location)
+        }
+    }
+    
+    func directionDidChange(direction: CLLocationDirection) {
+        mapView.setDirection(direction)
+        statusView.updateDirection(direction: direction)
     }
     
 }
-
-extension MainViewController: CameraDelegate{
-    
-    func photoCaptured(data: Data, cllocation: CLLocation?) {
-        if let cllocation = cllocation{
-            let imageFile = ImageFile()
-            imageFile.saveFile(data: data)
-            print("photo saved locally")
-            let location = PlacePool.getPlace(coordinate: cllocation.coordinate)
-            let changeState = location.media.isEmpty
-            location.addMedia(file: imageFile)
-            PlacePool.save()
-            if changeState{
-                self.markersChanged()
-            }
-        }
-    }
-    
-    func getImageWithImageData(data: Data, properties: NSDictionary) -> Data{
-
-        let imageRef: CGImageSource = CGImageSourceCreateWithData((data as CFData), nil)!
-        let uti: CFString = CGImageSourceGetType(imageRef)!
-        let dataWithEXIF: NSMutableData = NSMutableData(data: data)
-        let destination: CGImageDestination = CGImageDestinationCreateWithData((dataWithEXIF as CFMutableData), uti, 1, nil)!
-        CGImageDestinationAddImageFromSource(destination, imageRef, 0, (properties as CFDictionary))
-        CGImageDestinationFinalize(destination)
-        return dataWithEXIF as Data
-    }
-    
-    func videoCaptured(data: Data, cllocation: CLLocation?) {
-        if let cllocation = cllocation{
-            let videoFile = VideoFile()
-            videoFile.saveFile(data: data)
-            print("video saved locally")
-            let location = PlacePool.getPlace(coordinate: cllocation.coordinate)
-            let changeState = location.media.isEmpty
-            location.addMedia(file: videoFile)
-            PlacePool.save()
-            if changeState{
-                self.markersChanged()
-            }
-        }
-    }
-    
-    func markersChanged() {
-        DispatchQueue.main.async {
-            self.updateMarkerLayer()
-        }
-    }
-    
-}
-
-extension MainViewController: AudioCaptureDelegate{
-    
-    func audioCaptured(data: AudioFile){
-        if let coordinate = LocationService.shared.location?.coordinate{
-            let location = PlacePool.getPlace(coordinate: coordinate)
-            let changeState = location.media.isEmpty
-            location.addMedia(file: data)
-            PlacePool.save()
-            if changeState{
-                DispatchQueue.main.async {
-                    self.updateMarkerLayer()
-                }
-            }
-        }
-    }
-    
-}
-
 

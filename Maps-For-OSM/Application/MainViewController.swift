@@ -41,7 +41,6 @@ class MainViewController: UIViewController {
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupLocationLayerView()
-        mapView.locationLayerView.delegate = self
         mapView.setupCrossView()
         mapView.setupCurrentLocationView()
     }
@@ -83,70 +82,11 @@ class MainViewController: UIViewController {
         UIApplication.shared.open(URL(string: "https://www.openstreetmap.org/copyright")!)
     }
     
-    func addImage(location: Place?){
-        let pickerController = ImagePickerController()
-        pickerController.location = location
-        pickerController.delegate = self
-        pickerController.allowsEditing = true
-        pickerController.mediaTypes = ["public.image"]
-        pickerController.sourceType = .photoLibrary
-        pickerController.modalPresentationStyle = .fullScreen
-        self.present(pickerController, animated: true, completion: nil)
-    }
-    
-    //LocationLayerViewDelegate
-    func addImageToPlace(place: Place) {
-        addImage(location: place)
-    }
-    
     func addPlace(at coordinate: CLLocationCoordinate2D) {
         if let coordinate = LocationService.shared.location?.coordinate{
             PlacePool.getPlace(coordinate: coordinate)
             DispatchQueue.main.async {
                 self.updateMarkerLayer()
-            }
-        }
-    }
-    
-    func openCamera(at coordinate: CLLocationCoordinate2D) {
-        AVCaptureDevice.askCameraAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let cameraCaptureController = CameraViewController()
-                    cameraCaptureController.delegate = self
-                    cameraCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(cameraCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
-                }
-                return
-            }
-        }
-    }
-    
-    func addImage(at coordinate: CLLocationCoordinate2D) {
-        addImage(location: nil)
-    }
-    
-    func addAudio(at coordinate: CLLocationCoordinate2D){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(audioCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController audioNotAuthorized")
-                }
-                return
             }
         }
     }
@@ -233,29 +173,52 @@ class MainViewController: UIViewController {
         updateMarkerLayer()
     }
     
+    func showPlaceDetails(place: Place) {
+        let controller = PlaceDetailViewController(location: place)
+        controller.place = place
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
+    func movePlaceToScreenCenter(place: Place) {
+        let centerCoordinate = mapView.scrollView.screenCenterCoordinate
+        showDestructiveApprove(title: "confirmMovePlace".localize(), text: "\("newLocationHint".localize())\n\(centerCoordinate.asString)"){
+            place.coordinate = centerCoordinate
+            place.evaluatePlacemark()
+            PlacePool.save()
+            self.updateMarkerLayer()
+        }
+    }
+    
+    func deletePlace(place: Place) {
+        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
+            PlacePool.deletePlace(place)
+            PlacePool.save()
+            self.updateMarkerLayer()
+        }
+    }
+    
+    func showGroupDetails(group: PlaceGroup) {
+        let controller = PlaceGroupViewController(group: group)
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
+    func mergeGroup(group: PlaceGroup) {
+        if let mergedLocation = group.centralPlace{
+            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
+                PlacePool.list.append(mergedLocation)
+                PlacePool.list.removeAllOf(group.places)
+                PlacePool.save()
+                self.updateMarkerLayer()
+            }
+        }
+    }
+    
+    func updateMarkerLayer() {
+        mapView.updateLocationLayer()
+    }
+    
 }
 
-extension MainViewController: LocationServiceDelegate{
-    
-    func locationDidChange(location: CLLocation) {
-        mapView.locationDidChange(location: location)
-        if TrackRecorder.isRecording{
-            if TrackRecorder.updateTrack(with: location){
-                mapView.trackLayerView.setNeedsDisplay()
-                if Preferences.shared.followTrack{
-                    mapView.focusUserLocation()
-                }
-            }
-            statusView.updateTrackInfo()
-        }
-        if statusView.isDetailed{
-            statusView.updateDetailInfo(location: location)
-        }
-    }
-    
-    func directionDidChange(direction: CLLocationDirection) {
-        mapView.setDirection(direction)
-        statusView.updateDirection(direction: direction)
-    }
-    
-}
+

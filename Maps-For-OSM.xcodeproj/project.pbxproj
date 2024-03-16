@@ -114,6 +114,7 @@
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
 		4ECC1AD62BA360B100B9CCBD /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD52BA360B100B9CCBD /* LocationViewController.swift */; };
+		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Media.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */; };
 		4ED55ECE2976B17400C679AF /* PlaceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECC2976B17300C679AF /* PlaceGroup.swift */; };
@@ -248,6 +249,7 @@
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
 		4ECC1AD52BA360B100B9CCBD /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Media.swift"; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadViewController.swift; sourceTree = "<group>"; };
 		4ED55ECC2976B17300C679AF /* PlaceGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceGroup.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */,
 				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
 				4E5F8C8B298D18F700D1CE5C /* MainViewController+Delegates.swift */,
+				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Media.swift */,
 				4E55B2B02944B0EA005D2BFB /* Preferences.swift */,
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
@@ -630,6 +633,7 @@
 				4EF477142941EBC600294B21 /* ImageFile.swift in Sources */,
 				4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */,
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
+				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Media.swift in Sources */,
 				4E31A656293F4C44002080F6 /* UIView+Subviews.swift in Sources */,
 				4EF4771C2941F62800294B21 /* ImageListItemView.swift in Sources */,
 				4EE6A891275A6E19007FBC67 /* MediaList.swift in Sources */,

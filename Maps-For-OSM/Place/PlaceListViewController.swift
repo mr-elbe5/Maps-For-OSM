@@ -73,7 +73,6 @@ extension PlaceListViewController : PlaceCellDelegate{
     
     func viewPlace(place: Place) {
         let placeController = PlaceDetailViewController(location: place)
-        placeController.delegate = self
         placeController.place = place
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)
@@ -81,11 +80,4 @@ extension PlaceListViewController : PlaceCellDelegate{
     
 }
 
-extension PlaceListViewController: PlaceViewDelegate{
-    
-    func updateMarkerLayer() {
-        mainViewController?.updateMarkerLayer()
-    }
-    
-}
 

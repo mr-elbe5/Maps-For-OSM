@@ -6,19 +6,7 @@
 
 import UIKit
 
-protocol PlaceLayerViewDelegate{
-    func showPlaceDetails(place: Place)
-    func addImageToPlace(place: Place)
-    func movePlaceToScreenCenter(place: Place)
-    func deletePlace(place: Place)
-    func showGroupDetails(group: PlaceGroup)
-    func mergeGroup(group: PlaceGroup)
-}
-
 class PlaceLayerView: UIView {
-    
-    //MainViewController
-    var delegate : PlaceLayerViewDelegate? = nil
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
         //print("setupMarkers, zoom=\(zoom),offset=\(offset),scale=\(scale)")
@@ -29,7 +17,7 @@ class PlaceLayerView: UIView {
             for place in PlacePool.list{
                 let marker = PlaceMarker(place: place)
                 marker.addAction(UIAction{ action in
-                    self.delegate?.showPlaceDetails(place: marker.place)
+                    mainViewController.showPlaceDetails(place: marker.place)
                 }, for: .touchDown)
                 addSubview(marker)
                 //marker.menu = getMarkerMenu(marker: marker)
@@ -59,14 +47,14 @@ class PlaceLayerView: UIView {
                 if group.places.count > 1{
                     let marker = PlaceGroupMarker(placeGroup: group)
                     marker.addAction(UIAction{ action in
-                        self.delegate?.showGroupDetails(group: group)
+                        mainViewController.showGroupDetails(group: group)
                     }, for: .touchDown)
                     addSubview(marker)
                 }
                 else if let place = group.places.first{
                     let marker = PlaceMarker(place: place)
                     marker.addAction(UIAction{ action in
-                        self.delegate?.showPlaceDetails(place: place)
+                        mainViewController.showPlaceDetails(place: place)
                     }, for: .touchDown)
                     addSubview(marker)
                 }

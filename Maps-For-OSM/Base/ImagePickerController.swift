@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ImagePickerController: UIImagePickerController{
     
-    var location: Place? = nil
+    var coordinate: CLLocationCoordinate2D? = nil
     
 }
