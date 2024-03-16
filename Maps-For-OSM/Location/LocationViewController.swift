@@ -8,6 +8,13 @@ import Foundation
 import UIKit
 import CoreLocation
 
+protocol LocationViewDelegate{
+    func addPlace(at coordinate: CLLocationCoordinate2D)
+    func openCamera(at coordinate: CLLocationCoordinate2D)
+    func addImage(at coordinate: CLLocationCoordinate2D)
+    func addAudio(at coordinate: CLLocationCoordinate2D)
+}
+
 class LocationViewController: PopupScrollViewController{
     
     var coordinate: CLLocationCoordinate2D
@@ -15,6 +22,8 @@ class LocationViewController: PopupScrollViewController{
     let locationLabel = UILabel(text: "")
     
     var frameSize = CGSize(width: 300, height: 350)
+    
+    var delegate: LocationViewDelegate? = nil
     
     init(coordinate: CLLocationCoordinate2D, title: String){
         self.coordinate = coordinate
@@ -67,7 +76,7 @@ class LocationViewController: PopupScrollViewController{
         createPlaceButton.setRoundedBorders()
         createPlaceButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            mainViewController.addPlace(at: self.coordinate)
+            self.delegate?.addPlace(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -75,7 +84,7 @@ class LocationViewController: PopupScrollViewController{
         openCameraButton.setRoundedBorders()
         openCameraButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            mainViewController.openCamera(at: self.coordinate)
+            self.delegate?.openCamera(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(openCameraButton, top: createPlaceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -84,7 +93,7 @@ class LocationViewController: PopupScrollViewController{
         addImageButton.setRoundedBorders()
         addImageButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            mainViewController.addImage(at: self.coordinate)
+            self.delegate?.addImage(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addImageButton, top: openCameraButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -93,7 +102,7 @@ class LocationViewController: PopupScrollViewController{
         addAudioButton.setRoundedBorders()
         addAudioButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            mainViewController.addAudio(at: self.coordinate)
+            self.delegate?.addAudio(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         

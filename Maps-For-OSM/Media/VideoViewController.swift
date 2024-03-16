@@ -27,14 +27,12 @@ class VideoViewController: PopupViewController {
             contentView.addSubviewWithAnchors(videoView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
             videoView.setAspectRatioConstraint()
             
-            volumeView.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
+            volumeView.addAction(UIAction(){ action in
+                self.videoView.player.volume = self.volumeView.value
+            }, for: .valueChanged)
             view.addSubviewWithAnchors(volumeView, top: videoView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
                 .height(25)
         }
-    }
-    
-    @objc func volumeChanged(){
-        videoView.player.volume = volumeView.value
     }
     
 }

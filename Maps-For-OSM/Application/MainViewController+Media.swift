@@ -99,8 +99,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 extension MainViewController: CameraDelegate{
     
-    func photoCaptured(data: Data, cllocation: CLLocation?) {
-        if let cllocation = cllocation{
+    func photoCaptured(data: Data, location: CLLocation?) {
+        if let cllocation = location{
             let imageFile = ImageFile()
             imageFile.saveFile(data: data)
             print("photo saved locally")

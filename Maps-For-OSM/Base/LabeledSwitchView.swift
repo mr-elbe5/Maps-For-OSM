@@ -36,16 +36,14 @@ class LabeledSwitchView : UIView{
         
         switcher.scaleBy(0.75)
         switcher.isOn = isOn
-        switcher.addTarget(self, action: #selector(valueDidChange), for: .valueChanged)
+        switcher.addAction(UIAction(){ action in
+            self.delegate?.switchValueDidChange(sender: self,isOn: self.switcher.isOn)
+        }, for: .touchDown)
         addSubviewWithAnchors(switcher, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
     }
     
     func setEnabled(_ flag: Bool){
         switcher.isEnabled = flag
-    }
-    
-    @objc func valueDidChange(sender:UISwitch){
-        delegate?.switchValueDidChange(sender: self,isOn: sender.isOn)
     }
     
 }

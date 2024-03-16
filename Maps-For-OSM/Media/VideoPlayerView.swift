@@ -51,7 +51,9 @@ class VideoPlayerView: UIView {
         self.layer.addSublayer(playerLayer)
         playButton.asIconButton("play.fill", color: .white)
         playButton.scaleBy(2.0)
-        playButton.addTarget(self, action: #selector(togglePlay), for: .touchDown)
+        playButton.addAction(UIAction(){ action in
+            self.togglePlay()
+        }, for: .touchDown)
         addSubviewWithAnchors(playButton, bottom: bottomAnchor, insets: defaultInsets)
             .centerX(centerXAnchor)
     }

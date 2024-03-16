@@ -19,6 +19,8 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
     var running = false
     
+    var serviceDelegate: LocationServiceDelegate? = nil
+    
     private let geocoder = CLGeocoder()
     
     private var lock = DispatchSemaphore(value: 1)
@@ -101,7 +103,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkRunning()
         if authorized, let loc = location{
-            mainViewController.locationDidChange(location: loc)
+            serviceDelegate?.locationDidChange(location: loc)
         }
     }
     
@@ -110,11 +112,11 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
         if loc.horizontalAccuracy == -1{
             return
         }
-        mainViewController.locationDidChange(location: loc)
+        serviceDelegate?.locationDidChange(location: loc)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        mainViewController.directionDidChange(direction: newHeading.trueHeading)
+        serviceDelegate?.directionDidChange(direction: newHeading.trueHeading)
     }
     
     func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {

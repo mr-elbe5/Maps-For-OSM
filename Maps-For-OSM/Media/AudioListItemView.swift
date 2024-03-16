@@ -23,7 +23,9 @@ class AudioListItemView : UIView{
         super.init(frame: .zero)
         
         let deleteButton = UIButton().asIconButton("xmark.circle", color: .systemRed)
-        deleteButton.addTarget(self, action: #selector(deleteAudio), for: .touchDown)
+        deleteButton.addAction(UIAction(){ action in
+            self.delegate?.deleteAudio(sender: self)
+        }, for: .touchDown)
         addSubviewWithAnchors(deleteButton, top: topAnchor, trailing: trailingAnchor, insets: defaultInsets)
         
         let audioView = AudioPlayerView()
@@ -45,10 +47,6 @@ class AudioListItemView : UIView{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func deleteAudio(){
-        delegate?.deleteAudio(sender: self)
     }
     
 }

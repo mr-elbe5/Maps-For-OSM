@@ -10,7 +10,7 @@ import CoreLocation
 import Photos
 
 protocol CameraDelegate{
-    func photoCaptured(data: Data, cllocation: CLLocation?)
+    func photoCaptured(data: Data, location: CLLocation?)
     func videoCaptured(data: Data, cllocation: CLLocation?)
 }
 

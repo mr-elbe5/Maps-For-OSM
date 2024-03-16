@@ -58,15 +58,21 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         addSubviewWithAnchors(playProgress, top: topAnchor, leading: leadingAnchor, insets: defaultInsets)
             .height(25)
         
-        rewindButton.addTarget(self, action: #selector(rewind), for: .touchDown)
+        rewindButton.addAction(UIAction(){ action in
+            self.rewind()
+        }, for: .touchDown)
         addSubviewWithAnchors(rewindButton, top: topAnchor, leading: playProgress.trailingAnchor, insets: defaultInsets)
             .height(20)
         
-        playButton.addTarget(self, action: #selector(togglePlay), for: .touchDown)
+        playButton.addAction(UIAction(){ action in
+            self.togglePlay()
+        }, for: .touchDown)
         addSubviewWithAnchors(playButton, top: topAnchor, leading: rewindButton.trailingAnchor, trailing: trailingAnchor, insets: defaultInsets)
             .height(20)
         
-        volumeSlider.addTarget(self, action: #selector(volumeChanged), for: .valueChanged)
+        volumeSlider.addAction(UIAction(){ action in
+            self.player.volume = self.volumeSlider.value
+        }, for: .valueChanged)
         addSubviewWithAnchors(volumeSlider, top: playProgress.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
             .height(25)
         rewindButton.isEnabled = false
@@ -119,7 +125,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         }
     }
     
-    @objc func rewind(){
+    func rewind(){
         player.rate = 0
         if let item = playerItem{
             item.seek(to: CMTime.zero, completionHandler: nil)
@@ -130,7 +136,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
         playButton.isEnabled = true
     }
     
-    @objc func togglePlay(){
+    func togglePlay(){
         if player.rate == 0{
             player.rate = 1
             playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
@@ -141,10 +147,6 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             rewindButton.isEnabled = true
         }
-    }
-    
-    @objc func volumeChanged(){
-        player.volume = volumeSlider.value
     }
     
     @objc func playerItemDidReachEnd(notification: Notification) {

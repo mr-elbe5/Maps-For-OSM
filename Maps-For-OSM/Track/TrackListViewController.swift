@@ -9,11 +9,18 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
+protocol TrackListDelegate{
+    func showTrackOnMap(track: Track)
+    func deleteTrack(track: Track, approved: Bool)
+}
+
 class TrackListViewController: PopupTableViewController{
 
     private static let CELL_IDENT = "trackCell"
     
     var tracks: TrackList? = nil
+    
+    var delegate: TrackListDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
@@ -28,7 +35,9 @@ class TrackListViewController: PopupTableViewController{
         
         let loadButton = UIButton().asIconButton("arrow.down.square", color: .black)
         headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        loadButton.addTarget(self, action: #selector(loadTrack), for: .touchDown)
+        loadButton.addAction(UIAction(){ action in
+            self.loadTrack()
+        }, for: .touchDown)
     }
     
     @objc func loadTrack(){
@@ -79,7 +88,7 @@ extension TrackListViewController : TrackDetailDelegate{
     
     func showTrackOnMap(track: Track) {
         self.dismiss(animated: true){
-            mainViewController.showTrackOnMap(track: track)
+            self.delegate?.showTrackOnMap(track: track)
         }
     }
     
@@ -117,7 +126,7 @@ extension TrackListViewController : TrackCellDelegate{
     }
     
     private func deleteTrack(track: Track){
-        mainViewController?.deleteTrack(track: track, approved: true)
+        self.delegate?.deleteTrack(track: track, approved: true)
         tracks?.remove(track)
         tableView.reloadData()
     }

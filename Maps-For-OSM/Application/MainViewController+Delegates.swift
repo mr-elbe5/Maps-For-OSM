@@ -47,7 +47,7 @@ extension MainViewController: MainMenuDelegate{
     
     func showLocations(_ show: Bool) {
         AppState.shared.showLocations = show
-        mapView.locationLayerView.isHidden = !AppState.shared.showLocations
+        mapView.placeLayerView.isHidden = !AppState.shared.showLocations
     }
     
     func deleteAllLocations(){
@@ -180,6 +180,119 @@ extension MainViewController: LocationServiceDelegate{
     func directionDidChange(direction: CLLocationDirection) {
         mapView.setDirection(direction)
         statusView.updateDirection(direction: direction)
+    }
+    
+}
+
+extension MainViewController: LocationViewDelegate{
+    
+    func showDetailsOfCurrentLocation() {
+        let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
+        let controller = LocationViewController(coordinate: coordinate, title: "currentLocation".localize())
+        controller.delegate = self
+        controller.modalPresentationStyle = .popover
+        present(controller, animated: true)
+    }
+    
+    func showDetailsOfCrossLocation() {
+        let coordinate = mapView.scrollView.screenCenterCoordinate
+        let controller = LocationViewController(coordinate: coordinate, title: "crossLocation".localize())
+        controller.delegate = self
+        controller.modalPresentationStyle = .popover
+        present(controller, animated: true)
+    }
+    
+}
+
+extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate{
+    
+    func showPlaceOnMap(place: Place) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
+    }
+    
+    func deletePlaceFromList(place: Place) {
+        PlacePool.deletePlace(place)
+        PlacePool.save()
+        updateMarkerLayer()
+    }
+    
+    func showPlaceDetails(place: Place) {
+        let controller = PlaceDetailViewController(location: place)
+        controller.place = place
+        controller.modalPresentationStyle = .fullScreen
+        controller.delegate = self
+        present(controller, animated: true)
+    }
+    
+    func deletePlace(place: Place) {
+        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
+            PlacePool.deletePlace(place)
+            PlacePool.save()
+            self.updateMarkerLayer()
+        }
+    }
+    
+    func showGroupDetails(group: PlaceGroup) {
+        let controller = PlaceGroupViewController(group: group)
+        controller.modalPresentationStyle = .popover
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
+    func mergeGroup(group: PlaceGroup) {
+        if let mergedLocation = group.centralPlace{
+            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
+                PlacePool.list.append(mergedLocation)
+                PlacePool.list.removeAllOf(group.places)
+                PlacePool.save()
+                self.updateMarkerLayer()
+            }
+        }
+    }
+}
+
+extension MainViewController: TrackDetailDelegate, TrackListDelegate{
+    
+    func viewTrackDetails(track: Track) {
+        let controller = TrackDetailViewController()
+        controller.track = track
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func deleteTrack(track: Track, approved: Bool) {
+        if approved{
+            deleteTrack(track: track)
+        }
+        else{
+            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
+                self.deleteTrack(track: track)
+            }
+        }
+    }
+    
+    private func deleteTrack(track: Track){
+        let isVisibleTrack = track == TrackPool.visibleTrack
+        TrackPool.deleteTrack(track)
+        if isVisibleTrack{
+            TrackPool.visibleTrack = nil
+            mapView.trackLayerView.setNeedsDisplay()
+        }
+    }
+    
+    func showTrackOnMap(track: Track) {
+        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
+            TrackPool.visibleTrack = track
+            mapView.trackLayerView.setNeedsDisplay()
+            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
+            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
+            mainMenuView.updateTrackMenu()
+        }
+    }
+    
+    func updateTrackLayer() {
+        mapView.trackLayerView.setNeedsDisplay()
     }
     
 }

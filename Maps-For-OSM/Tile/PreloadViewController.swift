@@ -91,7 +91,11 @@ class PreloadViewController: PopupScrollViewController{
         minZoomSlider.minimumTrackTintColor = trackTintColor
         minZoomSlider.maximumTrackTintColor = trackTintColor
         contentView.addSubviewWithAnchors(minZoomSlider, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
-        minZoomSlider.addTarget(self, action: #selector(minZoomChanged), for: .valueChanged)
+        minZoomSlider.addAction(UIAction(){ action in
+            self.minZoomSlider.value = round(self.minZoomSlider.value)
+            self.minZoom = Int(self.minZoomSlider.value)
+            self.recalculateTiles()
+        }, for: .valueChanged)
         
         minZoomLabel = UILabel()
         minZoomLabel.text = "\(minZoom)"
@@ -107,7 +111,11 @@ class PreloadViewController: PopupScrollViewController{
         maxZoomSlider.minimumTrackTintColor = trackTintColor
         maxZoomSlider.maximumTrackTintColor = trackTintColor
         contentView.addSubviewWithAnchors(maxZoomSlider, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
-        maxZoomSlider.addTarget(self, action: #selector(maxZoomChanged), for: .valueChanged)
+        maxZoomSlider.addAction(UIAction(){ action in
+            self.maxZoomSlider.value = round(self.maxZoomSlider.value)
+            self.maxZoom = Int(self.maxZoomSlider.value)
+            self.recalculateTiles()
+        }, for: .touchDown)
         
         maxZoomLabel = UILabel()
         maxZoomLabel.text = "\(maxZoom)"
@@ -133,13 +141,17 @@ class PreloadViewController: PopupScrollViewController{
         startButton.setTitle("startPreload".localize(), for: .normal)
         startButton.setTitleColor(.systemBlue, for: .normal)
         startButton.setTitleColor(.systemGray, for: .disabled)
-        startButton.addTarget(self, action: #selector(startDownload), for: .touchDown)
+        startButton.addAction(UIAction(){ action in
+            self.startDownload()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(startButton, top: tilesToLoadLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.centerXAnchor, insets: defaultInsets)
         
         cancelButton.setTitle("cancel".localize(), for: .normal)
         cancelButton.setTitleColor(.systemBlue, for: .normal)
         cancelButton.setTitleColor(.systemGray, for: .disabled)
-        cancelButton.addTarget(self, action: #selector(cancelDownload), for: .touchDown)
+        cancelButton.addAction(UIAction(){ action in
+            self.cancelDownload()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(cancelButton, top: tilesToLoadLabel.bottomAnchor, leading: contentView.centerXAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         loadedTilesSlider.minimumValue = 0
@@ -215,19 +227,7 @@ class PreloadViewController: PopupScrollViewController{
         updateValueViews()
     }
     
-    @objc func minZoomChanged(){
-        minZoomSlider.value = round(minZoomSlider.value)
-        minZoom = Int(minZoomSlider.value)
-        recalculateTiles()
-    }
-    
-    @objc func maxZoomChanged(){
-        maxZoomSlider.value = round(maxZoomSlider.value)
-        maxZoom = Int(maxZoomSlider.value)
-        recalculateTiles()
-    }
-    
-    @objc func startDownload(){
+    func startDownload(){
         if tiles.isEmpty{
             return
         }
@@ -249,7 +249,7 @@ class PreloadViewController: PopupScrollViewController{
         }
     }
     
-    @objc func cancelDownload(){
+    func cancelDownload(){
         downloadQueue?.cancelAllOperations()
         reset()
         recalculateTiles()

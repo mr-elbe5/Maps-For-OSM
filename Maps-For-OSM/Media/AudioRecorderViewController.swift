@@ -9,7 +9,6 @@ import UIKit
 import AVFoundation
 
 protocol AudioCaptureDelegate{
-    
     func audioCaptured(data: AudioFile)
 }
 
@@ -28,6 +27,8 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
     
     var tmpFileName = "tmpaudio.m4a"
     var tmpFileURL : URL
+    
+    var delegate: AudioCaptureDelegate? = nil
     
     override init(){
         tmpFileURL = FileController.temporaryURL.appendingPathComponent(tmpFileName)
@@ -54,7 +55,9 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         player.setupView()
         player.disablePlayer()
         
-        recordButton.addTarget(self, action: #selector(toggleRecording), for: .touchUpInside)
+        recordButton.addAction(UIAction(){ action in
+            self.toggleRecording()
+        }, for: .touchUpInside)
         contentView.addSubviewWithAnchors(recordButton, top: player.bottomAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
             .width(50)
@@ -67,7 +70,9 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         
         saveButton.asTextButton("save".localize(), color: .white)
         saveButton.setTitleColor(.lightGray, for: .disabled)
-        saveButton.addTarget(self, action: #selector(save), for: .touchDown)
+        saveButton.addAction(UIAction(){ action in
+            self.save()
+        }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
         saveButton.isEnabled = false
@@ -153,7 +158,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         progress.setProgress((min(max(-60.0, decibels),0) + 60.0) / 60.0)
     }
     
-    @objc func toggleRecording() {
+    func toggleRecording() {
         if audioRecorder == nil {
             startRecording()
         } else {
@@ -167,7 +172,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         }
     }
     
-    @objc func save(){
+    func save(){
         let audioFile = AudioFile()
         audioFile.title = titleField.text?.trim() ?? ""
         audioFile.time = (currentTime*100).rounded() / 100
@@ -175,7 +180,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: audioFile.fileName)){
             cleanup()
             self.dismiss(animated: true){
-                mainViewController.audioCaptured(data: audioFile)
+                self.delegate?.audioCaptured(data: audioFile)
             }
         }
         

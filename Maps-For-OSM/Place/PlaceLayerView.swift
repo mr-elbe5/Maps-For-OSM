@@ -6,7 +6,16 @@
 
 import UIKit
 
+protocol PlaceLayerDelegate{
+    func showPlaceDetails(place: Place)
+    func deletePlace(place: Place)
+    func showGroupDetails(group: PlaceGroup)
+    func mergeGroup(group: PlaceGroup)
+}
+
 class PlaceLayerView: UIView {
+    
+    var delegate: PlaceLayerDelegate? = nil
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
         //print("setupMarkers, zoom=\(zoom),offset=\(offset),scale=\(scale)")
@@ -17,7 +26,7 @@ class PlaceLayerView: UIView {
             for place in PlacePool.list{
                 let marker = PlaceMarker(place: place)
                 marker.addAction(UIAction{ action in
-                    mainViewController.showPlaceDetails(place: marker.place)
+                    self.delegate?.showPlaceDetails(place: marker.place)
                 }, for: .touchDown)
                 addSubview(marker)
                 //marker.menu = getMarkerMenu(marker: marker)
@@ -47,14 +56,14 @@ class PlaceLayerView: UIView {
                 if group.places.count > 1{
                     let marker = PlaceGroupMarker(placeGroup: group)
                     marker.addAction(UIAction{ action in
-                        mainViewController.showGroupDetails(group: group)
+                        self.delegate?.showGroupDetails(group: group)
                     }, for: .touchDown)
                     addSubview(marker)
                 }
                 else if let place = group.places.first{
                     let marker = PlaceMarker(place: place)
                     marker.addAction(UIAction{ action in
-                        mainViewController.showPlaceDetails(place: place)
+                        self.delegate?.showPlaceDetails(place: place)
                     }, for: .touchDown)
                     addSubview(marker)
                 }

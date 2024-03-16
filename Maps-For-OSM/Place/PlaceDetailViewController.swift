@@ -7,16 +7,9 @@
 import Foundation
 import UIKit
 
-/*func getMarkerMenu(marker: PlaceMarker) -> UIMenu{
-    var actions = Array<UIAction>()
-    actions.append(UIAction(title: "addImage".localize()){ action in
-        self.delegate?.addImageToPlace(place: marker.place)
-    })
-    actions.append(UIAction(title: "moveToScreenCenter".localize()){ action in
-        self.delegate?.movePlaceToScreenCenter(place: marker.place)
-    })
-    return UIMenu(title: marker.place.name, children: actions)
-}*/
+protocol PlaceViewDelegate{
+    func updateMarkerLayer()
+}
 
 class PlaceDetailViewController: PopupScrollViewController{
     
@@ -31,6 +24,8 @@ class PlaceDetailViewController: PopupScrollViewController{
     
     var place: Place
     var hadPhotos = false
+    
+    var delegate: PlaceViewDelegate? = nil
     
     init(location: Place){
         self.place = location
@@ -175,7 +170,7 @@ class PlaceDetailViewController: PopupScrollViewController{
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
             PlacePool.deletePlace(self.place)
             self.dismiss(animated: true){
-                mainViewController.updateMarkerLayer()
+                self.delegate?.updateMarkerLayer()
             }
         }
     }
@@ -199,7 +194,7 @@ extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigati
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             place.addMedia(file: image)
             PlacePool.save()
-            mainViewController.updateMarkerLayer()
+            self.delegate?.updateMarkerLayer()
             let imageView = ImageListItemView(data: image)
             imageView.delegate = self
             mediaStackView.addArrangedSubview(imageView)
@@ -240,7 +235,7 @@ extension PlaceDetailViewController: ImageListItemDelegate{
         showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
             self.place.deleteMedia(file: sender.imageData)
             PlacePool.save()
-            mainViewController.updateMarkerLayer()
+            self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
                     self.mediaStackView.removeArrangedSubview(subView)
@@ -266,7 +261,7 @@ extension PlaceDetailViewController: VideoListItemDelegate{
         showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
             self.place.deleteMedia(file: sender.videoData)
             PlacePool.save()
-            mainViewController.updateMarkerLayer()
+            self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
                     self.mediaStackView.removeArrangedSubview(subView)
@@ -286,7 +281,7 @@ extension PlaceDetailViewController: AudioListItemDelegate{
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
             self.place.deleteMedia(file: sender.audioData)
             PlacePool.save()
-            mainViewController.updateMarkerLayer()
+            self.delegate?.updateMarkerLayer()
             for subView in self.mediaStackView.subviews{
                 if subView == sender{
                     self.mediaStackView.removeArrangedSubview(subView)

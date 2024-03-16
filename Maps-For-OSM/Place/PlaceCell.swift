@@ -44,15 +44,27 @@ class PlaceCell: UITableViewCell{
         cellBody.removeAllSubviews()
         if let location = place{
             let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addTarget(self, action: #selector(deletePlace), for: .touchDown)
+            deleteButton.addAction(UIAction(){ action in
+                if let place = self.place{
+                    self.delegate?.deletePlaceFromCell(place: place)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addTarget(self, action: #selector(viewPlace), for: .touchDown)
+            viewButton.addAction(UIAction(){ action in
+                if let place = self.place{
+                    self.delegate?.viewPlace(place: place)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
-            mapButton.addTarget(self, action: #selector(showPlaceOnMap), for: .touchDown)
+            mapButton.addAction(UIAction(){ action in
+                if let place = self.place{
+                    self.delegate?.showPlaceOnMap(place: place)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor
             
@@ -84,24 +96,6 @@ class PlaceCell: UITableViewCell{
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-        }
-    }
-    
-    @objc func deletePlace() {
-        if let place = place{
-            delegate?.deletePlaceFromCell(place: place)
-        }
-    }
-    
-    @objc func viewPlace(){
-        if place != nil{
-            delegate?.viewPlace(place: place!)
-        }
-    }
-    
-    @objc func showPlaceOnMap(){
-        if place != nil{
-            delegate?.showPlaceOnMap(place: place!)
         }
     }
     

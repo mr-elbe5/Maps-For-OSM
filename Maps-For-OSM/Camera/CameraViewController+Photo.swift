@@ -101,7 +101,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         }
         if let delegate = delegate{
             DispatchQueue.main.async{
-                delegate.photoCaptured(data: self.photoData!, cllocation: self.location)
+                delegate.photoCaptured(data: self.photoData!, location: self.location)
             }
         }
         PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in

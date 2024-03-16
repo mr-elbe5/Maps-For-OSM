@@ -44,11 +44,9 @@ class PopupViewController: UIViewController {
         }
         let closeButton = UIButton().asIconButton("xmark.circle", color: .label)
         headerView.addSubviewWithAnchors(closeButton, top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        closeButton.addTarget(self, action: #selector(close), for: .touchDown)
-    }
-    
-    @objc func close(){
-        self.dismiss(animated: true)
+        closeButton.addAction(UIAction(){ action in
+            self.dismiss(animated: true)
+        }, for: .touchDown)
     }
     
 }

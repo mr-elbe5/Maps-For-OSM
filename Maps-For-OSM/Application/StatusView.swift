@@ -146,7 +146,9 @@ class StatusView : UIView{
         
         detailButton.asIconButton(isDetailed ? "arrowtriangle.down" : "arrowtriangle.up")
         detailButton.tintColor = .darkGray
-        detailButton.addTarget(self, action: #selector(toggleDetailed), for: .touchDown)
+        detailButton.addAction(UIAction(){ action in
+            self.toggleDetailed()
+        }, for: .touchDown)
         defaultView.addSubviewWithAnchors(detailButton, top: defaultView.topAnchor, trailing: defaultView.trailingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
     }
     
@@ -209,7 +211,7 @@ class StatusView : UIView{
         }
     }
     
-    @objc func toggleDetailed(){
+    func toggleDetailed(){
         isDetailed = !isDetailed
         setupDetailView()
         detailButton.asIconButton(isDetailed ? "arrowtriangle.down" : "arrowtriangle.up")

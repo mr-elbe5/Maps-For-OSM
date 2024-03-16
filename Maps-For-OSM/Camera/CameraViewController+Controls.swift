@@ -16,25 +16,35 @@ extension CameraViewController{
         captureModeControl.insertSegment(with: UIImage(systemName: "camera"), at: 0, animated: false)
         captureModeControl.insertSegment(with: UIImage(systemName: "video"), at: 1, animated: false)
         captureModeControl.selectedSegmentIndex = 0
-        captureModeControl.addTarget(self, action: #selector(toggleCaptureMode), for: .valueChanged)
+        captureModeControl.addAction(UIAction(){ action in
+            self.toggleCaptureMode()
+        }, for: .valueChanged)
         captureModeControl.backgroundColor = .systemGray
         bodyView.addSubview(captureModeControl)
         captureModeControl.setAnchors(top: bodyView.topAnchor, leading: bodyView.leadingAnchor, insets: defaultInsets)
         
         hdrVideoModeButton.setup(icon: "square.3.layers.3d.down.right.slash")
-        hdrVideoModeButton.addTarget(self, action: #selector(toggleHDRVideoMode), for: .touchDown)
+        hdrVideoModeButton.addAction(UIAction(){ action in
+            self.toggleHDRVideoMode()
+        }, for: .touchDown)
         bodyView.addSubview(hdrVideoModeButton)
         hdrVideoModeButton.setAnchors(top: bodyView.topAnchor, leading: captureModeControl.trailingAnchor, insets: defaultInsets)
         
         flashModeButton.setup(icon: "bolt.badge.automatic")
-        flashModeButton.addTarget(self, action: #selector(toggleFlashMode), for: .touchDown)
+        flashModeButton.addAction(UIAction(){ action in
+            self.toggleFlashMode()
+        }, for: .touchDown)
         bodyView.addSubview(flashModeButton)
         flashModeButton.setAnchors(top: bodyView.topAnchor, leading: hdrVideoModeButton.trailingAnchor, insets: defaultInsets)
         
         var rightAnchor = bodyView.trailingAnchor
         if !CameraViewController.isMainController{
             closeButton.setup(icon: "x.circle")
-            closeButton.addTarget(self, action: #selector(close), for: .touchDown)
+            closeButton.addAction(UIAction(){ action in
+                if !CameraViewController.isMainController{
+                    self.dismiss(animated: true)
+                }
+            }, for: .touchDown)
             bodyView.addSubview(closeButton)
             closeButton.setAnchors(top: bodyView.topAnchor, trailing: bodyView.trailingAnchor, insets: defaultInsets)
             rightAnchor = closeButton.leadingAnchor
@@ -42,7 +52,10 @@ extension CameraViewController{
         
         let infoButton = CameraIconButton()
         infoButton.setup(icon: "info.circle")
-        infoButton.addTarget(self, action: #selector(openInfo), for: .touchDown)
+        infoButton.addAction(UIAction(){ action in
+            let controller = CameraInfoViewController()
+            self.present(controller, animated: false)
+        }, for: .touchDown)
         bodyView.addSubview(infoButton)
         infoButton.setAnchors(top: bodyView.topAnchor, trailing: rightAnchor, insets: defaultInsets)
         
@@ -65,13 +78,17 @@ extension CameraViewController{
                 backLensControl.insertSegment(withTitle: lensFactor, at: i, animated: false)
             }
             backLensControl.selectedSegmentIndex = 0
-            backLensControl.addTarget(self, action: #selector(changeBackLens), for: .valueChanged)
+            backLensControl.addAction(UIAction(){ action in
+                self.changeBackLens()
+            }, for: .valueChanged)
             bodyView.addSubview(backLensControl)
             backLensControl.backgroundColor = .systemGray
             backLensControl.setAnchors(leading: bodyView.leadingAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
         }
         
-        captureButton.addTarget(self, action: #selector(capture), for: .touchDown)
+        captureButton.addAction(UIAction(){ action in
+            self.capture()
+        }, for: .touchDown)
         bodyView.addSubview(captureButton)
         captureButton.setAnchors()
             .centerX(bodyView.centerXAnchor)
@@ -80,7 +97,9 @@ extension CameraViewController{
             .height(60)
         
         cameraButton.setup(icon: "arrow.triangle.2.circlepath.camera")
-        cameraButton.addTarget(self, action: #selector(changeCamera), for: .touchDown)
+        cameraButton.addAction(UIAction(){ action in
+            self.changeCamera()
+        }, for: .touchDown)
         bodyView.addSubview(cameraButton)
         cameraButton.setAnchors(trailing: bodyView.trailingAnchor, bottom: bodyView.bottomAnchor, insets: defaultInsets)
         
@@ -130,7 +149,7 @@ extension CameraViewController{
         }
     }
     
-    @objc func changeCamera() {
+    func changeCamera() {
         if !isCaptureEnabled{
             return
         }
@@ -161,7 +180,7 @@ extension CameraViewController{
         }
     }
     
-    @objc func changeBackLens() {
+    func changeBackLens() {
         if !isCaptureEnabled{
             return
         }
@@ -215,7 +234,7 @@ extension CameraViewController{
         }
     }
     
-    @objc func capture() {
+    func capture() {
         if !isCaptureEnabled{
             return
         }
@@ -227,7 +246,7 @@ extension CameraViewController{
         }
     }
     
-    @objc func toggleHDRVideoMode() {
+    func toggleHDRVideoMode() {
         if !isCaptureEnabled{
             return
         }
@@ -257,7 +276,7 @@ extension CameraViewController{
         }
     }
     
-    @objc func toggleFlashMode(){
+    func toggleFlashMode(){
         if !isCaptureEnabled{
             return
         }
@@ -275,18 +294,7 @@ extension CameraViewController{
         updateFlashButton()
     }
     
-    @objc func openInfo(){
-        let controller = CameraInfoViewController()
-        self.present(controller, animated: false)
-    }
-    
-    @objc func close(){
-        if !CameraViewController.isMainController{
-            self.dismiss(animated: true)
-        }
-    }
-    
-    @objc func toggleCaptureMode() {
+    func toggleCaptureMode() {
         if !isCaptureEnabled{
             return
         }

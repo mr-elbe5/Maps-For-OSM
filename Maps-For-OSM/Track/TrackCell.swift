@@ -47,19 +47,35 @@ class TrackCell: UITableViewCell{
             
             let deleteButton = UIButton().asIconButton("trash")
             deleteButton.tintColor = UIColor.systemRed
-            deleteButton.addTarget(self, action: #selector(deleteTrack), for: .touchDown)
+            deleteButton.addAction(UIAction(){ action in
+                if let track = self.track{
+                    self.delegate?.deleteTrack(track: track, approved: false)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             
             let exportButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
-            exportButton.addTarget(self, action: #selector(exportTrack), for: .touchDown)
+            exportButton.addAction(UIAction(){ action in
+                if let track = self.track{
+                    self.delegate?.exportTrack(track: track)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(exportButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
-            viewButton.addTarget(self, action: #selector(viewTrack), for: .touchDown)
+            viewButton.addAction(UIAction(){ action in
+                if let track = self.track{
+                    self.delegate?.viewTrackDetails(track: track)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: exportButton.leadingAnchor, insets: defaultInsets)
             
             let showOnMapButton = UIButton().asIconButton("map", color: .systemBlue)
-            showOnMapButton.addTarget(self, action: #selector(showTrackOnMap), for: .touchDown)
+            showOnMapButton.addAction(UIAction(){ action in
+                if let track = self.track{
+                    self.delegate?.showTrackOnMap(track: track)
+                }
+            }, for: .touchDown)
             cellBody.addSubviewWithAnchors(showOnMapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             
             let header = UILabel(header: track.name)
@@ -84,30 +100,6 @@ class TrackCell: UITableViewCell{
             let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
             cellBody.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: cellBody.leadingAnchor, bottom: cellBody.bottomAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
             
-        }
-    }
-    
-    @objc func viewTrack() {
-        if let track = track{
-            self.delegate?.viewTrackDetails(track: track)
-        }
-    }
-    
-    @objc func showTrackOnMap() {
-        if let track = track{
-            self.delegate?.showTrackOnMap(track: track)
-        }
-    }
-    
-    @objc func exportTrack() {
-        if let track = track{
-            self.delegate?.exportTrack(track: track)
-        }
-    }
-    
-    @objc func deleteTrack() {
-        if let track = track{
-            self.delegate?.deleteTrack(track: track, approved: false)
         }
     }
     

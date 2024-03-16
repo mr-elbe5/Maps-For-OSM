@@ -28,11 +28,15 @@ class VideoListItemView : UIView{
         buttonContainer.setRoundedBorders(radius: 5)
         
         let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-        viewButton.addTarget(self, action: #selector(viewVideo), for: .touchDown)
+        viewButton.addAction(UIAction(){ action in
+            self.delegate?.viewVideo(sender: self)
+        }, for: .touchDown)
         buttonContainer.addSubviewWithAnchors(viewButton, top: buttonContainer.topAnchor, leading: buttonContainer.leadingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
         let deleteButton = UIButton().asIconButton("xmark.circle", color: .systemRed)
-        deleteButton.addTarget(self, action: #selector(deleteVideo), for: .touchDown)
+        deleteButton.addAction(UIAction(){ action in
+            self.delegate?.deleteVideo(sender: self)
+        }, for: .touchDown)
         buttonContainer.addSubviewWithAnchors(deleteButton, top: buttonContainer.topAnchor, leading: viewButton.trailingAnchor, trailing: buttonContainer.trailingAnchor, bottom: buttonContainer.bottomAnchor, insets: halfFlatInsets)
         
         let videoView = VideoPlayerView()
@@ -55,14 +59,6 @@ class VideoListItemView : UIView{
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc func viewVideo(){
-        delegate?.viewVideo(sender: self)
-    }
-    
-    @objc func deleteVideo(){
-        delegate?.deleteVideo(sender: self)
     }
     
 }

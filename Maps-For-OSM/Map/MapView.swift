@@ -16,7 +16,7 @@ class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var locationLayerView = PlaceLayerView()
+    var placeLayerView = PlaceLayerView()
     var currentLocationView = CurrentLocationView(frame: CurrentLocationView.frameRect)
     var crossLocationView = UIButton().asIconButton("plus.circle", color: .systemBlue)
     
@@ -42,9 +42,10 @@ class MapView: UIView {
         addSubviewFilling(trackLayerView)
     }
     
-    func setupLocationLayerView(){
-        addSubviewFilling(locationLayerView)
-        locationLayerView.isHidden = !AppState.shared.showLocations
+    func setupPlaceLayerView(controller: PlaceLayerDelegate){
+        addSubviewFilling(placeLayerView)
+        placeLayerView.delegate = controller
+        placeLayerView.isHidden = !AppState.shared.showLocations
     }
     
     func setupCurrentLocationView(){
@@ -68,7 +69,7 @@ class MapView: UIView {
     }
     
     func updateLocationLayer(){
-        locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -125,7 +126,7 @@ extension MapView : MapScrollViewDelegate{
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
         currentLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
-        locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)
     }
@@ -135,7 +136,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didChangeZoom() {
-        locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
         //TestCenter.testMapView(mapView: self)
     }
     
