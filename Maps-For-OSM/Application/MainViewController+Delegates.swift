@@ -7,6 +7,8 @@
 import UIKit
 import CoreLocation
 import AVFoundation
+import Photos
+import PhotosUI
 
 extension MainViewController: MainMenuDelegate{
     
@@ -56,12 +58,6 @@ extension MainViewController: MainMenuDelegate{
             PlacePool.save()
             self.updateMarkerLayer()
         }
-    }
-    
-    func openExport(){
-        let controller = BackupViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
     }
     
     func openPreferences(){
@@ -156,6 +152,131 @@ extension MainViewController: MainMenuDelegate{
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
+    }
+    
+    func exportToPhotoLibrary(){
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        DispatchQueue.global(qos: .userInitiated).async {
+            var numCopied = 0
+            for location in PlacePool.list{
+                for media in location.media{
+                    switch (media.type){
+                    case .image:
+                        if let data = media.data.getFile(){
+                            if media.type == .image{
+                                PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
+                                    numCopied += 1
+                                })
+                            }
+                        }
+                    case .video:
+                        PhotoLibrary.saveVideo(outputFileURL: media.data.fileURL, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
+                            numCopied += 1
+                        })
+                    default:
+                        break
+                    }
+                }
+                PlacePool.save()
+            }
+            DispatchQueue.main.async {
+                spinner.stopAnimating()
+                self.view.removeSubview(spinner)
+                self.showDone(title: "success".localize(), text: "mediaExported".localize(i: numCopied))
+            }
+        }
+    }
+    
+    func importFromPhotoLibrary(){
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = PHPickerFilter.any(of: [.images, .videos])
+        configuration.preferredAssetRepresentationMode = .automatic
+        configuration.selection = .ordered
+        configuration.selectionLimit = 0
+        configuration.disabledCapabilities = [.search, .stagingArea]
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    func createBackup(){
+        let fileName = "maps4osm_backup_\(Date().shortFileDate()).zip"
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        DispatchQueue.main.async {
+            if let _ = Backup.createBackupFile(name: fileName){
+                self.showDone(title: "success".localize(), text: "backupSaved".localize())
+            }
+            spinner.stopAnimating()
+            self.view.removeSubview(spinner)
+        }
+    }
+    
+    func restoreBackup(){
+        let types = UTType.types(tag: "zip", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
+        documentPickerController.directoryURL = FileController.backupDirURL
+        documentPickerController.delegate = self
+        self.present(documentPickerController, animated: true, completion: nil)
+    }
+    
+}
+
+extension MainViewController: PHPickerViewControllerDelegate{
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        for result in results{
+            var location: CLLocation? = nil
+            if let ident = result.assetIdentifier{
+                if let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [ident], options: nil).firstObject{
+                    location = fetchResult.location
+                }
+            }
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) {  image, error in
+                    if let image = image {
+                        print("got image \(image.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                    }
+                }
+            }
+            else{
+                itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
+                    if let url = url {
+                        print("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                    }
+                }
+            }
+        }
+        picker.dismiss(animated: false)
+    }
+    
+}
+
+extension MainViewController: UIDocumentPickerDelegate{
+    
+    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else {
+            return
+        }
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        DispatchQueue.main.async {
+            if Backup.unzipBackupFile(zipFileURL: url){
+                if Backup.restoreBackupFile(){
+                    self.showDone(title: "success".localize(), text: "restoreDone".localize())
+                }
+            }
+            spinner.stopAnimating()
+            self.view.removeSubview(spinner)
+        }
     }
     
 }

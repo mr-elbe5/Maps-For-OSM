@@ -100,7 +100,6 @@
 		4E55B2BB294774A5005D2BFB /* AudioListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */; };
 		4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA928DAEC5B007AD900 /* AppState.swift */; };
 		4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */; };
-		4E577A222B8C808900E89139 /* BackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E577A212B8C808900E89139 /* BackupViewController.swift */; };
 		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
 		4E5F8C8C298D18F700D1CE5C /* MainViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8B298D18F700D1CE5C /* MainViewController+Delegates.swift */; };
 		4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A00F4294F5390009151E3 /* CLPlacemark.swift */; };
@@ -236,7 +235,6 @@
 		4E55B2BA294774A5005D2BFB /* AudioListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioListItemView.swift; sourceTree = "<group>"; };
 		4E55EFA928DAEC5B007AD900 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		4E577A212B8C808900E89139 /* BackupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupViewController.swift; sourceTree = "<group>"; };
 		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		4E5F8C8B298D18F700D1CE5C /* MainViewController+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Delegates.swift"; sourceTree = "<group>"; };
 		4E6A00F4294F5390009151E3 /* CLPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLPlacemark.swift; sourceTree = "<group>"; };
@@ -343,7 +341,6 @@
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
-				4E577A212B8C808900E89139 /* BackupViewController.swift */,
 				4E4424942B961D690007A26F /* Backup.swift */,
 			);
 			path = Application;
@@ -627,7 +624,6 @@
 				4E4424952B961D690007A26F /* Backup.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E24F48827345D11004E69C2 /* UIImage.swift in Sources */,
-				4E577A222B8C808900E89139 /* BackupViewController.swift in Sources */,
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
 				4E4424872B94FA100007A26F /* CameraViewController+Observers.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageFile.swift in Sources */,

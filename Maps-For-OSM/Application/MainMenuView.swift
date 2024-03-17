@@ -34,7 +34,10 @@ protocol MainMenuDelegate{
     
     func openSearch()
     
-    func openExport()
+    func exportToPhotoLibrary()
+    func importFromPhotoLibrary()
+    func createBackup()
+    func restoreBackup()
     
     func openPreferences()
     
@@ -99,17 +102,10 @@ class MainMenuView: UIView {
             self.delegate?.openSearch()
         }, for: .touchDown)
         
-        let exportControl = UIButton().asIconButton("square.and.arrow.up")
-        stackView.addArrangedSubview(exportControl)
-        exportControl.addAction(UIAction(){ action in
-            self.delegate?.openExport()
-        }, for: .touchDown)
-        
-        let preferencesControl = UIButton().asIconButton("gearshape")
-        stackView.addArrangedSubview(preferencesControl)
-        preferencesControl.addAction(UIAction(){ action in
-            self.delegate?.openPreferences()
-        }, for: .touchDown)
+        let settingsControl = UIButton().asIconButton("gearshape")
+        stackView.addArrangedSubview(settingsControl)
+        settingsControl.menu = getSettingsMenu()
+        settingsControl.showsMenuAsPrimaryAction = true
         
         let infoControl = UIButton().asIconButton("info.circle")
         stackView.addArrangedSubview(infoControl)
@@ -202,6 +198,27 @@ class MainMenuView: UIView {
                 self.delegate?.deleteAllTracks()
             })
         }
+        return UIMenu(title: "", children: actions)
+    }
+    
+    func getSettingsMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshapeh")){ action in
+            self.delegate?.openPreferences()
+        })
+        actions.append(UIAction(title: "exportToPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
+            self.delegate?.exportToPhotoLibrary()
+            
+        })
+        actions.append(UIAction(title: "importFromPhotoLibrary".localize(), image: UIImage(systemName: "photo.badge.arrow.down")){ action in
+            self.delegate?.importFromPhotoLibrary()
+        })
+        actions.append(UIAction(title: "createBackup".localize(), image: UIImage(systemName: "square.and.arrow.up")){ action in
+            self.delegate?.createBackup()
+        })
+        actions.append(UIAction(title: "restoreBackup".localize(), image: UIImage(systemName: "square.and.arrow.down")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.restoreBackup()
+        })
         return UIMenu(title: "", children: actions)
     }
     
