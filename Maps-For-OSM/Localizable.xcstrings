@@ -1874,23 +1874,6 @@
         }
       }
     },
-    "locationDefaultGroupInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gruppe von Orten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Marker for location group"
-          }
-        }
-      }
-    },
     "locationNotAuthorized" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2468,6 +2451,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Place Details"
+          }
+        }
+      }
+    },
+    "placeDefaultGroupInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppe von Orten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marker for location group"
           }
         }
       }
@@ -3098,6 +3098,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restore Backup"
+          }
+        }
+      }
+    },
+    "restoreBackupHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Wiederherstellen löscht alle aktuellen Inhalte."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restoring a backup will delete all current content."
           }
         }
       }

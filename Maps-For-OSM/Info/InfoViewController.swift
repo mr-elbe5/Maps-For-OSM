@@ -33,8 +33,8 @@ class InfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(IconInfoText(image: "mappin.red", text: "placePhotoMarkerInfoText".localize()))
         stackView.addArrangedSubview(InfoText(text: "placeDetailsInfoText".localize(), leftInset: subInset))
         //location group
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.green", text: "locationDefaultGroupInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.red", text: "locationPhotoGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.green", text: "placeDefaultGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.red", text: "placePhotoGroupInfoText".localize()))
         stackView.addArrangedSubview(InfoText(text: "placeGroupInfoText".localize(), leftInset: subInset))
         
         // top menu

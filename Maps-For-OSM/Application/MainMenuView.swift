@@ -9,11 +9,6 @@ import CoreLocation
 
 protocol MainMenuDelegate{
     
-    func refreshMap()
-    func openPreloadTiles()
-    func changeTileSource()
-    func deleteAllTiles()
-    
     func showLocations(_ show: Bool)
     func openLocationList()
     func deleteAllLocations()
@@ -34,12 +29,15 @@ protocol MainMenuDelegate{
     
     func openSearch()
     
+    func openPreferences()
+    func refreshMap()
+    func openPreloadTiles()
+    func changeTileSource()
+    func deleteAllTiles()
     func exportToPhotoLibrary()
     func importFromPhotoLibrary()
     func createBackup()
     func restoreBackup()
-    
-    func openPreferences()
     
     func openInfo()
     
@@ -62,10 +60,6 @@ class MainMenuView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
         addSubviewFilling(stackView, insets: defaultInsets)
-        
-        stackView.addArrangedSubview(mapMenuControl)
-        mapMenuControl.menu = getMapMenu()
-        mapMenuControl.showsMenuAsPrimaryAction = true
         
         stackView.addArrangedSubview(locationMenuControl)
         locationMenuControl.menu = getLocationMenu()
@@ -113,23 +107,6 @@ class MainMenuView: UIView {
             self.delegate?.openInfo()
         }, for: .touchDown)
         
-    }
-    
-    func getMapMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "arrow.clockwise")){ action in
-            self.delegate?.refreshMap()
-        })
-        actions.append(UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
-            self.delegate?.openPreloadTiles()
-        })
-        actions.append(UIAction(title: "changeTileSource".localize(), image: UIImage(systemName: "map")){ action in
-            self.delegate?.changeTileSource()
-        })
-        actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteAllTiles()
-        })
-        return UIMenu(title: "", children: actions)
     }
     
     func getLocationMenu() -> UIMenu{
@@ -203,20 +180,32 @@ class MainMenuView: UIView {
     
     func getSettingsMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshapeh")){ action in
+        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openPreferences()
+        })
+        actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "map")){ action in
+            self.delegate?.refreshMap()
+        })
+        actions.append(UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "map")){ action in
+            self.delegate?.openPreloadTiles()
+        })
+        actions.append(UIAction(title: "changeTileSource".localize(), image: UIImage(systemName: "map")){ action in
+            self.delegate?.changeTileSource()
+        })
+        actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "map")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.deleteAllTiles()
         })
         actions.append(UIAction(title: "exportToPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
             self.delegate?.exportToPhotoLibrary()
             
         })
-        actions.append(UIAction(title: "importFromPhotoLibrary".localize(), image: UIImage(systemName: "photo.badge.arrow.down")){ action in
+        actions.append(UIAction(title: "importFromPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
             self.delegate?.importFromPhotoLibrary()
         })
-        actions.append(UIAction(title: "createBackup".localize(), image: UIImage(systemName: "square.and.arrow.up")){ action in
+        actions.append(UIAction(title: "createBackup".localize(), image: UIImage(systemName: "tray")){ action in
             self.delegate?.createBackup()
         })
-        actions.append(UIAction(title: "restoreBackup".localize(), image: UIImage(systemName: "square.and.arrow.down")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
+        actions.append(UIAction(title: "restoreBackup".localize(), image: UIImage(systemName: "tray")){ action in
             self.delegate?.restoreBackup()
         })
         return UIMenu(title: "", children: actions)

@@ -218,11 +218,13 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func restoreBackup(){
-        let types = UTType.types(tag: "zip", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
-        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
-        documentPickerController.directoryURL = FileController.backupDirURL
-        documentPickerController.delegate = self
-        self.present(documentPickerController, animated: true, completion: nil)
+        showDestructiveApprove(title: "restoreBackup".localize(), text: "restoreBackupHint".localize()){
+            let types = UTType.types(tag: "zip", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
+            let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
+            documentPickerController.directoryURL = FileController.backupDirURL
+            documentPickerController.delegate = self
+            self.present(documentPickerController, animated: true, completion: nil)
+        }
     }
     
 }
