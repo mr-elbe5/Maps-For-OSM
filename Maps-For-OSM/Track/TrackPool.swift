@@ -94,4 +94,21 @@ class TrackPool{
         list.removeAll()
     }
     
+    static func addTracksToPlaces(){
+        for track in list{
+            if let coordinate = track .startCoordinate{
+                let place = PlacePool.assertPlace(coordinate: coordinate)
+                if !place.tracks.contains(track){
+                    place.tracks.append(track)
+                }
+            }
+            if let coordinate = track .endCoordinate{
+                let place = PlacePool.assertPlace(coordinate: coordinate)
+                if !place.tracks.contains(track){
+                    place.tracks.append(track)
+                }
+            }
+        }
+    }
+    
 }

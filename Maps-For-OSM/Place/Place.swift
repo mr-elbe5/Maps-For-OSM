@@ -33,19 +33,26 @@ class Place : NSObject, Codable, Identifiable{
     var altitude: Double
     var timestamp: Date
     var mapPoint: MapPoint
+    var coordinateRegion: CoordinateRegion
     var name : String = ""
     var address : String = ""
     var note : String = ""
     var media : MediaList
+    var tracks = TrackList()
     
     var hasMedia : Bool{
         !media.isEmpty
+    }
+    
+    var hasTrack : Bool{
+        !tracks.isEmpty
     }
     
     init(coordinate: CLLocationCoordinate2D){
         id = UUID()
         media = MediaList()
         mapPoint = MapPoint(coordinate)
+        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
         self.coordinate = coordinate
         altitude = 0
         timestamp = Date()
@@ -60,6 +67,7 @@ class Place : NSObject, Codable, Identifiable{
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapPoint = MapPoint(coordinate)
+        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""

@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Preferences.loadInstance()
         TrackPool.load()
         PlacePool.load()
+        TrackPool.addTracksToPlaces()
         PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)

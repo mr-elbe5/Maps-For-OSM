@@ -50,6 +50,14 @@ class Track : Hashable, Codable{
         return startTime.distance(to: Date()) - pauseLength
     }
     
+    var startCoordinate: CLLocationCoordinate2D?{
+        trackpoints.first?.coordinate
+    }
+    
+    var endCoordinate: CLLocationCoordinate2D?{
+        trackpoints.last?.coordinate
+    }
+    
     init(){
         id = UUID()
         name = "trk"

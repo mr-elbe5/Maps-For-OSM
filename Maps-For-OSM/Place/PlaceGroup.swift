@@ -23,6 +23,15 @@ class PlaceGroup{
         return false
     }
     
+    var hasTrack: Bool{
+        for place in places{
+            if place.hasTrack{
+                return true
+            }
+        }
+        return false
+    }
+    
     var centralCoordinate: CLLocationCoordinate2D?{
         let count = places.count
         if count < 2{

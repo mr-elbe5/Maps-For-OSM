@@ -28,6 +28,8 @@ class Preferences: Identifiable, Codable{
     
     static var defaultMaxTrackpointInLineDeviation: Double = 2.0
     
+    static var maxPlaceMergeDistance: Double = 10.0
+    
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
             shared = prefs

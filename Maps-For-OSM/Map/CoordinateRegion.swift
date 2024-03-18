@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class CoordinateRegion{
+public class CoordinateRegion{
     
     var minLatitude : CLLocationDegrees
     var maxLatitude : CLLocationDegrees
@@ -30,6 +30,17 @@ class CoordinateRegion{
         minLatitude = bottomRight.latitude
         minLongitude = topLeft.longitude
         maxLongitude = bottomRight.longitude
+    }
+    
+    init(minLatitude: CLLocationDegrees, maxLatitude: CLLocationDegrees, minLongitude: CLLocationDegrees, maxLongitude: CLLocationDegrees){
+        self.minLatitude = minLatitude
+        self.maxLatitude = maxLatitude
+        self.minLongitude = minLongitude
+        self.maxLongitude = maxLongitude
+    }
+    
+    func isInside(coordinate: CLLocationCoordinate2D) -> Bool{
+        coordinate.latitude >= minLatitude && coordinate.latitude <= maxLatitude && coordinate.longitude >= minLongitude && coordinate.longitude <= maxLongitude
     }
     
     var string : String{

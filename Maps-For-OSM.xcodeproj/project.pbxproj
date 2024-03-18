@@ -399,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				4E24F45D27345D11004E69C2 /* CGRect.swift */,
-				4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */,
 				4E0BD9B726EA0239005A4A94 /* Codable.swift */,
 				4E0BD9B826EA0239005A4A94 /* Date.swift */,
 				4E0BD9B926EA0239005A4A94 /* String.swift */,
@@ -420,8 +419,6 @@
 				4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
 				4E025E3C274E420800D56ED7 /* TimeInterval.swift */,
-				4E3A415E28D83CD9004C9D90 /* CLLocation.swift */,
-				4E6A00F4294F5390009151E3 /* CLPlacemark.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -447,6 +444,9 @@
 		4E3BE7EA26EA7E57000F9069 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */,
+				4E3A415E28D83CD9004C9D90 /* CLLocation.swift */,
+				4E6A00F4294F5390009151E3 /* CLPlacemark.swift */,
 				4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */,
 				4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */,
 				4EE1461B28D368370058F3D3 /* MapPoint.swift */,

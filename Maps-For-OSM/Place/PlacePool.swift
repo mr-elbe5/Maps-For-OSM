@@ -34,8 +34,6 @@ class PlacePool{
     static var storeKey = "places"
     static var oldStoreKey = "locations"
     
-    static var maxMergeDistance = 10.0
-    
     static private var _lock = DispatchSemaphore(value: 1)
     
     static var list = PlaceList()
@@ -111,32 +109,12 @@ class PlacePool{
         list.removeAll()
     }
     
-    static func placeNextTo(coordinate: CLLocationCoordinate2D) -> Place?{
-        var distance : CLLocationDistance = Double.infinity
-        var nearestLocation : Place? = nil
-        for place in list{
-            let dist = place.coordinate.distance(to: coordinate)
-            if dist<maxMergeDistance && dist<distance{
-                distance = dist
-                nearestLocation = place
-            }
-        }
-        return nearestLocation
-    }
-    
     @discardableResult
-    static func getPlace(coordinate: CLLocationCoordinate2D) -> Place{
-        var distance : CLLocationDistance = Double.infinity
-        var nearestPlace : Place? = nil
+    static func assertPlace(coordinate: CLLocationCoordinate2D) -> Place{
         for place in list{
-            let dist = place.coordinate.distance(to: coordinate)
-            if dist<maxMergeDistance && dist<distance{
-                distance = dist
-                nearestPlace = place
+            if place.coordinateRegion.isInside(coordinate: coordinate){
+                return place
             }
-        }
-        if let place = nearestPlace{
-            return place
         }
         let place = PlacePool.addPlace(coordinate: coordinate)
         save()

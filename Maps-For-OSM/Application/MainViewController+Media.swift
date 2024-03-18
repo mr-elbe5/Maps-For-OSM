@@ -70,7 +70,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             if let coordinate = pickerController.coordinate{
-                let location = PlacePool.getPlace(coordinate: coordinate)
+                let location = PlacePool.assertPlace(coordinate: coordinate)
                 let changeState = location.media.isEmpty
                 location.addMedia(file: image)
                 PlacePool.save()
@@ -81,7 +81,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
                 }
             }
             else if let coordinate = LocationService.shared.location?.coordinate{
-                let location = PlacePool.getPlace(coordinate: coordinate)
+                let location = PlacePool.assertPlace(coordinate: coordinate)
                 let changeState = location.media.isEmpty
                 location.addMedia(file: image)
                 PlacePool.save()
@@ -104,7 +104,7 @@ extension MainViewController: CameraDelegate{
             let imageFile = ImageFile()
             imageFile.saveFile(data: data)
             print("photo saved locally")
-            let location = PlacePool.getPlace(coordinate: cllocation.coordinate)
+            let location = PlacePool.assertPlace(coordinate: cllocation.coordinate)
             let changeState = location.media.isEmpty
             location.addMedia(file: imageFile)
             PlacePool.save()
@@ -130,7 +130,7 @@ extension MainViewController: CameraDelegate{
             let videoFile = VideoFile()
             videoFile.saveFile(data: data)
             print("video saved locally")
-            let location = PlacePool.getPlace(coordinate: cllocation.coordinate)
+            let location = PlacePool.assertPlace(coordinate: cllocation.coordinate)
             let changeState = location.media.isEmpty
             location.addMedia(file: videoFile)
             PlacePool.save()
@@ -152,7 +152,7 @@ extension MainViewController: AudioCaptureDelegate{
     
     func audioCaptured(data: AudioFile){
         if let coordinate = LocationService.shared.location?.coordinate{
-            let location = PlacePool.getPlace(coordinate: coordinate)
+            let location = PlacePool.assertPlace(coordinate: coordinate)
             let changeState = location.media.isEmpty
             location.addMedia(file: data)
             PlacePool.save()

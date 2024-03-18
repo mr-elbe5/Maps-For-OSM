@@ -10,11 +10,17 @@ class PlaceMarker : Marker{
     
     static var mapPinDefaultImage = UIImage(named: "mappin.green")
     static var mapPinMediaImage = UIImage(named: "mappin.red")
+    static var mapPinTrackImage = UIImage(named: "mappin.blue")
+    static var mapPinMediaTrackImage = UIImage(named: "mappin.purple")
     
     var place : Place
     
     override var hasMedia : Bool{
         place.hasMedia
+    }
+    
+    override var hasTrack : Bool{
+        place.hasTrack
     }
     
     init(place: Place){
@@ -29,10 +35,20 @@ class PlaceMarker : Marker{
     
     override func updateImage(){
         if hasMedia{
-            setImage(PlaceMarker.mapPinMediaImage, for: .normal)
+            if hasTrack{
+                setImage(PlaceMarker.mapPinMediaTrackImage, for: .normal)
+            }
+            else{
+                setImage(PlaceMarker.mapPinMediaImage, for: .normal)
+            }
         }
         else{
-            setImage(PlaceMarker.mapPinDefaultImage, for: .normal)
+            if hasTrack{
+                setImage(PlaceMarker.mapPinTrackImage, for: .normal)
+            }
+            else{
+                setImage(PlaceMarker.mapPinDefaultImage, for: .normal)
+            }
         }
     }
     

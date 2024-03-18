@@ -391,7 +391,7 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
     
     func addPlace(at coordinate: CLLocationCoordinate2D) {
         if let coordinate = LocationService.shared.location?.coordinate{
-            PlacePool.getPlace(coordinate: coordinate)
+            PlacePool.assertPlace(coordinate: coordinate)
             DispatchQueue.main.async {
                 self.updateMarkerLayer()
             }

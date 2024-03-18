@@ -14,6 +14,10 @@ class Marker : UIButton{
         false
     }
     
+    var hasTrack : Bool{
+        false
+    }
+    
     func updatePosition(to pos: CGPoint){
         frame = Marker.baseFrame.offsetBy(dx: pos.x, dy: pos.y)
         setNeedsDisplay()

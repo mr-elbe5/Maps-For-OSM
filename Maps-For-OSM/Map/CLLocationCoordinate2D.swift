@@ -40,6 +40,17 @@ extension CLLocationCoordinate2D : Equatable{
         return sqrt(pow( latDelta * latMetersPerDegree,2) + pow( lonDelta * lonMetersPerDegree,2))
     }
     
+    public func coordinateRegion(radiusMeters: CGFloat) -> CoordinateRegion{
+        let angle = latitude/180*Double.pi
+        let latMetersPerDegree = 111132.954 - 559.822 * cos( 2 * angle ) + 1.175 * cos( 4 * angle) - 0.0023 * cos( 6 * angle)
+        let lonMetersPerDegree = 111132.954 * cos ( latitude*CLLocationCoordinate2D.degreeToRadFactor )
+        let longDegreeDiff = abs(radiusMeters/lonMetersPerDegree)
+        let latDegreeDiff = abs(radiusMeters/latMetersPerDegree)
+        let region = CoordinateRegion(minLatitude: latitude - latDegreeDiff, maxLatitude: latitude + latDegreeDiff, minLongitude: longitude - longDegreeDiff, maxLongitude: longitude + longDegreeDiff)
+        print(region.string)
+        return region
+    }
+    
     public var asString : String{
         let latitudeText = latitude > 0 ? "north".localize(table: "Location") : "south".localize(table: "Location")
         let longitudeText = longitude > 0 ? "east".localize(table: "Location") : "west".localize(table: "Location")
