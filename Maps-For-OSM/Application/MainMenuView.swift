@@ -34,7 +34,7 @@ protocol MainMenuDelegate{
     func openPreloadTiles()
     func changeTileSource()
     func deleteAllTiles()
-    func exportToPhotoLibrary()
+    func exportImagesToPhotoLibrary()
     func importFromPhotoLibrary()
     func createBackup()
     func restoreBackup()
@@ -195,8 +195,8 @@ class MainMenuView: UIView {
         actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "map")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAllTiles()
         })
-        actions.append(UIAction(title: "exportToPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
-            self.delegate?.exportToPhotoLibrary()
+        actions.append(UIAction(title: "exportImagesToPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
+            self.delegate?.exportImagesToPhotoLibrary()
             
         })
         actions.append(UIAction(title: "importFromPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in

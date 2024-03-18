@@ -21,6 +21,10 @@ extension String {
         return String(format: NSLocalizedString(self,comment: ""), String(i))
     }
     
+    func localize(i1: Int, i2: Int) -> String{
+        return String(format: NSLocalizedString(self,comment: ""), String(i1), String(i2))
+    }
+    
     func localize(s: String) -> String{
         return String(format: NSLocalizedString(self,comment: ""), s)
     }

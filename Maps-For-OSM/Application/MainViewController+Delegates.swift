@@ -154,38 +154,71 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
-    func exportToPhotoLibrary(){
+    func exportImagesToPhotoLibrary(){
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.startAnimating()
         view.addSubview(spinner)
         spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
         DispatchQueue.global(qos: .userInitiated).async {
-            var numCopied = 0
-            for location in PlacePool.list{
-                for media in location.media{
-                    switch (media.type){
-                    case .image:
-                        if let data = media.data.getFile(){
-                            if media.type == .image{
-                                PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
-                                    numCopied += 1
-                                })
-                            }
-                        }
-                    case .video:
-                        PhotoLibrary.saveVideo(outputFileURL: media.data.fileURL, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
-                            numCopied += 1
-                        })
-                    default:
-                        break
+            self.exportImagesToPhotoLibrary(){ numCopied, numErrors in
+                PlacePool.save()
+                DispatchQueue.main.async {
+                    spinner.stopAnimating()
+                    self.view.removeSubview(spinner)
+                    if numErrors == 0{
+                        self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
+                    }
+                    else{
+                        self.showAlert(title: "error".localize(), text: "imagesExportedWithErrors".localize(i1: numCopied, i2: numErrors))
                     }
                 }
-                PlacePool.save()
             }
-            DispatchQueue.main.async {
-                spinner.stopAnimating()
-                self.view.removeSubview(spinner)
-                self.showDone(title: "success".localize(), text: "mediaExported".localize(i: numCopied))
+        }
+    }
+    
+    private func exportImagesToPhotoLibrary(result: @escaping (Int, Int) -> Void){
+        PHPhotoLibrary.requestAuthorization { status in
+            if status == PHAuthorizationStatus.authorized {
+                var photoCount = 0
+                var numCopied = 0
+                var numErrors = 0
+                for location in PlacePool.list{
+                    for media in location.media{
+                        if media.type == .image{
+                            photoCount += 1
+                        }
+                    }
+                }
+                for location in PlacePool.list{
+                    for media in location.media{
+                        switch (media.type){
+                        case .image:
+                            if let data = media.data.getFile(){
+                                if media.type == .image{
+                                    PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: location.coordinate, altitude: location.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: location.timestamp), resultHandler: { localIdentifier in
+                                        if !localIdentifier.isEmpty{
+                                            numCopied += 1
+                                        }
+                                        else{
+                                            numErrors += 1
+                                        }
+                                        if numErrors + numCopied == photoCount{
+                                            result(numCopied, numErrors)
+                                        }
+                                    })
+                                }
+                            }
+                            else{
+                                numErrors += 1
+                                if numErrors + numCopied == photoCount{
+                                    result(numCopied, numErrors)
+                                }
+                            }
+                        default:
+                            break
+                        }
+                    }
+                }
             }
         }
     }
