@@ -1498,19 +1498,19 @@
         }
       }
     },
-    "exportToPhotoLibrary" : {
+    "exportImagesToPhotoLibrary" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alle Bilder und Videos nach 'Fotos' exportieren"
+            "value" : "Alle Bilder nach 'Fotos' exportieren"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Export all Images and Videos to 'Photos'"
+            "value" : "Export all Images to 'Photos'"
           }
         }
       }
@@ -1788,6 +1788,40 @@
         }
       }
     },
+    "imagesExported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Bilder wurden nach 'Fotos' exportiert"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ images have been exported to 'Photos'"
+          }
+        }
+      }
+    },
+    "imagesExportedWithErrors" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Bilder wurden nach 'Fotos' exportiert (%@ Fehler)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ images have been exported to 'Photos' (%@ errors)"
+          }
+        }
+      }
+    },
     "importFromPhotoLibrary" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2025,23 +2059,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Image, Video and Audio count: "
-          }
-        }
-      }
-    },
-    "mediaExported" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ Bilder und Videos wurden in 'Fotos' exportiert"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ images and videos have been exported to 'Photos'"
           }
         }
       }
