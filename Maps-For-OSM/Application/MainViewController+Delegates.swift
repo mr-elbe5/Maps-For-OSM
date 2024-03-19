@@ -110,7 +110,7 @@ extension MainViewController: MainMenuDelegate{
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()
                 self.statusView.stopTrackInfo()
-                self.mapView.updateLocationLayer()
+                self.mapView.updatePlaceLayer()
                 self.mainMenuView.updateTrackMenu()
             })
             present(alertController, animated: true)
@@ -309,6 +309,7 @@ extension MainViewController: UIDocumentPickerDelegate{
             if Backup.unzipBackupFile(zipFileURL: url){
                 if Backup.restoreBackupFile(){
                     self.showDone(title: "success".localize(), text: "restoreDone".localize())
+                    self.mapView.updatePlaceLayer()
                 }
             }
             spinner.stopAnimating()
@@ -423,8 +424,7 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func viewTrackDetails(track: Track) {
-        let controller = TrackViewController()
-        controller.track = track
+        let controller = TrackViewController(track: track)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)

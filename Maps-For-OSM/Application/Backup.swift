@@ -73,14 +73,12 @@ class Backup{
         Preferences.loadFromFile(url: url)
         Preferences.shared.save()
         url = FileController.temporaryURL.appendingPathComponent(PlacePool.storeKey + ".json")
-        if !FileController.fileExists(url: url){
-            url = FileController.temporaryURL.appendingPathComponent(PlacePool.oldStoreKey + ".json")
-        }
         PlacePool.loadFromFile(url: url)
         PlacePool.save()
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
         TrackPool.loadFromFile(url: url)
         TrackPool.save()
+        TrackPool.addTracksToPlaces()
         FileController.deleteTemporaryFiles()
         return true
     }

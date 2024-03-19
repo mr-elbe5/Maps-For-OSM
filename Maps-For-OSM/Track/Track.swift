@@ -23,6 +23,7 @@ class Track : Hashable, Codable{
         case distance
         case upDistance
         case downDistance
+        case note
     }
     
     var id : UUID
@@ -35,6 +36,7 @@ class Track : Hashable, Codable{
     var distance : CGFloat
     var upDistance : CGFloat
     var downDistance : CGFloat
+    var note : String
     
     var duration : TimeInterval{
         if let pauseTime = pauseTime{
@@ -67,6 +69,7 @@ class Track : Hashable, Codable{
         distance = 0
         upDistance = 0
         downDistance = 0
+        note = ""
     }
     
     required init(from decoder: Decoder) throws {
@@ -79,6 +82,7 @@ class Track : Hashable, Codable{
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
         downDistance = try values.decodeIfPresent(CGFloat.self, forKey: .downDistance) ?? 0
+        note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
     }
     
     func encode(to encoder: Encoder) throws {
@@ -91,6 +95,7 @@ class Track : Hashable, Codable{
         try container.encode(distance, forKey: .distance)
         try container.encode(upDistance, forKey: .upDistance)
         try container.encode(downDistance, forKey: .downDistance)
+        try container.encode(note, forKey: .note)
     }
     
     func hash(into hasher: inout Hasher) {

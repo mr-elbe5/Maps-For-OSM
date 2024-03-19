@@ -89,7 +89,7 @@ class MainViewController: UIViewController {
     }
     
     func updateMarkerLayer() {
-        mapView.updateLocationLayer()
+        mapView.updatePlaceLayer()
     }
     
 }

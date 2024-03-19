@@ -68,7 +68,7 @@ class MapView: UIView {
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
     }
     
-    func updateLocationLayer(){
+    func updatePlaceLayer(){
         placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
@@ -80,7 +80,7 @@ class MapView: UIView {
     func zoomTo(zoom: Int, animated: Bool){
         scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
         self.zoom = zoom
-        updateLocationLayer()
+        updatePlaceLayer()
     }
     
     func setRegion(region: CoordinateRegion){
@@ -92,7 +92,7 @@ class MapView: UIView {
         scaleTo(scale: AppState.shared.scale)
         Log.info("moving to \(AppState.shared.coordinate.shortString)")
         scrollView.scrollToScreenCenter(coordinate: AppState.shared.coordinate)
-        updateLocationLayer()
+        updatePlaceLayer()
     }
     
     func locationDidChange(location: CLLocation) {

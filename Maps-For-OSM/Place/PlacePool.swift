@@ -31,8 +31,7 @@ extension PlaceList{
 
 class PlacePool{
     
-    static var storeKey = "places"
-    static var oldStoreKey = "locations"
+    static var storeKey = "locations"
     
     static private var _lock = DispatchSemaphore(value: 1)
     
@@ -44,9 +43,6 @@ class PlacePool{
     
     static func load(){
         if let list : PlaceList = DataController.shared.load(forKey: PlacePool.storeKey){
-            PlacePool.list = list
-        }
-        else if let list : PlaceList = DataController.shared.load(forKey: PlacePool.oldStoreKey){
             PlacePool.list = list
         }
         else{

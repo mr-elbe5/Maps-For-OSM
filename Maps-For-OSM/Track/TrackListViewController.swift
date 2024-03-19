@@ -20,6 +20,10 @@ class TrackListViewController: PopupTableViewController{
     
     var tracks: TrackList? = nil
     
+    var selectMode = false
+    
+    let selectModeButton = UIButton().asIconButton("checkmark.circle", color: .label)
+    
     var delegate: TrackListDelegate? = nil
     
     override open func loadView() {
@@ -33,8 +37,13 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
+        headerView.addSubviewWithAnchors(selectModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor)
+        selectModeButton.addAction(UIAction(){ action in
+            self.toggleSelectMode()
+        }, for: .touchDown)
+        
         let loadButton = UIButton().asIconButton("arrow.down.square", color: .black)
-        headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: selectModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         loadButton.addAction(UIAction(){ action in
             self.loadTrack()
         }, for: .touchDown)
@@ -97,7 +106,7 @@ extension TrackListViewController : TrackDetailDelegate{
 extension TrackListViewController : TrackCellDelegate{
     
     func viewTrackDetails(track: Track) {
-        let trackController = TrackViewController()
+        let trackController = TrackViewController(track: track)
         trackController.track = track
         trackController.delegate = self
         trackController.modalPresentationStyle = .fullScreen
@@ -129,6 +138,17 @@ extension TrackListViewController : TrackCellDelegate{
         self.delegate?.deleteTrack(track: track, approved: true)
         tracks?.remove(track)
         tableView.reloadData()
+    }
+    
+    func toggleSelectMode(){
+        if selectMode{
+            selectModeButton.tintColor = .black
+            selectMode = false
+        }
+        else{
+            selectModeButton.tintColor = .systemBlue
+            selectMode = true
+        }
     }
     
 }
