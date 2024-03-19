@@ -92,18 +92,12 @@ class PlaceViewController: PopupScrollViewController{
     func setupNoteContainerView(){
         noteContainerView.removeAllSubviews()
         if editMode{
-            let noteEditView = TextEditArea()
+            let noteEditView = TextEditArea().defaultWithBorder()
             noteEditView.text = place.note
-            noteEditView.setGrayRoundedBorders()
-            noteEditView.setDefaults()
-            noteEditView.isScrollEnabled = false
-            noteEditView.setKeyboardToolbar(doneTitle: "done".localize())
             noteContainerView.addSubviewWithAnchors(noteEditView, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, insets: defaultInsets)
             self.noteEditView = noteEditView
             
-            let saveButton = UIButton()
-            saveButton.setTitle("save".localize(), for: .normal)
-            saveButton.setTitleColor(.systemBlue, for: .normal)
+            let saveButton = UIButton().asTextButton("save".localize(), color: .systemBlue)
             saveButton.addAction(UIAction(){ action in
                 self.save()
             }, for: .touchDown)

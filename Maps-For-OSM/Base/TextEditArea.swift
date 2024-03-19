@@ -45,6 +45,14 @@ class TextEditArea : UITextView{
         self.placeholder = placeholder
     }
     
+    func defaultWithBorder() -> TextEditArea{
+        setGrayRoundedBorders()
+        setDefaults()
+        isScrollEnabled = false
+        setKeyboardToolbar(doneTitle: "done".localize())
+        return self
+    }
+    
     override var contentInset: UIEdgeInsets {
         didSet {
             placeholderTextView.contentInset = contentInset

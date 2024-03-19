@@ -68,31 +68,21 @@ class PlaceCell: UITableViewCell{
             cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor
             
-            var label = UILabel()
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
-            label.text = location.address
+            var label = UILabel(text: location.address)
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            label = UILabel()
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
-            label.text = location.note
+            label = UILabel(text: location.note)
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
             if !location.note.isEmpty{
-                label = UILabel()
-                label.numberOfLines = 0
-                label.lineBreakMode = .byWordWrapping
-                label.text = location.note
+                label = UILabel(text: location.note)
                 cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
                 nextAnchor = label.bottomAnchor
             }
             
-            label = UILabel()
-            label.text = "mediaCount".localize() + String(location.media.count)
+            label = UILabel(text: "mediaCount".localize() + String(location.media.count))
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             

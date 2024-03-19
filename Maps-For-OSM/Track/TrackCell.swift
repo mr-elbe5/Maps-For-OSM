@@ -45,8 +45,7 @@ class TrackCell: UITableViewCell{
         cellBody.removeAllSubviews()
         if let track = track{
             
-            let deleteButton = UIButton().asIconButton("trash")
-            deleteButton.tintColor = UIColor.systemRed
+            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
             deleteButton.addAction(UIAction(){ action in
                 if let track = self.track{
                     self.delegate?.deleteTrack(track: track, approved: false)

@@ -107,12 +107,8 @@ class TrackViewController: PopupScrollViewController{
     func setupNoteContainerView(){
         noteContainerView.removeAllSubviews()
         if editMode{
-            let noteEditView = TextEditArea()
+            let noteEditView = TextEditArea().defaultWithBorder()
             noteEditView.text = track.note
-            noteEditView.setGrayRoundedBorders()
-            noteEditView.setDefaults()
-            noteEditView.isScrollEnabled = false
-            noteEditView.setKeyboardToolbar(doneTitle: "done".localize())
             noteContainerView.addSubviewWithAnchors(noteEditView, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, insets: defaultInsets)
             self.noteEditView = noteEditView
             
