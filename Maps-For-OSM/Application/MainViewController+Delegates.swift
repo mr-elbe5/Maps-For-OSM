@@ -43,6 +43,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openLocationList() {
         let controller = PlaceListViewController()
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -124,6 +125,7 @@ extension MainViewController: MainMenuDelegate{
     func openTrackList() {
         let controller = TrackListViewController()
         controller.tracks = TrackPool.list
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -347,7 +349,7 @@ extension MainViewController: MapPositionDelegate{
         let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
         let controller = LocationViewController(coordinate: coordinate, title: "currentLocation".localize())
         controller.delegate = self
-        controller.modalPresentationStyle = .popover
+        controller.modalPresentationStyle = .automatic
         present(controller, animated: true)
     }
     
@@ -355,7 +357,7 @@ extension MainViewController: MapPositionDelegate{
         let coordinate = mapView.scrollView.screenCenterCoordinate
         let controller = LocationViewController(coordinate: coordinate, title: "crossLocation".localize())
         controller.delegate = self
-        controller.modalPresentationStyle = .popover
+        controller.modalPresentationStyle = .automatic
         present(controller, animated: true)
     }
     
@@ -374,7 +376,7 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
     }
     
     func showPlaceDetails(place: Place) {
-        let controller = PlaceDetailViewController(location: place)
+        let controller = PlaceViewController(location: place)
         controller.place = place
         controller.modalPresentationStyle = .fullScreen
         controller.delegate = self
@@ -421,7 +423,7 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
     func viewTrackDetails(track: Track) {
-        let controller = TrackDetailViewController()
+        let controller = TrackViewController()
         controller.track = track
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen

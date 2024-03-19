@@ -102,12 +102,6 @@ class TrackPool{
                     place.tracks.append(track)
                 }
             }
-            if let coordinate = track .endCoordinate{
-                let place = PlacePool.assertPlace(coordinate: coordinate)
-                if !place.tracks.contains(track){
-                    place.tracks.append(track)
-                }
-            }
         }
     }
     

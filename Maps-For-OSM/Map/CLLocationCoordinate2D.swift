@@ -47,7 +47,6 @@ extension CLLocationCoordinate2D : Equatable{
         let longDegreeDiff = abs(radiusMeters/lonMetersPerDegree)
         let latDegreeDiff = abs(radiusMeters/latMetersPerDegree)
         let region = CoordinateRegion(minLatitude: latitude - latDegreeDiff, maxLatitude: latitude + latDegreeDiff, minLongitude: longitude - longDegreeDiff, maxLongitude: longitude + longDegreeDiff)
-        print(region.string)
         return region
     }
     

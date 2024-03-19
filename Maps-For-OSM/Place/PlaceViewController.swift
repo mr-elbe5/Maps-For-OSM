@@ -11,7 +11,7 @@ protocol PlaceViewDelegate{
     func updateMarkerLayer()
 }
 
-class PlaceDetailViewController: PopupScrollViewController{
+class PlaceViewController: PopupScrollViewController{
     
     let editButton = UIButton().asIconButton("pencil.circle", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .red)
@@ -185,7 +185,7 @@ class PlaceDetailViewController: PopupScrollViewController{
     
 }
 
-extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
@@ -204,7 +204,7 @@ extension PlaceDetailViewController: UIImagePickerControllerDelegate, UINavigati
     
 }
 
-extension PlaceDetailViewController: ImageListItemDelegate{
+extension PlaceViewController: ImageListItemDelegate{
     
     func viewImage(sender: ImageListItemView) {
         let imageViewController = ImageViewController()
@@ -248,7 +248,7 @@ extension PlaceDetailViewController: ImageListItemDelegate{
     
 }
 
-extension PlaceDetailViewController: VideoListItemDelegate{
+extension PlaceViewController: VideoListItemDelegate{
     
     func viewVideo(sender: VideoListItemView) {
         let videoViewController = VideoViewController()
@@ -275,7 +275,7 @@ extension PlaceDetailViewController: VideoListItemDelegate{
     
 }
 
-extension PlaceDetailViewController: AudioListItemDelegate{
+extension PlaceViewController: AudioListItemDelegate{
     
     func deleteAudio(sender: AudioListItemView) {
         showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){

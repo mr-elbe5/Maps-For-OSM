@@ -46,7 +46,7 @@ class PlacePool{
         if let list : PlaceList = DataController.shared.load(forKey: PlacePool.storeKey){
             PlacePool.list = list
         }
-        if let list : PlaceList = DataController.shared.load(forKey: PlacePool.oldStoreKey){
+        else if let list : PlaceList = DataController.shared.load(forKey: PlacePool.oldStoreKey){
             PlacePool.list = list
         }
         else{
@@ -73,10 +73,6 @@ class PlacePool{
         if let string = FileController.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
             list = data
         }
-    }
-    
-    static func place(at idx: Int) -> Place?{
-        list[idx]
     }
     
     @discardableResult
@@ -112,7 +108,7 @@ class PlacePool{
     @discardableResult
     static func assertPlace(coordinate: CLLocationCoordinate2D) -> Place{
         for place in list{
-            if place.coordinateRegion.isInside(coordinate: coordinate){
+            if place.coordinateRegion.contains(coordinate: coordinate){
                 return place
             }
         }

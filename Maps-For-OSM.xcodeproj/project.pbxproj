@@ -42,7 +42,7 @@
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
 		4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1A274BA72100F3D584 /* TrackCell.swift */; };
 		4E1D0E1E274BCDD200F3D584 /* GPXCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */; };
-		4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */; };
+		4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */; };
 		4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */; };
 		4E1D0E24274C223C00F3D584 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* PlaceCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
@@ -104,7 +104,7 @@
 		4E5F8C8C298D18F700D1CE5C /* MainViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8B298D18F700D1CE5C /* MainViewController+Delegates.swift */; };
 		4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A00F4294F5390009151E3 /* CLPlacemark.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
-		4E89173F273688580046AC91 /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceDetailViewController.swift */; };
+		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
@@ -176,7 +176,7 @@
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E1A274BA72100F3D584 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXCreator.swift; sourceTree = "<group>"; };
-		4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailViewController.swift; sourceTree = "<group>"; };
+		4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E23274C223C00F3D584 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 		4E5F8C8B298D18F700D1CE5C /* MainViewController+Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Delegates.swift"; sourceTree = "<group>"; };
 		4E6A00F4294F5390009151E3 /* CLPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLPlacemark.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
-		4E89173E273688580046AC91 /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
+		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 				4EA45A632747CA22001F3533 /* GPXParser.swift */,
 				4E2088E22743A24E0097BFBA /* Track.swift */,
 				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
-				4E1D0E1F274BDB1900F3D584 /* TrackDetailViewController.swift */,
+				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
 				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
@@ -428,7 +428,7 @@
 			children = (
 				4ED5DF43273E831B00549AF8 /* Place.swift */,
 				4E1D0E23274C223C00F3D584 /* PlaceCell.swift */,
-				4E89173E273688580046AC91 /* PlaceDetailViewController.swift */,
+				4E89173E273688580046AC91 /* PlaceViewController.swift */,
 				4ED55ECC2976B17300C679AF /* PlaceGroup.swift */,
 				4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */,
 				4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */,
@@ -674,7 +674,7 @@
 				4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */,
 				4E4424862B94FA100007A26F /* PreviewView.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
-				4E1D0E20274BDB1900F3D584 /* TrackDetailViewController.swift in Sources */,
+				4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */,
 				4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */,
 				4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */,
 				4EE1462028D368D60058F3D3 /* MapSize.swift in Sources */,
@@ -691,7 +691,7 @@
 				4E24F48127345D11004E69C2 /* TextEditArea.swift in Sources */,
 				4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */,
 				4EE1461A28D368020058F3D3 /* MapRect.swift in Sources */,
-				4E89173F273688580046AC91 /* PlaceDetailViewController.swift in Sources */,
+				4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E5F8C8C298D18F700D1CE5C /* MainViewController+Delegates.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* MainMenuView.swift in Sources */,

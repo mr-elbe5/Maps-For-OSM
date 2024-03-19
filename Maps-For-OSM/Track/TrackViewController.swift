@@ -18,7 +18,7 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-class TrackDetailViewController: PopupScrollViewController{
+class TrackViewController: PopupScrollViewController{
     
     var track: Track? = nil
     

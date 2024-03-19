@@ -42,7 +42,7 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
-        let track = PlacePool.place(at: indexPath.row)
+        let track = PlacePool.list[indexPath.row]
         cell.place = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
@@ -79,7 +79,7 @@ extension PlaceListViewController : PlaceCellDelegate{
     }
     
     func viewPlace(place: Place) {
-        let placeController = PlaceDetailViewController(location: place)
+        let placeController = PlaceViewController(location: place)
         placeController.place = place
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)

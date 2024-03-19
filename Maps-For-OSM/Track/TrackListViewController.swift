@@ -97,7 +97,7 @@ extension TrackListViewController : TrackDetailDelegate{
 extension TrackListViewController : TrackCellDelegate{
     
     func viewTrackDetails(track: Track) {
-        let trackController = TrackDetailViewController()
+        let trackController = TrackViewController()
         trackController.track = track
         trackController.delegate = self
         trackController.modalPresentationStyle = .fullScreen

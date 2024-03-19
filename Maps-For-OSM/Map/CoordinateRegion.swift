@@ -39,7 +39,7 @@ public class CoordinateRegion{
         self.maxLongitude = maxLongitude
     }
     
-    func isInside(coordinate: CLLocationCoordinate2D) -> Bool{
+    func contains(coordinate: CLLocationCoordinate2D) -> Bool{
         coordinate.latitude >= minLatitude && coordinate.latitude <= maxLatitude && coordinate.longitude >= minLongitude && coordinate.longitude <= maxLongitude
     }
     
