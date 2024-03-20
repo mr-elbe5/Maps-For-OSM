@@ -6,28 +6,23 @@
 
 import Foundation
 
-typealias PlaceItemList = Array<PlaceItemListItem>
-    
+typealias PlaceItemList = Array<PlaceItem>
+
 extension PlaceItemList{
     
-    mutating func append(_ item: PlaceItemData){
-        let listItem = PlaceItemListItem(item: item)
-        append(listItem)
-    }
-    
-    mutating func remove(_ item: PlaceItemData){
+    mutating func remove(_ item: PlaceItem){
         for idx in 0..<self.count{
-            if self[idx].data == item{
-                item.deleteResources()
+            if self[idx] == item{
+                item.prepareDelete()
                 self.remove(at: idx)
                 return
             }
         }
     }
     
-    func contains(_ item: PlaceItemData) -> Bool{
+    func contains(_ item: PlaceItem) -> Bool{
         for idx in 0..<self.count{
-            if self[idx].data == item{
+            if self[idx] == item{
                 return true
             }
         }
@@ -35,15 +30,36 @@ extension PlaceItemList{
     }
     
     mutating func removeAllItems(){
-        for listItem in self{
-            listItem.data.deleteResources()
+        for item in self{
+            item.prepareDelete()
         }
-        removeAll()
+        self.removeAll()
     }
     
 }
 
-class PlaceItemListItem : Identifiable, Codable{
+typealias PlaceMetaItemList = Array<PlaceItemMetaData>
+    
+extension PlaceMetaItemList{
+    
+    mutating func loadItemList(items: PlaceItemList){
+        removeAll()
+        for i in 0..<items.count{
+            append(PlaceItemMetaData(item: items[i]))
+        }
+    }
+    
+    func toItemList() -> PlaceItemList{
+        var items = PlaceItemList()
+        for metaItem in self{
+            items.append(metaItem.data)
+        }
+        return items
+    }
+    
+}
+
+class PlaceItemMetaData : Identifiable, Codable{
     
     private enum CodingKeys: CodingKey{
         case type
@@ -51,9 +67,9 @@ class PlaceItemListItem : Identifiable, Codable{
     }
     
     var type : PlaceItemType
-    var data : PlaceItemData
+    var data : PlaceItem
     
-    init(item: PlaceItemData){
+    init(item: PlaceItem){
         self.type = item.type
         self.data = item
     }
@@ -63,13 +79,13 @@ class PlaceItemListItem : Identifiable, Codable{
         type = try values.decode(PlaceItemType.self, forKey: .type)
         switch type{
         case .audio:
-            data = try values.decode(AudioData.self, forKey: .data)
+            data = try values.decode(AudioItem.self, forKey: .data)
         case .image:
-            data = try values.decode(ImageData.self, forKey: .data)
+            data = try values.decode(ImageItem.self, forKey: .data)
         case .video:
-            data = try values.decode(VideoData.self, forKey: .data)
+            data = try values.decode(VideoItem.self, forKey: .data)
         case .track:
-            data = try values.decode(TrackData.self, forKey: .data)
+            data = try values.decode(TrackItem.self, forKey: .data)
         }
     }
     

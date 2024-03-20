@@ -7,15 +7,15 @@
 import UIKit
 
 protocol TrackCellDelegate{
-    func showTrackOnMap(track: TrackData)
-    func viewTrackDetails(track: TrackData)
-    func exportTrack(track: TrackData)
-    func deleteTrack(track: TrackData, approved: Bool)
+    func showTrackOnMap(track: TrackItem)
+    func viewTrackDetails(track: TrackItem)
+    func exportTrack(track: TrackItem)
+    func deleteTrack(track: TrackItem, approved: Bool)
 }
 
 class TrackCell: UITableViewCell{
     
-    var track : TrackData? = nil {
+    var track : TrackItem? = nil {
         didSet {
             updateCell()
         }

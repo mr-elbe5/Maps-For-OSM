@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class MediaData : PlaceItemData{
+class MediaItem : PlaceItem{
     
     private enum CodingKeys: CodingKey{
         case creationDate
@@ -98,15 +98,11 @@ class MediaData : PlaceItemData{
         }
     }
     
-    override func deleteResources(){
-        prepareDelete()
-    }
-    
     func fileExists() -> Bool{
         return FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName)
     }
     
-    func prepareDelete(){
+    override func prepareDelete(){
         if FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName){
             if !FileController.deleteFile(dirURL: FileController.mediaDirURL, fileName: fileName){
                 Log.error("FileData could not delete file: \(fileName)")

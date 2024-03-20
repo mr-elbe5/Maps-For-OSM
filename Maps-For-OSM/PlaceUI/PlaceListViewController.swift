@@ -16,8 +16,6 @@ protocol PlaceListDelegate: PlaceViewDelegate{
 
 class PlaceListViewController: PopupTableViewController{
 
-    private static let CELL_IDENT = "placeCell"
-    
     var delegate: PlaceListDelegate? = nil
     
     override func loadView() {
@@ -25,7 +23,7 @@ class PlaceListViewController: PopupTableViewController{
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceListViewController.CELL_IDENT)
+        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.CELL_IDENT)
     }
     
 }
@@ -41,7 +39,7 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceListViewController.CELL_IDENT, for: indexPath) as! PlaceCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.CELL_IDENT, for: indexPath) as! PlaceCell
         cell.place = PlacePool.list[indexPath.row]
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)

@@ -13,9 +13,9 @@ enum PlaceItemType: String, Codable{
     case track
 }
 
-class PlaceItemData : NSObject, Codable, Identifiable{
+class PlaceItem : NSObject, Codable, Identifiable{
     
-    static func == (lhs: PlaceItemData, rhs: PlaceItemData) -> Bool {
+    static func == (lhs: PlaceItem, rhs: PlaceItem) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -45,7 +45,7 @@ class PlaceItemData : NSObject, Codable, Identifiable{
         try container.encode(id, forKey: .id)
     }
     
-    func deleteResources(){
+    func prepareDelete(){
     }
     
 }

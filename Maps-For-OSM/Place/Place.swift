@@ -66,12 +66,12 @@ class Place : NSObject, Codable, Identifiable{
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
-        var items = try values.decodeIfPresent(PlaceItemList.self, forKey: .items)
-        if items == nil{
+        var metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .items)
+        if metaItems == nil{
             print("key items not found - trying key media")
-            items = try values.decodeIfPresent(PlaceItemList.self, forKey: .media)
+            metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .media)
         }
-        self.items = items ?? PlaceItemList()
+        self.items = metaItems?.toItemList() ?? PlaceItemList()
         super.init()
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
@@ -88,7 +88,9 @@ class Place : NSObject, Codable, Identifiable{
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
         try container.encode(note, forKey: .note)
-        try container.encode(items, forKey: .items)
+        var metaList = PlaceMetaItemList()
+        metaList.loadItemList(items: self.items)
+        try container.encode(metaList, forKey: .items)
     }
     
     func evaluatePlacemark(){
@@ -105,12 +107,12 @@ class Place : NSObject, Codable, Identifiable{
         
     }
     
-    func addItem(file: MediaData){
-        items.append(file)
+    func addItem(item: PlaceItem){
+        items.append(item)
     }
     
-    func deleteItem(file: MediaData){
-        items.remove(file)
+    func deleteItem(item: PlaceItem){
+        items.remove(item)
     }
     
     func deleteAllItems(){

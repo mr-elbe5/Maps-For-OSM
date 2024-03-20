@@ -195,7 +195,7 @@ extension MainViewController: MainMenuDelegate{
                     for listItem in place.items{
                         switch (listItem.type){
                         case .image:
-                            if let item = listItem.data as? ImageData, let data = item.getFile(){
+                            if let item = listItem as? ImageItem, let data = item.getFile(){
                                 if listItem.type == .image{
                                     PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: place.coordinate, altitude: place.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: place.timestamp), resultHandler: { localIdentifier in
                                         if !localIdentifier.isEmpty{
@@ -366,6 +366,7 @@ extension MainViewController: MapPositionDelegate{
 
 extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate, LocationViewDelegate {
     
+    
     func showPlaceOnMap(place: Place) {
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
@@ -401,6 +402,9 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
         }
     }
     
+    func showItemOnMap(place: Place, item: PlaceItem) {
+        
+    }
     
     func showGroupDetails(group: PlaceGroup) {
         let controller = PlaceGroupViewController(group: group)
@@ -423,14 +427,14 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
 
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
     
-    func viewTrackDetails(track: TrackData) {
+    func viewTrackDetails(track: TrackItem) {
         let controller = TrackViewController(track: track)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func deleteTrack(track: TrackData, approved: Bool) {
+    func deleteTrack(track: TrackItem, approved: Bool) {
         if approved{
             deleteTrack(track: track)
         }
@@ -441,7 +445,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         }
     }
     
-    private func deleteTrack(track: TrackData){
+    private func deleteTrack(track: TrackItem){
         let isVisibleTrack = track == TrackPool.visibleTrack
         TrackPool.deleteTrack(track)
         if isVisibleTrack{
@@ -450,7 +454,7 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         }
     }
     
-    func showTrackOnMap(track: TrackData) {
+    func showTrackOnMap(track: TrackItem) {
         if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
             TrackPool.visibleTrack = track
             mapView.trackLayerView.setNeedsDisplay()

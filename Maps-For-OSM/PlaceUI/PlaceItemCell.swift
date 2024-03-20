@@ -7,20 +7,12 @@
 import UIKit
 
 protocol PlaceItemCellDelegate{
-    func deleteMapItem(item: PlaceItemData)
-    func viewMapItem(item: PlaceItemData)
-    func showItemOnMap(item: PlaceItemData)
+    func deletePlaceItem(item: PlaceItem)
+    func viewPlaceItem(item: PlaceItem)
+    func showItemOnMap(item: PlaceItem)
 }
 
 class PlaceItemCell: UITableViewCell{
-    
-    var placeItem : PlaceItemData? = nil {
-        didSet {
-            updateCell()
-        }
-    }
-    
-    var delegate: PlaceItemCellDelegate? = nil
     
     var cellBody = UIView()
     
@@ -40,29 +32,6 @@ class PlaceItemCell: UITableViewCell{
     }
     
     func updateCell(isEditing: Bool = false){
-        cellBody.removeAllSubviews()
-        if let item = placeItem{
-            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addAction(UIAction(){ action in
-                self.delegate?.deleteMapItem(item: item)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewMapItem(item: item)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
-            
-            let mapButton = UIButton().asIconButton("map", color: .label)
-            mapButton.addAction(UIAction(){ action in
-                self.delegate?.showItemOnMap(item: item)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
-            var nextAnchor = mapButton.bottomAnchor
-            
-            
-        }
     }
     
 }

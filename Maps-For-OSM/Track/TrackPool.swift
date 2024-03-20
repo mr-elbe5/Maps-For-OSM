@@ -6,11 +6,11 @@
 
 import Foundation
 
-typealias TrackList = Array<TrackData>
+typealias TrackList = Array<TrackItem>
 
 extension TrackList{
     
-    mutating func remove(_ track: TrackData){
+    mutating func remove(_ track: TrackItem){
         for idx in 0..<self.count{
             if self[idx] == track{
                 self.remove(at: idx)
@@ -27,7 +27,7 @@ class TrackPool{
     
     static var list = TrackList()
     
-    static var visibleTrack : TrackData? = nil
+    static var visibleTrack : TrackItem? = nil
     
     static private var _lock = DispatchSemaphore(value: 1)
     
@@ -62,12 +62,12 @@ class TrackPool{
         }
     }
     
-    static func track(at idx: Int) -> TrackData?{
+    static func track(at idx: Int) -> TrackItem?{
         list[idx]
     }
     
     @discardableResult
-    static func addTrack(track: TrackData) -> Bool{
+    static func addTrack(track: TrackItem) -> Bool{
         _lock.wait()
         defer{_lock.signal()}
         if !list.contains(track){
@@ -77,7 +77,7 @@ class TrackPool{
         return false
     }
     
-    static func deleteTrack(_ track: TrackData){
+    static func deleteTrack(_ track: TrackItem){
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{

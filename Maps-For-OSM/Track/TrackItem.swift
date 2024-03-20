@@ -8,7 +8,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TrackData : PlaceItemData{
+class TrackItem : PlaceItem{
     
     private enum CodingKeys: String, CodingKey {
         case startTime

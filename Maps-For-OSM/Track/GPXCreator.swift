@@ -11,7 +11,7 @@ class GPXCreator : NSObject{
     
     static var temporaryFileName = "track.gpx"
     
-    static func createTemporaryFile(track: TrackData) -> URL?{
+    static func createTemporaryFile(track: TrackItem) -> URL?{
         let trackName = track.name.replacingOccurrences(of: " ", with: "_")
         if let url = URL(string: "track_\(trackName)_\(track.startTime.fileDate()).gpx", relativeTo: FileController.temporaryURL){
             let s = trackString(track: track)
@@ -32,7 +32,7 @@ class GPXCreator : NSObject{
             """
     }
     
-    static func trackString(track: TrackData) -> String{
+    static func trackString(track: TrackItem) -> String{
         var str = """
     <?xml version='1.0' encoding='UTF-8'?>
     <gpx version="1.1" creator="Maps For OSM" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">

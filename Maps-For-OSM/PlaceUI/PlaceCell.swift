@@ -15,6 +15,8 @@ protocol PlaceCellDelegate{
 
 class PlaceCell: UITableViewCell{
     
+    static let CELL_IDENT = "placeCell"
+    
     var place : Place? = nil {
         didSet {
             updateCell()

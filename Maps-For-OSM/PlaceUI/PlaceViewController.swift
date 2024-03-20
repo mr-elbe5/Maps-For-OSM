@@ -9,16 +9,18 @@ import UIKit
 
 protocol PlaceViewDelegate{
     func updateMarkerLayer()
+    func showItemOnMap(place: Place, item: PlaceItem)
 }
 
-class PlaceViewController: PopupScrollViewController{
+class PlaceViewController: PopupViewController{
     
     let editButton = UIButton().asIconButton("pencil.circle", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .red)
     
     let noteContainerView = UIView()
     var noteEditView : TextEditArea? = nil
-    let mediaStackView = UIStackView()
+    
+    var tableView = UITableView()
     
     var editMode = false
     
@@ -39,9 +41,38 @@ class PlaceViewController: PopupScrollViewController{
     override func loadView() {
         title = "place".localize()
         super.loadView()
-        scrollView.setupVertical()
-        setupContent()
-        setupKeyboard()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(AudioItemCell.self, forCellReuseIdentifier: AudioItemCell.CELL_IDENT)
+        tableView.register(VideoItemCell.self, forCellReuseIdentifier: VideoItemCell.CELL_IDENT)
+        tableView.register(ImageItemCell.self, forCellReuseIdentifier: ImageItemCell.CELL_IDENT)
+        tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackItemCell.CELL_IDENT)
+        
+        let guide = view.safeAreaLayoutGuide
+        
+        var header = UILabel(header: "placeData".localize())
+        view.addSubviewWithAnchors(header, top: headerView?.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
+        
+        let locationLabel = UILabel(text: place.address)
+        view.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
+        
+        let coordinateLabel = UILabel(text: place.coordinate.asString)
+        view.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: flatInsets)
+        
+        header = UILabel(header: "note".localize())
+        view.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(noteContainerView, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
+        setupNoteContainerView()
+        
+        header = UILabel(header: "media".localize())
+        view.addSubviewWithAnchors(header, top: noteContainerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
+        
+        view.addSubviewWithAnchors(tableView, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: defaultInsets)
+        tableView.allowsSelection = false
+        tableView.allowsSelectionDuringEditing = false
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .systemGray6
+        
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -64,31 +95,6 @@ class PlaceViewController: PopupScrollViewController{
         }, for: .touchDown)
     }
     
-    func setupContent(){
-        hadItems = place.hasItems
-        var header = UILabel(header: "placeData".localize())
-        contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        
-        let locationLabel = UILabel(text: place.address)
-        contentView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        let coordinateLabel = UILabel(text: place.coordinate.asString)
-        contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
-        header = UILabel(header: "note".localize())
-        contentView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubviewWithAnchors(noteContainerView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor)
-        setupNoteContainerView()
-        
-        header = UILabel(header: "media".localize())
-        contentView.addSubviewWithAnchors(header, top: noteContainerView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        mediaStackView.setupVertical()
-        setupMediaStackView()
-        contentView.addSubviewWithAnchors(mediaStackView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: 0, right: defaultInset))
-        
-    }
-    
     func setupNoteContainerView(){
         noteContainerView.removeAllSubviews()
         if editMode{
@@ -108,39 +114,6 @@ class PlaceViewController: PopupScrollViewController{
             self.noteEditView = nil
             let noteLabel = UILabel(text: place.note)
             noteContainerView.addSubviewWithAnchors(noteLabel, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
-        }
-    }
-    
-    func setupMediaStackView(){
-        mediaStackView.removeAllArrangedSubviews()
-        mediaStackView.removeAllSubviews()
-        for listItem in place.items{
-            switch listItem.type{
-            case .image:
-                if let image = listItem.data as? ImageData{
-                    let imageView = ImageListItemView(data: image)
-                    imageView.delegate = self
-                    mediaStackView.addArrangedSubview(imageView)
-                }
-            case .video:
-                if let video = listItem.data as? VideoData{
-                    let videoView = VideoListItemView(data: video)
-                    videoView.delegate = self
-                    mediaStackView.addArrangedSubview(videoView)
-                }
-            case .audio:
-                if let audio = listItem.data as? AudioData{
-                    let audioView = AudioListItemView(data: audio)
-                    audioView.delegate = self
-                    mediaStackView.addArrangedSubview(audioView)
-                }
-            case .track:
-                if let track = listItem.data as? TrackData{
-                    /*let trackView = TrackListItemView(data: track)
-                    trackView.delegate = self
-                    mediaStackView.addArrangedSubview(trackView)*/
-                }
-            }
         }
     }
     
@@ -189,109 +162,124 @@ extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageData()
+        let image = ImageItem()
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            place.addItem(file: image)
+            place.addItem(item: image)
             PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            let imageView = ImageListItemView(data: image)
-            imageView.delegate = self
-            mediaStackView.addArrangedSubview(imageView)
+            self.tableView.reloadData()
         }
         picker.dismiss(animated: false)
     }
     
 }
 
-extension PlaceViewController: ImageListItemDelegate{
+extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
-    func viewImage(sender: ImageListItemView) {
-        let imageViewController = ImageViewController()
-        imageViewController.uiImage = sender.imageData.getImage()
-        imageViewController.modalPresentationStyle = .fullScreen
-        self.present(imageViewController, animated: true)
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-    func shareImage(sender: ImageListItemView) {
-        let alertController = UIAlertController(title: title, message: "shareImage".localize(), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
-            FileController.copyImageToLibrary(name: sender.imageData.fileName, fromDir: FileController.mediaDirURL){ result in
-                DispatchQueue.main.async {
-                    switch result{
-                    case .success:
-                        self.showAlert(title: "success".localize(), text: "imageShared".localize())
-                    case .failure(let err):
-                        self.showAlert(title: "error".localize(), text: err.errorDescription!)
-                    }
-                }
-            }
-        })
-        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
-        self.present(alertController, animated: true)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        place.items.count
     }
     
-    func deleteImage(sender: ImageListItemView) {
-        showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteImageHint".localize()){
-            self.place.deleteItem(file: sender.imageData)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = place.items[indexPath.row]
+        switch item.type{
+        case .audio: 
+            let cell = tableView.dequeueReusableCell(withIdentifier: AudioItemCell.CELL_IDENT, for: indexPath) as! AudioItemCell
+            cell.audioItem = item as? AudioItem
+            cell.delegate = self
+            cell.updateCell(isEditing: tableView.isEditing)
+            return cell
+        case .video:
+            let cell = tableView.dequeueReusableCell(withIdentifier: VideoItemCell.CELL_IDENT, for: indexPath) as! VideoItemCell
+            cell.videoItem = item as? VideoItem
+            cell.delegate = self
+            cell.updateCell(isEditing: tableView.isEditing)
+            return cell
+        case .image:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ImageItemCell.CELL_IDENT, for: indexPath) as! ImageItemCell
+            cell.imageItem = item as? ImageItem
+            cell.delegate = self
+            cell.updateCell(isEditing: tableView.isEditing)
+            return cell
+        case .track:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TrackItemCell.CELL_IDENT, for: indexPath) as! TrackItemCell
+            cell.trackItem = item as? TrackItem
+            cell.delegate = self
+            cell.updateCell(isEditing: tableView.isEditing)
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+}
+
+extension PlaceViewController : AudioItemCellDelegate, VideoItemCellDelegate, ImageItemCellDelegate, TrackItemCellDelegate{
+    func deleteAudioItem(item: AudioItem) {
+        deletePlaceItem(item: item)
+    }
+    
+    func deleteVideoItem(item: VideoItem) {
+        deletePlaceItem(item: item)
+    }
+    
+    func viewVideoItem(item: VideoItem) {
+        let controller = VideoViewController()
+        controller.videoURL = item.fileURL
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func deleteImageItem(item: ImageItem) {
+        deletePlaceItem(item: item)
+    }
+    
+    func viewImageItem(item: ImageItem) {
+        let controller = ImageViewController()
+        controller.uiImage = item.getImage()
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func deleteTrackItem(item: TrackItem) {
+        deletePlaceItem(item: item)
+    }
+    
+    func viewTrackItem(item: TrackItem) {
+        let controller = TrackViewController(track: item)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func showItemOnMap(item: TrackItem) {
+        self.dismiss(animated: true){
+            self.delegate?.showItemOnMap(place: self.place, item: item)
+        }
+    }
+    
+    func deletePlaceItem(item: PlaceItem) {
+        showDestructiveApprove(title: "confirmDeleteItem".localize(), text: "deleteItemHint".localize()){
+            self.place.deleteItem(item: item)
             PlacePool.save()
             self.delegate?.updateMarkerLayer()
-            for subView in self.mediaStackView.subviews{
-                if subView == sender{
-                    self.mediaStackView.removeArrangedSubview(subView)
-                    self.mediaStackView.removeSubview(subView)
-                    break
-                }
-            }
+            self.tableView.reloadData()
         }
     }
     
 }
 
-extension PlaceViewController: VideoListItemDelegate{
-    
-    func viewVideo(sender: VideoListItemView) {
-        let videoViewController = VideoViewController()
-        videoViewController.videoURL = sender.videoData.fileURL
-        videoViewController.modalPresentationStyle = .fullScreen
-        self.present(videoViewController, animated: true)
-    }
-    
-    func deleteVideo(sender: VideoListItemView) {
-        showDestructiveApprove(title: "confirmDeleteVideo".localize(), text: "deleteVideoHint".localize()){
-            self.place.deleteItem(file: sender.videoData)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            for subView in self.mediaStackView.subviews{
-                if subView == sender{
-                    self.mediaStackView.removeArrangedSubview(subView)
-                    self.mediaStackView.removeSubview(subView)
-                    break
-                }
-            }
-        }
-    }
-    
-    
-}
-
-extension PlaceViewController: AudioListItemDelegate{
-    
-    func deleteAudio(sender: AudioListItemView) {
-        showDestructiveApprove(title: "confirmDeleteAudio".localize(), text: "deleteAudioHint".localize()){
-            self.place.deleteItem(file: sender.audioData)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            for subView in self.mediaStackView.subviews{
-                if subView == sender{
-                    self.mediaStackView.removeArrangedSubview(subView)
-                    self.mediaStackView.removeSubview(subView)
-                    break
-                }
-            }
-        }
-    }
-    
-    
-}
 
