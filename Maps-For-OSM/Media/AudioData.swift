@@ -6,7 +6,7 @@
 
 import Foundation
 
-class AudioFile : MediaFile{
+class AudioData : MediaData{
     
     enum AudioCodingKeys: String, CodingKey {
         case title
@@ -15,7 +15,7 @@ class AudioFile : MediaFile{
     
     var time: Double
     
-    override var type : MediaType{
+    override var type : PlaceItemType{
         get{
             return .audio
         }

@@ -7,13 +7,7 @@
 import Foundation
 import UIKit
 
-enum MediaType: String, Codable{
-    case audio
-    case image
-    case video
-}
-
-class MediaFile : MapItem{
+class MediaData : PlaceItemData{
     
     private enum CodingKeys: CodingKey{
         case creationDate
@@ -23,10 +17,6 @@ class MediaFile : MapItem{
     
     var creationDate: Date
     var title: String
-    
-    var type : MediaType{
-        fatalError("not implemented")
-    }
     
     var fileName : String
     
@@ -106,6 +96,10 @@ class MediaFile : MapItem{
         else{
             Log.error("MediaFile exists \(fileName)")
         }
+    }
+    
+    override func deleteResources(){
+        prepareDelete()
     }
     
     func fileExists() -> Bool{

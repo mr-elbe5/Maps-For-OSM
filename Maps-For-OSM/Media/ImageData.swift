@@ -7,9 +7,9 @@
 import Foundation
 import UIKit
 
-class ImageFile : MediaFile{
+class ImageData : MediaData{
     
-    override var type : MediaType{
+    override var type : PlaceItemType{
         .image
     }
     

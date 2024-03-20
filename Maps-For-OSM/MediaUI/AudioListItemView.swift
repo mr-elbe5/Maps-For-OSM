@@ -13,11 +13,11 @@ protocol AudioListItemDelegate{
 
 class AudioListItemView : UIView{
     
-    var audioData : AudioFile
+    var audioData : AudioData
     
     var delegate : AudioListItemDelegate? = nil
     
-    init(data: AudioFile){
+    init(data: AudioData){
         
         self.audioData = data
         super.init(frame: .zero)

@@ -14,11 +14,11 @@ protocol VideoListItemDelegate{
 
 class VideoListItemView : UIView{
     
-    var videoData : VideoFile
+    var videoData : VideoData
     
     var delegate : VideoListItemDelegate? = nil
     
-    init(data: VideoFile){
+    init(data: VideoData){
         
         self.videoData = data
         super.init(frame: .zero)

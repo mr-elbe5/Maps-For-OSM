@@ -10,8 +10,8 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackListDelegate{
-    func showTrackOnMap(track: Track)
-    func deleteTrack(track: Track, approved: Bool)
+    func showTrackOnMap(track: TrackData)
+    func deleteTrack(track: TrackData, approved: Bool)
 }
 
 class TrackListViewController: PopupTableViewController{
@@ -95,7 +95,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension TrackListViewController : TrackDetailDelegate{
     
-    func showTrackOnMap(track: Track) {
+    func showTrackOnMap(track: TrackData) {
         self.dismiss(animated: true){
             self.delegate?.showTrackOnMap(track: track)
         }
@@ -105,7 +105,7 @@ extension TrackListViewController : TrackDetailDelegate{
 
 extension TrackListViewController : TrackCellDelegate{
     
-    func viewTrackDetails(track: Track) {
+    func viewTrackDetails(track: TrackData) {
         let trackController = TrackViewController(track: track)
         trackController.track = track
         trackController.delegate = self
@@ -113,7 +113,7 @@ extension TrackListViewController : TrackCellDelegate{
         self.present(trackController, animated: true)
     }
     
-    func exportTrack(track: Track) {
+    func exportTrack(track: TrackData) {
         if let url = GPXCreator.createTemporaryFile(track: track){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             controller.directoryURL = FileController.exportGpxDirURL
@@ -123,7 +123,7 @@ extension TrackListViewController : TrackCellDelegate{
         }
     }
     
-    func deleteTrack(track: Track, approved: Bool) {
+    func deleteTrack(track: TrackData, approved: Bool) {
         if approved{
             self.deleteTrack(track: track)
         }
@@ -134,7 +134,7 @@ extension TrackListViewController : TrackCellDelegate{
         }
     }
     
-    private func deleteTrack(track: Track){
+    private func deleteTrack(track: TrackData){
         self.delegate?.deleteTrack(track: track, approved: true)
         tracks?.remove(track)
         tableView.reloadData()
@@ -159,7 +159,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
         if let url = urls.first{
             if let trackpoints = GPXParser.parseFile(url: url){
                 if trackpoints.count > 0{
-                    let track = Track()
+                    let track = TrackData()
                     for tp in trackpoints{
                         track.trackpoints.append(tp)
                     }

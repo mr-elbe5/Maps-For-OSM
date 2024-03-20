@@ -6,9 +6,16 @@
 
 import Foundation
 
-class MapItem : NSObject, Codable, Identifiable{
+enum PlaceItemType: String, Codable{
+    case audio
+    case image
+    case video
+    case track
+}
+
+class PlaceItemData : NSObject, Codable, Identifiable{
     
-    static func == (lhs: MapItem, rhs: MapItem) -> Bool {
+    static func == (lhs: PlaceItemData, rhs: PlaceItemData) -> Bool {
         lhs.id == rhs.id
     }
     
@@ -17,6 +24,11 @@ class MapItem : NSObject, Codable, Identifiable{
     }
     
     var id : UUID
+    var type: PlaceItemType{
+        get{
+            fatalError("not implemented")
+        }
+    }
     
     override init(){
         id = UUID()
@@ -31,6 +43,9 @@ class MapItem : NSObject, Codable, Identifiable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+    }
+    
+    func deleteResources(){
     }
     
 }

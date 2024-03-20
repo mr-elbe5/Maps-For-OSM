@@ -14,18 +14,9 @@ class PlaceGroup{
     var centerPlanetPosition: CGPoint? = nil
     var places = PlaceList()
     
-    var hasMedia: Bool{
+    var hasItems: Bool{
         for place in places{
-            if place.hasMedia{
-                return true
-            }
-        }
-        return false
-    }
-    
-    var hasTrack: Bool{
-        for place in places{
-            if place.hasTrack{
+            if place.hasItems{
                 return true
             }
         }
@@ -56,22 +47,21 @@ class PlaceGroup{
         var lat = 0.0
         var lon = 0.0
         var note = ""
-        var mediaList = MediaList()
+        var itemList = PlaceItemList()
         for place in places{
             lat += place.coordinate.latitude
             lon += place.coordinate.longitude
             note += place.note
-            for mediaFile in place.media{
-                mediaList.append(mediaFile)
+            for mediaFile in place.items{
+                itemList.append(mediaFile)
             }
         }
         lat = lat/Double(count)
         lon = lon/Double(count)
-        try? mediaList.sort(by: MediaData.areInIncreasingDateOrder)
         let place = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         place.evaluatePlacemark()
         place.note = note
-        place.media = mediaList
+        place.items = itemList
         return place
     }
     

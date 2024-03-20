@@ -6,21 +6,21 @@
 
 import UIKit
 
-protocol MapItemCellDelegate{
-    func deleteMapItem(item: MapItem)
-    func viewMapItem(item: MapItem)
-    func showItemOnMap(item: MapItem)
+protocol PlaceItemCellDelegate{
+    func deleteMapItem(item: PlaceItemData)
+    func viewMapItem(item: PlaceItemData)
+    func showItemOnMap(item: PlaceItemData)
 }
 
-class MapItemCell: UITableViewCell{
+class PlaceItemCell: UITableViewCell{
     
-    var mapItem : MapItem? = nil {
+    var placeItem : PlaceItemData? = nil {
         didSet {
             updateCell()
         }
     }
     
-    var delegate: MapItemCellDelegate? = nil
+    var delegate: PlaceItemCellDelegate? = nil
     
     var cellBody = UIView()
     
@@ -41,7 +41,7 @@ class MapItemCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if let item = mapItem{
+        if let item = placeItem{
             let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
             deleteButton.addAction(UIAction(){ action in
                 self.delegate?.deleteMapItem(item: item)

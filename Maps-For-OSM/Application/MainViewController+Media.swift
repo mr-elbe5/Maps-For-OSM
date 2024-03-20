@@ -66,13 +66,13 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
-        let image = ImageFile()
+        let image = ImageData()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             if let coordinate = pickerController.coordinate{
                 let location = PlacePool.assertPlace(coordinate: coordinate)
-                let changeState = location.media.isEmpty
-                location.addMedia(file: image)
+                let changeState = location.items.isEmpty
+                location.addItem(file: image)
                 PlacePool.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -82,8 +82,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
             }
             else if let coordinate = LocationService.shared.location?.coordinate{
                 let location = PlacePool.assertPlace(coordinate: coordinate)
-                let changeState = location.media.isEmpty
-                location.addMedia(file: image)
+                let changeState = location.items.isEmpty
+                location.addItem(file: image)
                 PlacePool.save()
                 if changeState{
                     DispatchQueue.main.async {
@@ -101,12 +101,12 @@ extension MainViewController: CameraDelegate{
     
     func photoCaptured(data: Data, location: CLLocation?) {
         if let cllocation = location{
-            let imageFile = ImageFile()
+            let imageFile = ImageData()
             imageFile.saveFile(data: data)
             print("photo saved locally")
             let location = PlacePool.assertPlace(coordinate: cllocation.coordinate)
-            let changeState = location.media.isEmpty
-            location.addMedia(file: imageFile)
+            let changeState = location.items.isEmpty
+            location.addItem(file: imageFile)
             PlacePool.save()
             if changeState{
                 self.markersChanged()
@@ -127,12 +127,12 @@ extension MainViewController: CameraDelegate{
     
     func videoCaptured(data: Data, cllocation: CLLocation?) {
         if let cllocation = cllocation{
-            let videoFile = VideoFile()
+            let videoFile = VideoData()
             videoFile.saveFile(data: data)
             print("video saved locally")
             let location = PlacePool.assertPlace(coordinate: cllocation.coordinate)
-            let changeState = location.media.isEmpty
-            location.addMedia(file: videoFile)
+            let changeState = location.items.isEmpty
+            location.addItem(file: videoFile)
             PlacePool.save()
             if changeState{
                 self.markersChanged()
@@ -150,11 +150,11 @@ extension MainViewController: CameraDelegate{
 
 extension MainViewController: AudioCaptureDelegate{
     
-    func audioCaptured(data: AudioFile){
+    func audioCaptured(data: AudioData){
         if let coordinate = LocationService.shared.location?.coordinate{
             let location = PlacePool.assertPlace(coordinate: coordinate)
-            let changeState = location.media.isEmpty
-            location.addMedia(file: data)
+            let changeState = location.items.isEmpty
+            location.addItem(file: data)
             PlacePool.save()
             if changeState{
                 DispatchQueue.main.async {

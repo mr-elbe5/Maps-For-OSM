@@ -6,7 +6,7 @@
 
 import Foundation
 
-class VideoFile : MediaFile{
+class VideoData : MediaData{
     
     enum VideoCodingKeys: String, CodingKey {
         case title
@@ -15,7 +15,7 @@ class VideoFile : MediaFile{
     
     var time: Double = 0.0
     
-    override var type : MediaType{
+    override var type : PlaceItemType{
         get{
             return .video
         }

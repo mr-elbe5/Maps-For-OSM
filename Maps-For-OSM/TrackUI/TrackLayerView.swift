@@ -30,7 +30,7 @@ class TrackLayerView: UIView {
         setNeedsDisplay()
     }
     
-    func getDrawPoints(track: Track) -> Array<CGPoint>{
+    func getDrawPoints(track: TrackData) -> Array<CGPoint>{
         var points = Array<CGPoint>()
         if let offset = offset{
             let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint

@@ -76,7 +76,7 @@ class PlaceCell: UITableViewCell{
                 nextAnchor = label.bottomAnchor
             }
             
-            label = UILabel(text: "mediaCount".localize() + String(place.media.count))
+            label = UILabel(text: "mediaCount".localize() + String(place.items.count))
             cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
             
         }

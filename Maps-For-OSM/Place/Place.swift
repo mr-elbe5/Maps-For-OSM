@@ -8,9 +8,14 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Place : MapItem{
+class Place : NSObject, Codable, Identifiable{
+    
+    static func == (lhs: Place, rhs: Place) -> Bool {
+        lhs.id == rhs.id
+    }
     
     private enum CodingKeys: String, CodingKey {
+        case id
         case latitude
         case longitude
         case altitude
@@ -18,10 +23,10 @@ class Place : MapItem{
         case name
         case address
         case note
-        case media
-        case tracks
+        case media //deprecated
+        case items
     }
-    
+    var id : UUID
     var coordinate: CLLocationCoordinate2D
     var altitude: Double
     var timestamp: Date
@@ -30,19 +35,15 @@ class Place : MapItem{
     var name : String = ""
     var address : String = ""
     var note : String = ""
-    var media : MediaList
-    var tracks = TrackList()
+    var items : PlaceItemList
     
-    var hasMedia : Bool{
-        !media.isEmpty
-    }
-    
-    var hasTrack : Bool{
-        !tracks.isEmpty
+    var hasItems : Bool{
+        !items.isEmpty
     }
     
     init(coordinate: CLLocationCoordinate2D){
-        media = MediaList()
+        id = UUID()
+        items = PlaceItemList()
         mapPoint = MapPoint(coordinate)
         coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
         self.coordinate = coordinate
@@ -54,6 +55,7 @@ class Place : MapItem{
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -64,16 +66,21 @@ class Place : MapItem{
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
-        media = try values.decodeIfPresent(MediaList.self, forKey: .media) ?? MediaList()
-        try super.init(from: decoder)
+        var items = try values.decodeIfPresent(PlaceItemList.self, forKey: .items)
+        if items == nil{
+            print("key items not found - trying key media")
+            items = try values.decodeIfPresent(PlaceItemList.self, forKey: .media)
+        }
+        self.items = items ?? PlaceItemList()
+        super.init()
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
         }
     }
     
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(altitude, forKey: .altitude)
@@ -81,7 +88,7 @@ class Place : MapItem{
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
         try container.encode(note, forKey: .note)
-        try container.encode(media, forKey: .media)
+        try container.encode(items, forKey: .items)
     }
     
     func evaluatePlacemark(){
@@ -98,16 +105,16 @@ class Place : MapItem{
         
     }
     
-    func addMedia(file: MediaFile){
-        media.append(file)
+    func addItem(file: MediaData){
+        items.append(file)
     }
     
-    func deleteMedia(file: MediaFile){
-        media.remove(file)
+    func deleteItem(file: MediaData){
+        items.remove(file)
     }
     
-    func deleteAllMedia(){
-        media.removeAllFiles()
+    func deleteAllItems(){
+        items.removeAllItems()
     }
     
 }

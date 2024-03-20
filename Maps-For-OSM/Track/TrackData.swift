@@ -8,7 +8,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Track : MapItem{
+class TrackData : PlaceItemData{
     
     private enum CodingKeys: String, CodingKey {
         case startTime
@@ -31,6 +31,12 @@ class Track : MapItem{
     var upDistance : CGFloat
     var downDistance : CGFloat
     var note : String
+    
+    override var type : PlaceItemType{
+        get{
+            return .track
+        }
+    }
     
     var duration : TimeInterval{
         if let pauseTime = pauseTime{

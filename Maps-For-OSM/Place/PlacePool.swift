@@ -85,7 +85,7 @@ class PlacePool{
         defer{_lock.signal()}
         for idx in 0..<list.count{
             if list[idx] == place{
-                place.deleteAllMedia()
+                place.deleteAllItems()
                 list.remove(at: idx)
                 return
             }
@@ -96,7 +96,7 @@ class PlacePool{
         _lock.wait()
         defer{_lock.signal()}
         for idx in 0..<list.count{
-            list[idx].deleteAllMedia()
+            list[idx].deleteAllItems()
         }
         list.removeAll()
     }
