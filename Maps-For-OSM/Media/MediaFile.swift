@@ -13,20 +13,14 @@ enum MediaType: String, Codable{
     case video
 }
 
-class MediaFile : Equatable, Identifiable, Codable{
-    
-    static func == (lhs: MediaFile, rhs: MediaFile) -> Bool {
-        lhs.fileName == rhs.fileName
-    }
+class MediaFile : MapItem{
     
     private enum CodingKeys: CodingKey{
-        case id
         case creationDate
         case fileName
         case title
     }
     
-    var id: UUID
     var creationDate: Date
     var title: String
     
@@ -51,24 +45,24 @@ class MediaFile : Equatable, Identifiable, Codable{
         return FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
     }
     
-    init(){
-        id = UUID()
+    override init(){
         creationDate = Date()
         fileName = ""
         title = ""
+        super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(UUID.self, forKey: .id)
         creationDate = try values.decode(Date.self, forKey: .creationDate)
         fileName = try values.decode(String.self, forKey: .fileName)
         title = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
+        try super.init(from: decoder)
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(fileName, forKey: .fileName)
         try container.encode(title, forKey: .title)

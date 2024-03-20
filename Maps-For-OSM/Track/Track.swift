@@ -8,14 +8,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Track : Hashable, Codable{
-    
-    static func == (lhs: Track, rhs: Track) -> Bool {
-        lhs.id == rhs.id
-    }
+class Track : MapItem{
     
     private enum CodingKeys: String, CodingKey {
-        case id
         case startTime
         case endTime
         case name
@@ -26,7 +21,6 @@ class Track : Hashable, Codable{
         case note
     }
     
-    var id : UUID
     var startTime : Date
     var pauseTime : Date? = nil
     var pauseLength : TimeInterval = 0
@@ -60,8 +54,7 @@ class Track : Hashable, Codable{
         trackpoints.last?.coordinate
     }
     
-    init(){
-        id = UUID()
+    override init(){
         name = "trk"
         startTime = Date()
         endTime = Date()
@@ -70,11 +63,11 @@ class Track : Hashable, Codable{
         upDistance = 0
         downDistance = 0
         note = ""
+        super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
         endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
@@ -83,11 +76,12 @@ class Track : Hashable, Codable{
         upDistance = try values.decodeIfPresent(CGFloat.self, forKey: .upDistance) ?? 0
         downDistance = try values.decodeIfPresent(CGFloat.self, forKey: .downDistance) ?? 0
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
+        try super.init(from: decoder)
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(startTime, forKey: .startTime)
         try container.encode(endTime, forKey: .endTime)
         try container.encode(name, forKey: .name)
@@ -96,10 +90,6 @@ class Track : Hashable, Codable{
         try container.encode(upDistance, forKey: .upDistance)
         try container.encode(downDistance, forKey: .downDistance)
         try container.encode(note, forKey: .note)
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
     
     func pauseTracking(){
