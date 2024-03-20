@@ -6,22 +6,21 @@
 
 import UIKit
 
-
-protocol PlaceCellDelegate{
-    func deletePlaceFromCell(place: Place)
-    func viewPlace(place: Place)
-    func showPlaceOnMap(place: Place)
+protocol MapItemCellDelegate{
+    func deleteMapItem(item: MapItem)
+    func viewMapItem(item: MapItem)
+    func showItemOnMap(item: MapItem)
 }
 
-class PlaceCell: UITableViewCell{
+class MapItemCell: UITableViewCell{
     
-    var place : Place? = nil {
+    var mapItem : MapItem? = nil {
         didSet {
             updateCell()
         }
     }
     
-    var delegate: PlaceCellDelegate? = nil
+    var delegate: MapItemCellDelegate? = nil
     
     var cellBody = UIView()
     
@@ -42,42 +41,26 @@ class PlaceCell: UITableViewCell{
     
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
-        if let place = place{
+        if let item = mapItem{
             let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
             deleteButton.addAction(UIAction(){ action in
-                self.delegate?.deletePlaceFromCell(place: place)
+                self.delegate?.deleteMapItem(item: item)
             }, for: .touchDown)
             cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewPlace(place: place)
+                self.delegate?.viewMapItem(item: item)
             }, for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: place)
+                self.delegate?.showItemOnMap(item: item)
             }, for: .touchDown)
             cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             var nextAnchor = mapButton.bottomAnchor
             
-            var label = UILabel(text: place.address)
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
-            label = UILabel(text: place.note)
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
-            if !place.note.isEmpty{
-                label = UILabel(text: place.note)
-                cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-                nextAnchor = label.bottomAnchor
-            }
-            
-            label = UILabel(text: "mediaCount".localize() + String(place.media.count))
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
             
         }
     }

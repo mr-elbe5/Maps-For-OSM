@@ -55,25 +55,19 @@ class TrackCell: UITableViewCell{
             
             let exportButton = UIButton().asIconButton("square.and.arrow.up", color: .systemBlue)
             exportButton.addAction(UIAction(){ action in
-                if let track = self.track{
-                    self.delegate?.exportTrack(track: track)
-                }
+                self.delegate?.exportTrack(track: track)
             }, for: .touchDown)
             cellBody.addSubviewWithAnchors(exportButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .systemBlue)
             viewButton.addAction(UIAction(){ action in
-                if let track = self.track{
-                    self.delegate?.viewTrackDetails(track: track)
-                }
+                self.delegate?.viewTrackDetails(track: track)
             }, for: .touchDown)
             cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: exportButton.leadingAnchor, insets: defaultInsets)
             
             let showOnMapButton = UIButton().asIconButton("map", color: .systemBlue)
             showOnMapButton.addAction(UIAction(){ action in
-                if let track = self.track{
-                    self.delegate?.showTrackOnMap(track: track)
-                }
+                self.delegate?.showTrackOnMap(track: track)
             }, for: .touchDown)
             cellBody.addSubviewWithAnchors(showOnMapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
             

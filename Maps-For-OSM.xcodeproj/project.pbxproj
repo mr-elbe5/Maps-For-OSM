@@ -95,6 +95,7 @@
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E51241C2BAA014800A5B416 /* UISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241B2BAA014800A5B416 /* UISwitch.swift */; };
 		4E51241E2BAADCDE00A5B416 /* MapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241D2BAADCDE00A5B416 /* MapItem.swift */; };
+		4E5124202BAAE78100A5B416 /* MapItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241F2BAAE78100A5B416 /* MapItemCell.swift */; };
 		4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B02944B0EA005D2BFB /* Preferences.swift */; };
 		4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */; };
 		4E55B2B729476EE9005D2BFB /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B629476EE9005D2BFB /* PopupViewController.swift */; };
@@ -232,6 +233,7 @@
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E51241B2BAA014800A5B416 /* UISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISwitch.swift; sourceTree = "<group>"; };
 		4E51241D2BAADCDE00A5B416 /* MapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItem.swift; sourceTree = "<group>"; };
+		4E51241F2BAAE78100A5B416 /* MapItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemCell.swift; sourceTree = "<group>"; };
 		4E55B2B02944B0EA005D2BFB /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		4E55B2B629476EE9005D2BFB /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				4E1B810F2732EDC5003ED6B0 /* MapView.swift */,
 				4E30798E28D74EB1005FBEF0 /* TileRegion.swift */,
 				4EE1462D28D49F510058F3D3 /* World.swift */,
+				4E51241F2BAAE78100A5B416 /* MapItemCell.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */,
 				4E2088E72743AA670097BFBA /* Trackpoint.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
+				4E5124202BAAE78100A5B416 /* MapItemCell.swift in Sources */,
 				4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */,
 				4E4424852B94FA100007A26F /* CameraViewController+Photo.swift in Sources */,
 				4E4424952B961D690007A26F /* Backup.swift in Sources */,
