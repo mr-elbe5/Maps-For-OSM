@@ -29,7 +29,7 @@ class NoteItemCell: PlaceItemCell{
             deleteButton.addAction(UIAction(){ action in
                 self.delegate?.deleteNoteItem(item: note)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
         }
     }
     
@@ -41,7 +41,7 @@ class NoteItemCell: PlaceItemCell{
         itemView.removeAllSubviews()
         if let note = noteItem{
             let header = UILabel(header: "note".localize())
-            itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: defaultInsets)
+            itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
             let noteLabel = UILabel(text: note.note)
             itemView.addSubviewWithAnchors(noteLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)

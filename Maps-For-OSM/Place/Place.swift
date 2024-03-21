@@ -41,6 +41,24 @@ class Place : NSObject, Codable, Identifiable{
         !items.isEmpty
     }
     
+    var hasMedia : Bool{
+        for item in items{
+            if [.image, .video, .audio].contains(item.type){
+                return true
+            }
+        }
+        return false
+    }
+    
+    var hasTrack : Bool{
+        for item in items{
+            if item.type == .track{
+                return true
+            }
+        }
+        return false
+    }
+    
     init(coordinate: CLLocationCoordinate2D){
         id = UUID()
         items = PlaceItemList()
@@ -72,6 +90,7 @@ class Place : NSObject, Codable, Identifiable{
             metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .media)
         }
         self.items = metaItems?.toItemList() ?? PlaceItemList()
+        self.items.sortByCreation()
         super.init()
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()

@@ -31,13 +31,13 @@ class TrackItemCell: PlaceItemCell{
             deleteButton.addAction(UIAction(){ action in
                 self.delegate?.deleteTrackItem(item: item)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.delegate?.showItemOnMap(item: item)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: deleteButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: deleteButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
         }
     }
     
@@ -49,7 +49,7 @@ class TrackItemCell: PlaceItemCell{
         itemView.removeAllSubviews()
         if let item = trackItem{
             let header = UILabel(header: "track".localize())
-            itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: defaultInsets)
+            itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
             
             let nameLabel = UILabel(text: item.name)

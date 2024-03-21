@@ -38,6 +38,14 @@ extension UIView{
     }
     
     @discardableResult
+    func setRoundedEdges(radius: CGFloat = 5) -> UIView{
+        layer.borderWidth = 0
+        layer.cornerRadius = radius
+        layer.masksToBounds = true
+        return self
+    }
+    
+    @discardableResult
     func setRoundedBorders(radius: CGFloat = 5) -> UIView{
         layer.borderWidth = 0.5
         layer.cornerRadius = radius

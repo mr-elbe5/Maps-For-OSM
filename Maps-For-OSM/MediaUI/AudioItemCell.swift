@@ -29,7 +29,7 @@ class AudioItemCell: PlaceItemCell{
             deleteButton.addAction(UIAction(){ action in
                 self.delegate?.deleteAudioItem(item: audioItem)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
         }
     }
     

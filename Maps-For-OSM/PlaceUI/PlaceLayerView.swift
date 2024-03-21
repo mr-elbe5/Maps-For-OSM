@@ -23,7 +23,7 @@ class PlaceLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == World.maxZoom{
-            for place in PlacePool.list{
+            for place in PlacePool.places{
                 let marker = PlaceMarker(place: place)
                 marker.addAction(UIAction{ action in
                     self.delegate?.showPlaceDetails(place: marker.place)
@@ -36,7 +36,7 @@ class PlaceLayerView: UIView {
         else{
             let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
             var groups = Array<PlaceGroup>()
-            for place in PlacePool.list{
+            for place in PlacePool.places{
                 var grouped = false
                 for group in groups{
                     if group.isWithinRadius(place: place, radius: planetDist){

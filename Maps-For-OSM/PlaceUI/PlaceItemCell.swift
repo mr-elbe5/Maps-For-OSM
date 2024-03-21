@@ -15,6 +15,7 @@ protocol PlaceItemCellDelegate{
 class PlaceItemCell: UITableViewCell{
     
     var cellBody = UIView()
+    var dateTimeView = UIView()
     var iconView = UIView()
     var timeLabel = UILabel(text: Date().dateTimeString())
     var itemView = UIView()
@@ -27,10 +28,11 @@ class PlaceItemCell: UITableViewCell{
         cellBody.setBackground(.white).setRoundedBorders()
         contentView.addSubviewFilling(cellBody, insets: defaultInsets)
         cellBody.addSubviewFilling(itemView, insets: .zero)
-        timeLabel.setBackground(UIColor(white: 1.0, alpha: 0.3))
-        cellBody.addSubviewWithAnchors(timeLabel, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, insets: defaultInsets)
-        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3))
-        cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
+        dateTimeView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        cellBody.addSubviewWithAnchors(dateTimeView, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, insets: smallInsets)
+        dateTimeView.addSubviewFilling(timeLabel, insets: smallInsets)
+        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
         accessoryType = .none
         updateCell()
     }

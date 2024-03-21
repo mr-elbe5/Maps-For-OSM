@@ -179,35 +179,60 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
         let item = place.items[indexPath.row]
         switch item.type{
         case .audio: 
-            let cell = tableView.dequeueReusableCell(withIdentifier: AudioItemCell.CELL_IDENT, for: indexPath) as! AudioItemCell
-            cell.audioItem = item as? AudioItem
-            cell.delegate = self
-            cell.updateCell(isEditing: tableView.isEditing)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: AudioItemCell.CELL_IDENT, for: indexPath) as? AudioItemCell, let audioItem = item as? AudioItem{
+                cell.audioItem = audioItem
+                cell.delegate = self
+                cell.updateCell(isEditing: tableView.isEditing)
+                return cell
+            }
+            else{
+                print("no valid item/cell for audio")
+                return UITableViewCell()
+            }
         case .video:
-            let cell = tableView.dequeueReusableCell(withIdentifier: VideoItemCell.CELL_IDENT, for: indexPath) as! VideoItemCell
-            cell.videoItem = item as? VideoItem
-            cell.delegate = self
-            cell.updateCell(isEditing: tableView.isEditing)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: VideoItemCell.CELL_IDENT, for: indexPath) as? VideoItemCell, let videoItem = item as? VideoItem{
+                cell.videoItem = videoItem
+                cell.delegate = self
+                cell.updateCell(isEditing: tableView.isEditing)
+                return cell
+            }
+            else{
+                print("no valid item/cell for video")
+                return UITableViewCell()
+            }
         case .image:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ImageItemCell.CELL_IDENT, for: indexPath) as! ImageItemCell
-            cell.imageItem = item as? ImageItem
-            cell.delegate = self
-            cell.updateCell(isEditing: tableView.isEditing)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ImageItemCell.CELL_IDENT, for: indexPath) as? ImageItemCell, let imageItem = item as? ImageItem{
+                cell.imageItem = imageItem
+                cell.delegate = self
+                cell.updateCell(isEditing: tableView.isEditing)
+                return cell
+            }
+            else{
+                print("no valid item/cell for image")
+                return UITableViewCell()
+            }
         case .track:
-            let cell = tableView.dequeueReusableCell(withIdentifier: TrackItemCell.CELL_IDENT, for: indexPath) as! TrackItemCell
-            cell.trackItem = item as? TrackItem
-            cell.delegate = self
-            cell.updateCell(isEditing: tableView.isEditing)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackItemCell.CELL_IDENT, for: indexPath) as? TrackItemCell, let trackItem = item as? TrackItem{
+                cell.trackItem = trackItem
+                cell.delegate = self
+                cell.updateCell(isEditing: tableView.isEditing)
+                return cell
+            }
+            else{
+                print("no valid item/cell for track")
+                return UITableViewCell()
+            }
         case .note:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NoteItemCell.CELL_IDENT, for: indexPath) as! NoteItemCell
-            cell.noteItem = item as? NoteItem
-            cell.delegate = self
-            cell.updateCell(isEditing: tableView.isEditing)
-            return cell
+            if let cell = tableView.dequeueReusableCell(withIdentifier: NoteItemCell.CELL_IDENT, for: indexPath) as? NoteItemCell, let noteItem = item as? NoteItem{
+                cell.noteItem = noteItem
+                cell.delegate = self
+                cell.updateCell(isEditing: tableView.isEditing)
+                return cell
+            }
+            else{
+                print("no valid item/cell for note")
+                return UITableViewCell()
+            }
         }
     }
     

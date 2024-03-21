@@ -14,9 +14,18 @@ class PlaceGroup{
     var centerPlanetPosition: CGPoint? = nil
     var places = PlaceList()
     
-    var hasItems: Bool{
+    var hasMedia: Bool{
         for place in places{
-            if place.hasItems{
+            if place.hasMedia{
+                return true
+            }
+        }
+        return false
+    }
+    
+    var hasTrack: Bool{
+        for place in places{
+            if place.hasTrack{
                 return true
             }
         }

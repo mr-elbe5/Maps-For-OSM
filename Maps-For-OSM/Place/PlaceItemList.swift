@@ -36,6 +36,12 @@ extension PlaceItemList{
         self.removeAll()
     }
     
+    mutating func sortByCreation(){
+        self.sort(by: {
+            $0.creationDate > $1.creationDate
+        })
+    }
+    
 }
 
 typealias PlaceMetaItemList = Array<PlaceItemMetaData>

@@ -9,12 +9,18 @@ import UIKit
 class PlaceGroupMarker : Marker{
     
     static var mapPinDefaultImage = UIImage(named: "mappin.group.green")!
-    static var mapPinItemsImage = UIImage(named: "mappin.group.red")!
+    static var mapPinMediaImage = UIImage(named: "mappin.group.red")!
+    static var mapPinTrackImage = UIImage(named: "mappin.group.blue")!
+    static var mapPinMediaTrackImage = UIImage(named: "mappin.group.purple")!
     
     var placeGroup : PlaceGroup
     
-    override var hasItems : Bool{
-        placeGroup.hasItems
+    override var hasMedia : Bool{
+        placeGroup.hasMedia
+    }
+    
+    override var hasTrack : Bool{
+        placeGroup.hasTrack
     }
     
     init(placeGroup: PlaceGroup){
@@ -28,11 +34,21 @@ class PlaceGroupMarker : Marker{
     }
     
     override func updateImage(){
-        if hasItems{
-            setImage(PlaceGroupMarker.mapPinItemsImage, for: .normal)
+        if hasMedia{
+            if hasTrack{
+                setImage(PlaceGroupMarker.mapPinMediaTrackImage, for: .normal)
+            }
+            else{
+                setImage(PlaceGroupMarker.mapPinMediaImage, for: .normal)
+            }
         }
         else{
-            setImage(PlaceGroupMarker.mapPinDefaultImage, for: .normal)
+            if hasTrack{
+                setImage(PlaceGroupMarker.mapPinTrackImage, for: .normal)
+            }
+            else{
+                setImage(PlaceGroupMarker.mapPinDefaultImage, for: .normal)
+            }
         }
     }
     

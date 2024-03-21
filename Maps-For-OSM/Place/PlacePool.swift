@@ -35,29 +35,43 @@ class PlacePool{
     
     static private var _lock = DispatchSemaphore(value: 1)
     
-    static var list = PlaceList()
+    static var places = PlaceList()
+    
+    static var tracks: TrackList{
+        get{
+            var trackList = TrackList()
+            for place in places{
+                for placeItem in place.items{
+                    if placeItem.type == .track, let track = placeItem as? TrackItem{
+                        trackList.append(track)
+                    }
+                }
+            }
+            return trackList
+        }
+    }
     
     static var size : Int{
-        list.count
+        places.count
     }
     
     static func load(){
         if let list : PlaceList = DataController.shared.load(forKey: PlacePool.storeKey){
-            PlacePool.list = list
+            PlacePool.places = list
         }
         else{
-            PlacePool.list = PlaceList()
+            PlacePool.places = PlaceList()
         }
     }
     
     static func save(){
         _lock.wait()
         defer{_lock.signal()}
-        DataController.shared.save(forKey: PlacePool.storeKey, value: list)
+        DataController.shared.save(forKey: PlacePool.storeKey, value: places)
     }
     
     static func saveAsFile() -> URL?{
-        let value = list.toJSON()
+        let value = places.toJSON()
         let url = FileController.temporaryURL.appendingPathComponent(storeKey + ".json")
         if FileController.saveFile(text: value, url: url){
             return url
@@ -67,7 +81,7 @@ class PlacePool{
     
     static func loadFromFile(url: URL){
         if let string = FileController.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
-            list = data
+            places = data
         }
     }
     
@@ -76,17 +90,17 @@ class PlacePool{
         _lock.wait()
         defer{_lock.signal()}
         let place = Place(coordinate: coordinate)
-        list.append(place)
+        places.append(place)
         return place
     }
     
     static func deletePlace(_ place: Place){
         _lock.wait()
         defer{_lock.signal()}
-        for idx in 0..<list.count{
-            if list[idx] == place{
+        for idx in 0..<places.count{
+            if places[idx] == place{
                 place.deleteAllItems()
-                list.remove(at: idx)
+                places.remove(at: idx)
                 return
             }
         }
@@ -95,15 +109,15 @@ class PlacePool{
     static func deleteAllPlaces(){
         _lock.wait()
         defer{_lock.signal()}
-        for idx in 0..<list.count{
-            list[idx].deleteAllItems()
+        for idx in 0..<places.count{
+            places[idx].deleteAllItems()
         }
-        list.removeAll()
+        places.removeAll()
     }
     
     @discardableResult
     static func assertPlace(coordinate: CLLocationCoordinate2D) -> Place{
-        for place in list{
+        for place in places{
             if place.coordinateRegion.contains(coordinate: coordinate){
                 return place
             }
@@ -115,7 +129,7 @@ class PlacePool{
     
     static func addNotesToPlaces(){
         print("converting notes to note items")
-        for place in list{
+        for place in places{
             if !place.note.isEmpty{
                 if !{
                     for item in place.items{

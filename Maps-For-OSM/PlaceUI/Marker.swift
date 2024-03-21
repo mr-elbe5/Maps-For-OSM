@@ -10,7 +10,11 @@ class Marker : UIButton{
     
     static var baseFrame = CGRect(x: -16,y: -32, width: 32, height: 32)
     
-    var hasItems : Bool{
+    var hasMedia : Bool{
+        false
+    }
+    
+    var hasTrack : Bool{
         false
     }
     

@@ -40,7 +40,7 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.CELL_IDENT, for: indexPath) as! PlaceCell
-        cell.place = PlacePool.list[indexPath.row]
+        cell.place = PlacePool.places[indexPath.row]
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell

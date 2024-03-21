@@ -124,7 +124,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = TrackPool.list
+        controller.tracks = PlacePool.tracks
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -184,14 +184,14 @@ extension MainViewController: MainMenuDelegate{
                 var photoCount = 0
                 var numCopied = 0
                 var numErrors = 0
-                for location in PlacePool.list{
+                for location in PlacePool.places{
                     for item in location.items{
                         if item.type == .image{
                             photoCount += 1
                         }
                     }
                 }
-                for place in PlacePool.list{
+                for place in PlacePool.places{
                     for listItem in place.items{
                         switch (listItem.type){
                         case .image:
@@ -416,8 +416,8 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
     func mergeGroup(group: PlaceGroup) {
         if let mergedLocation = group.centralPlace{
             showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
-                PlacePool.list.append(mergedLocation)
-                PlacePool.list.removeAllOf(group.places)
+                PlacePool.places.append(mergedLocation)
+                PlacePool.places.removeAllOf(group.places)
                 PlacePool.save()
                 self.updateMarkerLayer()
             }

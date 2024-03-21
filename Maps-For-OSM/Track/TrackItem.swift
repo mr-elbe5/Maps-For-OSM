@@ -83,6 +83,7 @@ class TrackItem : PlaceItem{
         downDistance = try values.decodeIfPresent(CGFloat.self, forKey: .downDistance) ?? 0
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         try super.init(from: decoder)
+        creationDate = endTime
     }
     
     override func encode(to encoder: Encoder) throws {
