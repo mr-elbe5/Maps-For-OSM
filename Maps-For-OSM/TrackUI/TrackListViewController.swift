@@ -31,7 +31,7 @@ class TrackListViewController: PopupTableViewController{
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackListViewController.CELL_IDENT)
+        tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackListViewController.CELL_IDENT)
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -71,9 +71,9 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackItemCell
         let track = tracks?.reversed()[indexPath.row]
-        cell.track = track
+        cell.trackItem = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -103,14 +103,24 @@ extension TrackListViewController : TrackDetailDelegate{
     
 }
 
-extension TrackListViewController : TrackCellDelegate{
+extension TrackListViewController : TrackItemCellDelegate{
     
-    func viewTrackDetails(track: TrackItem) {
-        let trackController = TrackViewController(track: track)
-        trackController.track = track
+    func deleteTrackItem(item: TrackItem) {
+        showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
+            self.deleteTrack(track: item)
+        }
+    }
+    
+    func viewTrackItem(item: TrackItem) {
+        let trackController = TrackViewController(track: item)
+        trackController.track = item
         trackController.delegate = self
         trackController.modalPresentationStyle = .fullScreen
         self.present(trackController, animated: true)
+    }
+    
+    func showItemOnMap(item: TrackItem) {
+        delegate?.showTrackOnMap(track: item)
     }
     
     func exportTrack(track: TrackItem) {
@@ -124,14 +134,7 @@ extension TrackListViewController : TrackCellDelegate{
     }
     
     func deleteTrack(track: TrackItem, approved: Bool) {
-        if approved{
-            self.deleteTrack(track: track)
-        }
-        else{
-            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-                self.deleteTrack(track: track)
-            }
-        }
+        
     }
     
     private func deleteTrack(track: TrackItem){

@@ -15,6 +15,9 @@ protocol PlaceItemCellDelegate{
 class PlaceItemCell: UITableViewCell{
     
     var cellBody = UIView()
+    var iconView = UIView()
+    var timeLabel = UILabel(text: Date().dateTimeString())
+    var itemView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,6 +26,11 @@ class PlaceItemCell: UITableViewCell{
         shouldIndentWhileEditing = false
         cellBody.setBackground(.white).setRoundedBorders()
         contentView.addSubviewFilling(cellBody, insets: defaultInsets)
+        cellBody.addSubviewFilling(itemView, insets: .zero)
+        timeLabel.setBackground(UIColor(white: 1.0, alpha: 0.3))
+        cellBody.addSubviewWithAnchors(timeLabel, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, insets: defaultInsets)
+        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3))
+        cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
         accessoryType = .none
         updateCell()
     }
@@ -32,6 +40,18 @@ class PlaceItemCell: UITableViewCell{
     }
     
     func updateCell(isEditing: Bool = false){
+        updateItemView(isEditing: isEditing)
+        updateTimeLabel(isEditing: isEditing)
+        updateIconView(isEditing: isEditing)
+    }
+    
+    func updateIconView(isEditing: Bool){
+    }
+    
+    func updateTimeLabel(isEditing: Bool){
+    }
+    
+    func updateItemView(isEditing: Bool){
     }
     
 }

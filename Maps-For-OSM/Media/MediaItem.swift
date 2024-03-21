@@ -15,7 +15,6 @@ class MediaItem : PlaceItem{
         case title
     }
     
-    var creationDate: Date
     var title: String
     
     var fileName : String
@@ -36,7 +35,6 @@ class MediaItem : PlaceItem{
     }
     
     override init(){
-        creationDate = Date()
         fileName = ""
         title = ""
         super.init()
@@ -44,7 +42,6 @@ class MediaItem : PlaceItem{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        creationDate = try values.decode(Date.self, forKey: .creationDate)
         fileName = try values.decode(String.self, forKey: .fileName)
         title = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
         try super.init(from: decoder)
@@ -53,7 +50,6 @@ class MediaItem : PlaceItem{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(creationDate, forKey: .creationDate)
         try container.encode(fileName, forKey: .fileName)
         try container.encode(title, forKey: .title)
     }

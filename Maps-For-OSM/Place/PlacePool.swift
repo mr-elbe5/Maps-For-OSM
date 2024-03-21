@@ -113,4 +113,28 @@ class PlacePool{
         return place
     }
     
+    static func addNotesToPlaces(){
+        print("converting notes to note items")
+        for place in list{
+            if !place.note.isEmpty{
+                if !{
+                    for item in place.items{
+                        if item.type == .note, let noteItem = item as? NoteItem{
+                            return noteItem.note == place.note
+                        }
+                    }
+                    return false
+                }(){
+                    let noteItem = NoteItem()
+                    noteItem.note = place.note
+                    noteItem.creationDate = place.timestamp
+                    place.items.append(noteItem)
+                    place.note = ""
+                    print("added note item")
+                }
+            }
+        }
+        save()
+    }
+    
 }

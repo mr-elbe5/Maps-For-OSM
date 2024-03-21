@@ -23,37 +23,44 @@ class VideoItemCell: PlaceItemCell{
     
     var delegate: VideoItemCellDelegate? = nil
     
-    override func updateCell(isEditing: Bool = false){
-        cellBody.removeAllSubviews()
+    override func updateIconView(isEditing: Bool){
+        iconView.removeAllSubviews()
         if let videoItem = videoItem{
+            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
+            deleteButton.addAction(UIAction(){ action in
+                self.delegate?.deleteVideoItem(item: videoItem)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
             
+            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
+            viewButton.addAction(UIAction(){ action in
+                self.delegate?.viewVideoItem(item: videoItem)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: deleteButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+        }
+    }
+    
+    override func updateTimeLabel(isEditing: Bool){
+        timeLabel.text = videoItem?.creationDate.dateTimeString()
+    }
+    
+    override func updateItemView(isEditing: Bool){
+        itemView.removeAllSubviews()
+        if let videoItem = videoItem{
             let videoView = VideoPlayerView()
             videoView.setRoundedBorders()
-            cellBody.addSubviewWithAnchors(videoView, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
+            itemView.addSubviewWithAnchors(videoView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
             videoView.url = videoItem.fileURL
             videoView.setAspectRatioConstraint()
             
             if !videoItem.title.isEmpty{
                 let titleView = UILabel(text: videoItem.title)
                 titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                cellBody.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor)
+                itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
             }
             else{
-                videoView.bottom(cellBody.bottomAnchor)
+                videoView.bottom(itemView.bottomAnchor)
             }
-            
-            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addAction(UIAction(){ action in
-                self.delegate?.deleteVideoItem(item: videoItem)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewVideoItem(item: videoItem)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
-            
         }
     }
     

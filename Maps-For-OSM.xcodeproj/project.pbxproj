@@ -33,6 +33,8 @@
 		4E1982BF2BAB58CE00A37AE0 /* VideoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982BE2BAB58CE00A37AE0 /* VideoItemCell.swift */; };
 		4E1982C12BAB59CD00A37AE0 /* ImageItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C02BAB59CD00A37AE0 /* ImageItemCell.swift */; };
 		4E1982C32BAB5A0700A37AE0 /* TrackItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C22BAB5A0700A37AE0 /* TrackItemCell.swift */; };
+		4E1982C52BAC246600A37AE0 /* NoteItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C42BAC246500A37AE0 /* NoteItemCell.swift */; };
+		4E1982C82BAC24AD00A37AE0 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */; };
 		4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80F02732ED43003ED6B0 /* MainViewController.swift */; };
 		4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */; };
 		4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */; };
@@ -44,7 +46,6 @@
 		4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810D2732EDC5003ED6B0 /* MapTile.swift */; };
 		4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810F2732EDC5003ED6B0 /* MapView.swift */; };
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
-		4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1A274BA72100F3D584 /* TrackCell.swift */; };
 		4E1D0E1E274BCDD200F3D584 /* GPXCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */; };
 		4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */; };
 		4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */; };
@@ -171,6 +172,8 @@
 		4E1982BE2BAB58CE00A37AE0 /* VideoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItemCell.swift; sourceTree = "<group>"; };
 		4E1982C02BAB59CD00A37AE0 /* ImageItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemCell.swift; sourceTree = "<group>"; };
 		4E1982C22BAB5A0700A37AE0 /* TrackItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItemCell.swift; sourceTree = "<group>"; };
+		4E1982C42BAC246500A37AE0 /* NoteItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemCell.swift; sourceTree = "<group>"; };
+		4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		4E1B80F02732ED43003ED6B0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLayerView.swift; sourceTree = "<group>"; };
@@ -182,7 +185,6 @@
 		4E1B810D2732EDC5003ED6B0 /* MapTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
 		4E1B810F2732EDC5003ED6B0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
-		4E1D0E1A274BA72100F3D584 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXCreator.swift; sourceTree = "<group>"; };
 		4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
@@ -325,6 +327,8 @@
 				4ECC1ACA2BA2ED5600B9CCBD /* Location */,
 				4E30799228D783F8005FBEF0 /* Place */,
 				4E5124212BAAF87100A5B416 /* PlaceUI */,
+				4E1982C92BAC24B300A37AE0 /* Note */,
+				4E1982C62BAC248500A37AE0 /* NoteUI */,
 				4EEF6F8228FAC58800543EBA /* Search */,
 				4E0BD99C26EA0074005A4A94 /* Info */,
 				4E3BE7EA26EA7E57000F9069 /* Map */,
@@ -402,6 +406,22 @@
 			path = Track;
 			sourceTree = "<group>";
 		};
+		4E1982C62BAC248500A37AE0 /* NoteUI */ = {
+			isa = PBXGroup;
+			children = (
+				4E1982C42BAC246500A37AE0 /* NoteItemCell.swift */,
+			);
+			path = NoteUI;
+			sourceTree = "<group>";
+		};
+		4E1982C92BAC24B300A37AE0 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */,
+			);
+			path = Note;
+			sourceTree = "<group>";
+		};
 		4E24F48B27345DD5004E69C2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,8 +466,8 @@
 		4E3BE7EA26EA7E57000F9069 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */,
 				4E3A415E28D83CD9004C9D90 /* CLLocation.swift */,
+				4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */,
 				4E6A00F4294F5390009151E3 /* CLPlacemark.swift */,
 				4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */,
 				4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */,
@@ -520,7 +540,7 @@
 		4E5124232BAAF8EA00A5B416 /* TrackUI */ = {
 			isa = PBXGroup;
 			children = (
-				4E1D0E1A274BA72100F3D584 /* TrackCell.swift */,
+				4E1982C22BAB5A0700A37AE0 /* TrackItemCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
 				4E2088E42743A4280097BFBA /* TrackRecorder.swift */,
@@ -534,12 +554,11 @@
 			children = (
 				4E1982BC2BAB55E400A37AE0 /* AudioItemCell.swift */,
 				4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */,
+				4E1982C02BAB59CD00A37AE0 /* ImageItemCell.swift */,
 				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
+				4E1982BE2BAB58CE00A37AE0 /* VideoItemCell.swift */,
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
 				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
-				4E1982BE2BAB58CE00A37AE0 /* VideoItemCell.swift */,
-				4E1982C02BAB59CD00A37AE0 /* ImageItemCell.swift */,
-				4E1982C22BAB5A0700A37AE0 /* TrackItemCell.swift */,
 			);
 			path = MediaUI;
 			sourceTree = "<group>";
@@ -662,6 +681,7 @@
 				4E5D28792BAB02230045B037 /* PlaceItemList.swift in Sources */,
 				4E24F47D27345D11004E69C2 /* UIButton.swift in Sources */,
 				4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */,
+				4E1982C82BAC24AD00A37AE0 /* NoteItem.swift in Sources */,
 				4E2088E72743AA670097BFBA /* Trackpoint.swift in Sources */,
 				4E0BD9BC26EA0239005A4A94 /* Codable.swift in Sources */,
 				4E5124202BAAE78100A5B416 /* PlaceItemCell.swift in Sources */,
@@ -756,13 +776,13 @@
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
 				4E31A652293F4B47002080F6 /* UIView+Insets.swift in Sources */,
 				4ECC1AD62BA360B100B9CCBD /* LocationViewController.swift in Sources */,
+				4E1982C52BAC246600A37AE0 /* NoteItemCell.swift in Sources */,
 				4E1982C32BAB5A0700A37AE0 /* TrackItemCell.swift in Sources */,
 				4EE1462E28D49F510058F3D3 /* World.swift in Sources */,
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4E31A658293F4CCC002080F6 /* UIView.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
 				4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */,
-				4E1D0E1B274BA72100F3D584 /* TrackCell.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView+Design.swift in Sources */,
 				4E4424842B94FA100007A26F /* CameraViewController+Controls.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */,

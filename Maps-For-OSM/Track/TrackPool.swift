@@ -95,13 +95,23 @@ class TrackPool{
     }
     
     static func addTracksToPlaces(){
-        for track in list{
-            if let coordinate = track .startCoordinate{
-                let place = PlacePool.assertPlace(coordinate: coordinate)
-                if !place.items.contains(track){
-                    place.items.append(track)
+        if !list.isEmpty{
+            print("adding tracks to places")
+            for track in list{
+                if let coordinate = track .startCoordinate{
+                    let place = PlacePool.assertPlace(coordinate: coordinate)
+                    if !place.items.contains(track){
+                        place.items.append(track)
+                    }
                 }
             }
+            PlacePool.save()
+            list.removeAll()
+            DataController.shared.remove(forKey: storeKey)
+            print("track pool invalidated")
+        }
+        else{
+            print("no tracks to add to places")
         }
     }
     

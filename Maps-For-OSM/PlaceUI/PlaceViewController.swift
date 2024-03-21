@@ -47,27 +47,18 @@ class PlaceViewController: PopupViewController{
         tableView.register(VideoItemCell.self, forCellReuseIdentifier: VideoItemCell.CELL_IDENT)
         tableView.register(ImageItemCell.self, forCellReuseIdentifier: ImageItemCell.CELL_IDENT)
         tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackItemCell.CELL_IDENT)
+        tableView.register(NoteItemCell.self, forCellReuseIdentifier: NoteItemCell.CELL_IDENT)
         
         let guide = view.safeAreaLayoutGuide
         
-        var header = UILabel(header: "placeData".localize())
-        view.addSubviewWithAnchors(header, top: headerView?.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
-        
         let locationLabel = UILabel(text: place.address)
-        view.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
+        locationLabel.textAlignment = .center
+        view.addSubviewWithAnchors(locationLabel, top: headerView?.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
         
         let coordinateLabel = UILabel(text: place.coordinate.asString)
         view.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: flatInsets)
         
-        header = UILabel(header: "note".localize())
-        view.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
-        view.addSubviewWithAnchors(noteContainerView, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor)
-        setupNoteContainerView()
-        
-        header = UILabel(header: "media".localize())
-        view.addSubviewWithAnchors(header, top: noteContainerView.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
-        
-        view.addSubviewWithAnchors(tableView, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(tableView, top: coordinateLabel.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: defaultInsets)
         tableView.allowsSelection = false
         tableView.allowsSelectionDuringEditing = false
         tableView.separatorStyle = .none
@@ -211,6 +202,12 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
             cell.delegate = self
             cell.updateCell(isEditing: tableView.isEditing)
             return cell
+        case .note:
+            let cell = tableView.dequeueReusableCell(withIdentifier: NoteItemCell.CELL_IDENT, for: indexPath) as! NoteItemCell
+            cell.noteItem = item as? NoteItem
+            cell.delegate = self
+            cell.updateCell(isEditing: tableView.isEditing)
+            return cell
         }
     }
     
@@ -228,13 +225,28 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceViewController : AudioItemCellDelegate, VideoItemCellDelegate, ImageItemCellDelegate, TrackItemCellDelegate{
+extension PlaceViewController : AudioItemCellDelegate{
+    
     func deleteAudioItem(item: AudioItem) {
-        deletePlaceItem(item: item)
+        showDestructiveApprove(title: "confirmDeleteAudioItem".localize(), text: "deleteItemHint".localize()){
+            self.place.deleteItem(item: item)
+            PlacePool.save()
+            self.delegate?.updateMarkerLayer()
+            self.tableView.reloadData()
+        }
     }
     
+}
+
+extension PlaceViewController : VideoItemCellDelegate{
+    
     func deleteVideoItem(item: VideoItem) {
-        deletePlaceItem(item: item)
+        showDestructiveApprove(title: "confirmDeleteVideoItem".localize(), text: "deleteItemHint".localize()){
+            self.place.deleteItem(item: item)
+            PlacePool.save()
+            self.delegate?.updateMarkerLayer()
+            self.tableView.reloadData()
+        }
     }
     
     func viewVideoItem(item: VideoItem) {
@@ -244,8 +256,17 @@ extension PlaceViewController : AudioItemCellDelegate, VideoItemCellDelegate, Im
         self.present(controller, animated: true)
     }
     
+}
+
+extension PlaceViewController : ImageItemCellDelegate{
+    
     func deleteImageItem(item: ImageItem) {
-        deletePlaceItem(item: item)
+        showDestructiveApprove(title: "confirmDeleteImageItem".localize(), text: "deleteItemHint".localize()){
+            self.place.deleteItem(item: item)
+            PlacePool.save()
+            self.delegate?.updateMarkerLayer()
+            self.tableView.reloadData()
+        }
     }
     
     func viewImageItem(item: ImageItem) {
@@ -255,8 +276,17 @@ extension PlaceViewController : AudioItemCellDelegate, VideoItemCellDelegate, Im
         self.present(controller, animated: true)
     }
     
+}
+
+extension PlaceViewController : TrackItemCellDelegate{
+    
     func deleteTrackItem(item: TrackItem) {
-        deletePlaceItem(item: item)
+        showDestructiveApprove(title: "confirmDeleteTrackItem".localize(), text: "deleteItemHint".localize()){
+            self.place.deleteItem(item: item)
+            PlacePool.save()
+            self.delegate?.updateMarkerLayer()
+            self.tableView.reloadData()
+        }
     }
     
     func viewTrackItem(item: TrackItem) {
@@ -271,8 +301,12 @@ extension PlaceViewController : AudioItemCellDelegate, VideoItemCellDelegate, Im
         }
     }
     
-    func deletePlaceItem(item: PlaceItem) {
-        showDestructiveApprove(title: "confirmDeleteItem".localize(), text: "deleteItemHint".localize()){
+}
+
+extension PlaceViewController : NoteItemCellDelegate{
+    
+    func deleteNoteItem(item: NoteItem) {
+        showDestructiveApprove(title: "confirmDeleteNoteItem".localize(), text: "deleteItemHint".localize()){
             self.place.deleteItem(item: item)
             PlacePool.save()
             self.delegate?.updateMarkerLayer()
@@ -281,5 +315,6 @@ extension PlaceViewController : AudioItemCellDelegate, VideoItemCellDelegate, Im
     }
     
 }
+
 
 

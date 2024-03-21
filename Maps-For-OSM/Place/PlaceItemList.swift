@@ -86,6 +86,8 @@ class PlaceItemMetaData : Identifiable, Codable{
             data = try values.decode(VideoItem.self, forKey: .data)
         case .track:
             data = try values.decode(TrackItem.self, forKey: .data)
+        case .note:
+            data = try values.decode(NoteItem.self, forKey: .data)
         }
     }
     

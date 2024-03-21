@@ -16,15 +16,7 @@ class Backup{
             var paths = Array<URL>()
             let zipFileURL = FileController.backupDirURL.appendingPathComponent(name)
             paths.append(FileController.mediaDirURL)
-            for track in TrackPool.list{
-                if let trackFileURL = GPXCreator.createTemporaryFile(track: track){
-                    paths.append(trackFileURL)
-                }
-            }
             if let url = PlacePool.saveAsFile(){
-                paths.append(url)
-            }
-            if let url = TrackPool.saveAsFile(){
                 paths.append(url)
             }
             if let url = Preferences.saveAsFile(){
@@ -76,9 +68,12 @@ class Backup{
         PlacePool.loadFromFile(url: url)
         PlacePool.save()
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
-        TrackPool.loadFromFile(url: url)
-        TrackPool.save()
-        TrackPool.addTracksToPlaces()
+        if FileController.fileExists(url: url){
+            TrackPool.loadFromFile(url: url)
+            TrackPool.save()
+            TrackPool.addTracksToPlaces()
+            PlacePool.addNotesToPlaces()
+        }
         FileController.deleteTemporaryFiles()
         return true
     }

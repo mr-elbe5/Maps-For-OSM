@@ -31,4 +31,8 @@ class DataController{
         return nil
     }
     
+    func remove(forKey key: String){
+        store.removeObject(forKey: key)
+    }
+    
 }
