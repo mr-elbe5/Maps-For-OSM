@@ -11,7 +11,9 @@ protocol MainMenuDelegate{
     
     func openLocationList()
     func showLocations(_ show: Bool)
+    
     func openTrackList()
+    func hideTrack()
     
     func updateCross()
     func focusUserLocation()
@@ -34,49 +36,55 @@ protocol MainMenuDelegate{
 
 class MainMenuView: UIView {
     
+    var locationMenuButton = UIButton().asIconButton("mappin.circle")
+    
     //MainViewController
     var delegate : MainMenuDelegate? = nil
-    
-    var mapMenuControl = UIButton().asIconButton("map")
-    var locationMenuControl = UIButton().asIconButton("mappin")
-    var trackMenuControl = UIButton().asIconButton("figure.walk")
     
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
-        addSubviewWithAnchors(locationMenuControl, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        locationMenuControl.menu = getLocationMenu()
-        locationMenuControl.showsMenuAsPrimaryAction = true
+        let insets = UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: 2*defaultInset)
         
-        let crossControl = UIButton().asIconButton("plus.circle")
-        addSubviewWithAnchors(crossControl, top: topAnchor, trailing: centerXAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        crossControl.addAction(UIAction(){ action in
+        addSubviewWithAnchors(locationMenuButton, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: defaultInset, right: 2*defaultInset))
+        locationMenuButton.menu = getLocationMenu()
+        locationMenuButton.showsMenuAsPrimaryAction = true
+        
+        let trackMenuButton = UIButton().asIconButton("figure.walk.circle")
+        addSubviewWithAnchors(trackMenuButton, top: topAnchor, leading: locationMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
+        trackMenuButton.menu = getTrackingMenu()
+        trackMenuButton.showsMenuAsPrimaryAction = true
+        
+        let crossButton = UIButton().asIconButton("plus.circle")
+        addSubviewWithAnchors(crossButton, top: topAnchor, leading: trackMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
+        crossButton.addAction(UIAction(){ action in
             AppState.shared.showCross = !AppState.shared.showCross
             self.delegate?.updateCross()
         }, for: .touchDown)
         
-        let focusUserLocationControl = UIButton().asIconButton("record.circle")
-        addSubviewWithAnchors(focusUserLocationControl, top: topAnchor, leading: centerXAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        focusUserLocationControl.addAction(UIAction(){ action in
+        let focusCurrentLocationButton = UIButton().asIconButton("record.circle")
+        addSubviewWithAnchors(focusCurrentLocationButton, top: topAnchor, bottom: bottomAnchor, insets: insets)
+            .centerX(centerXAnchor)
+        focusCurrentLocationButton.addAction(UIAction(){ action in
             self.delegate?.focusUserLocation()
         }, for: .touchDown)
         
-        let infoControl = UIButton().asIconButton("info.circle")
-        addSubviewWithAnchors(infoControl, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        infoControl.addAction(UIAction(){ action in
+        let infoButton = UIButton().asIconButton("info.circle")
+        addSubviewWithAnchors(infoButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))
+        infoButton.addAction(UIAction(){ action in
             self.delegate?.openInfo()
         }, for: .touchDown)
         
-        let settingsControl = UIButton().asIconButton("gearshape")
-        addSubviewWithAnchors(settingsControl, top: topAnchor, trailing: infoControl.leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        settingsControl.menu = getSettingsMenu()
-        settingsControl.showsMenuAsPrimaryAction = true
+        let settingsButton = UIButton().asIconButton("gearshape")
+        addSubviewWithAnchors(settingsButton, top: topAnchor, trailing: infoButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
+        settingsButton.menu = getSettingsMenu()
+        settingsButton.showsMenuAsPrimaryAction = true
         
-        let searchControl = UIButton().asIconButton("magnifyingglass")
-        addSubviewWithAnchors(searchControl, top: topAnchor, trailing: settingsControl.leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        searchControl.addAction(UIAction(){ action in
+        let searchButton = UIButton().asIconButton("magnifyingglass")
+        addSubviewWithAnchors(searchButton, top: topAnchor, trailing: settingsButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
+        searchButton.addAction(UIAction(){ action in
             self.delegate?.openSearch()
         }, for: .touchDown)
         
@@ -100,8 +108,16 @@ class MainMenuView: UIView {
                 
             })
         }
+        return UIMenu(title: "", children: actions)
+    }
+    
+    func getTrackingMenu() -> UIMenu{
+        var actions = Array<UIAction>()
         actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openTrackList()
+        })
+        actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eraser")){ action in
+            self.delegate?.hideTrack()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -140,7 +156,7 @@ class MainMenuView: UIView {
     }
     
     func updateLocationMenu(){
-        self.locationMenuControl.menu = self.getLocationMenu()
+        self.locationMenuButton.menu = self.getLocationMenu()
     }
     
 }

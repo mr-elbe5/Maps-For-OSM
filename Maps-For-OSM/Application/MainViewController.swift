@@ -92,6 +92,7 @@ class MainViewController: UIViewController {
     
     func setupTrackStatusView(layoutGuide: UILayoutGuide){
         trackStatusView.setup()
+        trackStatusView.delegate = self
         view.addSubviewWithAnchors(trackStatusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
         trackStatusView.isHidden = true
     }

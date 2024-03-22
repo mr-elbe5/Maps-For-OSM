@@ -61,7 +61,7 @@ class TrackStatusView : UIView{
         timeLabel.textColor = .darkGray
         addSubviewWithAnchors(timeLabel, top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
-        pauseResumeButton.asIconButton("pause")
+        pauseResumeButton.asIconButton("pause.circle")
         pauseResumeButton.tintColor = .darkGray
         pauseResumeButton.addAction(UIAction(){ action in
             self.togglePauseResume()
@@ -70,7 +70,7 @@ class TrackStatusView : UIView{
     }
     
     func startTrackInfo(){
-        pauseResumeButton.asIconButton("pause")
+        pauseResumeButton.asIconButton("pause.circle")
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
@@ -107,8 +107,7 @@ class TrackStatusView : UIView{
     
     func togglePauseResume(){
         delegate?.togglePauseTracking()
-        pauseResumeButton.asIconButton(TrackRecorder.isRecording ? "pause" : "play")
-        setNeedsLayout()
+        pauseResumeButton.asIconButton(TrackRecorder.isRecording ? "pause.circle" : "play.circle")
     }
     
 }

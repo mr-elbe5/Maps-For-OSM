@@ -90,7 +90,7 @@ class StatusView : UIView{
         compassLabel!.textColor = .darkGray
         defaultView.addSubviewWithAnchors(compassLabel!, top: defaultView.topAnchor, leading: compassIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
         
-        detailButton.asIconButton(isDetailed ? "arrowtriangle.down" : "arrowtriangle.up")
+        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle")
         detailButton.tintColor = .darkGray
         detailButton.addAction(UIAction(){ action in
             self.toggleDetailed()
@@ -121,7 +121,7 @@ class StatusView : UIView{
     func toggleDetailed(){
         isDetailed = !isDetailed
         setupDetailView()
-        detailButton.asIconButton(isDetailed ? "arrowtriangle.down" : "arrowtriangle.up")
+        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle")
         setNeedsLayout()
     }
     

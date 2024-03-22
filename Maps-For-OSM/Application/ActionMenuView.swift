@@ -11,7 +11,6 @@ protocol ActionMenuDelegate{
     
     func startTrackRecording(at coordinate: CLLocationCoordinate2D)
     func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void)
-    func hideTrack()
     
     func openCamera(at coordinate: CLLocationCoordinate2D)
     func openAudio(at coordinate: CLLocationCoordinate2D)
@@ -25,25 +24,20 @@ class ActionMenuView: UIView {
     
     var toggleTrackingButton = UIButton().asIconButton("figure.walk")
     
-    var hideTrackButton = UIButton().asIconButton("figure.walk")
-    
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = defaultInset
-        stackView.distribution = .equalSpacing
-        addSubviewFilling(stackView, insets: defaultInsets)
         
-        stackView.addArrangedSubview(toggleTrackingButton)
+        let insets = UIEdgeInsets(top: 2*defaultInset, left: defaultInset, bottom: 2*defaultInset, right: defaultInset)
+        
+        addSubviewWithAnchors(toggleTrackingButton, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         toggleTrackingButton.addAction(UIAction(){ action in
             self.toggleTrackRecording()
         }, for: .touchDown)
         
         let cameraButton = UIButton().asIconButton("camera")
-        stackView.addArrangedSubview(cameraButton)
+        addSubviewWithAnchors(cameraButton, top: toggleTrackingButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         cameraButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.openCamera(at: coordinate)
@@ -51,7 +45,7 @@ class ActionMenuView: UIView {
         }, for: .touchDown)
         
         let audioButton = UIButton().asIconButton("mic")
-        stackView.addArrangedSubview(audioButton)
+        addSubviewWithAnchors(audioButton, top: cameraButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         audioButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.openAudio(at: coordinate)
@@ -59,7 +53,7 @@ class ActionMenuView: UIView {
         }, for: .touchDown)
         
         let noteButton = UIButton().asIconButton("pencil.and.list.clipboard")
-        stackView.addArrangedSubview(noteButton)
+        addSubviewWithAnchors(noteButton, top: audioButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: insets)
         noteButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.openNote(at: coordinate)
@@ -82,10 +76,6 @@ class ActionMenuView: UIView {
                 }
             }
         }
-    }
-    
-    func endTrackRecording(){
-        
     }
     
 }

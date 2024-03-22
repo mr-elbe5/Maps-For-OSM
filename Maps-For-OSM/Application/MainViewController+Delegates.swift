@@ -110,6 +110,14 @@ extension MainViewController: MapPositionDelegate{
     
 }
 
+extension MainViewController: TrackStatusDelegate{
+    
+    func togglePauseTracking() {
+        TrackRecorder.isRecording = !TrackRecorder.isRecording
+    }
+    
+}
+
 extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate, LocationViewDelegate {
     
     func showPlaceOnMap(place: Place) {
