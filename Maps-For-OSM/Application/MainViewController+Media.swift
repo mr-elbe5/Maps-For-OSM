@@ -21,45 +21,6 @@ extension MainViewController{
         self.present(pickerController, animated: true, completion: nil)
     }
     
-    func openCamera(at coordinate: CLLocationCoordinate2D) {
-        AVCaptureDevice.askCameraAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let cameraCaptureController = CameraViewController()
-                    cameraCaptureController.delegate = self
-                    cameraCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(cameraCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
-                }
-                return
-            }
-        }
-    }
-    
-    func addAudio(at coordinate: CLLocationCoordinate2D){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(audioCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
 }
 
 extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{

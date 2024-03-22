@@ -9,23 +9,12 @@ import CoreLocation
 
 protocol MainMenuDelegate{
     
-    func showLocations(_ show: Bool)
     func openLocationList()
-    func deleteAllLocations()
-    
-    func startRecording()
-    func pauseRecording()
-    func resumeRecording()
-    func cancelRecording()
-    func saveRecordedTrack()
-    func hideTrack()
+    func showLocations(_ show: Bool)
     func openTrackList()
-    func deleteAllTracks()
     
     func updateCross()
     func focusUserLocation()
-    
-    func openCamera(at coordinate: CLLocationCoordinate2D)
     
     func openSearch()
     
@@ -65,10 +54,6 @@ class MainMenuView: UIView {
         locationMenuControl.menu = getLocationMenu()
         locationMenuControl.showsMenuAsPrimaryAction = true
         
-        stackView.addArrangedSubview(trackMenuControl)
-        trackMenuControl.menu = getTrackingMenu()
-        trackMenuControl.showsMenuAsPrimaryAction = true
-        
         let crossControl = UIButton().asIconButton("plus.circle")
         stackView.addArrangedSubview(crossControl)
         crossControl.addAction(UIAction(){ action in
@@ -80,14 +65,6 @@ class MainMenuView: UIView {
         stackView.addArrangedSubview(focusUserLocationControl)
         focusUserLocationControl.addAction(UIAction(){ action in
             self.delegate?.focusUserLocation()
-        }, for: .touchDown)
-        
-        let cameraControl = UIButton().asIconButton("camera")
-        stackView.addArrangedSubview(cameraControl)
-        cameraControl.addAction(UIAction(){ action in
-            if let coordinate = LocationService.shared.location?.coordinate{
-                self.delegate?.openCamera(at: coordinate)
-            }
         }, for: .touchDown)
         
         let searchControl = UIButton().asIconButton("magnifyingglass")
@@ -111,6 +88,9 @@ class MainMenuView: UIView {
     
     func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
+        actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+            self.delegate?.openLocationList()
+        })
         if AppState.shared.showLocations{
             actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
@@ -124,57 +104,9 @@ class MainMenuView: UIView {
                 
             })
         }
-        actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openLocationList()
+        actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+            self.delegate?.openTrackList()
         })
-        actions.append(UIAction(title: "deleteAllPlaces".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteAllLocations()
-        })
-        return UIMenu(title: "", children: actions)
-    }
-    
-    func getTrackingMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        if TrackRecorder.track != nil{
-            if TrackRecorder.isRecording{
-                actions.append(UIAction(title: "pauseRecording".localize(), image: UIImage(systemName: "pause")){ action in
-                    self.delegate?.pauseRecording()
-                    self.updateTrackMenu()
-                })
-            }
-            else{
-                actions.append(UIAction(title: "resumeRecording".localize(), image: UIImage(systemName: "play")){ action in
-                    self.delegate?.resumeRecording()
-                    self.updateTrackMenu()
-                })
-            }
-            actions.append(UIAction(title: "cancelRecording".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-                self.delegate?.cancelRecording()
-                self.updateTrackMenu()
-            })
-            actions.append(UIAction(title: "saveRecordedTour".localize(), image: UIImage(systemName: "square.and.arrow.down")?.withTintColor(.systemBlue, renderingMode: .alwaysOriginal)){ action in
-                self.delegate?.saveRecordedTrack()
-                self.updateTrackMenu()
-            })
-        }
-        else{
-            actions.append(UIAction(title: "startRecording".localize(), image: UIImage(systemName: "figure.walk")){ action in
-                self.delegate?.startRecording()
-                self.updateTrackMenu()
-            })
-            if TrackPool.visibleTrack != nil {
-                actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eye.slash")){ action in
-                    self.delegate?.hideTrack()
-                    self.updateTrackMenu()
-                })
-            }
-            actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-                self.delegate?.openTrackList()
-            })
-            actions.append(UIAction(title: "deleteAllTracks".localize(), image: UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-                self.delegate?.deleteAllTracks()
-            })
-        }
         return UIMenu(title: "", children: actions)
     }
     
@@ -213,10 +145,6 @@ class MainMenuView: UIView {
     
     func updateLocationMenu(){
         self.locationMenuControl.menu = self.getLocationMenu()
-    }
-    
-    func updateTrackMenu(){
-        self.trackMenuControl.menu = self.getTrackingMenu()
     }
     
 }

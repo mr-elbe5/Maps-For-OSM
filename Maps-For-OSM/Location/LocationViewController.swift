@@ -12,7 +12,7 @@ protocol LocationViewDelegate{
     func addPlace(at coordinate: CLLocationCoordinate2D)
     func openCamera(at coordinate: CLLocationCoordinate2D)
     func addImage(at coordinate: CLLocationCoordinate2D)
-    func addAudio(at coordinate: CLLocationCoordinate2D)
+    func openAudio(at coordinate: CLLocationCoordinate2D)
 }
 
 class LocationViewController: PopupScrollViewController{
@@ -102,7 +102,7 @@ class LocationViewController: PopupScrollViewController{
         addAudioButton.setRoundedBorders()
         addAudioButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            self.delegate?.addAudio(at: self.coordinate)
+            self.delegate?.openAudio(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         

@@ -12,6 +12,7 @@ class MainViewController: UIViewController {
     
     var mapView = MapView()
     var mainMenuView = MainMenuView()
+    var actionMenuView = ActionMenuView()
     var statusView = StatusView()
     var licenseView = UIView()
     
@@ -29,7 +30,7 @@ class MainViewController: UIViewController {
         let layoutGuide = view.safeAreaLayoutGuide
         setupMapView(layoutGuide: layoutGuide)
         setupMainMenuView(layoutGuide: layoutGuide)
-        mainMenuView.delegate = self
+        setupActionMenuView(layoutGuide: layoutGuide)
         setupLicenseView(layoutGuide: layoutGuide)
         setupStatusView(layoutGuide: layoutGuide)
         mapView.delegate = self
@@ -48,6 +49,13 @@ class MainViewController: UIViewController {
     func setupMainMenuView(layoutGuide: UILayoutGuide){
         view.addSubviewWithAnchors(mainMenuView, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: flatInsets)
         mainMenuView.setup()
+        mainMenuView.delegate = self
+    }
+    
+    func setupActionMenuView(layoutGuide: UILayoutGuide){
+        view.addSubviewWithAnchors(actionMenuView, top: mainMenuView.bottomAnchor, leading: layoutGuide.leadingAnchor, insets: defaultInsets)
+        actionMenuView.setup()
+        actionMenuView.delegate = self
     }
     
     func setupLicenseView(layoutGuide: UILayoutGuide){
