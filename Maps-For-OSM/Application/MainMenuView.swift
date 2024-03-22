@@ -45,43 +45,39 @@ class MainMenuView: UIView {
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         layer.cornerRadius = 10
         layer.masksToBounds = true
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        addSubviewFilling(stackView, insets: defaultInsets)
         
-        stackView.addArrangedSubview(locationMenuControl)
+        addSubviewWithAnchors(locationMenuControl, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         locationMenuControl.menu = getLocationMenu()
         locationMenuControl.showsMenuAsPrimaryAction = true
         
         let crossControl = UIButton().asIconButton("plus.circle")
-        stackView.addArrangedSubview(crossControl)
+        addSubviewWithAnchors(crossControl, top: topAnchor, trailing: centerXAnchor, bottom: bottomAnchor, insets: defaultInsets)
         crossControl.addAction(UIAction(){ action in
             AppState.shared.showCross = !AppState.shared.showCross
             self.delegate?.updateCross()
         }, for: .touchDown)
         
         let focusUserLocationControl = UIButton().asIconButton("record.circle")
-        stackView.addArrangedSubview(focusUserLocationControl)
+        addSubviewWithAnchors(focusUserLocationControl, top: topAnchor, leading: centerXAnchor, bottom: bottomAnchor, insets: defaultInsets)
         focusUserLocationControl.addAction(UIAction(){ action in
             self.delegate?.focusUserLocation()
         }, for: .touchDown)
         
-        let searchControl = UIButton().asIconButton("magnifyingglass")
-        stackView.addArrangedSubview(searchControl)
-        searchControl.addAction(UIAction(){ action in
-            self.delegate?.openSearch()
+        let infoControl = UIButton().asIconButton("info.circle")
+        addSubviewWithAnchors(infoControl, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        infoControl.addAction(UIAction(){ action in
+            self.delegate?.openInfo()
         }, for: .touchDown)
         
         let settingsControl = UIButton().asIconButton("gearshape")
-        stackView.addArrangedSubview(settingsControl)
+        addSubviewWithAnchors(settingsControl, top: topAnchor, trailing: infoControl.leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         settingsControl.menu = getSettingsMenu()
         settingsControl.showsMenuAsPrimaryAction = true
         
-        let infoControl = UIButton().asIconButton("info.circle")
-        stackView.addArrangedSubview(infoControl)
-        infoControl.addAction(UIAction(){ action in
-            self.delegate?.openInfo()
+        let searchControl = UIButton().asIconButton("magnifyingglass")
+        addSubviewWithAnchors(searchControl, top: topAnchor, trailing: settingsControl.leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        searchControl.addAction(UIAction(){ action in
+            self.delegate?.openSearch()
         }, for: .touchDown)
         
     }

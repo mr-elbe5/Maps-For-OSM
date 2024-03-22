@@ -100,6 +100,7 @@
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
 		4E4B0A302BAD803D00838EC0 /* MainViewController+MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+MainMenu.swift */; };
 		4E4B0A322BAD80A400838EC0 /* MainViewController+ActionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A312BAD80A400838EC0 /* MainViewController+ActionMenu.swift */; };
+		4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */; };
 		4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */; };
 		4E51241C2BAA014800A5B416 /* UISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241B2BAA014800A5B416 /* UISwitch.swift */; };
 		4E51241E2BAADCDE00A5B416 /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */; };
@@ -243,6 +244,7 @@
 		4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuView.swift; sourceTree = "<group>"; };
 		4E4B0A2F2BAD803D00838EC0 /* MainViewController+MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+MainMenu.swift"; sourceTree = "<group>"; };
 		4E4B0A312BAD80A400838EC0 /* MainViewController+ActionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+ActionMenu.swift"; sourceTree = "<group>"; };
+		4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStatusView.swift; sourceTree = "<group>"; };
 		4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
 		4E51241B2BAA014800A5B416 /* UISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISwitch.swift; sourceTree = "<group>"; };
 		4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItem.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
+				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4E31A658293F4CCC002080F6 /* UIView.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
+				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
 				4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView+Design.swift in Sources */,
 				4E4424842B94FA100007A26F /* CameraViewController+Controls.swift in Sources */,

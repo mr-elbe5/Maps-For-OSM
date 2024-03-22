@@ -10,8 +10,6 @@ import CoreLocation
 protocol ActionMenuDelegate{
     
     func startTrackRecording(at coordinate: CLLocationCoordinate2D)
-    func pauseTrackRecording()
-    func resumeTrackRecording()
     func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void)
     func hideTrack()
     
@@ -25,9 +23,7 @@ class ActionMenuView: UIView {
     
     var delegate : ActionMenuDelegate? = nil
     
-    var startTrackingButton = UIButton().asIconButton("figure.walk")
-    var toggleTrackingButton = UIButton().asIconButton("pause.circle")
-    var endTrackingButton = UIButton().asIconButton("stop.circle")
+    var toggleTrackingButton = UIButton().asIconButton("figure.walk")
     
     var hideTrackButton = UIButton().asIconButton("figure.walk")
     
@@ -41,19 +37,9 @@ class ActionMenuView: UIView {
         stackView.distribution = .equalSpacing
         addSubviewFilling(stackView, insets: defaultInsets)
         
-        stackView.addArrangedSubview(startTrackingButton)
-        startTrackingButton.addAction(UIAction(){ action in
-            self.startTrackRecording()
-        }, for: .touchDown)
-        
         stackView.addArrangedSubview(toggleTrackingButton)
         toggleTrackingButton.addAction(UIAction(){ action in
             self.toggleTrackRecording()
-        }, for: .touchDown)
-        
-        stackView.addArrangedSubview(endTrackingButton)
-        endTrackingButton.addAction(UIAction(){ action in
-            self.endTrackRecording()
         }, for: .touchDown)
         
         let cameraButton = UIButton().asIconButton("camera")
@@ -79,54 +65,27 @@ class ActionMenuView: UIView {
                 self.delegate?.openNote(at: coordinate)
             }
         }, for: .touchDown)
-        updateButtons()
-    }
-    
-    func updateButtons(){
-        if TrackRecorder.track != nil{
-            startTrackingButton.setImage(UIImage(systemName: "figure.walk.motion"), for: .normal)
-            startTrackingButton.isEnabled = false
-            if TrackRecorder.isRecording{
-                toggleTrackingButton.setImage(UIImage(systemName: "pause.circle"), for: .normal)
-            }
-            else{
-                toggleTrackingButton.setImage(UIImage(systemName: "play.circle"), for: .normal)
-            }
-            toggleTrackingButton.isHidden = false
-            endTrackingButton.isHidden = false
-        }
-        else{
-            startTrackingButton.setImage(UIImage(systemName: "figure.walk"), for: .normal)
-            startTrackingButton.isEnabled = true
-            toggleTrackingButton.isHidden = true
-            endTrackingButton.isHidden = true
-        }
-    }
-    
-    func startTrackRecording(){
-        if TrackRecorder.track == nil, let coordinate = LocationService.shared.location?.coordinate{
-            self.delegate?.startTrackRecording(at: coordinate)
-            self.updateButtons()
-        }
     }
     
     func toggleTrackRecording(){
-        if TrackRecorder.track != nil{
-            if TrackRecorder.isRecording{
-                self.delegate?.pauseTrackRecording()
+        if TrackRecorder.track == nil{
+            if let coordinate = LocationService.shared.location?.coordinate{
+                self.delegate?.startTrackRecording(at: coordinate)
+                toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion"), for: .normal)
             }
-            else{
-                self.delegate?.resumeTrackRecording()
+        }
+        else{
+            let coordinate = LocationService.shared.location?.coordinate
+            self.delegate?.endTrackRecording(at: coordinate){
+                if TrackRecorder.track == nil{
+                    self.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk"), for: .normal)
+                }
             }
-            self.updateButtons()
         }
     }
     
     func endTrackRecording(){
-        let coordinate = LocationService.shared.location?.coordinate
-        self.delegate?.endTrackRecording(at: coordinate){
-            self.updateButtons()
-        }
+        
     }
     
 }

@@ -76,7 +76,7 @@ extension MainViewController: LocationServiceDelegate{
                     mapView.focusUserLocation()
                 }
             }
-            statusView.updateTrackInfo()
+            trackStatusView.updateTrackInfo()
         }
         if statusView.isDetailed{
             statusView.updateDetailInfo(location: location)
@@ -205,7 +205,6 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
             mapView.trackLayerView.setNeedsDisplay()
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
             mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
-            actionMenuView.updateButtons()
         }
     }
     

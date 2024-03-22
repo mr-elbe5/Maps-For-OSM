@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     var mainMenuView = MainMenuView()
     var actionMenuView = ActionMenuView()
     var statusView = StatusView()
+    var trackStatusView = TrackStatusView()
     var licenseView = UIView()
     
     override func loadView() {
@@ -33,6 +34,7 @@ class MainViewController: UIViewController {
         setupActionMenuView(layoutGuide: layoutGuide)
         setupLicenseView(layoutGuide: layoutGuide)
         setupStatusView(layoutGuide: layoutGuide)
+        setupTrackStatusView(layoutGuide: layoutGuide)
         mapView.delegate = self
     }
     
@@ -86,6 +88,12 @@ class MainViewController: UIViewController {
     func setupStatusView(layoutGuide: UILayoutGuide){
         statusView.setup()
         view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
+    }
+    
+    func setupTrackStatusView(layoutGuide: UILayoutGuide){
+        trackStatusView.setup()
+        view.addSubviewWithAnchors(trackStatusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
+        trackStatusView.isHidden = true
     }
     
     func updateFollowTrack(){

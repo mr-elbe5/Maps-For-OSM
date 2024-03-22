@@ -18,26 +18,18 @@ extension MainViewController: ActionMenuDelegate{
             if let track = TrackRecorder.track{
                 TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
-                self.statusView.startTrackInfo()
+                self.trackStatusView.isHidden = false
+                self.statusView.isHidden = true
+                self.trackStatusView.startTrackInfo()
             }
         }
-    }
-    
-    func pauseTrackRecording() {
-        TrackRecorder.pauseRecording()
-        self.statusView.pauseTrackInfo()
-    }
-    
-    func resumeTrackRecording() {
-        TrackRecorder.resumeRecording()
-        self.statusView.resumeTrackInfo()
     }
     
     func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void) {
         if let track = TrackRecorder.track{
             let alertController = UIAlertController(title: "endTrack".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
             alertController.addTextField()
-            alertController.addAction(UIAlertAction(title: "save".localize(),style: .default) { action in
+            alertController.addAction(UIAlertAction(title: "saveTrack".localize(),style: .default) { action in
                 var name = alertController.textFields![0].text
                 if name == nil || name!.isEmpty{
                     name = "Tour"
@@ -48,18 +40,21 @@ extension MainViewController: ActionMenuDelegate{
                 TrackPool.visibleTrack = track
                 self.mapView.trackLayerView.setNeedsDisplay()
                 TrackRecorder.stopRecording()
-                self.statusView.stopTrackInfo()
+                self.trackStatusView.isHidden = true
+                self.statusView.isHidden = false
                 self.mapView.updatePlaceLayer()
                 onCompletion()
             })
-            alertController.addAction(UIAlertAction(title: "delete".localize(),style: .default) { action in
+            alertController.addAction(UIAlertAction(title: "cancelTrack".localize(),style: .default) { action in
                 TrackRecorder.stopRecording()
                 TrackPool.visibleTrack = nil
                 self.mapView.trackLayerView.setNeedsDisplay()
-                self.statusView.stopTrackInfo()
+                self.trackStatusView.stopTrackInfo()
+                self.trackStatusView.isHidden = true
+                self.statusView.isHidden = false
                 onCompletion()
             })
-            alertController.addAction(UIAlertAction(title: "cancel".localize(),style: .default) { action in
+            alertController.addAction(UIAlertAction(title: "back".localize(),style: .default) { action in
                 onCompletion()
             })
             present(alertController, animated: true)
