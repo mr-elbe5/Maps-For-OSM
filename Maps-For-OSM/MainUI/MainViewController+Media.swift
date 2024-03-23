@@ -58,6 +58,20 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
 }
 
+extension MainViewController: NoteViewDelegate{
+    
+    func addNote(note: String, coordinate: CLLocationCoordinate2D) {
+        if !note.isEmpty{
+            let place = PlacePool.assertPlace(coordinate: coordinate)
+            let item = NoteItem()
+            item.note = note
+            place.items.append(item)
+            PlacePool.save()
+        }
+    }
+    
+}
+
 extension MainViewController: CameraDelegate{
     
     func photoCaptured(data: Data, location: CLLocation?) {

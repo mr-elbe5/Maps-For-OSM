@@ -10,61 +10,6 @@ import AVFoundation
 import Photos
 import PhotosUI
 
-extension MainViewController: PHPickerViewControllerDelegate{
-    
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        for result in results{
-            var location: CLLocation? = nil
-            if let ident = result.assetIdentifier{
-                if let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [ident], options: nil).firstObject{
-                    location = fetchResult.location
-                }
-            }
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) {  image, error in
-                    if let image = image {
-                        Log.debug("got image \(image.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
-                    }
-                }
-            }
-            else{
-                itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
-                    if let url = url {
-                        Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
-                    }
-                }
-            }
-        }
-        picker.dismiss(animated: false)
-    }
-    
-}
-
-extension MainViewController: UIDocumentPickerDelegate{
-    
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let url = urls.first else {
-            return
-        }
-        let spinner = UIActivityIndicatorView(style: .large)
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
-        DispatchQueue.main.async {
-            if Backup.unzipBackupFile(zipFileURL: url){
-                if Backup.restoreBackupFile(){
-                    self.showDone(title: "success".localize(), text: "restoreDone".localize())
-                    self.mapView.updatePlaceLayer()
-                }
-            }
-            spinner.stopAnimating()
-            self.view.removeSubview(spinner)
-        }
-    }
-    
-}
-
 extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
@@ -106,14 +51,6 @@ extension MainViewController: MapPositionDelegate{
         controller.delegate = self
         controller.modalPresentationStyle = .automatic
         present(controller, animated: true)
-    }
-    
-}
-
-extension MainViewController: TrackStatusDelegate{
-    
-    func togglePauseTracking() {
-        TrackRecorder.isRecording = !TrackRecorder.isRecording
     }
     
 }
@@ -236,17 +173,4 @@ extension MainViewController: SearchDelegate{
     
 }
 
-extension MainViewController: NoteViewDelegate{
-    
-    func addNote(note: String, coordinate: CLLocationCoordinate2D) {
-        if !note.isEmpty{
-            let place = PlacePool.assertPlace(coordinate: coordinate)
-            let item = NoteItem()
-            item.note = note
-            place.items.append(item)
-            PlacePool.save()
-        }
-    }
-    
-}
 
