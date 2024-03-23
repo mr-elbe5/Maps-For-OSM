@@ -24,14 +24,14 @@ extension MainViewController: PHPickerViewControllerDelegate{
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) {  image, error in
                     if let image = image {
-                        print("got image \(image.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        Log.debug("got image \(image.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                     }
                 }
             }
             else{
                 itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
                     if let url = url {
-                        print("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                     }
                 }
             }
@@ -231,6 +231,20 @@ extension MainViewController: SearchDelegate{
         }
         else{
             mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
+        }
+    }
+    
+}
+
+extension MainViewController: NoteViewDelegate{
+    
+    func addNote(note: String, coordinate: CLLocationCoordinate2D) {
+        if !note.isEmpty{
+            let place = PlacePool.assertPlace(coordinate: coordinate)
+            let item = NoteItem()
+            item.note = note
+            place.items.append(item)
+            PlacePool.save()
         }
     }
     

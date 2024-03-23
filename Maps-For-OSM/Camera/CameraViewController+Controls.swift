@@ -121,7 +121,7 @@ extension CameraViewController{
     }
     
     func enableControls(_ enable: Bool){
-        //print("enable controls: \(enable)")
+        //Log.debug("enable controls: \(enable)")
         captureModeControl.isEnabled = enable
         hdrVideoModeButton.isEnabled = enable && !isPhotoMode
         hdrVideoModeButton.isHidden = !enable || isPhotoMode
@@ -173,7 +173,7 @@ extension CameraViewController{
             })
         }
         else{
-            print("Could not change camera")
+            Log.error("Could not change camera")
             DispatchQueue.main.async {
                 self.enableControls(true)
             }
@@ -185,7 +185,7 @@ extension CameraViewController{
             return
         }
         if currentPosition != .back{
-            print("back lens cannot change when front lens is active")
+            Log.warn("back lens cannot change when front lens is active")
             return
         }
         currentBackCameraIndex = backLensControl.selectedSegmentIndex
@@ -227,7 +227,7 @@ extension CameraViewController{
                 updateZoomLabel()
             }
             catch (let err){
-                print(err.localizedDescription)
+                Log.error(err.localizedDescription)
             }
         default:
             break
@@ -251,7 +251,7 @@ extension CameraViewController{
             return
         }
         if isPhotoMode{
-            print("use hdr only in video mode")
+            Log.warn("use hdr only in video mode")
             return
         }
         sessionQueue.async {
@@ -263,7 +263,7 @@ extension CameraViewController{
                         self.currentDevice.activeFormat = self.selectedMovieMode10BitDeviceFormat!
                         self.currentDevice.unlockForConfiguration()
                     } catch {
-                        print("Could not lock device for configuration: \(error)")
+                        Log.error("Could not lock device for configuration: \(error)")
                     }
                     self.hdrVideoModeButton.setImage(UIImage(systemName: "square.3.layers.3d.down.right"),for: .normal)
                 } else {
@@ -299,10 +299,10 @@ extension CameraViewController{
             return
         }
         isPhotoMode = !isPhotoMode
-        //print("isPhotoMode = \(cameraSettings.isPhotoMode)")
+        //Log.debug("isPhotoMode = \(cameraSettings.isPhotoMode)")
         enableControls(false)
         if isPhotoMode {
-            print("running photo mode")
+            Log.debug("running photo mode")
             enableControls(false)
             selectedMovieMode10BitDeviceFormat = nil
             sessionQueue.async {
@@ -318,7 +318,7 @@ extension CameraViewController{
                 }
             }
         } else {
-            print("running video mode")
+            Log.debug("running video mode")
             sessionQueue.async {
                 let movieFileOutput = AVCaptureMovieFileOutput()
                 if self.session.canAddOutput(movieFileOutput) {
@@ -335,10 +335,10 @@ extension CameraViewController{
                             do {
                                 try self.currentDevice.lockForConfiguration()
                                 self.currentDevice.activeFormat = self.selectedMovieMode10BitDeviceFormat!
-                                print("Setting 'x420' format \(String(describing: self.selectedMovieMode10BitDeviceFormat)) for video recording")
+                                Log.debug("Setting 'x420' format \(String(describing: self.selectedMovieMode10BitDeviceFormat)) for video recording")
                                 self.currentDevice.unlockForConfiguration()
                             } catch {
-                                print("Could not lock device for configuration: \(error)")
+                                Log.error("Could not lock device for configuration: \(error)")
                             }
                         }
                     }

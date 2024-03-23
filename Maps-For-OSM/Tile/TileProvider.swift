@@ -110,9 +110,6 @@ struct TileProvider{
         var paths = Array<String>()
         if let subpaths = FileManager.default.subpaths(atPath: FileController.tilesDirURL.path){
             for path in subpaths{
-                /*if !path.hasSuffix(".png"){
-                 continue
-                 }*/
                 paths.append(path)
             }
             paths.sort()

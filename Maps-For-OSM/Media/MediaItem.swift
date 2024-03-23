@@ -86,7 +86,7 @@ class MediaItem : PlaceItem{
         if !fileExists(){
             let url = FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
             if !FileController.saveFile(data: data, url: url){
-                print("file could not be saved at \(url)")
+                Log.error("file could not be saved at \(url)")
             }
         }
         else{

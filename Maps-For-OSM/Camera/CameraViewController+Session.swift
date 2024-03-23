@@ -35,7 +35,7 @@ extension CameraViewController{
                 userDefaults.set(true, forKey: "setInitialUserPreferredCamera")
             }
             guard let videoDevice = defaultVideoDevice else {
-                print("Default video device is unavailable.")
+                Log.error("Default video device is unavailable.")
                 setupResult = .configurationFailed
                 session.commitConfiguration()
                 return
@@ -54,13 +54,13 @@ extension CameraViewController{
                     self.updateZoomLabel()
                 }
             } else {
-                print("Couldn't add video device input to the session.")
+                Log.error("Couldn't add video device input to the session.")
                 setupResult = .configurationFailed
                 session.commitConfiguration()
                 return
             }
         } catch {
-            print("Couldn't create video device input: \(error)")
+            Log.error("Couldn't create video device input: \(error)")
             setupResult = .configurationFailed
             session.commitConfiguration()
             return
@@ -72,10 +72,10 @@ extension CameraViewController{
             if session.canAddInput(audioDeviceInput) {
                 session.addInput(audioDeviceInput)
             } else {
-                print("Could not add audio device input to the session")
+                Log.error("Could not add audio device input to the session")
             }
         } catch {
-            print("Could not create audio device input: \(error)")
+            Log.error("Could not create audio device input: \(error)")
         }
         if session.canAddOutput(photoOutput) {
             session.addOutput(photoOutput)
@@ -92,7 +92,7 @@ extension CameraViewController{
                 readinessCoordinator.delegate = self
             }
         } else {
-            print("Could not add photo output to the session")
+            Log.error("Could not add photo output to the session")
             setupResult = .configurationFailed
             session.commitConfiguration()
             return

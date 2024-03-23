@@ -26,13 +26,12 @@ class Backup{
                 paths.append(url)
             }
             try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
-                print(progress)
+                //Log.debug(progress)
             })
             return zipFileURL
         }
         catch let err {
-            print(err)
-            Log.error("could not create zip file")
+            Log.error("could not create zip file: \(err.localizedDescription)")
         }
         return nil
     }
@@ -42,13 +41,12 @@ class Backup{
             FileController.deleteTemporaryFiles()
             try FileManager.default.createDirectory(at: FileController.temporaryURL, withIntermediateDirectories: true)
             try Zip.unzipFile(zipFileURL, destination: FileController.temporaryURL, overwrite: true, password: nil, progress: { (progress) -> () in
-                print(progress)
+                //Log.debug(progress)
             })
             return true
         }
         catch (let err){
-            print(err.localizedDescription)
-            Log.error("could not read zip file")
+            Log.error("could not read zip file: \(err.localizedDescription)")
         }
         return false
     }

@@ -28,7 +28,7 @@ class VideoPlayerView: UIView {
                         }
                     }
                     catch let(err){
-                        print(err)
+                        Log.error(error: err)
                     }
                 }
                 let item = AVPlayerItem(asset: asset)

@@ -35,7 +35,7 @@ extension CameraViewController{
             return
         }
         if self.photoSettings == nil {
-            print("No photo settings to capture")
+            Log.error("No photo settings to capture")
             return
         }
         let photoSettings = AVCapturePhotoSettings(from: self.photoSettings)
@@ -82,7 +82,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
-            print("Error capturing photo: \(error)")
+            Log.error("Error capturing photo: \(error)")
             return
         }
         self.photoData = photo.fileDataRepresentation()
@@ -90,12 +90,12 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
         if let error = error {
-            print("Error capturing photo: \(error)")
+            Log.error("Error capturing photo: \(error)")
             completionHandler(self)
             return
         }
         guard photoData != nil else {
-            print("No photo data resource")
+            Log.error("No photo data resource")
             completionHandler(self)
             return
         }
@@ -105,7 +105,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             }
         }
         PhotoLibrary.savePhoto(photoData: self.photoData!, fileType: self.requestedPhotoSettings.processedFileType, location: self.location, resultHandler: { s in
-            print("saved photo with locaIdentifier \(s)")
+            Log.debug("saved photo with locaIdentifier \(s)")
             self.completionHandler(self)
         })
     }

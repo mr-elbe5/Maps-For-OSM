@@ -16,7 +16,7 @@ extension CameraViewController{
             guard let isSessionRunning = change.newValue else { return }
             
             DispatchQueue.main.async {
-                //print("observers: enable/disable buttons")
+                //Log.debug("observers: enable/disable buttons")
                 self.cameraButton.isEnabled = isSessionRunning && AVCaptureDevice.DiscoverySession(deviceTypes: CameraViewController.discoverableDeviceTypes, mediaType: .video, position: .unspecified).uniqueDevicePositionsCount > 1
                 self.captureButton.isEnabled = isSessionRunning
                 self.captureModeControl.isEnabled = isSessionRunning
@@ -72,7 +72,7 @@ extension CameraViewController{
     @objc func sessionRuntimeError(notification: NSNotification) {
         guard let error = notification.userInfo?[AVCaptureSessionErrorKey] as? AVError else { return }
         
-        print("Capture session runtime error: \(error)")
+        Log.error("Capture session runtime error: \(error)")
         if error.code == .mediaServicesWereReset {
             sessionQueue.async {
                 if self.isSessionRunning {

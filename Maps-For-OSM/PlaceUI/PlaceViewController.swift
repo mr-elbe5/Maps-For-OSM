@@ -186,7 +186,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
             else{
-                print("no valid item/cell for audio")
+                Log.error("no valid item/cell for audio")
                 return UITableViewCell()
             }
         case .video:
@@ -197,7 +197,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
             else{
-                print("no valid item/cell for video")
+                Log.error("no valid item/cell for video")
                 return UITableViewCell()
             }
         case .image:
@@ -208,7 +208,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
             else{
-                print("no valid item/cell for image")
+                Log.error("no valid item/cell for image")
                 return UITableViewCell()
             }
         case .track:
@@ -219,7 +219,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
             else{
-                print("no valid item/cell for track")
+                Log.error("no valid item/cell for track")
                 return UITableViewCell()
             }
         case .note:
@@ -230,7 +230,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
             else{
-                print("no valid item/cell for note")
+                Log.error("no valid item/cell for note")
                 return UITableViewCell()
             }
         }

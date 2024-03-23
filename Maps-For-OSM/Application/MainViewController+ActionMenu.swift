@@ -106,7 +106,10 @@ extension MainViewController: ActionMenuDelegate{
     }
     
     func openNote(at coordinate: CLLocationCoordinate2D) {
-        //todo
+        let controller = NoteViewController(coordinate: coordinate)
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
     }
     
 }

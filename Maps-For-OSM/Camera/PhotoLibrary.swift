@@ -29,13 +29,13 @@ class PhotoLibrary{
                     PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: PhotoLibrary.albumName)
                 }) { success, error in
                     if let error = error {
-                        print("Error \(String(describing: error))")
+                        Log.error("\(error.localizedDescription)")
                         PhotoLibrary.albumName = ""
                     }
                 }
             }
             else{
-                print("No authorization for creating an album")
+                Log.error("No authorization for creating an album")
                 PhotoLibrary.albumName = ""
             }
         }
@@ -65,7 +65,7 @@ class PhotoLibrary{
                     localIdentifier = creationRequest.placeholderForCreatedAsset!.localIdentifier
                 }, completionHandler: { _, error in
                     if let error = error {
-                        print("Error. occurred while saving photo to photo library: \(error)")
+                        Log.error("Error occurred while saving photo to photo library: \(error)")
                     }
                     if !albumName.isEmpty{
                         addToAlbum(localIdentifier: localIdentifier)
@@ -93,7 +93,7 @@ class PhotoLibrary{
                     localIdentifier = creationRequest.placeholderForCreatedAsset!.localIdentifier
                 }, completionHandler: { success, error in
                     if let error = error {
-                        print("Error. occurred while saving video to photo library: \(error)")
+                        Log.error("Error. occurred while saving video to photo library: \(error)")
                     }
                     if !albumName.isEmpty{
                         addToAlbum(localIdentifier: localIdentifier)

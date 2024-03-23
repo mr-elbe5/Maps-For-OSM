@@ -128,7 +128,7 @@ class PlacePool{
     }
     
     static func addNotesToPlaces(){
-        print("converting notes to note items")
+        Log.info("converting notes to note items")
         for place in places{
             if !place.note.isEmpty{
                 if !{
@@ -144,7 +144,7 @@ class PlacePool{
                     noteItem.creationDate = place.timestamp
                     place.items.append(noteItem)
                     place.note = ""
-                    print("added note item")
+                    Log.debug("added note item")
                 }
             }
         }

@@ -17,7 +17,7 @@ extension Decodable{
                 return result
             }
             catch (let err){
-                print(err)
+                Log.error(error: err)
             }
         }
         return nil
@@ -32,7 +32,7 @@ extension Decodable{
                 return result
             }
             catch (let err){
-                print(err)
+                Log.error(error: err)
             }
         }
         return nil

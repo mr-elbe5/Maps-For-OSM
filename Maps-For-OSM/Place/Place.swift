@@ -86,7 +86,7 @@ class Place : NSObject, Codable, Identifiable{
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         var metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .items)
         if metaItems == nil{
-            print("key items not found - trying key media")
+            Log.warn("key items not found - trying key media")
             metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .media)
         }
         self.items = metaItems?.toItemList() ?? PlaceItemList()

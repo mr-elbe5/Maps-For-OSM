@@ -64,7 +64,7 @@ extension MainViewController: CameraDelegate{
         if let cllocation = location{
             let imageFile = ImageItem()
             imageFile.saveFile(data: data)
-            print("photo saved locally")
+            Log.debug("photo saved locally")
             let location = PlacePool.assertPlace(coordinate: cllocation.coordinate)
             let changeState = location.items.isEmpty
             location.addItem(item: imageFile)
@@ -90,7 +90,7 @@ extension MainViewController: CameraDelegate{
         if let cllocation = cllocation{
             let videoFile = VideoItem()
             videoFile.saveFile(data: data)
-            print("video saved locally")
+            Log.debug("video saved locally")
             let location = PlacePool.assertPlace(coordinate: cllocation.coordinate)
             let changeState = location.items.isEmpty
             location.addItem(item: videoFile)

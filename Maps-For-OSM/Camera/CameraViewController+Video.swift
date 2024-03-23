@@ -30,9 +30,9 @@ extension CameraViewController{
         self.setNeedsUpdateOfSupportedInterfaceOrientations()
         sessionQueue.async {
             if !movieFileOutput.isRecording {
-                print("start movie recording")
+                Log.debug("start movie recording")
                 DispatchQueue.main.async {
-                    //print("movie recording: change capture button to recording")
+                    //Log.debug("movie recording: change capture button to recording")
                     self.captureButton.buttonState = .recording
                 }
                 if UIDevice.current.isMultitaskingSupported {
@@ -48,14 +48,14 @@ extension CameraViewController{
                 let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mov")!)
                 movieFileOutput.startRecording(to: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
                 DispatchQueue.main.async {
-                    //print("movie recording: enable only capture button")
+                    //Log.debug("movie recording: enable only capture button")
                     self.captureButton.isEnabled = true
                 }
             } else {
                 movieFileOutput.stopRecording()
-                print("stop movie recording")
+                Log.debug("stop movie recording")
                 DispatchQueue.main.async {
-                    //print("movie recording: reset capture button")
+                    //Log.debug("movie recording: reset capture button")
                     self.captureButton.buttonState = .normal
                     self.enableControls(true)
                 }
@@ -70,7 +70,7 @@ extension CameraViewController{
                 do {
                     try FileManager.default.removeItem(atPath: path)
                 } catch {
-                    print("Could not remove file at url: \(outputFileURL)")
+                    Log.error("Could not remove file at url: \(outputFileURL)")
                 }
             }
             if let currentBackgroundRecordingID = backgroundRecordingID {
@@ -82,7 +82,7 @@ extension CameraViewController{
         }
         var success = true
         if error != nil {
-            print("Movie file finishing error: \(String(describing: error))")
+            Log.error("Movie file finishing error: \(String(describing: error))")
             success = (((error! as NSError).userInfo[AVErrorRecordingSuccessfullyFinishedKey] as AnyObject).boolValue)!
         }
         if success {
@@ -93,7 +93,7 @@ extension CameraViewController{
                 }
             }
             PhotoLibrary.saveVideo(outputFileURL: outputFileURL, location: location, resultHandler: { localIdentifier in
-                print("saved video with localIdentifier \(localIdentifier)")
+                Log.debug("saved video with localIdentifier \(localIdentifier)")
                 cleanup()
             })
         } else {
@@ -107,7 +107,7 @@ extension CameraViewController{
             }
         }
         DispatchQueue.main.async {
-            //print("file output: enable buttons")
+            //Log.debug("file output: enable buttons")
             self.cameraButton.isEnabled = AVCaptureDevice.DiscoverySession(deviceTypes: CameraViewController.discoverableDeviceTypes, mediaType: .video, position: .unspecified).uniqueDevicePositionsCount > 1
             self.captureButton.isEnabled = true
             self.captureModeControl.isEnabled = true

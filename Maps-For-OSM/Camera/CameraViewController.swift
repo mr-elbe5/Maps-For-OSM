@@ -118,13 +118,13 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
         if let device = frontVideoDeviceDiscoverySession.devices.first{
             frontDevice = device
         }
-        //print("found front camera")
+        //Log.debug("found front camera")
         backDevices.removeAll()
         let backVideoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: CameraViewController.discoverableDeviceTypes, mediaType: .video, position: .back)
         for device in backVideoDeviceDiscoverySession.devices where !device.isVirtualDevice{
             backDevices.append(device)
         }
-        //print("found \(backCameras.count) back cameras")
+        //Log.debug("found \(backCameras.count) back cameras")
     }
     
     func resetZoomForNewDevice(){
@@ -248,10 +248,10 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                             do {
                                 try self.currentDevice.lockForConfiguration()
                                 self.currentDevice.activeFormat = self.selectedMovieMode10BitDeviceFormat!
-                                print("Setting 'x420' format \(String(describing: self.selectedMovieMode10BitDeviceFormat)) for video recording")
+                                Log.info("Setting 'x420' format \(String(describing: self.selectedMovieMode10BitDeviceFormat)) for video recording")
                                 self.currentDevice.unlockForConfiguration()
                             } catch {
-                                print("Could not lock device for configuration: \(error)")
+                                Log.error("Could not lock device for configuration: \(error)")
                             }
                         }
                     }
@@ -266,7 +266,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                     self.updateZoomLabel()
                 }
             } catch {
-                print("Error occurred while creating video device input: \(error)")
+                Log.error("Error occurred while creating video device input: \(error)")
             }
         }
         completion?()
@@ -318,7 +318,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                 device.isSubjectAreaChangeMonitoringEnabled = monitorSubjectAreaChange
                 device.unlockForConfiguration()
             } catch {
-                print("Could not lock device for configuration: \(error)")
+                Log.error("Could not lock device for configuration: \(error)")
             }
         }
     }

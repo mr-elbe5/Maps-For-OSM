@@ -209,7 +209,7 @@ class FileController {
                         creationRequest.addResource(with: .photo, data: data, options: nil)
                     } completionHandler: { success, error in
                         if let error {
-                            print("Error saving video: \(error.localizedDescription)")
+                            Log.error("Error saving video: \(error.localizedDescription)")
                             callback(.failure(.save))
                             return
                         }
