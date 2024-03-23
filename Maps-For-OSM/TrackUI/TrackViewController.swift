@@ -18,6 +18,8 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
+//todo: edit mode, texts, export, show on map
+
 class TrackViewController: PopupScrollViewController{
     
     var track: TrackItem

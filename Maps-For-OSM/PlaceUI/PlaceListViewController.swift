@@ -14,6 +14,8 @@ protocol PlaceListDelegate: PlaceViewDelegate{
     func deletePlaceFromList(place: Place)
 }
 
+//todo: edit mode, selection
+
 class PlaceListViewController: PopupTableViewController{
 
     var delegate: PlaceListDelegate? = nil

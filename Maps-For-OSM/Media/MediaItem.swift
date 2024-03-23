@@ -10,7 +10,6 @@ import UIKit
 class MediaItem : PlaceItem{
     
     private enum CodingKeys: CodingKey{
-        case creationDate
         case fileName
         case title
     }

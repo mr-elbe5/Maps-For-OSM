@@ -8,14 +8,9 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Place : NSObject, Codable, Identifiable{
-    
-    static func == (lhs: Place, rhs: Place) -> Bool {
-        lhs.id == rhs.id
-    }
+class Place : Selectable{
     
     private enum CodingKeys: String, CodingKey {
-        case id
         case latitude
         case longitude
         case altitude
@@ -26,7 +21,6 @@ class Place : NSObject, Codable, Identifiable{
         case media //deprecated
         case items
     }
-    var id : UUID
     var coordinate: CLLocationCoordinate2D
     var altitude: Double
     var timestamp: Date
@@ -60,7 +54,6 @@ class Place : NSObject, Codable, Identifiable{
     }
     
     init(coordinate: CLLocationCoordinate2D){
-        id = UUID()
         items = PlaceItemList()
         mapPoint = MapPoint(coordinate)
         coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
@@ -73,7 +66,6 @@ class Place : NSObject, Codable, Identifiable{
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -97,9 +89,9 @@ class Place : NSObject, Codable, Identifiable{
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(altitude, forKey: .altitude)

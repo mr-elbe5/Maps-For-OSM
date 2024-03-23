@@ -18,6 +18,7 @@ class ImageItemCell: PlaceItemCell{
     var imageItem : ImageItem? = nil {
         didSet {
             updateCell()
+            setSelected(imageItem?.selected ?? false, animated: false)
         }
     }
     

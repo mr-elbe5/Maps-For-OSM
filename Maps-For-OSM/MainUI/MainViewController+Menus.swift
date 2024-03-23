@@ -255,6 +255,8 @@ extension MainViewController: UIDocumentPickerDelegate{
     
 }
 
+//todo: localize
+
 extension MainViewController: ActionMenuDelegate{
     
     func startTrackRecording(at coordinate: CLLocationCoordinate2D) {

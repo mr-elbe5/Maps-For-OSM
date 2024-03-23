@@ -13,6 +13,8 @@ protocol PlaceCellDelegate{
     func showPlaceOnMap(place: Place)
 }
 
+//todo: edit mode, texts, headers
+
 class PlaceCell: UITableViewCell{
     
     static let CELL_IDENT = "placeCell"
@@ -20,6 +22,7 @@ class PlaceCell: UITableViewCell{
     var place : Place? = nil {
         didSet {
             updateCell()
+            setSelected(place?.selected ?? false, animated: false)
         }
     }
     

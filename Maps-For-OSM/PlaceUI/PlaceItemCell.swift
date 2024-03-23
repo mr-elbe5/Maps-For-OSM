@@ -24,7 +24,8 @@ class PlaceItemCell: UITableViewCell{
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isUserInteractionEnabled = true
         backgroundColor = .clear
-        shouldIndentWhileEditing = false
+        shouldIndentWhileEditing = true
+        selectionStyle = .blue
         cellBody.setBackground(.white).setRoundedBorders()
         contentView.addSubviewFilling(cellBody, insets: defaultInsets)
         cellBody.addSubviewFilling(itemView, insets: .zero)

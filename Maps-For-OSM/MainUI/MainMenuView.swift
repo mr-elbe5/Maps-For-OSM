@@ -46,9 +46,9 @@ class MainMenuView: UIView {
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
-        let insets = UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: 2*defaultInset)
+        let insets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         
-        addSubviewWithAnchors(locationMenuButton, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: defaultInset, bottom: defaultInset, right: 2*defaultInset))
+        addSubviewWithAnchors(locationMenuButton, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 20))
         locationMenuButton.menu = getLocationMenu()
         locationMenuButton.showsMenuAsPrimaryAction = true
         
@@ -72,7 +72,7 @@ class MainMenuView: UIView {
         }, for: .touchDown)
         
         let infoButton = UIButton().asIconButton("info.circle")
-        addSubviewWithAnchors(infoButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: defaultInset))
+        addSubviewWithAnchors(infoButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 10))
         infoButton.addAction(UIAction(){ action in
             self.delegate?.openInfo()
         }, for: .touchDown)

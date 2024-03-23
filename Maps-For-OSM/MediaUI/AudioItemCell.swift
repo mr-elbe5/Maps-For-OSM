@@ -17,6 +17,7 @@ class AudioItemCell: PlaceItemCell{
     var audioItem : AudioItem? = nil {
         didSet {
             updateCell()
+            setSelected(audioItem?.selected ?? false, animated: false)
         }
     }
     

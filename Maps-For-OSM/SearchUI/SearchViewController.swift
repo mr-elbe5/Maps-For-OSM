@@ -12,6 +12,8 @@ protocol SearchDelegate{
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?)
 }
 
+//todo: extend search
+
 class SearchViewController: PopupScrollViewController{
     
     var searchField = UITextField()

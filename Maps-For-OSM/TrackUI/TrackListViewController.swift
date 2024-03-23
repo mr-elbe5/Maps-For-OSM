@@ -14,15 +14,17 @@ protocol TrackListDelegate{
     func deleteTrack(track: TrackItem, approved: Bool)
 }
 
+//todo: edit mode, selection
+
 class TrackListViewController: PopupTableViewController{
 
     private static let CELL_IDENT = "trackCell"
     
     var tracks: TrackList? = nil
     
-    var selectMode = false
-    
-    let selectModeButton = UIButton().asIconButton("checkmark.circle", color: .label)
+    let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
+    let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
     var delegate: TrackListDelegate? = nil
     
@@ -37,16 +39,28 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        headerView.addSubviewWithAnchors(selectModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor)
-        selectModeButton.addAction(UIAction(){ action in
-            self.toggleSelectMode()
-        }, for: .touchDown)
-        
-        let loadButton = UIButton().asIconButton("arrow.down.square", color: .black)
-        headerView.addSubviewWithAnchors(loadButton, top: headerView.topAnchor, leading: selectModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        loadButton.addAction(UIAction(){ action in
+        let importButton = UIButton().asIconButton("arrow.down.square", color: .black)
+        headerView.addSubviewWithAnchors(importButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        importButton.addAction(UIAction(){ action in
             self.loadTrack()
         }, for: .touchDown)
+        
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: importButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        editModeButton.addAction(UIAction(){ action in
+            self.toggleEditMode()
+        }, for: .touchDown)
+        
+        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        selectAllButton.addAction(UIAction(){ action in
+            self.toggleSelectAll()
+        }, for: .touchDown)
+        selectAllButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deleteButton.addAction(UIAction(){ action in
+            self.deleteSelected()
+        }, for: .touchDown)
+        deleteButton.isHidden = !tableView.isEditing
     }
     
     @objc func loadTrack(){
@@ -56,6 +70,55 @@ class TrackListViewController: PopupTableViewController{
         filePicker.delegate = self
         filePicker.modalPresentationStyle = .fullScreen
         self.present(filePicker, animated: true)
+    }
+    
+    func toggleEditMode(){
+        if tableView.isEditing{
+            editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            tableView.isEditing = false
+            selectAllButton.isHidden = true
+            deleteButton.isHidden = true
+        }
+        else{
+            editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
+            tableView.isEditing = true
+            selectAllButton.isHidden = false
+            deleteButton.isHidden = false
+        }
+        tracks?.deselectAll()
+        tableView.reloadData()
+    }
+    
+    func toggleSelectAll(){
+        if tableView.isEditing, var tracks = tracks{
+            if tracks.allSelected{
+                tracks.deselectAll()
+            }
+            else{
+                tracks.selectAll()
+            }
+            for cell in tableView.visibleCells{
+                (cell as? TrackItemCell)?.updateIconView(isEditing: true)
+            }
+        }
+    }
+    
+    func deleteSelected(){
+        if let tracks = tracks{
+            var count = 0
+            for i in 0..<tracks.count{
+                if tracks[i].selected{
+                    count += 1
+                }
+            }
+            //todo
+            print("deleting \(count) tracks")
+        }
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        tracks?.deselectAll()
+        super.dismiss(animated: flag, completion: completion)
     }
     
 }
@@ -141,17 +204,6 @@ extension TrackListViewController : TrackItemCellDelegate{
         self.delegate?.deleteTrack(track: track, approved: true)
         tracks?.remove(track)
         tableView.reloadData()
-    }
-    
-    func toggleSelectMode(){
-        if selectMode{
-            selectModeButton.tintColor = .black
-            selectMode = false
-        }
-        else{
-            selectModeButton.tintColor = .systemBlue
-            selectMode = true
-        }
     }
     
 }

@@ -29,9 +29,9 @@ class ActionMenuView: UIView {
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
-        let insets = UIEdgeInsets(top: 2*defaultInset, left: defaultInset, bottom: 2*defaultInset, right: defaultInset)
+        let insets = UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5)
         
-        addSubviewWithAnchors(toggleTrackingButton, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
+        addSubviewWithAnchors(toggleTrackingButton, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 10, left: 5, bottom: 20, right: 5))
         toggleTrackingButton.addAction(UIAction(){ action in
             self.toggleTrackRecording()
         }, for: .touchDown)
@@ -53,7 +53,7 @@ class ActionMenuView: UIView {
         }, for: .touchDown)
         
         let noteButton = UIButton().asIconButton("pencil.and.list.clipboard")
-        addSubviewWithAnchors(noteButton, top: audioButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: insets)
+        addSubviewWithAnchors(noteButton, top: audioButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 20, left: 5, bottom: 10, right: 5))
         noteButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.openNote(at: coordinate)

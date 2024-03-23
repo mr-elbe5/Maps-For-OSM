@@ -12,6 +12,8 @@ protocol PlaceViewDelegate{
     func showItemOnMap(place: Place, item: PlaceItem)
 }
 
+//todo: edit mode, texts, add image
+
 class PlaceViewController: PopupViewController{
     
     let editButton = UIButton().asIconButton("pencil.circle", color: .label)

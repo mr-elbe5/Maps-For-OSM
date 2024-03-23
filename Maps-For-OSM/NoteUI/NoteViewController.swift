@@ -12,6 +12,8 @@ protocol NoteViewDelegate{
     func addNote(note: String, coordinate: CLLocationCoordinate2D)
 }
 
+//todo: header, edit mode?
+
 class NoteViewController: PopupScrollViewController{
     
     var coordinate : CLLocationCoordinate2D

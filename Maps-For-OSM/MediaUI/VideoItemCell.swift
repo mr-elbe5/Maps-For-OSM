@@ -18,6 +18,7 @@ class VideoItemCell: PlaceItemCell{
     var videoItem : VideoItem? = nil {
         didSet {
             updateCell()
+            setSelected(videoItem?.selected ?? false, animated: false)
         }
     }
     

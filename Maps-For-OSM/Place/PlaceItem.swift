@@ -14,18 +14,12 @@ enum PlaceItemType: String, Codable{
     case note
 }
 
-class PlaceItem : NSObject, Codable, Identifiable{
-    
-    static func == (lhs: PlaceItem, rhs: PlaceItem) -> Bool {
-        lhs.id == rhs.id
-    }
+class PlaceItem : Selectable{
     
     private enum CodingKeys: String, CodingKey {
-        case id
         case creationDate
     }
     
-    var id : UUID
     var creationDate : Date
     var type: PlaceItemType{
         get{
@@ -34,20 +28,19 @@ class PlaceItem : NSObject, Codable, Identifiable{
     }
     
     override init(){
-        id = UUID()
         creationDate = Date()
+        super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
-        super.init()
+        try super.init(from: decoder)
     }
     
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(creationDate, forKey: .creationDate)
     }
     

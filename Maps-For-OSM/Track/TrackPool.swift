@@ -19,6 +19,40 @@ extension TrackList{
         }
     }
     
+    var allSelected: Bool{
+        get{
+            for item in self{
+                if !item.selected{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    var allUnselected: Bool{
+        get{
+            for item in self{
+                if item.selected{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    mutating func selectAll(){
+        for item in self{
+            item.selected = true
+        }
+    }
+    
+    mutating func deselectAll(){
+        for item in self{
+            item.selected = false
+        }
+    }
+    
 }
 
 class TrackPool{
