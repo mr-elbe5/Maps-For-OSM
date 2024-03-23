@@ -55,7 +55,7 @@ extension PlaceList{
         }
     }
     
-    mutating func unselectAll(){
+    mutating func deselectAll(){
         for item in self{
             item.selected = false
         }

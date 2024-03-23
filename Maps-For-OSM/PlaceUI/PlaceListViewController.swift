@@ -17,6 +17,10 @@ protocol PlaceListDelegate: PlaceViewDelegate{
 //todo: edit mode, selection
 
 class PlaceListViewController: PopupTableViewController{
+    
+    let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
+    let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
 
     var delegate: PlaceListDelegate? = nil
     
@@ -26,6 +30,74 @@ class PlaceListViewController: PopupTableViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.CELL_IDENT)
+    }
+    
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
+        
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        editModeButton.addAction(UIAction(){ action in
+            self.toggleEditMode()
+        }, for: .touchDown)
+        
+        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        selectAllButton.addAction(UIAction(){ action in
+            self.toggleSelectAll()
+        }, for: .touchDown)
+        selectAllButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deleteButton.addAction(UIAction(){ action in
+            self.deleteSelected()
+        }, for: .touchDown)
+        deleteButton.isHidden = !tableView.isEditing
+    }
+    
+    func toggleEditMode(){
+        if tableView.isEditing{
+            editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            tableView.isEditing = false
+            selectAllButton.isHidden = true
+            deleteButton.isHidden = true
+        }
+        else{
+            editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
+            tableView.isEditing = true
+            selectAllButton.isHidden = false
+            deleteButton.isHidden = false
+        }
+        PlacePool.places.deselectAll()
+        tableView.reloadData()
+    }
+    
+    func toggleSelectAll(){
+        if tableView.isEditing{
+            if PlacePool.places.allSelected{
+                PlacePool.places.deselectAll()
+            }
+            else{
+                PlacePool.places.selectAll()
+            }
+            for cell in tableView.visibleCells{
+                (cell as? TrackItemCell)?.updateIconView(isEditing: true)
+            }
+        }
+    }
+    
+    func deleteSelected(){
+        var count = 0
+        for i in 0..<PlacePool.places.count{
+            if PlacePool.places[i].selected{
+                count += 1
+            }
+        }
+        //todo
+        print("deleting \(count) places")
+    }
+    
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        PlacePool.places.deselectAll()
+        super.dismiss(animated: flag, completion: completion)
     }
     
 }

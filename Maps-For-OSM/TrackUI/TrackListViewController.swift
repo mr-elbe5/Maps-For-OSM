@@ -42,7 +42,7 @@ class TrackListViewController: PopupTableViewController{
         let importButton = UIButton().asIconButton("arrow.down.square", color: .black)
         headerView.addSubviewWithAnchors(importButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         importButton.addAction(UIAction(){ action in
-            self.loadTrack()
+            self.importTrack()
         }, for: .touchDown)
         
         headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: importButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
@@ -63,7 +63,7 @@ class TrackListViewController: PopupTableViewController{
         deleteButton.isHidden = !tableView.isEditing
     }
     
-    @objc func loadTrack(){
+    func importTrack(){
         let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
         filePicker.directoryURL = FileController.exportGpxDirURL
         filePicker.allowsMultipleSelection = false

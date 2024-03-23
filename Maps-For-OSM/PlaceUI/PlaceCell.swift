@@ -15,76 +15,60 @@ protocol PlaceCellDelegate{
 
 //todo: edit mode, texts, headers
 
-class PlaceCell: UITableViewCell{
+class PlaceCell: TableViewCell{
     
     static let CELL_IDENT = "placeCell"
     
-    var place : Place? = nil {
-        didSet {
-            updateCell()
-            setSelected(place?.selected ?? false, animated: false)
-        }
-    }
+    var place : Place? = nil
     
     var delegate: PlaceCellDelegate? = nil
     
-    var cellBody = UIView()
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        isUserInteractionEnabled = true
-        backgroundColor = .clear
-        shouldIndentWhileEditing = false
-        cellBody.setBackground(.white).setRoundedBorders()
-        contentView.addSubviewFilling(cellBody, insets: defaultInsets)
-        accessoryType = .none
-        updateCell()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func updateCell(isEditing: Bool = false){
-        cellBody.removeAllSubviews()
+    override func updateIconView(isEditing: Bool){
+        iconView.removeAllSubviews()
         if let place = place{
-            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addAction(UIAction(){ action in
-                self.delegate?.deletePlaceFromCell(place: place)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(deleteButton, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewPlace(place: place)
-            }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(viewButton, top: cellBody.topAnchor, trailing: deleteButton.leadingAnchor, insets: defaultInsets)
-            
+            var lastAnchor = iconView.trailingAnchor
+            if isEditing{
+                let selectedButton = UIButton().asIconButton(place.selected ? "checkmark.square" : "square", color: .label)
+                selectedButton.addAction(UIAction(){ action in
+                    place.selected = !place.selected
+                    selectedButton.setImage(UIImage(systemName: place.selected ? "checkmark.square" : "square"), for: .normal)
+                }, for: .touchDown)
+                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+                lastAnchor = selectedButton.leadingAnchor
+            }
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.delegate?.showPlaceOnMap(place: place)
             }, for: .touchDown)
-            cellBody.addSubviewWithAnchors(mapButton, top: cellBody.topAnchor, trailing: viewButton.leadingAnchor, insets: defaultInsets)
-            var nextAnchor = mapButton.bottomAnchor
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
+            viewButton.addAction(UIAction(){ action in
+                self.delegate?.viewPlace(place: place)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+        }
+    }
+    
+    override func updateItemView(isEditing: Bool){
+        itemView.removeAllSubviews()
+        
+        if let place = place{
+            var header = UILabel(header: place.name)
+            itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
-            var label = UILabel(text: place.address)
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
+            let locationLabel = UILabel(text: place.address)
+            locationLabel.textAlignment = .center
+            itemView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
-            label = UILabel(text: place.note)
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
+            let coordinateLabel = UILabel(text: place.coordinate.asString)
+            coordinateLabel.textAlignment = .center
+            itemView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
-            if !place.note.isEmpty{
-                label = UILabel(text: place.note)
-                cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, insets: defaultInsets)
-                nextAnchor = label.bottomAnchor
-            }
-            
-            label = UILabel(text: "mediaCount".localize() + String(place.items.count))
-            cellBody.addSubviewWithAnchors(label, top: nextAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
+            header = UILabel(text: "mediaCount".localize() + String(place.items.count))
+            itemView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
             
         }
+        
     }
     
 }

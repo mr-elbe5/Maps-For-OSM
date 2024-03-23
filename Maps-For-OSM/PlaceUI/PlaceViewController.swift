@@ -14,26 +14,21 @@ protocol PlaceViewDelegate{
 
 //todo: edit mode, texts, add image
 
-class PlaceViewController: PopupViewController{
+class PlaceViewController: PopupTableViewController{
     
     let editButton = UIButton().asIconButton("pencil.circle", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .red)
     
-    let noteContainerView = UIView()
-    var noteEditView : TextEditArea? = nil
-    
-    var tableView = UITableView()
-    
     var editMode = false
     
     var place: Place
-    var hadItems = false
     
     var delegate: PlaceViewDelegate? = nil
     
     init(location: Place){
         self.place = location
         super.init()
+        self.subheaderView = UIView()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +37,7 @@ class PlaceViewController: PopupViewController{
     
     override func loadView() {
         title = "place".localize()
+        createSubheaderView()
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,22 +46,6 @@ class PlaceViewController: PopupViewController{
         tableView.register(ImageItemCell.self, forCellReuseIdentifier: ImageItemCell.CELL_IDENT)
         tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackItemCell.CELL_IDENT)
         tableView.register(NoteItemCell.self, forCellReuseIdentifier: NoteItemCell.CELL_IDENT)
-        
-        let guide = view.safeAreaLayoutGuide
-        
-        let locationLabel = UILabel(text: place.address)
-        locationLabel.textAlignment = .center
-        view.addSubviewWithAnchors(locationLabel, top: headerView?.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
-        
-        let coordinateLabel = UILabel(text: place.coordinate.asString)
-        view.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: flatInsets)
-        
-        view.addSubviewWithAnchors(tableView, top: coordinateLabel.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: defaultInsets)
-        tableView.allowsSelection = false
-        tableView.allowsSelectionDuringEditing = false
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .systemGray6
-        
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -88,26 +68,14 @@ class PlaceViewController: PopupViewController{
         }, for: .touchDown)
     }
     
-    func setupNoteContainerView(){
-        noteContainerView.removeAllSubviews()
-        if editMode{
-            let noteEditView = TextEditArea().defaultWithBorder()
-            noteEditView.text = place.note
-            noteContainerView.addSubviewWithAnchors(noteEditView, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, insets: defaultInsets)
-            self.noteEditView = noteEditView
-            
-            let saveButton = UIButton().asTextButton("save".localize(), color: .systemBlue)
-            saveButton.addAction(UIAction(){ action in
-                self.save()
-            }, for: .touchDown)
-            noteContainerView.addSubviewWithAnchors(saveButton, top: noteEditView.bottomAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
-                .centerX(noteContainerView.centerXAnchor)
-        }
-        else{
-            self.noteEditView = nil
-            let noteLabel = UILabel(text: place.note)
-            noteContainerView.addSubviewWithAnchors(noteLabel, top: noteContainerView.topAnchor, leading: noteContainerView.leadingAnchor, trailing: noteContainerView.trailingAnchor, bottom: noteContainerView.bottomAnchor, insets: defaultInsets)
-        }
+    override func setupSubheaderView(subheaderView: UIView){
+        let locationLabel = UILabel(text: place.address)
+        locationLabel.textAlignment = .center
+        subheaderView.addSubviewWithAnchors(locationLabel, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
+        
+        let coordinateLabel = UILabel(text: place.coordinate.asString)
+        coordinateLabel.textAlignment = .center
+        subheaderView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
     
     func addImage(){
@@ -129,7 +97,6 @@ class PlaceViewController: PopupViewController{
             editButton.tintColor = .systemBlue
             editMode = true
         }
-        setupNoteContainerView()
     }
     
     func deletePlace(){
@@ -138,14 +105,6 @@ class PlaceViewController: PopupViewController{
             self.dismiss(animated: true){
                 self.delegate?.updateMarkerLayer()
             }
-        }
-    }
-    
-    func save(){
-        place.note = noteEditView?.text ?? ""
-        PlacePool.save()
-        if editMode{
-            toggleEditMode()
         }
     }
     

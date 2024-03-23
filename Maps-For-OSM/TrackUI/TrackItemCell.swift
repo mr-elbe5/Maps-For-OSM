@@ -53,17 +53,18 @@ class TrackItemCell: PlaceItemCell{
                 .centerX(itemView.centerXAnchor)
             
             let nameLabel = UILabel(text: item.name)
-            itemView.addSubviewWithAnchors(nameLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, insets: defaultInsets)
+            nameLabel.textAlignment = .center
+            itemView.addSubviewWithAnchors(nameLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
             let tp = item.trackpoints.isEmpty ? nil : item.trackpoints[0]
-            let coordinateLabel = UILabel(text: tp?.coordinate.asString ?? "")
-            itemView.addSubviewWithAnchors(coordinateLabel, top: nameLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
+            let startLabel = UILabel(text: "\("start".localize()): \(tp?.coordinate.asString ?? ""), \(item.startTime.dateTimeString())")
+            itemView.addSubviewWithAnchors(startLabel, top: nameLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
-            let timeLabel = UILabel(text: "\(item.startTime.dateTimeString()) - \(item.endTime.dateTimeString())")
-            itemView.addSubviewWithAnchors(timeLabel, top: coordinateLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
+            let endLabel = UILabel(text: "\("end".localize()): \(item.endTime.dateTimeString())")
+            itemView.addSubviewWithAnchors(endLabel, top: startLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
             let distanceLabel = UILabel(text: "\("distance".localize()): \(Int(item.distance))m")
-            itemView.addSubviewWithAnchors(distanceLabel, top: timeLabel.bottomAnchor, leading: itemView.leadingAnchor, insets: flatInsets)
+            itemView.addSubviewWithAnchors(distanceLabel, top: endLabel.bottomAnchor, leading: itemView.leadingAnchor, insets: flatInsets)
             
             let upDistanceLabel = UILabel(text: "\("upDistance".localize()): \(Int(item.upDistance))m")
             itemView.addSubviewWithAnchors(upDistanceLabel, top: distanceLabel.bottomAnchor, leading: itemView.leadingAnchor, insets: flatInsets)
