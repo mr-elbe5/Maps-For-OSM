@@ -75,11 +75,7 @@ class PlacePool{
         get{
             var trackList = TrackList()
             for place in places{
-                for placeItem in place.items{
-                    if placeItem.type == .track, let track = placeItem as? TrackItem{
-                        trackList.append(track)
-                    }
-                }
+                trackList.append(contentsOf: place.tracks)
             }
             return trackList
         }
@@ -166,9 +162,9 @@ class PlacePool{
         for place in places{
             if !place.note.isEmpty{
                 if !{
-                    for item in place.items{
-                        if item.type == .note, let noteItem = item as? NoteItem{
-                            return noteItem.note == place.note
+                    for item in place.notes{
+                        if item.note == place.note{
+                            return true
                         }
                     }
                     return false
@@ -176,7 +172,7 @@ class PlacePool{
                     let noteItem = NoteItem()
                     noteItem.note = place.note
                     noteItem.creationDate = place.timestamp
-                    place.items.append(noteItem)
+                    place.addItem(item: noteItem)
                     place.note = ""
                     Log.debug("added note item")
                 }

@@ -29,10 +29,32 @@ class Place : Selectable{
     var name : String = ""
     var address : String = ""
     var note : String = ""
-    var items : PlaceItemList
+    private var items : PlaceItemList
+    
+    var itemCount: Int{
+        items.count
+    }
+    
+    var imageCount: Int{
+        var count = 0
+        for item in items{
+            if item.type == .image{
+                count += 1
+            }
+        }
+        return count
+    }
     
     var hasItems : Bool{
         !items.isEmpty
+    }
+    
+    var allItems: PlaceItemList{
+        items
+    }
+    
+    var allItemsSelected: Bool{
+        items.allSelected
     }
     
     var hasMedia : Bool{
@@ -51,6 +73,36 @@ class Place : Selectable{
             }
         }
         return false
+    }
+    
+    var tracks: TrackList{
+        var list = TrackList()
+        for item in items{
+            if item.type == .track, let track = item as? TrackItem{
+                list.append(track)
+            }
+        }
+        return list
+    }
+    
+    var notes: Array<NoteItem>{
+        var list = Array<NoteItem>()
+        for item in items{
+            if item.type == .note, let note = item as? NoteItem{
+                list.append(note)
+            }
+        }
+        return list
+    }
+    
+    var media : PlaceItemList{
+        var list = PlaceItemList()
+        for item in items{
+            if [.image, .video, .audio].contains(item.type){
+                list.append(item)
+            }
+        }
+        return list
     }
     
     init(coordinate: CLLocationCoordinate2D){
@@ -82,8 +134,11 @@ class Place : Selectable{
             metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .media)
         }
         self.items = metaItems?.toItemList() ?? PlaceItemList()
-        self.items.sortByCreation()
         super.init()
+        for item in items{
+            item.place = self
+        }
+        items.sortByCreation()
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
         }
@@ -118,16 +173,39 @@ class Place : Selectable{
         
     }
     
+    func item(at idx: Int) -> PlaceItem{
+        items[idx]
+    }
+    
+    func selectAllItems(){
+        items.selectAll()
+    }
+    
+    func deselectAllItems(){
+        items.deselectAll()
+    }
+    
     func addItem(item: PlaceItem){
-        items.append(item)
+        if !items.contains(item){
+            item.place = self
+            items.append(item)
+        }
     }
     
     func deleteItem(item: PlaceItem){
+        item.prepareDelete()
         items.remove(item)
     }
     
     func deleteAllItems(){
+        for item in items{
+            item.prepareDelete()
+        }
         items.removeAllItems()
+    }
+    
+    func sortItems(){
+        items.sortByCreation()
     }
     
 }

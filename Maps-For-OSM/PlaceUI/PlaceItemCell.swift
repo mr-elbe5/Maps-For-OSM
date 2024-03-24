@@ -7,9 +7,7 @@
 import UIKit
 
 protocol PlaceItemCellDelegate{
-    func deletePlaceItem(item: PlaceItem)
-    func viewPlaceItem(item: PlaceItem)
-    func showItemOnMap(item: PlaceItem)
+    func showPlaceOnMap(place: Place)
 }
 
 class PlaceItemCell: TableViewCell{

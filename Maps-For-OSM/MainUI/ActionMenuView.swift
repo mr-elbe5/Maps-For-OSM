@@ -7,20 +7,9 @@
 import UIKit
 import CoreLocation
 
-protocol ActionMenuDelegate{
-    
-    func startTrackRecording(at coordinate: CLLocationCoordinate2D)
-    func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void)
-    
-    func openCamera(at coordinate: CLLocationCoordinate2D)
-    func openAudio(at coordinate: CLLocationCoordinate2D)
-    func openNote(at coordinate: CLLocationCoordinate2D)
-    
-}
-
 class ActionMenuView: UIView {
     
-    var delegate : ActionMenuDelegate? = nil
+    var delegate : LocationDelegate? = nil
     
     var toggleTrackingButton = UIButton().asIconButton("figure.walk")
     
@@ -48,7 +37,7 @@ class ActionMenuView: UIView {
         addSubviewWithAnchors(audioButton, top: cameraButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         audioButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
-                self.delegate?.openAudio(at: coordinate)
+                self.delegate?.openAudioRecorder(at: coordinate)
             }
         }, for: .touchDown)
         
@@ -56,7 +45,7 @@ class ActionMenuView: UIView {
         addSubviewWithAnchors(noteButton, top: audioButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 20, left: 5, bottom: 10, right: 5))
         noteButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
-                self.delegate?.openNote(at: coordinate)
+                self.delegate?.openAddNote(at: coordinate)
             }
         }, for: .touchDown)
     }

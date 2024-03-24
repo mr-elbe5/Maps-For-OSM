@@ -7,9 +7,8 @@
 import UIKit
 
 protocol TrackItemCellDelegate{
-    func deleteTrackItem(item: TrackItem)
     func viewTrackItem(item: TrackItem)
-    func showItemOnMap(item: TrackItem)
+    func showTrackItemOnMap(item: TrackItem)
 }
 
 class TrackItemCell: PlaceItemCell{
@@ -30,14 +29,21 @@ class TrackItemCell: PlaceItemCell{
                     item.selected = !item.selected
                     selectedButton.setImage(UIImage(systemName: item.selected ? "checkmark.square" : "square"), for: .normal)
                 }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
                 lastAnchor = selectedButton.leadingAnchor
             }
+            
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showItemOnMap(item: item)
+                self.delegate?.showTrackItemOnMap(item: item)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            
+            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
+            viewButton.addAction(UIAction(){ action in
+                self.delegate?.viewTrackItem(item: item)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     

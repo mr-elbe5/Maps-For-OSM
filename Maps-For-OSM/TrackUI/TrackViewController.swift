@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackDetailDelegate{
-    func showTrackOnMap(track: TrackItem)
+    func showTrackItemOnMap(item: TrackItem)
 }
 
 protocol ActiveTrackDelegate{
@@ -64,7 +64,7 @@ class TrackViewController: PopupScrollViewController{
         headerView.addSubviewWithAnchors(mapButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         mapButton.addAction(UIAction(){ action in
             self.dismiss(animated: true){
-                self.delegate?.showTrackOnMap(track: self.track)
+                self.delegate?.showTrackItemOnMap(item: self.track)
             }
         }, for: .touchDown)
     }

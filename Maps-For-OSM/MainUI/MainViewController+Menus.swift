@@ -75,6 +75,11 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
+    func hideTrack() {
+        TrackPool.visibleTrack = nil
+        trackChanged()
+    }
+    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
@@ -120,19 +125,15 @@ extension MainViewController: MainMenuDelegate{
                 var photoCount = 0
                 var numCopied = 0
                 var numErrors = 0
-                for location in PlacePool.places{
-                    for item in location.items{
-                        if item.type == .image{
-                            photoCount += 1
-                        }
-                    }
+                for place in PlacePool.places{
+                    photoCount += place.imageCount
                 }
                 for place in PlacePool.places{
-                    for listItem in place.items{
-                        switch (listItem.type){
+                    for item in place.allItems{
+                        switch (item.type){
                         case .image:
-                            if let item = listItem as? ImageItem, let data = item.getFile(){
-                                if listItem.type == .image{
+                            if let item = item as? ImageItem, let data = item.getFile(){
+                                if item.type == .image{
                                     PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: place.coordinate, altitude: place.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: place.timestamp), resultHandler: { localIdentifier in
                                         if !localIdentifier.isEmpty{
                                             numCopied += 1
@@ -251,112 +252,6 @@ extension MainViewController: UIDocumentPickerDelegate{
             spinner.stopAnimating()
             self.view.removeSubview(spinner)
         }
-    }
-    
-}
-
-//todo: localize
-
-extension MainViewController: ActionMenuDelegate{
-    
-    func startTrackRecording(at coordinate: CLLocationCoordinate2D) {
-        if let location = LocationService.shared.location{
-            TrackRecorder.startRecording(startLocation: location)
-            if let track = TrackRecorder.track{
-                TrackPool.visibleTrack = track
-                self.mapView.trackLayerView.setNeedsDisplay()
-                self.trackStatusView.isHidden = false
-                self.statusView.isHidden = true
-                self.trackStatusView.startTrackInfo()
-            }
-        }
-    }
-    
-    func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void) {
-        if let track = TrackRecorder.track{
-            let alertController = UIAlertController(title: "endTrack".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-            alertController.addTextField()
-            alertController.addAction(UIAlertAction(title: "saveTrack".localize(),style: .default) { action in
-                var name = alertController.textFields![0].text
-                if name == nil || name!.isEmpty{
-                    name = "Tour"
-                }
-                track.name = name!
-                TrackPool.addTrack(track: track)
-                TrackPool.save()
-                TrackPool.visibleTrack = track
-                self.mapView.trackLayerView.setNeedsDisplay()
-                TrackRecorder.stopRecording()
-                self.trackStatusView.isHidden = true
-                self.statusView.isHidden = false
-                self.mapView.updatePlaceLayer()
-                onCompletion()
-            })
-            alertController.addAction(UIAlertAction(title: "cancelTrack".localize(),style: .default) { action in
-                TrackRecorder.stopRecording()
-                TrackPool.visibleTrack = nil
-                self.mapView.trackLayerView.setNeedsDisplay()
-                self.trackStatusView.stopTrackInfo()
-                self.trackStatusView.isHidden = true
-                self.statusView.isHidden = false
-                onCompletion()
-            })
-            alertController.addAction(UIAlertAction(title: "back".localize(),style: .default) { action in
-                onCompletion()
-            })
-            present(alertController, animated: true)
-        }
-    }
-    
-    func hideTrack() {
-        TrackPool.visibleTrack = nil
-        mapView.trackLayerView.setNeedsDisplay()
-    }
-    
-    func openCamera(at coordinate: CLLocationCoordinate2D) {
-        AVCaptureDevice.askCameraAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let cameraCaptureController = CameraViewController()
-                    cameraCaptureController.delegate = self
-                    cameraCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(cameraCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showAlert(title: "error".localize(), text: "cameraNotAuthorized".localize())
-                }
-                return
-            }
-        }
-    }
-    
-    func openAudio(at coordinate: CLLocationCoordinate2D){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(audioCaptureController, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
-    func openNote(at coordinate: CLLocationCoordinate2D) {
-        let controller = NoteViewController(coordinate: coordinate)
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
     }
     
 }

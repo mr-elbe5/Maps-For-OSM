@@ -8,7 +8,6 @@ import UIKit
 
 
 protocol PlaceCellDelegate{
-    func deletePlaceFromCell(place: Place)
     func viewPlace(place: Place)
     func showPlaceOnMap(place: Place)
 }
@@ -33,19 +32,21 @@ class PlaceCell: TableViewCell{
                     place.selected = !place.selected
                     selectedButton.setImage(UIImage(systemName: place.selected ? "checkmark.square" : "square"), for: .normal)
                 }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
                 lastAnchor = selectedButton.leadingAnchor
             }
+            
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.delegate?.showPlaceOnMap(place: place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
                 self.delegate?.viewPlace(place: place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: defaultInsets)
+            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     
@@ -64,7 +65,7 @@ class PlaceCell: TableViewCell{
             coordinateLabel.textAlignment = .center
             itemView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
-            header = UILabel(text: "mediaCount".localize() + String(place.items.count))
+            header = UILabel(text: "mediaCount".localize() + String(place.itemCount))
             itemView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
             
         }

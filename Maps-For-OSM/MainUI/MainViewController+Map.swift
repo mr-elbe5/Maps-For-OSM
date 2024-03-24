@@ -16,7 +16,7 @@ extension MainViewController: LocationServiceDelegate{
         mapView.locationDidChange(location: location)
         if TrackRecorder.isRecording{
             if TrackRecorder.updateTrack(with: location){
-                mapView.trackLayerView.setNeedsDisplay()
+                trackChanged()
                 if Preferences.shared.followTrack{
                     mapView.focusUserLocation()
                 }
@@ -55,7 +55,7 @@ extension MainViewController: MapPositionDelegate{
     
 }
 
-extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate, LocationViewDelegate {
+extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate {
     
     func showPlaceOnMap(place: Place) {
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
@@ -92,9 +92,15 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
         }
     }
     
-    func showItemOnMap(place: Place, item: PlaceItem) {
-        
+    func showTrackItemOnMap(item: TrackItem) {
+        if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
+            TrackPool.visibleTrack = item
+            trackChanged()
+            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
+            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
+        }
     }
+    
     
     func showGroupDetails(group: PlaceGroup) {
         let controller = PlaceGroupViewController(group: group)
@@ -116,6 +122,15 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
 }
 
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
+    
+    func placeChanged(place: Place) {
+        //todo
+        mapView.updatePlaceLayer()
+    }
+    
+    func placesChanged() {
+        mapView.updatePlaceLayer()
+    }
     
     func viewTrackDetails(track: TrackItem) {
         let controller = TrackViewController(track: track)
@@ -140,20 +155,11 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         TrackPool.deleteTrack(track)
         if isVisibleTrack{
             TrackPool.visibleTrack = nil
-            mapView.trackLayerView.setNeedsDisplay()
+            trackChanged()
         }
     }
     
-    func showTrackOnMap(track: TrackItem) {
-        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
-            TrackPool.visibleTrack = track
-            mapView.trackLayerView.setNeedsDisplay()
-            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
-        }
-    }
-    
-    func updateTrackLayer() {
+    func trackChanged() {
         mapView.trackLayerView.setNeedsDisplay()
     }
     

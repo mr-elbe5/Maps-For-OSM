@@ -10,8 +10,8 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackListDelegate{
-    func showTrackOnMap(track: TrackItem)
-    func deleteTrack(track: TrackItem, approved: Bool)
+    func showTrackItemOnMap(item: TrackItem)
+    func placesChanged()
 }
 
 //todo: edit mode, selection
@@ -105,14 +105,22 @@ class TrackListViewController: PopupTableViewController{
     
     func deleteSelected(){
         if let tracks = tracks{
-            var count = 0
+            var list = TrackList()
             for i in 0..<tracks.count{
-                if tracks[i].selected{
-                    count += 1
+                let track = tracks[i]
+                if track.selected{
+                    list.append(track)
                 }
             }
-            //todo
-            print("deleting \(count) tracks")
+            if list.isEmpty{
+                return
+            }
+            showDestructiveApprove(title: "confirmDeleteTracks".localize(i: list.count), text: "deleteHint".localize()){
+                //todo
+                print("deleting \(list.count) tracks")
+                self.delegate?.placesChanged()
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -158,21 +166,15 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension TrackListViewController : TrackDetailDelegate{
     
-    func showTrackOnMap(track: TrackItem) {
+    func showTrackItemOnMap(item: TrackItem) {
         self.dismiss(animated: true){
-            self.delegate?.showTrackOnMap(track: track)
+            self.delegate?.showTrackItemOnMap(item: item)
         }
     }
     
 }
 
 extension TrackListViewController : TrackItemCellDelegate{
-    
-    func deleteTrackItem(item: TrackItem) {
-        showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-            self.deleteTrack(track: item)
-        }
-    }
     
     func viewTrackItem(item: TrackItem) {
         let trackController = TrackViewController(track: item)
@@ -182,28 +184,14 @@ extension TrackListViewController : TrackItemCellDelegate{
         self.present(trackController, animated: true)
     }
     
-    func showItemOnMap(item: TrackItem) {
-        delegate?.showTrackOnMap(track: item)
-    }
-    
-    func exportTrack(track: TrackItem) {
-        if let url = GPXCreator.createTemporaryFile(track: track){
+    func exportTrack(item: TrackItem) {
+        if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             controller.directoryURL = FileController.exportGpxDirURL
             present(controller, animated: true) {
                 FileController.logFileInfo()
             }
         }
-    }
-    
-    func deleteTrack(track: TrackItem, approved: Bool) {
-        
-    }
-    
-    private func deleteTrack(track: TrackItem){
-        self.delegate?.deleteTrack(track: track, approved: true)
-        tracks?.remove(track)
-        tableView.reloadData()
     }
     
 }

@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 protocol AudioCaptureDelegate{
-    func audioCaptured(data: AudioItem)
+    func audioCaptured(item: AudioItem)
 }
 
 class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDelegate{
@@ -180,7 +180,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         if FileController.copyFile(fromURL: tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: audioFile.fileName)){
             cleanup()
             self.dismiss(animated: true){
-                self.delegate?.audioCaptured(data: audioFile)
+                self.delegate?.audioCaptured(item: audioFile)
             }
         }
         

@@ -27,6 +27,9 @@ class PlaceItem : Selectable{
         }
     }
     
+    //runtime
+    var place: Place!
+    
     override init(){
         creationDate = Date()
         super.init()

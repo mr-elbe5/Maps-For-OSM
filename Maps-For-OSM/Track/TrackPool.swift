@@ -134,9 +134,7 @@ class TrackPool{
             for track in list{
                 if let coordinate = track .startCoordinate{
                     let place = PlacePool.assertPlace(coordinate: coordinate)
-                    if !place.items.contains(track){
-                        place.items.append(track)
-                    }
+                    place.addItem(item: track)
                 }
             }
             PlacePool.save()

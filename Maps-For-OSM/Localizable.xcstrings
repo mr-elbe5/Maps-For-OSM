@@ -1025,41 +1025,7 @@
         }
       }
     },
-    "deleteAllTracksHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion kann nicht rückgängig gemacht werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action cannot be undone."
-          }
-        }
-      }
-    },
-    "deleteAudioHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action is executed immediately and cannot be undone."
-          }
-        }
-      }
-    },
-    "deleteImageHint" : {
+    "deleteHint" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1093,23 +1059,6 @@
         }
       }
     },
-    "deletePlaceHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion beinhaltet auch die zugeordneten Medien. Sie kann nicht rückgängig gemacht werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action cannot be undone and includes associated media."
-          }
-        }
-      }
-    },
     "deletePlaces" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1123,23 +1072,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete all LPlaces"
-          }
-        }
-      }
-    },
-    "deletePlacesHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion kann nicht rückgängig gemacht werden. Zugeordnete Medien werden ebenfalls gelöscht."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action cannot be undone. Associated media will also be deleted."
           }
         }
       }
@@ -1161,23 +1093,6 @@
         }
       }
     },
-    "deleteTilesHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Kacheln müssen anschliessend neu geladen werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Map tiles will have to be reloaded."
-          }
-        }
-      }
-    },
     "deleteTilesInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1195,34 +1110,6 @@
         }
       }
     },
-    "deleteTrackHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action cannot be undone."
-          }
-        }
-      }
-    },
-    "deleteTracksAllHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion kann nicht rückgängig gemacht werden."
-          }
-        }
-      }
-    },
     "deleteTracksInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1236,23 +1123,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete all tracks"
-          }
-        }
-      }
-    },
-    "deleteVideoHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion erfolgt sofort und kann nicht rückgängig gemacht werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action is executed immediately and cannot be undone."
           }
         }
       }
@@ -2178,23 +2048,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please enter a name for this track"
-          }
-        }
-      }
-    },
-    "newLocationHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese Aktion kann nicht rückgängig gemacht werden. Die neue Position ist:"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This cannot be undone. The new position is:"
           }
         }
       }

@@ -8,18 +8,20 @@ import Foundation
 import UIKit
 
 protocol PlaceViewDelegate{
-    func updateMarkerLayer()
-    func showItemOnMap(place: Place, item: PlaceItem)
+    func placeChanged(place: Place)
+    //from item cell
+    func showPlaceOnMap(place: Place)
+    // from track item cell
+    func showTrackItemOnMap(item: TrackItem)
 }
 
 //todo: edit mode, texts, add image
 
 class PlaceViewController: PopupTableViewController{
     
-    let editButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .red)
-    
-    var editMode = false
     
     var place: Place
     
@@ -57,15 +59,22 @@ class PlaceViewController: PopupTableViewController{
             self.addImage()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(editButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        editButton.addAction(UIAction(){ action in
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        deleteButton.addAction(UIAction(){ action in
-            self.deletePlace()
+        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        selectAllButton.addAction(UIAction(){ action in
+            self.toggleSelectAll()
         }, for: .touchDown)
+        selectAllButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deleteButton.addAction(UIAction(){ action in
+            self.deleteSelected()
+        }, for: .touchDown)
+        deleteButton.isHidden = !tableView.isEditing
     }
     
     override func setupSubheaderView(subheaderView: UIView){
@@ -89,22 +98,55 @@ class PlaceViewController: PopupTableViewController{
     }
     
     func toggleEditMode(){
-        if editMode{
-            editButton.tintColor = .white
-            editMode = false
+        if tableView.isEditing{
+            editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
+            tableView.isEditing = false
+            selectAllButton.isHidden = true
+            deleteButton.isHidden = true
         }
         else{
-            editButton.tintColor = .systemBlue
-            editMode = true
+            editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
+            tableView.isEditing = true
+            selectAllButton.isHidden = false
+            deleteButton.isHidden = false
+        }
+        place.deselectAllItems()
+        tableView.reloadData()
+    }
+    
+    func toggleSelectAll(){
+        if tableView.isEditing{
+            if place.allItemsSelected{
+                place.deselectAllItems()
+            }
+            else{
+                place.selectAllItems()
+            }
+            for cell in tableView.visibleCells{
+                (cell as? PlaceItemCell)?.updateIconView(isEditing: true)
+            }
         }
     }
     
-    func deletePlace(){
-        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            PlacePool.deletePlace(self.place)
-            self.dismiss(animated: true){
-                self.delegate?.updateMarkerLayer()
+    func deleteSelected(){
+        var list = PlaceItemList()
+        for i in 0..<place.itemCount{
+            let item = place.item(at: i)
+            if item.selected{
+                list.append(item)
             }
+        }
+        if list.isEmpty{
+            return
+        }
+        showDestructiveApprove(title: "confirmDeleteItems".localize(i: list.count), text: "deleteHint".localize()){
+            //todo
+            print("deleting \(list.count) items")
+            for item in list{
+                self.place.deleteItem(item: item)
+            }
+            self.delegate?.placeChanged(place: self.place)
+            self.tableView.reloadData()
         }
     }
     
@@ -133,11 +175,11 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        place.items.count
+        place.itemCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = place.items[indexPath.row]
+        let item = place.item(at: indexPath.row)
         switch item.type{
         case .audio: 
             if let cell = tableView.dequeueReusableCell(withIdentifier: AudioItemCell.CELL_IDENT, for: indexPath) as? AudioItemCell, let audioItem = item as? AudioItem{
@@ -211,29 +253,16 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceViewController : AudioItemCellDelegate{
+extension PlaceViewController : PlaceItemCellDelegate{
     
-    func deleteAudioItem(item: AudioItem) {
-        showDestructiveApprove(title: "confirmDeleteAudioItem".localize(), text: "deleteItemHint".localize()){
-            self.place.deleteItem(item: item)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            self.tableView.reloadData()
-        }
+    func showPlaceOnMap(place: Place) {
+        self.dismiss(animated: true)
+        delegate?.showPlaceOnMap(place: place)
     }
     
 }
 
 extension PlaceViewController : VideoItemCellDelegate{
-    
-    func deleteVideoItem(item: VideoItem) {
-        showDestructiveApprove(title: "confirmDeleteVideoItem".localize(), text: "deleteItemHint".localize()){
-            self.place.deleteItem(item: item)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            self.tableView.reloadData()
-        }
-    }
     
     func viewVideoItem(item: VideoItem) {
         let controller = VideoViewController()
@@ -246,15 +275,6 @@ extension PlaceViewController : VideoItemCellDelegate{
 
 extension PlaceViewController : ImageItemCellDelegate{
     
-    func deleteImageItem(item: ImageItem) {
-        showDestructiveApprove(title: "confirmDeleteImageItem".localize(), text: "deleteItemHint".localize()){
-            self.place.deleteItem(item: item)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            self.tableView.reloadData()
-        }
-    }
-    
     func viewImageItem(item: ImageItem) {
         let controller = ImageViewController()
         controller.uiImage = item.getImage()
@@ -266,41 +286,20 @@ extension PlaceViewController : ImageItemCellDelegate{
 
 extension PlaceViewController : TrackItemCellDelegate{
     
-    func deleteTrackItem(item: TrackItem) {
-        showDestructiveApprove(title: "confirmDeleteTrackItem".localize(), text: "deleteItemHint".localize()){
-            self.place.deleteItem(item: item)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            self.tableView.reloadData()
-        }
-    }
-    
     func viewTrackItem(item: TrackItem) {
         let controller = TrackViewController(track: item)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func showItemOnMap(item: TrackItem) {
+    func showTrackItemOnMap(item: TrackItem) {
         self.dismiss(animated: true){
-            self.delegate?.showItemOnMap(place: self.place, item: item)
+            self.delegate?.showTrackItemOnMap(item: item)
         }
     }
     
 }
 
-extension PlaceViewController : NoteItemCellDelegate{
-    
-    func deleteNoteItem(item: NoteItem) {
-        showDestructiveApprove(title: "confirmDeleteNoteItem".localize(), text: "deleteItemHint".localize()){
-            self.place.deleteItem(item: item)
-            PlacePool.save()
-            self.delegate?.updateMarkerLayer()
-            self.tableView.reloadData()
-        }
-    }
-    
-}
 
 
 

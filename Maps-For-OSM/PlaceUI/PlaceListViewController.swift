@@ -11,7 +11,7 @@ import CoreLocation
 
 protocol PlaceListDelegate: PlaceViewDelegate{
     func showPlaceOnMap(place: Place)
-    func deletePlaceFromList(place: Place)
+    func placesChanged()
 }
 
 //todo: edit mode, selection
@@ -79,20 +79,30 @@ class PlaceListViewController: PopupTableViewController{
                 PlacePool.places.selectAll()
             }
             for cell in tableView.visibleCells{
-                (cell as? TrackItemCell)?.updateIconView(isEditing: true)
+                (cell as? PlaceCell)?.updateIconView(isEditing: true)
             }
         }
     }
     
     func deleteSelected(){
-        var count = 0
+        var list = PlaceList()
         for i in 0..<PlacePool.places.count{
-            if PlacePool.places[i].selected{
-                count += 1
+            let place = PlacePool.places[i]
+            if place.selected{
+                list.append(place)
             }
         }
-        //todo
-        print("deleting \(count) places")
+        if list.isEmpty{
+            return
+        }
+        showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
+            print("deleting \(list.count) places")
+            for place in list{
+                PlacePool.deletePlace(place)
+            }
+            self.delegate?.placesChanged()
+            self.tableView.reloadData()
+        }
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -139,13 +149,6 @@ extension PlaceListViewController : PlaceCellDelegate{
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
             self.delegate?.showPlaceOnMap(place: place)
-        }
-    }
-    
-    func deletePlaceFromCell(place: Place) {
-        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            self.delegate?.deletePlaceFromList(place: place)
-            self.tableView.reloadData()
         }
     }
     

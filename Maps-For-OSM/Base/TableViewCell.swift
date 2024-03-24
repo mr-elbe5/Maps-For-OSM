@@ -13,6 +13,8 @@ class TableViewCell: UITableViewCell{
     
     var cellBody = UIView()
     
+    var iconInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isUserInteractionEnabled = true

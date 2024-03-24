@@ -61,7 +61,7 @@ class PlaceGroup{
             lat += place.coordinate.latitude
             lon += place.coordinate.longitude
             note += place.note
-            for mediaFile in place.items{
+            for mediaFile in place.allItems{
                 itemList.append(mediaFile)
             }
         }
@@ -70,7 +70,10 @@ class PlaceGroup{
         let place = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         place.evaluatePlacemark()
         place.note = note
-        place.items = itemList
+        for item in itemList{
+            place.addItem(item: item)
+        }
+        place.sortItems()
         return place
     }
     

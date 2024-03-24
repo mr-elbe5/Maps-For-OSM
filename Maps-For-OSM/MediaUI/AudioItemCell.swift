@@ -6,10 +6,6 @@
 
 import UIKit
 
-protocol AudioItemCellDelegate{
-    func deleteAudioItem(item: AudioItem)
-}
-
 class AudioItemCell: PlaceItemCell{
     
     static let CELL_IDENT = "audioCell"
@@ -21,16 +17,28 @@ class AudioItemCell: PlaceItemCell{
         }
     }
     
-    var delegate: AudioItemCellDelegate? = nil
+    var delegate: PlaceItemCellDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
-        if let audioItem = audioItem{
-            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addAction(UIAction(){ action in
-                self.delegate?.deleteAudioItem(item: audioItem)
+        var lastAnchor = iconView.trailingAnchor
+        if let item = audioItem{
+            var lastAnchor = iconView.trailingAnchor
+            if isEditing{
+                let selectedButton = UIButton().asIconButton(item.selected ? "checkmark.square" : "square", color: .label)
+                selectedButton.addAction(UIAction(){ action in
+                    item.selected = !item.selected
+                    selectedButton.setImage(UIImage(systemName: item.selected ? "checkmark.square" : "square"), for: .normal)
+                }, for: .touchDown)
+                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
+                lastAnchor = selectedButton.leadingAnchor
+            }
+            
+            let mapButton = UIButton().asIconButton("map", color: .label)
+            mapButton.addAction(UIAction(){ action in
+                self.delegate?.showPlaceOnMap(place: item.place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     

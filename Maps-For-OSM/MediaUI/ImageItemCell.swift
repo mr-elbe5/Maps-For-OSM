@@ -6,8 +6,7 @@
 
 import UIKit
 
-protocol ImageItemCellDelegate{
-    func deleteImageItem(item: ImageItem)
+protocol ImageItemCellDelegate: PlaceItemCellDelegate{
     func viewImageItem(item: ImageItem)
 }
 
@@ -26,18 +25,29 @@ class ImageItemCell: PlaceItemCell{
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
-        if let imageItem = imageItem{
-            let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
-            deleteButton.addAction(UIAction(){ action in
-                self.delegate?.deleteImageItem(item: imageItem)
+        var lastAnchor = iconView.trailingAnchor
+        if let item = imageItem{
+            if isEditing{
+                let selectedButton = UIButton().asIconButton(item.selected ? "checkmark.square" : "square", color: .label)
+                selectedButton.addAction(UIAction(){ action in
+                    item.selected = !item.selected
+                    selectedButton.setImage(UIImage(systemName: item.selected ? "checkmark.square" : "square"), for: .normal)
+                }, for: .touchDown)
+                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
+                lastAnchor = selectedButton.leadingAnchor
+            }
+            
+            let mapButton = UIButton().asIconButton("map", color: .label)
+            mapButton.addAction(UIAction(){ action in
+                self.delegate?.showPlaceOnMap(place: item.place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(deleteButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewImageItem(item: imageItem)
+                self.delegate?.viewImageItem(item: item)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: deleteButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: halfFlatInsets)
+            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     
