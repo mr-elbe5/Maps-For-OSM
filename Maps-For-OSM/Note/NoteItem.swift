@@ -10,30 +10,30 @@ import UIKit
 class NoteItem : PlaceItem{
     
     private enum CodingKeys: CodingKey{
-        case note
+        case text
     }
     
     override var type : PlaceItemType{
         .note
     }
     
-    var note: String
+    var text: String
     
     override init(){
-        note = ""
+        text = ""
         super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        note = try values.decode(String.self, forKey: .note)
+        text = try values.decode(String.self, forKey: .text)
         try super.init(from: decoder)
     }
     
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(note, forKey: .note)
+        try container.encode(text, forKey: .text)
     }
     
 }

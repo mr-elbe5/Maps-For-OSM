@@ -57,14 +57,23 @@ class TrackItemCell: PlaceItemCell{
             let header = UILabel(header: "track".localize())
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
+            var nextAnchor = header.bottomAnchor
             
-            let nameLabel = UILabel(text: item.name)
-            nameLabel.textAlignment = .center
-            itemView.addSubviewWithAnchors(nameLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
-            
+            if isEditing{
+                let nameField = UITextField()
+                nameField.setDefaults()
+                nameField.text = item.name
+                nameField.delegate = self
+            }
+            else{
+                let nameLabel = UILabel(text: item.name)
+                nameLabel.textAlignment = .center
+                itemView.addSubviewWithAnchors(nameLabel, top: nextAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                nextAnchor = nameLabel.bottomAnchor
+            }
             let tp = item.trackpoints.isEmpty ? nil : item.trackpoints[0]
             let startLabel = UILabel(text: "\("start".localize()): \(tp?.coordinate.asString ?? ""), \(item.startTime.dateTimeString())")
-            itemView.addSubviewWithAnchors(startLabel, top: nameLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+            itemView.addSubviewWithAnchors(startLabel, top: nextAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
             let endLabel = UILabel(text: "\("end".localize()): \(item.endTime.dateTimeString())")
             itemView.addSubviewWithAnchors(endLabel, top: startLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
@@ -80,6 +89,16 @@ class TrackItemCell: PlaceItemCell{
             
             let durationLabel = UILabel(text: "\("duration".localize()): \(item.duration.hmsString())")
             itemView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: itemView.leadingAnchor, bottom: itemView.bottomAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
+        }
+    }
+    
+}
+
+extension TrackItemCell: UITextFieldDelegate{
+    
+    func textFieldDidChange(_ textField: UITextView) {
+        if let track = trackItem{
+            track.name = textField.text
         }
     }
     

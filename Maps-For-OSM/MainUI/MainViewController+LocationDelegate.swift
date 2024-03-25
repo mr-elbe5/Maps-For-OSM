@@ -58,7 +58,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         if !note.isEmpty{
             let place = PlacePool.assertPlace(coordinate: coordinate)
             let item = NoteItem()
-            item.note = note
+            item.text = note
             place.addItem(item: item)
             PlacePool.save()
         }
@@ -117,6 +117,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
             case .success(()):
                 DispatchQueue.main.async {
                     let audioCaptureController = AudioRecorderViewController()
+                    audioCaptureController.delegate = self
                     audioCaptureController.modalPresentationStyle = .fullScreen
                     self.present(audioCaptureController, animated: true)
                 }

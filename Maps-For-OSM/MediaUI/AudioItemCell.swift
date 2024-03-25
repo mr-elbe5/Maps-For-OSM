@@ -19,6 +19,15 @@ class AudioItemCell: PlaceItemCell{
     
     var delegate: PlaceItemCellDelegate? = nil
     
+    override func setupCellBody(){
+        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        dateTimeView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        cellBody.addSubviewWithAnchors(dateTimeView, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, insets: smallInsets)
+        dateTimeView.addSubviewFilling(timeLabel, insets: smallInsets)
+        cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
+        cellBody.addSubviewWithAnchors(itemView, top: iconView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: .zero)
+    }
+    
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         if let item = audioItem{
@@ -47,24 +56,42 @@ class AudioItemCell: PlaceItemCell{
     
     override func updateItemView(isEditing: Bool){
         itemView.removeAllSubviews()
-        if let audioItem = audioItem{
+        if let item = audioItem{
             let audioView = AudioPlayerView()
             audioView.setupView()
             itemView.addSubviewWithAnchors(audioView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 1, left: defaultInset, bottom: 0, right: defaultInset))
-            
-            if !audioItem.title.isEmpty{
-                let titleView = UILabel(text: audioItem.title)
-                titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
+            if isEditing{
+                let titleField = UITextField()
+                titleField.setDefaults()
+                titleField.text = item.title
+                titleField.delegate = self
+                itemView.addSubviewWithAnchors(titleField, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
             }
             else{
-                audioView.bottom(itemView.bottomAnchor)
+                if !item.title.isEmpty{
+                    let titleView = UILabel(text: item.title)
+                    titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+                    itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
+                }
+                else{
+                    audioView.bottom(itemView.bottomAnchor, inset: -defaultInset)
+                }
+                audioView.url = item.fileURL
+                audioView.enablePlayer()
             }
-            audioView.url = audioItem.fileURL
-            audioView.enablePlayer()
         }
     }
 
+}
+
+extension AudioItemCell: UITextFieldDelegate{
+    
+    func textFieldDidChange(_ textField: UITextView) {
+        if let item = audioItem{
+            item.title = textField.text
+        }
+    }
+    
 }
 
 

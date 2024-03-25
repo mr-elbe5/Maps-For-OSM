@@ -57,22 +57,40 @@ class ImageItemCell: PlaceItemCell{
     
     override func updateItemView(isEditing: Bool){
         itemView.removeAllSubviews()
-        if let imageItem = imageItem{
+        if let item = imageItem{
             let imageView = UIImageView()
             imageView.setDefaults()
             imageView.setRoundedBorders()
             itemView.addSubviewWithAnchors(imageView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
-            imageView.image = imageItem.getImage()
+            imageView.image = item.getImage()
             imageView.setAspectRatioConstraint()
-            
-            if !imageItem.title.isEmpty{
-                let titleView = UILabel(text: imageItem.title)
-                titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                itemView.addSubviewWithAnchors(titleView, top: itemView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+            if isEditing{
+                let titleField = UITextField()
+                titleField.setDefaults()
+                titleField.text = item.title
+                titleField.delegate = self
+                itemView.addSubviewWithAnchors(titleField, top: imageView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
             }
             else{
-                imageView.bottom(itemView.bottomAnchor)
+                if !item.title.isEmpty{
+                    let titleView = UILabel(text: item.title)
+                    titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+                    itemView.addSubviewWithAnchors(titleView, top: itemView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+                }
+                else{
+                    imageView.bottom(itemView.bottomAnchor)
+                }
             }
+        }
+    }
+    
+}
+
+extension ImageItemCell: UITextFieldDelegate{
+    
+    func textFieldDidChange(_ textField: UITextView) {
+        if let item = imageItem{
+            item.title = textField.text
         }
     }
     

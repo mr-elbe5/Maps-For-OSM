@@ -81,14 +81,14 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     
     func enablePlayer(){
         if url != nil{
-            removePeriodicTimeObserver()
             let asset = AVURLAsset(url: url!)
             playerItem = AVPlayerItem(asset: asset)
             player.replaceCurrentItem(with: playerItem!)
             player.rate = 0
             player.volume = volumeSlider.value
             Task(){
-                try await asset.load(.duration)
+                let duration = try await asset.load(.duration)
+                addPeriodicTimeObserver(duration: duration)
             }
             rewindButton.isEnabled = false
             volumeSlider.isEnabled = true

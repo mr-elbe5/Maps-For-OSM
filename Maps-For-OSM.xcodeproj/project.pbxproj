@@ -126,6 +126,7 @@
 		4EAB349E2BA1B198004D187D /* ExifData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB349D2BA1B198004D187D /* ExifData.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
 		4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE72BB18B0900787A15 /* GPXData.swift */; };
+		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
 		4ECC1AD62BA360B100B9CCBD /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD52BA360B100B9CCBD /* LocationViewController.swift */; };
@@ -274,6 +275,7 @@
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EAB349D2BA1B198004D187D /* ExifData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExifData.swift; sourceTree = "<group>"; };
 		4EB9BCE72BB18B0900787A15 /* GPXData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXData.swift; sourceTree = "<group>"; };
+		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
 		4ECC1AD52BA360B100B9CCBD /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -507,7 +509,6 @@
 			isa = PBXGroup;
 			children = (
 				4EF477152941EC8E00294B21 /* AudioItem.swift */,
-				4EF477192941EED600294B21 /* AudioPlayerView.swift */,
 				4EF477132941EBC600294B21 /* ImageItem.swift */,
 				4EF477112941E98400294B21 /* MediaItem.swift */,
 				4EF4770F2941E94900294B21 /* VideoItem.swift */,
@@ -617,6 +618,8 @@
 			isa = PBXGroup;
 			children = (
 				4E1982BC2BAB55E400A37AE0 /* AudioItemCell.swift */,
+				4EF477192941EED600294B21 /* AudioPlayerView.swift */,
+				4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */,
 				4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */,
 				4E1982C02BAB59CD00A37AE0 /* ImageItemCell.swift */,
 				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
@@ -845,6 +848,7 @@
 				4E1982C32BAB5A0700A37AE0 /* TrackItemCell.swift in Sources */,
 				4EE1462E28D49F510058F3D3 /* World.swift in Sources */,
 				4E7C4E512BAF2113001494E9 /* TableViewCell.swift in Sources */,
+				4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */,
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4E31A658293F4CCC002080F6 /* UIView.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,

@@ -6,6 +6,8 @@
 
 import Foundation
 import UIKit
+import CoreLocation
+import AVFoundation
 
 protocol PlaceViewDelegate{
     func placeChanged(place: Place)
@@ -20,6 +22,9 @@ protocol PlaceViewDelegate{
 class PlaceViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let addImageButton = UIButton().asIconButton("photo", color: .label)
+    let addAudioButton = UIButton().asIconButton("mic", color: .label)
+    let addNoteButton = UIButton().asIconButton("pencil.and.list.clipboard", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .red)
     
@@ -53,18 +58,30 @@ class PlaceViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        let addImageButton = UIButton().asIconButton("photo", color: .label)
-        headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        addImageButton.addAction(UIAction(){ action in
-            self.addImage()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        addImageButton.addAction(UIAction(){ action in
+            self.openAddImage()
+        }, for: .touchDown)
+        addImageButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(addAudioButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        addAudioButton.addAction(UIAction(){ action in
+            self.openAudioRecorder()
+        }, for: .touchDown)
+        addAudioButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(addNoteButton, top: headerView.topAnchor, leading: addAudioButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        addNoteButton.addAction(UIAction(){ action in
+            self.openAddNote()
+        }, for: .touchDown)
+        addNoteButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: addNoteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         selectAllButton.addAction(UIAction(){ action in
             self.toggleSelectAll()
         }, for: .touchDown)
@@ -87,7 +104,7 @@ class PlaceViewController: PopupTableViewController{
         subheaderView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
     
-    func addImage(){
+    func openAddImage(){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.allowsEditing = true
@@ -97,16 +114,51 @@ class PlaceViewController: PopupTableViewController{
         self.present(pickerController, animated: true, completion: nil)
     }
     
+    func openAudioRecorder(){
+        AVCaptureDevice.askAudioAuthorization(){ result in
+            switch result{
+            case .success(()):
+                DispatchQueue.main.async {
+                    let audioCaptureController = AudioRecorderViewController()
+                    audioCaptureController.modalPresentationStyle = .fullScreen
+                    audioCaptureController.delegate = self
+                    self.present(audioCaptureController, animated: true)
+                }
+                return
+            case .failure:
+                DispatchQueue.main.async {
+                    self.showError("MainViewController audioNotAuthorized")
+                }
+                return
+            }
+        }
+    }
+    
+    func openAddNote(){
+        let controller = NoteViewController(coordinate: place.coordinate)
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
     func toggleEditMode(){
         if tableView.isEditing{
+            PlacePool.save()
+            delegate?.placeChanged(place: place)
             editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
             tableView.isEditing = false
+            addImageButton.isHidden = true
+            addAudioButton.isHidden = true
+            addNoteButton.isHidden = true
             selectAllButton.isHidden = true
             deleteButton.isHidden = true
         }
         else{
             editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
             tableView.isEditing = true
+            addImageButton.isHidden = false
+            addAudioButton.isHidden = false
+            addNoteButton.isHidden = false
             selectAllButton.isHidden = false
             deleteButton.isHidden = false
         }
@@ -140,7 +192,6 @@ class PlaceViewController: PopupTableViewController{
             return
         }
         showDestructiveApprove(title: "confirmDeleteItems".localize(i: list.count), text: "deleteHint".localize()){
-            //todo
             print("deleting \(list.count) items")
             for item in list{
                 self.place.deleteItem(item: item)
@@ -150,6 +201,32 @@ class PlaceViewController: PopupTableViewController{
         }
     }
     
+}
+
+extension PlaceViewController: NoteViewDelegate, AudioCaptureDelegate{
+    
+    func addNote(note: String, coordinate: CLLocationCoordinate2D) {
+        if !note.isEmpty{
+            let place = PlacePool.assertPlace(coordinate: coordinate)
+            let item = NoteItem()
+            item.text = note
+            place.addItem(item: item)
+            PlacePool.save()
+            tableView.reloadData()
+        }
+    }
+    
+    func audioCaptured(item: AudioItem){
+        if let coordinate = LocationService.shared.location?.coordinate{
+            let location = PlacePool.assertPlace(coordinate: coordinate)
+            location.addItem(item: item)
+            PlacePool.save()
+            tableView.reloadData()
+            DispatchQueue.main.async {
+                self.delegate?.placeChanged(place: item.place)
+            }
+        }
+    }
 }
 
 extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{

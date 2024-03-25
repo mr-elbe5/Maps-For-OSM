@@ -163,14 +163,14 @@ class PlacePool{
             if !place.note.isEmpty{
                 if !{
                     for item in place.notes{
-                        if item.note == place.note{
+                        if item.text == place.note{
                             return true
                         }
                     }
                     return false
                 }(){
                     let noteItem = NoteItem()
-                    noteItem.note = place.note
+                    noteItem.text = place.note
                     noteItem.creationDate = place.timestamp
                     place.addItem(item: noteItem)
                     place.note = ""

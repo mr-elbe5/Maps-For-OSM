@@ -58,24 +58,44 @@ class VideoItemCell: PlaceItemCell{
     
     override func updateItemView(isEditing: Bool){
         itemView.removeAllSubviews()
-        if let videoItem = videoItem{
+        if let item = videoItem{
             let videoView = VideoPlayerView()
             videoView.setRoundedBorders()
             itemView.addSubviewWithAnchors(videoView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
-            videoView.url = videoItem.fileURL
+            videoView.url = item.fileURL
             videoView.setAspectRatioConstraint()
             
-            if !videoItem.title.isEmpty{
-                let titleView = UILabel(text: videoItem.title)
-                titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+            if isEditing{
+                let titleField = UITextField()
+                titleField.setDefaults()
+                titleField.text = item.title
+                titleField.delegate = self
+                itemView.addSubviewWithAnchors(titleField, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
             }
             else{
-                videoView.bottom(itemView.bottomAnchor)
+                if !item.title.isEmpty{
+                    let titleView = UILabel(text: item.title)
+                    titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+                    itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+                }
+                else{
+                    videoView.bottom(itemView.bottomAnchor)
+                }
             }
         }
     }
     
 }
+
+extension VideoItemCell: UITextFieldDelegate{
+    
+    func textFieldDidChange(_ textField: UITextView) {
+        if let item = videoItem{
+            item.title = textField.text
+        }
+    }
+    
+}
+
 
 
