@@ -21,7 +21,6 @@ class AudioItemCell: PlaceItemCell{
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
-        var lastAnchor = iconView.trailingAnchor
         if let item = audioItem{
             var lastAnchor = iconView.trailingAnchor
             if isEditing{

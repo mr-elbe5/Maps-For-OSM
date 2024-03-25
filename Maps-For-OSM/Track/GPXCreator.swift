@@ -12,8 +12,8 @@ class GPXCreator : NSObject{
     static var temporaryFileName = "track.gpx"
     
     static func createTemporaryFile(track: TrackItem) -> URL?{
-        let trackName = track.name.replacingOccurrences(of: " ", with: "_")
-        if let url = URL(string: "track_\(trackName)_\(track.startTime.fileDate()).gpx", relativeTo: FileController.temporaryURL){
+        let fileName = track.name.replacingOccurrences(of: " ", with: "_")
+        if let url = URL(string: "track_\(fileName)_\(track.startTime.fileDate()).gpx", relativeTo: FileController.temporaryURL){
             let s = trackString(track: track)
             if let data = s.data(using: .utf8){
                 return FileController.saveFile(data : data, url: url) ? url : nil

@@ -39,13 +39,7 @@ class TrackListViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        let importButton = UIButton().asIconButton("arrow.down.square", color: .black)
-        headerView.addSubviewWithAnchors(importButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        importButton.addAction(UIAction(){ action in
-            self.importTrack()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: importButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
@@ -61,15 +55,6 @@ class TrackListViewController: PopupTableViewController{
             self.deleteSelected()
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
-    }
-    
-    func importTrack(){
-        let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
-        filePicker.directoryURL = FileController.exportGpxDirURL
-        filePicker.allowsMultipleSelection = false
-        filePicker.delegate = self
-        filePicker.modalPresentationStyle = .fullScreen
-        self.present(filePicker, animated: true)
     }
     
     func toggleEditMode(){
@@ -200,30 +185,3 @@ extension TrackListViewController : TrackItemCellDelegate{
     
 }
 
-extension TrackListViewController : UIDocumentPickerDelegate{
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if let url = urls.first{
-            if let trackpoints = GPXParser.parseFile(url: url), trackpoints.count > 0{
-                let track = TrackItem()
-                for tp in trackpoints{
-                    track.trackpoints.append(tp)
-                }
-                if track.name.isEmpty{
-                    let ext = url.pathExtension
-                    var name = url.lastPathComponent
-                    name = String(name[name.startIndex...name.index(name.endIndex, offsetBy: -ext.count)])
-                    Log.debug(name)
-                    track.name = name
-                }
-                track.evaluateImportedTrackpoints()
-                let place = PlacePool.assertPlace(coordinate: track.startCoordinate!)
-                place.addItem(item: track)
-                PlacePool.save()
-                self.tracks?.append(track)
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-}

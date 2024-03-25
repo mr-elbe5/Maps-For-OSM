@@ -75,6 +75,15 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
+    func importTrack(){
+        let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
+        filePicker.directoryURL = FileController.exportGpxDirURL
+        filePicker.allowsMultipleSelection = false
+        filePicker.delegate = self
+        filePicker.modalPresentationStyle = .fullScreen
+        self.present(filePicker, animated: true)
+    }
+    
     func hideTrack() {
         TrackItem.visibleTrack = nil
         trackChanged()
@@ -232,12 +241,44 @@ extension MainViewController: PHPickerViewControllerDelegate{
     
 }
 
-extension MainViewController: UIDocumentPickerDelegate{
+extension MainViewController : UIDocumentPickerDelegate{
     
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let url = urls.first else {
-            return
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if let url = urls.first{
+            if url.pathExtension == "gpx"{
+                importGPXFile(url: url)
+            }
+            if url.pathExtension == "zip"{
+                importBackupFile(url: url)
+            }
         }
+    }
+    
+    private func importGPXFile(url: URL){
+        if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
+            let track = TrackItem()
+            track.name = gpxData.name
+            for segment in gpxData.segments{
+                for point in segment.points{
+                    track.trackpoints.append(Trackpoint(location: point.location))
+                }
+            }
+            if track.name.isEmpty{
+                let ext = url.pathExtension
+                var name = url.lastPathComponent
+                name = String(name[name.startIndex...name.index(name.endIndex, offsetBy: -ext.count)])
+                Log.debug(name)
+                track.name = name
+            }
+            track.evaluateImportedTrackpoints()
+            let place = PlacePool.assertPlace(coordinate: track.startCoordinate!)
+            place.addItem(item: track)
+            PlacePool.save()
+            placeChanged(place: place)
+        }
+    }
+    
+    private func importBackupFile(url: URL){
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.startAnimating()
         view.addSubview(spinner)

@@ -125,6 +125,7 @@
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EAB349E2BA1B198004D187D /* ExifData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB349D2BA1B198004D187D /* ExifData.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
+		4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE72BB18B0900787A15 /* GPXData.swift */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
 		4ECC1AD62BA360B100B9CCBD /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD52BA360B100B9CCBD /* LocationViewController.swift */; };
@@ -272,6 +273,7 @@
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EAB349D2BA1B198004D187D /* ExifData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExifData.swift; sourceTree = "<group>"; };
+		4EB9BCE72BB18B0900787A15 /* GPXData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXData.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
 		4ECC1AD52BA360B100B9CCBD /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1D0E1D274BCDD200F3D584 /* GPXCreator.swift */,
+				4EB9BCE72BB18B0900787A15 /* GPXData.swift */,
 				4EA45A632747CA22001F3533 /* GPXParser.swift */,
 				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
 				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
@@ -790,6 +793,7 @@
 				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
 				4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */,
+				4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */,
 				4E24F47527345D11004E69C2 /* CGRect.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4E55B2B729476EE9005D2BFB /* PopupViewController.swift in Sources */,
