@@ -145,7 +145,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         if let location = LocationService.shared.location{
             TrackRecorder.startRecording(startLocation: location)
             if let track = TrackRecorder.track{
-                TrackPool.visibleTrack = track
+                TrackItem.visibleTrack = track
                 self.trackChanged()
                 self.trackStatusView.isHidden = false
                 self.statusView.isHidden = true
@@ -154,39 +154,29 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         }
     }
     
-    func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void) {
-        if let track = TrackRecorder.track{
-            let alertController = UIAlertController(title: "endTrack".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-            alertController.addTextField()
-            alertController.addAction(UIAlertAction(title: "saveTrack".localize(),style: .default) { action in
-                var name = alertController.textFields![0].text
-                if name == nil || name!.isEmpty{
-                    name = "Tour"
-                }
-                track.name = name!
-                TrackPool.addTrack(track: track)
-                TrackPool.save()
-                TrackPool.visibleTrack = track
-                self.trackChanged()
-                TrackRecorder.stopRecording()
-                self.trackStatusView.isHidden = true
-                self.statusView.isHidden = false
-                self.mapView.updatePlaceLayer()
-                onCompletion()
-            })
-            alertController.addAction(UIAlertAction(title: "cancelTrack".localize(),style: .default) { action in
-                TrackRecorder.stopRecording()
-                TrackPool.visibleTrack = nil
-                self.trackChanged()
-                self.trackStatusView.stopTrackInfo()
-                self.trackStatusView.isHidden = true
-                self.statusView.isHidden = false
-                onCompletion()
-            })
-            alertController.addAction(UIAlertAction(title: "back".localize(),style: .default) { action in
-                onCompletion()
-            })
-            present(alertController, animated: true)
+    func saveTrack() {
+        if let track = TrackRecorder.track, let coordinate = track.startCoordinate{
+            track.name = "trackName".localize(param: track.startTime.dateString())
+            let place = PlacePool.assertPlace(coordinate: coordinate)
+            place.addItem(item: track)
+            PlacePool.save()
+            TrackItem.visibleTrack = track
+            self.trackChanged()
+            TrackRecorder.stopRecording()
+            self.trackStatusView.isHidden = true
+            self.statusView.isHidden = false
+            self.placeChanged(place: place)
+        }
+    }
+    
+    func cancelTrack() {
+        if TrackRecorder.track != nil{
+            TrackRecorder.stopRecording()
+            TrackItem.visibleTrack = nil
+            self.trackChanged()
+            self.trackStatusView.stopTrackInfo()
+            self.trackStatusView.isHidden = true
+            self.statusView.isHidden = false
         }
     }
     

@@ -11,7 +11,7 @@ class ActionMenuView: UIView {
     
     var delegate : LocationDelegate? = nil
     
-    var toggleTrackingButton = UIButton().asIconButton("figure.walk")
+    var toggleTrackingButton = UIButton().asIconButton("figure.walk.departure")
     
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
@@ -24,6 +24,7 @@ class ActionMenuView: UIView {
         toggleTrackingButton.addAction(UIAction(){ action in
             self.toggleTrackRecording()
         }, for: .touchDown)
+        toggleTrackingButton.menu = getEndTrackingMenu()
         
         let cameraButton = UIButton().asIconButton("camera")
         addSubviewWithAnchors(cameraButton, top: toggleTrackingButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
@@ -55,16 +56,22 @@ class ActionMenuView: UIView {
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.startTrackRecording(at: coordinate)
                 toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion"), for: .normal)
+                toggleTrackingButton.showsMenuAsPrimaryAction = true
             }
         }
-        else{
-            let coordinate = LocationService.shared.location?.coordinate
-            self.delegate?.endTrackRecording(at: coordinate){
-                if TrackRecorder.track == nil{
-                    self.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk"), for: .normal)
-                }
-            }
-        }
+    }
+    
+    func getEndTrackingMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "saveTrack".localize(), image: UIImage(systemName: "figure.walk.arrival")){ action in
+            self.delegate?.saveTrack()
+            self.toggleTrackingButton.showsMenuAsPrimaryAction = false
+        })
+        actions.append(UIAction(title: "cancelTrack".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)){ action in
+            self.delegate?.cancelTrack()
+            self.toggleTrackingButton.showsMenuAsPrimaryAction = false
+        })
+        return UIMenu(title: "", children: actions)
     }
     
 }

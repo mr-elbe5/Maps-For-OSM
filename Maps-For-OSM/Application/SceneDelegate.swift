@@ -48,7 +48,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppState.shared.save()
         Preferences.shared.save()
         PlacePool.save()
-        TrackPool.save()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()

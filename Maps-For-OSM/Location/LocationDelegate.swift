@@ -17,5 +17,6 @@ protocol LocationDelegate{
     func openAudioRecorder(at coordinate: CLLocationCoordinate2D)
     
     func startTrackRecording(at coordinate: CLLocationCoordinate2D)
-    func endTrackRecording(at coordinate: CLLocationCoordinate2D?, onCompletion: @escaping () -> Void)
+    func saveTrack()
+    func cancelTrack()
 }

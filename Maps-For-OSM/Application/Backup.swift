@@ -68,7 +68,6 @@ class Backup{
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
         if FileController.fileExists(url: url){
             TrackPool.loadFromFile(url: url)
-            TrackPool.save()
             TrackPool.addTracksToPlaces()
             PlacePool.addNotesToPlaces()
         }

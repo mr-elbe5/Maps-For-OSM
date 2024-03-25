@@ -36,7 +36,7 @@ protocol MainMenuDelegate{
 
 class MainMenuView: UIView {
     
-    var locationMenuButton = UIButton().asIconButton("mappin.circle")
+    var locationMenuButton = UIButton().asIconButton("mappin")
     
     //MainViewController
     var delegate : MainMenuDelegate? = nil
@@ -52,7 +52,7 @@ class MainMenuView: UIView {
         locationMenuButton.menu = getLocationMenu()
         locationMenuButton.showsMenuAsPrimaryAction = true
         
-        let trackMenuButton = UIButton().asIconButton("figure.walk.circle")
+        let trackMenuButton = UIButton().asIconButton("figure.walk")
         addSubviewWithAnchors(trackMenuButton, top: topAnchor, leading: locationMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
         trackMenuButton.menu = getTrackingMenu()
         trackMenuButton.showsMenuAsPrimaryAction = true

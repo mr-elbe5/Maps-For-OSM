@@ -3906,6 +3906,23 @@
         }
       }
     },
+    "trackName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour am %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour on %@"
+          }
+        }
+      }
+    },
     "trackpointInterval" : {
       "extractionState" : "manual",
       "localizations" : {

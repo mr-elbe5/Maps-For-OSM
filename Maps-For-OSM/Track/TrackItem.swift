@@ -21,6 +21,8 @@ class TrackItem : PlaceItem{
         case note
     }
     
+    static var visibleTrack : TrackItem? = nil
+    
     var startTime : Date
     var pauseTime : Date? = nil
     var pauseLength : TimeInterval = 0

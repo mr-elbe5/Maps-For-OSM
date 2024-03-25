@@ -116,8 +116,12 @@ class TrackListViewController: PopupTableViewController{
                 return
             }
             showDestructiveApprove(title: "confirmDeleteTracks".localize(i: list.count), text: "deleteHint".localize()){
-                //todo
-                print("deleting \(list.count) tracks")
+                for track in list{
+                    track.place.deleteItem(item: track)
+                    self.tracks?.remove(track)
+                    Log.debug("deleting track \(track.name)")
+                }
+                PlacePool.save()
                 self.delegate?.placesChanged()
                 self.tableView.reloadData()
             }
@@ -200,24 +204,24 @@ extension TrackListViewController : UIDocumentPickerDelegate{
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if let url = urls.first{
-            if let trackpoints = GPXParser.parseFile(url: url){
-                if trackpoints.count > 0{
-                    let track = TrackItem()
-                    for tp in trackpoints{
-                        track.trackpoints.append(tp)
-                    }
-                    track.evaluateImportedTrackpoints()
-                    let alertController = UIAlertController(title: "name".localize(), message: "nameOrDescriptionHint".localize(), preferredStyle: .alert)
-                    alertController.addTextField()
-                    alertController.addAction(UIAlertAction(title: "ok".localize(),style: .default) { action in
-                        track.name = alertController.textFields![0].text ?? url.lastPathComponent
-                        TrackPool.addTrack(track: track)
-                        TrackPool.save()
-                        self.tracks?.append(track)
-                        self.tableView.reloadData()
-                    })
-                    self.present(alertController, animated: true)
+            if let trackpoints = GPXParser.parseFile(url: url), trackpoints.count > 0{
+                let track = TrackItem()
+                for tp in trackpoints{
+                    track.trackpoints.append(tp)
                 }
+                if track.name.isEmpty{
+                    let ext = url.pathExtension
+                    var name = url.lastPathComponent
+                    name = String(name[name.startIndex...name.index(name.endIndex, offsetBy: -ext.count)])
+                    Log.debug(name)
+                    track.name = name
+                }
+                track.evaluateImportedTrackpoints()
+                let place = PlacePool.assertPlace(coordinate: track.startCoordinate!)
+                place.addItem(item: track)
+                PlacePool.save()
+                self.tracks?.append(track)
+                self.tableView.reloadData()
             }
         }
     }

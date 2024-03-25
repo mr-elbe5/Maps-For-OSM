@@ -94,7 +94,7 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
     
     func showTrackItemOnMap(item: TrackItem) {
         if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
-            TrackPool.visibleTrack = item
+            TrackItem.visibleTrack = item
             trackChanged()
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
             mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
@@ -137,26 +137,6 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
-    }
-    
-    func deleteTrack(track: TrackItem, approved: Bool) {
-        if approved{
-            deleteTrack(track: track)
-        }
-        else{
-            showDestructiveApprove(title: "confirmDeleteTrack".localize(), text: "deleteTrackHint".localize()){
-                self.deleteTrack(track: track)
-            }
-        }
-    }
-    
-    private func deleteTrack(track: TrackItem){
-        let isVisibleTrack = track == TrackPool.visibleTrack
-        TrackPool.deleteTrack(track)
-        if isVisibleTrack{
-            TrackPool.visibleTrack = nil
-            trackChanged()
-        }
     }
     
     func trackChanged() {

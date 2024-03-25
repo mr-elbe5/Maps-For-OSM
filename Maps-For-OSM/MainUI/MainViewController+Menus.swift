@@ -76,7 +76,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func hideTrack() {
-        TrackPool.visibleTrack = nil
+        TrackItem.visibleTrack = nil
         trackChanged()
     }
     

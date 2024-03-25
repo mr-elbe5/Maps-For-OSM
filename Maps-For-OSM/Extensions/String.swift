@@ -30,7 +30,7 @@ extension String {
     }
     
     func localize(param: String) -> String{
-        return String.localizedStringWithFormat(self, param)
+        return String(format: self.localize(), param)
     }
     
     func localize(param1: String, param2: String) -> String{
