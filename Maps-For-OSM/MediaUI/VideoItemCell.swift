@@ -75,8 +75,7 @@ class VideoItemCell: PlaceItemCell{
             else{
                 if !item.title.isEmpty{
                     let titleView = UILabel(text: item.title)
-                    titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                    itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+                    itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
                 }
                 else{
                     videoView.bottom(itemView.bottomAnchor)

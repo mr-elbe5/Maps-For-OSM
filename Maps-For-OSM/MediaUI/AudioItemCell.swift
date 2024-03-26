@@ -70,8 +70,7 @@ class AudioItemCell: PlaceItemCell{
             else{
                 if !item.title.isEmpty{
                     let titleView = UILabel(text: item.title)
-                    titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                    itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
+                    itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
                 }
                 else{
                     audioView.bottom(itemView.bottomAnchor, inset: -defaultInset)

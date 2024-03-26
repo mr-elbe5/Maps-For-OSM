@@ -74,8 +74,7 @@ class ImageItemCell: PlaceItemCell{
             else{
                 if !item.title.isEmpty{
                     let titleView = UILabel(text: item.title)
-                    titleView.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-                    itemView.addSubviewWithAnchors(titleView, top: itemView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+                    itemView.addSubviewWithAnchors(titleView, top: imageView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
                 }
                 else{
                     imageView.bottom(itemView.bottomAnchor)
@@ -88,9 +87,9 @@ class ImageItemCell: PlaceItemCell{
 
 extension ImageItemCell: UITextFieldDelegate{
     
-    func textFieldDidChange(_ textField: UITextView) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if let item = imageItem{
-            item.title = textField.text
+            item.title = textField.text!
         }
     }
     

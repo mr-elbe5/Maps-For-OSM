@@ -52,11 +52,12 @@ class NoteItemCell: PlaceItemCell{
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
             if isEditing{
-                let noteField = TextEditArea()
+                let noteField = UITextView()
                 noteField.setDefaults()
-                noteField.setText(note.text)
+                noteField.text = note.text
                 noteField.delegate = self
                 itemView.addSubviewWithAnchors(noteField, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
+                    .height(200, priority: highPriority)
             }
             else{
                 let noteLabel = UILabel(text: note.text)

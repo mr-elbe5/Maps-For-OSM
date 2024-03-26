@@ -9,7 +9,6 @@ import Foundation
 class AudioItem : MediaItem{
     
     enum AudioCodingKeys: String, CodingKey {
-        case title
         case time
     }
     
