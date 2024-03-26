@@ -14,20 +14,29 @@ protocol SearchDelegate{
 
 //todo: extend search
 
-class SearchViewController: PopupScrollViewController{
+class SearchViewController: PopupTableViewController{
     
     var searchField = UITextField()
     var resultView = UIStackView()
     
     var delegate : SearchDelegate? = nil
     
+    var locations = Array<NominatimLocation>()
+    
     override func loadView() {
         title = "searchPlace".localize()
+        createSubheaderView()
         super.loadView()
-        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.CELL_IDENT)
+    }
+    
+    override func setupSubheaderView(subheaderView: UIView){
         searchField.placeholder = "searchPlaceholder".localize()
         searchField.borderStyle = .roundedRect
-        contentView.addSubviewWithAnchors(searchField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        searchField.text = AppState.shared.lastSearch
+        subheaderView.addSubviewWithAnchors(searchField, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
         
         let searchButton = UIButton()
         searchButton.setTitle("search".localize(), for: .normal)
@@ -35,34 +44,65 @@ class SearchViewController: PopupScrollViewController{
         searchButton.addAction(UIAction(){ action in
             self.search()
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(searchButton, top: searchField.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        contentView.addSubviewWithAnchors(resultView, top: searchButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-        resultView.setupVertical()
-        
+        subheaderView.addSubviewWithAnchors(searchButton, top: searchField.bottomAnchor, bottom: subheaderView.bottomAnchor, insets: doubleInsets)
+        .centerX(subheaderView.centerXAnchor)
     }
     
     func search(){
         resultView.removeAllArrangedSubviews()
         if let text = searchField.text, !text.isEmpty{
+            AppState.shared.lastSearch = text
+            AppState.shared.save()
             Nominatim.getLocation(of: text){ (locations: Array<NominatimLocation>) in
-                if !locations.isEmpty{
-                    DispatchQueue.main.async {
-                        for loc in locations{
-                            let btn = UIButton()
-                            btn.setTitle(loc.name, for: .normal)
-                            btn.setTitleColor(.black, for: .normal)
-                            btn.addAction(UIAction(){ action in
-                                self.showResult(location: loc)
-                            }, for: .touchDown)
-                            self.resultView.addArrangedSubview(btn)
-                        }
-                    }
+                self.locations = locations
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
                 }
             }
         }
     }
+    
+}
+
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        locations.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let location = locations[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultCell.CELL_IDENT, for: indexPath) as? SearchResultCell{
+            cell.location = location
+            cell.delegate = self
+            cell.updateCell(isEditing: false)
+            return cell
+        }
+        else{
+            Log.error("no valid item/cell for serach result")
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+}
+
+extension SearchViewController: SearchResultCellDelegate{
     
     func showResult(location: NominatimLocation){
         self.dismiss(animated: false){

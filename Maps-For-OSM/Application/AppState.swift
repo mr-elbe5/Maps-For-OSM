@@ -36,6 +36,7 @@ class AppState: Identifiable, Codable{
         case longitude
         case showLocations
         case showCross
+        case lastSearch
     }
 
     var version: Int
@@ -43,6 +44,7 @@ class AppState: Identifiable, Codable{
     var coordinate : CLLocationCoordinate2D
     var showLocations : Bool = true
     var showCross : Bool = false
+    var lastSearch : String = ""
     
     init(){
         version = 1
@@ -62,6 +64,7 @@ class AppState: Identifiable, Codable{
         }
         showLocations = try values.decodeIfPresent(Bool.self, forKey: .showLocations) ?? true
         showCross = try values.decodeIfPresent(Bool.self, forKey: .showCross) ?? false
+        lastSearch = try values.decodeIfPresent(String.self, forKey: .lastSearch) ?? ""
     }
     
     func encode(to encoder: Encoder) throws {
@@ -72,6 +75,7 @@ class AppState: Identifiable, Codable{
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(showLocations, forKey: .showLocations)
         try container.encode(showCross, forKey: .showCross)
+        try container.encode(lastSearch, forKey: .lastSearch)
     }
     
     func resetPosition(){
