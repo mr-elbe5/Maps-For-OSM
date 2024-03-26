@@ -31,7 +31,7 @@ class NoteViewController: PopupScrollViewController{
     }
     
     override func loadView() {
-        title = "place".localize()
+        title = "note".localize()
         super.loadView()
         
         contentView.addSubviewWithAnchors(noteEditView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)

@@ -382,19 +382,19 @@
         }
       }
     },
-    "cancelRecording" : {
+    "cancelTrack" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aufzeichnung abbrechen"
+            "state" : "needs_review",
+            "value" : "Touraufnahme abbrechen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cancel Recording"
+            "value" : "Cancel Tour Recording"
           }
         }
       }
@@ -1722,6 +1722,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import from Photos"
+          }
+        }
+      }
+    },
+    "importTrack" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour von GPX importieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import Tour from GPX file"
           }
         }
       }
@@ -3136,19 +3153,19 @@
         }
       }
     },
-    "saveRecordedTrack" : {
+    "saveTrack" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Aufgenommene Tour speichern"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Save Recorded Track"
+            "value" : "Save Recorded Tour"
           }
         }
       }
