@@ -147,6 +147,10 @@ extension MainViewController: TrackDetailDelegate, TrackListDelegate{
 
 extension MainViewController: SearchDelegate{
     
+    func getCurrentRegion() -> CoordinateRegion {
+        mapView.scrollView.visibleRegion
+    }
+    
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?) {
         if let mapRect = mapRect{
             mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)

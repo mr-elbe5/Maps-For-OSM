@@ -9,6 +9,7 @@ import UIKit
 import CoreLocation
 
 protocol SearchDelegate{
+    func getCurrentRegion() -> CoordinateRegion
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?)
 }
 
@@ -17,7 +18,6 @@ protocol SearchDelegate{
 class SearchViewController: PopupTableViewController{
     
     var searchField = UITextField()
-    var resultView = UIStackView()
     
     var delegate : SearchDelegate? = nil
     
@@ -49,11 +49,11 @@ class SearchViewController: PopupTableViewController{
     }
     
     func search(){
-        resultView.removeAllArrangedSubviews()
         if let text = searchField.text, !text.isEmpty{
             AppState.shared.lastSearch = text
             AppState.shared.save()
-            Nominatim.getLocation(of: text){ (locations: Array<NominatimLocation>) in
+            let searchQuery = SearchQuery(searchString: text)
+            searchQuery.search(){ (locations: Array<NominatimLocation>) in
                 self.locations = locations
                 DispatchQueue.main.async{
                     self.tableView.reloadData()

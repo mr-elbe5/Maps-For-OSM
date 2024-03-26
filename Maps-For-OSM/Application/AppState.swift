@@ -37,6 +37,8 @@ class AppState: Identifiable, Codable{
         case showLocations
         case showCross
         case lastSearch
+        case searchTarget
+        case searchRegion
     }
 
     var version: Int
@@ -45,6 +47,8 @@ class AppState: Identifiable, Codable{
     var showLocations : Bool = true
     var showCross : Bool = false
     var lastSearch : String = ""
+    var searchTarget : SearchQuery.SearchTarget = .any
+    var searchRegion : SearchQuery.SearchRegion = .country
     
     init(){
         version = 1
@@ -65,6 +69,10 @@ class AppState: Identifiable, Codable{
         showLocations = try values.decodeIfPresent(Bool.self, forKey: .showLocations) ?? true
         showCross = try values.decodeIfPresent(Bool.self, forKey: .showCross) ?? false
         lastSearch = try values.decodeIfPresent(String.self, forKey: .lastSearch) ?? ""
+        var s = try values.decodeIfPresent(String.self, forKey: .searchTarget) ?? ""
+        searchTarget = SearchQuery.SearchTarget(rawValue: s) ?? .any
+        s = try values.decodeIfPresent(String.self, forKey: .searchRegion) ?? ""
+        searchRegion = SearchQuery.SearchRegion(rawValue: s) ?? .unlimited
     }
     
     func encode(to encoder: Encoder) throws {
@@ -76,6 +84,8 @@ class AppState: Identifiable, Codable{
         try container.encode(showLocations, forKey: .showLocations)
         try container.encode(showCross, forKey: .showCross)
         try container.encode(lastSearch, forKey: .lastSearch)
+        try container.encode(searchTarget.rawValue, forKey: .searchTarget)
+        try container.encode(searchRegion.rawValue, forKey: .searchRegion)
     }
     
     func resetPosition(){

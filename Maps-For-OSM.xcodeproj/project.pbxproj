@@ -83,7 +83,7 @@
 		4E31A65A293F4D3E002080F6 /* UIViewController+Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */; };
 		4E3A415F28D83CD9004C9D90 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A415E28D83CD9004C9D90 /* CLLocation.swift */; };
 		4E3A416528D85357004C9D90 /* TrackPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416428D85357004C9D90 /* TrackPool.swift */; };
-		4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416628D8896F004C9D90 /* Nominatim.swift */; };
+		4E3A416728D8896F004C9D90 /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416628D8896F004C9D90 /* SearchQuery.swift */; };
 		4E4424822B94FA100007A26F /* CameraViewController+Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */; };
 		4E4424832B94FA100007A26F /* CameraInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247A2B94FA0F0007A26F /* CameraInfoViewController.swift */; };
 		4E4424842B94FA100007A26F /* CameraViewController+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44247B2B94FA0F0007A26F /* CameraViewController+Controls.swift */; };
@@ -145,6 +145,7 @@
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
 		4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */; };
 		4EF3530A2BB2C30100A0A85B /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353092BB2C30100A0A85B /* SearchResultCell.swift */; };
+		4EF3530C2BB333FE00A0A85B /* Nominatim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3530B2BB333FE00A0A85B /* Nominatim.swift */; };
 		4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770B2941E37000294B21 /* ImagePickerController.swift */; };
 		4EF477102941E94900294B21 /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770F2941E94900294B21 /* VideoItem.swift */; };
 		4EF477122941E98400294B21 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477112941E98400294B21 /* MediaItem.swift */; };
@@ -234,7 +235,7 @@
 		4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Insets.swift"; sourceTree = "<group>"; };
 		4E3A415E28D83CD9004C9D90 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		4E3A416428D85357004C9D90 /* TrackPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPool.swift; sourceTree = "<group>"; };
-		4E3A416628D8896F004C9D90 /* Nominatim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nominatim.swift; sourceTree = "<group>"; };
+		4E3A416628D8896F004C9D90 /* SearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
 		4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Video.swift"; sourceTree = "<group>"; };
 		4E44247A2B94FA0F0007A26F /* CameraInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraInfoViewController.swift; sourceTree = "<group>"; };
 		4E44247B2B94FA0F0007A26F /* CameraViewController+Controls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Controls.swift"; sourceTree = "<group>"; };
@@ -295,6 +296,7 @@
 		4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollView.swift; sourceTree = "<group>"; };
 		4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4EF353092BB2C30100A0A85B /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		4EF3530B2BB333FE00A0A85B /* Nominatim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nominatim.swift; sourceTree = "<group>"; };
 		4EF4770B2941E37000294B21 /* ImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		4EF4770F2941E94900294B21 /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
 		4EF477112941E98400294B21 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
@@ -655,7 +657,8 @@
 		4EEF6F8228FAC58800543EBA /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A416628D8896F004C9D90 /* Nominatim.swift */,
+				4E3A416628D8896F004C9D90 /* SearchQuery.swift */,
+				4EF3530B2BB333FE00A0A85B /* Nominatim.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -798,7 +801,7 @@
 				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,
 				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
-				4E3A416728D8896F004C9D90 /* Nominatim.swift in Sources */,
+				4E3A416728D8896F004C9D90 /* SearchQuery.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */,
 				4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */,
 				4E24F47527345D11004E69C2 /* CGRect.swift in Sources */,
@@ -844,6 +847,7 @@
 				4E51241C2BAA014800A5B416 /* UISwitch.swift in Sources */,
 				4E0BD9E626EA04EE005A4A94 /* FileError.swift in Sources */,
 				4E0BD9D726EA037F005A4A94 /* DataController.swift in Sources */,
+				4EF3530C2BB333FE00A0A85B /* Nominatim.swift in Sources */,
 				4E30798F28D74EB2005FBEF0 /* TileRegion.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
 				4E31A652293F4B47002080F6 /* UIView+Insets.swift in Sources */,

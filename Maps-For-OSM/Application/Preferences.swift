@@ -30,6 +30,8 @@ class Preferences: Identifiable, Codable{
     
     static var maxPlaceMergeDistance: Double = 10.0
     
+    static var defaultMaxSearchResults: Int = 5
+    
     static func loadInstance(){
         if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
             shared = prefs
@@ -48,6 +50,7 @@ class Preferences: Identifiable, Codable{
         case minHorizontalTrackpointDistance
         case minVerticalTrackpointDistance
         case maxTrackpointInLineDeviation
+        case maxSearchResults
     }
 
     var urlTemplate : String = osmUrl
@@ -60,6 +63,7 @@ class Preferences: Identifiable, Codable{
     var minHorizontalTrackpointDistance = defaultMinHorizontalTrackpointDistance
     var minVerticalTrackpointDistance = defaultMinVerticalTrackpointDistance
     var maxTrackpointInLineDeviation = defaultMaxTrackpointInLineDeviation
+    var maxSearchResults = defaultMaxSearchResults
     
     init(){
     }
@@ -74,6 +78,7 @@ class Preferences: Identifiable, Codable{
         minHorizontalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minHorizontalTrackpointDistance) ?? Preferences.defaultMinHorizontalTrackpointDistance
         minVerticalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minVerticalTrackpointDistance) ?? Preferences.defaultMinVerticalTrackpointDistance
         maxTrackpointInLineDeviation = try values.decodeIfPresent(Double.self, forKey: .maxTrackpointInLineDeviation) ?? Preferences.defaultMaxTrackpointInLineDeviation
+        maxSearchResults = try values.decodeIfPresent(Int.self, forKey: .maxSearchResults) ?? Preferences.defaultMaxSearchResults
     }
     
     func encode(to encoder: Encoder) throws {
@@ -84,6 +89,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(maxSpeedUncertaintyFactor, forKey: .maxSpeedUncertaintyFactor)
         try container.encode(minHorizontalTrackpointDistance, forKey: .minHorizontalTrackpointDistance)
         try container.encode(minVerticalTrackpointDistance, forKey: .minVerticalTrackpointDistance)
+        try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
         try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
     }
     
