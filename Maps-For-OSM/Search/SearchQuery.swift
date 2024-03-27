@@ -30,11 +30,11 @@ class SearchQuery {
             var query : String
             switch AppState.shared.searchTarget{
             case .city:
-                query = "https://nominatim.openstreetmap.org/search?city=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+                query = "https://nominatim.openstreetmap.org/search?city=\(searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
             case .street:
-                query =  "https://nominatim.openstreetmap.org/search?street=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
-            case .poi: query =  "https://nominatim.openstreetmap.org/search?amenity=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
-            default: query =  "https://nominatim.openstreetmap.org/search?q=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+                query =  "https://nominatim.openstreetmap.org/search?street=\(searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+            case .poi: query =  "https://nominatim.openstreetmap.org/search?amenity=\(searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+            default: query =  "https://nominatim.openstreetmap.org/search?q=\(searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
             }
             if AppState.shared.searchRegion == .current || AppState.shared.searchRegion == .radius, let region = coordinateRegion{
                 query += "&viewbox=\(region.minLongitude),\(region.minLatitude),\(region.maxLongitude),\(region.maxLatitude)&bounded=1"

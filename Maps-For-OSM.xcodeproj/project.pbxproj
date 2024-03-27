@@ -146,6 +146,7 @@
 		4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */; };
 		4EF3530A2BB2C30100A0A85B /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353092BB2C30100A0A85B /* SearchResultCell.swift */; };
 		4EF3530C2BB333FE00A0A85B /* Nominatim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3530B2BB333FE00A0A85B /* Nominatim.swift */; };
+		4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */; };
 		4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770B2941E37000294B21 /* ImagePickerController.swift */; };
 		4EF477102941E94900294B21 /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770F2941E94900294B21 /* VideoItem.swift */; };
 		4EF477122941E98400294B21 /* MediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477112941E98400294B21 /* MediaItem.swift */; };
@@ -297,6 +298,7 @@
 		4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4EF353092BB2C30100A0A85B /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		4EF3530B2BB333FE00A0A85B /* Nominatim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nominatim.swift; sourceTree = "<group>"; };
+		4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMenuView.swift; sourceTree = "<group>"; };
 		4EF4770B2941E37000294B21 /* ImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		4EF4770F2941E94900294B21 /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
 		4EF477112941E98400294B21 /* MediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItem.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
+				4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */,
 			);
 			path = MainUI;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 				4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */,
 				4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */,
 				4EE1461A28D368020058F3D3 /* MapRect.swift in Sources */,
+				4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */,
 				4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */,
 				4E0BD9BE26EA0239005A4A94 /* String.swift in Sources */,
 				4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */,

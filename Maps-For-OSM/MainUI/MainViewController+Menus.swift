@@ -16,10 +16,6 @@ extension MainViewController: MainMenuDelegate{
         mapView.refresh()
     }
     
-    func updateCross() {
-        mapView.crossLocationView.isHidden = !AppState.shared.showCross
-    }
-    
     func openPreloadTiles() {
         let region = mapView.scrollView.tileRegion
         let controller = PreloadViewController()
@@ -292,6 +288,26 @@ extension MainViewController : UIDocumentPickerDelegate{
             }
             spinner.stopAnimating()
             self.view.removeSubview(spinner)
+        }
+    }
+    
+}
+
+extension MainViewController: MapMenuDelegate{
+    
+    func updateCross() {
+        mapView.crossLocationView.isHidden = !AppState.shared.showCross
+    }
+    
+    func zoomIn() {
+        if mapView.zoom < World.maxZoom{
+            mapView.zoomTo(zoom: mapView.zoom + 1, animated: true)
+        }
+    }
+    
+    func zoomOut() {
+        if mapView.zoom > World.minZoom{
+            mapView.zoomTo(zoom: mapView.zoom - 1, animated: true)
         }
     }
     

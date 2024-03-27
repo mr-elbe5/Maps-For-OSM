@@ -49,13 +49,14 @@ class ActionMenuView: UIView {
                 self.delegate?.openAddNote(at: coordinate)
             }
         }, for: .touchDown)
+    
     }
     
     func toggleTrackRecording(){
         if TrackRecorder.track == nil{
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.startTrackRecording(at: coordinate)
-                toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion"), for: .normal)
+                toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)
                 toggleTrackingButton.showsMenuAsPrimaryAction = true
             }
         }
@@ -65,10 +66,12 @@ class ActionMenuView: UIView {
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "saveTrack".localize(), image: UIImage(systemName: "figure.walk.arrival")){ action in
             self.delegate?.saveTrack()
+            self.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.departure"), for: .normal)
             self.toggleTrackingButton.showsMenuAsPrimaryAction = false
         })
         actions.append(UIAction(title: "cancelTrack".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.cancelTrack()
+            self.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.departure"), for: .normal)
             self.toggleTrackingButton.showsMenuAsPrimaryAction = false
         })
         return UIMenu(title: "", children: actions)

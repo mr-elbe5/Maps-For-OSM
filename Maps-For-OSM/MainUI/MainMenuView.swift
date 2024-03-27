@@ -16,7 +16,6 @@ protocol MainMenuDelegate{
     func importTrack()
     func hideTrack()
     
-    func updateCross()
     func focusUserLocation()
     
     func openSearch()
@@ -57,13 +56,6 @@ class MainMenuView: UIView {
         addSubviewWithAnchors(trackMenuButton, top: topAnchor, leading: locationMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
         trackMenuButton.menu = getTrackingMenu()
         trackMenuButton.showsMenuAsPrimaryAction = true
-        
-        let crossButton = UIButton().asIconButton("plus.circle")
-        addSubviewWithAnchors(crossButton, top: topAnchor, leading: trackMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
-        crossButton.addAction(UIAction(){ action in
-            AppState.shared.showCross = !AppState.shared.showCross
-            self.delegate?.updateCross()
-        }, for: .touchDown)
         
         let focusCurrentLocationButton = UIButton().asIconButton("record.circle")
         addSubviewWithAnchors(focusCurrentLocationButton, top: topAnchor, bottom: bottomAnchor, insets: insets)

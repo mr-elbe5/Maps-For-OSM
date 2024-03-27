@@ -57,7 +57,8 @@ class TrackStatusView : UIView{
         
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
         timeIcon.tintColor = .darkGray
-        addSubviewWithAnchors(timeIcon, top: topAnchor, leading: speedLabel.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
+        addSubviewWithAnchors(timeIcon, leading: speedLabel.trailingAnchor, insets: smallInsets)
+            .centerY(centerYAnchor)
         timeLabel.textColor = .darkGray
         addSubviewWithAnchors(timeLabel, top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
