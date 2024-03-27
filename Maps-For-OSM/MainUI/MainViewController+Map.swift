@@ -37,7 +37,7 @@ extension MainViewController: LocationServiceDelegate{
 
 extension MainViewController: MapPositionDelegate{
     
-    func showDetailsOfCurrentLocation() {
+    func showCurrentLocationMenu() {
         let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
         let controller = LocationViewController(coordinate: coordinate, title: "currentLocation".localize())
         controller.delegate = self
@@ -45,7 +45,7 @@ extension MainViewController: MapPositionDelegate{
         present(controller, animated: true)
     }
     
-    func showDetailsOfCrossLocation() {
+    func showCrossLocationMenu() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
         let controller = LocationViewController(coordinate: coordinate, title: "crossLocation".localize())
         controller.delegate = self
@@ -55,7 +55,7 @@ extension MainViewController: MapPositionDelegate{
     
 }
 
-extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDelegate {
+extension MainViewController: PlaceDelegate, PlaceLayerDelegate {
     
     func showPlaceOnMap(place: Place) {
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
@@ -64,7 +64,7 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
     func deletePlaceFromList(place: Place) {
         PlacePool.deletePlace(place)
         PlacePool.save()
-        updateMarkerLayer()
+        placesChanged()
     }
     
     func showPlaceDetails(place: Place) {
@@ -79,15 +79,15 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
             PlacePool.deletePlace(place)
             PlacePool.save()
-            self.updateMarkerLayer()
+            self.placesChanged()
         }
     }
     
     func addPlace(at coordinate: CLLocationCoordinate2D) {
         if let coordinate = LocationService.shared.location?.coordinate{
-            PlacePool.assertPlace(coordinate: coordinate)
+            let place = PlacePool.assertPlace(coordinate: coordinate)
             DispatchQueue.main.async {
-                self.updateMarkerLayer()
+                self.placeChanged(place: place)
             }
         }
     }
@@ -109,28 +109,9 @@ extension MainViewController: PlaceListDelegate, PlaceViewDelegate, PlaceLayerDe
         present(controller, animated: true)
     }
     
-    func mergeGroup(group: PlaceGroup) {
-        if let mergedLocation = group.centralPlace{
-            showDestructiveApprove(title: "confirmMergeGroup".localize(), text: "\("newLocationHint".localize())\n\(mergedLocation.coordinate.asString)"){
-                PlacePool.places.append(mergedLocation)
-                PlacePool.places.removeAllOf(group.places)
-                PlacePool.save()
-                self.updateMarkerLayer()
-            }
-        }
-    }
 }
 
 extension MainViewController: TrackDetailDelegate, TrackListDelegate{
-    
-    func placeChanged(place: Place) {
-        //todo
-        mapView.updatePlaceLayer()
-    }
-    
-    func placesChanged() {
-        mapView.updatePlaceLayer()
-    }
     
     func viewTrackDetails(track: TrackItem) {
         let controller = TrackViewController(track: track)

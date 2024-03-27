@@ -9,20 +9,13 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol PlaceListDelegate: PlaceViewDelegate{
-    func showPlaceOnMap(place: Place)
-    func placesChanged()
-}
-
-//todo: edit mode, selection
-
 class PlaceListViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
 
-    var delegate: PlaceListDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     override func loadView() {
         title = "placeList".localize()

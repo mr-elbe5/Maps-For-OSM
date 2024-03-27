@@ -48,35 +48,6 @@ class PlaceGroup{
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
-    var centralPlace: Place?{
-        let count = places.count
-        if count < 2{
-            return nil
-        }
-        var lat = 0.0
-        var lon = 0.0
-        var note = ""
-        var itemList = PlaceItemList()
-        for place in places{
-            lat += place.coordinate.latitude
-            lon += place.coordinate.longitude
-            note += place.note
-            for mediaFile in place.allItems{
-                itemList.append(mediaFile)
-            }
-        }
-        lat = lat/Double(count)
-        lon = lon/Double(count)
-        let place = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-        place.evaluatePlacemark()
-        place.note = note
-        for item in itemList{
-            place.addItem(item: item)
-        }
-        place.sortItems()
-        return place
-    }
-    
     func isWithinRadius(place: Place, radius: CGFloat) -> Bool{
         //debug("LocationGroup checking radius")
         if let center = center{

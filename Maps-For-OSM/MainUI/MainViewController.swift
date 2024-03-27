@@ -113,10 +113,15 @@ class MainViewController: UIViewController {
         }
     }
     
-    func updateMarkerLayer() {
+    func placeChanged(place: Place) {
+        mapView.updatePlaceLayer(for: place)
+    }
+    
+    func placesChanged() {
         mapView.updatePlaceLayer()
     }
     
 }
+
 
 

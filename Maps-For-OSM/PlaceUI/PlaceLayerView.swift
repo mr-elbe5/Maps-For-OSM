@@ -10,7 +10,6 @@ protocol PlaceLayerDelegate{
     func showPlaceDetails(place: Place)
     func deletePlace(place: Place)
     func showGroupDetails(group: PlaceGroup)
-    func mergeGroup(group: PlaceGroup)
 }
 
 class PlaceLayerView: UIView {

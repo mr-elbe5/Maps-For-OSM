@@ -9,8 +9,9 @@ import UIKit
 import CoreLocation
 import AVFoundation
 
-protocol PlaceViewDelegate{
+protocol PlaceDelegate{
     func placeChanged(place: Place)
+    func placesChanged()
     //from item cell
     func showPlaceOnMap(place: Place)
     // from track item cell
@@ -30,7 +31,7 @@ class PlaceViewController: PopupTableViewController{
     
     var place: Place
     
-    var delegate: PlaceViewDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     init(location: Place){
         self.place = location

@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import CoreLocation
 
 class PlaceGroupViewController: PopupTableViewController{
     
@@ -16,7 +17,7 @@ class PlaceGroupViewController: PopupTableViewController{
     let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var delegate: PlaceListDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     init(group: PlaceGroup){
         self.group = group
@@ -147,10 +148,43 @@ class PlaceGroupViewController: PopupTableViewController{
         }
         showDestructiveApprove(title: "confirmMergePlaces".localize(i: list.count), text: "mergeHint".localize()){
             print("merging \(list.count) places")
-            //todo
-            self.delegate?.placesChanged()
-            self.tableView.reloadData()
+            if let newPlace = self.mergePlaces(list){
+                PlacePool.places.append(newPlace)
+                PlacePool.places.removePlaces(of: list)
+                PlacePool.save()
+                self.delegate?.placesChanged()
+                self.tableView.reloadData()
+            }
         }
+    }
+    
+    func mergePlaces(_ places: PlaceList) -> Place?{
+        let count = places.count
+        if count < 2{
+            return nil
+        }
+        var lat = 0.0
+        var lon = 0.0
+        var timestamp = Date()
+        for place in places{
+            lat += place.coordinate.latitude
+            lon += place.coordinate.longitude
+            if place.timestamp < timestamp{
+                timestamp = place.timestamp
+            }
+        }
+        lat = lat/Double(count)
+        lon = lon/Double(count)
+        let newPlace = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        newPlace.evaluatePlacemark()
+        newPlace.timestamp = timestamp
+        for place in places{
+            for item in place.allItems{
+                newPlace.addItem(item: item)
+            }
+        }
+        newPlace.sortItems()
+        return newPlace
     }
     
 }

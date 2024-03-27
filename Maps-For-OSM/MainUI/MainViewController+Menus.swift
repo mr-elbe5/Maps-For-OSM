@@ -53,7 +53,7 @@ extension MainViewController: MainMenuDelegate{
         showDestructiveApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
             PlacePool.deleteAllPlaces()
             PlacePool.save()
-            self.updateMarkerLayer()
+            self.placesChanged()
         }
     }
     

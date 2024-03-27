@@ -700,6 +700,23 @@
         }
       }
     },
+    "confirmMergePace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Orte zusammenführen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge these places?"
+          }
+        }
+      }
+    },
     "confirmMovePlace" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2031,6 +2048,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Merge Places of Group"
+          }
+        }
+      }
+    },
+    "mergeHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Elemente der Orte werden dem neuen Ort hinzugefügt. Die alten Orte werden gelöscht. Dies kann nicht rückgängig gemacht werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Items of these places will be added to the new place. The old places will be deleted. This cannot be undone."
           }
         }
       }

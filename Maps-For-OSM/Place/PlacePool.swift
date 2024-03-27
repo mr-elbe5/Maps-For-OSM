@@ -21,7 +21,7 @@ extension PlaceList{
         }
     }
     
-    mutating func removeAllOf(_ list: PlaceList){
+    mutating func removePlaces(of list: PlaceList){
         for place in list{
             remove(place)
         }

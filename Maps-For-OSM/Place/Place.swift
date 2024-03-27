@@ -17,7 +17,7 @@ class Place : Selectable{
         case timestamp
         case name
         case address
-        case note
+        case note //deprecated
         case media //deprecated
         case items
     }
@@ -28,6 +28,7 @@ class Place : Selectable{
     var coordinateRegion: CoordinateRegion
     var name : String = ""
     var address : String = ""
+    //deprecated
     var note : String = ""
     private var items : PlaceItemList
     
@@ -127,6 +128,7 @@ class Place : Selectable{
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
+        //deprecated
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
         var metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .items)
         if metaItems == nil{
@@ -153,7 +155,6 @@ class Place : Selectable{
         try container.encode(timestamp, forKey: .timestamp)
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
-        try container.encode(note, forKey: .note)
         var metaList = PlaceMetaItemList()
         metaList.loadItemList(items: self.items)
         try container.encode(metaList, forKey: .items)

@@ -8,8 +8,8 @@ import UIKit
 import CoreLocation
 
 protocol MapPositionDelegate{
-    func showDetailsOfCurrentLocation()
-    func showDetailsOfCrossLocation()
+    func showCurrentLocationMenu()
+    func showCrossLocationMenu()
 }
 
 class MapView: UIView {
@@ -50,7 +50,7 @@ class MapView: UIView {
     
     func setupCurrentLocationView(){
         currentLocationView.addAction(UIAction(){ action in
-            self.delegate?.showDetailsOfCurrentLocation()
+            self.delegate?.showCurrentLocationMenu()
         }, for: .touchDown)
         currentLocationView.backgroundColor = .clear
         addSubview(currentLocationView)
@@ -58,7 +58,7 @@ class MapView: UIView {
     
     func setupCrossView(){
         crossLocationView.addAction(UIAction(){ action in
-            self.delegate?.showDetailsOfCrossLocation()
+            self.delegate?.showCrossLocationMenu()
         }, for: .touchDown)
         addSubviewCentered(crossLocationView, centerX: centerXAnchor, centerY: centerYAnchor)
         crossLocationView.isHidden = !AppState.shared.showCross
@@ -69,6 +69,11 @@ class MapView: UIView {
     }
     
     func updatePlaceLayer(){
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+    }
+    
+    func updatePlaceLayer(for place: Place){
+        //todo
         placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
