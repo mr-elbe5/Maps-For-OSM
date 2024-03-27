@@ -9,52 +9,51 @@ import CoreLocation
 
 class SearchQuery {
     
-    enum SearchRegion: String{
+    enum SearchRegion: Int{
         case unlimited
         case current
-        case country
+        case radius
     }
     
-    enum SearchTarget: String{
+    enum SearchTarget: Int{
         case any
         case city
         case street
         case poi
     }
     
-    private var searchString: String = ""
-    var target: SearchTarget = AppState.shared.searchTarget
-    var region: SearchRegion = AppState.shared.searchRegion
-    var maxSearchResults = Preferences.shared.maxSearchResults
-    
     var coordinateRegion: CoordinateRegion? = nil
-    var countryRegion: String? = nil
+    var searchRadius: Double = AppState.shared.searchRadius
     
-    var searchQuery: String{
-        var query : String
-        switch target{
-        case .city:
-            query = "https://nominatim.openstreetmap.org/search?city=\(searchString)&format=json&limit=\(maxSearchResults)&polygon_text=1"
-        case .street:
-            query =  "https://nominatim.openstreetmap.org/search?street=\(searchString)&format=json&limit=\(maxSearchResults)&polygon_text=1"
-        case .poi: query =  "https://nominatim.openstreetmap.org/search?amenity=\(searchString)&format=json&limit=\(maxSearchResults)&polygon_text=1"
-        default: query =  "https://nominatim.openstreetmap.org/search?q=\(searchString)&format=json&limit=\(maxSearchResults)&polygon_text=1"
+    var searchQuery: String?{
+        if let searchString = AppState.shared.searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed){
+            var query : String
+            switch AppState.shared.searchTarget{
+            case .city:
+                query = "https://nominatim.openstreetmap.org/search?city=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+            case .street:
+                query =  "https://nominatim.openstreetmap.org/search?street=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+            case .poi: query =  "https://nominatim.openstreetmap.org/search?amenity=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+            default: query =  "https://nominatim.openstreetmap.org/search?q=\(AppState.shared.searchString)&format=json&limit=\(Preferences.shared.maxSearchResults)&polygon_text=1"
+            }
+            if AppState.shared.searchRegion == .current || AppState.shared.searchRegion == .radius, let region = coordinateRegion{
+                query += "&viewbox=\(region.minLongitude),\(region.minLatitude),\(region.maxLongitude),\(region.maxLatitude)&bounded=1"
+            }
+            return query
         }
-        if region == .current, let region = coordinateRegion{
-            query += "&viewbox=\(region.minLongitude),\(region.minLatitude),\(region.maxLongitude),\(region.maxLatitude)&bounded=1"
-        }
-        else if region == .country, let countryCode = countryRegion{
-            query += "&countrycodes=\(countryCode)"
-        }
-        return query
+        return nil
     }
     
-    init(searchString: String){
-        self.searchString = searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+    init(){
     }
     
-    func search(completion: @escaping (_ result: Array<NominatimLocation>) -> Void)  {
-        Nominatim.getLocation(query: searchQuery, completion: completion)
+    func search(completion: @escaping (_ result: Array<NominatimLocation>?) -> Void)  {
+        if let query = searchQuery{
+            Nominatim.getLocation(query: query, completion: completion)
+        }
+        else{
+            completion(nil)
+        }
     }
 
 }

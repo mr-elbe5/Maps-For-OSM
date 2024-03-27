@@ -17,6 +17,7 @@ class AppState: Identifiable, Codable{
     static let startCoordinate = CLLocationCoordinate2D(latitude: 53.541905, longitude: 9.683107)
     static let startZoom : Int = 4
     static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)
+    static let defaultSearchRadius : Double = 100
     
     static var shared = AppState()
     
@@ -36,9 +37,10 @@ class AppState: Identifiable, Codable{
         case longitude
         case showLocations
         case showCross
-        case lastSearch
+        case searchString
         case searchTarget
         case searchRegion
+        case searchRadius
     }
 
     var version: Int
@@ -46,9 +48,10 @@ class AppState: Identifiable, Codable{
     var coordinate : CLLocationCoordinate2D
     var showLocations : Bool = true
     var showCross : Bool = false
-    var lastSearch : String = ""
+    var searchString : String = ""
     var searchTarget : SearchQuery.SearchTarget = .any
-    var searchRegion : SearchQuery.SearchRegion = .country
+    var searchRegion : SearchQuery.SearchRegion = .unlimited
+    var searchRadius : Double = defaultSearchRadius
     
     init(){
         version = 1
@@ -68,11 +71,12 @@ class AppState: Identifiable, Codable{
         }
         showLocations = try values.decodeIfPresent(Bool.self, forKey: .showLocations) ?? true
         showCross = try values.decodeIfPresent(Bool.self, forKey: .showCross) ?? false
-        lastSearch = try values.decodeIfPresent(String.self, forKey: .lastSearch) ?? ""
-        var s = try values.decodeIfPresent(String.self, forKey: .searchTarget) ?? ""
+        searchString = try values.decodeIfPresent(String.self, forKey: .searchString) ?? ""
+        var s = try values.decodeIfPresent(Int.self, forKey: .searchTarget) ?? 0
         searchTarget = SearchQuery.SearchTarget(rawValue: s) ?? .any
-        s = try values.decodeIfPresent(String.self, forKey: .searchRegion) ?? ""
+        s = try values.decodeIfPresent(Int.self, forKey: .searchRegion) ?? 0
         searchRegion = SearchQuery.SearchRegion(rawValue: s) ?? .unlimited
+        searchRadius = try values.decodeIfPresent(Double.self, forKey: .searchRadius) ?? AppState.defaultSearchRadius
     }
     
     func encode(to encoder: Encoder) throws {
@@ -83,9 +87,10 @@ class AppState: Identifiable, Codable{
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(showLocations, forKey: .showLocations)
         try container.encode(showCross, forKey: .showCross)
-        try container.encode(lastSearch, forKey: .lastSearch)
+        try container.encode(searchString, forKey: .searchString)
         try container.encode(searchTarget.rawValue, forKey: .searchTarget)
         try container.encode(searchRegion.rawValue, forKey: .searchRegion)
+        try container.encode(searchRadius, forKey: .searchRadius)
     }
     
     func resetPosition(){

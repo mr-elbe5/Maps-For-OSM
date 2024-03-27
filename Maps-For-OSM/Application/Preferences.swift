@@ -90,7 +90,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(minHorizontalTrackpointDistance, forKey: .minHorizontalTrackpointDistance)
         try container.encode(minVerticalTrackpointDistance, forKey: .minVerticalTrackpointDistance)
         try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
-        try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
+        try container.encode(maxSearchResults, forKey: .maxSearchResults)
     }
     
     func save(){

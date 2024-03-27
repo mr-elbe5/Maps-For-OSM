@@ -151,6 +151,10 @@ extension MainViewController: SearchDelegate{
         mapView.scrollView.visibleRegion
     }
     
+    func getCurrentCenter() -> CLLocationCoordinate2D {
+        mapView.scrollView.screenCenterCoordinate
+    }
+    
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?) {
         if let mapRect = mapRect{
             mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)

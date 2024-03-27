@@ -172,6 +172,23 @@
         }
       }
     },
+    "anyTarget" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alles"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
+    },
     "appIconsHeader" : {
       "comment" : "map icons",
       "extractionState" : "manual",
@@ -387,7 +404,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Touraufnahme abbrechen"
           }
         },
@@ -464,6 +481,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change Map Source"
+          }
+        }
+      }
+    },
+    "cityTarget" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stadt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City"
           }
         }
       }
@@ -885,6 +919,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Current Position"
+          }
+        }
+      }
+    },
+    "currentRegion" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenbereich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map Area"
           }
         }
       }
@@ -2765,6 +2816,23 @@
         }
       }
     },
+    "poiTarget" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "POI"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "POI"
+          }
+        }
+      }
+    },
     "positionValidityHint" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2899,6 +2967,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Offline Map Tiles..."
+          }
+        }
+      }
+    },
+    "radiusRegion" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Im Umkreis"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Within Radius"
           }
         }
       }
@@ -3158,7 +3243,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Aufgenommene Tour speichern"
           }
         },
@@ -3200,7 +3285,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search Place"
+            "value" : "Search"
           }
         }
       }
@@ -3230,7 +3315,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ort suchen"
+            "value" : "Suche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
           }
         }
       }
@@ -3550,6 +3641,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "When a track is recorded, the current data like covered distance, height, speed and time are shown in the status line."
+          }
+        }
+      }
+    },
+    "streetTarget" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Strasse"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Street"
           }
         }
       }
@@ -4021,6 +4129,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "unknown"
+          }
+        }
+      }
+    },
+    "unlimitedRegion" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Überall"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anywhere"
           }
         }
       }
