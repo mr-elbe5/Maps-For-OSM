@@ -90,7 +90,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func openInfo() {
-        let controller = InfoViewController()
+        let controller = MainInfoViewController()
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

@@ -78,6 +78,14 @@ class PlaceGroupViewController: PopupTableViewController{
             self.deleteSelected()
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
+        
+        let infoButton = UIButton().asIconButton("info.circle")
+        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        infoButton.addAction(UIAction(){ action in
+            let controller = PlaceGroupInfoViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
+        }, for: .touchDown)
     }
     
     func toggleEditMode(){

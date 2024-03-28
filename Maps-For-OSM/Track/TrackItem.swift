@@ -112,7 +112,6 @@ class TrackItem : PlaceItem{
         }
     }
     
-    //todo treat as normal trackpoints
     func evaluateImportedTrackpoints(){
         distance = 0
         upDistance = 0

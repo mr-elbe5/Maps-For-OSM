@@ -177,6 +177,17 @@ class PreloadViewController: PopupScrollViewController{
         }
     }
     
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
+        let infoButton = UIButton().asIconButton("info.circle")
+        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        infoButton.addAction(UIAction(){ action in
+            let controller = PreloadInfoViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
+        }, for: .touchDown)
+    }
+    
     func reset(){
         allTiles = 0
         existingTiles = 0

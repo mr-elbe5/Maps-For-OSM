@@ -12,8 +12,6 @@ protocol PlaceCellDelegate{
     func showPlaceOnMap(place: Place)
 }
 
-//todo: edit mode, texts, headers
-
 class PlaceCell: TableViewCell{
     
     static let CELL_IDENT = "placeCell"

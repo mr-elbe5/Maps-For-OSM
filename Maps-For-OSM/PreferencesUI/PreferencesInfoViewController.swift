@@ -7,9 +7,7 @@
 import Foundation
 import UIKit
 
-//todo: complete 
-
-class InfoViewController: PopupScrollViewController {
+class PreferencesInfoViewController: PopupScrollViewController {
     
     var stackView = UIStackView()
     

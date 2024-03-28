@@ -18,8 +18,6 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-//todo: edit mode, texts, export, show on map
-
 class TrackViewController: PopupScrollViewController{
     
     var track: TrackItem
@@ -66,6 +64,14 @@ class TrackViewController: PopupScrollViewController{
             self.dismiss(animated: true){
                 self.delegate?.showTrackItemOnMap(item: self.track)
             }
+        }, for: .touchDown)
+        
+        let infoButton = UIButton().asIconButton("info.circle")
+        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        infoButton.addAction(UIAction(){ action in
+            let controller = TrackInfoViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
         }, for: .touchDown)
     }
     

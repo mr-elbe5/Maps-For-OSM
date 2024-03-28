@@ -18,8 +18,6 @@ protocol PlaceDelegate{
     func showTrackItemOnMap(item: TrackItem)
 }
 
-//todo: edit mode, texts, add image
-
 class PlaceViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
@@ -93,6 +91,14 @@ class PlaceViewController: PopupTableViewController{
             self.deleteSelected()
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
+        
+        let infoButton = UIButton().asIconButton("info.circle")
+        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        infoButton.addAction(UIAction(){ action in
+            let controller = PlaceInfoViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
+        }, for: .touchDown)
     }
     
     override func setupSubheaderView(subheaderView: UIView){

@@ -73,7 +73,6 @@ class MapView: UIView {
     }
     
     func updatePlaceLayer(for place: Place){
-        //todo
         placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     

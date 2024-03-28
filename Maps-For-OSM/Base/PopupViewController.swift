@@ -11,6 +11,8 @@ class PopupViewController: UIViewController {
     
     var headerView : UIView? = nil
     
+    var closeButton = UIButton().asIconButton("xmark.circle", color: .label)
+    
     init(){
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,7 +44,6 @@ class PopupViewController: UIViewController {
             headerView.addSubviewWithAnchors(label, top: headerView.topAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
                 .centerX(headerView.centerXAnchor)
         }
-        let closeButton = UIButton().asIconButton("xmark.circle", color: .label)
         headerView.addSubviewWithAnchors(closeButton, top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         closeButton.addAction(UIAction(){ action in
             self.dismiss(animated: true)

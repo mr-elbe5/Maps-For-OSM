@@ -62,6 +62,17 @@ class PreferencesViewController: PopupScrollViewController{
         
     }
     
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
+        let infoButton = UIButton().asIconButton("info.circle")
+        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        infoButton.addAction(UIAction(){ action in
+            let controller = PreferencesInfoViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
+        }, for: .touchDown)
+    }
+    
     func save(){
         Preferences.shared.followTrack = followTrackSwitch.isOn
         var val = Double(trackpointIntervalField.text)

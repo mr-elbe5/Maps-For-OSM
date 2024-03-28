@@ -14,8 +14,6 @@ protocol SearchDelegate{
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?)
 }
 
-//todo: extend search
-
 class SearchViewController: PopupTableViewController{
     
     var searchField = UITextField()
@@ -37,6 +35,17 @@ class SearchViewController: PopupTableViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.CELL_IDENT)
+    }
+    
+    override func setupHeaderView(headerView: UIView){
+        super.setupHeaderView(headerView: headerView)
+        let infoButton = UIButton().asIconButton("info.circle")
+        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        infoButton.addAction(UIAction(){ action in
+            let controller = SearchInfoViewController()
+            controller.modalPresentationStyle = .fullScreen
+            self.present(controller, animated: true)
+        }, for: .touchDown)
     }
     
     override func setupSubheaderView(subheaderView: UIView){
