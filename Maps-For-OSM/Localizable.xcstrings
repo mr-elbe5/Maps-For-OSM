@@ -18,6 +18,23 @@
         }
       }
     },
+    "actionMenuInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktionsmenü"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Action Menu"
+          }
+        }
+      }
+    },
     "addAudio" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -65,6 +82,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "When you take a photo, audio or video, a marker for its place is created and the photo is assigned to this place. If a place already exists in the direct vicinity, the result is assigned to this place."
+          }
+        }
+      }
+    },
+    "addNote" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notiz hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Note"
+          }
+        }
+      }
+    },
+    "addNoteInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notiz hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Note"
           }
         }
       }
@@ -189,24 +240,6 @@
         }
       }
     },
-    "appIconsHeader" : {
-      "comment" : "map icons",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Symbole auf der Karte"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Icons on the Map"
-          }
-        }
-      }
-    },
     "appInfoHeader" : {
       "comment" : "general info",
       "extractionState" : "manual",
@@ -230,14 +263,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server, deckt nur Europa ab und Kacheln sind nur bis Zoomebene 13 vorgeneriert.\nAktuelle Informationen dazu finden sich unter www.elbe5.de/maps.html.\nEinmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert."
+            "state" : "needs_review",
+            "value" : "Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und Kacheln sind nur bis Zoomebene 13 vorgeneriert.\nAktuelle Informationen dazu finden sich unter www.elbe5.de.\nGeladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server, covers Europe only and tiles have been pre-generated only up to zoom level 13.\nUp-to-date information is found at en.elbe5.de/maps.html.\nOnce loaded tiles are cached in the app until all tiles are deleted."
+            "value" : "This app is based on data from OpenStreetMap but not associated with the OpenStreetMap organization.\nLoading of map tiles from the configured server may only take place in accordance with the respective published terms of use.\nThe preconfigured server, maps.elbe5.de, is a private server and tiles have been pre-generated only up to zoom level 13.\nUp-to-date information is found at en.elbe5.de\nLoaded tiles are cached in the app until all tiles are deleted."
           }
         }
       }
@@ -827,13 +860,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kreuz für Bildschirmmitte anzeigen oder ausblenden (siehe oben)"
+            "value" : "Kreuz für Bildschirmmitte anzeigen oder ausblenden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show or hide cross at screen center (see above)"
+            "value" : "Show or hide cross at screen center"
           }
         }
       }
@@ -861,13 +894,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mitte der sichtbaren Karte (ausblendbar).\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen der Position oder das Hinzufügen eines Bildes."
+            "value" : "Mitte der sichtbaren Karte (ausblendbar).\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen der Position oder das Hinzufügen eines Bildes Audios oder einer Notiz."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Center of the visible map (hideable).\nOn tapping a menu opens for marking, showing position info or adding an image."
+            "value" : "Center of the visible map (hideable).\nOn tapping a menu opens for marking, showing position info or adding an image, audio or note."
           }
         }
       }
@@ -912,13 +945,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen öffnet sich ein Menü für das Markieren, das Anzeigen detaillierter Angaben oder das Hinzufügen von Medien(Fotos, Audios und Videos)."
+            "value" : "Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen öffnet sich ein Menü für das Markieren oder das Hinzufügen von Fotos, Audios und Videos oder einer Notiz."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nOn tapping a menu opens for marking, showing detailed infos or adding media (photos, audios and videos)."
+            "value" : "Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nOn tapping a menu opens for marking or adding photos, audios and videos or a note."
           }
         }
       }
@@ -1579,7 +1612,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voreinstellungen ändern (siehe unten)"
+            "value" : "Voreinstellungen ändern "
           }
         },
         "en" : {
@@ -1811,6 +1844,23 @@
         }
       }
     },
+    "importTrackInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour aus GPX-Datei importieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import Tour from GPX file"
+          }
+        }
+      }
+    },
     "info" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1893,6 +1943,58 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finding your location is not authorized. Please change your settings."
+          }
+        }
+      }
+    },
+    "mainMenuInfoHeader" : {
+      "comment" : "map icons",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hauptmenü"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Main Menu"
+          }
+        }
+      }
+    },
+    "mapIconsInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbole auf der Karte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icons on the Map"
+          }
+        }
+      }
+    },
+    "mapMenuInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenmenü"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map Menu"
           }
         }
       }
@@ -2256,6 +2358,23 @@
         }
       }
     },
+    "openAudioRecorderInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audioaufnahme öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Audio Recorder"
+          }
+        }
+      }
+    },
     "openCamera" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2269,6 +2388,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Camera"
+          }
+        }
+      }
+    },
+    "openCameraInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kamera für Foto oder Video öffnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open camera for photo or video"
           }
         }
       }
@@ -2685,7 +2821,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liste markierter Orte"
+            "value" : "Liste aller Orte"
           }
         },
         "en" : {
@@ -2702,13 +2838,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Liste aller markierten Orte (siehe unten)"
+            "value" : "Liste aller Orte"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "List of places (see below)"
+            "value" : "List of all places"
           }
         }
       }
@@ -3747,6 +3883,23 @@
         }
       }
     },
+    "stopTrackInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour durch Speichern oder Abbrechen beenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop Tour saving or cancelling"
+          }
+        }
+      }
+    },
     "streetTarget" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4418,6 +4571,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The text below the mode selector shows the current zoom factor. This is the software zoom created by pinching the preview screen. It creates a photo or video from a reduced area of the sensor blown up to full size."
+          }
+        }
+      }
+    },
+    "zoomInInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einzoomen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom In"
+          }
+        }
+      }
+    },
+    "zoomOutInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auszoomen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom Out"
           }
         }
       }

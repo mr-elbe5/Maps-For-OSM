@@ -109,7 +109,7 @@ class MainMenuView: UIView {
         actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openTrackList()
         })
-        actions.append(UIAction(title: "importTrack".localize(), image: UIImage(systemName: "list.bullet")){ action in
+        actions.append(UIAction(title: "importTrack".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
             self.delegate?.importTrack()
         })
         actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eraser")){ action in

@@ -8,13 +8,13 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class LocationViewController: PopupScrollViewController{
+class LocationMenuViewController: PopupScrollViewController{
     
     var coordinate: CLLocationCoordinate2D
     
     let locationLabel = UILabel(text: "")
     
-    var frameSize = CGSize(width: 300, height: 350)
+    var frameSize = CGSize(width: 300, height: 400)
     
     var delegate: LocationDelegate? = nil
     
@@ -97,7 +97,16 @@ class LocationViewController: PopupScrollViewController{
             self.dismiss(animated: false)
             self.delegate?.openAudioRecorder(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        let addNoteButton = UIButton().asTextButton("addNote".localize())
+        addNoteButton.setTitleColor(.systemBlue, for: .normal)
+        addNoteButton.setRoundedBorders()
+        addNoteButton.addAction(UIAction(){ action in
+            self.dismiss(animated: false)
+            self.delegate?.openAddNote(at: self.coordinate)
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(addNoteButton, top: addAudioButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
     }
     

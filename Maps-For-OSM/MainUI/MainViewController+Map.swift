@@ -39,7 +39,7 @@ extension MainViewController: MapPositionDelegate{
     
     func showCurrentLocationMenu() {
         let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
-        let controller = LocationViewController(coordinate: coordinate, title: "currentLocation".localize())
+        let controller = LocationMenuViewController(coordinate: coordinate, title: "currentLocation".localize())
         controller.delegate = self
         controller.modalPresentationStyle = .automatic
         present(controller, animated: true)
@@ -47,7 +47,7 @@ extension MainViewController: MapPositionDelegate{
     
     func showCrossLocationMenu() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        let controller = LocationViewController(coordinate: coordinate, title: "crossLocation".localize())
+        let controller = LocationMenuViewController(coordinate: coordinate, title: "crossLocation".localize())
         controller.delegate = self
         controller.modalPresentationStyle = .automatic
         present(controller, animated: true)
