@@ -30,11 +30,15 @@ class MainInfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", text: "crossLocationInfoText".localize(), iconColor: .systemBlue))
         // location
         stackView.addArrangedSubview(IconInfoText(image: "mappin.green", text: "placeMarkerInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.red", text: "placePhotoMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.red", text: "placeMediaMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.blue", text: "placeTrackMarkerInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.purple", text: "placeMediaTrackMarkerInfoText".localize()))
         stackView.addArrangedSubview(InfoText(text: "placeDetailsInfoText".localize(), leftInset: subInset))
         //location group
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.green", text: "placeDefaultGroupInfoText".localize()))
-        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.red", text: "placePhotoGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.green", text: "placeGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.red", text: "placeMediaGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.blue", text: "placeTrackGroupInfoText".localize()))
+        stackView.addArrangedSubview(IconInfoText(image: "mappin.group.purple", text: "placeMediaTrackGroupInfoText".localize()))
         stackView.addArrangedSubview(InfoText(text: "placeGroupInfoText".localize(), leftInset: subInset))
         
         // top menu

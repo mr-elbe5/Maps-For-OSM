@@ -2553,13 +2553,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Durch Antippen öffnet sich ein Menü für das Hinzufügen von Bildern, die Anzeige einer Detailansicht (siehe unten), zum Verschieben auf die Kreuzposition (zu Korrekturzwecken) und zum Löschen."
+            "value" : "Durch Antippen öffnet sich eine Detailansicht mit mehr Informationen, genzugehörigen Medien und und Tourstarts sowie Editieroptionen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "On tapping a menu opens for adding images, showing a detail view (see below), moving to the cross position (for correctional purposes) and deleting."
+            "value" : "On tapping detail view opens with more information, a list of attached media and tours and edit options"
           }
         }
       }
@@ -2621,7 +2621,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Eine Gruppenmarkierung wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.\nDurch Antippen öffnet sich ein Menü für das Anzeigen der Position und das Zusammenlegen der enthaltenen Orte."
+            "value" : "Eine Gruppenmarkierung wird durch Hineinzoomen in die einzelnen Ortsmarkierungen aufgelöst.\nDurch Antippen öffnet sich ein Menü für das Anzeigen der enthaltenen Orte und das Zusammenführen ausgewählter Orte."
           }
         },
         "en" : {
@@ -2764,6 +2764,74 @@
         }
       }
     },
+    "placeMediaGroupInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppe von Orten mit Fotos, Audios oder Videos"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place group with photos, audios or videos"
+          }
+        }
+      }
+    },
+    "placeMediaMarkerInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort mit Fotos, Audios oder Videos"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place with photos, audios or videos"
+          }
+        }
+      }
+    },
+    "placeMediaTrackGroupInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppe von Orten mit Fotos, Audios oder Videos und Tourstart"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place group with photos, audios or videos and tour start"
+          }
+        }
+      }
+    },
+    "placeMediaTrackMarkerInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort mit Fotos, Audios oder Videos und Tourstart"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place with photos, audios or videos and a tour start"
+          }
+        }
+      }
+    },
     "placeMenuInfoText" : {
       "comment" : "places",
       "extractionState" : "manual",
@@ -2782,40 +2850,6 @@
         }
       }
     },
-    "placePhotoGroupInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gruppe von Orten mit Medien"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Marker for place group with assigned media"
-          }
-        }
-      }
-    },
-    "placePhotoMarkerInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Markierter Ort mit zugeordneten Medien (Fotos, Audios oder Videos)"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Marked place with assigned media (photos, audios or videos)"
-          }
-        }
-      }
-    },
     "places" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2829,6 +2863,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Places"
+          }
+        }
+      }
+    },
+    "placeTrackGroupInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppe von Orten mit Tourstart"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place group with tour start"
+          }
+        }
+      }
+    },
+    "placeTrackMarkerInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort mit Tourstart"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place with tour start"
           }
         }
       }
