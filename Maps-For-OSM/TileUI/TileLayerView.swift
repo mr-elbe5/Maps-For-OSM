@@ -20,7 +20,7 @@ class TileLayerView: UIView {
             _scaleToPlanet
         }
         set{
-            if _scaleToPlanet  != newValue{
+            if _scaleToPlanet != newValue{
                 _scaleToPlanet = newValue
                 zoom = World.maxZoom - World.zoomLevelFromScale(scale: _scaleToPlanet)
             }
@@ -32,7 +32,6 @@ class TileLayerView: UIView {
         super.init(frame: frame)
         pointToPixelsFactor = tileLayer.contentsScale
         tileLayer.tileSize = CGSize(width: World.tileExtent*pointToPixelsFactor, height: World.tileExtent*pointToPixelsFactor)
-        //debug("TileLayerView tile size = \(tileLayer.tileSize)")
         tileLayer.levelsOfDetail = World.maxZoom
         tileLayer.levelsOfDetailBias = 0
     }
@@ -50,7 +49,6 @@ class TileLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        //debug("TileLayerView draw \(rect)")
         let ctx = UIGraphicsGetCurrentContext()!
         scaleToPlanet = 1.0/ctx.ctm.a*pointToPixelsFactor
         drawTile(rect: rect)
@@ -73,12 +71,10 @@ class TileLayerView: UIView {
         }
         let tile = MapTile.getTile(zoom: zoom, x: x, y: y)
         if let image = tile.image{
-            //debug("TileLayerView draw \(tile.string)")
             image.draw(in: rect)
             return
         }
         mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
-        //debug("TileLayerView should load \(tile.shortDescription)")
         TileProvider.shared.loadTileImage(tile: tile){ success in
             if success{
                 DispatchQueue.main.async {
