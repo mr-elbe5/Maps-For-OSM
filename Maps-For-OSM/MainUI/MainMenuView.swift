@@ -58,7 +58,7 @@ class MainMenuView: UIView {
         trackMenuButton.menu = getTrackingMenu()
         trackMenuButton.showsMenuAsPrimaryAction = true
         
-        let imageMenuButton = UIButton().asIconButton("figure.walk")
+        let imageMenuButton = UIButton().asIconButton("photo")
         addSubviewWithAnchors(imageMenuButton, top: topAnchor, leading: trackMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
         imageMenuButton.menu = getImageMenu()
         imageMenuButton.showsMenuAsPrimaryAction = true

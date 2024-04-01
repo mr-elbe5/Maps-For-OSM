@@ -86,6 +86,16 @@ class Place : Selectable{
         return list
     }
     
+    var images: ImageList{
+        var list = ImageList()
+        for item in items{
+            if item.type == .image, let image = item as? ImageItem{
+                list.append(image)
+            }
+        }
+        return list
+    }
+    
     var notes: Array<NoteItem>{
         var list = Array<NoteItem>()
         for item in items{

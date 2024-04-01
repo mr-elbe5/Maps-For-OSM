@@ -81,6 +81,16 @@ class PlacePool{
         }
     }
     
+    static var images: ImageList{
+        get{
+            var imageList = ImageList()
+            for place in places{
+                imageList.append(contentsOf: place.images)
+            }
+            return imageList
+        }
+    }
+    
     static var size : Int{
         places.count
     }

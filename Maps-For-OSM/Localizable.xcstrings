@@ -1776,6 +1776,23 @@
         }
       }
     },
+    "imageList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Images"
+          }
+        }
+      }
+    },
     "imagesExported" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1823,6 +1840,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import from Photos"
+          }
+        }
+      }
+    },
+    "importImages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder importieren..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import Images..."
           }
         }
       }
@@ -3628,6 +3662,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Details"
+          }
+        }
+      }
+    },
+    "showImageList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilderliste..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image List..."
           }
         }
       }

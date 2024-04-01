@@ -26,7 +26,7 @@ class ImageListViewController: PopupTableViewController{
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackItemCell.self, forCellReuseIdentifier: ImageItemCell.CELL_IDENT)
+        tableView.register(ImageItemCell.self, forCellReuseIdentifier: ImageItemCell.CELL_IDENT)
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -69,12 +69,14 @@ class ImageListViewController: PopupTableViewController{
             editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
             tableView.isEditing = false
             selectAllButton.isHidden = true
+            exportSelectedButton.isHidden = true
             deleteButton.isHidden = true
         }
         else{
             editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
             tableView.isEditing = true
             selectAllButton.isHidden = false
+            exportSelectedButton.isHidden = false
             deleteButton.isHidden = false
         }
         images?.deselectAll()

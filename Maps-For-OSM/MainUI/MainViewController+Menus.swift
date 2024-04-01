@@ -87,6 +87,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openImageList() {
         let controller = ImageListViewController()
+        controller.images = PlacePool.images
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
