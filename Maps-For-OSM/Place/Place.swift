@@ -210,3 +210,9 @@ class Place : Selectable{
     }
     
 }
+
+protocol PlaceDelegate{
+    func placeChanged(place: Place)
+    func placesChanged()
+    func showPlaceOnMap(place: Place)
+}

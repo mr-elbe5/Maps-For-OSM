@@ -11,6 +11,21 @@ import AVFoundation
 extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
                                 CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{
     
+    func addPlace(at coordinate: CLLocationCoordinate2D) {
+        if let coordinate = LocationService.shared.location?.coordinate{
+            let place = PlacePool.assertPlace(coordinate: coordinate)
+            DispatchQueue.main.async {
+                self.placeChanged(place: place)
+            }
+        }
+    }
+    
+    func deletePlaceFromList(place: Place) {
+        PlacePool.deletePlace(place)
+        PlacePool.save()
+        placesChanged()
+    }
+    
     func openAddImage(at coordinate: CLLocationCoordinate2D) {
         let pickerController = ImagePickerController()
         pickerController.coordinate = coordinate

@@ -16,7 +16,7 @@ class NoteItemCell: PlaceItemCell{
         }
     }
     
-    var delegate: PlaceItemCellDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     override func updateIconView(isEditing: Bool = false){
         iconView.removeAllSubviews()

@@ -9,15 +9,6 @@ import UIKit
 import CoreLocation
 import AVFoundation
 
-protocol PlaceDelegate{
-    func placeChanged(place: Place)
-    func placesChanged()
-    //from item cell
-    func showPlaceOnMap(place: Place)
-    // from track item cell
-    func showTrackItemOnMap(item: TrackItem)
-}
-
 class PlaceViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
@@ -29,7 +20,7 @@ class PlaceViewController: PopupTableViewController{
     
     var place: Place
     
-    var delegate: PlaceDelegate? = nil
+    var delegate: TrackDelegate? = nil
     
     init(location: Place){
         self.place = location
@@ -337,7 +328,15 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceViewController : PlaceItemCellDelegate{
+extension PlaceViewController : PlaceDelegate{
+    
+    func placeChanged(place: Place) {
+        self.delegate?.placeChanged(place: place)
+    }
+    
+    func placesChanged() {
+        self.delegate?.placesChanged()
+    }
     
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true)
@@ -357,7 +356,7 @@ extension PlaceViewController : VideoItemCellDelegate{
     
 }
 
-extension PlaceViewController : ImageItemCellDelegate{
+extension PlaceViewController : ImageDelegate{
     
     func viewImageItem(item: ImageItem) {
         let controller = ImageViewController()
@@ -368,7 +367,7 @@ extension PlaceViewController : ImageItemCellDelegate{
     
 }
 
-extension PlaceViewController : TrackItemCellDelegate{
+extension PlaceViewController : TrackDelegate{
     
     func viewTrackItem(item: TrackItem) {
         let controller = TrackViewController(track: item)

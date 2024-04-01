@@ -6,18 +6,13 @@
 
 import UIKit
 
-protocol TrackItemCellDelegate{
-    func viewTrackItem(item: TrackItem)
-    func showTrackItemOnMap(item: TrackItem)
-}
-
 class TrackItemCell: PlaceItemCell{
 
     static let CELL_IDENT = "trackCell"
     
     var trackItem : TrackItem? = nil
     
-    var delegate: TrackItemCellDelegate? = nil
+    var delegate: TrackDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()

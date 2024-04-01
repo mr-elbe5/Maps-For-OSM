@@ -17,7 +17,7 @@ class AudioItemCell: PlaceItemCell{
         }
     }
     
-    var delegate: PlaceItemCellDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     override func setupCellBody(){
         iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()

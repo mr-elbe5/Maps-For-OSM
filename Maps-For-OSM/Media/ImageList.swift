@@ -6,13 +6,13 @@
 
 import Foundation
 
-typealias TrackList = Array<TrackItem>
+typealias ImageList = Array<ImageItem>
 
-extension TrackList{
+extension ImageList{
     
-    mutating func remove(_ track: TrackItem){
+    mutating func remove(_ image: ImageItem){
         for idx in 0..<self.count{
-            if self[idx] == track{
+            if self[idx] == image{
                 self.remove(at: idx)
                 return
             }
@@ -55,6 +55,6 @@ extension TrackList{
     
 }
 
-protocol TrackListDelegate: TrackDelegate{
+protocol ImageListDelegate: ImageDelegate{
     
 }

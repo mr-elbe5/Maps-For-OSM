@@ -6,7 +6,7 @@
 
 import UIKit
 
-protocol VideoItemCellDelegate: PlaceItemCellDelegate{
+protocol VideoItemCellDelegate: PlaceDelegate{
     func viewVideoItem(item: VideoItem)
 }
 

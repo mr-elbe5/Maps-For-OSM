@@ -6,10 +6,6 @@
 
 import UIKit
 
-protocol PlaceItemCellDelegate{
-    func showPlaceOnMap(place: Place)
-}
-
 class PlaceItemCell: TableViewCell{
     
     var dateTimeView = UIView()

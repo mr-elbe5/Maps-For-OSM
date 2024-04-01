@@ -6,10 +6,6 @@
 
 import UIKit
 
-protocol ImageItemCellDelegate: PlaceItemCellDelegate{
-    func viewImageItem(item: ImageItem)
-}
-
 class ImageItemCell: PlaceItemCell{
     
     static let CELL_IDENT = "imageCell"
@@ -21,7 +17,7 @@ class ImageItemCell: PlaceItemCell{
         }
     }
     
-    var delegate: ImageItemCellDelegate? = nil
+    var delegate: ImageDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()

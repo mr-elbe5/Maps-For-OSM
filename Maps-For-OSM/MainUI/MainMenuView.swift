@@ -16,6 +16,9 @@ protocol MainMenuDelegate{
     func importTrack()
     func hideTrack()
     
+    func openImageList()
+    func importImages()
+    
     func focusUserLocation()
     
     func openSearch()
@@ -25,8 +28,6 @@ protocol MainMenuDelegate{
     func openPreloadTiles()
     func changeTileSource()
     func deleteAllTiles()
-    func exportImagesToPhotoLibrary()
-    func importFromPhotoLibrary()
     func createBackup()
     func restoreBackup()
     
@@ -56,6 +57,11 @@ class MainMenuView: UIView {
         addSubviewWithAnchors(trackMenuButton, top: topAnchor, leading: locationMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
         trackMenuButton.menu = getTrackingMenu()
         trackMenuButton.showsMenuAsPrimaryAction = true
+        
+        let imageMenuButton = UIButton().asIconButton("figure.walk")
+        addSubviewWithAnchors(imageMenuButton, top: topAnchor, leading: trackMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
+        imageMenuButton.menu = getImageMenu()
+        imageMenuButton.showsMenuAsPrimaryAction = true
         
         let focusCurrentLocationButton = UIButton().asIconButton("record.circle")
         addSubviewWithAnchors(focusCurrentLocationButton, top: topAnchor, bottom: bottomAnchor, insets: insets)
@@ -118,6 +124,17 @@ class MainMenuView: UIView {
         return UIMenu(title: "", children: actions)
     }
     
+    func getImageMenu() -> UIMenu{
+        var actions = Array<UIAction>()
+        actions.append(UIAction(title: "showImageList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+            self.delegate?.openImageList()
+        })
+        actions.append(UIAction(title: "importImages".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
+            self.delegate?.importImages()
+        })
+        return UIMenu(title: "", children: actions)
+    }
+    
     func getSettingsMenu() -> UIMenu{
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
@@ -134,13 +151,6 @@ class MainMenuView: UIView {
         })
         actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "map")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
             self.delegate?.deleteAllTiles()
-        })
-        actions.append(UIAction(title: "exportImagesToPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
-            self.delegate?.exportImagesToPhotoLibrary()
-            
-        })
-        actions.append(UIAction(title: "importFromPhotoLibrary".localize(), image: UIImage(systemName: "photo.stack")){ action in
-            self.delegate?.importFromPhotoLibrary()
         })
         actions.append(UIAction(title: "createBackup".localize(), image: UIImage(systemName: "tray")){ action in
             self.delegate?.createBackup()

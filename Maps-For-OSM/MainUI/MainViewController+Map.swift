@@ -55,17 +55,7 @@ extension MainViewController: MapPositionDelegate{
     
 }
 
-extension MainViewController: PlaceDelegate, PlaceLayerDelegate {
-    
-    func showPlaceOnMap(place: Place) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
-    }
-    
-    func deletePlaceFromList(place: Place) {
-        PlacePool.deletePlace(place)
-        PlacePool.save()
-        placesChanged()
-    }
+extension MainViewController: PlaceLayerDelegate{
     
     func showPlaceDetails(place: Place) {
         let controller = PlaceViewController(location: place)
@@ -83,13 +73,27 @@ extension MainViewController: PlaceDelegate, PlaceLayerDelegate {
         }
     }
     
-    func addPlace(at coordinate: CLLocationCoordinate2D) {
-        if let coordinate = LocationService.shared.location?.coordinate{
-            let place = PlacePool.assertPlace(coordinate: coordinate)
-            DispatchQueue.main.async {
-                self.placeChanged(place: place)
-            }
-        }
+    func showGroupDetails(group: PlaceGroup) {
+        let controller = PlaceGroupViewController(group: group)
+        controller.modalPresentationStyle = .popover
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
+    }
+    
+}
+
+extension MainViewController: PlaceDelegate{
+    
+    func showPlaceOnMap(place: Place) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
+    }
+    
+}
+
+extension MainViewController: TrackDelegate{
+    
+    func viewTrackItem(item: TrackItem) {
+        
     }
     
     func showTrackItemOnMap(item: TrackItem) {
@@ -101,12 +105,13 @@ extension MainViewController: PlaceDelegate, PlaceLayerDelegate {
         }
     }
     
+}
+
+
+extension MainViewController: ImageDelegate, ImageListDelegate {
     
-    func showGroupDetails(group: PlaceGroup) {
-        let controller = PlaceGroupViewController(group: group)
-        controller.modalPresentationStyle = .popover
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+    func viewImageItem(item: ImageItem) {
+        
     }
     
 }

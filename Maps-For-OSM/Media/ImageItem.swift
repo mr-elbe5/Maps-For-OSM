@@ -37,3 +37,7 @@ class ImageItem : MediaItem{
     }
     
 }
+
+protocol ImageDelegate: PlaceDelegate{
+    func viewImageItem(item: ImageItem)
+}

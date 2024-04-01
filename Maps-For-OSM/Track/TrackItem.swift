@@ -213,3 +213,8 @@ class TrackItem : PlaceItem{
     
 }
 
+protocol TrackDelegate: PlaceDelegate{
+    func viewTrackItem(item: TrackItem)
+    func showTrackItemOnMap(item: TrackItem)
+}
+

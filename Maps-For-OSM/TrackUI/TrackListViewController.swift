@@ -9,15 +9,8 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TrackListDelegate{
-    func showTrackItemOnMap(item: TrackItem)
-    func placesChanged()
-}
-
 class TrackListViewController: PopupTableViewController{
 
-    private static let CELL_IDENT = "trackCell"
-    
     var tracks: TrackList? = nil
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
@@ -31,7 +24,7 @@ class TrackListViewController: PopupTableViewController{
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackListViewController.CELL_IDENT)
+        tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackItemCell.CELL_IDENT)
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -137,7 +130,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackListViewController.CELL_IDENT, for: indexPath) as! TrackItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TrackItemCell.CELL_IDENT, for: indexPath) as! TrackItemCell
         let track = tracks?.reversed()[indexPath.row]
         cell.trackItem = track
         cell.delegate = self
@@ -169,7 +162,20 @@ extension TrackListViewController : TrackDetailDelegate{
     
 }
 
-extension TrackListViewController : TrackItemCellDelegate{
+extension TrackListViewController : TrackDelegate{
+    
+    func placeChanged(place: Place) {
+        self.delegate?.placeChanged(place: place)
+    }
+    
+    func placesChanged() {
+        self.delegate?.placesChanged()
+    }
+    
+    func showPlaceOnMap(place: Place) {
+        self.delegate?.showPlaceOnMap(place: place)
+    }
+    
     
     func viewTrackItem(item: TrackItem) {
         let trackController = TrackViewController(track: item)

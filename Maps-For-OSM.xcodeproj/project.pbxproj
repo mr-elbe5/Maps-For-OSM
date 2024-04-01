@@ -163,6 +163,8 @@
 		4EF477162941EC8E00294B21 /* AudioItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477152941EC8E00294B21 /* AudioItem.swift */; };
 		4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */; };
 		4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477192941EED600294B21 /* AudioPlayerView.swift */; };
+		4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */; };
+		4EFCC4782BBB18C100CBEA6E /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4772BBB18C100CBEA6E /* ImageList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -324,6 +326,8 @@
 		4EF477152941EC8E00294B21 /* AudioItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItem.swift; sourceTree = "<group>"; };
 		4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		4EF477192941EED600294B21 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
+		4EFCC4772BBB18C100CBEA6E /* ImageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +531,7 @@
 				4EF477132941EBC600294B21 /* ImageItem.swift */,
 				4EF477112941E98400294B21 /* MediaItem.swift */,
 				4EF4770F2941E94900294B21 /* VideoItem.swift */,
+				4EFCC4772BBB18C100CBEA6E /* ImageList.swift */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -645,6 +650,7 @@
 				4E1982BE2BAB58CE00A37AE0 /* VideoItemCell.swift */,
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
 				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
+				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
 			);
 			path = MediaUI;
 			sourceTree = "<group>";
@@ -799,12 +805,14 @@
 				4EF477102941E94900294B21 /* VideoItem.swift in Sources */,
 				4E0BD9AA26EA0159005A4A94 /* PopupScrollViewController.swift in Sources */,
 				4E7C4E552BB175BB001494E9 /* TrackList.swift in Sources */,
+				4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */,
 				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4EF3531C2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift in Sources */,
 				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4EF353182BB56ACF00A0A85B /* PreferencesInfoViewController.swift in Sources */,
+				4EFCC4782BBB18C100CBEA6E /* ImageList.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
 				4E1982BD2BAB55E400A37AE0 /* AudioItemCell.swift in Sources */,
 				4ED5DF44273E831B00549AF8 /* Place.swift in Sources */,
