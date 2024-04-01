@@ -263,7 +263,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Diese App basiert auf Daten von OpenStreetMap, ist aber nicht mit der OpenStreetmap-Organisation verbunden.\nDas Laden der Kartenkacheln von dem konfigurierten Server darf nur im Einklang mit den dort jeweils veröffentlichten Nutzungsbedingungen erfolgen.\nDer vorkonfigurierte Server, maps.elbe5.de, ist ein privater Server und Kacheln sind nur bis Zoomebene 13 vorgeneriert.\nAktuelle Informationen dazu finden sich unter www.elbe5.de.\nGeladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert."
           }
         },
@@ -733,19 +733,19 @@
         }
       }
     },
-    "confirmMergePace" : {
+    "confirmMergePlaces" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Orte zusammenführen?"
+            "value" : "Ausgewählte Orte zusammenfassen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merge these places?"
+            "value" : "Do you want to merge the selected places?"
           }
         }
       }

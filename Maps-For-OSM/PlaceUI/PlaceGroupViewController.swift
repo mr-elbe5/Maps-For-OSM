@@ -33,24 +33,8 @@ class PlaceGroupViewController: PopupTableViewController{
     
     override func loadView() {
         title = "placeGroup".localize()
+        createSubheaderView()
         super.loadView()
-        let guide = view.safeAreaLayoutGuide
-        
-        var header = UILabel(header: "center".localize())
-        view.addSubviewWithAnchors(header, top: headerView?.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
-        
-        let coordinateLabel = UILabel(text: group.centralCoordinate?.asString ?? "")
-        view.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: flatInsets)
-        
-        header = UILabel(header: "places".localize())
-        view.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
-        
-        view.addSubviewWithAnchors(tableView, top: header.bottomAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: defaultInsets)
-        tableView.allowsSelection = false
-        tableView.allowsSelectionDuringEditing = false
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .systemGray6
-        
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -86,6 +70,18 @@ class PlaceGroupViewController: PopupTableViewController{
             controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
+    }
+    
+    override func setupSubheaderView(subheaderView: UIView) {
+        
+        var header = UILabel(header: "center".localize())
+        subheaderView.addSubviewWithAnchors(header, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, insets: defaultInsets)
+        
+        let coordinateLabel = UILabel(text: group.centralCoordinate?.asString ?? "")
+        subheaderView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: flatInsets)
+        
+        header = UILabel(header: "places".localize())
+        subheaderView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: subheaderView.leadingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
     
     func toggleEditMode(){
