@@ -14,7 +14,7 @@ class ImageListViewController: PopupTableViewController{
 
     var images: Array<Image>? = nil
     
-    let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
@@ -59,7 +59,7 @@ class ImageListViewController: PopupTableViewController{
         let infoButton = UIButton().asIconButton("info.circle")
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
-            let controller = TrackListInfoViewController()
+            let controller = ImageListInfoViewController()
             controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)

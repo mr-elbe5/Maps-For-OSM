@@ -18,6 +18,17 @@
         }
       }
     },
+    "addImageInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add image from 'Photos'"
+          }
+        }
+      }
+    },
     "addMediaPlaceInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -294,7 +305,7 @@
         }
       }
     },
-    "endEditingIconUnfoText" : {
+    "endEditingIconInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -307,6 +318,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stop edit mode"
+          }
+        }
+      }
+    },
+    "exportImagesIconInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder nach 'Fotos' exportieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export selected images to 'Photos'"
           }
         }
       }
@@ -359,6 +387,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hide track"
+          }
+        }
+      }
+    },
+    "imageCellInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Images"
+          }
+        }
+      }
+    },
+    "imageDetailIconInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild in voller Größe anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show image in full size"
+          }
+        }
+      }
+    },
+    "imageListInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Images"
           }
         }
       }
@@ -449,6 +528,28 @@
         }
       }
     },
+    "itemCellInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At this place"
+          }
+        }
+      }
+    },
+    "itemDetailIconInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details of this item"
+          }
+        }
+      }
+    },
     "mainMenuInfoHeader" : {
       "comment" : "map icons",
       "extractionState" : "manual",
@@ -515,6 +616,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Map Menu"
+          }
+        }
+      }
+    },
+    "mergePlacesIconInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge selected places to one at their centre"
           }
         }
       }
@@ -741,6 +853,17 @@
         }
       }
     },
+    "placeGroupInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place Group"
+          }
+        }
+      }
+    },
     "placeGroupInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -771,6 +894,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cross for setting marker"
+          }
+        }
+      }
+    },
+    "placeInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Place"
           }
         }
       }
@@ -960,6 +1094,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Place Menu"
+          }
+        }
+      }
+    },
+    "placesCellInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Places"
           }
         }
       }
@@ -1238,6 +1383,28 @@
         }
       }
     },
+    "tileSourceInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tile Source"
+          }
+        }
+      }
+    },
+    "tileSourceInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a server URL to load map tiles from"
+          }
+        }
+      }
+    },
     "topMenuInfoHeader" : {
       "comment" : "top menu",
       "extractionState" : "manual",
@@ -1252,6 +1419,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Top Menu"
+          }
+        }
+      }
+    },
+    "trackCellInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tours"
+          }
+        }
+      }
+    },
+    "trackDetailIconInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details der Tour"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detail view of the tour"
           }
         }
       }

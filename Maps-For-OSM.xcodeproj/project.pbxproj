@@ -119,6 +119,7 @@
 		4E7C4E4F2BAEEF7F001494E9 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C4E4E2BAEEF7F001494E9 /* Selectable.swift */; };
 		4E7C4E512BAF2113001494E9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C4E502BAF2113001494E9 /* TableViewCell.swift */; };
 		4E7C4E532BB071F8001494E9 /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C4E522BB071F8001494E9 /* LocationDelegate.swift */; };
+		4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */; };
 		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
@@ -282,6 +283,7 @@
 		4E7C4E4E2BAEEF7F001494E9 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 		4E7C4E502BAF2113001494E9 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		4E7C4E522BB071F8001494E9 /* LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
+		4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListInfoViewController.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
 				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
 				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
+				4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */,
 			);
 			path = MediaUI;
 			sourceTree = "<group>";
@@ -835,6 +838,7 @@
 				4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */,
 				4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */,
 				4E24F47527345D11004E69C2 /* CGRect.swift in Sources */,
+				4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4E55B2B729476EE9005D2BFB /* PopupViewController.swift in Sources */,
 				4E24F48327345D11004E69C2 /* LabeledTextField.swift in Sources */,

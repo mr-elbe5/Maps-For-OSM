@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class PlaceInfoViewController: PopupScrollViewController {
+class ImageListInfoViewController: PopupScrollViewController {
     
     var stackView = UIStackView()
     
@@ -19,15 +19,12 @@ class PlaceInfoViewController: PopupScrollViewController {
         contentView.addSubviewFilling(stackView, insets: defaultInsets)
         stackView.setupVertical()
         
-        stackView.addArrangedSubview(InfoHeader(key: "placeInfoHeader"))
+        stackView.addArrangedSubview(InfoHeader(key: "imageListInfoHeader"))
         
         stackView.addSpacer()
         stackView.addArrangedSubview(InfoHeader(key: "topMenuInfoHeader"))
         stackView.addArrangedSubview(IconInfoText(icon: "pencil", key: "startEditingIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "pencil.slash", key: "endEditingIconInfoText"))
-        stackView.addArrangedSubview(IconInfoText(icon: "photo", key: "addImageInfoText"))
-        stackView.addArrangedSubview(IconInfoText(icon: "mic", key: "openAudioRecorderInfoText"))
-        stackView.addArrangedSubview(IconInfoText(icon: "pencil.and.list.clipboard", key: "addNoteInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "checkmark.square", key: "selectAllIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "square.and.arrow.up", key: "exportImagesIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "trash", key: "deleteSelectedIconInfoText", iconColor: .red))
@@ -36,9 +33,9 @@ class PlaceInfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "xmark", key: "closeIconInfoText"))
         
         stackView.addSpacer()
-        stackView.addArrangedSubview(InfoHeader(key: "itemCellInfoHeader"))
+        stackView.addArrangedSubview(InfoHeader(key: "imageCellInfoHeader"))
         stackView.addSpacer()
-        stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", key: "itemDetailIconInfoText"))
+        stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", key: "imageDetailIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "map", key: "showOnMapIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "square", key: "selectIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "checkmark.square", key: "selectedIconInfoText"))
