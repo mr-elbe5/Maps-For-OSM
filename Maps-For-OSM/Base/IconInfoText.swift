@@ -21,10 +21,25 @@ class IconInfoText : UIView{
         commonInit(leftInset: leftInset)
     }
     
+    init(icon: String, key: String, iconColor : UIColor = .darkGray, leftInset: CGFloat = 0){
+        super.init(frame: .zero)
+        iconView.image = UIImage(systemName: icon)
+        iconView.tintColor = iconColor
+        iconText.text = key.localize(table: "Info")
+        commonInit(leftInset: leftInset)
+    }
+    
     init(image: String, text: String, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         iconView.image = UIImage(named: image)
         iconText.text = text
+        commonInit(leftInset: leftInset)
+    }
+    
+    init(image: String, key: String, leftInset: CGFloat = 0){
+        super.init(frame: .zero)
+        iconView.image = UIImage(named: image)
+        iconText.text = key.localize(table: "Info")
         commonInit(leftInset: leftInset)
     }
     

@@ -55,6 +55,8 @@
 		4E2088E52743A4280097BFBA /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E42743A4280097BFBA /* TrackRecorder.swift */; };
 		4E2088E72743AA670097BFBA /* Trackpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E62743AA670097BFBA /* Trackpoint.swift */; };
 		4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */; };
+		4E22EB3F2BBC1E26003E8936 /* Info.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E22EB3E2BBC1E26003E8936 /* Info.xcstrings */; };
+		4E22EB432BBC22F7003E8936 /* InfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E22EB422BBC22F7003E8936 /* InfoHeader.swift */; };
 		4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45B27345D11004E69C2 /* IconInfoText.swift */; };
 		4E24F47527345D11004E69C2 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F45D27345D11004E69C2 /* CGRect.swift */; };
 		4E24F47A27345D11004E69C2 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E24F46227345D11004E69C2 /* UILabel.swift */; };
@@ -215,6 +217,8 @@
 		4E2088E42743A4280097BFBA /* TrackRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4E2088E62743AA670097BFBA /* Trackpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackpoint.swift; sourceTree = "<group>"; };
 		4E2088E82743AD920097BFBA /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		4E22EB3E2BBC1E26003E8936 /* Info.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Info.xcstrings; sourceTree = "<group>"; };
+		4E22EB422BBC22F7003E8936 /* InfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHeader.swift; sourceTree = "<group>"; };
 		4E24F45B27345D11004E69C2 /* IconInfoText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconInfoText.swift; sourceTree = "<group>"; };
 		4E24F45D27345D11004E69C2 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		4E24F46227345D11004E69C2 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
@@ -361,6 +365,7 @@
 				4E2579112B9DB5B200481B23 /* Location.xcstrings */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
 				4E2579012B99C26700481B23 /* Localizable.xcstrings */,
+				4E22EB3E2BBC1E26003E8936 /* Info.xcstrings */,
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
 				4E24F48B27345DD5004E69C2 /* Extensions */,
@@ -413,6 +418,7 @@
 				4E0BD9E226EA04EE005A4A94 /* FileError.swift */,
 				4E24F45B27345D11004E69C2 /* IconInfoText.swift */,
 				4EF4770B2941E37000294B21 /* ImagePickerController.swift */,
+				4E22EB422BBC22F7003E8936 /* InfoHeader.swift */,
 				4ED55ED02978407F00C679AF /* InfoText.swift */,
 				4E24F46727345D11004E69C2 /* Insets.swift */,
 				4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */,
@@ -752,6 +758,7 @@
 				4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */,
 				4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */,
 				4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */,
+				4E22EB3F2BBC1E26003E8936 /* Info.xcstrings in Resources */,
 				4E2579132B9DB5B200481B23 /* Base.xcstrings in Resources */,
 				4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */,
 			);
@@ -853,6 +860,7 @@
 				4EF477162941EC8E00294B21 /* Audio.swift in Sources */,
 				4E0BD9D826EA037F005A4A94 /* FileController.swift in Sources */,
 				4E24F48127345D11004E69C2 /* TextEditArea.swift in Sources */,
+				4E22EB432BBC22F7003E8936 /* InfoHeader.swift in Sources */,
 				4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */,
 				4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */,
 				4EE1461A28D368020058F3D3 /* MapRect.swift in Sources */,

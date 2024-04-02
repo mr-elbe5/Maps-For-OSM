@@ -8,13 +8,14 @@ import Foundation
 
 import UIKit
 
-class InfoText : UIView{
+class InfoHeader : UIView{
     
     let text = UILabel()
     
     init(text: String, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         self.text.text = text
+        self.text.font = .preferredFont(forTextStyle: .headline)
         self.text.numberOfLines = 0
         self.text.textColor = .label
         addSubviewWithAnchors(self.text, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: leftInset, bottom: defaultInset, right: 0))
@@ -23,6 +24,7 @@ class InfoText : UIView{
     init(key: String, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         self.text.text = key.localize(table: "Info")
+        self.text.font = .preferredFont(forTextStyle: .headline)
         self.text.numberOfLines = 0
         self.text.textColor = .label
         addSubviewWithAnchors(self.text, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: defaultInset, left: leftInset, bottom: defaultInset, right: 0))

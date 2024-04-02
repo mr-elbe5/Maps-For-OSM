@@ -70,7 +70,7 @@ class MainMenuView: UIView {
             self.delegate?.focusUserLocation()
         }, for: .touchDown)
         
-        let infoButton = UIButton().asIconButton("info.circle")
+        let infoButton = UIButton().asIconButton("info")
         addSubviewWithAnchors(infoButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 10))
         infoButton.addAction(UIAction(){ action in
             self.delegate?.openInfo()

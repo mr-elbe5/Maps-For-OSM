@@ -11,7 +11,7 @@ class PopupViewController: UIViewController {
     
     var headerView : UIView? = nil
     
-    var closeButton = UIButton().asIconButton("xmark.circle", color: .label)
+    var closeButton = UIButton().asIconButton("xmark", color: .label)
     
     init(){
         super.init(nibName: nil, bundle: nil)
