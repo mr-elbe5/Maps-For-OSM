@@ -7,17 +7,17 @@
 import UIKit
 
 protocol VideoItemCellDelegate: PlaceDelegate{
-    func viewVideoItem(item: VideoItem)
+    func viewVideoItem(item: Video)
 }
 
-class VideoItemCell: PlaceItemCell{
+class VideoCell: PlaceItemCell{
     
     static let CELL_IDENT = "videoCell"
     
-    var videoItem : VideoItem? = nil {
+    var video : Video? = nil {
         didSet {
             updateCell()
-            setSelected(videoItem?.selected ?? false, animated: false)
+            setSelected(video?.selected ?? false, animated: false)
         }
     }
     
@@ -25,13 +25,13 @@ class VideoItemCell: PlaceItemCell{
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
-        if let item = videoItem{
+        if let video = video{
             var lastAnchor = iconView.trailingAnchor
             if isEditing{
-                let selectedButton = UIButton().asIconButton(item.selected ? "checkmark.square" : "square", color: .label)
+                let selectedButton = UIButton().asIconButton(video.selected ? "checkmark.square" : "square", color: .label)
                 selectedButton.addAction(UIAction(){ action in
-                    item.selected = !item.selected
-                    selectedButton.setImage(UIImage(systemName: item.selected ? "checkmark.square" : "square"), for: .normal)
+                    video.selected = !video.selected
+                    selectedButton.setImage(UIImage(systemName: video.selected ? "checkmark.square" : "square"), for: .normal)
                 }, for: .touchDown)
                 iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
                 lastAnchor = selectedButton.leadingAnchor
@@ -39,13 +39,13 @@ class VideoItemCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: item.place)
+                self.delegate?.showPlaceOnMap(place: video.place)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewVideoItem(item: item)
+                self.delegate?.viewVideoItem(item: video)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
@@ -53,28 +53,28 @@ class VideoItemCell: PlaceItemCell{
     }
     
     override func updateTimeLabel(isEditing: Bool){
-        timeLabel.text = videoItem?.creationDate.dateTimeString()
+        timeLabel.text = video?.creationDate.dateTimeString()
     }
     
     override func updateItemView(isEditing: Bool){
         itemView.removeAllSubviews()
-        if let item = videoItem{
+        if let video = video{
             let videoView = VideoPlayerView()
             videoView.setRoundedBorders()
             itemView.addSubviewWithAnchors(videoView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
-            videoView.url = item.fileURL
+            videoView.url = video.fileURL
             videoView.setAspectRatioConstraint()
             
             if isEditing{
                 let titleField = UITextField()
                 titleField.setDefaults()
-                titleField.text = item.title
+                titleField.text = video.title
                 titleField.delegate = self
                 itemView.addSubviewWithAnchors(titleField, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
             }
             else{
-                if !item.title.isEmpty{
-                    let titleView = UILabel(text: item.title)
+                if !video.title.isEmpty{
+                    let titleView = UILabel(text: video.title)
                     itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
                 }
                 else{
@@ -86,10 +86,10 @@ class VideoItemCell: PlaceItemCell{
     
 }
 
-extension VideoItemCell: UITextFieldDelegate{
+extension VideoCell: UITextFieldDelegate{
     
     func textFieldDidChange(_ textField: UITextView) {
-        if let item = videoItem{
+        if let item = video{
             item.title = textField.text
         }
     }

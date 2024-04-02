@@ -71,9 +71,9 @@ class PlacePool{
     
     static var places = PlaceList()
     
-    static var tracks: TrackList{
+    static var tracks: Array<Track>{
         get{
-            var trackList = TrackList()
+            var trackList = Array<Track>()
             for place in places{
                 trackList.append(contentsOf: place.tracks)
             }
@@ -81,9 +81,9 @@ class PlacePool{
         }
     }
     
-    static var images: ImageList{
+    static var images: Array<Image>{
         get{
-            var imageList = ImageList()
+            var imageList = Array<Image>()
             for place in places{
                 imageList.append(contentsOf: place.images)
             }
@@ -179,7 +179,7 @@ class PlacePool{
                     }
                     return false
                 }(){
-                    let noteItem = NoteItem()
+                    let noteItem = Note()
                     noteItem.text = place.note
                     noteItem.creationDate = place.timestamp
                     place.addItem(item: noteItem)

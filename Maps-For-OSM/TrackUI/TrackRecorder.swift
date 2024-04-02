@@ -10,12 +10,12 @@ import UIKit
 
 class TrackRecorder{
     
-    static var track : TrackItem? = nil
+    static var track : Track? = nil
     static var isRecording : Bool = false
     
     static func startRecording(startLocation: CLLocation){
         if track == nil{
-            track = TrackItem()
+            track = Track()
             track!.trackpoints.append(Trackpoint(location: startLocation))
         }
         isRecording = true

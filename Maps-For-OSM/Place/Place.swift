@@ -30,7 +30,7 @@ class Place : Selectable{
     var address : String = ""
     //deprecated
     var note : String = ""
-    private var items : PlaceItemList
+    private var items : Array<PlaceItem>
     
     var itemCount: Int{
         items.count
@@ -50,7 +50,7 @@ class Place : Selectable{
         !items.isEmpty
     }
     
-    var allItems: PlaceItemList{
+    var allItems: Array<PlaceItem>{
         items
     }
     
@@ -59,65 +59,43 @@ class Place : Selectable{
     }
     
     var hasMedia : Bool{
-        for item in items{
-            if [.image, .video, .audio].contains(item.type){
-                return true
-            }
-        }
-        return false
+        items.first(where: {
+            [.image, .video, .audio].contains($0.type)
+        }) != nil
     }
     
     var hasTrack : Bool{
-        for item in items{
-            if item.type == .track{
-                return true
-            }
-        }
-        return false
+        items.first(where: {
+            $0.type == .track
+        }) != nil
     }
     
-    var tracks: TrackList{
-        var list = TrackList()
-        for item in items{
-            if item.type == .track, let track = item as? TrackItem{
-                list.append(track)
-            }
-        }
-        return list
+    var tracks: Array<Track>{
+        items.filter({
+            $0.type == .track
+        }) as! Array<Track>
     }
     
-    var images: ImageList{
-        var list = ImageList()
-        for item in items{
-            if item.type == .image, let image = item as? ImageItem{
-                list.append(image)
-            }
-        }
-        return list
+    var images: Array<Image>{
+        items.filter({
+            $0.type == .image
+        }) as! Array<Image>
     }
     
-    var notes: Array<NoteItem>{
-        var list = Array<NoteItem>()
-        for item in items{
-            if item.type == .note, let note = item as? NoteItem{
-                list.append(note)
-            }
-        }
-        return list
+    var notes: Array<Note>{
+        items.filter({
+            $0.type == .note
+        }) as! Array<Note>
     }
     
-    var media : PlaceItemList{
-        var list = PlaceItemList()
-        for item in items{
-            if [.image, .video, .audio].contains(item.type){
-                list.append(item)
-            }
-        }
-        return list
+    var media : Array<PlaceItem>{
+        items.filter({
+            [.image, .video, .audio].contains($0.type)
+        }) as! Array<MediaItem>
     }
     
     init(coordinate: CLLocationCoordinate2D){
-        items = PlaceItemList()
+        items = Array<PlaceItem>()
         mapPoint = MapPoint(coordinate)
         coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
         self.coordinate = coordinate
@@ -140,12 +118,12 @@ class Place : Selectable{
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         //deprecated
         note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
-        var metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .items)
+        var metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .items)
         if metaItems == nil{
             Log.warn("key items not found - trying key media")
-            metaItems = try values.decodeIfPresent(PlaceMetaItemList.self, forKey: .media)
+            metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .media)
         }
-        self.items = metaItems?.toItemList() ?? PlaceItemList()
+        self.items = metaItems?.toItemList() ?? Array<PlaceItem>()
         super.init()
         for item in items{
             item.place = self
@@ -165,7 +143,7 @@ class Place : Selectable{
         try container.encode(timestamp, forKey: .timestamp)
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
-        var metaList = PlaceMetaItemList()
+        var metaList = Array<PlaceItemMetaData>()
         metaList.loadItemList(items: self.items)
         try container.encode(metaList, forKey: .items)
     }

@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 import CoreLocation
 
 protocol TrackDetailDelegate{
-    func showTrackItemOnMap(item: TrackItem)
+    func showTrackItemOnMap(item: Track)
 }
 
 protocol ActiveTrackDelegate{
@@ -20,7 +20,7 @@ protocol ActiveTrackDelegate{
 
 class TrackViewController: PopupScrollViewController{
     
-    var track: TrackItem
+    var track: Track
     
     var editMode = false
     
@@ -34,7 +34,7 @@ class TrackViewController: PopupScrollViewController{
     // MainViewController
     var delegate : TrackDetailDelegate? = nil
     
-    init(track: TrackItem){
+    init(track: Track){
         self.track = track
         super.init()
     }

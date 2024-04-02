@@ -11,20 +11,21 @@ import CoreLocation
 
 class TrackListViewController: PopupTableViewController{
 
-    var tracks: TrackList? = nil
+    var tracks: Array<Track>? = nil
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var delegate: TrackListDelegate? = nil
+    var delegate: TrackDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
         super.loadView()
+        tracks?.sortByDate()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackItemCell.self, forCellReuseIdentifier: TrackItemCell.CELL_IDENT)
+        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackCell.CELL_IDENT)
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -82,14 +83,14 @@ class TrackListViewController: PopupTableViewController{
                 tracks.selectAll()
             }
             for cell in tableView.visibleCells{
-                (cell as? TrackItemCell)?.updateIconView(isEditing: true)
+                (cell as? TrackCell)?.updateIconView(isEditing: true)
             }
         }
     }
     
     func deleteSelected(){
         if let tracks = tracks{
-            var list = TrackList()
+            var list = Array<Track>()
             for i in 0..<tracks.count{
                 let track = tracks[i]
                 if track.selected{
@@ -130,9 +131,9 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackItemCell.CELL_IDENT, for: indexPath) as! TrackItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as! TrackCell
         let track = tracks?.reversed()[indexPath.row]
-        cell.trackItem = track
+        cell.track = track
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -154,7 +155,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension TrackListViewController : TrackDetailDelegate{
     
-    func showTrackItemOnMap(item: TrackItem) {
+    func showTrackItemOnMap(item: Track) {
         self.dismiss(animated: true){
             self.delegate?.showTrackItemOnMap(item: item)
         }
@@ -177,7 +178,7 @@ extension TrackListViewController : TrackDelegate{
     }
     
     
-    func viewTrackItem(item: TrackItem) {
+    func viewTrackItem(item: Track) {
         let trackController = TrackViewController(track: item)
         trackController.track = item
         trackController.delegate = self
@@ -185,7 +186,7 @@ extension TrackListViewController : TrackDelegate{
         self.present(trackController, animated: true)
     }
     
-    func exportTrack(item: TrackItem) {
+    func exportTrack(item: Track) {
         if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             controller.directoryURL = FileController.exportGpxDirURL

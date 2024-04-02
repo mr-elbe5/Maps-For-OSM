@@ -12,21 +12,22 @@ import PhotosUI
 
 class ImageListViewController: PopupTableViewController{
 
-    var images: ImageList? = nil
+    var images: Array<Image>? = nil
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var delegate: ImageListDelegate? = nil
+    var delegate: ImageDelegate? = nil
     
     override open func loadView() {
-        title = "imageList".localize()
+        title = "Array<Image>".localize()
         super.loadView()
+        images?.sortByDate()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ImageItemCell.self, forCellReuseIdentifier: ImageItemCell.CELL_IDENT)
+        tableView.register(ImageCell.self, forCellReuseIdentifier: ImageCell.CELL_IDENT)
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -92,14 +93,14 @@ class ImageListViewController: PopupTableViewController{
                 images.selectAll()
             }
             for cell in tableView.visibleCells{
-                (cell as? ImageItemCell)?.updateIconView(isEditing: true)
+                (cell as? ImageCell)?.updateIconView(isEditing: true)
             }
         }
     }
     
     func exportSelected(){
         if let images = images{
-            var list = ImageList()
+            var list = Array<Image>()
             for i in 0..<images.count{
                 let image = images[i]
                 if image.selected{
@@ -113,7 +114,7 @@ class ImageListViewController: PopupTableViewController{
         }
     }
     
-    func exportImages(images: ImageList){
+    func exportImages(images: Array<Image>){
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.startAnimating()
         view.addSubview(spinner)
@@ -139,7 +140,7 @@ class ImageListViewController: PopupTableViewController{
         }
     }
     
-    private func exportImagesToPhotoLibrary(images: ImageList, result: @escaping (Int, Int) -> Void){
+    private func exportImagesToPhotoLibrary(images: Array<Image>, result: @escaping (Int, Int) -> Void){
         var numCopied = 0
         var numErrors = 0
         for item in images{
@@ -169,7 +170,7 @@ class ImageListViewController: PopupTableViewController{
     
     func deleteSelected(){
         if let images = images{
-            var list = ImageList()
+            var list = Array<Image>()
             for i in 0..<images.count{
                 let image = images[i]
                 if image.selected{
@@ -210,9 +211,9 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageItemCell.CELL_IDENT, for: indexPath) as! ImageItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as! ImageCell
         let image = images?.reversed()[indexPath.row]
-        cell.imageItem = image
+        cell.image = image
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -249,9 +250,9 @@ extension ImageListViewController : ImageDelegate{
         }
     }
     
-    func viewImageItem(item: ImageItem) {
+    func viewImage(image: Image) {
         let controller = ImageViewController()
-        controller.uiImage = item.getImage()
+        controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }

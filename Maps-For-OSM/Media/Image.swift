@@ -5,14 +5,48 @@
  */
 
 import Foundation
+import UIKit
 
-typealias TrackList = Array<TrackItem>
-
-extension TrackList{
+class Image : MediaItem{
     
-    mutating func remove(_ track: TrackItem){
+    override var type : PlaceItemType{
+        .image
+    }
+    
+    override init(){
+        super.init()
+        fileName = "img_\(id).jpg"
+    }
+    
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+    
+    func getImage() -> UIImage?{
+        if let data = getFile(){
+            return UIImage(data: data)
+        } else{
+            return nil
+        }
+    }
+    
+    func saveImage(uiImage: UIImage){
+        if let data = uiImage.jpegData(compressionQuality: 0.8){
+            saveFile(data: data)
+        }
+    }
+    
+}
+
+protocol ImageDelegate: PlaceDelegate{
+    func viewImage(image: Image)
+}
+
+extension Array<Image>{
+    
+    mutating func remove(_ image: Image){
         for idx in 0..<self.count{
-            if self[idx] == track{
+            if self[idx] == image{
                 self.remove(at: idx)
                 return
             }
@@ -53,8 +87,10 @@ extension TrackList{
         }
     }
     
-}
-
-protocol TrackListDelegate: TrackDelegate{
+    mutating func sortByDate(){
+        self.sort(by: { $0.creationDate < $1.creationDate})
+    }
     
 }
+
+

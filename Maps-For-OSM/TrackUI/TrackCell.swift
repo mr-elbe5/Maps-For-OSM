@@ -6,23 +6,23 @@
 
 import UIKit
 
-class TrackItemCell: PlaceItemCell{
+class TrackCell: PlaceItemCell{
 
     static let CELL_IDENT = "trackCell"
     
-    var trackItem : TrackItem? = nil
+    var track : Track? = nil
     
     var delegate: TrackDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
-        if let item = trackItem{
+        if let track = track{
             var lastAnchor = iconView.trailingAnchor
             if isEditing{
-                let selectedButton = UIButton().asIconButton(item.selected ? "checkmark.square" : "square", color: .label)
+                let selectedButton = UIButton().asIconButton(track.selected ? "checkmark.square" : "square", color: .label)
                 selectedButton.addAction(UIAction(){ action in
-                    item.selected = !item.selected
-                    selectedButton.setImage(UIImage(systemName: item.selected ? "checkmark.square" : "square"), for: .normal)
+                    track.selected = !track.selected
+                    selectedButton.setImage(UIImage(systemName: track.selected ? "checkmark.square" : "square"), for: .normal)
                 }, for: .touchDown)
                 iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
                 lastAnchor = selectedButton.leadingAnchor
@@ -30,25 +30,25 @@ class TrackItemCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showTrackItemOnMap(item: item)
+                self.delegate?.showTrackItemOnMap(item: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewTrackItem(item: item)
+                self.delegate?.viewTrackItem(item: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     
     override func updateTimeLabel(isEditing: Bool){
-        timeLabel.text = trackItem?.creationDate.dateTimeString()
+        timeLabel.text = track?.creationDate.dateTimeString()
     }
     
     override func updateItemView(isEditing: Bool){
         itemView.removeAllSubviews()
-        if let item = trackItem{
+        if let item = track{
             let header = UILabel(header: "track".localize())
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
@@ -89,10 +89,10 @@ class TrackItemCell: PlaceItemCell{
     
 }
 
-extension TrackItemCell: UITextFieldDelegate{
+extension TrackCell: UITextFieldDelegate{
     
     func textFieldDidChange(_ textField: UITextView) {
-        if let track = trackItem{
+        if let track = track{
             track.name = textField.text
         }
     }

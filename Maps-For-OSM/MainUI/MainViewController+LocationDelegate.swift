@@ -39,7 +39,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
-        let image = ImageItem()
+        let image = Image()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             if let coordinate = pickerController.coordinate{
@@ -72,7 +72,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     func addNote(note: String, coordinate: CLLocationCoordinate2D) {
         if !note.isEmpty{
             let place = PlacePool.assertPlace(coordinate: coordinate)
-            let item = NoteItem()
+            let item = Note()
             item.text = note
             place.addItem(item: item)
             PlacePool.save()
@@ -101,7 +101,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     
     func photoCaptured(data: Data, location: CLLocation?) {
         if let cllocation = location{
-            let imageFile = ImageItem()
+            let imageFile = Image()
             imageFile.saveFile(data: data)
             Log.debug("photo saved locally")
             let place = PlacePool.assertPlace(coordinate: cllocation.coordinate)
@@ -116,7 +116,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     
     func videoCaptured(data: Data, cllocation: CLLocation?) {
         if let cllocation = cllocation{
-            let videoFile = VideoItem()
+            let videoFile = Video()
             videoFile.saveFile(data: data)
             Log.debug("video saved locally")
             let place = PlacePool.assertPlace(coordinate: cllocation.coordinate)
@@ -146,7 +146,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         }
     }
     
-    func audioCaptured(item: AudioItem){
+    func audioCaptured(item: Audio){
         if let coordinate = LocationService.shared.location?.coordinate{
             let location = PlacePool.assertPlace(coordinate: coordinate)
             location.addItem(item: item)
@@ -161,7 +161,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         if let location = LocationService.shared.location{
             TrackRecorder.startRecording(startLocation: location)
             if let track = TrackRecorder.track{
-                TrackItem.visibleTrack = track
+                Track.visibleTrack = track
                 self.trackChanged()
                 self.trackStatusView.isHidden = false
                 self.statusView.isHidden = true
@@ -176,7 +176,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
             let place = PlacePool.assertPlace(coordinate: coordinate)
             place.addItem(item: track)
             PlacePool.save()
-            TrackItem.visibleTrack = track
+            Track.visibleTrack = track
             self.trackChanged()
             TrackRecorder.stopRecording()
             self.trackStatusView.isHidden = true
@@ -188,7 +188,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     func cancelTrack() {
         if TrackRecorder.track != nil{
             TrackRecorder.stopRecording()
-            TrackItem.visibleTrack = nil
+            Track.visibleTrack = nil
             self.trackChanged()
             self.trackStatusView.stopTrackInfo()
             self.trackStatusView.isHidden = true

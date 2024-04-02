@@ -6,11 +6,11 @@
 
 import UIKit
 
-class NoteItemCell: PlaceItemCell{
+class NoteCell: PlaceItemCell{
     
     static let CELL_IDENT = "noteCell"
     
-    var noteItem : NoteItem? = nil {
+    var note : Note? = nil {
         didSet {
             updateCell()
         }
@@ -20,13 +20,13 @@ class NoteItemCell: PlaceItemCell{
     
     override func updateIconView(isEditing: Bool = false){
         iconView.removeAllSubviews()
-        if let item = noteItem{
+        if let note = note{
             var lastAnchor = iconView.trailingAnchor
             if isEditing{
-                let selectedButton = UIButton().asIconButton(item.selected ? "checkmark.square" : "square", color: .label)
+                let selectedButton = UIButton().asIconButton(note.selected ? "checkmark.square" : "square", color: .label)
                 selectedButton.addAction(UIAction(){ action in
-                    item.selected = !item.selected
-                    selectedButton.setImage(UIImage(systemName: item.selected ? "checkmark.square" : "square"), for: .normal)
+                    note.selected = !note.selected
+                    selectedButton.setImage(UIImage(systemName: note.selected ? "checkmark.square" : "square"), for: .normal)
                 }, for: .touchDown)
                 iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
                 lastAnchor = selectedButton.leadingAnchor
@@ -34,7 +34,7 @@ class NoteItemCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: item.place)
+                self.delegate?.showPlaceOnMap(place: note.place)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
@@ -42,12 +42,12 @@ class NoteItemCell: PlaceItemCell{
     }
     
     override func updateTimeLabel(isEditing: Bool = false){
-        timeLabel.text = noteItem?.creationDate.dateTimeString()
+        timeLabel.text = note?.creationDate.dateTimeString()
     }
     
     override func updateItemView(isEditing: Bool = false){
         itemView.removeAllSubviews()
-        if let note = noteItem{
+        if let note = note{
             let header = UILabel(header: "note".localize())
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
@@ -69,10 +69,10 @@ class NoteItemCell: PlaceItemCell{
     
 }
 
-extension NoteItemCell: UITextViewDelegate{
+extension NoteCell: UITextViewDelegate{
     
     func textViewDidChange(_ textView: UITextView) {
-        if let note = noteItem{
+        if let note = note{
             note.text = textView.text
         }
     }

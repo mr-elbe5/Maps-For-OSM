@@ -81,7 +81,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func hideTrack() {
-        TrackItem.visibleTrack = nil
+        Track.visibleTrack = nil
         trackChanged()
     }
     
@@ -195,7 +195,7 @@ extension MainViewController : UIDocumentPickerDelegate{
     
     private func importGPXFile(url: URL){
         if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
-            let track = TrackItem()
+            let track = Track()
             track.name = gpxData.name
             for segment in gpxData.segments{
                 for point in segment.points{

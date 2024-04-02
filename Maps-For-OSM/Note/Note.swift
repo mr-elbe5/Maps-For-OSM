@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class NoteItem : PlaceItem{
+class Note : PlaceItem{
     
     private enum CodingKeys: CodingKey{
         case text

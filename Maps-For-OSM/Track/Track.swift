@@ -8,7 +8,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class TrackItem : PlaceItem{
+class Track : PlaceItem{
     
     private enum CodingKeys: String, CodingKey {
         case startTime
@@ -21,7 +21,7 @@ class TrackItem : PlaceItem{
         case note
     }
     
-    static var visibleTrack : TrackItem? = nil
+    static var visibleTrack : Track? = nil
     
     var startTime : Date
     var pauseTime : Date? = nil
@@ -214,7 +214,58 @@ class TrackItem : PlaceItem{
 }
 
 protocol TrackDelegate: PlaceDelegate{
-    func viewTrackItem(item: TrackItem)
-    func showTrackItemOnMap(item: TrackItem)
+    func viewTrackItem(item: Track)
+    func showTrackItemOnMap(item: Track)
+}
+
+extension Array<Track>{
+    
+    mutating func remove(_ track: Track){
+        for idx in 0..<self.count{
+            if self[idx] == track{
+                self.remove(at: idx)
+                return
+            }
+        }
+    }
+    
+    var allSelected: Bool{
+        get{
+            for item in self{
+                if !item.selected{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    var allUnselected: Bool{
+        get{
+            for item in self{
+                if item.selected{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    mutating func selectAll(){
+        for item in self{
+            item.selected = true
+        }
+    }
+    
+    mutating func deselectAll(){
+        for item in self{
+            item.selected = false
+        }
+    }
+    
+    mutating func sortByDate(){
+        self.sort(by: { $0.startTime < $1.startTime})
+    }
+    
 }
 
