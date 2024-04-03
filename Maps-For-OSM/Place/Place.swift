@@ -70,6 +70,12 @@ class Place : Selectable{
         }) != nil
     }
     
+    var hasNote : Bool{
+        items.first(where: {
+            $0.type == .note
+        }) != nil
+    }
+    
     var tracks: Array<Track>{
         items.filter({
             $0.type == .track

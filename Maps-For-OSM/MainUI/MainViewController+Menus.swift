@@ -57,12 +57,6 @@ extension MainViewController: MainMenuDelegate{
         }
     }
     
-    func openPreferences(){
-        let controller = PreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func openTrackList() {
         let controller = TrackListViewController()
         controller.tracks = PlacePool.tracks
@@ -105,8 +99,18 @@ extension MainViewController: MainMenuDelegate{
         present(picker, animated: true)
     }
     
+    func applyFilter() {
+        mapView.updatePlaces()
+    }
+    
     func focusUserLocation() {
         mapView.focusUserLocation()
+    }
+    
+    func openPreferences(){
+        let controller = PreferencesViewController()
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     func openInfo() {

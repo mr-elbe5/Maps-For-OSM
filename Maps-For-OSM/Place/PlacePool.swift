@@ -8,59 +8,11 @@ import Foundation
 import CoreLocation
 import UIKit
 
-typealias PlaceList = Array<Place>
-
-extension PlaceList{
-    
-    mutating func remove(_ place: Place){
-        for idx in 0..<self.count{
-            if self[idx] == place{
-                self.remove(at: idx)
-                return
-            }
-        }
-    }
-    
-    mutating func removePlaces(of list: PlaceList){
-        for place in list{
-            remove(place)
-        }
-    }
-    
-    var allSelected: Bool{
-        get{
-            for item in self{
-                if !item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    var allUnselected: Bool{
-        get{
-            for item in self{
-                if item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    mutating func selectAll(){
-        for item in self{
-            item.selected = true
-        }
-    }
-    
-    mutating func deselectAll(){
-        for item in self{
-            item.selected = false
-        }
-    }
-    
+enum PlaceFilter: String{
+    case all
+    case media
+    case track
+    case note
 }
 
 class PlacePool{
@@ -69,7 +21,25 @@ class PlacePool{
     
     static private var _lock = DispatchSemaphore(value: 1)
     
-    static var places = PlaceList()
+    static var places = Array<Place>()
+    
+    static var filteredPlaces : Array<Place>{
+        switch AppState.shared.placeFilter{
+        case .all: return places
+        case .media:
+            return places.filter({
+                $0.hasMedia
+            })
+        case .track:
+            return places.filter({
+                $0.hasTrack
+            })
+        case .note:
+            return places.filter({
+                $0.hasNote
+            })
+        }
+    }
     
     static var tracks: Array<Track>{
         get{
@@ -96,11 +66,11 @@ class PlacePool{
     }
     
     static func load(){
-        if let list : PlaceList = DataController.shared.load(forKey: PlacePool.storeKey){
+        if let list : Array<Place> = DataController.shared.load(forKey: PlacePool.storeKey){
             PlacePool.places = list
         }
         else{
-            PlacePool.places = PlaceList()
+            PlacePool.places = Array<Place>()
         }
     }
     
@@ -120,7 +90,7 @@ class PlacePool{
     }
     
     static func loadFromFile(url: URL){
-        if let string = FileController.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
+        if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
             places = data
         }
     }
@@ -189,6 +159,59 @@ class PlacePool{
             }
         }
         save()
+    }
+    
+}
+
+extension Array<Place>{
+    
+    mutating func remove(_ place: Place){
+        for idx in 0..<self.count{
+            if self[idx] == place{
+                self.remove(at: idx)
+                return
+            }
+        }
+    }
+    
+    mutating func removePlaces(of list: Array<Place>){
+        for place in list{
+            remove(place)
+        }
+    }
+    
+    var allSelected: Bool{
+        get{
+            for item in self{
+                if !item.selected{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    var allUnselected: Bool{
+        get{
+            for item in self{
+                if item.selected{
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    mutating func selectAll(){
+        for item in self{
+            item.selected = true
+        }
+    }
+    
+    mutating func deselectAll(){
+        for item in self{
+            item.selected = false
+        }
     }
     
 }

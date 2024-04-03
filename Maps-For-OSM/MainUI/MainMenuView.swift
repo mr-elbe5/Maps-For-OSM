@@ -19,6 +19,8 @@ protocol MainMenuDelegate{
     func openImageList()
     func importImages()
     
+    func applyFilter()
+    
     func focusUserLocation()
     
     func openSearch()
@@ -93,6 +95,22 @@ class MainMenuView: UIView {
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
+        })
+        actions.append(UIAction(title: "allPlaces".localize(), image: UIImage(named: "mappin.green")){ action in
+            AppState.shared.placeFilter = .all
+            self.delegate?.applyFilter()
+        })
+        actions.append(UIAction(title: "mediaPlaces".localize(), image: UIImage(named: "mappin.red")){ action in
+            AppState.shared.placeFilter = .media
+            self.delegate?.applyFilter()
+        })
+        actions.append(UIAction(title: "trackPlaces".localize(), image: UIImage(named: "mappin.blue")){ action in
+            AppState.shared.placeFilter = .track
+            self.delegate?.applyFilter()
+        })
+        actions.append(UIAction(title: "notePlaces".localize(), image: UIImage(named: "mappin.gray")){ action in
+            AppState.shared.placeFilter = .note
+            self.delegate?.applyFilter()
         })
         if AppState.shared.showLocations{
             actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in

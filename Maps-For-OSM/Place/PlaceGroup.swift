@@ -12,7 +12,7 @@ class PlaceGroup{
     
     var center: CLLocationCoordinate2D? = nil
     var centerPlanetPosition: CGPoint? = nil
-    var places = PlaceList()
+    var places = Array<Place>()
     
     var hasMedia: Bool{
         for place in places{

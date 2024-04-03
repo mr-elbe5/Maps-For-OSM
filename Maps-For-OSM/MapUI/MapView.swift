@@ -45,6 +45,7 @@ class MapView: UIView {
     func setupPlaceLayerView(controller: PlaceLayerDelegate){
         addSubviewFilling(placeLayerView)
         placeLayerView.delegate = controller
+        updatePlaces()
         placeLayerView.isHidden = !AppState.shared.showLocations
     }
     
@@ -66,6 +67,11 @@ class MapView: UIView {
 
     func clearTiles(){
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
+    }
+    
+    func updatePlaces(){
+        placeLayerView.updatePlaces()
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func updatePlaceLayer(){

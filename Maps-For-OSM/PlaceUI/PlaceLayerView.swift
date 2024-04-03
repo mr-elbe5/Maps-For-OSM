@@ -14,7 +14,13 @@ protocol PlaceLayerDelegate{
 
 class PlaceLayerView: UIView {
     
+    var places = Array<Place>()
+    
     var delegate: PlaceLayerDelegate? = nil
+    
+    func updatePlaces(){
+        places = PlacePool.filteredPlaces
+    }
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
         //Log.debug("setupMarkers, zoom=\(zoom),offset=\(offset),scale=\(scale)")
@@ -22,7 +28,7 @@ class PlaceLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == World.maxZoom{
-            for place in PlacePool.places{
+            for place in places{
                 let marker = PlaceMarker(place: place)
                 marker.addAction(UIAction{ action in
                     self.delegate?.showPlaceDetails(place: marker.place)
@@ -35,7 +41,7 @@ class PlaceLayerView: UIView {
         else{
             let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
             var groups = Array<PlaceGroup>()
-            for place in PlacePool.places{
+            for place in places{
                 var grouped = false
                 for group in groups{
                     if group.isWithinRadius(place: place, radius: planetDist){

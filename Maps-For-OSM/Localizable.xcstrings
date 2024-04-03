@@ -87,6 +87,23 @@
         }
       }
     },
+    "allPlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Orte anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all Places"
+          }
+        }
+      }
+    },
     "allTilesForDownload" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1606,6 +1623,23 @@
         }
       }
     },
+    "mediaPlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte mit Medien anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show places with media"
+          }
+        }
+      }
+    },
     "mergeGroup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1789,6 +1823,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Note"
+          }
+        }
+      }
+    },
+    "notePlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte mit Notizen anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show places with notes"
           }
         }
       }
@@ -2977,6 +3028,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tour on %@"
+          }
+        }
+      }
+    },
+    "trackPlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte mit Tourstarts anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show places with tour starts"
           }
         }
       }

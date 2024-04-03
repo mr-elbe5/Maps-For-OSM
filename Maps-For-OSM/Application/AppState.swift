@@ -37,6 +37,7 @@ class AppState: Identifiable, Codable{
         case longitude
         case showLocations
         case showCross
+        case placeFilter
         case searchString
         case searchTarget
         case searchRegion
@@ -48,6 +49,7 @@ class AppState: Identifiable, Codable{
     var coordinate : CLLocationCoordinate2D
     var showLocations : Bool = true
     var showCross : Bool = false
+    var placeFilter : PlaceFilter = .all
     var searchString : String = ""
     var searchTarget : SearchQuery.SearchTarget = .any
     var searchRegion : SearchQuery.SearchRegion = .unlimited
@@ -71,11 +73,13 @@ class AppState: Identifiable, Codable{
         }
         showLocations = try values.decodeIfPresent(Bool.self, forKey: .showLocations) ?? true
         showCross = try values.decodeIfPresent(Bool.self, forKey: .showCross) ?? false
+        let s = try values.decodeIfPresent(String.self, forKey: .placeFilter) ?? PlaceFilter.all.rawValue
+        placeFilter = PlaceFilter(rawValue: s) ?? .all
         searchString = try values.decodeIfPresent(String.self, forKey: .searchString) ?? ""
-        var s = try values.decodeIfPresent(Int.self, forKey: .searchTarget) ?? 0
-        searchTarget = SearchQuery.SearchTarget(rawValue: s) ?? .any
-        s = try values.decodeIfPresent(Int.self, forKey: .searchRegion) ?? 0
-        searchRegion = SearchQuery.SearchRegion(rawValue: s) ?? .unlimited
+        var i = try values.decodeIfPresent(Int.self, forKey: .searchTarget) ?? 0
+        searchTarget = SearchQuery.SearchTarget(rawValue: i) ?? .any
+        i = try values.decodeIfPresent(Int.self, forKey: .searchRegion) ?? 0
+        searchRegion = SearchQuery.SearchRegion(rawValue: i) ?? .unlimited
         searchRadius = try values.decodeIfPresent(Double.self, forKey: .searchRadius) ?? AppState.defaultSearchRadius
     }
     
@@ -87,6 +91,7 @@ class AppState: Identifiable, Codable{
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(showLocations, forKey: .showLocations)
         try container.encode(showCross, forKey: .showCross)
+        try container.encode(placeFilter.rawValue, forKey: .placeFilter)
         try container.encode(searchString, forKey: .searchString)
         try container.encode(searchTarget.rawValue, forKey: .searchTarget)
         try container.encode(searchRegion.rawValue, forKey: .searchRegion)
