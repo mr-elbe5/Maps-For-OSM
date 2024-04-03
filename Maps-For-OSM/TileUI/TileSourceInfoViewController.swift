@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class TileInfoViewController: PopupScrollViewController {
+class TileSourceInfoViewController: PopupScrollViewController {
     
     var stackView = UIStackView()
     
@@ -22,6 +22,7 @@ class TileInfoViewController: PopupScrollViewController {
         stackView.addSpacer()
         stackView.addArrangedSubview(InfoHeader(key: "tileSourceInfoHeader"))
         stackView.addArrangedSubview(InfoText(key: "tileSourceInfoText"))
+        stackView.addArrangedSubview(InfoText(key: "urlInfoText"))
         
     }
     

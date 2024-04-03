@@ -57,7 +57,7 @@ extension CameraViewController{
             if self.currentDevice == systemPreferredCamera {
                 return
             }
-
+            //Log.debug("changing device by observer")
             self.changeVideoDevice(systemPreferredCamera)
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)

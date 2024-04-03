@@ -102,6 +102,7 @@ extension CameraViewController{
         sessionQueue.async {
             if let systemPreferredCamera = AVCaptureDevice.systemPreferredCamera{
                 if self.currentDevice != systemPreferredCamera {
+                    //Log.debug("changing device after file output")
                     self.changeVideoDevice(systemPreferredCamera)
                 }
             }

@@ -22,7 +22,7 @@ class ImageListViewController: PopupTableViewController{
     var delegate: ImageDelegate? = nil
     
     override open func loadView() {
-        title = "Array<Image>".localize()
+        title = "images".localize()
         super.loadView()
         images?.sortByDate()
         tableView.delegate = self
@@ -100,38 +100,34 @@ class ImageListViewController: PopupTableViewController{
     
     func exportSelected(){
         if let images = images{
-            var list = Array<Image>()
+            var exportList = Array<Image>()
             for i in 0..<images.count{
                 let image = images[i]
                 if image.selected{
-                    list.append(image)
+                    exportList.append(image)
                 }
             }
-            if list.isEmpty{
+            if exportList.isEmpty{
                 return
             }
-            exportImages(images: images)
-        }
-    }
-    
-    func exportImages(images: Array<Image>){
-        let spinner = UIActivityIndicatorView(style: .large)
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
-        DispatchQueue.global(qos: .userInitiated).async {
-            PHPhotoLibrary.requestAuthorization(){ status in
-                if status == PHAuthorizationStatus.authorized {
-                    self.exportImagesToPhotoLibrary(images: images){ numCopied, numErrors in
-                        PlacePool.save()
-                        DispatchQueue.main.async {
-                            spinner.stopAnimating()
-                            self.view.removeSubview(spinner)
-                            if numErrors == 0{
-                                self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
-                            }
-                            else{
-                                self.showAlert(title: "error".localize(), text: "imagesExportedWithErrors".localize(i1: numCopied, i2: numErrors))
+            let spinner = UIActivityIndicatorView(style: .large)
+            spinner.startAnimating()
+            view.addSubview(spinner)
+            spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+            DispatchQueue.global(qos: .userInitiated).async {
+                PHPhotoLibrary.requestAuthorization(){ status in
+                    if status == PHAuthorizationStatus.authorized {
+                        self.exportImagesToPhotoLibrary(images: exportList){ numCopied, numErrors in
+                            PlacePool.save()
+                            DispatchQueue.main.async {
+                                spinner.stopAnimating()
+                                self.view.removeSubview(spinner)
+                                if numErrors == 0{
+                                    self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
+                                }
+                                else{
+                                    self.showAlert(title: "error".localize(), text: "imagesExportedWithErrors".localize(i1: numCopied, i2: numErrors))
+                                }
                             }
                         }
                     }

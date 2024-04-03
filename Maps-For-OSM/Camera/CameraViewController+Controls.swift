@@ -126,6 +126,7 @@ extension CameraViewController{
         hdrVideoModeButton.isEnabled = enable && !isPhotoMode
         hdrVideoModeButton.isHidden = !enable || isPhotoMode
         flashModeButton.isEnabled = enable
+        //Log.debug("current position: \(currentPosition)")
         backLensControl.isHidden = currentPosition == .front || !enable
         backLensControl.isEnabled = currentPosition == .back && enable
         captureButton.isEnabled = enable

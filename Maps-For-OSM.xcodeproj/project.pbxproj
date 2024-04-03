@@ -154,7 +154,7 @@
 		4EF353162BB56A9900A0A85B /* TrackListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */; };
 		4EF353182BB56ACF00A0A85B /* PreferencesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353172BB56ACF00A0A85B /* PreferencesInfoViewController.swift */; };
 		4EF3531C2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */; };
-		4EF3531E2BB56BDE00A0A85B /* TileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531D2BB56BDE00A0A85B /* TileInfoViewController.swift */; };
+		4EF3531E2BB56BDE00A0A85B /* TileSourceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */; };
 		4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */; };
 		4EF353222BB5718400A0A85B /* SearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */; };
 		4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770B2941E37000294B21 /* ImagePickerController.swift */; };
@@ -317,7 +317,7 @@
 		4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListInfoViewController.swift; sourceTree = "<group>"; };
 		4EF353172BB56ACF00A0A85B /* PreferencesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInfoViewController.swift; sourceTree = "<group>"; };
 		4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupInfoViewController.swift; sourceTree = "<group>"; };
-		4EF3531D2BB56BDE00A0A85B /* TileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileInfoViewController.swift; sourceTree = "<group>"; };
+		4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceInfoViewController.swift; sourceTree = "<group>"; };
 		4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadInfoViewController.swift; sourceTree = "<group>"; };
 		4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
 		4EF4770B2941E37000294B21 /* ImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
@@ -586,7 +586,7 @@
 			children = (
 				4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */,
 				4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */,
-				4EF3531D2BB56BDE00A0A85B /* TileInfoViewController.swift */,
+				4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */,
 				4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */,
 				4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */,
 			);
@@ -878,7 +878,7 @@
 				4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */,
 				4E1B81182732EDC5003ED6B0 /* PlaceMarker.swift in Sources */,
 				4EF353102BB56A1700A0A85B /* PlaceInfoViewController.swift in Sources */,
-				4EF3531E2BB56BDE00A0A85B /* TileInfoViewController.swift in Sources */,
+				4EF3531E2BB56BDE00A0A85B /* TileSourceInfoViewController.swift in Sources */,
 				4E2088E32743A24E0097BFBA /* Track.swift in Sources */,
 				4E51241E2BAADCDE00A5B416 /* PlaceItem.swift in Sources */,
 				4EF477122941E98400294B21 /* MediaItem.swift in Sources */,

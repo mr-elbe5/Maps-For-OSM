@@ -63,7 +63,7 @@ class PlaceCell: TableViewCell{
             coordinateLabel.textAlignment = .center
             itemView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
-            header = UILabel(text: "mediaCount".localize() + String(place.itemCount))
+            header = UILabel(text: "itemCount".localize() + String(place.itemCount))
             itemView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
             
         }

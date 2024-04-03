@@ -79,7 +79,7 @@ class TileSourceViewController: PopupScrollViewController{
         let infoButton = UIButton().asIconButton("info.circle")
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
-            let controller = TileInfoViewController()
+            let controller = TileSourceInfoViewController()
             controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)

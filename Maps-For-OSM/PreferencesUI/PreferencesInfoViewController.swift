@@ -20,7 +20,7 @@ class PreferencesInfoViewController: PopupScrollViewController {
         stackView.setupVertical()
         
         stackView.addArrangedSubview(InfoHeader(key: "preferencesInfoHeader"))
-        stackView.addArrangedSubview(InfoText(key: "urlInfoText"))
+        stackView.addArrangedSubview(InfoText(key: "preferencesInfoText"))
     }
     
 }

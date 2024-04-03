@@ -156,24 +156,6 @@
         }
       }
     },
-    "backLensSelector" : {
-      "comment" : "info for camera",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Objektivauswahl unten links wählt die rückwärtige Kamera aus (wennn es mehr als eine gibt)."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This lens selector on the bottom left lets you choose a back lens, if there are more than one."
-          }
-        }
-      }
-    },
     "backup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -208,58 +190,6 @@
         }
       }
     },
-    "cameraNotAuthorized" : {
-      "comment" : "camera",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Nutzung der Kamera ist nicht erlaubt. Bitte ändere die entsprechenden Einstellungen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Camera use is not authorized. Please change your settings."
-          }
-        }
-      }
-    },
-    "cameraNotAvailable" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Kamera steht nicht zur Verfügung."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Camera is not available."
-          }
-        }
-      }
-    },
-    "cameraSelector" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die Kameraauswahl wechselt zwischen Selfie- und rückwärtiger Kamera."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The camera selector on the bottom right lets you switch between back and front camera"
-          }
-        }
-      }
-    },
     "cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -290,23 +220,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel Tour Recording"
-          }
-        }
-      }
-    },
-    "captureButton" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Der rote Auslöseknopf löst das Aufnehmen eines Fotos oder die Aufnahme eines Videos aus. Bei laufender Videoaufnahme erscheint das Innere als Quadrat. Antippen beendet die Aufnahme und speichert das Video."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The red capture button lets you take a photo or start recording a video. While a video is recorded the rad area is squared and lets you save the video."
           }
         }
       }
@@ -396,34 +309,6 @@
         }
       }
     },
-    "confirmDelete" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Löschen bitte bestätigen"
-          }
-        }
-      }
-    },
-    "confirmDeleteAllTracks" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wollen Sie alle Touren löschen?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Do you want to delete all tracks?"
-          }
-        }
-      }
-    },
     "confirmDeleteAudio" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -458,6 +343,23 @@
         }
       }
     },
+    "confirmDeleteItems" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wollen Sie alle ausgewählten Elemente löschen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to delete all selected items?"
+          }
+        }
+      }
+    },
     "confirmDeletePlace" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -481,13 +383,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie alle Markierungen löschen?"
+            "value" : "Wollen Sie alle ausgewählten Orte löschen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to delete all place markers?"
+            "value" : "Do you want to delete all selected places?"
           }
         }
       }
@@ -526,6 +428,23 @@
         }
       }
     },
+    "confirmDeleteTracks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wollen Sie alle ausgewählten Touren löschen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to delete all selected tracks?"
+          }
+        }
+      }
+    },
     "confirmDeleteVideo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -543,70 +462,19 @@
         }
       }
     },
-    "confirmMergeGroup" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gruppe zu einem Ort zusammenfassen?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Merge Group to one Place?"
-          }
-        }
-      }
-    },
     "confirmMergePlaces" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ausgewählte Orte zusammenfassen?"
+            "value" : "Wollen Sie die ausgewählten Orte zusammenführen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Do you want to merge the selected places?"
-          }
-        }
-      }
-    },
-    "confirmMovePlace" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Auf neue Position verschieben?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Move Place to new Position?"
-          }
-        }
-      }
-    },
-    "confirmPreload" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Haben Sie die Rechte für Massendownloads?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Are you sure to have the rights for mass downloads?"
           }
         }
       }
@@ -1448,6 +1316,23 @@
         }
       }
     },
+    "images" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Images"
+          }
+        }
+      }
+    },
     "imagesExported" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1563,6 +1448,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opens this Info"
+          }
+        }
+      }
+    },
+    "itemCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzahl Elemente: "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item count: "
           }
         }
       }
@@ -1704,23 +1606,6 @@
         }
       }
     },
-    "mediaCount" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anzahl Bilder, Videos und Audios: "
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Image, Video and Audio count: "
-          }
-        }
-      }
-    },
     "mergeGroup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1853,23 +1738,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No"
-          }
-        }
-      }
-    },
-    "noHDRMode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Du bist nicht im HDR-Modus (nur im Video-Modus, antippen zum Wechseln)"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You are not in HDR mode (only in video mode, tap to change)"
           }
         }
       }
@@ -2291,13 +2159,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gespeicherte Kartenkacheln..."
+            "value" : "Kartenkacheln vorladen..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Offline Map Tiles..."
+            "value" : "Preload Tiles..."
           }
         }
       }
@@ -2696,13 +2564,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bilderliste..."
+            "value" : "Alle Bilder..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Image List..."
+            "value" : "All Images..."
           }
         }
       }
@@ -2713,13 +2581,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Markierte Orte..."
+            "value" : "Alle Orte..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Marked Places..."
+            "value" : "All Places..."
           }
         }
       }
@@ -2748,13 +2616,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aufgezeichnete Touren..."
+            "value" : "Alle aufgezeichneten Touren..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recorded Tracks..."
+            "value" : "All recorded Tracks..."
           }
         }
       }

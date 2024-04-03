@@ -10,6 +10,7 @@ import UIKit
 
 class IconInfoText : UIView{
     
+    let iconContainer = UIView()
     let iconView = UIImageView()
     let iconText = UILabel()
     
@@ -18,7 +19,7 @@ class IconInfoText : UIView{
         iconView.image = UIImage(systemName: icon)
         iconView.tintColor = iconColor
         iconText.text = text
-        commonInit(leftInset: leftInset)
+        setup(leftInset: leftInset)
     }
     
     init(icon: String, key: String, iconColor : UIColor = .darkGray, leftInset: CGFloat = 0){
@@ -26,30 +27,30 @@ class IconInfoText : UIView{
         iconView.image = UIImage(systemName: icon)
         iconView.tintColor = iconColor
         iconText.text = key.localize(table: "Info")
-        commonInit(leftInset: leftInset)
+        setup(leftInset: leftInset)
     }
     
     init(image: String, text: String, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         iconView.image = UIImage(named: image)
         iconText.text = text
-        commonInit(leftInset: leftInset)
+        setup(leftInset: leftInset)
     }
     
     init(image: String, key: String, leftInset: CGFloat = 0){
         super.init(frame: .zero)
         iconView.image = UIImage(named: image)
         iconText.text = key.localize(table: "Info")
-        commonInit(leftInset: leftInset)
+        setup(leftInset: leftInset)
     }
     
-    private func commonInit(leftInset: CGFloat){
+    private func setup(leftInset: CGFloat){
         iconText.numberOfLines = 0
         iconText.textColor = .label
-        addSubviewWithAnchors(iconView, top: topAnchor, leading: leadingAnchor, insets: UIEdgeInsets(top: defaultInset, left: leftInset, bottom: defaultInset, right: 0))
+        addSubviewWithAnchors(iconContainer, top: topAnchor, leading: leadingAnchor, insets: UIEdgeInsets(top: defaultInset, left: leftInset, bottom: defaultInset, right: 0))
             .width(25)
-        iconView.setAspectRatioConstraint()
-        addSubviewWithAnchors(iconText, top: topAnchor, leading: iconView.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        iconContainer.addSubviewWithAnchors(iconView, top: iconContainer.topAnchor, leading: iconContainer.leadingAnchor, bottom: iconContainer.bottomAnchor, insets: .zero)
+        addSubviewWithAnchors(iconText, top: topAnchor, leading: iconContainer.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
     }
     
     required init?(coder: NSCoder) {

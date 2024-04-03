@@ -217,6 +217,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
     }
     
     func changeVideoDevice(_ videoDevice: AVCaptureDevice, completion: (() -> Void)? = nil) {
+        //Log.debug("change video device")
         sessionQueue.async {
             do {
                 let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
@@ -228,6 +229,7 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
                         NotificationCenter.default.addObserver(self, selector: #selector(self.subjectAreaDidChange), name: .AVCaptureDeviceSubjectAreaDidChange, object: videoDeviceInput.device)
                         self.session.addInput(videoDeviceInput)
                         self.currentDeviceInput = videoDeviceInput
+                        //Log.debug("current device: \(self.currentDevice.position)")
                         self.isCaptureEnabled = true
                         DispatchQueue.main.async {
                             self.createDeviceRotationCoordinator()
@@ -268,8 +270,8 @@ class CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelega
             } catch {
                 Log.error("Error occurred while creating video device input: \(error)")
             }
+            completion?()
         }
-        completion?()
     }
     
     func readinessCoordinator(_ coordinator: AVCapturePhotoOutputReadinessCoordinator, captureReadinessDidChange captureReadiness: AVCapturePhotoOutput.CaptureReadiness) {

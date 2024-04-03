@@ -21,6 +21,12 @@
     "addImageInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild aus 'Fotos' hinzufügen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -35,7 +41,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn eine Foto, Audio oder Video aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, kann das Ergebnis diesem Ort zugeordnet werden."
+            "value" : "Wenn eine Foto, Audio oder Video aufgenommen wird, wird auch eine zugehöriger Ort für die Position erstellt und das Foto diesem Ort zugeordnet. Existiert in der unmittelbaren Nähe bereits ein Ort, wird das Ergebnis diesem Ort zugeordnet."
           }
         },
         "en" : {
@@ -531,6 +537,12 @@
     "itemCellInfoHeader" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An diesem Ort"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -542,6 +554,12 @@
     "itemDetailIconInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details dieses Elements"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -623,6 +641,12 @@
     "mergePlacesIconInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewählte Orte in ihre Mittelposition zusammenführen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -856,6 +880,12 @@
     "placeGroupInfoHeader" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ortsgruppe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -901,6 +931,12 @@
     "placeInfoHeader" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1101,6 +1137,12 @@
     "placesCellInfoHeader" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1161,6 +1203,23 @@
         }
       }
     },
+    "preferencesInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die numerischen Einstellungen dienen dem Tunen der GPS-Verfolgung. Insbesondere hat die Zeit zwischen zwei Punkten einen deutlichen Effekt auf den Stromverbrauch. Die minimale Distanz zwischen Punkten beeinflusst die Größe und Genauigkeit der Tourdaten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The numerical settings serve for tuning your location tracking. Especially the time between tracking points can have a considerable effect on power consumption. The minimal distance between points affects the size and exactness of your track data."
+          }
+        }
+      }
+    },
     "preloadIconInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1174,23 +1233,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Initiates preloading the currently visible map section (active only for reasonable zoom levels - see preferences)"
-          }
-        }
-      }
-    },
-    "preloadInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert. Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Here tiles for the current map section can be perloaded. The higher the zoom level, the higher the data size to load (per zoom level it is a factor of 4). The maximal zoom level can be set below the zoom note. Should you cancel or a load error should occur, the action can be repeated."
           }
         }
       }
@@ -1226,6 +1268,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Search for Places"
+          }
+        }
+      }
+    },
+    "searchInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
+    "searchInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie können eine Freitextsuche (alles) oder eine Adresssuche durchführen. Sie können den Suchbereich auf dien aktuellen Kartenausschnitt oder einen Radius  beschränken "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can do a free text search (all) or an address search. You can restrict your search to the currently visible map or a certain radius."
           }
         }
       }
@@ -1383,9 +1459,49 @@
         }
       }
     },
+    "tilePreloadInfoHeader" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenkacheln vorladen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preload Map Tiles"
+          }
+        }
+      }
+    },
+    "tilePreloadInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einmal geladene Kacheln werden in der App bis zum Löschen aller Kacheln gespeichert.Hier können Kacheln des aktuellen Kartenausschnitts für eine Offline-Nutzung vorgeladen werden. Je höher die maximale Zoomebene, des größer das zu ladende Datenvolumen (pro Zoomschritt ein Faktor von 4). Die maximale Zoomebene unterhalb der Zoomanzeige einstellbar. Sollte ein Abbruch erfolgen oder Ladefehler auftreten, kann der Vorgang wiederholt werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Here tiles for the current map section can be perloaded. The higher the zoom level, the higher the data size to load (per zoom level it is a factor of 4). The maximal zoom level can be set below the zoom note. Should you cancel or a load error should occur, the action can be repeated."
+          }
+        }
+      }
+    },
     "tileSourceInfoHeader" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenquelle"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1397,6 +1513,12 @@
     "tileSourceInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wählen Sie eine Server-URL zum Laden der Kartenkacheln"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
