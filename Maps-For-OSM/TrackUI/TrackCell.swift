@@ -59,6 +59,8 @@ class TrackCell: PlaceItemCell{
                 nameField.setDefaults()
                 nameField.text = item.name
                 nameField.delegate = self
+                itemView.addSubviewWithAnchors(nameField, top: nextAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                nextAnchor = nameField.bottomAnchor
             }
             else{
                 let nameLabel = UILabel(text: item.name)

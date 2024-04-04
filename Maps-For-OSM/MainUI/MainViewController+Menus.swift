@@ -226,6 +226,7 @@ extension MainViewController : UIDocumentPickerDelegate{
                     track.trackpoints.append(Trackpoint(location: point.location))
                 }
             }
+            track.evaluateImportedTrackpoints()
             if track.name.isEmpty{
                 let ext = url.pathExtension
                 var name = url.lastPathComponent
@@ -234,6 +235,9 @@ extension MainViewController : UIDocumentPickerDelegate{
                 track.name = name
             }
             track.evaluateImportedTrackpoints()
+            track.startTime = track.trackpoints.first?.timestamp ?? Date()
+            track.endTime = track.trackpoints.last?.timestamp ?? Date()
+            track.creationDate = track.startTime
             let place = PlacePool.assertPlace(coordinate: track.startCoordinate!)
             place.addItem(item: track)
             PlacePool.save()

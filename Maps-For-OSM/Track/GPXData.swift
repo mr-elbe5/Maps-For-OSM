@@ -36,11 +36,11 @@ class GPXPoint{
     
     var coordinate : CLLocationCoordinate2D
     var altitude : CLLocationDistance = 0
-    var time : Date? = nil
+    var timestamp : Date? = nil
     
     var location: CLLocation{
         get{
-            CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: time ?? Date())
+            CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: 0, timestamp: timestamp ?? Date())
         }
     }
     

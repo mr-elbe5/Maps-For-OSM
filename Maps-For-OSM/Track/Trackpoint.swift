@@ -34,12 +34,8 @@ class Trackpoint: Codable, Identifiable{
     var speed: Double = 0
     var speedAccuracy: Double = 0
     
-    var gpsSpeedDeviation: Double{
-        speedAccuracy < 0 ? -1 : speedAccuracy / speed
-    }
-    
     var horizontallyValid: Bool{
-        horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && gpsSpeedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
+        horizontalAccuracy != -1 && (speed == 0 || speedAccuracy != -1) && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty
     }
     
     var kmhSpeed: Int{
@@ -93,7 +89,7 @@ class Trackpoint: Codable, Identifiable{
     }
     
     func checkValidity(){
-        valid = horizontalAccuracy != -1 && speedAccuracy != -1 && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty && gpsSpeedDeviation < Preferences.shared.maxSpeedUncertaintyFactor
+        valid = horizontalAccuracy != -1 && (speed != 0 && speedAccuracy != -1) && horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty
     }
     
     func updateDeltas(from tp: Trackpoint, distance: CGFloat? = nil){

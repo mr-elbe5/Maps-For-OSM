@@ -140,6 +140,7 @@ class Track : PlaceItem{
         removeAllRedundant()
     }
     
+    @discardableResult
     func addLocation(_ location: CLLocation) -> Bool{
         let tp = Trackpoint(location: location)
         tp.checkValidity()
