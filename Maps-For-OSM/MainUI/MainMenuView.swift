@@ -88,7 +88,7 @@ class MainMenuView: UIView {
         searchButton.addAction(UIAction(){ action in
             self.delegate?.openSearch()
         }, for: .touchDown)
-        
+        updateLocationMenuButton()
     }
     
     func getLocationMenu() -> UIMenu{
@@ -99,18 +99,22 @@ class MainMenuView: UIView {
         actions.append(UIAction(title: "allPlaces".localize(), image: UIImage(named: "mappin.green")){ action in
             AppState.shared.placeFilter = .all
             self.delegate?.applyFilter()
+            self.updateLocationMenuButton()
         })
         actions.append(UIAction(title: "mediaPlaces".localize(), image: UIImage(named: "mappin.red")){ action in
             AppState.shared.placeFilter = .media
             self.delegate?.applyFilter()
+            self.updateLocationMenuButton()
         })
         actions.append(UIAction(title: "trackPlaces".localize(), image: UIImage(named: "mappin.blue")){ action in
             AppState.shared.placeFilter = .track
             self.delegate?.applyFilter()
+            self.updateLocationMenuButton()
         })
         actions.append(UIAction(title: "notePlaces".localize(), image: UIImage(named: "mappin.gray")){ action in
             AppState.shared.placeFilter = .note
             self.delegate?.applyFilter()
+            self.updateLocationMenuButton()
         })
         if AppState.shared.showLocations{
             actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
@@ -181,6 +185,19 @@ class MainMenuView: UIView {
     
     func updateLocationMenu(){
         self.locationMenuButton.menu = self.getLocationMenu()
+    }
+    
+    func updateLocationMenuButton(){
+        switch AppState.shared.placeFilter{
+        case .all:
+            locationMenuButton.tintColor = .systemGreen
+        case .media:
+            locationMenuButton.tintColor = .systemRed
+        case .track:
+            locationMenuButton.tintColor = .systemBlue
+        case .note:
+            locationMenuButton.tintColor = .systemGray
+        }
     }
     
 }
