@@ -158,27 +158,47 @@ extension MainViewController: PHPickerViewControllerDelegate{
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         for result in results{
             var location: CLLocation? = nil
+            var creationDate : Date? = nil
             if let ident = result.assetIdentifier{
                 if let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [ident], options: nil).firstObject{
                     location = fetchResult.location
+                    creationDate = fetchResult.creationDate
                 }
             }
             let itemProvider = result.itemProvider
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) {  image, error in
-                    if let image = image {
-                        Log.debug("got image \(image.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                itemProvider.loadObject(ofClass: UIImage.self) {  uiimage, error in
+                    if let uiimage = uiimage as? UIImage {
+                        //Log.debug("got image \(uiimage.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        if let coordinate = location?.coordinate{
+                            let place = PlacePool.assertPlace(coordinate: coordinate)
+                            let image = Image()
+                            image.creationDate = creationDate ?? Date()
+                            image.saveImage(uiImage: uiimage)
+                            place.addItem(item: image)
+                        }
                     }
                 }
             }
             else{
                 itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
                     if let url = url {
-                        Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        //Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        if let coordinate = location?.coordinate{
+                            let place = PlacePool.assertPlace(coordinate: coordinate)
+                            let video = Video()
+                            video.creationDate = creationDate ?? Date()
+                            video.setFileNameFromURL(url)
+                            if let data = FileController.readFile(url: url){
+                                video.saveFile(data: data)
+                                place.addItem(item: video)
+                            }
+                        }
                     }
                 }
             }
         }
+        placesChanged()
         picker.dismiss(animated: false)
     }
     
