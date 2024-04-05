@@ -125,13 +125,16 @@ class PlacePool{
         places.removeAll()
     }
     
-    @discardableResult
-    static func assertPlace(coordinate: CLLocationCoordinate2D) -> Place{
+    static func getPlace(coordinate: CLLocationCoordinate2D) -> Place?{
         for place in places{
             if place.coordinateRegion.contains(coordinate: coordinate){
                 return place
             }
         }
+        return nil
+    }
+    
+    static func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
         let place = PlacePool.addPlace(coordinate: coordinate)
         save()
         return place

@@ -20,6 +20,7 @@ class PreferencesInfoViewController: PopupScrollViewController {
         stackView.setupVertical()
         
         stackView.addArrangedSubview(InfoHeader(key: "preferencesInfoHeader"))
+        stackView.addArrangedSubview(InfoText(key: "maxMergeDistanceInfoText"))
         stackView.addArrangedSubview(InfoText(key: "preferencesInfoText"))
     }
     

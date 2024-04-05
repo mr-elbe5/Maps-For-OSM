@@ -37,17 +37,9 @@ extension MainViewController: LocationServiceDelegate{
 
 extension MainViewController: MapPositionDelegate{
     
-    func showCurrentLocationMenu() {
-        let coordinate = LocationService.shared.location?.coordinate ?? CLLocationCoordinate2D()
-        let controller = LocationMenuViewController(coordinate: coordinate, title: "currentLocation".localize())
-        controller.delegate = self
-        controller.modalPresentationStyle = .automatic
-        present(controller, animated: true)
-    }
-    
     func showCrossLocationMenu() {
         let coordinate = mapView.scrollView.screenCenterCoordinate
-        let controller = LocationMenuViewController(coordinate: coordinate, title: "crossLocation".localize())
+        let controller = CrossLocationMenuViewController(coordinate: coordinate, title: "crossLocation".localize())
         controller.delegate = self
         controller.modalPresentationStyle = .automatic
         present(controller, animated: true)
@@ -75,6 +67,7 @@ extension MainViewController: PlaceLayerDelegate{
     
     func showGroupDetails(group: PlaceGroup) {
         let controller = PlaceGroupViewController(group: group)
+        controller.delegate = self
         controller.modalPresentationStyle = .popover
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -87,10 +80,6 @@ extension MainViewController: PlaceDelegate{
     func showPlaceOnMap(place: Place) {
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
-    
-}
-
-extension MainViewController: TrackDelegate{
     
     func viewTrackItem(item: Track) {
         
@@ -106,7 +95,6 @@ extension MainViewController: TrackDelegate{
     }
     
 }
-
 
 extension MainViewController: ImageDelegate {
     

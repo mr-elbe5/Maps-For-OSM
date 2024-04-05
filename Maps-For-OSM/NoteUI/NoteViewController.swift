@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 protocol NoteViewDelegate{
-    func addNote(note: String, coordinate: CLLocationCoordinate2D)
+    func addNote(text: String, coordinate: CLLocationCoordinate2D)
 }
 
 class NoteViewController: PopupScrollViewController{
@@ -46,7 +46,7 @@ class NoteViewController: PopupScrollViewController{
     
     func save(){
         self.dismiss(animated: false)
-        delegate?.addNote(note: noteEditView.text, coordinate: coordinate)
+        delegate?.addNote(text: noteEditView.text, coordinate: coordinate)
     }
     
 }

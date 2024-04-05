@@ -14,6 +14,7 @@ protocol PreferencesDelegate{
 
 class PreferencesViewController: PopupScrollViewController{
     
+    var maxMergeDistanceField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
     var trackpointIntervalField = LabeledTextField()
     var maxHorizontalUncertaintyField = LabeledTextField()
@@ -28,8 +29,11 @@ class PreferencesViewController: PopupScrollViewController{
         title = "preferences".localize()
         super.loadView()
         
+        maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxPlaceMergeDistance), isHorizontal: false)
+        contentView.addSubviewWithAnchors(maxMergeDistanceField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
         followTrackSwitch.setupView(labelText: "followTrack".localize(), isOn: Preferences.shared.followTrack)
-        contentView.addSubviewWithAnchors(followTrackSwitch, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(followTrackSwitch, top: maxMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         trackpointIntervalField.setupView(labelText: "trackpointInterval".localize(), text: String(Preferences.shared.trackpointInterval), isHorizontal: false)
         contentView.addSubviewWithAnchors(trackpointIntervalField, top: followTrackSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -68,14 +72,17 @@ class PreferencesViewController: PopupScrollViewController{
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PreferencesInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }
     
     func save(){
+        var val = Double(maxMergeDistanceField.text)
+        if let val = val{
+            Preferences.shared.maxPlaceMergeDistance = val
+        }
         Preferences.shared.followTrack = followTrackSwitch.isOn
-        var val = Double(trackpointIntervalField.text)
+        val = Double(trackpointIntervalField.text)
         if let val = val{
             Preferences.shared.trackpointInterval = val
         }

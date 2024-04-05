@@ -28,7 +28,7 @@ class Preferences: Identifiable, Codable{
     
     static var defaultMaxTrackpointInLineDeviation: Double = 2.0
     
-    static var maxPlaceMergeDistance: Double = 10.0
+    static var defaultMaxPlaceMergeDistance: Double = 10.0
     
     static var defaultMaxSearchResults: Int = 5
     
@@ -51,6 +51,7 @@ class Preferences: Identifiable, Codable{
         case minVerticalTrackpointDistance
         case maxTrackpointInLineDeviation
         case maxSearchResults
+        case maxPlaceMergeDistance
     }
 
     var urlTemplate : String = osmUrl
@@ -64,6 +65,7 @@ class Preferences: Identifiable, Codable{
     var minVerticalTrackpointDistance = defaultMinVerticalTrackpointDistance
     var maxTrackpointInLineDeviation = defaultMaxTrackpointInLineDeviation
     var maxSearchResults = defaultMaxSearchResults
+    var maxPlaceMergeDistance: Double = defaultMaxPlaceMergeDistance
     
     init(){
     }
@@ -79,6 +81,7 @@ class Preferences: Identifiable, Codable{
         minVerticalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minVerticalTrackpointDistance) ?? Preferences.defaultMinVerticalTrackpointDistance
         maxTrackpointInLineDeviation = try values.decodeIfPresent(Double.self, forKey: .maxTrackpointInLineDeviation) ?? Preferences.defaultMaxTrackpointInLineDeviation
         maxSearchResults = try values.decodeIfPresent(Int.self, forKey: .maxSearchResults) ?? Preferences.defaultMaxSearchResults
+        maxPlaceMergeDistance = try values.decodeIfPresent(Double.self, forKey: .maxPlaceMergeDistance) ?? Preferences.defaultMaxPlaceMergeDistance
     }
     
     func encode(to encoder: Encoder) throws {
@@ -91,6 +94,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(minVerticalTrackpointDistance, forKey: .minVerticalTrackpointDistance)
         try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
         try container.encode(maxSearchResults, forKey: .maxSearchResults)
+        try container.encode(maxPlaceMergeDistance, forKey: .maxPlaceMergeDistance)
     }
     
     func save(){

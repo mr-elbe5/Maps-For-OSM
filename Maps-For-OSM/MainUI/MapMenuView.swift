@@ -24,7 +24,7 @@ class MapMenuView: UIView {
         
         let insets = UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5)
         
-        let crossButton = UIButton().asIconButton("plus.circle")
+        let crossButton = UIButton().asIconButton("plus.circle", color: .systemBlue)
         addSubviewWithAnchors(crossButton, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 10, left: 5, bottom: 20, right: 5))
         crossButton.addAction(UIAction(){ action in
             AppState.shared.showCross = !AppState.shared.showCross

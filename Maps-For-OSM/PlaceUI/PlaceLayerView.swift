@@ -78,12 +78,18 @@ class PlaceLayerView: UIView {
         updatePosition(offset: offset, scale: scale)
     }
     
-    func getMarker(location: Place) -> Marker?{
+    func updateMarker(for place: Place){
+        if let marker = getMarker(place: place){
+            marker.updateImage()
+        }
+    }
+    
+    func getMarker(place: Place) -> Marker?{
         for subview in subviews{
-            if let marker = subview as? PlaceMarker, marker.place == location{
+            if let marker = subview as? PlaceMarker, marker.place == place{
                 return marker
             }
-            if let marker = subview as? PlaceGroupMarker, marker.placeGroup.hasLocation(location: location){
+            if let marker = subview as? PlaceGroupMarker, marker.placeGroup.hasLocation(location: place){
                 return marker
             }
         }
@@ -109,7 +115,7 @@ class PlaceLayerView: UIView {
     }
     
     func updatePlaceStatus(_ place: Place){
-        if let marker = getMarker(location: place){
+        if let marker = getMarker(place: place){
             marker.updateImage()
         }
     }

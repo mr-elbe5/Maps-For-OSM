@@ -15,9 +15,9 @@ class TrackListViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
-    let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
+    let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var delegate: TrackDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
@@ -52,7 +52,6 @@ class TrackListViewController: PopupTableViewController{
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = TrackListInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }
@@ -163,7 +162,7 @@ extension TrackListViewController : TrackDetailDelegate{
     
 }
 
-extension TrackListViewController : TrackDelegate{
+extension TrackListViewController : PlaceDelegate{
     
     func placeChanged(place: Place) {
         self.delegate?.placeChanged(place: place)

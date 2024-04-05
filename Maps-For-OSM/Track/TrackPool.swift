@@ -30,8 +30,11 @@ class TrackPool{
             Log.info("adding tracks to places")
             for track in list{
                 if let coordinate = track .startCoordinate{
-                    let place = PlacePool.assertPlace(coordinate: coordinate)
-                    place.addItem(item: track)
+                    var place = PlacePool.getPlace(coordinate: coordinate)
+                    if place == nil{
+                        place = PlacePool.createPlace(coordinate: coordinate)
+                    }
+                    place!.addItem(item: track)
                 }
             }
             PlacePool.save()

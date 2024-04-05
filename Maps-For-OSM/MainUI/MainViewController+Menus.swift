@@ -115,7 +115,6 @@ extension MainViewController: MainMenuDelegate{
     
     func openInfo() {
         let controller = MainInfoViewController()
-        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
     
@@ -171,11 +170,24 @@ extension MainViewController: PHPickerViewControllerDelegate{
                     if let uiimage = uiimage as? UIImage {
                         //Log.debug("got image \(uiimage.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
-                            let place = PlacePool.assertPlace(coordinate: coordinate)
+                            var newPlace = false
+                            var place = PlacePool.getPlace(coordinate: coordinate)
+                            if place == nil{
+                                place = PlacePool.createPlace(coordinate: coordinate)
+                                newPlace = true
+                            }
                             let image = Image()
                             image.creationDate = creationDate ?? Date()
                             image.saveImage(uiImage: uiimage)
-                            place.addItem(item: image)
+                            place!.addItem(item: image)
+                            DispatchQueue.main.async {
+                                if newPlace{
+                                    self.placesChanged()
+                                }
+                                else{
+                                    self.placeChanged(place: place!)
+                                }
+                            }
                         }
                     }
                 }
@@ -185,20 +197,32 @@ extension MainViewController: PHPickerViewControllerDelegate{
                     if let url = url {
                         //Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
-                            let place = PlacePool.assertPlace(coordinate: coordinate)
+                            var newPlace = false
+                            var place = PlacePool.getPlace(coordinate: coordinate)
+                            if place == nil{
+                                place = PlacePool.createPlace(coordinate: coordinate)
+                                newPlace = true
+                            }
                             let video = Video()
                             video.creationDate = creationDate ?? Date()
                             video.setFileNameFromURL(url)
                             if let data = FileController.readFile(url: url){
                                 video.saveFile(data: data)
-                                place.addItem(item: video)
+                                place!.addItem(item: video)
+                                DispatchQueue.main.async {
+                                    if newPlace{
+                                        self.placesChanged()
+                                    }
+                                    else{
+                                        self.placeChanged(place: place!)
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        placesChanged()
         picker.dismiss(animated: false)
     }
     
@@ -238,10 +262,22 @@ extension MainViewController : UIDocumentPickerDelegate{
             track.startTime = track.trackpoints.first?.timestamp ?? Date()
             track.endTime = track.trackpoints.last?.timestamp ?? Date()
             track.creationDate = track.startTime
-            let place = PlacePool.assertPlace(coordinate: track.startCoordinate!)
-            place.addItem(item: track)
+            var newPlace = false
+            var place = PlacePool.getPlace(coordinate: track.startCoordinate!)
+            if place == nil{
+                place = PlacePool.createPlace(coordinate: track.startCoordinate!)
+                newPlace = true
+            }
+            place!.addItem(item: track)
             PlacePool.save()
-            placeChanged(place: place)
+            DispatchQueue.main.async {
+                if newPlace{
+                    self.placesChanged()
+                }
+                else{
+                    self.placeChanged(place: place!)
+                }
+            }
         }
     }
     
@@ -254,7 +290,7 @@ extension MainViewController : UIDocumentPickerDelegate{
             if Backup.unzipBackupFile(zipFileURL: url){
                 if Backup.restoreBackupFile(){
                     self.showDone(title: "success".localize(), text: "restoreDone".localize())
-                    self.mapView.updatePlaceLayer()
+                    self.mapView.updatePlaces()
                 }
             }
             spinner.stopAnimating()

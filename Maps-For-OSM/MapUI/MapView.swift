@@ -8,7 +8,6 @@ import UIKit
 import CoreLocation
 
 protocol MapPositionDelegate{
-    func showCurrentLocationMenu()
     func showCrossLocationMenu()
 }
 
@@ -50,9 +49,6 @@ class MapView: UIView {
     }
     
     func setupCurrentLocationView(){
-        currentLocationView.addAction(UIAction(){ action in
-            self.delegate?.showCurrentLocationMenu()
-        }, for: .touchDown)
         currentLocationView.backgroundColor = .clear
         addSubview(currentLocationView)
     }
@@ -71,14 +67,14 @@ class MapView: UIView {
     
     func updatePlaces(){
         placeLayerView.updatePlaces()
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        updatePlaceLayer()
+    }
+    
+    func updatePlace(for place: Place){
+        placeLayerView.updateMarker(for: place)
     }
     
     func updatePlaceLayer(){
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
-    }
-    
-    func updatePlaceLayer(for place: Place){
         placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
@@ -90,7 +86,7 @@ class MapView: UIView {
     func zoomTo(zoom: Int, animated: Bool){
         scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
         self.zoom = zoom
-        updatePlaceLayer()
+        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func setRegion(region: CoordinateRegion){

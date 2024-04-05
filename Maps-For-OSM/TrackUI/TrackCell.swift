@@ -12,7 +12,7 @@ class TrackCell: PlaceItemCell{
     
     var track : Track? = nil
     
-    var delegate: TrackDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()

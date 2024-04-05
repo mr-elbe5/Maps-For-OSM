@@ -43,7 +43,6 @@ class SearchViewController: PopupTableViewController{
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = SearchInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }

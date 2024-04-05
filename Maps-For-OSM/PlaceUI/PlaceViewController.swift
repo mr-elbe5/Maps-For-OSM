@@ -16,11 +16,12 @@ class PlaceViewController: PopupTableViewController{
     let addAudioButton = UIButton().asIconButton("mic", color: .label)
     let addNoteButton = UIButton().asIconButton("pencil.and.list.clipboard", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
-    let deleteButton = UIButton().asIconButton("trash", color: .red)
+    let deleteSelectedButton = UIButton().asIconButton("trash.square", color: .red)
+    let deletePlaceButton = UIButton().asIconButton("trash", color: .red)
     
     var place: Place
     
-    var delegate: TrackDelegate? = nil
+    var delegate: PlaceDelegate? = nil
     
     init(location: Place){
         self.place = location
@@ -77,17 +78,22 @@ class PlaceViewController: PopupTableViewController{
         }, for: .touchDown)
         selectAllButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addAction(UIAction(){ action in
+        headerView.addSubviewWithAnchors(deleteSelectedButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deleteSelectedButton.addAction(UIAction(){ action in
             self.deleteSelected()
         }, for: .touchDown)
-        deleteButton.isHidden = !tableView.isEditing
+        deleteSelectedButton.isHidden = !tableView.isEditing
+        
+        headerView.addSubviewWithAnchors(deletePlaceButton, top: headerView.topAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deletePlaceButton.addAction(UIAction(){ action in
+            self.deletePlace()
+        }, for: .touchDown)
+        deletePlaceButton.isHidden = !tableView.isEditing
         
         let infoButton = UIButton().asIconButton("info.circle")
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PlaceInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }
@@ -149,7 +155,8 @@ class PlaceViewController: PopupTableViewController{
             addAudioButton.isHidden = true
             addNoteButton.isHidden = true
             selectAllButton.isHidden = true
-            deleteButton.isHidden = true
+            deleteSelectedButton.isHidden = true
+            deletePlaceButton.isHidden = true
         }
         else{
             editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
@@ -158,7 +165,8 @@ class PlaceViewController: PopupTableViewController{
             addAudioButton.isHidden = false
             addNoteButton.isHidden = false
             selectAllButton.isHidden = false
-            deleteButton.isHidden = false
+            deleteSelectedButton.isHidden = false
+            deletePlaceButton.isHidden = false
         }
         place.deselectAllItems()
         tableView.reloadData()
@@ -199,46 +207,13 @@ class PlaceViewController: PopupTableViewController{
         }
     }
     
-}
-
-extension PlaceViewController: NoteViewDelegate, AudioCaptureDelegate{
-    
-    func addNote(note: String, coordinate: CLLocationCoordinate2D) {
-        if !note.isEmpty{
-            let place = PlacePool.assertPlace(coordinate: coordinate)
-            let item = Note()
-            item.text = note
-            place.addItem(item: item)
-            PlacePool.save()
-            tableView.reloadData()
+    func deletePlace(){
+        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deleteHint".localize()){
+            print("deleting place")
+            PlacePool.deletePlace(self.place)
+            self.delegate?.placesChanged()
+            self.dismiss(animated: false)
         }
-    }
-    
-    func audioCaptured(item: Audio){
-        if let coordinate = LocationService.shared.location?.coordinate{
-            let location = PlacePool.assertPlace(coordinate: coordinate)
-            location.addItem(item: item)
-            PlacePool.save()
-            tableView.reloadData()
-            DispatchQueue.main.async {
-                self.delegate?.placeChanged(place: item.place)
-            }
-        }
-    }
-}
-
-extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = Image()
-        //image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            place.addItem(item: image)
-            PlacePool.save()
-            self.tableView.reloadData()
-        }
-        picker.dismiss(animated: false)
     }
     
 }
@@ -343,7 +318,89 @@ extension PlaceViewController : PlaceDelegate{
         delegate?.showPlaceOnMap(place: place)
     }
     
+    func viewTrackItem(item: Track) {
+        let controller = TrackViewController(track: item)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func showTrackItemOnMap(item: Track) {
+        self.dismiss(animated: true){
+            self.delegate?.showTrackItemOnMap(item: item)
+        }
+    }
+    
 }
+
+extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let imageURL = info[.imageURL] as? URL else {return}
+        let image = Image()
+        //image.setFileNameFromURL(imageURL)
+        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
+            place.addItem(item: image)
+            PlacePool.save()
+            self.tableView.reloadData()
+        }
+        picker.dismiss(animated: false)
+    }
+    
+}
+
+extension PlaceViewController: NoteViewDelegate{
+    
+    func addNote(text: String, coordinate: CLLocationCoordinate2D) {
+        if !text.isEmpty{
+            let item = Note()
+            item.text = text
+            var newPlace = false
+            var place = PlacePool.getPlace(coordinate: coordinate)
+            if place == nil{
+                place = PlacePool.createPlace(coordinate: coordinate)
+                newPlace = true
+            }
+            place!.addItem(item: item)
+            PlacePool.save()
+            tableView.reloadData()
+            DispatchQueue.main.async {
+                if newPlace{
+                    self.placesChanged()
+                }
+                else{
+                    self.placeChanged(place: place!)
+                }
+            }
+        }
+    }
+    
+}
+
+extension PlaceViewController: AudioCaptureDelegate{
+    
+    func audioCaptured(audio: Audio){
+        if let coordinate = LocationService.shared.location?.coordinate{
+            var newPlace = false
+            var place = PlacePool.getPlace(coordinate: coordinate)
+            if place == nil{
+                place = PlacePool.createPlace(coordinate: coordinate)
+                newPlace = true
+            }
+            place!.addItem(item: audio)
+            PlacePool.save()
+            tableView.reloadData()
+            DispatchQueue.main.async {
+                if newPlace{
+                    self.placesChanged()
+                }
+                else{
+                    self.placeChanged(place: place!)
+                }
+            }
+        }
+    }
+}
+
 
 extension PlaceViewController : VideoItemCellDelegate{
     
@@ -363,22 +420,6 @@ extension PlaceViewController : ImageDelegate{
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
-    }
-    
-}
-
-extension PlaceViewController : TrackDelegate{
-    
-    func viewTrackItem(item: Track) {
-        let controller = TrackViewController(track: item)
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
-    }
-    
-    func showTrackItemOnMap(item: Track) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackItemOnMap(item: item)
-        }
     }
     
 }

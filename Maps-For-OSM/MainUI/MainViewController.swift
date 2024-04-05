@@ -45,9 +45,9 @@ class MainViewController: UIViewController {
         mapView.frame = view.bounds
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
+        mapView.setupCurrentLocationView()
         mapView.setupPlaceLayerView(controller: self)
         mapView.setupCrossView()
-        mapView.setupCurrentLocationView()
     }
     
     func setupMainMenuView(layoutGuide: UILayoutGuide){
@@ -114,11 +114,11 @@ class MainViewController: UIViewController {
     }
     
     func placeChanged(place: Place) {
-        mapView.updatePlaceLayer(for: place)
+        mapView.updatePlace(for: place)
     }
     
     func placesChanged() {
-        mapView.updatePlaceLayer()
+        mapView.updatePlaces()
     }
     
 }

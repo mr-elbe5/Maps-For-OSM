@@ -26,7 +26,7 @@ class TrackListInfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "pencil", key: "startEditingIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "pencil.slash", key: "endEditingIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "checkmark.square", key: "selectAllIconInfoText"))
-        stackView.addArrangedSubview(IconInfoText(icon: "trash", key: "deleteSelectedIconInfoText", iconColor: .red))
+        stackView.addArrangedSubview(IconInfoText(icon: "trash.square", key: "deleteSelectedIconInfoText", iconColor: .red))
         stackView.addSpacer()
         stackView.addArrangedSubview(IconInfoText(icon: "info", key: "infoIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "xmark", key: "closeIconInfoText"))

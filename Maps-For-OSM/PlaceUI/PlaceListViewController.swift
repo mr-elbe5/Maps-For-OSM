@@ -13,7 +13,7 @@ class PlaceListViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
-    let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
+    let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
 
     var delegate: PlaceDelegate? = nil
     
@@ -49,7 +49,6 @@ class PlaceListViewController: PopupTableViewController{
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PlaceListInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }

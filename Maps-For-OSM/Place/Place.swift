@@ -103,7 +103,7 @@ class Place : Selectable{
     init(coordinate: CLLocationCoordinate2D){
         items = Array<PlaceItem>()
         mapPoint = MapPoint(coordinate)
-        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
+        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxPlaceMergeDistance)
         self.coordinate = coordinate
         altitude = 0
         timestamp = Date()
@@ -117,7 +117,7 @@ class Place : Selectable{
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapPoint = MapPoint(coordinate)
-        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.maxPlaceMergeDistance)
+        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxPlaceMergeDistance)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
@@ -209,4 +209,6 @@ protocol PlaceDelegate{
     func placeChanged(place: Place)
     func placesChanged()
     func showPlaceOnMap(place: Place)
+    func viewTrackItem(item: Track)
+    func showTrackItemOnMap(item: Track)
 }

@@ -18,6 +18,23 @@
         }
       }
     },
+    "actionMenuInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktionen dieses Menüs beziehen sich auf den aktuellen Standort."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Action of this menu are related to the current position."
+          }
+        }
+      }
+    },
     "addImageInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -75,13 +92,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung (Nadel) erstellt werden. Existiert in der unmittelbaren Nähe bereits ein markierter Ort, kann dieser benutzt werden."
+            "value" : "Wenn das Kreuz aktiviert ist, kann durch Tippen darauf eine Markierung erstellt  oder Medien hinzugefügt werden. Existiert in der unmittelbaren Nähe (siehe Einstellungen) bereits ein markierter Ort, kann dieser benutzt werden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "When the cross is active, a place marker can be created by tapping on the cross. If a place marker already exists in the direct vicinity, this place marker is used."
+            "value" : "When the cross is active, a menu for marking the place or adding media opens by tapping on the cross. If a place marker already exists in the direct vicinity (see settings), this place marker is used."
           }
         }
       }
@@ -215,13 +232,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nDurch Antippen öffnet sich ein Menü für das Markieren oder das Hinzufügen von Fotos, Audios und Videos oder einer Notiz."
+            "value" : "Anzeige der aktuellen Position und Richtung (rotes Dreieck).\nWenn die Position nicht genau genug bestimmt werden kann, bewegt sich die Farbe in Richtung Lila.\nFotos, Audios und Videos oder eine Notiz können durch das linke Menü hinzugefügt werden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nOn tapping a menu opens for marking or adding photos, audios and videos or a note."
+            "value" : "Shows the current position and direction (red triangle).\nIf the position is not exact, the color moves to purple.\nPhotos, audios, videos or a note can be added using the left menu."
           }
         }
       }
@@ -243,19 +260,19 @@
         }
       }
     },
-    "deletePlacesInfoText" : {
+    "deletePlaceIconInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alle markierten Orte einschliesslich der zugeordneten Medien löschen"
+            "value" : "Diesen Ort einschliesslich der zugeordneten Fotos, Audios, Videos und Notizen löschen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete all places and all assigned photos and tracks"
+            "value" : "Delete this place with all assigned photos, videos, audios, notes and tracks"
           }
         }
       }
@@ -266,13 +283,30 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All ausgewählten Elemente löschen"
+            "value" : "Alle ausgewählten Fotos, Audios, Videos und Notizen löschen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete all selected items"
+            "value" : "Delete all selected photos, videos, audios, notes and tracks"
+          }
+        }
+      }
+    },
+    "deleteSelectedPlacesInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle ausgewählten Orte einschliesslich der zugeordneten Fotos, Audios, Videos und Notizen löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete all selected places including all assigned photos, videos, audios, notes and tracks"
           }
         }
       }
@@ -634,6 +668,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Map Menu"
+          }
+        }
+      }
+    },
+    "maxMergeDistanceInfoText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'Maximale Entfernung von Orten zum automatischen Zusammenführen': Wenn einer neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'Maximal distance for automatically merging place': If a new place should be created and its location is closer than this distance to another place, this other place is used and no new place is created."
           }
         }
       }
@@ -1123,13 +1174,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Markierte Orte"
+            "value" : "Markierte Orte. Die Farbe zeigt den aktuellen Filter: grün für alle Orte, rot für Orte mit Medien, blau für Orte mit Tourstart, grau für Orte mit Notizen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Place Menu"
+            "value" : "Place Menu. The color show the current filter for shown places: green: all places, red only places with media, blue: only places with tour starts, gray: only places with notes"
           }
         }
       }
@@ -1209,13 +1260,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die numerischen Einstellungen dienen dem Tunen der GPS-Verfolgung. Insbesondere hat die Zeit zwischen zwei Punkten einen deutlichen Effekt auf den Stromverbrauch. Die minimale Distanz zwischen Punkten beeinflusst die Größe und Genauigkeit der Tourdaten."
+            "value" : "Die anderen numerischen Einstellungen dienen dem Tunen der GPS-Verfolgung. Insbesondere hat die Zeit zwischen zwei Punkten einen deutlichen Effekt auf den Stromverbrauch. Die minimale Distanz zwischen Punkten beeinflusst die Größe und Genauigkeit der Tourdaten."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The numerical settings serve for tuning your location tracking. Especially the time between tracking points can have a considerable effect on power consumption. The minimal distance between points affects the size and exactness of your track data."
+            "value" : "The other numerical settings serve for tuning your location tracking. Especially the time between tracking points can have a considerable effect on power consumption. The minimal distance between points affects the size and exactness of your track data."
           }
         }
       }

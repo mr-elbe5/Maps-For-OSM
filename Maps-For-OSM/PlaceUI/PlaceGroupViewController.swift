@@ -67,7 +67,6 @@ class PlaceGroupViewController: PopupTableViewController{
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PlaceGroupInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }
@@ -162,7 +161,7 @@ class PlaceGroupViewController: PopupTableViewController{
         }
     }
     
-    func mergePlaces(_ places: Array<Place>) -> Place?{
+    private func mergePlaces(_ places: Array<Place>) -> Place?{
         let count = places.count
         if count < 2{
             return nil

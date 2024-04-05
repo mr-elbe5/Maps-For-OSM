@@ -46,7 +46,7 @@ class MainInfoViewController: PopupScrollViewController {
         
         // main menu
         stackView.addSpacer()
-        stackView.addArrangedSubview(IconInfoText(icon: "mappin", key: "placeMenuInfoText"))
+        stackView.addArrangedSubview(IconInfoText(icon: "mappin", key: "placeMenuInfoText", iconColor: .systemGreen))
         stackView.addArrangedSubview(IconInfoText(icon: "list.bullet", key: "placeListInfoText", leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "mappin", key: "showPlacesInfoText", leftInset: subInset))
         stackView.addArrangedSubview(IconInfoText(icon: "mappin.slash", key: "hidePlacesInfoText", leftInset: subInset))
@@ -77,7 +77,7 @@ class MainInfoViewController: PopupScrollViewController {
         stackView.addSpacer()
         stackView.addArrangedSubview(InfoHeader(key: "mapMenuInfoHeader"))
         stackView.addSpacer()
-        stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", key: "crossIconInfoText"))
+        stackView.addArrangedSubview(IconInfoText(icon: "plus.circle", key: "crossIconInfoText", iconColor: .systemBlue))
         stackView.addArrangedSubview(IconInfoText(icon: "plus", key: "zoomInInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "minus", key: "zoomOutInfoText"))
         

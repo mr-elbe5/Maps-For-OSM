@@ -17,7 +17,7 @@ class ImageListViewController: PopupTableViewController{
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
-    let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
+    let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
     var delegate: ImageDelegate? = nil
     
@@ -60,7 +60,6 @@ class ImageListViewController: PopupTableViewController{
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = ImageListInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
             self.present(controller, animated: true)
         }, for: .touchDown)
     }
@@ -251,6 +250,12 @@ extension ImageListViewController : ImageDelegate{
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
+    }
+    
+    func viewTrackItem(item: Track) {
+    }
+    
+    func showTrackItemOnMap(item: Track) {
     }
     
 }

@@ -18,6 +18,40 @@
         }
       }
     },
+    "addAudio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonaufnahme hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Audio"
+          }
+        }
+      }
+    },
+    "addImage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Image"
+          }
+        }
+      }
+    },
     "addNote" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1572,6 +1606,23 @@
         }
       }
     },
+    "maxMergeDistance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximale Entfernung von Orten zum automatischen Zusammenführen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximal distance for automatically merging places"
+          }
+        }
+      }
+    },
     "maxSpeedUncertaintyFactor" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1629,13 +1680,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Orte mit Medien anzeigen"
+            "value" : "Nur Orte mit Medien anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show places with media"
+            "value" : "Show only places with media"
           }
         }
       }
@@ -1833,13 +1884,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Orte mit Notizen anzeigen"
+            "value" : "Nur Orte mit Notizen anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show places with notes"
+            "value" : "Show only places with notes"
           }
         }
       }
@@ -3038,13 +3089,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Orte mit Tourstarts anzeigen"
+            "value" : "Nur Orte mit Tourstart anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show places with tour starts"
+            "value" : "Show only places with tour starts"
           }
         }
       }

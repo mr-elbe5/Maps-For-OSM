@@ -7,7 +7,7 @@
 import UIKit
 import CoreLocation
 
-class CurrentLocationView : UIButton{
+class CurrentLocationView : UIView{
     
     static var currentLocationColor = UIColor.systemBlue
     static var currentDirectionColor = UIColor.red
