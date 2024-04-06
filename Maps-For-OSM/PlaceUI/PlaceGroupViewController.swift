@@ -12,7 +12,7 @@ class PlaceGroupViewController: PopupTableViewController{
     
     var group: PlaceGroup
     
-    let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
@@ -63,7 +63,7 @@ class PlaceGroupViewController: PopupTableViewController{
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
         
-        let infoButton = UIButton().asIconButton("info.circle")
+        let infoButton = UIButton().asIconButton("info")
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PlaceGroupInfoViewController()

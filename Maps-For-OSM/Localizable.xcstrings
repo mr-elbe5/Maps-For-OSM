@@ -394,6 +394,23 @@
         }
       }
     },
+    "confirmDeleteImages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wollen Sie die auswählten Bilder löschen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to delete the selected images?"
+          }
+        }
+      }
+    },
     "confirmDeleteItems" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1612,13 +1629,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Maximale Entfernung von Orten zum automatischen Zusammenführen"
+            "value" : "Maximale Entfernung von Orten zum automatischen Zusammenführen [m]"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Maximal distance for automatically merging places"
+            "value" : "Maximal distance for automatically merging places [m]"
           }
         }
       }

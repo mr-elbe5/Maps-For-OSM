@@ -63,7 +63,7 @@ class MainInfoViewController: PopupScrollViewController {
         stackView.addArrangedSubview(IconInfoText(icon: "record.circle", key: "centerIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "magnifyingglass", key: "searchIconInfoText"))
         stackView.addArrangedSubview(IconInfoText(icon: "gearshape", key: "gearIconInfoText"))
-        stackView.addArrangedSubview(IconInfoText(icon: "info.circle", key: "infoIconInfoText"))
+        stackView.addArrangedSubview(IconInfoText(icon: "info", key: "infoIconInfoText"))
         
         stackView.addSpacer()
         stackView.addArrangedSubview(InfoHeader(key: "actionMenuInfoHeader"))

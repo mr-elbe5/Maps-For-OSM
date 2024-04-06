@@ -24,7 +24,7 @@ class TrackViewController: PopupScrollViewController{
     
     var editMode = false
     
-    let editButton = UIButton().asIconButton("pencil.circle", color: .label)
+    let editButton = UIButton().asIconButton("pencil", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .white)
     let mapButton = UIButton().asIconButton("map", color: .white)
     
@@ -66,7 +66,7 @@ class TrackViewController: PopupScrollViewController{
             }
         }, for: .touchDown)
         
-        let infoButton = UIButton().asIconButton("info.circle")
+        let infoButton = UIButton().asIconButton("info")
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = TrackInfoViewController()

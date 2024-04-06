@@ -678,13 +678,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "'Maximale Entfernung von Orten zum automatischen Zusammenführen': Wenn einer neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
+            "value" : "'Maximale Entfernung von Orten zum automatischen Zusammenführen': Wenn ein neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "'Maximal distance for automatically merging place': If a new place should be created and its location is closer than this distance to another place, this other place is used and no new place is created."
+            "value" : "'Maximal distance for automatically merging place': If a new place is needed and its location is closer than this distance to another place, this place is used and no new place is created."
           }
         }
       }

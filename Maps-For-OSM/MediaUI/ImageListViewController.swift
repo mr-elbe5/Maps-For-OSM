@@ -56,7 +56,7 @@ class ImageListViewController: PopupTableViewController{
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
         
-        let infoButton = UIButton().asIconButton("info.circle")
+        let infoButton = UIButton().asIconButton("info")
         headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = ImageListInfoViewController()

@@ -39,7 +39,7 @@ extension CameraViewController{
         
         var rightAnchor = bodyView.trailingAnchor
         if !CameraViewController.isMainController{
-            closeButton.setup(icon: "x.circle")
+            closeButton.setup(icon: "xmark")
             closeButton.addAction(UIAction(){ action in
                 if !CameraViewController.isMainController{
                     self.dismiss(animated: true)
@@ -51,7 +51,7 @@ extension CameraViewController{
         }
         
         let infoButton = CameraIconButton()
-        infoButton.setup(icon: "info.circle")
+        infoButton.setup(icon: "info")
         infoButton.addAction(UIAction(){ action in
             let controller = CameraInfoViewController()
             self.present(controller, animated: false)
