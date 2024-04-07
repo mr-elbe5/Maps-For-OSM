@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import CloudKit
 
 class MediaItem : PlaceItem{
     
@@ -13,6 +14,9 @@ class MediaItem : PlaceItem{
         case fileName
         case title
     }
+    
+    static var fileNameKey = "fileName"
+    static var dataKey = "data"
     
     var title: String
     
@@ -31,6 +35,12 @@ class MediaItem : PlaceItem{
             Log.error("MediaFile file has no name")
         }
         return FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
+    }
+    
+    var recordId : CKRecord.ID{
+        get{
+            CKRecord.ID(recordName: id.uuidString)
+        }
     }
     
     override init(){
@@ -90,6 +100,21 @@ class MediaItem : PlaceItem{
         }
         else{
             Log.error("MediaFile exists \(fileName)")
+        }
+    }
+    
+    func saveToICloud(){
+        let record = CKRecord(recordType: CKRecord.fileType, recordID: recordId)
+        let data = FileController.readFile(url: fileURL)
+        record[MediaItem.fileNameKey] = fileName
+        record[MediaItem.dataKey] = data
+        CKContainer.saveToICloud(records: [record])
+    }
+    
+    func loadFromICloud(record: CKRecord){
+        if let data = record.value(forKey: MediaItem.dataKey) as? Data, let fileName : String = record.value(forKey: MediaItem.fileNameKey) as? String{
+            self.fileName = fileName
+            FileController.saveFile(data: data, url: fileURL)
         }
     }
     

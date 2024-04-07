@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E02524A2BC2CD650010D234 /* CKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252492BC2CD650010D234 /* CKRecord.swift */; };
+		4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524D2BC2D7890010D234 /* CKContainer.swift */; };
+		4E0252502BC2E2310010D234 /* CKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524F2BC2E2310010D234 /* CKOperation.swift */; };
 		4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3A274E3C4300D56ED7 /* StatusView.swift */; };
 		4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3C274E420800D56ED7 /* TimeInterval.swift */; };
 		4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08A329298976F2001D86F1 /* TrackpointList.swift */; };
@@ -170,6 +173,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
+		4E0252492BC2CD650010D234 /* CKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecord.swift; sourceTree = "<group>"; };
+		4E02524D2BC2D7890010D234 /* CKContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKContainer.swift; sourceTree = "<group>"; };
+		4E02524F2BC2E2310010D234 /* CKOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKOperation.swift; sourceTree = "<group>"; };
 		4E025E3A274E3C4300D56ED7 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E08A329298976F2001D86F1 /* TrackpointList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpointList.swift; sourceTree = "<group>"; };
@@ -346,9 +353,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E0252482BC2CD3A0010D234 /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				4E0252492BC2CD650010D234 /* CKRecord.swift */,
+				4E02524D2BC2D7890010D234 /* CKContainer.swift */,
+				4E02524F2BC2E2310010D234 /* CKOperation.swift */,
+			);
+			path = iCloud;
+			sourceTree = "<group>";
+		};
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
+				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
 			);
@@ -378,6 +396,7 @@
 				4E24F48B27345DD5004E69C2 /* Extensions */,
 				4E0BD99E26EA010A005A4A94 /* Base */,
 				4E0BD99726EA0020005A4A94 /* Application */,
+				4E0252482BC2CD3A0010D234 /* iCloud */,
 				4EF353192BB56AE900A0A85B /* Preferences */,
 				4EF3531A2BB56B1000A0A85B /* PreferencesUI */,
 				4E4B0A392BAED95700838EC0 /* MainUI */,
@@ -803,6 +822,7 @@
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */,
 				4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */,
+				4E02524A2BC2CD650010D234 /* CKRecord.swift in Sources */,
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
 				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */,
 				4E31A656293F4C44002080F6 /* UIView+Subviews.swift in Sources */,
@@ -897,6 +917,7 @@
 				4EF3530C2BB333FE00A0A85B /* Nominatim.swift in Sources */,
 				4E30798F28D74EB2005FBEF0 /* TileRegion.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
+				4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */,
 				4E31A652293F4B47002080F6 /* UIView+Insets.swift in Sources */,
 				4ECC1AD62BA360B100B9CCBD /* LocationMenuViewController.swift in Sources */,
 				4E1982C52BAC246600A37AE0 /* NoteCell.swift in Sources */,
@@ -916,6 +937,7 @@
 				4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
+				4E0252502BC2E2310010D234 /* CKOperation.swift in Sources */,
 				4E4424832B94FA100007A26F /* CameraInfoViewController.swift in Sources */,
 				4E4424882B94FA100007A26F /* CameraViewController+Session.swift in Sources */,
 				4E0BD9D426EA02BA005A4A94 /* AVCaptureDevice.swift in Sources */,
@@ -1078,6 +1100,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 5UG99476V8;
@@ -1106,6 +1129,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 5UG99476V8;

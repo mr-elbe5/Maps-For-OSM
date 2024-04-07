@@ -7,6 +7,7 @@
 import Foundation
 import CoreLocation
 import UIKit
+import CloudKit
 
 enum PlaceFilter: String{
     case all
@@ -18,6 +19,8 @@ enum PlaceFilter: String{
 class PlacePool{
     
     static var storeKey = "locations"
+    static var recordKey = "jsonString"
+    static var recordId = CKRecord.ID(recordName: storeKey)
     
     static private var _lock = DispatchSemaphore(value: 1)
     
@@ -72,12 +75,14 @@ class PlacePool{
         else{
             PlacePool.places = Array<Place>()
         }
+        CKContainer.loadFromICloud(recordIds: [recordId], processRecord: readFromICloud)
     }
     
     static func save(){
         _lock.wait()
         defer{_lock.signal()}
         DataController.shared.save(forKey: PlacePool.storeKey, value: places)
+        saveToICloud()
     }
     
     static func saveAsFile() -> URL?{
@@ -89,8 +94,21 @@ class PlacePool{
         return nil
     }
     
+    static func saveToICloud(){
+        let value = places.toJSON()
+        let record = CKRecord(recordType: CKRecord.jsonType, recordID: recordId)
+        record[recordKey] = value
+        CKContainer.saveToICloud(records: [record])
+    }
+    
     static func loadFromFile(url: URL){
         if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
+            places = data
+        }
+    }
+    
+    static func readFromICloud(record: CKRecord){
+        if let json = record.value(forKey: recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
             places = data
         }
     }
