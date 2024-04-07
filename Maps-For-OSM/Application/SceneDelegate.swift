@@ -12,14 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Log.info("SceneDelegate will connect")
-        AppState.loadInstance()
-        FileController.initialize()
-        Preferences.loadInstance()
-        TrackPool.load()
-        PlacePool.load()
-        TrackPool.addTracksToPlaces()
-        PlacePool.addNotesToPlaces()
-        PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
+        AppLoader.initialize()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -45,9 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         Log.info("SceneDelegate resigning active")
-        AppState.shared.save()
-        Preferences.shared.save()
-        PlacePool.save()
+        AppLoader.saveInitalizationData()
+        AppLoader.saveData()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()

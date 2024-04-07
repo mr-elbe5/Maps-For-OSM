@@ -52,6 +52,7 @@ class Preferences: Identifiable, Codable{
         case maxTrackpointInLineDeviation
         case maxSearchResults
         case maxPlaceMergeDistance
+        case loadFromICloud
     }
 
     var urlTemplate : String = osmUrl
@@ -66,6 +67,8 @@ class Preferences: Identifiable, Codable{
     var maxTrackpointInLineDeviation = defaultMaxTrackpointInLineDeviation
     var maxSearchResults = defaultMaxSearchResults
     var maxPlaceMergeDistance: Double = defaultMaxPlaceMergeDistance
+    
+    var loadFromICloud = false
     
     init(){
     }
@@ -82,6 +85,7 @@ class Preferences: Identifiable, Codable{
         maxTrackpointInLineDeviation = try values.decodeIfPresent(Double.self, forKey: .maxTrackpointInLineDeviation) ?? Preferences.defaultMaxTrackpointInLineDeviation
         maxSearchResults = try values.decodeIfPresent(Int.self, forKey: .maxSearchResults) ?? Preferences.defaultMaxSearchResults
         maxPlaceMergeDistance = try values.decodeIfPresent(Double.self, forKey: .maxPlaceMergeDistance) ?? Preferences.defaultMaxPlaceMergeDistance
+        loadFromICloud = try values.decodeIfPresent(Bool.self, forKey: .loadFromICloud) ?? false
     }
     
     func encode(to encoder: Encoder) throws {
@@ -95,6 +99,7 @@ class Preferences: Identifiable, Codable{
         try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
         try container.encode(maxSearchResults, forKey: .maxSearchResults)
         try container.encode(maxPlaceMergeDistance, forKey: .maxPlaceMergeDistance)
+        try container.encode(loadFromICloud, forKey: .loadFromICloud)
     }
     
     func save(){

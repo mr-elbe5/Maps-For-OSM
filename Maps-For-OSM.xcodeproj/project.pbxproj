@@ -10,6 +10,7 @@
 		4E02524A2BC2CD650010D234 /* CKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252492BC2CD650010D234 /* CKRecord.swift */; };
 		4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524D2BC2D7890010D234 /* CKContainer.swift */; };
 		4E0252502BC2E2310010D234 /* CKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524F2BC2E2310010D234 /* CKOperation.swift */; };
+		4E0252522BC3262E0010D234 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252512BC3262E0010D234 /* AppLoader.swift */; };
 		4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3A274E3C4300D56ED7 /* StatusView.swift */; };
 		4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3C274E420800D56ED7 /* TimeInterval.swift */; };
 		4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08A329298976F2001D86F1 /* TrackpointList.swift */; };
@@ -177,6 +178,7 @@
 		4E0252492BC2CD650010D234 /* CKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecord.swift; sourceTree = "<group>"; };
 		4E02524D2BC2D7890010D234 /* CKContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKContainer.swift; sourceTree = "<group>"; };
 		4E02524F2BC2E2310010D234 /* CKOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKOperation.swift; sourceTree = "<group>"; };
+		4E0252512BC3262E0010D234 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
 		4E025E3A274E3C4300D56ED7 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E08A329298976F2001D86F1 /* TrackpointList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpointList.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
+				4E0252512BC3262E0010D234 /* AppLoader.swift */,
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
 				4E4424942B961D690007A26F /* Backup.swift */,
 				4E7C4E522BB071F8001494E9 /* LocationDelegate.swift */,
@@ -862,6 +865,7 @@
 				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,
 				4E2088E92743AD920097BFBA /* CLLocationCoordinate2D.swift in Sources */,
+				4E0252522BC3262E0010D234 /* AppLoader.swift in Sources */,
 				4E3A416728D8896F004C9D90 /* SearchQuery.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */,
 				4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */,

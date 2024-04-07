@@ -43,6 +43,16 @@ class MediaItem : PlaceItem{
         }
     }
     
+    var record: CKRecord{
+        get{
+            let record = CKRecord(recordType: CKRecord.fileType, recordID: recordId)
+            let data = FileController.readFile(url: fileURL)
+            record[MediaItem.fileNameKey] = fileName
+            record[MediaItem.dataKey] = data
+            return record
+        }
+    }
+    
     override init(){
         fileName = ""
         title = ""

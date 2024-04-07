@@ -94,7 +94,7 @@ class Place : Selectable{
         }) as! Array<Note>
     }
     
-    var media : Array<PlaceItem>{
+    var media : Array<MediaItem>{
         items.filter({
             [.image, .video, .audio].contains($0.type)
         }) as! Array<MediaItem>

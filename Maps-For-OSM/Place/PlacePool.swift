@@ -64,6 +64,16 @@ class PlacePool{
         }
     }
     
+    static var media: Array<MediaItem>{
+        get{
+            var mediaList = Array<MediaItem>()
+            for place in places{
+                mediaList.append(contentsOf: place.media)
+            }
+            return mediaList
+        }
+    }
+    
     static var size : Int{
         places.count
     }
@@ -75,7 +85,22 @@ class PlacePool{
         else{
             PlacePool.places = Array<Place>()
         }
+    }
+    
+    static func loadFromICloud(){
         CKContainer.loadFromICloud(recordIds: [recordId], processRecord: readFromICloud)
+        let media = media
+        var recordIds = Array<CKRecord.ID>()
+        for item in media{
+            recordIds.append(item.recordId)
+        }
+        CKContainer.loadFromICloud(recordIds: recordIds, processRecord: readFromICloud)
+    }
+    
+    static func readFromICloud(record: CKRecord){
+        if let json = record.value(forKey: recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
+            places = data
+        }
     }
     
     static func save(){
@@ -95,20 +120,19 @@ class PlacePool{
     }
     
     static func saveToICloud(){
-        let value = places.toJSON()
+        var records = Array<CKRecord>()
         let record = CKRecord(recordType: CKRecord.jsonType, recordID: recordId)
-        record[recordKey] = value
+        record[recordKey] = places.toJSON()
+        records.append(record)
+        let media = media
+        for item in media{
+            records.append(item.record)
+        }
         CKContainer.saveToICloud(records: [record])
     }
     
     static func loadFromFile(url: URL){
         if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
-            places = data
-        }
-    }
-    
-    static func readFromICloud(record: CKRecord){
-        if let json = record.value(forKey: recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
             places = data
         }
     }
