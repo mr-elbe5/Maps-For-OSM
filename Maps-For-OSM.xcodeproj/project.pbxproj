@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E02524A2BC2CD650010D234 /* CKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252492BC2CD650010D234 /* CKRecord.swift */; };
 		4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524D2BC2D7890010D234 /* CKContainer.swift */; };
 		4E0252502BC2E2310010D234 /* CKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524F2BC2E2310010D234 /* CKOperation.swift */; };
 		4E0252522BC3262E0010D234 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252512BC3262E0010D234 /* AppLoader.swift */; };
@@ -176,7 +175,6 @@
 
 /* Begin PBXFileReference section */
 		4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
-		4E0252492BC2CD650010D234 /* CKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecord.swift; sourceTree = "<group>"; };
 		4E02524D2BC2D7890010D234 /* CKContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKContainer.swift; sourceTree = "<group>"; };
 		4E02524F2BC2E2310010D234 /* CKOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKOperation.swift; sourceTree = "<group>"; };
 		4E0252512BC3262E0010D234 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
@@ -360,7 +358,6 @@
 		4E0252482BC2CD3A0010D234 /* iCloud */ = {
 			isa = PBXGroup;
 			children = (
-				4E0252492BC2CD650010D234 /* CKRecord.swift */,
 				4E02524D2BC2D7890010D234 /* CKContainer.swift */,
 				4E02524F2BC2E2310010D234 /* CKOperation.swift */,
 			);
@@ -820,7 +817,6 @@
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */,
 				4E6A00F5294F5390009151E3 /* CLPlacemark.swift in Sources */,
-				4E02524A2BC2CD650010D234 /* CKRecord.swift in Sources */,
 				4E4D6A0127399CA1006CD741 /* LabeledSwitchView.swift in Sources */,
 				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */,
 				4E31A656293F4C44002080F6 /* UIView+Subviews.swift in Sources */,

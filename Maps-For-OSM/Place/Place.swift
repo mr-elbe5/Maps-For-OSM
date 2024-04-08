@@ -187,6 +187,12 @@ class Place : Selectable{
         }
     }
     
+    func getItem(id: UUID) -> PlaceItem?{
+        items.first(where:{
+            $0.id == id
+        })
+    }
+    
     func deleteItem(item: PlaceItem){
         item.prepareDelete()
         items.remove(item)

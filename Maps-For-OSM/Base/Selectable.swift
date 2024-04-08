@@ -8,6 +8,8 @@ import Foundation
 
 class Selectable : NSObject, Identifiable, Codable{
     
+    static var idKey = "rid"
+    
     static func == (lhs: Selectable, rhs: Selectable) -> Bool {
         lhs.id == rhs.id
     }

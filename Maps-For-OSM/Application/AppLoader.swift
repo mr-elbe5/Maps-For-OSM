@@ -5,9 +5,8 @@
  */
 
 import Foundation
-import UIKit
-import AVKit
 import CoreLocation
+import CloudKit
 
 struct AppLoader{
     
@@ -37,12 +36,21 @@ struct AppLoader{
     }
     
     static func loadData(){
-        if Preferences.shared.loadFromICloud{
-            loadFromICloud()
+        CKContainer.default().accountStatus(){ status, error in
+            if status == .available{
+                Log.debug("loading from iCloud")
+                loadDataFromICloud()
+                return
+            }
+            else{
+                Log.debug("loading from user defaults")
+                loadFromUserDefaults()
+            }
         }
-        else{
-            loadFromUserDefaults()
-        }
+    }
+    
+    static func loadDataFromICloud(){
+        AppData.shared.loadFromICloud()
     }
     
     static func loadFromUserDefaults(){
@@ -57,22 +65,20 @@ struct AppLoader{
         AppData.shared.convertNotes()
     }
     
-    static func loadFromICloud(){
-        AppData.shared.loadFromICloud()
-    }
-    
     static func saveInitalizationData(){
         AppState.shared.save()
         Preferences.shared.save()
     }
     
     static func saveData(){
-        if Preferences.shared.loadFromICloud{
-            saveToICloud()
+        CKContainer.default().accountStatus(){ status, error in
+            if status == .available{
+                Log.debug("saving to iCloud")
+                saveToICloud()
+            }
         }
-        else{
-            saveToUserDefaults()
-        }
+        Log.debug("saving to user defaults")
+        saveToUserDefaults()
     }
     
     static func saveToUserDefaults(){

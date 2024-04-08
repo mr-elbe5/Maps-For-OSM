@@ -16,11 +16,18 @@ enum PlaceItemType: String, Codable{
 
 class PlaceItem : Selectable{
     
+    
+    static var creationDateKey = "creationDate"
+    static var changeDateKey = "changeDate"
+    static var placeIdKey = "placeId"
+    
     private enum CodingKeys: String, CodingKey {
         case creationDate
+        case changeDate
     }
     
     var creationDate : Date
+    var changeDate : Date
     var type: PlaceItemType{
         get{
             fatalError("not implemented")
@@ -32,12 +39,14 @@ class PlaceItem : Selectable{
     
     override init(){
         creationDate = Date()
+        changeDate = creationDate
         super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
+        changeDate = try values.decodeIfPresent(Date.self, forKey: .changeDate) ?? creationDate
         try super.init(from: decoder)
     }
     
@@ -45,6 +54,7 @@ class PlaceItem : Selectable{
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(creationDate, forKey: .creationDate)
+        try container.encode(changeDate, forKey: .changeDate)
     }
     
     func prepareDelete(){

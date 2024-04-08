@@ -19,7 +19,6 @@ class FileItem : PlaceItem{
     static var dataKey = "data"
     
     var title: String
-    
     var fileName : String
     
     var filePath : String{
@@ -45,8 +44,12 @@ class FileItem : PlaceItem{
     
     var fileRecord: CKRecord{
         get{
-            let record = CKRecord(recordType: CKRecord.fileType, recordID: fileRecordId)
+            let record = CKRecord(recordType: CKContainer.fileType, recordID: fileRecordId)
             let data = FileController.readFile(url: fileURL)
+            record[Selectable.idKey] = id.uuidString
+            record[PlaceItem.placeIdKey] = place.id.uuidString
+            record[PlaceItem.creationDateKey] = creationDate
+            record[PlaceItem.changeDateKey] = changeDate
             record[FileItem.fileNameKey] = fileName
             record[FileItem.dataKey] = data
             return record
@@ -110,17 +113,6 @@ class FileItem : PlaceItem{
         }
         else{
             Log.error("MediaFile exists \(fileName)")
-        }
-    }
-    
-    func saveFileToICloud(){
-        CKContainer.saveToICloud(records: [fileRecord])
-    }
-    
-    func loadFileFromICloud(record: CKRecord){
-        if let data = record.value(forKey: FileItem.dataKey) as? Data, let fileName : String = record.value(forKey: FileItem.fileNameKey) as? String{
-            self.fileName = fileName
-            FileController.saveFile(data: data, url: fileURL)
         }
     }
     

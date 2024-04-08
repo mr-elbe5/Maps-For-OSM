@@ -12,10 +12,16 @@ extension CKContainer{
     
     static var mapsForOSMContainerName = "iCloud.MapsForOSM"
     
+    static var jsonType: CKRecord.RecordType = "json"
+    static var fileType: CKRecord.RecordType = "file"
+    
     static var privateDatabase = CKContainer(identifier: mapsForOSMContainerName).privateCloudDatabase
     
-    static func loadFromICloud(recordIds: Array<CKRecord.ID>, processRecord: @escaping (CKRecord) -> Void){
-        let operation = CKFetchRecordsOperation(recordIDs: recordIds)
+    static func loadFromICloud(recordIds: Array<CKRecord.ID>? = nil, keys: Array<String>? = nil, processRecord: @escaping (CKRecord) -> Void, completion: ((Bool) -> Void)? = nil){
+        let operation = recordIds == nil ? CKFetchRecordsOperation(): CKFetchRecordsOperation(recordIDs: recordIds!)
+        if let keys = keys{
+            operation.desiredKeys = keys
+        }
         operation.perRecordResultBlock = { (id: CKRecord.ID, result: Result<CKRecord, any Error>) in
             do{
                 switch result {
@@ -28,6 +34,16 @@ extension CKContainer{
             }
             catch (let err) {
                 Log.error(error: err)
+            }
+        }
+        if let completion = completion{
+            operation.fetchRecordsResultBlock = { result in
+                switch result{
+                case .failure:
+                    completion(false)
+                case .success():
+                    completion(true)
+                }
             }
         }
         privateDatabase.add(operation)

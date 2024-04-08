@@ -82,17 +82,50 @@ class AppData{
     
     func loadFromICloud(){
         CKContainer.loadFromICloud(recordIds: [AppData.recordId], processRecord: readFromICloud)
-        let media = media
-        var recordIds = Array<CKRecord.ID>()
-        for item in media{
-            recordIds.append(item.fileRecordId)
-        }
-        CKContainer.loadFromICloud(recordIds: recordIds, processRecord: readFromICloud)
     }
     
     func readFromICloud(record: CKRecord){
         if let json = record.value(forKey: AppData.recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
             places = data
+            let keys = [Selectable.idKey, PlaceItem.placeIdKey, PlaceItem.creationDateKey, PlaceItem.changeDateKey, FileItem.fileNameKey]
+            var updateList = Array<CKRecord.ID>()
+            CKContainer.loadFromICloud(keys: keys, processRecord: { record in
+                if self.needsUpdate(record: record){
+                    updateList.append(record.recordID)
+                }
+            }, completion: { success in
+                if success{
+                    let keys = [Selectable.idKey, PlaceItem.placeIdKey, PlaceItem.creationDateKey, PlaceItem.changeDateKey, FileItem.fileNameKey, FileItem.dataKey]
+                    CKContainer.loadFromICloud(recordIds: updateList, keys: keys, processRecord: { record in
+                        self.updateFile(record: record)
+                    })
+                }
+            })
+        }
+    }
+    
+    private func needsUpdate(record: CKRecord) -> Bool{
+        if let placeId = UUID(uuidString: record.value(forKey: FileItem.placeIdKey) as? String ?? ""){
+            if let place = self.getPlace(id: placeId),
+                let fileId = UUID(uuidString: record.value(forKey: Selectable.idKey) as? String ?? ""),
+               let fileItem = place.getItem(id: fileId) as? FileItem,
+            let changeDate = record.value(forKey: PlaceItem.changeDateKey) as? Date{
+                if fileItem.changeDate < changeDate{
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    private func updateFile(record: CKRecord){
+        if let placeId = UUID(uuidString: record.value(forKey: FileItem.placeIdKey) as? String ?? ""){
+            if let place = self.getPlace(id: placeId),
+               let fileId = UUID(uuidString: record.value(forKey: Selectable.idKey) as? String ?? ""),
+               let fileItem = place.getItem(id: fileId) as? FileItem,
+               let data = record.value(forKey: FileItem.dataKey) as? Data{
+                FileController.saveFile(data: data, url: fileItem.fileURL)
+            }
         }
     }
     
@@ -112,7 +145,7 @@ class AppData{
     
     func saveToICloud(){
         var records = Array<CKRecord>()
-        let record = CKRecord(recordType: CKRecord.jsonType, recordID: AppData.recordId)
+        let record = CKRecord(recordType: CKContainer.jsonType, recordID: AppData.recordId)
         record[AppData.recordKey] = places.toJSON()
         records.append(record)
         let media = media
@@ -153,12 +186,15 @@ class AppData{
     }
     
     func getPlace(coordinate: CLLocationCoordinate2D) -> Place?{
-        for place in places{
-            if place.coordinateRegion.contains(coordinate: coordinate){
-                return place
-            }
-        }
-        return nil
+        places.first(where:{
+            $0.coordinateRegion.contains(coordinate: coordinate)
+        })
+    }
+    
+    func getPlace(id: UUID) -> Place?{
+        places.first(where:{
+            $0.id == id
+        })
     }
     
     func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
