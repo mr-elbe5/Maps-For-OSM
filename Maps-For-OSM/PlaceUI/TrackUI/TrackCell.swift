@@ -10,7 +10,7 @@ class TrackCell: PlaceItemCell{
 
     static let CELL_IDENT = "trackCell"
     
-    var track : Track? = nil
+    var track : TrackItem? = nil
     
     var delegate: PlaceDelegate? = nil
     

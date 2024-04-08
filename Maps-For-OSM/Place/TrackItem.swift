@@ -8,7 +8,7 @@ import Foundation
 import CoreLocation
 import UIKit
 
-class Track : PlaceItem{
+class TrackItem : PlaceItem{
     
     private enum CodingKeys: String, CodingKey {
         case startTime
@@ -21,7 +21,7 @@ class Track : PlaceItem{
         case note
     }
     
-    static var visibleTrack : Track? = nil
+    static var visibleTrack : TrackItem? = nil
     
     var startTime : Date
     var pauseTime : Date? = nil
@@ -214,9 +214,9 @@ class Track : PlaceItem{
     
 }
 
-extension Array<Track>{
+extension Array<TrackItem>{
     
-    mutating func remove(_ track: Track){
+    mutating func remove(_ track: TrackItem){
         for idx in 0..<self.count{
             if self[idx] == track{
                 self.remove(at: idx)

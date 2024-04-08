@@ -75,7 +75,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func hideTrack() {
-        Track.visibleTrack = nil
+        TrackItem.visibleTrack = nil
         trackChanged()
     }
     
@@ -176,7 +176,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 place = AppData.shared.createPlace(coordinate: coordinate)
                                 newPlace = true
                             }
-                            let image = Image()
+                            let image = ImageItem()
                             image.creationDate = creationDate ?? Date()
                             image.saveImage(uiImage: uiimage)
                             place!.addItem(item: image)
@@ -203,7 +203,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 place = AppData.shared.createPlace(coordinate: coordinate)
                                 newPlace = true
                             }
-                            let video = Video()
+                            let video = VideoItem()
                             video.creationDate = creationDate ?? Date()
                             video.setFileNameFromURL(url)
                             if let data = FileController.readFile(url: url){
@@ -243,7 +243,7 @@ extension MainViewController : UIDocumentPickerDelegate{
     
     private func importGPXFile(url: URL){
         if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
-            let track = Track()
+            let track = TrackItem()
             track.name = gpxData.name
             for segment in gpxData.segments{
                 for point in segment.points{

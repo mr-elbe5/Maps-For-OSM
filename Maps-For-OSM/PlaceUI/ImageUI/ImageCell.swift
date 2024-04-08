@@ -10,7 +10,7 @@ class ImageCell: PlaceItemCell{
     
     static let CELL_IDENT = "imageCell"
     
-    var image : Image? = nil {
+    var image : ImageItem? = nil {
         didSet {
             updateCell()
             setSelected(image?.selected ?? false, animated: false)

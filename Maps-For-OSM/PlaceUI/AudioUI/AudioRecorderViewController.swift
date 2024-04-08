@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 protocol AudioCaptureDelegate{
-    func audioCaptured(audio: Audio)
+    func audioCaptured(audio: AudioItem)
 }
 
 class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDelegate{
@@ -52,7 +52,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
     }
     
     func save(){
-        let audioFile = Audio()
+        let audioFile = AudioItem()
         audioFile.title = titleField.text?.trim() ?? ""
         audioFile.time = (audioRecorder.currentTime*100).rounded() / 100
         //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")

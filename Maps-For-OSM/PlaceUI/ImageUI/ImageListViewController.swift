@@ -12,7 +12,7 @@ import PhotosUI
 
 class ImageListViewController: PopupTableViewController{
 
-    var images: Array<Image>? = nil
+    var images: Array<ImageItem>? = nil
     
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
@@ -99,7 +99,7 @@ class ImageListViewController: PopupTableViewController{
     
     func exportSelected(){
         if let images = images{
-            var exportList = Array<Image>()
+            var exportList = Array<ImageItem>()
             for i in 0..<images.count{
                 let image = images[i]
                 if image.selected{
@@ -135,7 +135,7 @@ class ImageListViewController: PopupTableViewController{
         }
     }
     
-    private func exportImagesToPhotoLibrary(images: Array<Image>, result: @escaping (Int, Int) -> Void){
+    private func exportImagesToPhotoLibrary(images: Array<ImageItem>, result: @escaping (Int, Int) -> Void){
         var numCopied = 0
         var numErrors = 0
         for item in images{
@@ -165,7 +165,7 @@ class ImageListViewController: PopupTableViewController{
     
     func deleteSelected(){
         if let images = images{
-            var list = Array<Image>()
+            var list = Array<ImageItem>()
             for i in 0..<images.count{
                 let image = images[i]
                 if image.selected{
@@ -245,17 +245,17 @@ extension ImageListViewController : ImageDelegate{
         }
     }
     
-    func viewImage(image: Image) {
+    func viewImage(image: ImageItem) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func viewTrackItem(item: Track) {
+    func viewTrackItem(item: TrackItem) {
     }
     
-    func showTrackItemOnMap(item: Track) {
+    func showTrackItemOnMap(item: TrackItem) {
     }
     
 }

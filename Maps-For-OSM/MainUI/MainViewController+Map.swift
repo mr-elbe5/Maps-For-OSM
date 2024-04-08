@@ -81,13 +81,13 @@ extension MainViewController: PlaceDelegate{
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
     
-    func viewTrackItem(item: Track) {
+    func viewTrackItem(item: TrackItem) {
         
     }
     
-    func showTrackItemOnMap(item: Track) {
+    func showTrackItemOnMap(item: TrackItem) {
         if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
-            Track.visibleTrack = item
+            TrackItem.visibleTrack = item
             trackChanged()
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
             mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
@@ -98,7 +98,7 @@ extension MainViewController: PlaceDelegate{
 
 extension MainViewController: ImageDelegate {
     
-    func viewImage(image: Image) {
+    func viewImage(image: ImageItem) {
         
     }
     
@@ -106,7 +106,7 @@ extension MainViewController: ImageDelegate {
 
 extension MainViewController: TrackDetailDelegate{
     
-    func viewTrackDetails(track: Track) {
+    func viewTrackDetails(track: TrackItem) {
         let controller = TrackViewController(track: track)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen

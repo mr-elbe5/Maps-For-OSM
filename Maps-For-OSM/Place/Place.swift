@@ -76,28 +76,28 @@ class Place : Selectable{
         }) != nil
     }
     
-    var tracks: Array<Track>{
+    var tracks: Array<TrackItem>{
         items.filter({
             $0.type == .track
-        }) as! Array<Track>
+        }) as! Array<TrackItem>
     }
     
-    var images: Array<Image>{
+    var images: Array<ImageItem>{
         items.filter({
             $0.type == .image
-        }) as! Array<Image>
+        }) as! Array<ImageItem>
     }
     
-    var notes: Array<Note>{
+    var notes: Array<NoteItem>{
         items.filter({
             $0.type == .note
-        }) as! Array<Note>
+        }) as! Array<NoteItem>
     }
     
-    var media : Array<MediaItem>{
+    var media : Array<FileItem>{
         items.filter({
             [.image, .video, .audio].contains($0.type)
-        }) as! Array<MediaItem>
+        }) as! Array<FileItem>
     }
     
     init(coordinate: CLLocationCoordinate2D){
@@ -209,6 +209,6 @@ protocol PlaceDelegate{
     func placeChanged(place: Place)
     func placesChanged()
     func showPlaceOnMap(place: Place)
-    func viewTrackItem(item: Track)
-    func showTrackItemOnMap(item: Track)
+    func viewTrackItem(item: TrackItem)
+    func showTrackItemOnMap(item: TrackItem)
 }

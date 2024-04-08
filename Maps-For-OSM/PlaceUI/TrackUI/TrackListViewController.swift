@@ -11,7 +11,7 @@ import CoreLocation
 
 class TrackListViewController: PopupTableViewController{
 
-    var tracks: Array<Track>? = nil
+    var tracks: Array<TrackItem>? = nil
     
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
@@ -89,7 +89,7 @@ class TrackListViewController: PopupTableViewController{
     
     func deleteSelected(){
         if let tracks = tracks{
-            var list = Array<Track>()
+            var list = Array<TrackItem>()
             for i in 0..<tracks.count{
                 let track = tracks[i]
                 if track.selected{
@@ -154,7 +154,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension TrackListViewController : TrackDetailDelegate{
     
-    func showTrackItemOnMap(item: Track) {
+    func showTrackItemOnMap(item: TrackItem) {
         self.dismiss(animated: true){
             self.delegate?.showTrackItemOnMap(item: item)
         }
@@ -177,7 +177,7 @@ extension TrackListViewController : PlaceDelegate{
     }
     
     
-    func viewTrackItem(item: Track) {
+    func viewTrackItem(item: TrackItem) {
         let trackController = TrackViewController(track: item)
         trackController.track = item
         trackController.delegate = self
@@ -185,7 +185,7 @@ extension TrackListViewController : PlaceDelegate{
         self.present(trackController, animated: true)
     }
     
-    func exportTrack(item: Track) {
+    func exportTrack(item: TrackItem) {
         if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             controller.directoryURL = FileController.exportGpxDirURL

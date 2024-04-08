@@ -35,29 +35,31 @@ class AppData{
         }
     }
     
-    var tracks: Array<Track>{
+    var tracks: Array<TrackItem>{
         get{
-            var trackList = Array<Track>()
+            var trackList = Array<TrackItem>()
             for place in places{
                 trackList.append(contentsOf: place.tracks)
             }
+            trackList.sortByDate()
             return trackList
         }
     }
     
-    var images: Array<Image>{
+    var images: Array<ImageItem>{
         get{
-            var imageList = Array<Image>()
+            var imageList = Array<ImageItem>()
             for place in places{
                 imageList.append(contentsOf: place.images)
             }
+            imageList.sortByDate()
             return imageList
         }
     }
     
-    var media: Array<MediaItem>{
+    var media: Array<FileItem>{
         get{
-            var mediaList = Array<MediaItem>()
+            var mediaList = Array<FileItem>()
             for place in places{
                 mediaList.append(contentsOf: place.media)
             }
@@ -83,7 +85,7 @@ class AppData{
         let media = media
         var recordIds = Array<CKRecord.ID>()
         for item in media{
-            recordIds.append(item.recordId)
+            recordIds.append(item.fileRecordId)
         }
         CKContainer.loadFromICloud(recordIds: recordIds, processRecord: readFromICloud)
     }
@@ -115,7 +117,7 @@ class AppData{
         records.append(record)
         let media = media
         for item in media{
-            records.append(item.record)
+            records.append(item.fileRecord)
         }
         CKContainer.saveToICloud(records: [record])
     }
@@ -178,7 +180,7 @@ class AppData{
                     }
                     return false
                 }(){
-                    let noteItem = Note()
+                    let noteItem = NoteItem()
                     noteItem.text = place.note
                     noteItem.creationDate = place.timestamp
                     place.addItem(item: noteItem)

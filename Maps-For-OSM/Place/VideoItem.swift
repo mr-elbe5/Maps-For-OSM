@@ -5,11 +5,11 @@
  */
 
 import Foundation
+import CloudKit
 
-class Video : MediaItem{
+class VideoItem : FileItem{
     
     enum VideoCodingKeys: String, CodingKey {
-        case title
         case time
     }
     
@@ -20,7 +20,7 @@ class Video : MediaItem{
             return .video
         }
     }
-
+    
     override init(){
         time = 0.0
         super.init()

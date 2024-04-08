@@ -232,7 +232,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
         let item = place.item(at: indexPath.row)
         switch item.type{
         case .audio: 
-            if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? Audio{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? AudioItem{
                 cell.audio = audioItem
                 cell.delegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
@@ -243,7 +243,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .video:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let videoItem = item as? Video{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let videoItem = item as? VideoItem{
                 cell.video = videoItem
                 cell.delegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
@@ -254,7 +254,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .image:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let imageItem = item as? Image{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let imageItem = item as? ImageItem{
                 cell.image = imageItem
                 cell.delegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
@@ -265,7 +265,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .track:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let trackItem = item as? Track{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let trackItem = item as? TrackItem{
                 cell.track = trackItem
                 cell.delegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
@@ -276,7 +276,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .note:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.CELL_IDENT, for: indexPath) as? NoteCell, let noteItem = item as? Note{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.CELL_IDENT, for: indexPath) as? NoteCell, let noteItem = item as? NoteItem{
                 cell.note = noteItem
                 cell.delegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
@@ -318,13 +318,13 @@ extension PlaceViewController : PlaceDelegate{
         delegate?.showPlaceOnMap(place: place)
     }
     
-    func viewTrackItem(item: Track) {
+    func viewTrackItem(item: TrackItem) {
         let controller = TrackViewController(track: item)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func showTrackItemOnMap(item: Track) {
+    func showTrackItemOnMap(item: TrackItem) {
         self.dismiss(animated: true){
             self.delegate?.showTrackItemOnMap(item: item)
         }
@@ -336,7 +336,7 @@ extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = Image()
+        let image = ImageItem()
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             place.addItem(item: image)
@@ -352,7 +352,7 @@ extension PlaceViewController: NoteViewDelegate{
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
-            let item = Note()
+            let item = NoteItem()
             item.text = text
             var newPlace = false
             var place = AppData.shared.getPlace(coordinate: coordinate)
@@ -378,7 +378,7 @@ extension PlaceViewController: NoteViewDelegate{
 
 extension PlaceViewController: AudioCaptureDelegate{
     
-    func audioCaptured(audio: Audio){
+    func audioCaptured(audio: AudioItem){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newPlace = false
             var place = AppData.shared.getPlace(coordinate: coordinate)
@@ -404,7 +404,7 @@ extension PlaceViewController: AudioCaptureDelegate{
 
 extension PlaceViewController : VideoItemCellDelegate{
     
-    func viewVideoItem(item: Video) {
+    func viewVideoItem(item: VideoItem) {
         let controller = VideoViewController()
         controller.videoURL = item.fileURL
         controller.modalPresentationStyle = .fullScreen
@@ -415,7 +415,7 @@ extension PlaceViewController : VideoItemCellDelegate{
 
 extension PlaceViewController : ImageDelegate{
     
-    func viewImage(image: Image) {
+    func viewImage(image: ImageItem) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen

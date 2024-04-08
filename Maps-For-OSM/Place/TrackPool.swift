@@ -11,16 +11,16 @@ class TrackPool{
     
     static var storeKey = "tracks"
     
-    static var list = Array<Track>()
+    static var list = Array<TrackItem>()
     
     static func load(){
-        if let list : Array<Track> = DataController.shared.load(forKey: storeKey){
+        if let list : Array<TrackItem> = DataController.shared.load(forKey: storeKey){
             TrackPool.list = list
         }
     }
     
     static func loadFromFile(url: URL){
-        if let string = FileController.readTextFile(url: url),let data : Array<Track> = Array<Track>.fromJSON(encoded: string){
+        if let string = FileController.readTextFile(url: url),let data : Array<TrackItem> = Array<TrackItem>.fromJSON(encoded: string){
             list = data
         }
     }

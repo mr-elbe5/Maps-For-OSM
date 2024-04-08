@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 import CloudKit
 
-class MediaItem : PlaceItem{
+class FileItem : PlaceItem{
     
     private enum CodingKeys: CodingKey{
         case fileName
@@ -37,18 +37,18 @@ class MediaItem : PlaceItem{
         return FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
     }
     
-    var recordId : CKRecord.ID{
+    var fileRecordId : CKRecord.ID{
         get{
             CKRecord.ID(recordName: id.uuidString)
         }
     }
     
-    var record: CKRecord{
+    var fileRecord: CKRecord{
         get{
-            let record = CKRecord(recordType: CKRecord.fileType, recordID: recordId)
+            let record = CKRecord(recordType: CKRecord.fileType, recordID: fileRecordId)
             let data = FileController.readFile(url: fileURL)
-            record[MediaItem.fileNameKey] = fileName
-            record[MediaItem.dataKey] = data
+            record[FileItem.fileNameKey] = fileName
+            record[FileItem.dataKey] = data
             return record
         }
     }
@@ -113,16 +113,12 @@ class MediaItem : PlaceItem{
         }
     }
     
-    func saveToICloud(){
-        let record = CKRecord(recordType: CKRecord.fileType, recordID: recordId)
-        let data = FileController.readFile(url: fileURL)
-        record[MediaItem.fileNameKey] = fileName
-        record[MediaItem.dataKey] = data
-        CKContainer.saveToICloud(records: [record])
+    func saveFileToICloud(){
+        CKContainer.saveToICloud(records: [fileRecord])
     }
     
-    func loadFromICloud(record: CKRecord){
-        if let data = record.value(forKey: MediaItem.dataKey) as? Data, let fileName : String = record.value(forKey: MediaItem.fileNameKey) as? String{
+    func loadFileFromICloud(record: CKRecord){
+        if let data = record.value(forKey: FileItem.dataKey) as? Data, let fileName : String = record.value(forKey: FileItem.fileNameKey) as? String{
             self.fileName = fileName
             FileController.saveFile(data: data, url: fileURL)
         }
@@ -135,7 +131,7 @@ class MediaItem : PlaceItem{
     override func prepareDelete(){
         if FileController.fileExists(dirPath: FileController.mediaDirURL.path, fileName: fileName){
             if !FileController.deleteFile(dirURL: FileController.mediaDirURL, fileName: fileName){
-                Log.error("FileData could not delete file: \(fileName)")
+                Log.error("FileItem could not delete file: \(fileName)")
             }
         }
     }

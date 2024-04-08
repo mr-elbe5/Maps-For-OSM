@@ -7,14 +7,14 @@
 import UIKit
 
 protocol VideoItemCellDelegate: PlaceDelegate{
-    func viewVideoItem(item: Video)
+    func viewVideoItem(item: VideoItem)
 }
 
 class VideoCell: PlaceItemCell{
     
     static let CELL_IDENT = "videoCell"
     
-    var video : Video? = nil {
+    var video : VideoItem? = nil {
         didSet {
             updateCell()
             setSelected(video?.selected ?? false, animated: false)

@@ -5,8 +5,9 @@
  */
 
 import Foundation
+import CloudKit
 
-class Audio : MediaItem{
+class AudioItem : FileItem{
     
     enum AudioCodingKeys: String, CodingKey {
         case time
@@ -19,7 +20,7 @@ class Audio : MediaItem{
             return .audio
         }
     }
-
+    
     override init(){
         time = 0.0
         super.init()

@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class Image : MediaItem{
+class ImageItem : FileItem{
     
     override var type : PlaceItemType{
         .image
@@ -39,12 +39,12 @@ class Image : MediaItem{
 }
 
 protocol ImageDelegate: PlaceDelegate{
-    func viewImage(image: Image)
+    func viewImage(image: ImageItem)
 }
 
-extension Array<Image>{
+extension Array<ImageItem>{
     
-    mutating func remove(_ image: Image){
+    mutating func remove(_ image: ImageItem){
         for idx in 0..<self.count{
             if self[idx] == image{
                 self.remove(at: idx)

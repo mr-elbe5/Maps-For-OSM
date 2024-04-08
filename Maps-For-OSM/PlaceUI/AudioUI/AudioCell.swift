@@ -10,7 +10,7 @@ class AudioCell: PlaceItemCell{
     
     static let CELL_IDENT = "audioCell"
     
-    var audio : Audio? = nil {
+    var audio : AudioItem? = nil {
         didSet {
             updateCell()
             setSelected(audio?.selected ?? false, animated: false)
