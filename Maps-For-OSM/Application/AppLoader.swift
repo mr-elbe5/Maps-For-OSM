@@ -19,27 +19,46 @@ struct AppLoader{
     }
     
     static func loadPreferences(){
-        Preferences.loadInstance()
+        if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
+            Preferences.shared = prefs
+        }
+        else{
+            Preferences.shared = Preferences()
+        }
     }
     
     static func loadAppState(){
-        AppState.loadInstance()
+        if let state : AppState = DataController.shared.load(forKey: AppState.storeKey){
+            AppState.shared = state
+        }
+        else{
+            AppState.shared = AppState()
+        }
     }
     
     static func loadData(){
-        
+        if Preferences.shared.loadFromICloud{
+            loadFromICloud()
+        }
+        else{
+            loadFromUserDefaults()
+        }
     }
     
     static func loadFromUserDefaults(){
-        PlacePool.load()
-        // for previous versions
+        AppData.shared.load()
+        //deprecated
+        loadFromPreviousVersions()
+    }
+    
+    static private func loadFromPreviousVersions(){
         TrackPool.load()
         TrackPool.addTracksToPlaces()
-        PlacePool.addNotesToPlaces()
+        AppData.shared.convertNotes()
     }
     
     static func loadFromICloud(){
-        PlacePool.loadFromICloud()
+        AppData.shared.loadFromICloud()
     }
     
     static func saveInitalizationData(){
@@ -49,19 +68,19 @@ struct AppLoader{
     
     static func saveData(){
         if Preferences.shared.loadFromICloud{
-            loadFromICloud()
+            saveToICloud()
         }
         else{
-            loadFromUserDefaults()
+            saveToUserDefaults()
         }
     }
     
     static func saveToUserDefaults(){
-        PlacePool.save()
+        AppData.shared.save()
     }
     
     static func saveToICloud(){
-        PlacePool.saveToICloud()
+        AppData.shared.saveToICloud()
     }
     
 }

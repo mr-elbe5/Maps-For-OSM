@@ -12,18 +12,18 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
                                 CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{
     
     func addPlace(at coordinate: CLLocationCoordinate2D) {
-        if let _ = PlacePool.getPlace(coordinate: coordinate){
+        if let _ = AppData.shared.getPlace(coordinate: coordinate){
             return
         }
-        let _ = PlacePool.createPlace(coordinate: coordinate)
+        let _ = AppData.shared.createPlace(coordinate: coordinate)
         DispatchQueue.main.async {
             self.placesChanged()
         }
     }
     
     func deletePlaceFromList(place: Place) {
-        PlacePool.deletePlace(place)
-        PlacePool.save()
+        AppData.shared.deletePlace(place)
+        AppData.shared.save()
         placesChanged()
     }
     
@@ -52,13 +52,13 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
             }
             if let coordinate = coordinate{
                 var newPlace = false
-                var place = PlacePool.getPlace(coordinate: coordinate)
+                var place = AppData.shared.getPlace(coordinate: coordinate)
                 if place == nil{
-                    place = PlacePool.createPlace(coordinate: coordinate)
+                    place = AppData.shared.createPlace(coordinate: coordinate)
                     newPlace = true
                 }
                 place!.addItem(item: image)
-                PlacePool.save()
+                AppData.shared.save()
                 DispatchQueue.main.async {
                     if newPlace{
                         self.placesChanged()
@@ -82,15 +82,15 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: coordinate)
+            var place = AppData.shared.getPlace(coordinate: coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: coordinate)
+                place = AppData.shared.createPlace(coordinate: coordinate)
                 newPlace = true
             }
             let note = Note()
             note.text = text
             place!.addItem(item: note)
-            PlacePool.save()
+            AppData.shared.save()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -128,13 +128,13 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
             imageFile.saveFile(data: data)
             Log.debug("photo saved locally")
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: cllocation.coordinate)
+            var place = AppData.shared.getPlace(coordinate: cllocation.coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: cllocation.coordinate)
+                place = AppData.shared.createPlace(coordinate: cllocation.coordinate)
                 newPlace = true
             }
             place!.addItem(item: imageFile)
-            PlacePool.save()
+            AppData.shared.save()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -151,13 +151,13 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
             let videoFile = Video()
             videoFile.saveFile(data: data)
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: cllocation.coordinate)
+            var place = AppData.shared.getPlace(coordinate: cllocation.coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: cllocation.coordinate)
+                place = AppData.shared.createPlace(coordinate: cllocation.coordinate)
                 newPlace = true
             }
             place!.addItem(item: videoFile)
-            PlacePool.save()
+            AppData.shared.save()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -192,13 +192,13 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     func audioCaptured(audio: Audio){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: coordinate)
+            var place = AppData.shared.getPlace(coordinate: coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: coordinate)
+                place = AppData.shared.createPlace(coordinate: coordinate)
                 newPlace = true
             }
             place!.addItem(item: audio)
-            PlacePool.save()
+            AppData.shared.save()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -227,13 +227,13 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
         if let track = TrackRecorder.track, let coordinate = track.startCoordinate{
             track.name = "trackName".localize(param: track.startTime.dateString())
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: coordinate)
+            var place = AppData.shared.getPlace(coordinate: coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: coordinate)
+                place = AppData.shared.createPlace(coordinate: coordinate)
                 newPlace = true
             }
             place!.addItem(item: track)
-            PlacePool.save()
+            AppData.shared.save()
             Track.visibleTrack = track
             self.trackChanged()
             TrackRecorder.stopRecording()

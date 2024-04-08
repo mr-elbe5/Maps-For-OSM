@@ -16,7 +16,7 @@ class Backup{
             var paths = Array<URL>()
             let zipFileURL = FileController.backupDirURL.appendingPathComponent(name)
             paths.append(FileController.mediaDirURL)
-            if let url = PlacePool.saveAsFile(){
+            if let url = AppData.shared.saveAsFile(){
                 paths.append(url)
             }
             if let url = Preferences.saveAsFile(){
@@ -62,14 +62,14 @@ class Backup{
         url = FileController.temporaryURL.appendingPathComponent(Preferences.storeKey + ".json")
         Preferences.loadFromFile(url: url)
         Preferences.shared.save()
-        url = FileController.temporaryURL.appendingPathComponent(PlacePool.storeKey + ".json")
-        PlacePool.loadFromFile(url: url)
-        PlacePool.save()
+        url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
+        AppData.shared.loadFromFile(url: url)
+        AppData.shared.save()
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
         if FileController.fileExists(url: url){
             TrackPool.loadFromFile(url: url)
             TrackPool.addTracksToPlaces()
-            PlacePool.addNotesToPlaces()
+            AppData.shared.convertNotes()
         }
         FileController.deleteTemporaryFiles()
         return true

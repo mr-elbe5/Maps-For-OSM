@@ -147,7 +147,7 @@ class PlaceViewController: PopupTableViewController{
     
     func toggleEditMode(){
         if tableView.isEditing{
-            PlacePool.save()
+            AppData.shared.save()
             delegate?.placeChanged(place: place)
             editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
             tableView.isEditing = false
@@ -210,7 +210,7 @@ class PlaceViewController: PopupTableViewController{
     func deletePlace(){
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deleteHint".localize()){
             print("deleting place")
-            PlacePool.deletePlace(self.place)
+            AppData.shared.deletePlace(self.place)
             self.delegate?.placesChanged()
             self.dismiss(animated: false)
         }
@@ -340,7 +340,7 @@ extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationCont
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             place.addItem(item: image)
-            PlacePool.save()
+            AppData.shared.save()
             self.tableView.reloadData()
         }
         picker.dismiss(animated: false)
@@ -355,13 +355,13 @@ extension PlaceViewController: NoteViewDelegate{
             let item = Note()
             item.text = text
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: coordinate)
+            var place = AppData.shared.getPlace(coordinate: coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: coordinate)
+                place = AppData.shared.createPlace(coordinate: coordinate)
                 newPlace = true
             }
             place!.addItem(item: item)
-            PlacePool.save()
+            AppData.shared.save()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newPlace{
@@ -381,13 +381,13 @@ extension PlaceViewController: AudioCaptureDelegate{
     func audioCaptured(audio: Audio){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: coordinate)
+            var place = AppData.shared.getPlace(coordinate: coordinate)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: coordinate)
+                place = AppData.shared.createPlace(coordinate: coordinate)
                 newPlace = true
             }
             place!.addItem(item: audio)
-            PlacePool.save()
+            AppData.shared.save()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newPlace{

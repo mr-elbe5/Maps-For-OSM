@@ -32,15 +32,6 @@ class Preferences: Identifiable, Codable{
     
     static var defaultMaxSearchResults: Int = 5
     
-    static func loadInstance(){
-        if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
-            shared = prefs
-        }
-        else{
-            shared = Preferences()
-        }
-    }
-    
     enum CodingKeys: String, CodingKey {
         case urlTemplate
         case followTrack

@@ -117,7 +117,7 @@ class ImageListViewController: PopupTableViewController{
                 PHPhotoLibrary.requestAuthorization(){ status in
                     if status == PHAuthorizationStatus.authorized {
                         self.exportImagesToPhotoLibrary(images: exportList){ numCopied, numErrors in
-                            PlacePool.save()
+                            AppData.shared.save()
                             DispatchQueue.main.async {
                                 spinner.stopAnimating()
                                 self.view.removeSubview(spinner)
@@ -181,7 +181,7 @@ class ImageListViewController: PopupTableViewController{
                     self.images?.remove(image)
                     Log.debug("deleting image \(image.fileURL.lastPathComponent)")
                 }
-                PlacePool.save()
+                AppData.shared.save()
                 self.delegate?.placesChanged()
                 self.tableView.reloadData()
             }

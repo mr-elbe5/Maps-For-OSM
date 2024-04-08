@@ -98,17 +98,17 @@ class PlaceGroupViewController: PopupTableViewController{
             mergeButton.isHidden = false
             deleteButton.isHidden = false
         }
-        PlacePool.places.deselectAll()
+        AppData.shared.places.deselectAll()
         tableView.reloadData()
     }
     
     func toggleSelectAll(){
         if tableView.isEditing{
-            if PlacePool.places.allSelected{
-                PlacePool.places.deselectAll()
+            if AppData.shared.places.allSelected{
+                AppData.shared.places.deselectAll()
             }
             else{
-                PlacePool.places.selectAll()
+                AppData.shared.places.selectAll()
             }
             for cell in tableView.visibleCells{
                 (cell as? PlaceCell)?.updateIconView(isEditing: true)
@@ -130,7 +130,7 @@ class PlaceGroupViewController: PopupTableViewController{
         showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
             print("deleting \(list.count) places")
             for place in list{
-                PlacePool.deletePlace(place)
+                AppData.shared.deletePlace(place)
                 self.group.places.remove(place)
             }
             self.delegate?.placesChanged()
@@ -152,9 +152,9 @@ class PlaceGroupViewController: PopupTableViewController{
         showDestructiveApprove(title: "confirmMergePlaces".localize(i: list.count), text: "mergeHint".localize()){
             print("merging \(list.count) places")
             if let newPlace = self.mergePlaces(list){
-                PlacePool.places.append(newPlace)
-                PlacePool.places.removePlaces(of: list)
-                PlacePool.save()
+                AppData.shared.places.append(newPlace)
+                AppData.shared.places.removePlaces(of: list)
+                AppData.shared.save()
                 self.delegate?.placesChanged()
                 self.tableView.reloadData()
             }

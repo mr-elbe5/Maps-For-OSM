@@ -21,15 +21,6 @@ class AppState: Identifiable, Codable{
     
     static var shared = AppState()
     
-    static func loadInstance(){
-        if let state : AppState = DataController.shared.load(forKey: AppState.storeKey){
-            shared = state
-        }
-        else{
-            shared = AppState()
-        }
-    }
-    
     enum CodingKeys: String, CodingKey {
         case version
         case scale

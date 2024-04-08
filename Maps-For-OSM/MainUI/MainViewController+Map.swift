@@ -59,8 +59,8 @@ extension MainViewController: PlaceLayerDelegate{
     
     func deletePlace(place: Place) {
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            PlacePool.deletePlace(place)
-            PlacePool.save()
+            AppData.shared.deletePlace(place)
+            AppData.shared.save()
             self.placesChanged()
         }
     }

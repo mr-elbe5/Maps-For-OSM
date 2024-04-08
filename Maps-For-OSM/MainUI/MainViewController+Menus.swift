@@ -51,15 +51,15 @@ extension MainViewController: MainMenuDelegate{
     
     func deleteAllLocations(){
         showDestructiveApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
-            PlacePool.deleteAllPlaces()
-            PlacePool.save()
+            AppData.shared.deleteAllPlaces()
+            AppData.shared.save()
             self.placesChanged()
         }
     }
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = PlacePool.tracks
+        controller.tracks = AppData.shared.tracks
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -81,7 +81,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openImageList() {
         let controller = ImageListViewController()
-        controller.images = PlacePool.images
+        controller.images = AppData.shared.images
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -171,9 +171,9 @@ extension MainViewController: PHPickerViewControllerDelegate{
                         //Log.debug("got image \(uiimage.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
                             var newPlace = false
-                            var place = PlacePool.getPlace(coordinate: coordinate)
+                            var place = AppData.shared.getPlace(coordinate: coordinate)
                             if place == nil{
-                                place = PlacePool.createPlace(coordinate: coordinate)
+                                place = AppData.shared.createPlace(coordinate: coordinate)
                                 newPlace = true
                             }
                             let image = Image()
@@ -198,9 +198,9 @@ extension MainViewController: PHPickerViewControllerDelegate{
                         //Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
                             var newPlace = false
-                            var place = PlacePool.getPlace(coordinate: coordinate)
+                            var place = AppData.shared.getPlace(coordinate: coordinate)
                             if place == nil{
-                                place = PlacePool.createPlace(coordinate: coordinate)
+                                place = AppData.shared.createPlace(coordinate: coordinate)
                                 newPlace = true
                             }
                             let video = Video()
@@ -263,13 +263,13 @@ extension MainViewController : UIDocumentPickerDelegate{
             track.endTime = track.trackpoints.last?.timestamp ?? Date()
             track.creationDate = track.startTime
             var newPlace = false
-            var place = PlacePool.getPlace(coordinate: track.startCoordinate!)
+            var place = AppData.shared.getPlace(coordinate: track.startCoordinate!)
             if place == nil{
-                place = PlacePool.createPlace(coordinate: track.startCoordinate!)
+                place = AppData.shared.createPlace(coordinate: track.startCoordinate!)
                 newPlace = true
             }
             place!.addItem(item: track)
-            PlacePool.save()
+            AppData.shared.save()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()

@@ -30,14 +30,14 @@ class TrackPool{
             Log.info("adding tracks to places")
             for track in list{
                 if let coordinate = track .startCoordinate{
-                    var place = PlacePool.getPlace(coordinate: coordinate)
+                    var place = AppData.shared.getPlace(coordinate: coordinate)
                     if place == nil{
-                        place = PlacePool.createPlace(coordinate: coordinate)
+                        place = AppData.shared.createPlace(coordinate: coordinate)
                     }
                     place!.addItem(item: track)
                 }
             }
-            PlacePool.save()
+            AppData.shared.save()
             list.removeAll()
             DataController.shared.remove(forKey: storeKey)
             Log.info("track pool invalidated")

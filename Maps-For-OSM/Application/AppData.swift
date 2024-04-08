@@ -5,28 +5,19 @@
  */
 
 import Foundation
-import CoreLocation
-import UIKit
 import CloudKit
 
-enum PlaceFilter: String{
-    case all
-    case media
-    case track
-    case note
-}
-
-class PlacePool{
+class AppData{
     
     static var storeKey = "locations"
     static var recordKey = "jsonString"
     static var recordId = CKRecord.ID(recordName: storeKey)
     
-    static private var _lock = DispatchSemaphore(value: 1)
+    static var shared = AppData()
     
-    static var places = Array<Place>()
+    var places = Array<Place>()
     
-    static var filteredPlaces : Array<Place>{
+    var filteredPlaces : Array<Place>{
         switch AppState.shared.placeFilter{
         case .all: return places
         case .media:
@@ -44,7 +35,7 @@ class PlacePool{
         }
     }
     
-    static var tracks: Array<Track>{
+    var tracks: Array<Track>{
         get{
             var trackList = Array<Track>()
             for place in places{
@@ -54,7 +45,7 @@ class PlacePool{
         }
     }
     
-    static var images: Array<Image>{
+    var images: Array<Image>{
         get{
             var imageList = Array<Image>()
             for place in places{
@@ -64,7 +55,7 @@ class PlacePool{
         }
     }
     
-    static var media: Array<MediaItem>{
+    var media: Array<MediaItem>{
         get{
             var mediaList = Array<MediaItem>()
             for place in places{
@@ -74,21 +65,21 @@ class PlacePool{
         }
     }
     
-    static var size : Int{
+    var size : Int{
         places.count
     }
     
-    static func load(){
-        if let list : Array<Place> = DataController.shared.load(forKey: PlacePool.storeKey){
-            PlacePool.places = list
+    func load(){
+        if let list : Array<Place> = DataController.shared.load(forKey: AppData.storeKey){
+            places = list
         }
         else{
-            PlacePool.places = Array<Place>()
+            places = Array<Place>()
         }
     }
     
-    static func loadFromICloud(){
-        CKContainer.loadFromICloud(recordIds: [recordId], processRecord: readFromICloud)
+    func loadFromICloud(){
+        CKContainer.loadFromICloud(recordIds: [AppData.recordId], processRecord: readFromICloud)
         let media = media
         var recordIds = Array<CKRecord.ID>()
         for item in media{
@@ -97,32 +88,30 @@ class PlacePool{
         CKContainer.loadFromICloud(recordIds: recordIds, processRecord: readFromICloud)
     }
     
-    static func readFromICloud(record: CKRecord){
-        if let json = record.value(forKey: recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
+    func readFromICloud(record: CKRecord){
+        if let json = record.value(forKey: AppData.recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
             places = data
         }
     }
     
-    static func save(){
-        _lock.wait()
-        defer{_lock.signal()}
-        DataController.shared.save(forKey: PlacePool.storeKey, value: places)
+    func save(){
+        DataController.shared.save(forKey: AppData.storeKey, value: places)
         saveToICloud()
     }
     
-    static func saveAsFile() -> URL?{
+    func saveAsFile() -> URL?{
         let value = places.toJSON()
-        let url = FileController.temporaryURL.appendingPathComponent(storeKey + ".json")
+        let url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
         if FileController.saveFile(text: value, url: url){
             return url
         }
         return nil
     }
     
-    static func saveToICloud(){
+    func saveToICloud(){
         var records = Array<CKRecord>()
-        let record = CKRecord(recordType: CKRecord.jsonType, recordID: recordId)
-        record[recordKey] = places.toJSON()
+        let record = CKRecord(recordType: CKRecord.jsonType, recordID: AppData.recordId)
+        record[AppData.recordKey] = places.toJSON()
         records.append(record)
         let media = media
         for item in media{
@@ -131,24 +120,20 @@ class PlacePool{
         CKContainer.saveToICloud(records: [record])
     }
     
-    static func loadFromFile(url: URL){
+    func loadFromFile(url: URL){
         if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
             places = data
         }
     }
     
     @discardableResult
-    static func addPlace(coordinate: CLLocationCoordinate2D) -> Place{
-        _lock.wait()
-        defer{_lock.signal()}
+    func addPlace(coordinate: CLLocationCoordinate2D) -> Place{
         let place = Place(coordinate: coordinate)
         places.append(place)
         return place
     }
     
-    static func deletePlace(_ place: Place){
-        _lock.wait()
-        defer{_lock.signal()}
+    func deletePlace(_ place: Place){
         for idx in 0..<places.count{
             if places[idx] == place{
                 place.deleteAllItems()
@@ -158,16 +143,14 @@ class PlacePool{
         }
     }
     
-    static func deleteAllPlaces(){
-        _lock.wait()
-        defer{_lock.signal()}
+    func deleteAllPlaces(){
         for idx in 0..<places.count{
             places[idx].deleteAllItems()
         }
         places.removeAll()
     }
     
-    static func getPlace(coordinate: CLLocationCoordinate2D) -> Place?{
+    func getPlace(coordinate: CLLocationCoordinate2D) -> Place?{
         for place in places{
             if place.coordinateRegion.contains(coordinate: coordinate){
                 return place
@@ -176,13 +159,14 @@ class PlacePool{
         return nil
     }
     
-    static func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
-        let place = PlacePool.addPlace(coordinate: coordinate)
+    func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
+        let place = addPlace(coordinate: coordinate)
         save()
         return place
     }
     
-    static func addNotesToPlaces(){
+    //deprecated
+    func convertNotes(){
         Log.info("converting notes to note items")
         for place in places{
             if !place.note.isEmpty{

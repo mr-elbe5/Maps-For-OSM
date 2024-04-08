@@ -11,6 +11,7 @@
 		4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524D2BC2D7890010D234 /* CKContainer.swift */; };
 		4E0252502BC2E2310010D234 /* CKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524F2BC2E2310010D234 /* CKOperation.swift */; };
 		4E0252522BC3262E0010D234 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252512BC3262E0010D234 /* AppLoader.swift */; };
+		4E0252542BC3C6A70010D234 /* PlaceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252532BC3C6A70010D234 /* PlaceFilter.swift */; };
 		4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3A274E3C4300D56ED7 /* StatusView.swift */; };
 		4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3C274E420800D56ED7 /* TimeInterval.swift */; };
 		4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08A329298976F2001D86F1 /* TrackpointList.swift */; };
@@ -46,7 +47,7 @@
 		4E1B81162732EDC5003ED6B0 /* TileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81072732EDC4003ED6B0 /* TileProvider.swift */; };
 		4E1B81172732EDC5003ED6B0 /* PlaceLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */; };
 		4E1B81182732EDC5003ED6B0 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */; };
-		4E1B811B2732EDC5003ED6B0 /* PlacePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810C2732EDC5003ED6B0 /* PlacePool.swift */; };
+		4E1B811B2732EDC5003ED6B0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810C2732EDC5003ED6B0 /* AppData.swift */; };
 		4E1B811C2732EDC5003ED6B0 /* MapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810D2732EDC5003ED6B0 /* MapTile.swift */; };
 		4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810F2732EDC5003ED6B0 /* MapView.swift */; };
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
@@ -179,6 +180,7 @@
 		4E02524D2BC2D7890010D234 /* CKContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKContainer.swift; sourceTree = "<group>"; };
 		4E02524F2BC2E2310010D234 /* CKOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKOperation.swift; sourceTree = "<group>"; };
 		4E0252512BC3262E0010D234 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
+		4E0252532BC3C6A70010D234 /* PlaceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceFilter.swift; sourceTree = "<group>"; };
 		4E025E3A274E3C4300D56ED7 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		4E025E3C274E420800D56ED7 /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		4E08A329298976F2001D86F1 /* TrackpointList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackpointList.swift; sourceTree = "<group>"; };
@@ -216,7 +218,7 @@
 		4E1B81072732EDC4003ED6B0 /* TileProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileProvider.swift; sourceTree = "<group>"; };
 		4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceLayerView.swift; sourceTree = "<group>"; };
 		4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
-		4E1B810C2732EDC5003ED6B0 /* PlacePool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacePool.swift; sourceTree = "<group>"; };
+		4E1B810C2732EDC5003ED6B0 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		4E1B810D2732EDC5003ED6B0 /* MapTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTile.swift; sourceTree = "<group>"; };
 		4E1B810F2732EDC5003ED6B0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 		4E0BD99726EA0020005A4A94 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4E1B810C2732EDC5003ED6B0 /* AppData.swift */,
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0252512BC3262E0010D234 /* AppLoader.swift */,
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
@@ -531,7 +534,7 @@
 				4ED5DF43273E831B00549AF8 /* Place.swift */,
 				4ED55ECC2976B17300C679AF /* PlaceGroup.swift */,
 				4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */,
-				4E1B810C2732EDC5003ED6B0 /* PlacePool.swift */,
+				4E0252532BC3C6A70010D234 /* PlaceFilter.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -935,6 +938,7 @@
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
 				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
 				4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */,
+				4E0252542BC3C6A70010D234 /* PlaceFilter.swift in Sources */,
 				4E7C4E4F2BAEEF7F001494E9 /* Selectable.swift in Sources */,
 				4E24F48227345D11004E69C2 /* UIView+Design.swift in Sources */,
 				4E4424842B94FA100007A26F /* CameraViewController+Controls.swift in Sources */,
@@ -956,7 +960,7 @@
 				4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */,
 				4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */,
 				4E31A654293F4B94002080F6 /* UIView+Anchors.swift in Sources */,
-				4E1B811B2732EDC5003ED6B0 /* PlacePool.swift in Sources */,
+				4E1B811B2732EDC5003ED6B0 /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

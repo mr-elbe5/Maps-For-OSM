@@ -66,17 +66,17 @@ class PlaceListViewController: PopupTableViewController{
             selectAllButton.isHidden = false
             deleteButton.isHidden = false
         }
-        PlacePool.places.deselectAll()
+        AppData.shared.places.deselectAll()
         tableView.reloadData()
     }
     
     func toggleSelectAll(){
         if tableView.isEditing{
-            if PlacePool.places.allSelected{
-                PlacePool.places.deselectAll()
+            if AppData.shared.places.allSelected{
+                AppData.shared.places.deselectAll()
             }
             else{
-                PlacePool.places.selectAll()
+                AppData.shared.places.selectAll()
             }
             for cell in tableView.visibleCells{
                 (cell as? PlaceCell)?.updateIconView(isEditing: true)
@@ -86,8 +86,8 @@ class PlaceListViewController: PopupTableViewController{
     
     func deleteSelected(){
         var list = Array<Place>()
-        for i in 0..<PlacePool.places.count{
-            let place = PlacePool.places[i]
+        for i in 0..<AppData.shared.places.count{
+            let place = AppData.shared.places[i]
             if place.selected{
                 list.append(place)
             }
@@ -98,7 +98,7 @@ class PlaceListViewController: PopupTableViewController{
         showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
             print("deleting \(list.count) places")
             for place in list{
-                PlacePool.deletePlace(place)
+                AppData.shared.deletePlace(place)
             }
             self.delegate?.placesChanged()
             self.tableView.reloadData()
@@ -106,7 +106,7 @@ class PlaceListViewController: PopupTableViewController{
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        PlacePool.places.deselectAll()
+        AppData.shared.places.deselectAll()
         super.dismiss(animated: flag, completion: completion)
     }
     
@@ -119,12 +119,12 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        PlacePool.size
+        AppData.shared.size
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.CELL_IDENT, for: indexPath) as! PlaceCell
-        cell.place = PlacePool.places[indexPath.row]
+        cell.place = AppData.shared.places[indexPath.row]
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell

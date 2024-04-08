@@ -19,7 +19,7 @@ class PlaceLayerView: UIView {
     var delegate: PlaceLayerDelegate? = nil
     
     func updatePlaces(){
-        places = PlacePool.filteredPlaces
+        places = AppData.shared.filteredPlaces
     }
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
