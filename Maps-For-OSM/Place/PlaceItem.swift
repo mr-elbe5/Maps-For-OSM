@@ -16,11 +16,6 @@ enum PlaceItemType: String, Codable{
 
 class PlaceItem : Selectable{
     
-    
-    static var creationDateKey = "creationDate"
-    static var changeDateKey = "changeDate"
-    static var placeIdKey = "placeId"
-    
     private enum CodingKeys: String, CodingKey {
         case creationDate
         case changeDate

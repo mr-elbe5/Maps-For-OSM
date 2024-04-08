@@ -10,20 +10,20 @@ import CloudKit
 
 class FileItem : PlaceItem{
     
+    static var recordMetaKeys = [CKContainer.fileIdKey, CKContainer.placeIdKey, CKContainer.fileNameKey]
+    static var recordDataKeys = [CKContainer.fileIdKey, CKContainer.placeIdKey, CKContainer.fileNameKey, CKContainer.fileAssetKey]
+    
     private enum CodingKeys: CodingKey{
         case fileName
         case title
     }
-    
-    static var fileNameKey = "fileName"
-    static var dataKey = "data"
     
     var title: String
     var fileName : String
     
     var filePath : String{
         if fileName.isEmpty{
-            Log.error("MediaFile file has no name")
+            Log.error("File has no name")
             return ""
         }
         return FileController.getPath(dirPath: FileController.mediaDirURL.path,fileName: fileName)
@@ -31,7 +31,7 @@ class FileItem : PlaceItem{
     
     var fileURL : URL{
         if fileName.isEmpty{
-            Log.error("MediaFile file has no name")
+            Log.error("File has no name")
         }
         return FileController.getURL(dirURL: FileController.mediaDirURL,fileName: fileName)
     }
@@ -45,13 +45,11 @@ class FileItem : PlaceItem{
     var fileRecord: CKRecord{
         get{
             let record = CKRecord(recordType: CKContainer.fileType, recordID: fileRecordId)
-            let data = FileController.readFile(url: fileURL)
-            record[Selectable.idKey] = id.uuidString
-            record[PlaceItem.placeIdKey] = place.id.uuidString
-            record[PlaceItem.creationDateKey] = creationDate
-            record[PlaceItem.changeDateKey] = changeDate
-            record[FileItem.fileNameKey] = fileName
-            record[FileItem.dataKey] = data
+            let asset = CKAsset(fileURL: fileURL)
+            record[CKContainer.fileIdKey] = id.uuidString
+            record[CKContainer.placeIdKey] = place.id.uuidString
+            record[CKContainer.fileNameKey] = fileName
+            record[CKContainer.fileAssetKey] = asset
             return record
         }
     }

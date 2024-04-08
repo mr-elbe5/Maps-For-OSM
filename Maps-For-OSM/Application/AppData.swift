@@ -10,8 +10,8 @@ import CloudKit
 class AppData{
     
     static var storeKey = "locations"
-    static var recordKey = "jsonString"
-    static var recordId = CKRecord.ID(recordName: storeKey)
+    
+    static var recordId = CKRecord.ID(recordName: CKContainer.appDataKey)
     
     static var shared = AppData()
     
@@ -81,57 +81,77 @@ class AppData{
     }
     
     func loadFromICloud(){
-        CKContainer.loadFromICloud(recordIds: [AppData.recordId], processRecord: readFromICloud)
+        Log.debug("load from iCloud")
+        CKContainer.fetchFromICloud(recordId: AppData.recordId, processRecord: { record in
+            if let json = record.value(forKey: CKContainer.appDataKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
+                Log.debug("got places from iCloud")
+                self.places = data
+                self.readFilesFromICloud()
+            }
+        })
     }
     
-    func readFromICloud(record: CKRecord){
-        if let json = record.value(forKey: AppData.recordKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
-            places = data
-            let keys = [Selectable.idKey, PlaceItem.placeIdKey, PlaceItem.creationDateKey, PlaceItem.changeDateKey, FileItem.fileNameKey]
-            var updateList = Array<CKRecord.ID>()
-            CKContainer.loadFromICloud(keys: keys, processRecord: { record in
-                if self.needsUpdate(record: record){
-                    updateList.append(record.recordID)
+    func readFilesFromICloud(){
+        var updateList = Array<CKRecord.ID>()
+        var query = CKQuery(recordType: CKContainer.fileType, predicate: NSPredicate(value: true))
+        // get all records
+        CKContainer.queryFromICloud(query: query, keys: FileItem.recordMetaKeys, processRecord: { record in
+            if self.needsUpdate(record: record){
+                Log.debug("needs update \(record.recordID)")
+                updateList.append(record.recordID)
+            }
+            else{
+                Log.debug("needs no update \(record.recordID)")
+            }
+        }, completion: { success in
+            if success{
+                Log.debug("num needs update \(updateList.count)")
+                CKContainer.fetchFromICloud(recordIds: updateList, keys: FileItem.recordDataKeys, processRecord: { record in
+                    self.updateFile(record: record)
+                }){ success in
+                    Log.debug("all updated")
                 }
-            }, completion: { success in
-                if success{
-                    let keys = [Selectable.idKey, PlaceItem.placeIdKey, PlaceItem.creationDateKey, PlaceItem.changeDateKey, FileItem.fileNameKey, FileItem.dataKey]
-                    CKContainer.loadFromICloud(recordIds: updateList, keys: keys, processRecord: { record in
-                        self.updateFile(record: record)
-                    })
-                }
-            })
-        }
+            }
+        })
     }
     
     private func needsUpdate(record: CKRecord) -> Bool{
-        if let placeId = UUID(uuidString: record.value(forKey: FileItem.placeIdKey) as? String ?? ""){
-            if let place = self.getPlace(id: placeId),
-                let fileId = UUID(uuidString: record.value(forKey: Selectable.idKey) as? String ?? ""),
-               let fileItem = place.getItem(id: fileId) as? FileItem,
-            let changeDate = record.value(forKey: PlaceItem.changeDateKey) as? Date{
-                if fileItem.changeDate < changeDate{
-                    return true
-                }
+        if let placeId = UUID(uuidString: record.value(forKey: CKContainer.placeIdKey) as? String ?? ""),
+           let place = self.getPlace(id: placeId),
+           let fileId = UUID(uuidString: record.value(forKey: CKContainer.fileIdKey) as? String ?? ""),
+           let fileItem = place.getItem(id: fileId) as? FileItem,
+           let modificationDate = record.modificationDate{
+            if fileItem.changeDate < modificationDate{
+                
+                return true
             }
         }
         return false
     }
     
     private func updateFile(record: CKRecord){
-        if let placeId = UUID(uuidString: record.value(forKey: FileItem.placeIdKey) as? String ?? ""){
+        if let placeId = UUID(uuidString: record.value(forKey: CKContainer.placeIdKey) as? String ?? ""){
             if let place = self.getPlace(id: placeId),
-               let fileId = UUID(uuidString: record.value(forKey: Selectable.idKey) as? String ?? ""),
+               let fileId = UUID(uuidString: record.value(forKey: CKContainer.fileIdKey) as? String ?? ""),
                let fileItem = place.getItem(id: fileId) as? FileItem,
-               let data = record.value(forKey: FileItem.dataKey) as? Data{
-                FileController.saveFile(data: data, url: fileItem.fileURL)
+               let asset = record.value(forKey: CKContainer.fileAssetKey) as? CKAsset,
+               let sourceURL = asset.fileURL{
+                Log.debug("source url = \(sourceURL)")
+                if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL){
+                    if let modificationDate = record.modificationDate{
+                        Log.debug("updating change date")
+                        fileItem.changeDate = modificationDate
+                    }
+                }
+                else{
+                    Log.debug("download failed")
+                }
             }
         }
     }
     
     func save(){
         DataController.shared.save(forKey: AppData.storeKey, value: places)
-        saveToICloud()
     }
     
     func saveAsFile() -> URL?{
@@ -144,15 +164,17 @@ class AppData{
     }
     
     func saveToICloud(){
+        Log.debug("save to iCloud")
         var records = Array<CKRecord>()
         let record = CKRecord(recordType: CKContainer.jsonType, recordID: AppData.recordId)
-        record[AppData.recordKey] = places.toJSON()
+        record[CKContainer.appDataKey] = places.toJSON()
         records.append(record)
         let media = media
         for item in media{
             records.append(item.fileRecord)
         }
-        CKContainer.saveToICloud(records: [record])
+        Log.debug("save to iCloud \(records.count) records")
+        CKContainer.saveToICloud(records: records)
     }
     
     func loadFromFile(url: URL){
@@ -199,7 +221,6 @@ class AppData{
     
     func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
         let place = addPlace(coordinate: coordinate)
-        save()
         return place
     }
     
@@ -225,7 +246,6 @@ class AppData{
                 }
             }
         }
-        save()
     }
     
 }
