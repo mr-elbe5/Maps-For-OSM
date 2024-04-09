@@ -54,7 +54,7 @@ struct AppLoader{
     }
     
     static func loadFromUserDefaults(){
-        AppData.shared.load()
+        AppData.shared.loadLocally()
         //deprecated
         loadFromPreviousVersions()
     }
@@ -74,19 +74,11 @@ struct AppLoader{
         CKContainer.default().accountStatus(){ status, error in
             if status == .available{
                 Log.debug("saving to iCloud")
-                saveToICloud()
+                AppData.shared.saveToICloud()
             }
         }
         Log.debug("saving to user defaults")
-        saveToUserDefaults()
-    }
-    
-    static func saveToUserDefaults(){
-        AppData.shared.save()
-    }
-    
-    static func saveToICloud(){
-        AppData.shared.saveToICloud()
+        AppData.shared.saveLocally()
     }
     
 }

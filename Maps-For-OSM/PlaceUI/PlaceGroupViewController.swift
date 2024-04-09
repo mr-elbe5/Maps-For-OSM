@@ -154,7 +154,7 @@ class PlaceGroupViewController: PopupTableViewController{
             if let newPlace = self.mergePlaces(list){
                 AppData.shared.places.append(newPlace)
                 AppData.shared.places.removePlaces(of: list)
-                AppData.shared.save()
+                AppData.shared.saveLocally()
                 self.delegate?.placesChanged()
                 self.tableView.reloadData()
             }

@@ -149,7 +149,7 @@ class TrackViewController: PopupScrollViewController{
     
     func save(){
         track.note = noteEditView?.text ?? ""
-        AppData.shared.save()
+        AppData.shared.saveLocally()
         if editMode{
             toggleEditMode()
         }

@@ -37,7 +37,7 @@ class TrackPool{
                     place!.addItem(item: track)
                 }
             }
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             list.removeAll()
             DataController.shared.remove(forKey: storeKey)
             Log.info("track pool invalidated")

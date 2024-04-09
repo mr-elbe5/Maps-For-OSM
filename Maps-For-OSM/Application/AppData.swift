@@ -71,164 +71,6 @@ class AppData{
         places.count
     }
     
-    func load(){
-        if let list : Array<Place> = DataController.shared.load(forKey: AppData.storeKey){
-            places = list
-        }
-        else{
-            places = Array<Place>()
-        }
-    }
-    
-    func loadFromICloud(){
-        Log.debug("load from iCloud")
-        let query = CKQuery(recordType: CKContainer.jsonType, predicate: NSPredicate(format: "string != ''"))
-        CKContainer.queryFromICloud(query: query, processRecord: { record in
-            if let json = record.string("string"), let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
-                Log.debug("got places from iCloud")
-                if Preferences.shared.mergingSynchronisation{
-                    self.mergePlaces(newPlaces: data)
-                }
-                else{
-                    self.places = data
-                }
-                self.readFilesFromICloud()
-            }
-        })
-    }
-    
-    func mergePlaces(newPlaces: Array<Place>){
-        for newPlace in newPlaces{
-            var found = false
-            for place in places{
-                if newPlace == place{
-                    place.mergePlace(newPlace: newPlace)
-                    found = true
-                    Log.debug("place found: \(place.id)")
-                    break;
-                }
-            }
-            if !found{
-                places.append(newPlace)
-            }
-        }
-    }
-    
-    func readFilesFromICloud(){
-        var downloadList = Array<CKRecord>()
-        var deleteList = Array<CKRecord.ID>()
-        let query = CKQuery(recordType: CKContainer.fileType, predicate: NSPredicate(format: "placeId != ''"))
-        // get all records
-        CKContainer.queryFromICloud(query: query, keys: FileItem.recordMetaKeys, processRecord: { record in
-            switch self.needsAction(record: record){
-            case .download:
-                downloadList.append(record)
-                Log.debug("needs update \(record)")
-            case .delete:
-                deleteList.append(record.recordID)
-                Log.debug("needs delete \(record)")
-            case .none:
-                Log.debug("no action needed \(record)")
-                break
-            }
-        }, completion: { success in
-            if success{
-                for record in downloadList{
-                    if let fileId = record.string("fileId"){
-                        let predicate = NSPredicate(format: "fileId == '\(fileId)'")
-                        let query = CKQuery(recordType: CKContainer.fileType, predicate: predicate)
-                        CKContainer.queryFromICloud(query: query, keys: FileItem.recordDataKeys, processRecord: { record in
-                            self.downloadFile(record: record)
-                        }){ success in
-                            Log.debug("\(fileId) download ready")
-                        }
-                    }
-                }
-                CKContainer.deleteFromICloud(recordIds: deleteList)
-            }
-        })
-    }
-    
-    private func needsAction(record: CKRecord) -> CKContainer.Action{
-        if let placeId = record.uuid("placeId"),
-           let place = self.getPlace(id: placeId){
-            if let fileId = record.uuid("fileId"),
-               let fileItem = place.getItem(id: fileId) as? FileItem{
-                return FileController.fileExists(url: fileItem.fileURL) ? .none : .download
-            }
-            else{
-                Log.warn("Did not find file for \(record.debugString("fileId"))")
-            }
-        }
-        else{
-            Log.warn("Did not find place for \(record.debugString("placeId"))")
-        }
-        return .delete
-    }
-    
-    private func downloadFile(record: CKRecord){
-        Log.debug("downloading file \(record)")
-        if let placeId = record.uuid("placeId"),
-           let place = self.getPlace(id: placeId){
-            if let fileId = record.uuid("fileId"),
-               let fileItem = place.getItem(id: fileId) as? FileItem{
-                if let asset = record.asset("fileAsset"),
-                   let sourceURL = asset.fileURL{
-                    if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
-                        Log.debug("download succeeded")
-                    }
-                    else{
-                        Log.debug("download failed")
-                    }
-                }
-                else{
-                    Log.warn("Did not get asset for \(record.debugString("fileId"))")
-                }
-            }
-            else{
-                Log.warn("Did not find file for \(record.debugString("fileId"))")
-            }
-            
-        }
-        else{
-            Log.warn("Did not find place for \(record.debugString("placeId"))")
-        }
-    }
-    
-    func save(){
-        DataController.shared.save(forKey: AppData.storeKey, value: places)
-    }
-    
-    func saveAsFile() -> URL?{
-        let value = places.toJSON()
-        let url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
-        if FileController.saveFile(text: value, url: url){
-            return url
-        }
-        return nil
-    }
-    
-    func saveToICloud(){
-        Log.debug("save to iCloud")
-        var records = Array<CKRecord>()
-        let record = CKRecord(recordType: CKContainer.jsonType, recordID: AppData.recordId)
-        record["string"] = places.toJSON()
-        records.append(record)
-        let media = media
-        for item in media{
-            records.append(item.fileRecord)
-        }
-        Log.debug("save to iCloud \(records.count) records")
-        CKContainer.saveToICloud(records: records)
-    }
-    
-    func loadFromFile(url: URL){
-        if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
-            places = data
-        }
-    }
-    
-    @discardableResult
     func addPlace(coordinate: CLLocationCoordinate2D) -> Place{
         let place = Place(coordinate: coordinate)
         places.append(place)
@@ -269,6 +111,38 @@ class AppData{
         return place
     }
     
+    // local persistance
+    
+    func loadLocally(){
+        if let list : Array<Place> = DataController.shared.load(forKey: AppData.storeKey){
+            places = list
+        }
+        else{
+            places = Array<Place>()
+        }
+    }
+    
+    func saveLocally(){
+        DataController.shared.save(forKey: AppData.storeKey, value: places)
+    }
+    
+    // file persistance
+    
+    func saveAsFile() -> URL?{
+        let value = places.toJSON()
+        let url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
+        if FileController.saveFile(text: value, url: url){
+            return url
+        }
+        return nil
+    }
+    
+    func loadFromFile(url: URL){
+        if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
+            places = data
+        }
+    }
+    
     //deprecated
     func convertNotes(){
         Log.info("converting notes to note items")
@@ -290,59 +164,6 @@ class AppData{
                     Log.debug("added note item")
                 }
             }
-        }
-    }
-    
-}
-
-extension Array<Place>{
-    
-    mutating func remove(_ place: Place){
-        for idx in 0..<self.count{
-            if self[idx] == place{
-                self.remove(at: idx)
-                return
-            }
-        }
-    }
-    
-    mutating func removePlaces(of list: Array<Place>){
-        for place in list{
-            remove(place)
-        }
-    }
-    
-    var allSelected: Bool{
-        get{
-            for item in self{
-                if !item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    var allUnselected: Bool{
-        get{
-            for item in self{
-                if item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    mutating func selectAll(){
-        for item in self{
-            item.selected = true
-        }
-    }
-    
-    mutating func deselectAll(){
-        for item in self{
-            item.selected = false
         }
     }
     

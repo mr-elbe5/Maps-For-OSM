@@ -1,9 +1,8 @@
-//
-//  CKOperation.swift
-//  Maps for OSM
-//
-//  Created by Michael Rönnau on 07.04.24.
-//
+/*
+ Maps For OSM
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import Foundation
 import CloudKit

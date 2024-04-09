@@ -147,7 +147,7 @@ class PlaceViewController: PopupTableViewController{
     
     func toggleEditMode(){
         if tableView.isEditing{
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             delegate?.placeChanged(place: place)
             editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
             tableView.isEditing = false
@@ -340,7 +340,7 @@ extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationCont
         //image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             place.addItem(item: image)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             self.tableView.reloadData()
         }
         picker.dismiss(animated: false)
@@ -361,7 +361,7 @@ extension PlaceViewController: NoteViewDelegate{
                 newPlace = true
             }
             place!.addItem(item: item)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newPlace{
@@ -387,7 +387,7 @@ extension PlaceViewController: AudioCaptureDelegate{
                 newPlace = true
             }
             place!.addItem(item: audio)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newPlace{

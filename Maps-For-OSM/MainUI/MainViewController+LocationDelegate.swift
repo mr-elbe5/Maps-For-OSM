@@ -23,7 +23,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
     
     func deletePlaceFromList(place: Place) {
         AppData.shared.deletePlace(place)
-        AppData.shared.save()
+        AppData.shared.saveLocally()
         placesChanged()
     }
     
@@ -58,7 +58,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
                     newPlace = true
                 }
                 place!.addItem(item: image)
-                AppData.shared.save()
+                AppData.shared.saveLocally()
                 DispatchQueue.main.async {
                     if newPlace{
                         self.placesChanged()
@@ -90,7 +90,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
             let note = NoteItem()
             note.text = text
             place!.addItem(item: note)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -134,7 +134,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
                 newPlace = true
             }
             place!.addItem(item: imageFile)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -157,7 +157,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
                 newPlace = true
             }
             place!.addItem(item: videoFile)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -198,7 +198,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
                 newPlace = true
             }
             place!.addItem(item: audio)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -233,7 +233,7 @@ extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate,
                 newPlace = true
             }
             place!.addItem(item: track)
-            AppData.shared.save()
+            AppData.shared.saveLocally()
             TrackItem.visibleTrack = track
             self.trackChanged()
             TrackRecorder.stopRecording()

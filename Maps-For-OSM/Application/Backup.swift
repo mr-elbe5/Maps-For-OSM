@@ -64,7 +64,7 @@ class Backup{
         Preferences.shared.save()
         url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
         AppData.shared.loadFromFile(url: url)
-        AppData.shared.save()
+        AppData.shared.saveLocally()
         url = FileController.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
         if FileController.fileExists(url: url){
             TrackPool.loadFromFile(url: url)

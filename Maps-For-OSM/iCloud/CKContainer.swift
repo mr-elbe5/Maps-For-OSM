@@ -1,27 +1,15 @@
-//
-//  CKContainer.swift
-//  Maps for OSM
-//
-//  Created by Michael Rönnau on 07.04.24.
-//
+/*
+ Maps For OSM
+ App for display and use of OSM maps without MapKit
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
 
 import Foundation
 import CloudKit
 
 extension CKContainer{
     
-    enum Action: String{
-        case none
-        case download
-        case delete
-    }
-    
-    static var mapsForOSMContainerName = "iCloud.MapsForOSM"
-    
-    static var jsonType: CKRecord.RecordType = "json"
-    static var fileType: CKRecord.RecordType = "file"
-    
-    static var privateDatabase = CKContainer(identifier: mapsForOSMContainerName).privateCloudDatabase
+    static var privateDatabase = CKContainer(identifier: AppData.mapsForOSMContainerName).privateCloudDatabase
     
     static func queryFromICloud(query: CKQuery, keys: Array<String>? = nil, processRecord: @escaping (CKRecord) -> Void, completion: ((Bool) -> Void)? = nil){
         let operation = CKQueryOperation(query: query)

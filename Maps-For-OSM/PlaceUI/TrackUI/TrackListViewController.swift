@@ -105,7 +105,7 @@ class TrackListViewController: PopupTableViewController{
                     self.tracks?.remove(track)
                     Log.debug("deleting track \(track.name)")
                 }
-                AppData.shared.save()
+                AppData.shared.saveLocally()
                 self.delegate?.placesChanged()
                 self.tableView.reloadData()
             }
