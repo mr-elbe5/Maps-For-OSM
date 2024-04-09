@@ -130,7 +130,7 @@ class Place : Selectable{
             metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .media)
         }
         self.items = metaItems?.toItemList() ?? Array<PlaceItem>()
-        super.init()
+        try super.init(from: decoder)
         for item in items{
             item.place = self
         }

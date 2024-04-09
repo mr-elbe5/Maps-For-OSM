@@ -10,8 +10,8 @@ import CloudKit
 
 class FileItem : PlaceItem{
     
-    static var recordMetaKeys = [CKContainer.fileIdKey, CKContainer.placeIdKey, CKContainer.fileNameKey]
-    static var recordDataKeys = [CKContainer.fileIdKey, CKContainer.placeIdKey, CKContainer.fileNameKey, CKContainer.fileAssetKey]
+    static var recordMetaKeys = ["fileId", "placeId", "fileName"]
+    static var recordDataKeys = ["fileId", "placeId", "fileName", "fileAsset"]
     
     private enum CodingKeys: CodingKey{
         case fileName
@@ -46,10 +46,10 @@ class FileItem : PlaceItem{
         get{
             let record = CKRecord(recordType: CKContainer.fileType, recordID: fileRecordId)
             let asset = CKAsset(fileURL: fileURL)
-            record[CKContainer.fileIdKey] = id.uuidString
-            record[CKContainer.placeIdKey] = place.id.uuidString
-            record[CKContainer.fileNameKey] = fileName
-            record[CKContainer.fileAssetKey] = asset
+            record["fileId"] = id.uuidString
+            record["placeId"] = place.id.uuidString
+            record["fileName"] = fileName
+            record["fileAsset"] = asset
             return record
         }
     }

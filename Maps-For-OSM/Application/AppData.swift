@@ -11,7 +11,7 @@ class AppData{
     
     static var storeKey = "locations"
     
-    static var recordId = CKRecord.ID(recordName: CKContainer.appDataKey)
+    static var recordId = CKRecord.ID(recordName: "appData")
     
     static var shared = AppData()
     
@@ -82,69 +82,97 @@ class AppData{
     
     func loadFromICloud(){
         Log.debug("load from iCloud")
-        CKContainer.fetchFromICloud(recordId: AppData.recordId, processRecord: { record in
-            if let json = record.value(forKey: CKContainer.appDataKey) as? String, let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
+        let query = CKQuery(recordType: CKContainer.jsonType, predicate: NSPredicate(format: "string != ''"))
+        CKContainer.queryFromICloud(query: query, processRecord: { record in
+            if let json = record.string("string"), let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
                 Log.debug("got places from iCloud")
                 self.places = data
+                for place in self.places{
+                    Log.debug(place.id.uuidString)
+                }
                 self.readFilesFromICloud()
             }
         })
     }
     
     func readFilesFromICloud(){
-        var updateList = Array<CKRecord.ID>()
-        let query = CKQuery(recordType: CKContainer.fileType, predicate: NSPredicate(value: true))
+        var downloadList = Array<CKRecord>()
+        var deleteList = Array<CKRecord.ID>()
+        let query = CKQuery(recordType: CKContainer.fileType, predicate: NSPredicate(format: "placeId != ''"))
         // get all records
         CKContainer.queryFromICloud(query: query, keys: FileItem.recordMetaKeys, processRecord: { record in
-            if self.needsUpdate(record: record){
-                Log.debug("needs update \(record.recordID)")
-                updateList.append(record.recordID)
-            }
-            else{
-                Log.debug("needs no update \(record.recordID)")
+            switch self.needsAction(record: record){
+            case .download:
+                downloadList.append(record)
+                Log.debug("needs update \(record)")
+            case .delete:
+                deleteList.append(record.recordID)
+                Log.debug("needs delete \(record)")
+            case .none:
+                Log.debug("no action needed \(record)")
+                break
             }
         }, completion: { success in
             if success{
-                Log.debug("num needs update \(updateList.count)")
-                CKContainer.fetchFromICloud(recordIds: updateList, keys: FileItem.recordDataKeys, processRecord: { record in
-                    self.updateFile(record: record)
-                }){ success in
-                    Log.debug("all updated")
+                for record in downloadList{
+                    if let fileId = record.string("fileId"){
+                        let predicate = NSPredicate(format: "fileId == '\(fileId)'")
+                        let query = CKQuery(recordType: CKContainer.fileType, predicate: predicate)
+                        CKContainer.queryFromICloud(query: query, keys: FileItem.recordDataKeys, processRecord: { record in
+                            self.downloadFile(record: record)
+                        }){ success in
+                            Log.debug("\(fileId) download ready")
+                        }
+                    }
                 }
+                CKContainer.deleteFromICloud(recordIds: deleteList)
             }
         })
     }
     
-    private func needsUpdate(record: CKRecord) -> Bool{
-        if let placeId = UUID(uuidString: record.value(forKey: CKContainer.placeIdKey) as? String ?? ""),
-           let place = self.getPlace(id: placeId),
-           let fileId = UUID(uuidString: record.value(forKey: CKContainer.fileIdKey) as? String ?? ""),
-           let fileItem = place.getItem(id: fileId) as? FileItem,
-           let modificationDate = record.modificationDate{
-            return fileItem.changeDate < modificationDate
+    private func needsAction(record: CKRecord) -> CKContainer.Action{
+        if let placeId = record.uuid("placeId"),
+           let place = self.getPlace(id: placeId){
+            if let fileId = record.uuid("fileId"),
+               let fileItem = place.getItem(id: fileId) as? FileItem{
+                return FileController.fileExists(url: fileItem.fileURL) ? .none : .download
+            }
+            else{
+                Log.warn("Did not find file for \(record.debugString("fileId"))")
+            }
         }
-        Log.warn("Did not find item for \(record.debugDescription)")
-        return false
+        else{
+            Log.warn("Did not find place for \(record.debugString("placeId"))")
+        }
+        return .delete
     }
     
-    private func updateFile(record: CKRecord){
-        if let placeId = UUID(uuidString: record.value(forKey: CKContainer.placeIdKey) as? String ?? ""){
-            if let place = self.getPlace(id: placeId),
-               let fileId = UUID(uuidString: record.value(forKey: CKContainer.fileIdKey) as? String ?? ""),
-               let fileItem = place.getItem(id: fileId) as? FileItem,
-               let asset = record.value(forKey: CKContainer.fileAssetKey) as? CKAsset,
-               let sourceURL = asset.fileURL{
-                Log.debug("source url = \(sourceURL)")
-                if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL){
-                    if let modificationDate = record.modificationDate{
-                        Log.debug("updating change date")
-                        fileItem.changeDate = modificationDate
+    private func downloadFile(record: CKRecord){
+        Log.debug("downloading file \(record)")
+        if let placeId = record.uuid("placeId"),
+           let place = self.getPlace(id: placeId){
+            if let fileId = record.uuid("fileId"),
+               let fileItem = place.getItem(id: fileId) as? FileItem{
+                if let asset = record.asset("fileAsset"),
+                   let sourceURL = asset.fileURL{
+                    if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
+                        Log.debug("download succeeded")
+                    }
+                    else{
+                        Log.debug("download failed")
                     }
                 }
                 else{
-                    Log.debug("download failed")
+                    Log.warn("Did not get asset for \(record.debugString("fileId"))")
                 }
             }
+            else{
+                Log.warn("Did not find file for \(record.debugString("fileId"))")
+            }
+            
+        }
+        else{
+            Log.warn("Did not find place for \(record.debugString("placeId"))")
         }
     }
     
@@ -165,7 +193,7 @@ class AppData{
         Log.debug("save to iCloud")
         var records = Array<CKRecord>()
         let record = CKRecord(recordType: CKContainer.jsonType, recordID: AppData.recordId)
-        record[CKContainer.appDataKey] = places.toJSON()
+        record["string"] = places.toJSON()
         records.append(record)
         let media = media
         for item in media{
