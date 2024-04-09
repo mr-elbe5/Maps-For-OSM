@@ -126,5 +126,12 @@ class FileItem : PlaceItem{
         }
     }
     
+    override func mergeItem(newItem: PlaceItem){
+        super.mergeItem(newItem: newItem)
+        if fileName != newItem.creationDate.fileDate(){
+            Log.warn("file names dont match for \(id)")
+        }
+    }
+    
 }
 

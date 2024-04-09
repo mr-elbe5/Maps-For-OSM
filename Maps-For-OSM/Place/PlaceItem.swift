@@ -50,6 +50,12 @@ class PlaceItem : Selectable{
     func prepareDelete(){
     }
     
+    func mergeItem(newItem: PlaceItem){
+        if type != newItem.type{
+            Log.warn("types dont match for \(id)")
+        }
+    }
+    
 }
 
 extension Array<PlaceItem>{

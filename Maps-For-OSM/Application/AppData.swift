@@ -86,13 +86,32 @@ class AppData{
         CKContainer.queryFromICloud(query: query, processRecord: { record in
             if let json = record.string("string"), let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
                 Log.debug("got places from iCloud")
-                self.places = data
-                for place in self.places{
-                    Log.debug(place.id.uuidString)
+                if Preferences.shared.mergingSynchronisation{
+                    self.mergePlaces(newPlaces: data)
+                }
+                else{
+                    self.places = data
                 }
                 self.readFilesFromICloud()
             }
         })
+    }
+    
+    func mergePlaces(newPlaces: Array<Place>){
+        for newPlace in newPlaces{
+            var found = false
+            for place in places{
+                if newPlace == place{
+                    place.mergePlace(newPlace: newPlace)
+                    found = true
+                    Log.debug("place found: \(place.id)")
+                    break;
+                }
+            }
+            if !found{
+                places.append(newPlace)
+            }
+        }
     }
     
     func readFilesFromICloud(){

@@ -209,6 +209,26 @@ class Place : Selectable{
         items.sortByCreation()
     }
     
+    func mergePlace(newPlace: Place){
+        if coordinate != newPlace.coordinate{
+            Log.warn("coordinates dont match for \(id)")
+        }
+        for newItem in newPlace.items{
+            var found = false
+            for item in items{
+                if newItem == item{
+                    item.mergeItem(newItem: newItem)
+                    Log.debug("item found: \(item.id)")
+                    found = true
+                }
+            }
+            if !found{
+                items.append(newItem)
+            }
+        }
+        items.sortByCreation()
+    }
+    
 }
 
 protocol PlaceDelegate{
