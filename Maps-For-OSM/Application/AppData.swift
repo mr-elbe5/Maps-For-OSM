@@ -93,7 +93,7 @@ class AppData{
     
     func readFilesFromICloud(){
         var updateList = Array<CKRecord.ID>()
-        var query = CKQuery(recordType: CKContainer.fileType, predicate: NSPredicate(value: true))
+        let query = CKQuery(recordType: CKContainer.fileType, predicate: NSPredicate(value: true))
         // get all records
         CKContainer.queryFromICloud(query: query, keys: FileItem.recordMetaKeys, processRecord: { record in
             if self.needsUpdate(record: record){
@@ -121,11 +121,9 @@ class AppData{
            let fileId = UUID(uuidString: record.value(forKey: CKContainer.fileIdKey) as? String ?? ""),
            let fileItem = place.getItem(id: fileId) as? FileItem,
            let modificationDate = record.modificationDate{
-            if fileItem.changeDate < modificationDate{
-                
-                return true
-            }
+            return fileItem.changeDate < modificationDate
         }
+        Log.warn("Did not find item for \(record.debugDescription)")
         return false
     }
     
