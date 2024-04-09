@@ -25,7 +25,6 @@ class LabeledTextField : UIView, UITextFieldDelegate{
     func setupView(labelText: String, text: String = "", isHorizontal : Bool = true){
         label.text = labelText
         label.textAlignment = .left
-        label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
         addSubview(label)
         

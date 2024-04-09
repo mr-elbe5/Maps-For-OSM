@@ -1350,6 +1350,23 @@
         }
       }
     },
+    "iCloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud"
+          }
+        }
+      }
+    },
     "imageLibrary" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1738,6 +1755,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Items of these places will be added to the new place. The old places will be deleted. This cannot be undone."
+          }
+        }
+      }
+    },
+    "mergeSynchronisation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale und iCloud-Daten zusammenführen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge local and iCloud data"
           }
         }
       }

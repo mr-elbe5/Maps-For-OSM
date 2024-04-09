@@ -31,7 +31,6 @@ class LabeledSwitchView : UIView{
     func setupView(labelText: String, isOn : Bool){
         label.text = labelText
         label.textAlignment = .left
-        label.font = .preferredFont(forTextStyle: .headline)
         addSubviewWithAnchors(label, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor)
         
         switcher.scaleBy(0.75)
