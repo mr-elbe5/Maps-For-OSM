@@ -140,7 +140,6 @@
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
-		4ECC1AD62BA360B100B9CCBD /* LocationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD52BA360B100B9CCBD /* LocationMenuViewController.swift */; };
 		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */; };
@@ -315,7 +314,6 @@
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
-		4ECC1AD52BA360B100B9CCBD /* LocationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMenuViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+LocationDelegate.swift"; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadViewController.swift; sourceTree = "<group>"; };
@@ -658,7 +656,6 @@
 			isa = PBXGroup;
 			children = (
 				4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */,
-				4ECC1AD52BA360B100B9CCBD /* LocationMenuViewController.swift */,
 				4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */,
 				4E1B810F2732EDC5003ED6B0 /* MapView.swift */,
 				4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */,
@@ -933,7 +930,6 @@
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
 				4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */,
 				4E31A652293F4B47002080F6 /* UIView+Insets.swift in Sources */,
-				4ECC1AD62BA360B100B9CCBD /* LocationMenuViewController.swift in Sources */,
 				4E1982C52BAC246600A37AE0 /* NoteCell.swift in Sources */,
 				4E1982C32BAB5A0700A37AE0 /* TrackCell.swift in Sources */,
 				4EE1462E28D49F510058F3D3 /* World.swift in Sources */,

@@ -71,6 +71,17 @@ class AppData{
         places.count
     }
     
+    func resetCoordinateRegions() {
+        for place in places{
+            place.resetCoordinateRegion()
+        }
+    }
+    
+    func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
+        let place = addPlace(coordinate: coordinate)
+        return place
+    }
+    
     func addPlace(coordinate: CLLocationCoordinate2D) -> Place{
         let place = Place(coordinate: coordinate)
         places.append(place)
@@ -104,11 +115,6 @@ class AppData{
         places.first(where:{
             $0.id == id
         })
-    }
-    
-    func createPlace(coordinate: CLLocationCoordinate2D) -> Place{
-        let place = addPlace(coordinate: coordinate)
-        return place
     }
     
     // local persistance
@@ -147,17 +153,17 @@ class AppData{
     func convertNotes(){
         Log.info("converting notes to note items")
         for place in places{
-            if !place.note.isEmpty{
+            if let note = place.note{
                 if !{
                     for item in place.notes{
-                        if item.text == place.note{
+                        if item.text == note{
                             return true
                         }
                     }
                     return false
                 }(){
                     let noteItem = NoteItem()
-                    noteItem.text = place.note
+                    noteItem.text = note
                     noteItem.creationDate = place.timestamp
                     place.addItem(item: noteItem)
                     place.note = ""
@@ -168,3 +174,4 @@ class AppData{
     }
     
 }
+

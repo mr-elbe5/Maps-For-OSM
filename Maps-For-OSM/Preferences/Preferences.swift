@@ -114,3 +114,4 @@ class Preferences: Identifiable, Codable{
     }
     
 }
+

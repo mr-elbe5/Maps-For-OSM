@@ -8,10 +8,6 @@ import Foundation
 import UIKit
 import CoreLocation
 
-protocol PreferencesDelegate{
-    func updateFollowTrack()
-}
-
 class PreferencesViewController: PopupScrollViewController{
     
     var mergingSynchronisationSwitch = LabeledSwitchView()
@@ -23,8 +19,6 @@ class PreferencesViewController: PopupScrollViewController{
     var minHorizontalTrackpointDistanceField = LabeledTextField()
     var minVerticalTrackpointDistanceField = LabeledTextField()
     var maxTrackpointInLineDeviationField = LabeledTextField()
-    
-    var delegate: PreferencesDelegate? = nil
     
     override func loadView() {
         title = "preferences".localize()
@@ -93,7 +87,10 @@ class PreferencesViewController: PopupScrollViewController{
         Preferences.shared.mergingSynchronisation = mergingSynchronisationSwitch.isOn
         var val = Double(maxMergeDistanceField.text)
         if let val = val{
-            Preferences.shared.maxPlaceMergeDistance = val
+            if Preferences.shared.maxPlaceMergeDistance != val{
+                Preferences.shared.maxPlaceMergeDistance = val
+                AppData.shared.resetCoordinateRegions()
+            }
         }
         Preferences.shared.followTrack = followTrackSwitch.isOn
         val = Double(trackpointIntervalField.text)
@@ -120,7 +117,6 @@ class PreferencesViewController: PopupScrollViewController{
         if let val = val{
             Preferences.shared.maxTrackpointInLineDeviation = val
         }
-        self.delegate?.updateFollowTrack()
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
     }

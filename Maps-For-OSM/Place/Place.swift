@@ -25,12 +25,12 @@ class Place : Selectable{
     var altitude: Double
     var timestamp: Date
     var mapPoint: MapPoint
-    var coordinateRegion: CoordinateRegion
     var name : String = ""
     var address : String = ""
     //deprecated
-    var note : String = ""
+    var note : String? = nil
     private var items : Array<PlaceItem>
+    private var _coordinateRegion: CoordinateRegion? = nil
     
     var itemCount: Int{
         items.count
@@ -100,10 +100,18 @@ class Place : Selectable{
         }) as! Array<FileItem>
     }
     
+    var coordinateRegion: CoordinateRegion{
+        get{
+            if _coordinateRegion == nil{
+                _coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxPlaceMergeDistance)
+            }
+            return _coordinateRegion!
+        }
+    }
+    
     init(coordinate: CLLocationCoordinate2D){
         items = Array<PlaceItem>()
         mapPoint = MapPoint(coordinate)
-        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxPlaceMergeDistance)
         self.coordinate = coordinate
         altitude = 0
         timestamp = Date()
@@ -117,13 +125,12 @@ class Place : Selectable{
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapPoint = MapPoint(coordinate)
-        coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxPlaceMergeDistance)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         //deprecated
-        note = try values.decodeIfPresent(String.self, forKey: .note) ?? ""
+        note = try values.decodeIfPresent(String.self, forKey: .note)
         var metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .items)
         if metaItems == nil{
             Log.warn("key items not found - trying key media")
@@ -166,6 +173,10 @@ class Place : Selectable{
             }
         }
         
+    }
+    
+    func resetCoordinateRegion(){
+        _coordinateRegion = nil
     }
     
     func item(at idx: Int) -> PlaceItem{
