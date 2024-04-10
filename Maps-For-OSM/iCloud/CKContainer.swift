@@ -9,7 +9,7 @@ import CloudKit
 
 extension CKContainer{
     
-    static var privateDatabase = CKContainer(identifier: AppData.mapsForOSMContainerName).privateCloudDatabase
+    static var privateDatabase = CKContainer(identifier: CloudSynchronizer.mapsForOSMContainerName).privateCloudDatabase
     
     static func queryFromICloud(query: CKQuery, keys: Array<String>? = nil, processRecord: @escaping (CKRecord) -> Void, completion: ((Bool) -> Void)? = nil){
         let operation = CKQueryOperation(query: query)
@@ -26,6 +26,12 @@ extension CKContainer{
         }
         if let completion = completion{
             operation.queryResultBlock = { (operationResult: Result<CKQueryOperation.Cursor?, any Error>) in
+                switch operationResult{
+                case .failure:
+                    completion(false)
+                case .success(let cursor):
+                    completion(cursor == nil)
+                }
                 completion(true)
             }
         }
@@ -46,8 +52,18 @@ extension CKContainer{
         privateDatabase.add(operation)
     }
     
-    static func deleteFromICloud(recordIds: Array<CKRecord.ID>){
+    static func deleteFromICloud(recordIds: Array<CKRecord.ID>, completion: ((Bool) -> Void)? = nil){
         let operation = CKModifyRecordsOperation(recordsToSave: nil, recordIDsToDelete: recordIds).forDelete()
+        if let completion = completion{
+            operation.modifyRecordsResultBlock = { (result: Result<Void, any Error>) in
+                switch result{
+                case .failure:
+                    completion(false)
+                case .success():
+                    completion(true)
+                }
+            }
+        }
         privateDatabase.add(operation)
     }
     

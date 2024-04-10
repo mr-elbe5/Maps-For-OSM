@@ -59,7 +59,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = AppData.shared.tracks
+        controller.tracks = AppData.shared.trackItems
         controller.placeDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -82,7 +82,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openImageList() {
         let controller = ImageListViewController()
-        controller.images = AppData.shared.images
+        controller.images = AppData.shared.imageItems
         controller.placeDelegate = self
         controller.imageDelegate = self
         controller.modalPresentationStyle = .fullScreen

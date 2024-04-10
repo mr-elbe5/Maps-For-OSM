@@ -129,11 +129,11 @@
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
+		4EA9B8212BC6D22800C98852 /* CloudSynchronizer().swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B8202BC6D22800C98852 /* CloudSynchronizer().swift */; };
 		4EAB349E2BA1B198004D187D /* ExifData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB349D2BA1B198004D187D /* ExifData.swift */; };
 		4EAF3D902BC58A2500FA6992 /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */; };
 		4EAF3D922BC58A9900FA6992 /* PlaceItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */; };
 		4EAF3D942BC58B4500FA6992 /* PlaceItemMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */; };
-		4EAF3D962BC58C3A00FA6992 /* AppData+ICloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D952BC58C3A00FA6992 /* AppData+ICloud.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
 		4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE72BB18B0900787A15 /* GPXData.swift */; };
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
@@ -303,11 +303,11 @@
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
+		4EA9B8202BC6D22800C98852 /* CloudSynchronizer().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudSynchronizer().swift"; sourceTree = "<group>"; };
 		4EAB349D2BA1B198004D187D /* ExifData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExifData.swift; sourceTree = "<group>"; };
 		4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
 		4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemList.swift; sourceTree = "<group>"; };
 		4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemMetaData.swift; sourceTree = "<group>"; };
-		4EAF3D952BC58C3A00FA6992 /* AppData+ICloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppData+ICloud.swift"; sourceTree = "<group>"; };
 		4EB9BCE72BB18B0900787A15 /* GPXData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXData.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
@@ -367,6 +367,7 @@
 				4E02524D2BC2D7890010D234 /* CKContainer.swift */,
 				4E02524F2BC2E2310010D234 /* CKOperation.swift */,
 				4E0252592BC548EE0010D234 /* CKRecord.swift */,
+				4EA9B8202BC6D22800C98852 /* CloudSynchronizer().swift */,
 			);
 			path = iCloud;
 			sourceTree = "<group>";
@@ -447,7 +448,6 @@
 			isa = PBXGroup;
 			children = (
 				4E1B810C2732EDC5003ED6B0 /* AppData.swift */,
-				4EAF3D952BC58C3A00FA6992 /* AppData+ICloud.swift */,
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0252512BC3262E0010D234 /* AppLoader.swift */,
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
@@ -843,7 +843,6 @@
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4EF353182BB56ACF00A0A85B /* PreferencesInfoViewController.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
-				4EAF3D962BC58C3A00FA6992 /* AppData+ICloud.swift in Sources */,
 				4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */,
 				4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */,
 				4ED5DF44273E831B00549AF8 /* Place.swift in Sources */,
@@ -934,6 +933,7 @@
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4EF353222BB5718400A0A85B /* SearchInfoViewController.swift in Sources */,
 				4E31A658293F4CCC002080F6 /* UIView.swift in Sources */,
+				4EA9B8212BC6D22800C98852 /* CloudSynchronizer().swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
 				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
 				4E08A32A298976F2001D86F1 /* TrackpointList.swift in Sources */,

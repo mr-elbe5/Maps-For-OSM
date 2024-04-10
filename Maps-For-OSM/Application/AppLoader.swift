@@ -50,7 +50,8 @@ struct AppLoader{
     }
     
     static func loadDataFromICloud(){
-        AppData.shared.loadFromICloud()
+        let synchronizer = CloudSynchronizer()
+        synchronizer.synchronizeFromICloud()
     }
     
     static func loadFromUserDefaults(){
@@ -74,7 +75,8 @@ struct AppLoader{
         CKContainer.default().accountStatus(){ status, error in
             if status == .available{
                 Log.debug("saving to iCloud")
-                AppData.shared.saveToICloud()
+                let synchronizer = CloudSynchronizer()
+                synchronizer.synchronizeToICloud()
             }
         }
         Log.debug("saving to user defaults")

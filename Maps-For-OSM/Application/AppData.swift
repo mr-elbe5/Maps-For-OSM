@@ -35,7 +35,7 @@ class AppData{
         }
     }
     
-    var tracks: Array<TrackItem>{
+    var trackItems: Array<TrackItem>{
         get{
             var trackList = Array<TrackItem>()
             for place in places{
@@ -46,7 +46,7 @@ class AppData{
         }
     }
     
-    var images: Array<ImageItem>{
+    var imageItems: Array<ImageItem>{
         get{
             var imageList = Array<ImageItem>()
             for place in places{
@@ -57,13 +57,13 @@ class AppData{
         }
     }
     
-    var media: Array<FileItem>{
+    var fileItems: Array<FileItem>{
         get{
-            var mediaList = Array<FileItem>()
+            var fileList = Array<FileItem>()
             for place in places{
-                mediaList.append(contentsOf: place.media)
+                fileList.append(contentsOf: place.media)
             }
-            return mediaList
+            return fileList
         }
     }
     
