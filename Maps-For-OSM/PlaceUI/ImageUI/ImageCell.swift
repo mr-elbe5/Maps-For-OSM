@@ -17,7 +17,8 @@ class ImageCell: PlaceItemCell{
         }
     }
     
-    var delegate: ImageDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var imageDelegate: ImageDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
@@ -35,13 +36,13 @@ class ImageCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: image.place)
+                self.placeDelegate?.showPlaceOnMap(place: image.place)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewImage(image: image)
+                self.imageDelegate?.viewImage(image: image)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

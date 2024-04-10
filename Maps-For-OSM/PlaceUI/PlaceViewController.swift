@@ -235,7 +235,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
         case .audio: 
             if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? AudioItem{
                 cell.audio = audioItem
-                cell.delegate = self
+                cell.placeDelegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
                 return cell
             }
@@ -246,7 +246,8 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
         case .video:
             if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let videoItem = item as? VideoItem{
                 cell.video = videoItem
-                cell.delegate = self
+                cell.placeDelegate = self
+                cell.videoDelegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
                 return cell
             }
@@ -257,7 +258,8 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
         case .image:
             if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let imageItem = item as? ImageItem{
                 cell.image = imageItem
-                cell.delegate = self
+                cell.placeDelegate = self
+                cell.imageDelegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
                 return cell
             }
@@ -407,8 +409,7 @@ extension PlaceViewController: AudioCaptureDelegate{
     }
 }
 
-
-extension PlaceViewController : VideoItemCellDelegate{
+extension PlaceViewController : VideoDelegate{
     
     func viewVideoItem(item: VideoItem) {
         let controller = VideoViewController()

@@ -19,7 +19,8 @@ class ImageListViewController: PopupTableViewController{
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var delegate: ImageDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var imageDelegate: ImageDelegate? = nil
     
     override open func loadView() {
         title = "images".localize()
@@ -182,7 +183,7 @@ class ImageListViewController: PopupTableViewController{
                     Log.debug("deleting image \(image.fileURL.lastPathComponent)")
                 }
                 AppData.shared.saveLocally()
-                self.delegate?.placesChanged()
+                self.placeDelegate?.placesChanged()
                 self.tableView.reloadData()
             }
         }
@@ -209,7 +210,8 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as! ImageCell
         let image = images?.reversed()[indexPath.row]
         cell.image = image
-        cell.delegate = self
+        cell.placeDelegate = self
+        cell.imageDelegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
     }
@@ -228,34 +230,31 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension ImageListViewController : ImageDelegate{
+extension ImageListViewController : PlaceDelegate{
     
     func placeChanged(place: Place) {
-        self.delegate?.placeChanged(place: place)
+        self.placeDelegate?.placeChanged(place: place)
     }
     
     func placesChanged() {
-        self.delegate?.placesChanged()
+        self.placeDelegate?.placesChanged()
     }
     
     
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showPlaceOnMap(place: place)
+            self.placeDelegate?.showPlaceOnMap(place: place)
         }
     }
+}
+
+extension ImageListViewController : ImageDelegate{
     
     func viewImage(image: ImageItem) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
-    }
-    
-    func viewTrackItem(item: TrackItem) {
-    }
-    
-    func showTrackItemOnMap(item: TrackItem) {
     }
     
 }

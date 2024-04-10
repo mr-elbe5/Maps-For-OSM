@@ -17,7 +17,7 @@ class AudioCell: PlaceItemCell{
         }
     }
     
-    var delegate: PlaceDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
     
     override func setupCellBody(){
         iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
@@ -44,7 +44,7 @@ class AudioCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: audio.place)
+                self.placeDelegate?.showPlaceOnMap(place: audio.place)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

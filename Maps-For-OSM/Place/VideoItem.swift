@@ -41,3 +41,9 @@ class VideoItem : FileItem{
     
 }
 
+protocol VideoDelegate{
+    func viewVideoItem(item: VideoItem)
+}
+
+
+

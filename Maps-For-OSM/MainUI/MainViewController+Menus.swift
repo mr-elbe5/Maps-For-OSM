@@ -83,7 +83,8 @@ extension MainViewController: MainMenuDelegate{
     func openImageList() {
         let controller = ImageListViewController()
         controller.images = AppData.shared.images
-        controller.delegate = self
+        controller.placeDelegate = self
+        controller.imageDelegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

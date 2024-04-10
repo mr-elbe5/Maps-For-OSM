@@ -38,7 +38,7 @@ class ImageItem : FileItem{
     
 }
 
-protocol ImageDelegate: PlaceDelegate{
+protocol ImageDelegate{
     func viewImage(image: ImageItem)
 }
 
