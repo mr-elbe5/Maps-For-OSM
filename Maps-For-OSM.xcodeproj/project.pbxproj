@@ -124,7 +124,6 @@
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E7C4E4F2BAEEF7F001494E9 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C4E4E2BAEEF7F001494E9 /* Selectable.swift */; };
 		4E7C4E512BAF2113001494E9 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C4E502BAF2113001494E9 /* TableViewCell.swift */; };
-		4E7C4E532BB071F8001494E9 /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C4E522BB071F8001494E9 /* LocationDelegate.swift */; };
 		4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */; };
 		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
@@ -299,7 +298,6 @@
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		4E7C4E4E2BAEEF7F001494E9 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 		4E7C4E502BAF2113001494E9 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
-		4E7C4E522BB071F8001494E9 /* LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
 		4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListInfoViewController.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
@@ -454,7 +452,6 @@
 				4E0252512BC3262E0010D234 /* AppLoader.swift */,
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
 				4E4424942B961D690007A26F /* Backup.swift */,
-				4E7C4E522BB071F8001494E9 /* LocationDelegate.swift */,
 				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
@@ -865,7 +862,6 @@
 				4E24F48027345D11004E69C2 /* UITextView.swift in Sources */,
 				4E24F48727345D11004E69C2 /* UIImageView.swift in Sources */,
 				4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */,
-				4E7C4E532BB071F8001494E9 /* LocationDelegate.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
 				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,

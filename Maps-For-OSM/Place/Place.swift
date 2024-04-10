@@ -246,6 +246,4 @@ protocol PlaceDelegate{
     func placeChanged(place: Place)
     func placesChanged()
     func showPlaceOnMap(place: Place)
-    func viewTrackItem(item: TrackItem)
-    func showTrackItemOnMap(item: TrackItem)
 }

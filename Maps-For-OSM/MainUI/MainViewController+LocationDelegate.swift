@@ -8,7 +8,7 @@ import UIKit
 import CoreLocation
 import AVFoundation
 
-extension MainViewController: LocationDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
                                 CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{
     
     func addPlace(at coordinate: CLLocationCoordinate2D) {

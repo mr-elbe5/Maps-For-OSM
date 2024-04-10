@@ -53,7 +53,8 @@ extension MainViewController: PlaceLayerDelegate{
         let controller = PlaceViewController(location: place)
         controller.place = place
         controller.modalPresentationStyle = .fullScreen
-        controller.delegate = self
+        controller.placeDelegate = self
+        controller.trackDelegate = self
         present(controller, animated: true)
     }
     
@@ -81,19 +82,6 @@ extension MainViewController: PlaceDelegate{
         mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
     }
     
-    func viewTrackItem(item: TrackItem) {
-        
-    }
-    
-    func showTrackItemOnMap(item: TrackItem) {
-        if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
-            TrackItem.visibleTrack = item
-            trackChanged()
-            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
-        }
-    }
-    
 }
 
 extension MainViewController: ImageDelegate {
@@ -104,17 +92,22 @@ extension MainViewController: ImageDelegate {
     
 }
 
-extension MainViewController: TrackDetailDelegate{
+extension MainViewController: TrackDelegate{
     
-    func viewTrackDetails(track: TrackItem) {
-        let controller = TrackViewController(track: track)
+    func viewTrackItem(item: TrackItem) {
+        let controller = TrackViewController(track: item)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func trackChanged() {
-        mapView.trackLayerView.setNeedsDisplay()
+    func showTrackItemOnMap(item: TrackItem) {
+        if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
+            TrackItem.visibleTrack = item
+            trackChanged()
+            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
+            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
+        }
     }
     
 }

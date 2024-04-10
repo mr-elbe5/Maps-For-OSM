@@ -12,7 +12,8 @@ class TrackCell: PlaceItemCell{
     
     var track : TrackItem? = nil
     
-    var delegate: PlaceDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
@@ -30,13 +31,13 @@ class TrackCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showTrackItemOnMap(item: track)
+                self.trackDelegate?.showTrackItemOnMap(item: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewTrackItem(item: track)
+                self.trackDelegate?.viewTrackItem(item: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

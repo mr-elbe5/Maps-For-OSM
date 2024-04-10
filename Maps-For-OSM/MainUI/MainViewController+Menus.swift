@@ -60,7 +60,8 @@ extension MainViewController: MainMenuDelegate{
     func openTrackList() {
         let controller = TrackListViewController()
         controller.tracks = AppData.shared.tracks
-        controller.delegate = self
+        controller.placeDelegate = self
+        controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

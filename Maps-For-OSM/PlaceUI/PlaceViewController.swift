@@ -21,7 +21,8 @@ class PlaceViewController: PopupTableViewController{
     
     var place: Place
     
-    var delegate: PlaceDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     init(location: Place){
         self.place = location
@@ -148,7 +149,7 @@ class PlaceViewController: PopupTableViewController{
     func toggleEditMode(){
         if tableView.isEditing{
             AppData.shared.saveLocally()
-            delegate?.placeChanged(place: place)
+            placeDelegate?.placeChanged(place: place)
             editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
             tableView.isEditing = false
             addImageButton.isHidden = true
@@ -202,7 +203,7 @@ class PlaceViewController: PopupTableViewController{
             for item in list{
                 self.place.deleteItem(item: item)
             }
-            self.delegate?.placeChanged(place: self.place)
+            self.placeDelegate?.placeChanged(place: self.place)
             self.tableView.reloadData()
         }
     }
@@ -211,7 +212,7 @@ class PlaceViewController: PopupTableViewController{
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deleteHint".localize()){
             print("deleting place")
             AppData.shared.deletePlace(self.place)
-            self.delegate?.placesChanged()
+            self.placeDelegate?.placesChanged()
             self.dismiss(animated: false)
         }
     }
@@ -267,7 +268,8 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
         case .track:
             if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let trackItem = item as? TrackItem{
                 cell.track = trackItem
-                cell.delegate = self
+                cell.placeDelegate = self
+                cell.trackDelegate = self
                 cell.updateCell(isEditing: tableView.isEditing)
                 return cell
             }
@@ -306,17 +308,21 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
 extension PlaceViewController : PlaceDelegate{
     
     func placeChanged(place: Place) {
-        self.delegate?.placeChanged(place: place)
+        self.placeDelegate?.placeChanged(place: place)
     }
     
     func placesChanged() {
-        self.delegate?.placesChanged()
+        self.placeDelegate?.placesChanged()
     }
     
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true)
-        delegate?.showPlaceOnMap(place: place)
+        placeDelegate?.showPlaceOnMap(place: place)
     }
+    
+}
+
+extension PlaceViewController : TrackDelegate{
     
     func viewTrackItem(item: TrackItem) {
         let controller = TrackViewController(track: item)
@@ -326,7 +332,7 @@ extension PlaceViewController : PlaceDelegate{
     
     func showTrackItemOnMap(item: TrackItem) {
         self.dismiss(animated: true){
-            self.delegate?.showTrackItemOnMap(item: item)
+            self.trackDelegate?.showTrackItemOnMap(item: item)
         }
     }
     

@@ -214,6 +214,11 @@ class TrackItem : PlaceItem{
     
 }
 
+protocol TrackDelegate{
+    func viewTrackItem(item: TrackItem)
+    func showTrackItemOnMap(item: TrackItem)
+}
+
 extension Array<TrackItem>{
     
     mutating func remove(_ track: TrackItem){

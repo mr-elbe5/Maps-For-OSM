@@ -7,9 +7,22 @@
 import UIKit
 import CoreLocation
 
+protocol ActionMenuDelegate{
+    
+    func addPlace(at coordinate: CLLocationCoordinate2D)
+    func openCamera(at coordinate: CLLocationCoordinate2D)
+    func openAddImage(at coordinate: CLLocationCoordinate2D)
+    func openAddNote(at coordinate: CLLocationCoordinate2D)
+    func openAudioRecorder(at coordinate: CLLocationCoordinate2D)
+    
+    func startTrackRecording(at coordinate: CLLocationCoordinate2D)
+    func saveTrack()
+    func cancelTrack()
+}
+
 class ActionMenuView: UIView {
     
-    var delegate : LocationDelegate? = nil
+    var delegate : ActionMenuDelegate? = nil
     
     var toggleTrackingButton = UIButton().asIconButton("figure.walk.departure")
     

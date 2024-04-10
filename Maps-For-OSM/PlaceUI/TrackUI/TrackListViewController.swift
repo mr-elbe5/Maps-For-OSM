@@ -17,7 +17,8 @@ class TrackListViewController: PopupTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var delegate: PlaceDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
@@ -106,7 +107,7 @@ class TrackListViewController: PopupTableViewController{
                     Log.debug("deleting track \(track.name)")
                 }
                 AppData.shared.saveLocally()
-                self.delegate?.placesChanged()
+                self.placeDelegate?.placesChanged()
                 self.tableView.reloadData()
             }
         }
@@ -115,6 +116,16 @@ class TrackListViewController: PopupTableViewController{
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         tracks?.deselectAll()
         super.dismiss(animated: flag, completion: completion)
+    }
+    
+    func exportTrack(item: TrackItem) {
+        if let url = GPXCreator.createTemporaryFile(track: item){
+            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
+            controller.directoryURL = FileController.exportGpxDirURL
+            present(controller, animated: true) {
+                FileController.logFileInfo()
+            }
+        }
     }
     
 }
@@ -133,7 +144,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as! TrackCell
         let track = tracks?.reversed()[indexPath.row]
         cell.track = track
-        cell.delegate = self
+        cell.placeDelegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
     }
@@ -152,30 +163,23 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension TrackListViewController : TrackDetailDelegate{
-    
-    func showTrackItemOnMap(item: TrackItem) {
-        self.dismiss(animated: true){
-            self.delegate?.showTrackItemOnMap(item: item)
-        }
-    }
-    
-}
-
 extension TrackListViewController : PlaceDelegate{
     
     func placeChanged(place: Place) {
-        self.delegate?.placeChanged(place: place)
+        self.placeDelegate?.placeChanged(place: place)
     }
     
     func placesChanged() {
-        self.delegate?.placesChanged()
+        self.placeDelegate?.placesChanged()
     }
     
     func showPlaceOnMap(place: Place) {
-        self.delegate?.showPlaceOnMap(place: place)
+        self.placeDelegate?.showPlaceOnMap(place: place)
     }
     
+}
+    
+extension TrackListViewController : TrackDelegate{
     
     func viewTrackItem(item: TrackItem) {
         let trackController = TrackViewController(track: item)
@@ -185,13 +189,9 @@ extension TrackListViewController : PlaceDelegate{
         self.present(trackController, animated: true)
     }
     
-    func exportTrack(item: TrackItem) {
-        if let url = GPXCreator.createTemporaryFile(track: item){
-            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
-            controller.directoryURL = FileController.exportGpxDirURL
-            present(controller, animated: true) {
-                FileController.logFileInfo()
-            }
+    func showTrackItemOnMap(item: TrackItem) {
+        self.dismiss(animated: true){
+            self.trackDelegate?.showTrackItemOnMap(item: item)
         }
     }
     

@@ -121,6 +121,10 @@ class MainViewController: UIViewController {
         mapView.updatePlaces()
     }
     
+    func trackChanged() {
+        mapView.trackLayerView.setNeedsDisplay()
+    }
+    
 }
 
 

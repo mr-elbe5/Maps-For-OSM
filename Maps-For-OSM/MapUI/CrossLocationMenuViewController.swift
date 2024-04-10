@@ -16,7 +16,7 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     
     var frameSize = CGSize(width: 300, height: 400)
     
-    var delegate: LocationDelegate? = nil
+    var delegate: ActionMenuDelegate? = nil
     
     init(coordinate: CLLocationCoordinate2D, title: String){
         self.coordinate = coordinate

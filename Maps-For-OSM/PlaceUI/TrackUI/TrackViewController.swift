@@ -9,10 +9,6 @@ import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
 
-protocol TrackDetailDelegate{
-    func showTrackItemOnMap(item: TrackItem)
-}
-
 protocol ActiveTrackDelegate{
     func cancelActiveTrack()
     func saveActiveTrack()
@@ -31,8 +27,7 @@ class TrackViewController: PopupScrollViewController{
     let noteContainerView = UIView()
     var noteEditView : TextEditArea? = nil
     
-    // MainViewController
-    var delegate : TrackDetailDelegate? = nil
+    var delegate : TrackDelegate? = nil
     
     init(track: TrackItem){
         self.track = track
