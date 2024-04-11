@@ -92,7 +92,7 @@ class AppData{
         for idx in 0..<places.count{
             if places[idx] == place{
                 place.deleteAllItems()
-                places.remove(at: idx)
+                places.remove(place)
                 return
             }
         }

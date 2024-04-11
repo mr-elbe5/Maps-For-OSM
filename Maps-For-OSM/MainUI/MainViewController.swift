@@ -129,6 +129,10 @@ class MainViewController: UIViewController {
 
 extension MainViewController: AppLoaderDelegate{
     
+    func startLoading() {
+        //todo
+    }
+    
     func appLoaded() {
         mapView.updatePlaces()
     }

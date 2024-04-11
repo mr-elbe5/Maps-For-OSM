@@ -9,12 +9,9 @@ import Foundation
 extension Array<Place>{
     
     mutating func remove(_ place: Place){
-        for idx in 0..<self.count{
-            if self[idx] == place{
-                self.remove(at: idx)
-                return
-            }
-        }
+        removeAll(where: {
+           $0 == place
+        })
     }
     
     mutating func removePlaces(of list: Array<Place>){
@@ -25,23 +22,17 @@ extension Array<Place>{
     
     var allSelected: Bool{
         get{
-            for item in self{
-                if !item.selected{
-                    return false
-                }
-            }
-            return true
+            !contains(where: {
+                !$0.selected
+            })
         }
     }
     
     var allUnselected: Bool{
         get{
-            for item in self{
-                if item.selected{
-                    return false
-                }
-            }
-            return true
+            !contains(where: {
+                $0.selected
+            })
         }
     }
     

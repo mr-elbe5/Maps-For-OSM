@@ -9,6 +9,7 @@ import CoreLocation
 import CloudKit
 
 protocol AppLoaderDelegate{
+    func startLoading()
     func appLoaded()
     func appSaved()
 }
@@ -58,11 +59,13 @@ struct AppLoader{
     
     static func loadDataFromICloud(){
         let synchronizer = CloudSynchronizer()
+        delegate?.startLoading()
         Task{
             try await synchronizer.synchronize()
             DispatchQueue.main.async{
                 delegate?.appLoaded()
             }
+            AppData.shared.saveLocally()
         }
     }
     

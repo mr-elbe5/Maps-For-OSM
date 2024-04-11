@@ -24,7 +24,7 @@ class CloudSynchronizer{
             for metaRecord in remoteFileMetaData{
                 if let fileItem = getMatchingFileItem(record: metaRecord, appData: AppData.shared){
                     if let fileDataRecord = try await getRemoteFileData(metaRecord: metaRecord){
-                        downloadFile(record: fileDataRecord, app: AppData.shared)
+                        downloadFile(record: fileDataRecord, fileItem: fileItem)
                     }
                     else{
                         Log.error("could not download file \(metaRecord.debugString("fileId"))")
@@ -134,19 +134,14 @@ class CloudSynchronizer{
         return nil
     }
     
-    private func downloadFile(record: CKRecord, app: AppData){
+    private func downloadFile(record: CKRecord, fileItem: FileItem){
         Log.debug("downloading file \(record)")
         if let asset = record.asset("fileAsset"), let sourceURL = asset.fileURL{
-            if let fileItem = getMatchingFileItem(record: record, appData: app){
-                if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
-                    Log.debug("download succeeded")
-                }
-                else{
-                    Log.error("download failed")
-                }
+            if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
+                Log.debug("download succeeded")
             }
             else{
-                Log.error("Did not find file item for \(record.debugString("fileId"))")
+                Log.error("download failed")
             }
         }
         else{
@@ -154,13 +149,6 @@ class CloudSynchronizer{
         }
     }
     
-    // on load:
-    // add new local places from remote
-    // remove local places not in remote
-    // remove unneeded local files (first in case they moved)
-    // add new remote places to local
-    // download new remote files
-    // on save:
     private func mergePlaces(fromApp sourceApp: AppData, toApp targetApp: AppData){
         for sourcePlace in sourceApp.places{
             var found = false
