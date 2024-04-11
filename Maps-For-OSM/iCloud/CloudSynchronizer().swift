@@ -15,12 +15,25 @@ class CloudSynchronizer{
     static var fileType: CKRecord.RecordType = "file"
     
     func synchronize() async throws{
-        if let remotePlaces = try await getRemotePlaces(){
+        if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
             let remoteApp = AppData()
             remoteApp.places = remotePlaces
-            let remoteFileData = try await getRemoteFileMetaData()
-            cleanupRemoteFiles(files: remoteFileData, app: remoteApp)
-            
+            let remoteFileMetaData = try await getRemoteFileMetaData()
+            cleanupRemoteFiles(files: remoteFileMetaData, app: remoteApp)
+            mergePlaces(fromApp: remoteApp, toApp: AppData.shared)
+            for metaRecord in remoteFileMetaData{
+                if let fileItem = getMatchingFileItem(record: metaRecord, appData: AppData.shared){
+                    if let fileDataRecord = try await getRemoteFileData(metaRecord: metaRecord){
+                        downloadFile(record: fileDataRecord, app: AppData.shared)
+                    }
+                    else{
+                        Log.error("could not download file \(metaRecord.debugString("fileId"))")
+                    }
+                }
+                else{
+                    Log.error("file item not found for \(metaRecord.debugString("fileId"))")
+                }
+            }
         }
         else{
             Log.warn("no places on iCloud")
@@ -148,24 +161,34 @@ class CloudSynchronizer{
     // add new remote places to local
     // download new remote files
     // on save:
-    private func mergePlaces(fromApp: AppData, toApp: AppData){
-        for remotePlace in fromApp.places{
+    private func mergePlaces(fromApp sourceApp: AppData, toApp targetApp: AppData){
+        for sourcePlace in sourceApp.places{
             var found = false
-            for place in toApp.places{
-                if remotePlace == place{
-                    remotePlace.mergePlace(newPlace: place)
+            for targetPlace in targetApp.places{
+                if sourcePlace == targetPlace{
+                    targetPlace.mergePlace(from: sourcePlace)
                     found = true
-                    Log.debug("local place found: \(place.id)")
+                    Log.debug("target place found: \(targetPlace.id)")
                     break;
                 }
             }
             if !found{
-                
+                targetApp.places.append(sourcePlace)
+            }
+        }
+        for targetPlace in targetApp.places{
+            var found = false
+            for sourcePlace in sourceApp.places{
+                if sourcePlace == targetPlace{
+                    found = true
+                    break;
+                }
+            }
+            if !found{
+                Log.warn("target place not found in source: \(targetPlace.name)")
             }
         }
     }
-    
-    
     
     func synchronizeToICloud(){
         Log.debug("synchronize to iCloud")
