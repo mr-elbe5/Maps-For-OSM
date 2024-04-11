@@ -8,7 +8,14 @@ import Foundation
 import CoreLocation
 import CloudKit
 
+protocol AppLoaderDelegate{
+    func appLoaded()
+    func appSaved()
+}
+
 struct AppLoader{
+    
+    static var delegate: AppLoaderDelegate? = nil
     
     static func initialize(){
         FileController.initialize()
@@ -51,11 +58,17 @@ struct AppLoader{
     
     static func loadDataFromICloud(){
         let synchronizer = CloudSynchronizer()
-        synchronizer.synchronizeFromICloud()
+        Task{
+            try await synchronizer.synchronize()
+            DispatchQueue.main.async{
+                delegate?.appLoaded()
+            }
+        }
     }
     
     static func loadFromUserDefaults(){
         AppData.shared.loadLocally()
+        delegate?.appLoaded()
         //deprecated
         loadFromPreviousVersions()
     }

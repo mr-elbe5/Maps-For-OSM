@@ -9,33 +9,17 @@ import CloudKit
 
 extension CKContainer{
     
-    static var privateDatabase = CKContainer(identifier: CloudSynchronizer.mapsForOSMContainerName).privateCloudDatabase
+    static var container = CKContainer(identifier: CloudSynchronizer.mapsForOSMContainerName)
+    static var privateDatabase = container.privateCloudDatabase
     
-    static func queryFromICloud(query: CKQuery, keys: Array<String>? = nil, processRecord: @escaping (CKRecord) -> Void, completion: ((Bool) -> Void)? = nil){
-        let operation = CKQueryOperation(query: query)
-        if let keys = keys{
-            operation.desiredKeys = keys
-        }
-        operation.recordMatchedBlock = { (recordId: CKRecord.ID, result: Result<CKRecord, (any Error)>) in
-            switch result {
-            case .failure(let error):
-                Log.error(error: error)
-            case .success(let record):
-                processRecord(record)
-            }
-        }
-        if let completion = completion{
-            operation.queryResultBlock = { (operationResult: Result<CKQueryOperation.Cursor?, any Error>) in
-                switch operationResult{
-                case .failure:
-                    completion(false)
-                case .success(let cursor):
-                    completion(cursor == nil)
-                }
-                completion(true)
-            }
-        }
-        privateDatabase.add(operation)
+    static func checkConncted(completion: @escaping (Bool) -> Void){
+        container.accountStatus(completionHandler: { status, error in
+            completion(error == nil && status == .available)
+        })
+    }
+    
+    static func isConnected() async throws -> Bool{
+        return try await container.accountStatus() == .available
     }
     
     static func saveToICloud(records: Array<CKRecord>){

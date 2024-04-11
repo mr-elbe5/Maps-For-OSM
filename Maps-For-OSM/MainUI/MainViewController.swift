@@ -127,5 +127,17 @@ class MainViewController: UIViewController {
     
 }
 
+extension MainViewController: AppLoaderDelegate{
+    
+    func appLoaded() {
+        mapView.updatePlaces()
+    }
+    
+    func appSaved() {
+        //todo
+    }
+    
+}
+
 
 
