@@ -10,8 +10,8 @@ import CloudKit
 
 class FileItem : PlaceItem{
     
-    static var recordMetaKeys = ["fileId", "placeId", "fileName"]
-    static var recordDataKeys = ["fileId", "placeId", "fileName", "fileAsset"]
+    static var recordMetaKeys = ["uuid"]
+    static var recordDataKeys = ["uuid", "asset"]
     
     private enum CodingKeys: CodingKey{
         case fileName
@@ -46,10 +46,8 @@ class FileItem : PlaceItem{
         get{
             let record = CKRecord(recordType: CloudSynchronizer.fileType, recordID: fileRecordId)
             let asset = CKAsset(fileURL: fileURL)
-            record["fileId"] = id.uuidString
-            record["placeId"] = place.id.uuidString
-            record["fileName"] = fileName
-            record["fileAsset"] = asset
+            record["uuid"] = id.uuidString
+            record["asset"] = asset
             return record
         }
     }

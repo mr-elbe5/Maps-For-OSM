@@ -13,6 +13,7 @@ extension CKContainer{
     static var privateDatabase = container.privateCloudDatabase
     
     static func isConnected() async throws -> Bool{
+        Log.debug("account status = \(try await container.accountStatus().rawValue)")
         return try await container.accountStatus() == .available
     }
     

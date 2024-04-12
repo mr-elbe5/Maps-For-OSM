@@ -18,27 +18,29 @@ class CloudSynchronizer{
         if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
             let remoteApp = AppData()
             remoteApp.places = remotePlaces
-            let remoteFileMetaData = try await getRemoteFileMetaData()
+            let remoteFileMetaData = await getRemoteFileMetaData()
             let recordIdsToDelete = getRemoteRecordIdsToDelete(allFiles: remoteFileMetaData, app: remoteApp)
             if !recordIdsToDelete.isEmpty{
                 try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
             }
             Log.debug("received \(remoteApp.places.count) places")
             if Preferences.shared.mergingSynchronisation{
+                AppData.shared.loadLocally()
                 mergePlaces(fromApp: remoteApp, toApp: AppData.shared)
             }
             else{
                 copyPlaces(fromApp: remoteApp, toApp: AppData.shared)
             }
             Log.debug("merged to \(remoteApp.places.count) places")
+            let localFiles = AppData.shared.fileItems
             for metaRecord in remoteFileMetaData{
-                if let fileItem = getMatchingFileItem(record: metaRecord, appData: AppData.shared){
+                if let fileItem = getMatchingFileItem(record: metaRecord, allFiles: localFiles){
                     if !FileController.fileExists(url: fileItem.fileURL){
                         if let fileDataRecord = try await getRemoteFileData(metaRecord: metaRecord){
                             downloadFile(record: fileDataRecord, fileItem: fileItem)
                         }
                         else{
-                            Log.error("could not download file \(metaRecord.debugString("fileId"))")
+                            Log.error("could not download file \(metaRecord.debugString("uuid"))")
                         }
                     }
                     else{
@@ -46,7 +48,7 @@ class CloudSynchronizer{
                     }
                 }
                 else{
-                    Log.error("file item not found for \(metaRecord.debugString("fileId"))")
+                    Log.error("file item not found for \(metaRecord.debugString("uuid"))")
                 }
             }
             AppData.shared.cleanupFiles()
@@ -79,49 +81,53 @@ class CloudSynchronizer{
     
     private func getRemoteRecordIdsToDelete(allFiles: Array<CKRecord>, app: AppData) -> Array<CKRecord.ID>{
         var list = Array<CKRecord.ID>()
+        let localFiles = AppData.shared.fileItems
         for fileData in allFiles{
-            if getMatchingFileItem(record: fileData, appData: app) == nil{
+            if getMatchingFileItem(record: fileData, allFiles: localFiles) == nil{
                 list.append(fileData.recordID)
             }
         }
         return list
     }
     
-    private func getRemoteFileMetaData() async throws -> Array<CKRecord>{
+    private func getRemoteFileMetaData() async -> Array<CKRecord>{
         var list = Array<CKRecord>()
-        let query = CKQuery(recordType: CloudSynchronizer.fileType, predicate: NSPredicate(format: "placeId != ''"))
-        let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: FileItem.recordMetaKeys)
-        Log.debug("\(records.matchResults.count) remote file meta data received")
-        for matchResult in records.matchResults{
-            let result = matchResult.1
-            switch result{
-            case .failure(let err):
-                Log.error(error: err)
-            case .success(let record):
-                list.append(record)
+        let query = CKQuery(recordType: CloudSynchronizer.fileType, predicate: NSPredicate(format: "uuid != ''"))
+        do{
+            let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: FileItem.recordMetaKeys)
+            Log.debug("\(records.matchResults.count) remote file meta data received")
+            for matchResult in records.matchResults{
+                let result = matchResult.1
+                switch result{
+                case .failure(let err):
+                    Log.error(error: err)
+                case .success(let record):
+                    list.append(record)
+                }
             }
+            return list
         }
-        return list
+        catch (let err){
+            Log.warn(err.localizedDescription)
+            return Array<CKRecord>()
+        }
     }
     
-    private func getMatchingFileItem(record: CKRecord, appData: AppData) -> FileItem?{
-        if let placeId = record.uuid("placeId"), let place = appData.getPlace(id: placeId){
-            if let fileId = record.uuid("fileId"), let fileItem = place.getItem(id: fileId) as? FileItem{
-                return fileItem
-            }
-            else{
-                Log.error("Inconsistent data: missing file item for id \(record.debugString("fileId"))")
-            }
+    private func getMatchingFileItem(record: CKRecord, allFiles: Array<FileItem>) -> FileItem?{
+        if let fileId = record.uuid("uuid"), let fileItem = allFiles.first(where: {
+            $0.id == fileId}
+        ){
+            return fileItem
         }
         else{
-            Log.error("Inconsistent data: missing place for id \(record.debugString("placeId"))")
+            Log.error("Inconsistent data: missing file item for id \(record.debugString("uuid"))")
         }
         return nil
     }
     
     private func getRemoteFileData(metaRecord: CKRecord) async throws -> CKRecord?{
-        if let fileId = metaRecord.string("fileId"){
-            let predicate = NSPredicate(format: "fileId == '\(fileId)'")
+        if let uuidString = metaRecord.string("uuid"){
+            let predicate = NSPredicate(format: "uuid == '\(uuidString)'")
             let query = CKQuery(recordType: CloudSynchronizer.fileType, predicate: predicate)
             let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: FileItem.recordDataKeys)
             if records.matchResults.isEmpty{
@@ -141,7 +147,7 @@ class CloudSynchronizer{
     
     private func downloadFile(record: CKRecord, fileItem: FileItem){
         //Log.debug("downloading file \(record)")
-        if let asset = record.asset("fileAsset"), let sourceURL = asset.fileURL{
+        if let asset = record.asset("asset"), let sourceURL = asset.fileURL{
             if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
                 Log.debug("download succeeded for \(fileItem.fileURL.lastPathComponent)")
             }
@@ -150,7 +156,7 @@ class CloudSynchronizer{
             }
         }
         else{
-            Log.error("Did not get asset for \(record.debugString("fileId"))")
+            Log.error("Did not get asset for \(record.debugString("uuid"))")
         }
     }
     
@@ -193,7 +199,7 @@ class CloudSynchronizer{
     func synchronizeToICloud() async throws{
         Log.debug("synchronize to iCloud")
         if try await CKContainer.isConnected(){
-            let remoteFileMetaData = try await getRemoteFileMetaData()
+            let remoteFileMetaData = await getRemoteFileMetaData()
             Log.debug("uploading \(AppData.shared.places.count) places")
             let recordIdsToDelete = getRemoteRecordIdsToDelete(allFiles: remoteFileMetaData, app: AppData.shared)
             Log.debug("deleting \(recordIdsToDelete.count) record(s)")
@@ -202,7 +208,7 @@ class CloudSynchronizer{
             for fileItem in AppData.shared.fileItems{
                 var found = false
                 for record in remoteFileMetaData{
-                    if fileItem.id == record.uuid("fileId"){
+                    if fileItem.id == record.uuid("uuid"){
                         found = true
                         break;
                     }
@@ -233,7 +239,7 @@ class CloudSynchronizer{
             switch deleteResult.value{
             case .failure(let err):
                 Log.error(error: err)
-            case .success(let result):
+            case .success():
                 Log.debug("deleted \(deleteResult.key.recordName)")
             }
         }
