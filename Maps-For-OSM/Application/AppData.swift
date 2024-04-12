@@ -71,6 +71,20 @@ class AppData{
         places.count
     }
     
+    var dataRecordId : CKRecord.ID{
+        get{
+            CKRecord.ID(recordName: "string")
+        }
+    }
+    
+    var dataRecord: CKRecord{
+        get{
+            let record = CKRecord(recordType: CloudSynchronizer.jsonType, recordID: AppData.recordId)
+            record["string"] = places.toJSON()
+            return record
+        }
+    }
+    
     func resetCoordinateRegions() {
         for place in places{
             place.resetCoordinateRegion()
@@ -147,6 +161,23 @@ class AppData{
         if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
             places = data
         }
+    }
+    
+    func cleanupFiles(){
+        let fileURLs = FileController.listAllURLs(dirURL: FileController.mediaDirURL)
+        var itemURLs = Array<URL>()
+        var count = 0
+        for item in fileItems{
+            itemURLs.append(item.fileURL)
+        }
+        for url in fileURLs{
+            if !itemURLs.contains(url){
+                Log.debug("deleting local file \(url.lastPathComponent)")
+                FileController.deleteFile(url: url)
+                count += 1
+            }
+        }
+        Log.info("deleted \(count) unreferenced files")
     }
     
     //deprecated

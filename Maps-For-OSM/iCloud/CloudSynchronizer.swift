@@ -14,26 +14,42 @@ class CloudSynchronizer{
     static var jsonType: CKRecord.RecordType = "json"
     static var fileType: CKRecord.RecordType = "file"
     
-    func synchronize() async throws{
+    func synchronizeFromICloud() async throws{
         if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
             let remoteApp = AppData()
             remoteApp.places = remotePlaces
             let remoteFileMetaData = try await getRemoteFileMetaData()
-            cleanupRemoteFiles(files: remoteFileMetaData, app: remoteApp)
-            mergePlaces(fromApp: remoteApp, toApp: AppData.shared)
+            let recordIdsToDelete = getRemoteRecordIdsToDelete(allFiles: remoteFileMetaData, app: remoteApp)
+            if !recordIdsToDelete.isEmpty{
+                try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
+            }
+            Log.debug("received \(remoteApp.places.count) places")
+            if Preferences.shared.mergingSynchronisation{
+                mergePlaces(fromApp: remoteApp, toApp: AppData.shared)
+            }
+            else{
+                copyPlaces(fromApp: remoteApp, toApp: AppData.shared)
+            }
+            Log.debug("merged to \(remoteApp.places.count) places")
             for metaRecord in remoteFileMetaData{
                 if let fileItem = getMatchingFileItem(record: metaRecord, appData: AppData.shared){
-                    if let fileDataRecord = try await getRemoteFileData(metaRecord: metaRecord){
-                        downloadFile(record: fileDataRecord, fileItem: fileItem)
+                    if !FileController.fileExists(url: fileItem.fileURL){
+                        if let fileDataRecord = try await getRemoteFileData(metaRecord: metaRecord){
+                            downloadFile(record: fileDataRecord, fileItem: fileItem)
+                        }
+                        else{
+                            Log.error("could not download file \(metaRecord.debugString("fileId"))")
+                        }
                     }
                     else{
-                        Log.error("could not download file \(metaRecord.debugString("fileId"))")
+                        //Log.debug("file exists: \(fileItem.fileURL.lastPathComponent)")
                     }
                 }
                 else{
                     Log.error("file item not found for \(metaRecord.debugString("fileId"))")
                 }
             }
+            AppData.shared.cleanupFiles()
         }
         else{
             Log.warn("no places on iCloud")
@@ -61,25 +77,14 @@ class CloudSynchronizer{
         return nil
     }
     
-    private func cleanupRemoteFiles(files: Array<CKRecord>, app: AppData){
-        var unrelatedRemoteFileData  = Array<CKRecord.ID>()
-        for fileData in files{
+    private func getRemoteRecordIdsToDelete(allFiles: Array<CKRecord>, app: AppData) -> Array<CKRecord.ID>{
+        var list = Array<CKRecord.ID>()
+        for fileData in allFiles{
             if getMatchingFileItem(record: fileData, appData: app) == nil{
-                unrelatedRemoteFileData.append(fileData.recordID)
+                list.append(fileData.recordID)
             }
         }
-        if unrelatedRemoteFileData.isEmpty{
-            Log.debug("nothing to clean up")
-            return
-        }
-        CKContainer.deleteFromICloud(recordIds: unrelatedRemoteFileData){ success in
-            if success{
-                Log.debug("cleanup of \(unrelatedRemoteFileData.count) remote files successful")
-            }
-            else{
-                Log.error("cleanup of  \(unrelatedRemoteFileData.count) remote files failed")
-            }
-        }
+        return list
     }
     
     private func getRemoteFileMetaData() async throws -> Array<CKRecord>{
@@ -135,10 +140,10 @@ class CloudSynchronizer{
     }
     
     private func downloadFile(record: CKRecord, fileItem: FileItem){
-        Log.debug("downloading file \(record)")
+        //Log.debug("downloading file \(record)")
         if let asset = record.asset("fileAsset"), let sourceURL = asset.fileURL{
             if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
-                Log.debug("download succeeded")
+                Log.debug("download succeeded for \(fileItem.fileURL.lastPathComponent)")
             }
             else{
                 Log.error("download failed")
@@ -178,19 +183,60 @@ class CloudSynchronizer{
         }
     }
     
-    func synchronizeToICloud(){
-        Log.debug("synchronize to iCloud")
-        /*var records = Array<CKRecord>()
-        let record = CKRecord(recordType: CloudSynchronizer.jsonType, recordID: AppData.recordId)
-        record["string"] = localData.places.toJSON()
-        records.append(record)
-        let media = localData.fileItems
-        for item in media{
-            records.append(item.fileRecord)
+    private func copyPlaces(fromApp sourceApp: AppData, toApp targetApp: AppData){
+        targetApp.places.removeAll()
+        for sourcePlace in sourceApp.places{
+            targetApp.places.append(sourcePlace)
         }
-        Log.debug("save to iCloud \(records.count) records")
-        CKContainer.saveToICloud(records: records)
-         */
+    }
+    
+    func synchronizeToICloud() async throws{
+        Log.debug("synchronize to iCloud")
+        if try await CKContainer.isConnected(){
+            let remoteFileMetaData = try await getRemoteFileMetaData()
+            Log.debug("uploading \(AppData.shared.places.count) places")
+            let recordIdsToDelete = getRemoteRecordIdsToDelete(allFiles: remoteFileMetaData, app: AppData.shared)
+            Log.debug("deleting \(recordIdsToDelete.count) record(s)")
+            var recordsToSave = Array<CKRecord>()
+            recordsToSave.append(AppData.shared.dataRecord)
+            for fileItem in AppData.shared.fileItems{
+                var found = false
+                for record in remoteFileMetaData{
+                    if fileItem.id == record.uuid("fileId"){
+                        found = true
+                        break;
+                    }
+                }
+                if !found{
+                    recordsToSave.append(fileItem.fileRecord)
+                }
+            }
+            Log.debug("saving \(recordsToSave.count) record(s)")
+            try await modifyRecords(recordsToSave: recordsToSave, recordIdsToDelete: recordIdsToDelete)
+        }
+        else{
+            Log.warn("no connection to iCloud")
+        }
+    }
+    
+    func modifyRecords(recordsToSave: Array<CKRecord>, recordIdsToDelete: Array<CKRecord.ID>) async throws{
+        let fullResult = try await CKContainer.privateDatabase.modifyRecords(saving:recordsToSave, deleting:recordIdsToDelete, savePolicy: .allKeys, atomically: false)
+        for saveResult in fullResult.saveResults{
+            switch saveResult.value{
+            case .failure(let err):
+                Log.error(error: err)
+            case .success(let result):
+                Log.debug("saved \(result.recordID.recordName)")
+            }
+        }
+        for deleteResult in fullResult.deleteResults{
+            switch deleteResult.value{
+            case .failure(let err):
+                Log.error(error: err)
+            case .success(let result):
+                Log.debug("deleted \(deleteResult.key.recordName)")
+            }
+        }
     }
     
 }

@@ -61,7 +61,7 @@ struct AppLoader{
         let synchronizer = CloudSynchronizer()
         delegate?.startLoading()
         Task{
-            try await synchronizer.synchronize()
+            try await synchronizer.synchronizeFromICloud()
             DispatchQueue.main.async{
                 delegate?.appLoaded()
             }
@@ -88,15 +88,14 @@ struct AppLoader{
     }
     
     static func saveData(){
-        CKContainer.default().accountStatus(){ status, error in
-            if status == .available{
-                Log.debug("saving to iCloud")
-                let synchronizer = CloudSynchronizer()
-                synchronizer.synchronizeToICloud()
+        let synchronizer = CloudSynchronizer()
+        Task{
+            try await synchronizer.synchronizeToICloud()
+            DispatchQueue.main.async{
+                delegate?.appSaved()
             }
+            AppData.shared.saveLocally()
         }
-        Log.debug("saving to user defaults")
-        AppData.shared.saveLocally()
     }
     
 }
