@@ -19,7 +19,7 @@ class CloudSynchronizer{
             let remoteApp = AppData()
             remoteApp.places = remotePlaces
             let remoteFileMetaData = await getRemoteFileMetaData()
-            let recordIdsToDelete = getRemoteRecordIdsToDelete(allFiles: remoteFileMetaData, app: remoteApp)
+            let recordIdsToDelete = getUnreferencedRecordIds(allFiles: remoteFileMetaData, app: remoteApp)
             if !recordIdsToDelete.isEmpty{
                 try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
             }
@@ -79,11 +79,11 @@ class CloudSynchronizer{
         return nil
     }
     
-    private func getRemoteRecordIdsToDelete(allFiles: Array<CKRecord>, app: AppData) -> Array<CKRecord.ID>{
+    private func getUnreferencedRecordIds(allFiles: Array<CKRecord>, app: AppData) -> Array<CKRecord.ID>{
         var list = Array<CKRecord.ID>()
-        let localFiles = AppData.shared.fileItems
+        let fileItems = app.fileItems
         for fileData in allFiles{
-            if getMatchingFileItem(record: fileData, allFiles: localFiles) == nil{
+            if getMatchingFileItem(record: fileData, allFiles: fileItems) == nil{
                 list.append(fileData.recordID)
             }
         }
@@ -201,7 +201,7 @@ class CloudSynchronizer{
         if try await CKContainer.isConnected(){
             let remoteFileMetaData = await getRemoteFileMetaData()
             Log.debug("uploading \(AppData.shared.places.count) places")
-            let recordIdsToDelete = getRemoteRecordIdsToDelete(allFiles: remoteFileMetaData, app: AppData.shared)
+            let recordIdsToDelete = getUnreferencedRecordIds(allFiles: remoteFileMetaData, app: AppData.shared)
             Log.debug("deleting \(recordIdsToDelete.count) record(s)")
             var recordsToSave = Array<CKRecord>()
             recordsToSave.append(AppData.shared.dataRecord)
