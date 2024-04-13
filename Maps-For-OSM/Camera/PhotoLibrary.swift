@@ -4,9 +4,6 @@
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
-import UIKit
-import AVFoundation
-import CoreLocation
 import Photos
 
 class PhotoLibrary{

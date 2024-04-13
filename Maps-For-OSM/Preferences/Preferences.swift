@@ -5,9 +5,6 @@
  */
 
 import Foundation
-import UIKit
-import AVKit
-import CoreLocation
 
 class Preferences: Identifiable, Codable{
     

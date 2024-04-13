@@ -4,7 +4,6 @@
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
-import Foundation
 import UIKit
 import CoreLocation
 

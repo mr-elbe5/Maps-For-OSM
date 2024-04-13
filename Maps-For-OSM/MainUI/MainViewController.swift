@@ -5,8 +5,6 @@
  */
 
 import UIKit
-import CoreLocation
-import AVKit
 
 class MainViewController: UIViewController {
     

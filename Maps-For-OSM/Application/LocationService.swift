@@ -6,7 +6,6 @@
 
 import Foundation
 import CoreLocation
-import UIKit
 
 protocol LocationServiceDelegate{
     func locationDidChange(location: CLLocation)
@@ -21,7 +20,7 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
     var serviceDelegate: LocationServiceDelegate? = nil
     
-    private let geocoder = CLGeocoder()
+    private let placemarkService = PlacemarkService()
     
     private var lock = DispatchSemaphore(value: 1)
     
@@ -49,26 +48,12 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
         authorizationStatus == .authorizedAlways
     }
     
-    func getPlacemark(for location: Place, result: @escaping(CLPlacemark?) -> Void){
-        geocoder.reverseGeocodeLocation(CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), completionHandler: { (placemarks, error) in
-            if error == nil, let placemark =  placemarks?[0]{
-                result(placemark)
-            }
-            else{
-                result(nil)
-            }
-        })
+    func getPlacemark(for place: Place, result: @escaping(CLPlacemark?) -> Void){
+        placemarkService.getPlacemark(for: place, result: result)
     }
     
     func getPlacemark(for location: CLLocation, result: @escaping(CLPlacemark?) -> Void){
-        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
-            if error == nil, let placemark =  placemarks?[0]{
-                result(placemark)
-            }
-            else{
-                result(nil)
-            }
-        })
+        placemarkService.getPlacemark(for: location, result: result)
     }
     
     func start(){

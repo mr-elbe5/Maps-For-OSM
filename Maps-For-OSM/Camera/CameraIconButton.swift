@@ -5,9 +5,6 @@
  */
 
 import UIKit
-import AVFoundation
-import CoreLocation
-import Photos
 
 class CameraIconButton: UIButton{
     

@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import CoreLocation
 
 protocol MainMenuDelegate{
     

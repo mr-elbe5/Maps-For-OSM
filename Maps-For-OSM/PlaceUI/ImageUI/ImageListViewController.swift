@@ -4,10 +4,8 @@
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
-import Foundation
 import UIKit
 import UniformTypeIdentifiers
-import CoreLocation
 import PhotosUI
 
 class ImageListViewController: PopupTableViewController{

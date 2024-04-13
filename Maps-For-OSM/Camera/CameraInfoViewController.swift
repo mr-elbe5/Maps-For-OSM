@@ -4,13 +4,6 @@
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
-/*
- E5Cam
- Simple Camera
- Copyright: Michael Rönnau mr@elbe5.de
- */
-
-import Foundation
 import UIKit
 
 class CameraInfoViewController: PopupScrollViewController {
