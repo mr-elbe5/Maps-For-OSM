@@ -71,7 +71,9 @@ struct AppLoader{
     
     static func loadFromUserDefaults(){
         AppData.shared.loadLocally()
-        delegate?.appLoaded()
+        DispatchQueue.main.async{
+            delegate?.appLoaded()
+        }
         //deprecated
         loadFromPreviousVersions()
     }
