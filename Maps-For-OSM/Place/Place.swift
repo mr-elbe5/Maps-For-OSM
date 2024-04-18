@@ -161,7 +161,7 @@ class Place : Selectable{
     }
     
     func evaluatePlacemark(){
-        LocationService.shared.getPlacemark(for: self){ result in
+        PlacemarkService.shared.getPlacemark(for: self){ result in
             if let placemark = result{
                 if self.name.isEmpty, let name = placemark.name{
                     self.name = name

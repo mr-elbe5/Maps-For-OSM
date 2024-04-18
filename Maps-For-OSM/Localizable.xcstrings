@@ -1759,19 +1759,19 @@
         }
       }
     },
-    "mergeSynchronisation" : {
+    "mergeICloudWithLocal" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lokale und iCloud-Daten zusammenführen"
+            "value" : "iCloud und lokale Daten zusammenführen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merge local and iCloud data"
+            "value" : "Merge iCloud with local data"
           }
         }
       }
@@ -2962,6 +2962,57 @@
         }
       }
     },
+    "synchronizationFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Synchronisierung war nicht erfolgreich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronization failed"
+          }
+        }
+      }
+    },
+    "synchronizationFinished" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Synchronisierung war erfogreich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronization finished"
+          }
+        }
+      }
+    },
+    "synchronizeNow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt synchronisieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronize Now"
+          }
+        }
+      }
+    },
     "tileSource" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3317,6 +3368,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL Template for Map Tiles:"
+          }
+        }
+      }
+    },
+    "useICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud benutzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use ICloud"
           }
         }
       }

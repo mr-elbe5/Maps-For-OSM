@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: AppLoaderDelegate{
+extension MainViewController: AppLoaderDelegate, PreferencesDelegate{
     
     func startLoading() {
         //todo
@@ -133,6 +133,10 @@ extension MainViewController: AppLoaderDelegate{
     
     func appLoaded() {
         mapView.updatePlaces()
+    }
+    
+    func startSaving() {
+        
     }
     
     func appSaved() {

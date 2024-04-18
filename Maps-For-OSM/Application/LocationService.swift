@@ -20,8 +20,6 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
     var serviceDelegate: LocationServiceDelegate? = nil
     
-    private let placemarkService = PlacemarkService()
-    
     private var lock = DispatchSemaphore(value: 1)
     
     override init() {
@@ -46,14 +44,6 @@ class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
     var authorizedForTracking : Bool{
         authorizationStatus == .authorizedAlways
-    }
-    
-    func getPlacemark(for place: Place, result: @escaping(CLPlacemark?) -> Void){
-        placemarkService.getPlacemark(for: place, result: result)
-    }
-    
-    func getPlacemark(for location: CLLocation, result: @escaping(CLPlacemark?) -> Void){
-        placemarkService.getPlacemark(for: location, result: result)
     }
     
     func start(){

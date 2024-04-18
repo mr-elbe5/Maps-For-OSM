@@ -111,6 +111,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openPreferences(){
         let controller = PreferencesViewController()
+        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

@@ -24,7 +24,7 @@ class CloudSynchronizer{
                 try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
             }
             Log.debug("received \(remoteApp.places.count) places")
-            if Preferences.shared.mergingSynchronisation{
+            if Preferences.shared.useICloud{
                 AppData.shared.loadLocally()
                 mergePlaces(fromApp: remoteApp, toApp: AppData.shared)
             }

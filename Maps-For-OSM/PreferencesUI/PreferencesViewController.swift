@@ -6,9 +6,15 @@
 
 import UIKit
 
+protocol PreferencesDelegate: AppLoaderDelegate{
+}
+
 class PreferencesViewController: PopupScrollViewController{
     
-    var mergingSynchronisationSwitch = LabeledSwitchView()
+    var useICloudSwitch = LabeledSwitchView()
+    var mergeICloudWithLocalSwitch = LabeledSwitchView()
+    var synchronizeButton = UIButton()
+    
     var maxMergeDistanceField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
     var trackpointIntervalField = LabeledTextField()
@@ -18,6 +24,8 @@ class PreferencesViewController: PopupScrollViewController{
     var minVerticalTrackpointDistanceField = LabeledTextField()
     var maxTrackpointInLineDeviationField = LabeledTextField()
     
+    var delegate: PreferencesDelegate? = nil
+    
     override func loadView() {
         title = "preferences".localize()
         super.loadView()
@@ -25,11 +33,25 @@ class PreferencesViewController: PopupScrollViewController{
         var header = UILabel(header: "iCloud".localize())
         contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        mergingSynchronisationSwitch.setupView(labelText: "mergeSynchronisation".localize(), isOn: Preferences.shared.mergingSynchronisation)
-        contentView.addSubviewWithAnchors(mergingSynchronisationSwitch, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        useICloudSwitch.setupView(labelText: "useICloud".localize(), isOn: Preferences.shared.useICloud)
+        useICloudSwitch.delegate = self
+        contentView.addSubviewWithAnchors(useICloudSwitch, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        mergeICloudWithLocalSwitch.setupView(labelText: "mergeICloudWithLocal".localize(), isOn: Preferences.shared.mergeICloudWithLocal)
+        contentView.addSubviewWithAnchors(mergeICloudWithLocalSwitch, top: useICloudSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        synchronizeButton.setTitle("synchronizeNow".localize(), for: .normal)
+        synchronizeButton.setTitleColor(.systemBlue, for: .normal)
+        synchronizeButton.setTitleColor(.systemGray, for: .disabled)
+        synchronizeButton.addAction(UIAction(){ action in
+            self.synchronize()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(synchronizeButton, top: mergeICloudWithLocalSwitch.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        synchronizeButton.isEnabled = Preferences.shared.useICloud
         
         header = UILabel(header: "places".localize())
-        contentView.addSubviewWithAnchors(header, top: mergingSynchronisationSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(header, top: synchronizeButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxPlaceMergeDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxMergeDistanceField, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
@@ -81,8 +103,15 @@ class PreferencesViewController: PopupScrollViewController{
         }, for: .touchDown)
     }
     
+    func synchronize(){
+        Preferences.shared.useICloud = useICloudSwitch.isOn
+        Preferences.shared.mergeICloudWithLocal = mergeICloudWithLocalSwitch.isOn
+        AppLoader.synchronizeICloud(delegate: self)
+    }
+    
     func save(){
-        Preferences.shared.mergingSynchronisation = mergingSynchronisationSwitch.isOn
+        Preferences.shared.useICloud = useICloudSwitch.isOn
+        Preferences.shared.mergeICloudWithLocal = mergeICloudWithLocalSwitch.isOn
         var val = Double(maxMergeDistanceField.text)
         if let val = val{
             if Preferences.shared.maxPlaceMergeDistance != val{
@@ -117,6 +146,34 @@ class PreferencesViewController: PopupScrollViewController{
         }
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
+    }
+    
+}
+
+extension PreferencesViewController: SwitchDelegate{
+    
+    func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
+        if sender == useICloudSwitch{
+            synchronizeButton.isEnabled = isOn
+        }
+    }
+}
+
+extension PreferencesViewController: AppLoaderDelegate{
+    
+    func startLoading() {
+        //todo
+    }
+    
+    func appLoaded() {
+        delegate?.appLoaded()
+    }
+    
+    func startSaving() {
+        
+    }
+    
+    func appSaved() {
     }
     
 }

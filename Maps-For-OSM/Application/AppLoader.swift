@@ -11,12 +11,13 @@ import CloudKit
 protocol AppLoaderDelegate{
     func startLoading()
     func appLoaded()
+    func startSaving()
     func appSaved()
 }
 
 struct AppLoader{
     
-    static var delegate: AppLoaderDelegate? = nil
+    //static var delegate: AppLoaderDelegate? = nil
     
     static func initialize(){
         FileController.initialize()
@@ -43,21 +44,26 @@ struct AppLoader{
         }
     }
     
-    static func loadData(){
-        CKContainer.default().accountStatus(){ status, error in
-            if status == .available{
-                Log.debug("loading from iCloud")
-                loadDataFromICloud()
-                return
+    static func loadData(delegate: AppLoaderDelegate? = nil){
+        if Preferences.shared.useICloud{
+            CKContainer.default().accountStatus(){ status, error in
+                if status == .available{
+                    Log.debug("loading from iCloud")
+                    loadDataFromICloud(delegate: delegate)
+                }
+                else{
+                    Log.debug("iCloud not available, loading from user defaults")
+                    loadFromUserDefaults(delegate: delegate)
+                }
             }
-            else{
-                Log.debug("loading from user defaults")
-                loadFromUserDefaults()
-            }
+        }
+        else{
+            Log.debug("loading from user defaults")
+            loadFromUserDefaults(delegate: delegate)
         }
     }
     
-    static func loadDataFromICloud(){
+    static func loadDataFromICloud(delegate: AppLoaderDelegate? = nil){
         let synchronizer = CloudSynchronizer()
         delegate?.startLoading()
         Task{
@@ -69,7 +75,7 @@ struct AppLoader{
         }
     }
     
-    static func loadFromUserDefaults(){
+    static func loadFromUserDefaults(delegate: AppLoaderDelegate? = nil){
         AppData.shared.loadLocally()
         DispatchQueue.main.async{
             delegate?.appLoaded()
@@ -84,18 +90,38 @@ struct AppLoader{
         AppData.shared.convertNotes()
     }
     
+    static func synchronizeICloud(delegate: AppLoaderDelegate){
+        let synchronizer = CloudSynchronizer()
+        delegate.startLoading()
+        Task{
+            AppData.shared.saveLocally()
+            try await synchronizer.synchronizeFromICloud()
+            AppData.shared.saveLocally()
+            try await synchronizer.synchronizeToICloud()
+            DispatchQueue.main.async{
+                delegate.appLoaded()
+            }
+        }
+    }
+    
     static func saveInitalizationData(){
         AppState.shared.save()
         Preferences.shared.save()
     }
     
-    static func saveData(){
-        let synchronizer = CloudSynchronizer()
-        Task{
-            try await synchronizer.synchronizeToICloud()
-            DispatchQueue.main.async{
-                delegate?.appSaved()
+    static func saveData(delegate: AppLoaderDelegate? = nil){
+        if Preferences.shared.useICloud{
+            let synchronizer = CloudSynchronizer()
+            delegate?.startSaving()
+            Task{
+                try await synchronizer.synchronizeToICloud()
+                DispatchQueue.main.async{
+                    delegate?.appSaved()
+                }
+                AppData.shared.saveLocally()
             }
+        }
+        else{
             AppData.shared.saveLocally()
         }
     }

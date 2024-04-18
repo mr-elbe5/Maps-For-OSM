@@ -35,7 +35,7 @@ class LabeledSwitchView : UIView{
         switcher.isOn = isOn
         switcher.addAction(UIAction(){ action in
             self.delegate?.switchValueDidChange(sender: self,isOn: self.switcher.isOn)
-        }, for: .touchDown)
+        }, for: .valueChanged)
         addSubviewWithAnchors(switcher, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
     }
     

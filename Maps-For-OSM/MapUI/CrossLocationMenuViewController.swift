@@ -35,7 +35,7 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     
     override func viewDidLoad() {
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        LocationService.shared.getPlacemark(for: location){ placemark in
+        PlacemarkService.shared.getPlacemark(for: location){ placemark in
             var str : String
             if let placemark = placemark{
                 str = placemark.locationString
