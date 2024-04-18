@@ -30,7 +30,8 @@ class Preferences: Identifiable, Codable{
     static var defaultMaxSearchResults: Int = 5
     
     static var defaultUseICloud = false
-    static var defaultMergeICloudWithLocal = true
+    static var defaultReplaceLocalDataOnDownload = true
+    static var defaultReplaceICloudDataOnUpload = false
     
     
     enum CodingKeys: String, CodingKey {
@@ -45,7 +46,8 @@ class Preferences: Identifiable, Codable{
         case maxSearchResults
         case maxPlaceMergeDistance
         case useICloud
-        case mergeICloudWithLocal
+        case replaceLocalDataOnDownload
+        case replaceICloudOnUpload
     }
 
     var urlTemplate : String = osmUrl
@@ -61,7 +63,8 @@ class Preferences: Identifiable, Codable{
     var maxSearchResults = defaultMaxSearchResults
     var maxPlaceMergeDistance: Double = defaultMaxPlaceMergeDistance
     var useICloud: Bool = defaultUseICloud
-    var mergeICloudWithLocal = defaultMergeICloudWithLocal
+    var replaceLocalDataOnDownload = defaultReplaceLocalDataOnDownload
+    var replaceICloudDataOnUpload = defaultReplaceICloudDataOnUpload
     
     init(){
     }
@@ -79,7 +82,8 @@ class Preferences: Identifiable, Codable{
         maxSearchResults = try values.decodeIfPresent(Int.self, forKey: .maxSearchResults) ?? Preferences.defaultMaxSearchResults
         maxPlaceMergeDistance = try values.decodeIfPresent(Double.self, forKey: .maxPlaceMergeDistance) ?? Preferences.defaultMaxPlaceMergeDistance
         useICloud = try values.decodeIfPresent(Bool.self, forKey: .useICloud) ?? Preferences.defaultUseICloud
-        mergeICloudWithLocal = try values.decodeIfPresent(Bool.self, forKey: .mergeICloudWithLocal) ?? Preferences.defaultMergeICloudWithLocal
+        replaceLocalDataOnDownload = try values.decodeIfPresent(Bool.self, forKey: .replaceLocalDataOnDownload) ?? Preferences.defaultReplaceLocalDataOnDownload
+        replaceICloudDataOnUpload = try values.decodeIfPresent(Bool.self, forKey: .replaceICloudOnUpload) ?? Preferences.defaultReplaceICloudDataOnUpload
     }
     
     func encode(to encoder: Encoder) throws {
@@ -94,7 +98,8 @@ class Preferences: Identifiable, Codable{
         try container.encode(maxSearchResults, forKey: .maxSearchResults)
         try container.encode(maxPlaceMergeDistance, forKey: .maxPlaceMergeDistance)
         try container.encode(useICloud, forKey: .useICloud)
-        try container.encode(mergeICloudWithLocal, forKey: .mergeICloudWithLocal)
+        try container.encode(replaceLocalDataOnDownload, forKey: .replaceLocalDataOnDownload)
+        try container.encode(replaceICloudDataOnUpload, forKey: .replaceICloudOnUpload)
     }
     
     func save(){

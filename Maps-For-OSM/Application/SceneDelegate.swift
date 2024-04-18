@@ -27,7 +27,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidDisconnect(_ scene: UIScene) {
         Log.info("SceneDelegate did disconnect")
         LocationService.shared.stop()
-        FileController.deleteTemporaryFiles()
+        let count = FileController.deleteTemporaryFiles()
+        if count > 0{
+            Log.info("\(count) temporary files deleted")
+        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

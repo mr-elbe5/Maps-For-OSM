@@ -90,14 +90,14 @@ class MapView: UIView {
     }
     
     func setRegion(region: CoordinateRegion){
-        scrollView.scrollToScreenCenter(coordinate: region.center)
         scrollView.setZoomScale(World.getZoomScaleToFit(region: region, scaledBounds: bounds), animated: true)
+        scrollToScreenCenter(coordinate: region.center)
     }
     
     func setDefaultLocation(){
         scaleTo(scale: AppState.shared.scale)
         Log.info("moving to \(AppState.shared.coordinate.shortString)")
-        scrollView.scrollToScreenCenter(coordinate: AppState.shared.coordinate)
+        scrollToScreenCenter(coordinate: AppState.shared.coordinate)
         updatePlaceLayer()
     }
     
@@ -111,6 +111,11 @@ class MapView: UIView {
         }
     }
     
+    func scrollToScreenCenter(coordinate: CLLocationCoordinate2D){
+        scrollView.scrollToScreenCenter(coordinate: coordinate)
+        updatePosition()
+    }
+    
     func setDirection(_ direction: CLLocationDirection) {
         currentLocationView.updateDirection(direction: direction)
     }
@@ -118,6 +123,7 @@ class MapView: UIView {
     func updatePosition(){
         AppState.shared.scale = scrollView.zoomScale
         AppState.shared.coordinate = scrollView.screenCenterCoordinate
+        AppState.shared.save()
     }
     
     func refresh(){

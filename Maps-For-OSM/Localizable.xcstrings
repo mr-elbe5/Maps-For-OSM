@@ -1759,23 +1759,6 @@
         }
       }
     },
-    "mergeICloudWithLocal" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud und lokale Daten zusammenführen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Merge iCloud with local data"
-          }
-        }
-      }
-    },
     "minHorizontalTrackpointDistance" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2388,6 +2371,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Region too large"
+          }
+        }
+      }
+    },
+    "replaceICloudDataOnUpload" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-Daten beim Upload ersetzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace iCloud data on upload"
+          }
+        }
+      }
+    },
+    "replaceLocalDataOnDownload" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Daten beim Download ersetzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replace local data on download"
           }
         }
       }

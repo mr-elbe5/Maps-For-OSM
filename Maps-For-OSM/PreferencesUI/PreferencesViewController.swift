@@ -12,7 +12,8 @@ protocol PreferencesDelegate: AppLoaderDelegate{
 class PreferencesViewController: PopupScrollViewController{
     
     var useICloudSwitch = LabeledSwitchView()
-    var mergeICloudWithLocalSwitch = LabeledSwitchView()
+    var replaceLocalDataOnDownloadSwitch = LabeledSwitchView()
+    var replaceICloudDataOnUploadSwitch = LabeledSwitchView()
     var synchronizeButton = UIButton()
     
     var maxMergeDistanceField = LabeledTextField()
@@ -37,8 +38,20 @@ class PreferencesViewController: PopupScrollViewController{
         useICloudSwitch.delegate = self
         contentView.addSubviewWithAnchors(useICloudSwitch, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        mergeICloudWithLocalSwitch.setupView(labelText: "mergeICloudWithLocal".localize(), isOn: Preferences.shared.mergeICloudWithLocal)
-        contentView.addSubviewWithAnchors(mergeICloudWithLocalSwitch, top: useICloudSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        replaceLocalDataOnDownloadSwitch.setupView(labelText: "replaceLocalDataOnDownload".localize(), isOn: Preferences.shared.replaceLocalDataOnDownload)
+        contentView.addSubviewWithAnchors(replaceLocalDataOnDownloadSwitch, top: useICloudSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        replaceICloudDataOnUploadSwitch.setupView(labelText: "replaceICloudDataOnUpload".localize(), isOn: Preferences.shared.replaceICloudDataOnUpload)
+        contentView.addSubviewWithAnchors(replaceICloudDataOnUploadSwitch, top: replaceLocalDataOnDownloadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        var saveButton = UIButton()
+        saveButton.setTitle("save".localize(), for: .normal)
+        saveButton.setTitleColor(.systemBlue, for: .normal)
+        saveButton.addAction(UIAction(){ action in
+            self.saveICloudPreferences()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(saveButton, top: replaceICloudDataOnUploadSwitch.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
         
         synchronizeButton.setTitle("synchronizeNow".localize(), for: .normal)
         synchronizeButton.setTitleColor(.systemBlue, for: .normal)
@@ -46,7 +59,7 @@ class PreferencesViewController: PopupScrollViewController{
         synchronizeButton.addAction(UIAction(){ action in
             self.synchronize()
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(synchronizeButton, top: mergeICloudWithLocalSwitch.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(synchronizeButton, top: saveButton.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         synchronizeButton.isEnabled = Preferences.shared.useICloud
         
@@ -56,8 +69,17 @@ class PreferencesViewController: PopupScrollViewController{
         maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxPlaceMergeDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxMergeDistanceField, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
+        saveButton = UIButton()
+        saveButton.setTitle("save".localize(), for: .normal)
+        saveButton.setTitleColor(.systemBlue, for: .normal)
+        saveButton.addAction(UIAction(){ action in
+            self.savePlacePreferences()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(saveButton, top: maxMergeDistanceField.bottomAnchor, insets: doubleInsets)
+        .centerX(contentView.centerXAnchor)
+        
         header = UILabel(header: "tracks".localize())
-        contentView.addSubviewWithAnchors(header, top: maxMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(header, top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         followTrackSwitch.setupView(labelText: "followTrack".localize(), isOn: Preferences.shared.followTrack)
         contentView.addSubviewWithAnchors(followTrackSwitch, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -80,11 +102,11 @@ class PreferencesViewController: PopupScrollViewController{
         maxTrackpointInLineDeviationField.setupView(labelText: "maxTrackpointInLineDeviation".localize(), text: String(Preferences.shared.maxTrackpointInLineDeviation), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxTrackpointInLineDeviationField, top: minVerticalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        let saveButton = UIButton()
+        saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addAction(UIAction(){ action in
-            self.save()
+            self.saveTrackPreferences()
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
@@ -105,13 +127,20 @@ class PreferencesViewController: PopupScrollViewController{
     
     func synchronize(){
         Preferences.shared.useICloud = useICloudSwitch.isOn
-        Preferences.shared.mergeICloudWithLocal = mergeICloudWithLocalSwitch.isOn
+        Preferences.shared.replaceLocalDataOnDownload = replaceLocalDataOnDownloadSwitch.isOn
+        Preferences.shared.replaceICloudDataOnUpload = replaceICloudDataOnUploadSwitch.isOn
         AppLoader.synchronizeICloud(delegate: self)
     }
     
-    func save(){
+    func saveICloudPreferences(){
         Preferences.shared.useICloud = useICloudSwitch.isOn
-        Preferences.shared.mergeICloudWithLocal = mergeICloudWithLocalSwitch.isOn
+        Preferences.shared.replaceLocalDataOnDownload = replaceLocalDataOnDownloadSwitch.isOn
+        Preferences.shared.replaceICloudDataOnUpload = replaceICloudDataOnUploadSwitch.isOn
+        Preferences.shared.save()
+        showDone(title: "ok".localize(), text: "preferencesSaved".localize())
+    }
+    
+    func savePlacePreferences(){
         var val = Double(maxMergeDistanceField.text)
         if let val = val{
             if Preferences.shared.maxPlaceMergeDistance != val{
@@ -119,8 +148,13 @@ class PreferencesViewController: PopupScrollViewController{
                 AppData.shared.resetCoordinateRegions()
             }
         }
+        Preferences.shared.save()
+        showDone(title: "ok".localize(), text: "preferencesSaved".localize())
+    }
+    
+    func saveTrackPreferences(){
         Preferences.shared.followTrack = followTrackSwitch.isOn
-        val = Double(trackpointIntervalField.text)
+        var val = Double(trackpointIntervalField.text)
         if let val = val{
             Preferences.shared.trackpointInterval = val
         }

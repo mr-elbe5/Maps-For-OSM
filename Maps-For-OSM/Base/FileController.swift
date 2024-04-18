@@ -215,7 +215,7 @@ class FileController {
         return urls
     }
     
-    static func deleteAllFiles(dirURL: URL){
+    static func deleteAllFiles(dirURL: URL) -> Int{
         let names = listAllFiles(dirPath: dirURL.path)
         var count = 0
         for name in names{
@@ -223,16 +223,14 @@ class FileController {
                 count += 1
             }
         }
-        if count > 0{
-            Log.info("\(count) files deleted")
-        }
+        return count
     }
     
-    static func deleteTemporaryFiles(){
+    static func deleteTemporaryFiles() -> Int{
         if !FileManager.default.fileExists(atPath: temporaryPath){
-            return
+            return 0
         }
-        deleteAllFiles(dirURL: temporaryURL)
+        return deleteAllFiles(dirURL: temporaryURL)
     }
     
     static func logFileInfo(){
