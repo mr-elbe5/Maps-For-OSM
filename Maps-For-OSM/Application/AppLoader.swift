@@ -91,13 +91,16 @@ struct AppLoader{
     }
     
     static func synchronizeICloud(delegate: AppLoaderDelegate){
+        AppData.shared.saveLocally()
         let synchronizer = CloudSynchronizer()
         delegate.startLoading()
         Task{
-            AppData.shared.saveLocally()
             try await synchronizer.synchronizeFromICloud()
             AppData.shared.saveLocally()
-            try await synchronizer.synchronizeToICloud()
+            if !Preferences.shared.replaceLocalDataOnDownload{
+                //may have changed by merging
+                try await synchronizer.synchronizeToICloud()
+            }
             DispatchQueue.main.async{
                 delegate.appLoaded()
             }

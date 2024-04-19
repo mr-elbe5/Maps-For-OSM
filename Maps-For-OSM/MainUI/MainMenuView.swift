@@ -24,6 +24,7 @@ protocol MainMenuDelegate{
     
     func openSearch()
     
+    func openICloud()
     func openPreferences()
     func refreshMap()
     func openPreloadTiles()
@@ -160,6 +161,9 @@ class MainMenuView: UIView {
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openPreferences()
+        })
+        actions.append(UIAction(title: "iCloud".localize(), image: UIImage(systemName: "cloud")){ action in
+            self.delegate?.openICloud()
         })
         actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "map")){ action in
             self.delegate?.refreshMap()

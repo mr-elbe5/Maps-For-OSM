@@ -30,8 +30,8 @@ class Preferences: Identifiable, Codable{
     static var defaultMaxSearchResults: Int = 5
     
     static var defaultUseICloud = false
-    static var defaultReplaceLocalDataOnDownload = true
-    static var defaultReplaceICloudDataOnUpload = false
+    static var defaultReplaceLocalDataOnDownload = false
+    static var defaultReplaceICloudDataOnUpload = true
     
     
     enum CodingKeys: String, CodingKey {

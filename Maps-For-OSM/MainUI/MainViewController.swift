@@ -125,7 +125,7 @@ class MainViewController: UIViewController {
     
 }
 
-extension MainViewController: AppLoaderDelegate, PreferencesDelegate{
+extension MainViewController: AppLoaderDelegate, PreferencesDelegate, ICloudDelegate{
     
     func startLoading() {
         //todo

@@ -672,23 +672,6 @@
         }
       }
     },
-    "maxMergeDistanceInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "'Maximale Entfernung von Orten zum automatischen Zusammenführen': Wenn ein neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "'Maximal distance for automatically merging place': If a new place is needed and its location is closer than this distance to another place, this place is used and no new place is created."
-          }
-        }
-      }
-    },
     "mergePlacesIconInfoText" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1232,41 +1215,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Place with tour start"
-          }
-        }
-      }
-    },
-    "preferencesInfoHeader" : {
-      "comment" : "info for preferences",
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Voreinstellungen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preferences"
-          }
-        }
-      }
-    },
-    "preferencesInfoText" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die anderen numerischen Einstellungen dienen dem Tunen der GPS-Verfolgung. Insbesondere hat die Zeit zwischen zwei Punkten einen deutlichen Effekt auf den Stromverbrauch. Die minimale Distanz zwischen Punkten beeinflusst die Größe und Genauigkeit der Tourdaten."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The other numerical settings serve for tuning your location tracking. Especially the time between tracking points can have a considerable effect on power consumption. The minimal distance between points affects the size and exactness of your track data."
           }
         }
       }

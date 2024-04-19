@@ -59,7 +59,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = AppData.shared.trackItems
+        controller.tracks = AppData.shared.places.trackItems
         controller.placeDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -82,7 +82,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openImageList() {
         let controller = ImageListViewController()
-        controller.images = AppData.shared.imageItems
+        controller.images = AppData.shared.places.imageItems
         controller.placeDelegate = self
         controller.imageDelegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -107,6 +107,13 @@ extension MainViewController: MainMenuDelegate{
     
     func focusUserLocation() {
         mapView.focusUserLocation()
+    }
+    
+    func openICloud(){
+        let controller = ICloudViewController()
+        controller.delegate = self
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true)
     }
     
     func openPreferences(){

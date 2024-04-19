@@ -129,6 +129,7 @@
 		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
+		4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EA9B8212BC6D22800C98852 /* CloudSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */; };
 		4EAB349E2BA1B198004D187D /* ExifData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB349D2BA1B198004D187D /* ExifData.swift */; };
@@ -162,7 +163,6 @@
 		4EF353122BB56A4800A0A85B /* PlaceListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353112BB56A4800A0A85B /* PlaceListInfoViewController.swift */; };
 		4EF353142BB56A7500A0A85B /* TrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353132BB56A7500A0A85B /* TrackInfoViewController.swift */; };
 		4EF353162BB56A9900A0A85B /* TrackListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */; };
-		4EF353182BB56ACF00A0A85B /* PreferencesInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353172BB56ACF00A0A85B /* PreferencesInfoViewController.swift */; };
 		4EF3531C2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */; };
 		4EF3531E2BB56BDE00A0A85B /* TileSourceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */; };
 		4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */; };
@@ -304,6 +304,7 @@
 		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSynchronizer.swift; sourceTree = "<group>"; };
 		4EAB349D2BA1B198004D187D /* ExifData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExifData.swift; sourceTree = "<group>"; };
@@ -336,7 +337,6 @@
 		4EF353112BB56A4800A0A85B /* PlaceListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListInfoViewController.swift; sourceTree = "<group>"; };
 		4EF353132BB56A7500A0A85B /* TrackInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoViewController.swift; sourceTree = "<group>"; };
 		4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListInfoViewController.swift; sourceTree = "<group>"; };
-		4EF353172BB56ACF00A0A85B /* PreferencesInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesInfoViewController.swift; sourceTree = "<group>"; };
 		4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupInfoViewController.swift; sourceTree = "<group>"; };
 		4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceInfoViewController.swift; sourceTree = "<group>"; };
 		4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadInfoViewController.swift; sourceTree = "<group>"; };
@@ -370,6 +370,7 @@
 				4E02524F2BC2E2310010D234 /* CKOperation.swift */,
 				4E0252592BC548EE0010D234 /* CKRecord.swift */,
 				4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */,
+				4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */,
 			);
 			path = iCloud;
 			sourceTree = "<group>";
@@ -718,7 +719,6 @@
 			isa = PBXGroup;
 			children = (
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
-				4EF353172BB56ACF00A0A85B /* PreferencesInfoViewController.swift */,
 			);
 			path = PreferencesUI;
 			sourceTree = "<group>";
@@ -844,7 +844,6 @@
 				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
-				4EF353182BB56ACF00A0A85B /* PreferencesInfoViewController.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
 				4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */,
 				4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */,
@@ -957,6 +956,7 @@
 				4EF4770C2941E37000294B21 /* ImagePickerController.swift in Sources */,
 				4E4424892B94FA100007A26F /* CameraViewController.swift in Sources */,
 				4ED55ED12978407F00C679AF /* InfoText.swift in Sources */,
+				4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* TileProvider.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
 				4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */,

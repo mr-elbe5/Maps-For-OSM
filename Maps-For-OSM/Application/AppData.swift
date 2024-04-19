@@ -11,78 +11,16 @@ class AppData{
     
     static var storeKey = "locations"
     
-    static var recordId = CKRecord.ID(recordName: "appData")
-    
     static var shared = AppData()
     
     var places = Array<Place>()
     
-    var filteredPlaces : Array<Place>{
-        switch AppState.shared.placeFilter{
-        case .all: return places
-        case .media:
-            return places.filter({
-                $0.hasMedia
-            })
-        case .track:
-            return places.filter({
-                $0.hasTrack
-            })
-        case .note:
-            return places.filter({
-                $0.hasNote
-            })
-        }
-    }
-    
-    var trackItems: Array<TrackItem>{
-        get{
-            var trackList = Array<TrackItem>()
-            for place in places{
-                trackList.append(contentsOf: place.tracks)
-            }
-            trackList.sortByDate()
-            return trackList
-        }
-    }
-    
-    var imageItems: Array<ImageItem>{
-        get{
-            var imageList = Array<ImageItem>()
-            for place in places{
-                imageList.append(contentsOf: place.images)
-            }
-            imageList.sortByDate()
-            return imageList
-        }
-    }
-    
-    var fileItems: Array<FileItem>{
-        get{
-            var fileList = Array<FileItem>()
-            for place in places{
-                fileList.append(contentsOf: place.media)
-            }
-            return fileList
-        }
-    }
-    
-    var size : Int{
-        places.count
-    }
-    
     var dataRecordId : CKRecord.ID{
-        get{
-            CKRecord.ID(recordName: "string")
-        }
+        places.dataRecordId
     }
     
     var dataRecord: CKRecord{
-        get{
-            let record = CKRecord(recordType: CloudSynchronizer.jsonType, recordID: AppData.recordId)
-            record["string"] = places.toJSON()
-            return record
-        }
+        places.dataRecord
     }
     
     func resetCoordinateRegions() {
@@ -167,7 +105,7 @@ class AppData{
         let fileURLs = FileController.listAllURLs(dirURL: FileController.mediaDirURL)
         var itemURLs = Array<URL>()
         var count = 0
-        for item in fileItems{
+        for item in places.fileItems{
             itemURLs.append(item.fileURL)
         }
         for url in fileURLs{

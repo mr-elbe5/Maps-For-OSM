@@ -87,7 +87,6 @@
       }
     },
     "addPlace" : {
-      "comment" : "current place / cross / marker",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -190,7 +189,6 @@
       }
     },
     "back" : {
-      "comment" : "common",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -548,7 +546,6 @@
       }
     },
     "coordinate" : {
-      "comment" : "detail status",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -974,7 +971,6 @@
       }
     },
     "east" : {
-      "comment" : "location",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1077,7 +1073,6 @@
       }
     },
     "error" : {
-      "comment" : "error",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1112,7 +1107,6 @@
       }
     },
     "export" : {
-      "comment" : "backup view",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1589,7 +1583,6 @@
       }
     },
     "mapPreload" : {
-      "comment" : "map preload view - MapPreloadViewController",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1653,6 +1646,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Maximal distance for automatically merging places [m]"
+          }
+        }
+      }
+    },
+    "maxMergeDistanceHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn ein neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If a new place is needed and its location is closer than this distance to another place, this place is used and no new place is created."
           }
         }
       }
@@ -2083,7 +2093,6 @@
       }
     },
     "place" : {
-      "comment" : "place view / editor view",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2152,7 +2161,6 @@
       }
     },
     "placeList" : {
-      "comment" : "place list - PlaceListViewController/PlaceCell",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2238,7 +2246,6 @@
       }
     },
     "preferences" : {
-      "comment" : "preferences view",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2341,7 +2348,6 @@
       }
     },
     "refreshMap" : {
-      "comment" : "map menu",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2392,6 +2398,23 @@
         }
       }
     },
+    "replaceICloudDataOnUploadHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn dieser Schalter an ist, werden die iCloud-Daten beim Upload durch die lokalen Daten ersetzt. Andernfalls werden sie zusammengeführt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If this switch is on, all iCloud data are replaced by local data on upload, otherwise they are merged."
+          }
+        }
+      }
+    },
     "replaceLocalDataOnDownload" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2405,6 +2428,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Replace local data on download"
+          }
+        }
+      }
+    },
+    "replaceLocalDataOnDownloadHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn dieser Schalter an ist, werden die lokalen Daten beim Download durch die iCloud-Daten ersetzt. Andernfalls werden sie zusammengeführt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If this switch is on, all local data are replaced by iCloud data on download, otherwise they are merged."
           }
         }
       }
@@ -2625,7 +2665,6 @@
       }
     },
     "search" : {
-      "comment" : "search",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2643,7 +2682,6 @@
       }
     },
     "searchPlace" : {
-      "comment" : "search",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2763,7 +2801,6 @@
       }
     },
     "showPlaces" : {
-      "comment" : "place menu",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2928,7 +2965,6 @@
       }
     },
     "startRecording" : {
-      "comment" : "track menu",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3026,6 +3062,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Synchronize Now"
+          }
+        }
+      }
+    },
+    "synchronizeNowHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dieser Knopf beinhaltet das Speichern der obigen Einstellungen. Er startet Download und Upload entsprechend dieser Einstellungen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This button includes saving the above.settings. It starts download and upload according to the above switches."
           }
         }
       }
@@ -3150,7 +3203,6 @@
       }
     },
     "track" : {
-      "comment" : "track/ current track - TrackDetailView",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3168,7 +3220,6 @@
       }
     },
     "trackList" : {
-      "comment" : "track list - TrackListViewController/TrackCell",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3249,6 +3300,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tracks"
+          }
+        }
+      }
+    },
+    "trackSettingsHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die folgenden numerischen Einstellungen dienen dem Tunen der GPS-Verfolgung. Insbesondere hat die Zeit zwischen zwei Punkten einen deutlichen Effekt auf den Stromverbrauch. Die minimale Distanz zwischen Punkten beeinflusst die Größe und Genauigkeit der Tourdaten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The following numerical settings serve for tuning your location tracking. Especially the time between tracking points can have a considerable effect on power consumption. The minimal distance between points affects the size and exactness of your track data."
           }
         }
       }
@@ -3402,6 +3470,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use ICloud"
+          }
+        }
+      }
+    },
+    "useICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Nutzung der iCloud benötigt den Zugang zu einem persönlichen Konto. Sie ermöglicht das Synchronisieren mit anderen iPhones, iPads und der kommenden Mac-Version."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use of iCloud data needs access to the iCloud with a personal account. It enables synchronizing data with other iPhones, iPads and the upcoming Mac app."
           }
         }
       }
