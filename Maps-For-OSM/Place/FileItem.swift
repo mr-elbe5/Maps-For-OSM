@@ -130,3 +130,5 @@ class FileItem : PlaceItem{
     
 }
 
+typealias FileItemList = Array<FileItem>
+

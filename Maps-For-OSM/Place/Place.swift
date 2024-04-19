@@ -28,7 +28,7 @@ class Place : Selectable{
     var address : String = ""
     //deprecated
     var note : String? = nil
-    private var items : Array<PlaceItem>
+    private var items : PlaceItemList
     private var _coordinateRegion: CoordinateRegion? = nil
     
     var itemCount: Int{
@@ -49,7 +49,7 @@ class Place : Selectable{
         !items.isEmpty
     }
     
-    var allItems: Array<PlaceItem>{
+    var allItems: PlaceItemList{
         items
     }
     
@@ -93,10 +93,10 @@ class Place : Selectable{
         }) as! Array<NoteItem>
     }
     
-    var media : Array<FileItem>{
+    var media : FileItemList{
         items.filter({
             [.image, .video, .audio].contains($0.type)
-        }) as! Array<FileItem>
+        }) as! FileItemList
     }
     
     var coordinateRegion: CoordinateRegion{
@@ -109,7 +109,7 @@ class Place : Selectable{
     }
     
     init(coordinate: CLLocationCoordinate2D){
-        items = Array<PlaceItem>()
+        items = PlaceItemList()
         mapPoint = MapPoint(coordinate)
         self.coordinate = coordinate
         altitude = 0
@@ -135,7 +135,7 @@ class Place : Selectable{
             Log.warn("key items not found - trying key media")
             metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .media)
         }
-        self.items = metaItems?.toItemList() ?? Array<PlaceItem>()
+        self.items = metaItems?.toItemList() ?? PlaceItemList()
         try super.init(from: decoder)
         for item in items{
             item.place = self

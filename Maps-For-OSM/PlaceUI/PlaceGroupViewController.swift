@@ -116,7 +116,7 @@ class PlaceGroupViewController: PopupTableViewController{
     }
     
     func deleteSelected(){
-        var list = Array<Place>()
+        var list = PlaceList()
         for i in 0..<group.places.count{
             let place = group.places[i]
             if place.selected{
@@ -138,7 +138,7 @@ class PlaceGroupViewController: PopupTableViewController{
     }
     
     func mergeSelected(){
-        var list = Array<Place>()
+        var list = PlaceList()
         for i in 0..<group.places.count{
             let place = group.places[i]
             if place.selected{
@@ -160,7 +160,7 @@ class PlaceGroupViewController: PopupTableViewController{
         }
     }
     
-    private func mergePlaces(_ places: Array<Place>) -> Place?{
+    private func mergePlaces(_ places: PlaceList) -> Place?{
         let count = places.count
         if count < 2{
             return nil

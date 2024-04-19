@@ -6,7 +6,9 @@
 
 import Foundation
 
-extension Array<PlaceItem>{
+typealias PlaceItemList = Array<PlaceItem>
+
+extension PlaceItemList{
     
     mutating func remove(_ item: PlaceItem){
         item.prepareDelete()

@@ -13,11 +13,13 @@ protocol AppLoaderDelegate{
     func appLoaded()
     func startSaving()
     func appSaved()
+    func startSynchronization()
+    func appSynchronized()
 }
 
 struct AppLoader{
     
-    //static var delegate: AppLoaderDelegate? = nil
+    static var delegate: AppLoaderDelegate? = nil
     
     static func initialize(){
         FileController.initialize()
@@ -67,7 +69,7 @@ struct AppLoader{
         let synchronizer = CloudSynchronizer()
         delegate?.startLoading()
         Task{
-            try await synchronizer.synchronizeFromICloud()
+            try await synchronizer.synchronizeFromICloud(replaceLocalData: Preferences.shared.replaceLocalDataOnDownload)
             DispatchQueue.main.async{
                 delegate?.appLoaded()
             }
@@ -90,23 +92,6 @@ struct AppLoader{
         AppData.shared.convertNotes()
     }
     
-    static func synchronizeICloud(delegate: AppLoaderDelegate){
-        AppData.shared.saveLocally()
-        let synchronizer = CloudSynchronizer()
-        delegate.startLoading()
-        Task{
-            try await synchronizer.synchronizeFromICloud()
-            AppData.shared.saveLocally()
-            if !Preferences.shared.replaceLocalDataOnDownload{
-                //may have changed by merging
-                try await synchronizer.synchronizeToICloud()
-            }
-            DispatchQueue.main.async{
-                delegate.appLoaded()
-            }
-        }
-    }
-    
     static func saveInitalizationData(){
         AppState.shared.save()
         Preferences.shared.save()
@@ -117,7 +102,7 @@ struct AppLoader{
             let synchronizer = CloudSynchronizer()
             delegate?.startSaving()
             Task{
-                try await synchronizer.synchronizeToICloud()
+                try await synchronizer.synchronizeToICloud(replaceICloudData: Preferences.shared.replaceICloudDataOnUpload)
                 DispatchQueue.main.async{
                     delegate?.appSaved()
                 }

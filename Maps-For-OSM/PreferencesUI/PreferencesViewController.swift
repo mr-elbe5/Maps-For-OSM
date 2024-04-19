@@ -130,24 +130,5 @@ class PreferencesViewController: PopupScrollViewController{
     
 }
 
-extension PreferencesViewController: AppLoaderDelegate{
-    
-    func startLoading() {
-        //todo
-    }
-    
-    func appLoaded() {
-        delegate?.appLoaded()
-    }
-    
-    func startSaving() {
-        
-    }
-    
-    func appSaved() {
-    }
-    
-}
-
     
 

@@ -7,7 +7,9 @@
 import Foundation
 import CloudKit
 
-extension Array<Place>{
+typealias PlaceList = Array<Place>
+
+extension PlaceList{
     
     static var recordId = CKRecord.ID(recordName: "places")
     
@@ -17,7 +19,7 @@ extension Array<Place>{
         })
     }
     
-    mutating func removePlaces(of list: Array<Place>){
+    mutating func removePlaces(of list: PlaceList){
         for place in list{
             remove(place)
         }
@@ -51,7 +53,7 @@ extension Array<Place>{
         }
     }
     
-    var filteredPlaces : Array<Place>{
+    var filteredPlaces : PlaceList{
         switch AppState.shared.placeFilter{
         case .all: return self
         case .media:
@@ -91,9 +93,9 @@ extension Array<Place>{
         }
     }
     
-    var fileItems: Array<FileItem>{
+    var fileItems: FileItemList{
         get{
-            var fileList = Array<FileItem>()
+            var fileList = FileItemList()
             for place in self{
                 fileList.append(contentsOf: place.media)
             }
@@ -121,7 +123,7 @@ extension Array<Place>{
     
     var dataRecord: CKRecord{
         get{
-            let record = CKRecord(recordType: CloudSynchronizer.jsonType, recordID: AppData.recordId)
+            let record = CKRecord(recordType: CloudSynchronizer.jsonType, recordID: PlaceList.recordId)
             record["string"] = self.toJSON()
             return record
         }

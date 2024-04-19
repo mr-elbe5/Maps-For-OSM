@@ -14,7 +14,16 @@ class CloudSynchronizer{
     static var jsonType: CKRecord.RecordType = "json"
     static var fileType: CKRecord.RecordType = "file"
     
-    func synchronizeFromICloud() async throws{
+    func synchronizeICloud(replaceLocalData: Bool, replaceICloudData: Bool) async throws{
+        AppData.shared.saveLocally()
+        Task{
+            try await synchronizeFromICloud(replaceLocalData: replaceLocalData)
+            AppData.shared.saveLocally()
+            try await synchronizeToICloud(replaceICloudData: replaceICloudData)
+        }
+    }
+    
+    func synchronizeFromICloud(replaceLocalData: Bool) async throws{
         Log.debug("synchronize from iCloud")
         if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
             Log.debug("synchronize places from iCloud")
@@ -27,13 +36,13 @@ class CloudSynchronizer{
             //places
             Log.debug("received \(remotePlaces.count) icloud places")
             //setup local places
-            if Preferences.shared.replaceLocalDataOnDownload{
+            if replaceLocalData{
                 Log.debug("copying icloud places")
                 //remove stale local files - only remote files stay
                 let localFiles = AppData.shared.places.fileItems
                 for fileItem in localFiles{
                     if !remoteFileMetaDataMap.keys.contains(fileItem.id){
-                        Log.debug("deleting stale file \(fileItem.fileName)")
+                        Log.debug("deleting stale local file \(fileItem.fileName)")
                         fileItem.prepareDelete()
                     }
                 }
@@ -69,7 +78,7 @@ class CloudSynchronizer{
         }
     }
     
-    func synchronizeToICloud() async throws{
+    func synchronizeToICloud(replaceICloudData: Bool) async throws{
         Log.debug("synchronize to iCloud")
         if try await CKContainer.isConnected(){
             var recordsToSave = Array<CKRecord>()
@@ -78,7 +87,7 @@ class CloudSynchronizer{
             //places
             Log.debug("having \(AppData.shared.places.count) local places")
             //setup remote places
-            if Preferences.shared.replaceICloudDataOnUpload{
+            if replaceICloudData{
                 Log.debug("copying local places")
                 //remove stale local files - only remote files stay
                 let localFileIds = AppData.shared.places.fileItemIds
@@ -93,18 +102,19 @@ class CloudSynchronizer{
             else{
                 var remotePlaces = try await getRemotePlaces()
                 if remotePlaces == nil{
-                    remotePlaces = Array<Place>()
+                    remotePlaces = PlaceList()
                 }
                 Log.debug("merging local places with \(remotePlaces!.count) iCloud places")
                 mergePlaces(fromPlaces: AppData.shared.places, toPlaces: &remotePlaces!)
                 Log.debug("merged to \(remotePlaces!.count) remote places")
                 recordsToSave.append(remotePlaces!.dataRecord)
-                let localFileItems = AppData.shared.places.fileItems
-                for fileItem in localFileItems{
-                    if !remoteFileMetaData.keys.contains(fileItem.id){
-                        Log.debug("setting file \(fileItem.fileName) for upload")
-                        recordsToSave.append(fileItem.fileRecord)
-                    }
+                
+            }
+            let localFileItems = AppData.shared.places.fileItems
+            for fileItem in localFileItems{
+                if !remoteFileMetaData.keys.contains(fileItem.id){
+                    Log.debug("setting file \(fileItem.fileName) for upload")
+                    recordsToSave.append(fileItem.fileRecord)
                 }
             }
             Log.debug("saving \(recordsToSave.count) record(s) to iCloud")
@@ -118,7 +128,7 @@ class CloudSynchronizer{
     
     // private funcs
     
-    private func getRemotePlaces() async throws -> Array<Place>?{
+    private func getRemotePlaces() async throws -> PlaceList?{
         Log.debug("get remote places")
         let query = CKQuery(recordType: CloudSynchronizer.jsonType, predicate: NSPredicate(format: "string != ''"))
         let records = try await CKContainer.privateDatabase.records(matching: query)
@@ -131,7 +141,7 @@ class CloudSynchronizer{
         case .failure(let err):
             Log.error(error: err)
         case .success(let record):
-            if let json = record.string("string"), let data : Array<Place> = Array<Place>.fromJSON(encoded: json){
+            if let json = record.string("string"), let data : PlaceList = PlaceList.fromJSON(encoded: json){
                 Log.debug("remote places received")
                 return data
             }
@@ -139,7 +149,7 @@ class CloudSynchronizer{
         return nil
     }
     
-    private func mergePlaces(fromPlaces sourcePlaces: Array<Place>, toPlaces targetPlaces: inout Array<Place>){
+    private func mergePlaces(fromPlaces sourcePlaces: PlaceList, toPlaces targetPlaces: inout PlaceList){
         for sourcePlace in sourcePlaces{
             var found = false
             for targetPlace in targetPlaces{
@@ -198,7 +208,7 @@ class CloudSynchronizer{
         }
     }
     
-    private func getUnreferencedRecordIds(allFiles: Dictionary<UUID, CKRecord>, fileItems: Array<FileItem>) -> Array<CKRecord.ID>{
+    private func getUnreferencedRecordIds(allFiles: Dictionary<UUID, CKRecord>, fileItems: FileItemList) -> Array<CKRecord.ID>{
         var list = Array<CKRecord.ID>()
         for uuid in allFiles.keys{
             let record = allFiles[uuid]!
@@ -209,7 +219,7 @@ class CloudSynchronizer{
         return list
     }
     
-    private func getMatchingFileItem(uuid: UUID, fileItems: Array<FileItem>) -> FileItem?{
+    private func getMatchingFileItem(uuid: UUID, fileItems: FileItemList) -> FileItem?{
         if let fileItem = fileItems.first(where: {
             $0.id == uuid}
         ){

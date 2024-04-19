@@ -127,6 +127,14 @@ class MainViewController: UIViewController {
 
 extension MainViewController: AppLoaderDelegate, PreferencesDelegate, ICloudDelegate{
     
+    func startSynchronization() {
+        
+    }
+    
+    func appSynchronized() {
+        mapView.updatePlaces()
+    }
+    
     func startLoading() {
         //todo
     }

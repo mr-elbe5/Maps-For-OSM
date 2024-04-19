@@ -84,7 +84,7 @@ class PlaceListViewController: PopupTableViewController{
     }
     
     func deleteSelected(){
-        var list = Array<Place>()
+        var list = PlaceList()
         for i in 0..<AppData.shared.places.count{
             let place = AppData.shared.places[i]
             if place.selected{

@@ -48,15 +48,15 @@ class PlaceItemMetaData : Identifiable, Codable{
 
 extension Array<PlaceItemMetaData>{
     
-    mutating func loadItemList(items: Array<PlaceItem>){
+    mutating func loadItemList(items: PlaceItemList){
         removeAll()
         for i in 0..<items.count{
             append(PlaceItemMetaData(item: items[i]))
         }
     }
     
-    func toItemList() -> Array<PlaceItem>{
-        var items = Array<PlaceItem>()
+    func toItemList() -> PlaceItemList{
+        var items = PlaceItemList()
         for metaItem in self{
             items.append(metaItem.data)
         }

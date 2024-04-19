@@ -579,6 +579,74 @@
         }
       }
     },
+    "copyFromICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aus der iCloud kopieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy from iCloud"
+          }
+        }
+      }
+    },
+    "copyFromICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten aus der iCloud werden kopiert. Andere lokale Daten werden gelöscht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data from iCloud is copied. Other local data is deleted."
+          }
+        }
+      }
+    },
+    "copyToICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In die iCloud kopieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy to iCloud"
+          }
+        }
+      }
+    },
+    "copyToICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Daten werden in die iCloud kopiert. Andere Daten dort werden gelöscht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local data is copied to iCloud. Other iCloud data is deleted."
+          }
+        }
+      }
+    },
     "createBackup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1735,6 +1803,40 @@
         }
       }
     },
+    "mergeFromICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusammenführen aus der iCloud"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge from iCloud"
+          }
+        }
+      }
+    },
+    "mergeFromICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Daten und Daten aus der iCloud werden zusammengeführt. Keine Daten werden gelöscht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local data and data from iCloud are merged. Nothing is deleted."
+          }
+        }
+      }
+    },
     "mergeGroup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1765,6 +1867,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Items of these places will be added to the new place. The old places will be deleted. This cannot be undone."
+          }
+        }
+      }
+    },
+    "mergeToICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In die iCloud zusammenführen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge to iCloud"
+          }
+        }
+      }
+    },
+    "mergeToICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-Daten und lokale Daten werden in die iCloud zusammengeführt. Keine Daten werden gelöscht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud data and local data are merged on iCloud. Nothing is deleted."
           }
         }
       }
@@ -3072,13 +3208,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dieser Knopf beinhaltet das Speichern der obigen Einstellungen. Er startet Download und Upload entsprechend dieser Einstellungen."
+            "value" : "Es startet Download und Upload entsprechend der obigen Einstellungen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This button includes saving the above.settings. It starts download and upload according to the above switches."
+            "value" : "It starts download and upload according to the above switches."
           }
         }
       }

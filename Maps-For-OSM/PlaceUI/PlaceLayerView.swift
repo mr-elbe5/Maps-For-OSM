@@ -14,7 +14,7 @@ protocol PlaceLayerDelegate{
 
 class PlaceLayerView: UIView {
     
-    var places = Array<Place>()
+    var places = PlaceList()
     
     var delegate: PlaceLayerDelegate? = nil
     

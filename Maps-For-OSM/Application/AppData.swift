@@ -13,7 +13,7 @@ class AppData{
     
     static var shared = AppData()
     
-    var places = Array<Place>()
+    var places = PlaceList()
     
     var dataRecordId : CKRecord.ID{
         places.dataRecordId
@@ -72,11 +72,11 @@ class AppData{
     // local persistance
     
     func loadLocally(){
-        if let list : Array<Place> = DataController.shared.load(forKey: AppData.storeKey){
+        if let list : PlaceList = DataController.shared.load(forKey: AppData.storeKey){
             places = list
         }
         else{
-            places = Array<Place>()
+            places = PlaceList()
         }
     }
     
@@ -96,7 +96,7 @@ class AppData{
     }
     
     func loadFromFile(url: URL){
-        if let string = FileController.readTextFile(url: url),let data : Array<Place> = Array<Place>.fromJSON(encoded: string){
+        if let string = FileController.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
             places = data
         }
     }
