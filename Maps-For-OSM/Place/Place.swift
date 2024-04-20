@@ -147,14 +147,9 @@ class Place : Selectable{
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
+        self.items = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKeys: [.items, .media])?.toItemList() ?? PlaceItemList()
         //deprecated
         note = try values.decodeIfPresent(String.self, forKey: .note)
-        var metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .items)
-        if metaItems == nil{
-            Log.warn("key items not found - trying key media")
-            metaItems = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKey: .media)
-        }
-        self.items = metaItems?.toItemList() ?? PlaceItemList()
         try super.init(from: decoder)
         for item in items{
             item.place = self

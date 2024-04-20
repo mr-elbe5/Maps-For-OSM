@@ -128,6 +128,7 @@
 		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
+		4E9335A12BD3EC060094852D /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9335A02BD3EC060094852D /* KeyedDecodingContainer.swift */; };
 		4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */; };
 		4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA45A632747CA22001F3533 /* GPXParser.swift */; };
 		4EA9B8212BC6D22800C98852 /* CloudSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */; };
@@ -303,6 +304,7 @@
 		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		4E9335A02BD3EC060094852D /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4EA45A632747CA22001F3533 /* GPXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXParser.swift; sourceTree = "<group>"; };
 		4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSynchronizer.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 				4E0BD99F26EA0159005A4A94 /* UIViewController.swift */,
 				4E31A659293F4D3E002080F6 /* UIViewController+Insets.swift */,
 				4E0BD9BA26EA0239005A4A94 /* URL.swift */,
+				4E9335A02BD3EC060094852D /* KeyedDecodingContainer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				4E24F47E27345D11004E69C2 /* UITextField.swift in Sources */,
 				4E4424872B94FA100007A26F /* CameraViewController+Observers.swift in Sources */,
 				4E4B0A302BAD803D00838EC0 /* MainViewController+Menus.swift in Sources */,
+				4E9335A12BD3EC060094852D /* KeyedDecodingContainer.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageItem.swift in Sources */,
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */,
