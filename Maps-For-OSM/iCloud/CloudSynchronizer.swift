@@ -177,24 +177,12 @@ class CloudSynchronizer{
                 if sourcePlace == targetPlace{
                     targetPlace.mergePlace(from: sourcePlace)
                     found = true
-                    Log.debug("target place found: \(targetPlace.id)")
+                    //Log.debug("target place found: \(targetPlace.id)")
                     break;
                 }
             }
             if !found{
                 targetPlaces.append(sourcePlace)
-            }
-        }
-        for targetPlace in targetPlaces{
-            var found = false
-            for sourcePlace in sourcePlaces{
-                if sourcePlace == targetPlace{
-                    found = true
-                    break;
-                }
-            }
-            if !found{
-                Log.warn("target place not found in source: \(targetPlace.name)")
             }
         }
     }
@@ -296,7 +284,7 @@ class CloudSynchronizer{
     }
     
     private func downloadFile(record: CKRecord, fileItem: FileItem){
-        Log.debug("downloading file \(record.recordID)")
+        Log.debug("downloading file \(fileItem.id)")
         if let asset = record.asset("asset"), let sourceURL = asset.fileURL{
             if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
                 Log.debug("download succeeded for \(fileItem.fileURL.lastPathComponent)")

@@ -242,25 +242,12 @@ class Place : Selectable{
             for targetItem in items{
                 if sourceItem == targetItem{
                     targetItem.mergeItem(from: sourceItem)
-                    Log.debug("item found: \(targetItem.id)")
                     found = true
                     break
                 }
             }
             if !found{
                 items.append(sourceItem)
-            }
-        }
-        for targetItem in items{
-            var found = false
-            for sourceItem in sourcePlace.items{
-                if sourceItem == targetItem{
-                    found = true
-                    break
-                }
-            }
-            if !found{
-                Log.warn("item not found in source place: \(targetItem.id)")
             }
         }
         items.sortByCreation()

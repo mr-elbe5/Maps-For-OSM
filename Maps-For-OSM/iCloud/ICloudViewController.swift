@@ -140,7 +140,7 @@ class ICloudViewController: PopupScrollViewController{
     func mergeToICloud(){
         let synchronizer = CloudSynchronizer()
         Task{
-            try await synchronizer.synchronizeToICloud(replaceICloudData: true)
+            try await synchronizer.synchronizeToICloud(replaceICloudData: false)
             delegate?.appSaved()
         }
     }
