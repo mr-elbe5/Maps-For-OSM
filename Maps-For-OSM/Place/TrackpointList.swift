@@ -5,7 +5,6 @@
  */
 
 import CoreLocation
-import UIKit
 
 typealias TrackpointList = Array<Trackpoint>
 
