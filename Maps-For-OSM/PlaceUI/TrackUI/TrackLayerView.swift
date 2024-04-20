@@ -18,7 +18,7 @@ class TrackLayerView: UIView {
     
     func getTrackRect() -> CGRect?{
         if let track = TrackItem.visibleTrack, let offset = offset, let boundingRect = track.trackpoints.boundingMapRect{
-            let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+            let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
             return CGRect(x: (boundingRect.minX  - mapOffset.x)*scale, y: (boundingRect.minY - mapOffset.y)*scale, width: boundingRect.width*scale, height: boundingRect.height*scale)
         }
         return nil
@@ -33,9 +33,9 @@ class TrackLayerView: UIView {
     func getDrawPoints(track: TrackItem) -> Array<CGPoint>{
         var points = Array<CGPoint>()
         if let offset = offset{
-            let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+            let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
             for idx in 0..<track.trackpoints.count{
-                let mapPoint = MapPoint(track.trackpoints[idx].coordinate)
+                let mapPoint = CGPoint(track.trackpoints[idx].coordinate)
                 let drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
                 points.append(drawPoint)
             }
@@ -48,10 +48,10 @@ class TrackLayerView: UIView {
             if !track.trackpoints.isEmpty{
                 var drawPoints = Array<CGPoint>()
                 if let offset = offset{
-                    let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+                    let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
                     for idx in 0..<track.trackpoints.count{
                         let trackpoint = track.trackpoints[idx]
-                        let mapPoint = MapPoint(trackpoint.coordinate)
+                        let mapPoint = CGPoint(trackpoint.coordinate)
                         let drawPoint = CGPoint(x: (mapPoint.x - mapOffset.x)*scale , y: (mapPoint.y - mapOffset.y)*scale)
                         drawPoints.append(drawPoint)
                     }

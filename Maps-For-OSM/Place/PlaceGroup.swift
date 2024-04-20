@@ -81,7 +81,7 @@ class PlaceGroup{
         }
         if let minX = minLon,let maxX = maxLon, let minY = minLat, let maxY = maxLat{
             center = CLLocationCoordinate2D(latitude: (minY + maxY)/2, longitude: (minX + maxX)/2)
-            centerPlanetPosition = MapPoint(center!).cgPoint
+            centerPlanetPosition = CGPoint(center!)
         }
     }
     

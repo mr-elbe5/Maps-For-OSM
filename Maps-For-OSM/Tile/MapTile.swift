@@ -44,16 +44,16 @@ class MapTile{
         "\(zoom)-\(x)-\(y)"
     }
     
-    var rectInZoomedWorld : MapRect{
-        let origin = MapPoint(x: Double(x)*World.tileExtent , y: Double(y)*World.tileExtent)
-        return MapRect(origin: origin, size: World.tileSize)
+    var rectInZoomedWorld : CGRect{
+        let origin = CGPoint(x: Double(x)*World.tileExtent , y: Double(y)*World.tileExtent)
+        return CGRect(origin: origin, size: World.tileSize)
     }
     
-    var rectInWorld : MapRect{
+    var rectInWorld : CGRect{
         let scale = World.zoomScale(from: zoom, to: World.maxZoom)
-        let origin = MapPoint(x: Double(x)*World.tileExtent*scale , y: Double(y)*World.tileExtent*scale)
+        let origin = CGPoint(x: Double(x)*World.tileExtent*scale , y: Double(y)*World.tileExtent*scale)
         let scaledTileExtent = World.tileExtent/scale
-        return MapRect(origin: origin, size: MapSize(width: scaledTileExtent, height: scaledTileExtent))
+        return CGRect(origin: origin, size: CGSize(width: scaledTileExtent, height: scaledTileExtent))
     }
         
 }

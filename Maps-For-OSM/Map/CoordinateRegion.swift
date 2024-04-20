@@ -18,10 +18,10 @@ public class CoordinateRegion{
         CLLocationCoordinate2D(latitude: (minLatitude + maxLatitude)/2, longitude: (minLongitude + maxLongitude)/2)
     }
     
-    var mapRect : MapRect{
-        let topLeft = MapPoint(CLLocationCoordinate2D(latitude: maxLatitude, longitude: minLongitude))
-        let bottomRight = MapPoint(CLLocationCoordinate2D(latitude: minLatitude, longitude: maxLongitude))
-        return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: topLeft.y - bottomRight.y)
+    var mapRect : CGRect{
+        let topLeft = CGPoint(CLLocationCoordinate2D(latitude: maxLatitude, longitude: minLongitude))
+        let bottomRight = CGPoint(CLLocationCoordinate2D(latitude: minLatitude, longitude: maxLongitude))
+        return CGRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: topLeft.y - bottomRight.y)
     }
     
     init(topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D){

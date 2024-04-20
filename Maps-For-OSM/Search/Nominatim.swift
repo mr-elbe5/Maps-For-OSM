@@ -66,14 +66,14 @@ class NominatimLocation {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    var mapRect : MapRect?{
+    var mapRect : CGRect?{
         if let boundingBox = boundingBox, let minLat = Double(boundingBox[0]), let maxLat = Double(boundingBox[1]), let minLon = Double(boundingBox[2]), let maxLon = Double(boundingBox[3]){
             //debug("Nominatim: mapRect")
-            let topLeft = MapPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLon))
+            let topLeft = CGPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLon))
             //debug("topLeft = \(topLeft.string)")
-            let bottomRight = MapPoint(CLLocationCoordinate2D(latitude: minLat, longitude: maxLon))
+            let bottomRight = CGPoint(CLLocationCoordinate2D(latitude: minLat, longitude: maxLon))
             //debug("bottomRight = \(bottomRight.string)")
-            return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
+            return CGRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
         }
         return nil
     }

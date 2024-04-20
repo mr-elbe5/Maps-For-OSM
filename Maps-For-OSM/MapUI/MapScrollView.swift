@@ -46,16 +46,16 @@ class MapScrollView : UIScrollView{
         super.init(coder: coder)
     }
     
-    var visibleMapRect : MapRect{
+    var visibleMapRect : CGRect{
         //division by zoomScale is upScale
-        MapRect(x: bounds.minX/zoomScale, y: bounds.minY/zoomScale, width: bounds.width/zoomScale, height: bounds.height/zoomScale).normalizedRect
+        CGRect(x: bounds.minX/zoomScale, y: bounds.minY/zoomScale, width: bounds.width/zoomScale, height: bounds.height/zoomScale).normalizedRect
     }
     
     var screenCenter : CGPoint{
         CGPoint(x: bounds.width/2, y: bounds.height/2)
     }
     
-    var screenCenterMapPoint : MapPoint{
+    var screenCenterMapPoint : CGPoint{
         mapPoint(screenPoint: screenCenter)
     }
     
@@ -92,22 +92,22 @@ class MapScrollView : UIScrollView{
         CGPoint(x: screenPoint.x + contentOffset.x - contentSize.width/3, y: screenPoint.y + contentOffset.y)
     }
     
-    func mapPoint(screenPoint : CGPoint) -> MapPoint{
+    func mapPoint(screenPoint : CGPoint) -> CGPoint{
         //division by zoomScale is upScale
-        MapPoint(x: (screenPoint.x + contentOffset.x)/zoomScale, y: (screenPoint.y + contentOffset.y)/zoomScale).normalizedPoint
+        CGPoint(x: (screenPoint.x + contentOffset.x)/zoomScale, y: (screenPoint.y + contentOffset.y)/zoomScale).normalizedPoint
     }
     
     func coordinate(screenPoint : CGPoint) -> CLLocationCoordinate2D{
         mapPoint(screenPoint: screenPoint).coordinate
     }
     
-    func screenPoint(mapPoint: MapPoint) -> CGPoint{
+    func screenPoint(mapPoint: CGPoint) -> CGPoint{
         //multiplication by zoomScale is downScale, shift to middle segment
         CGPoint(x: mapPoint.x*zoomScale - contentOffset.x + contentSize.width/3, y: mapPoint.y*zoomScale - contentOffset.y)
     }
     
     func screenPoint(coordinate: CLLocationCoordinate2D) -> CGPoint{
-        screenPoint(mapPoint: MapPoint(coordinate))
+        screenPoint(mapPoint: CGPoint(coordinate))
     }
     
     func scrollToScreenPoint(coordinate: CLLocationCoordinate2D, screenPoint: CGPoint){

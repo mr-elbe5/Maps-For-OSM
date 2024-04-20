@@ -60,11 +60,11 @@ extension TrackpointList{
         }
     }
     
-    var boundingMapRect: MapRect?{
+    var boundingMapRect: CGRect?{
         if let boundingCoordinates = boundingCoordinates{
-            let topLeft = MapPoint(boundingCoordinates.topLeft)
-            let bottomRight = MapPoint(boundingCoordinates.bottomRight)
-            return MapRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
+            let topLeft = CGPoint(boundingCoordinates.topLeft)
+            let bottomRight = CGPoint(boundingCoordinates.bottomRight)
+            return CGRect(x: topLeft.x, y: topLeft.y, width: bottomRight.x - topLeft.x, height: bottomRight.y - topLeft.y)
         }
         return nil
     }

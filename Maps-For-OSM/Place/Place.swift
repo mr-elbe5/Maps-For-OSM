@@ -27,7 +27,7 @@ class Place : Selectable{
     var coordinate: CLLocationCoordinate2D
     var altitude: Double
     var timestamp: Date
-    var mapPoint: MapPoint
+    var mapPoint: CGPoint
     var name : String = ""
     var address : String = ""
     //deprecated
@@ -129,7 +129,7 @@ class Place : Selectable{
     
     init(coordinate: CLLocationCoordinate2D){
         items = PlaceItemList()
-        mapPoint = MapPoint(coordinate)
+        mapPoint = CGPoint(coordinate)
         self.coordinate = coordinate
         altitude = 0
         timestamp = Date()
@@ -142,7 +142,7 @@ class Place : Selectable{
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        mapPoint = MapPoint(coordinate)
+        mapPoint = CGPoint(coordinate)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""

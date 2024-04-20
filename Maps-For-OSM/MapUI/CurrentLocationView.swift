@@ -28,7 +28,7 @@ class CurrentLocationView : UIView{
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
-        let mapOffset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+        let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
         let drawCenter = CGPoint(x: (planetPoint.x - mapOffset.x)*scale , y: (planetPoint.y - mapOffset.y)*scale)
         self.frame = CGRect(x: drawCenter.x - locationRadius , y: drawCenter.y - locationRadius, width: 2*locationRadius, height: 2*locationRadius)
         self.scale = scale

@@ -103,7 +103,7 @@ class PlaceLayerView: UIView {
     }
     
     func updatePosition(offset: CGPoint, scale: CGFloat){
-        let offset = MapPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint.cgPoint
+        let offset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
         for subview in subviews{
             if let marker = subview as? PlaceMarker{
                 marker.updatePosition(to: CGPoint(x: (marker.place.mapPoint.x - offset.x)*scale , y: (marker.place.mapPoint.y - offset.y)*scale))

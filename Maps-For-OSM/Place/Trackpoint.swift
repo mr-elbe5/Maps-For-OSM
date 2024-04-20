@@ -21,7 +21,7 @@ class Trackpoint: Codable, Identifiable{
     var coordinate: CLLocationCoordinate2D
     var altitude: Double
     var timestamp: Date
-    var mapPoint: MapPoint
+    var mapPoint: CGPoint
     var valid: Bool = true
     
     var horizontalDistance: CGFloat = 0
@@ -49,12 +49,12 @@ class Trackpoint: Codable, Identifiable{
         self.coordinate = coordinate
         self.altitude = altitude
         self.timestamp = timestamp
-        mapPoint = MapPoint(coordinate)
+        mapPoint = CGPoint(coordinate)
     }
     
     // for track recorder
     init(location: CLLocation){
-        mapPoint = MapPoint(location.coordinate)
+        mapPoint = CGPoint(location.coordinate)
         coordinate = location.coordinate
         altitude = location.altitude
         timestamp = location.timestamp
@@ -72,7 +72,7 @@ class Trackpoint: Codable, Identifiable{
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        mapPoint = MapPoint(coordinate)
+        mapPoint = CGPoint(coordinate)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
         valid = try values.decodeIfPresent(Bool.self, forKey: .valid) ?? true

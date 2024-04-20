@@ -10,7 +10,7 @@ import CoreLocation
 protocol SearchDelegate{
     func getCurrentRegion() -> CoordinateRegion
     func getCurrentCenter() -> CLLocationCoordinate2D
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: MapRect?)
+    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?)
 }
 
 class SearchViewController: PopupTableViewController{

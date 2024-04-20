@@ -102,7 +102,7 @@ class MapView: UIView {
     }
     
     func locationDidChange(location: CLLocation) {
-        currentLocationView.updateLocationPoint(planetPoint: MapPoint(location.coordinate).cgPoint, accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
+        currentLocationView.updateLocationPoint(planetPoint: CGPoint(location.coordinate), accuracy: location.horizontalAccuracy, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func focusUserLocation() {
