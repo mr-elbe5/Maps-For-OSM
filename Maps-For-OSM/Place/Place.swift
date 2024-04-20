@@ -6,8 +6,12 @@
 
 import CoreLocation
 import UIKit
+import CloudKit
 
 class Place : Selectable{
+    
+    static var recordMetaKeys = ["uuid"]
+    static var recordDataKeys = ["uuid", "json"]
     
     private enum CodingKeys: String, CodingKey {
         case latitude
@@ -105,6 +109,21 @@ class Place : Selectable{
                 _coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxPlaceMergeDistance)
             }
             return _coordinateRegion!
+        }
+    }
+    
+    var recordId : CKRecord.ID{
+        get{
+            CKRecord.ID(recordName: id.uuidString)
+        }
+    }
+    
+    var dataRecord: CKRecord{
+        get{
+            let record = CKRecord(recordType: CKRecord.placeType, recordID: recordId)
+            record["uuid"] = id.uuidString
+            record["json"] = self.toJSON()
+            return record
         }
     }
     

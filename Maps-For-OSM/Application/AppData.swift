@@ -15,14 +15,6 @@ class AppData{
     
     var places = PlaceList()
     
-    var dataRecordId : CKRecord.ID{
-        places.dataRecordId
-    }
-    
-    var dataRecord: CKRecord{
-        places.dataRecord
-    }
-    
     func resetCoordinateRegions() {
         for place in places{
             place.resetCoordinateRegion()
@@ -115,7 +107,9 @@ class AppData{
                 count += 1
             }
         }
-        Log.info("deleted \(count) unreferenced files")
+        if count > 0{
+            Log.info("cleanup: deleted \(count) local unreferenced files")
+        }
     }
     
     //deprecated

@@ -9,11 +9,6 @@ import CloudKit
 
 class CloudSynchronizer{
     
-    static var mapsForOSMContainerName = "iCloud.MapsForOSM"
-    
-    static var jsonType: CKRecord.RecordType = "json"
-    static var fileType: CKRecord.RecordType = "file"
-    
     func synchronizeICloud(replaceLocalData: Bool, replaceICloudData: Bool) async throws{
         AppData.shared.saveLocally()
         Task{
@@ -82,22 +77,30 @@ class CloudSynchronizer{
         Log.debug("synchronize to iCloud")
         if try await CKContainer.isConnected(){
             var recordsToSave = Array<CKRecord>()
-            var iCloudFilesToDelete = Array<CKRecord.ID>()
+            var recordsToDelete = Array<CKRecord.ID>()
+            let remotePlaceMetaData = await getRemotePlaceIds()
             let remoteFileMetaData = await getRemoteFileMetaData()
             //places
             Log.debug("having \(AppData.shared.places.count) local places")
             //setup remote places
             if replaceICloudData{
                 Log.debug("copying local places")
-                //remove stale local files - only remote files stay
+                //remove stale iCloud places - only local places stay
+                let localPlaceIds = AppData.shared.places.placeIds
+                for uuid in remotePlaceMetaData{
+                    if !localPlaceIds.contains(uuid){
+                        Log.debug("found stale icloud place \(uuid)")
+                        recordsToDelete.append(CKRecord.ID(recordName: uuid.uuidString))
+                    }
+                }
+                //remove stale icloud files - only local files stay
                 let localFileIds = AppData.shared.places.fileItemIds
                 for uuid in remoteFileMetaData.keys{
                     if !localFileIds.contains(uuid){
                         Log.debug("found stale icloud file \(uuid)")
-                        iCloudFilesToDelete.append(remoteFileMetaData[uuid]!.recordID)
+                        recordsToDelete.append(CKRecord.ID(recordName: uuid.uuidString))
                     }
                 }
-                recordsToSave.append(AppData.shared.dataRecord)
             }
             else{
                 var remotePlaces = try await getRemotePlaces()
@@ -107,8 +110,13 @@ class CloudSynchronizer{
                 Log.debug("merging local places with \(remotePlaces!.count) iCloud places")
                 mergePlaces(fromPlaces: AppData.shared.places, toPlaces: &remotePlaces!)
                 Log.debug("merged to \(remotePlaces!.count) remote places")
-                recordsToSave.append(remotePlaces!.dataRecord)
                 
+            }
+            for place in AppData.shared.places{
+                if !remotePlaceMetaData.contains(place.id){
+                    Log.debug("setting place \(place.id) for upload")
+                    recordsToSave.append(place.dataRecord)
+                }
             }
             let localFileItems = AppData.shared.places.fileItems
             for fileItem in localFileItems{
@@ -118,8 +126,10 @@ class CloudSynchronizer{
                 }
             }
             Log.debug("saving \(recordsToSave.count) record(s) to iCloud")
-            Log.debug("deleting \(iCloudFilesToDelete.count) record(s) from iCloud")
-            try await modifyRecords(recordsToSave: recordsToSave, recordIdsToDelete: iCloudFilesToDelete)
+            Log.debug("deleting \(recordsToDelete.count) record(s) from iCloud")
+            if recordsToSave.count > 0 || recordsToDelete.count > 0{
+                try await modifyRecords(recordsToSave: recordsToSave, recordIdsToDelete: recordsToDelete)
+            }
         }
         else{
             Log.warn("no connection to iCloud")
@@ -130,23 +140,25 @@ class CloudSynchronizer{
     
     private func getRemotePlaces() async throws -> PlaceList?{
         Log.debug("get remote places")
-        let query = CKQuery(recordType: CloudSynchronizer.jsonType, predicate: NSPredicate(format: "string != ''"))
-        let records = try await CKContainer.privateDatabase.records(matching: query)
+        var places = PlaceList()
+        let query = CKQuery(recordType: CKRecord.placeType, predicate: NSPredicate(format: "json != ''"))
+        let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: Place.recordDataKeys)
         if records.matchResults.isEmpty{
             return nil
         }
-        let matchResult = records.matchResults[0]
-        let result = matchResult.1
-        switch result{
-        case .failure(let err):
-            Log.error(error: err)
-        case .success(let record):
-            if let json = record.string("string"), let data : PlaceList = PlaceList.fromJSON(encoded: json){
-                Log.debug("remote places received")
-                return data
+        for matchResult in records.matchResults{
+            let result = matchResult.1
+            switch result{
+            case .failure(let err):
+                Log.error(error: err)
+            case .success(let record):
+                if let json = record.string("json"), let data : Place = Place.fromJSON(encoded: json){
+                    places.append(data)
+                }
             }
         }
-        return nil
+        Log.debug("\(places.count) remote places received")
+        return places
     }
     
     private func mergePlaces(fromPlaces sourcePlaces: PlaceList, toPlaces targetPlaces: inout PlaceList){
@@ -178,10 +190,36 @@ class CloudSynchronizer{
         }
     }
     
+    private func getRemotePlaceIds() async -> Array<UUID>{
+        Log.debug("getting remote place ids")
+        var list = Array<UUID>()
+        let query = CKQuery(recordType: CKRecord.placeType, predicate: NSPredicate(format: "uuid != ''"))
+        do{
+            let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: Place.recordMetaKeys)
+            for matchResult in records.matchResults{
+                let result = matchResult.1
+                switch result{
+                case .failure(let err):
+                    Log.error(error: err)
+                case .success(let record):
+                    if let uuid = record.uuid("uuid"){
+                        list.append(uuid)
+                    }
+                }
+            }
+            Log.debug("\(list.count) remote place ids received")
+            return list
+        }
+        catch (let err){
+            Log.warn(err.localizedDescription)
+            return list
+        }
+    }
+    
     private func getRemoteFileMetaData() async -> Dictionary<UUID, CKRecord>{
         Log.debug("getting remote file meta data")
         var map = Dictionary<UUID, CKRecord>()
-        let query = CKQuery(recordType: CloudSynchronizer.fileType, predicate: NSPredicate(format: "uuid != ''"))
+        let query = CKQuery(recordType: CKRecord.fileType, predicate: NSPredicate(format: "uuid != ''"))
         do{
             let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: FileItem.recordMetaKeys)
             Log.debug("\(records.matchResults.count) remote file meta data received")
@@ -231,7 +269,7 @@ class CloudSynchronizer{
     private func getRemoteFileData(metaRecord: CKRecord) async throws -> CKRecord?{
         if let uuidString = metaRecord.string("uuid"){
             let predicate = NSPredicate(format: "uuid == '\(uuidString)'")
-            let query = CKQuery(recordType: CloudSynchronizer.fileType, predicate: predicate)
+            let query = CKQuery(recordType: CKRecord.fileType, predicate: predicate)
             let records = try await CKContainer.privateDatabase.records(matching: query, desiredKeys: FileItem.recordDataKeys)
             if records.matchResults.isEmpty{
                 return nil

@@ -43,7 +43,7 @@ class FileItem : PlaceItem{
     
     var fileRecord: CKRecord{
         get{
-            let record = CKRecord(recordType: CloudSynchronizer.fileType, recordID: fileRecordId)
+            let record = CKRecord(recordType: CKRecord.fileType, recordID: fileRecordId)
             let asset = CKAsset(fileURL: fileURL)
             record["uuid"] = id.uuidString
             record["asset"] = asset

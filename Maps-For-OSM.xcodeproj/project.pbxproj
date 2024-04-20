@@ -544,14 +544,14 @@
 				4E0252532BC3C6A70010D234 /* PlaceFilter.swift */,
 				4ED55ECC2976B17300C679AF /* PlaceGroup.swift */,
 				4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */,
+				4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */,
+				4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */,
+				4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */,
 				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
 				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
 				4E08A329298976F2001D86F1 /* TrackpointList.swift */,
 				4E3A416428D85357004C9D90 /* TrackPool.swift */,
 				4EF4770F2941E94900294B21 /* VideoItem.swift */,
-				4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */,
-				4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */,
-				4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";

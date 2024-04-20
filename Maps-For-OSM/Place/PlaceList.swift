@@ -11,8 +11,6 @@ typealias PlaceList = Array<Place>
 
 extension PlaceList{
     
-    static var recordId = CKRecord.ID(recordName: "places")
-    
     mutating func remove(_ place: Place){
         removeAll(where: {
            $0 == place
@@ -103,6 +101,16 @@ extension PlaceList{
         }
     }
     
+    var placeIds: Array<UUID>{
+        get{
+            var uuidList = Array<UUID>()
+            for place in self{
+                uuidList.append(place.id)
+            }
+            return uuidList
+        }
+    }
+    
     var fileItemIds: Array<UUID>{
         get{
             var uuidList = Array<UUID>()
@@ -112,20 +120,6 @@ extension PlaceList{
                 }
             }
             return uuidList
-        }
-    }
-    
-    var dataRecordId : CKRecord.ID{
-        get{
-            CKRecord.ID(recordName: "string")
-        }
-    }
-    
-    var dataRecord: CKRecord{
-        get{
-            let record = CKRecord(recordType: CloudSynchronizer.jsonType, recordID: PlaceList.recordId)
-            record["string"] = self.toJSON()
-            return record
         }
     }
     

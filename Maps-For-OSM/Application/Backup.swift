@@ -22,12 +22,6 @@ class Backup{
             if let url = AppData.shared.saveAsFile(){
                 paths.append(url)
             }
-            if let url = Preferences.saveAsFile(){
-                paths.append(url)
-            }
-            if let url = AppState.saveAsFile(){
-                paths.append(url)
-            }
             try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
                 //Log.debug(progress)
             })
@@ -66,12 +60,7 @@ class Backup{
         for name in fileNames{
             FileController.copyFile(fromURL: FileController.temporaryURL.appendingPathComponent("media").appendingPathComponent(name), toURL: FileController.mediaDirURL.appendingPathComponent(name), replace: true)
         }
-        var url = FileController.temporaryURL.appendingPathComponent(AppState.storeKey + ".json")
-        AppState.loadFromFile(url: url)
-        url = FileController.temporaryURL.appendingPathComponent(Preferences.storeKey + ".json")
-        Preferences.loadFromFile(url: url)
-        Preferences.shared.save()
-        url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
+        var url = FileController.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
         AppData.shared.loadFromFile(url: url)
         AppData.shared.saveLocally()
         //deprecated
