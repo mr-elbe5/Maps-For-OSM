@@ -1,6 +1,6 @@
 /*
- My Private Track
- App for creating a diary with entry based on time and map location using text, photos, audios and videos
+ Maps For OSM
+ App for display and use of OSM maps without MapKit
  Copyright: Michael Rönnau mr@elbe5.de
  */
 
