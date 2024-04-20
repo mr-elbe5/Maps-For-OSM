@@ -33,7 +33,16 @@ class CloudSynchronizer{
             //setup local places
             if replaceLocalData{
                 Log.debug("copying icloud places")
+                //remove stale local places - only iCloud places stay
+                let remotePlaceIds = remotePlaces.placeIds
+                for place in AppData.shared.places{
+                    if !remotePlaceIds.contains(place.id){
+                        Log.debug("found stale local place \(place.id)")
+                        AppData.shared.deletePlace(place)
+                    }
+                }
                 //remove stale local files - only remote files stay
+                //most should already have been removed by places
                 let localFiles = AppData.shared.places.fileItems
                 for fileItem in localFiles{
                     if !remoteFileMetaDataMap.keys.contains(fileItem.id){
