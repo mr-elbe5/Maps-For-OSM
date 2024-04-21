@@ -47,6 +47,8 @@ struct AppLoader{
     }
     
     static func loadData(delegate: AppLoaderDelegate? = nil){
+        Log.debug("loading from user defaults")
+        loadFromUserDefaults()
         if Preferences.shared.useICloud{
             CKContainer.default().accountStatus(){ status, error in
                 if status == .available{
@@ -54,14 +56,9 @@ struct AppLoader{
                     loadDataFromICloud(delegate: delegate)
                 }
                 else{
-                    Log.debug("iCloud not available, loading from user defaults")
-                    loadFromUserDefaults(delegate: delegate)
+                    Log.debug("iCloud not available")
                 }
             }
-        }
-        else{
-            Log.debug("loading from user defaults")
-            loadFromUserDefaults(delegate: delegate)
         }
     }
     
@@ -69,7 +66,7 @@ struct AppLoader{
         let synchronizer = CloudSynchronizer()
         delegate?.startLoading()
         Task{
-            try await synchronizer.synchronizeFromICloud(replaceLocalData: Preferences.shared.replaceLocalDataOnDownload)
+            try await synchronizer.synchronizeFromICloud(deleteLocalData: Preferences.shared.deleteLocalDataOnDownload)
             DispatchQueue.main.async{
                 delegate?.appLoaded()
             }
@@ -77,11 +74,8 @@ struct AppLoader{
         }
     }
     
-    static func loadFromUserDefaults(delegate: AppLoaderDelegate? = nil){
+    static func loadFromUserDefaults(){
         AppData.shared.loadLocally()
-        DispatchQueue.main.async{
-            delegate?.appLoaded()
-        }
         //deprecated
         loadFromPreviousVersions()
     }
@@ -102,7 +96,7 @@ struct AppLoader{
             let synchronizer = CloudSynchronizer()
             delegate?.startSaving()
             Task{
-                try await synchronizer.synchronizeToICloud(replaceICloudData: Preferences.shared.replaceICloudDataOnUpload)
+                try await synchronizer.synchronizeToICloud(deleteICloudData: Preferences.shared.deleteICloudDataOnUpload)
                 DispatchQueue.main.async{
                     delegate?.appSaved()
                 }

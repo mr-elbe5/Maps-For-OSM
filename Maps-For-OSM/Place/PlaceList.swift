@@ -95,31 +95,9 @@ extension PlaceList{
         get{
             var fileList = FileItemList()
             for place in self{
-                fileList.append(contentsOf: place.media)
+                fileList.append(contentsOf: place.fileItems)
             }
             return fileList
-        }
-    }
-    
-    var placeIds: Array<UUID>{
-        get{
-            var uuidList = Array<UUID>()
-            for place in self{
-                uuidList.append(place.id)
-            }
-            return uuidList
-        }
-    }
-    
-    var fileItemIds: Array<UUID>{
-        get{
-            var uuidList = Array<UUID>()
-            for place in self{
-                for fileItem in place.media{
-                    uuidList.append(fileItem.id)
-                }
-            }
-            return uuidList
         }
     }
     

@@ -323,22 +323,6 @@ extension PlaceViewController : PlaceDelegate{
     
 }
 
-extension PlaceViewController : TrackDelegate{
-    
-    func viewTrackItem(item: TrackItem) {
-        let controller = TrackViewController(track: item)
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
-    }
-    
-    func showTrackItemOnMap(item: TrackItem) {
-        self.dismiss(animated: true){
-            self.trackDelegate?.showTrackItemOnMap(item: item)
-        }
-    }
-    
-}
-
 extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -426,6 +410,22 @@ extension PlaceViewController : ImageDelegate{
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
+    }
+    
+}
+
+extension PlaceViewController : TrackDelegate{
+    
+    func viewTrackItem(item: TrackItem) {
+        let controller = TrackViewController(track: item)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func showTrackItemOnMap(item: TrackItem) {
+        self.dismiss(animated: true){
+            self.trackDelegate?.showTrackItemOnMap(item: item)
+        }
     }
     
 }

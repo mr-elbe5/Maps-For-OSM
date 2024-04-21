@@ -14,7 +14,8 @@ class PlaceListViewController: PopupTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
 
-    var delegate: PlaceDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     override func loadView() {
         title = "placeList".localize()
@@ -99,7 +100,7 @@ class PlaceListViewController: PopupTableViewController{
             for place in list{
                 AppData.shared.deletePlace(place)
             }
-            self.delegate?.placesChanged()
+            self.placeDelegate?.placesChanged()
             self.tableView.reloadData()
         }
     }
@@ -147,15 +148,45 @@ extension PlaceListViewController : PlaceCellDelegate{
     
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showPlaceOnMap(place: place)
+            self.placeDelegate?.showPlaceOnMap(place: place)
         }
     }
     
     func viewPlace(place: Place) {
         let placeController = PlaceViewController(location: place)
         placeController.place = place
+        placeController.placeDelegate = self
+        placeController.trackDelegate = self
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)
+    }
+    
+}
+
+extension PlaceListViewController : PlaceDelegate{
+    
+    func placeChanged(place: Place) {
+        placeDelegate?.placeChanged(place: place)
+    }
+    
+    func placesChanged() {
+        placeDelegate?.placesChanged()
+    }
+    
+}
+
+extension PlaceListViewController : TrackDelegate{
+    
+    func viewTrackItem(item: TrackItem) {
+        let controller = TrackViewController(track: item)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func showTrackItemOnMap(item: TrackItem) {
+        self.dismiss(animated: true){
+            self.trackDelegate?.showTrackItemOnMap(item: item)
+        }
     }
     
 }

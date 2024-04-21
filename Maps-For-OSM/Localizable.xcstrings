@@ -885,6 +885,23 @@
         }
       }
     },
+    "deleteCloudDataOnUploadHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn dieser Schalter an ist, werden beim Upload alle iCloud-Daten, die nicht lokal existieren, gelöscht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If this switch is on, all iCloud data not existing locally are deleted."
+          }
+        }
+      }
+    },
     "deleteHint" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -898,6 +915,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This action is executed immediately and cannot be undone."
+          }
+        }
+      }
+    },
+    "deleteICloudDataOnUpload" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-Daten beim Upload löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete iCloud data on upload"
+          }
+        }
+      }
+    },
+    "deleteLocalDataOnDownload" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Daten beim Download löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete local data on download"
+          }
+        }
+      }
+    },
+    "deleteLocalDataOnDownloadHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn dieser Schalter an ist, werden beim Download alle lokalen Daten, die nicht in der iCloud existieren, gelöscht."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If this switch is on, all local data not existing on iCloud are deleted."
           }
         }
       }
@@ -2513,74 +2581,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Region too large"
-          }
-        }
-      }
-    },
-    "replaceICloudDataOnUpload" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud-Daten beim Upload ersetzen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Replace iCloud data on upload"
-          }
-        }
-      }
-    },
-    "replaceICloudDataOnUploadHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn dieser Schalter an ist, werden die iCloud-Daten beim Upload durch die lokalen Daten ersetzt. Andernfalls werden sie zusammengeführt."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If this switch is on, all iCloud data are replaced by local data on upload, otherwise they are merged."
-          }
-        }
-      }
-    },
-    "replaceLocalDataOnDownload" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lokale Daten beim Download ersetzen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Replace local data on download"
-          }
-        }
-      }
-    },
-    "replaceLocalDataOnDownloadHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn dieser Schalter an ist, werden die lokalen Daten beim Download durch die iCloud-Daten ersetzt. Andernfalls werden sie zusammengeführt."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If this switch is on, all local data are replaced by iCloud data on download, otherwise they are merged."
           }
         }
       }

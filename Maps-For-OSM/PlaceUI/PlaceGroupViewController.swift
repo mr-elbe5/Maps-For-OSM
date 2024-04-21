@@ -16,7 +16,8 @@ class PlaceGroupViewController: PopupTableViewController{
     let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var delegate: PlaceDelegate? = nil
+    var placeDelegate: PlaceDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     init(group: PlaceGroup){
         self.group = group
@@ -132,7 +133,7 @@ class PlaceGroupViewController: PopupTableViewController{
                 AppData.shared.deletePlace(place)
                 self.group.places.remove(place)
             }
-            self.delegate?.placesChanged()
+            self.placeDelegate?.placesChanged()
             self.tableView.reloadData()
         }
     }
@@ -154,7 +155,7 @@ class PlaceGroupViewController: PopupTableViewController{
                 AppData.shared.places.append(newPlace)
                 AppData.shared.places.removePlaces(of: list)
                 AppData.shared.saveLocally()
-                self.delegate?.placesChanged()
+                self.placeDelegate?.placesChanged()
                 self.tableView.reloadData()
             }
         }
@@ -227,19 +228,47 @@ extension PlaceGroupViewController : PlaceCellDelegate{
     
     func showPlaceOnMap(place: Place) {
         self.dismiss(animated: true){
-            self.delegate?.showPlaceOnMap(place: place)
+            self.placeDelegate?.showPlaceOnMap(place: place)
         }
     }
     
     func viewPlace(place: Place) {
         let placeController = PlaceViewController(location: place)
         placeController.place = place
+        placeController.placeDelegate = self
+        placeController.trackDelegate = self
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)
     }
     
 }
 
+extension PlaceGroupViewController : PlaceDelegate{
+    
+    func placeChanged(place: Place) {
+        placeDelegate?.placeChanged(place: place)
+    }
+    
+    func placesChanged() {
+        placeDelegate?.placesChanged()
+    }
+    
+}
 
+extension PlaceGroupViewController : TrackDelegate{
+    
+    func viewTrackItem(item: TrackItem) {
+        let controller = TrackViewController(track: item)
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
+    }
+    
+    func showTrackItemOnMap(item: TrackItem) {
+        self.dismiss(animated: true){
+            self.trackDelegate?.showTrackItemOnMap(item: item)
+        }
+    }
+    
+}
 
 

@@ -12,8 +12,8 @@ protocol ICloudDelegate: AppLoaderDelegate{
 class ICloudViewController: PopupScrollViewController{
     
     var useICloudSwitch = LabeledSwitchView()
-    var replaceLocalDataOnDownloadSwitch = LabeledSwitchView()
-    var replaceICloudDataOnUploadSwitch = LabeledSwitchView()
+    var deleteLocalDataOnDownloadSwitch = LabeledSwitchView()
+    var deleteICloudDataOnUploadSwitch = LabeledSwitchView()
     var mergeFromICloudButton = UIButton()
     var copyFromICloudButton = UIButton()
     var mergeToICloudButton = UIButton()
@@ -33,17 +33,17 @@ class ICloudViewController: PopupScrollViewController{
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: useICloudSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        replaceLocalDataOnDownloadSwitch.setupView(labelText: "replaceLocalDataOnDownload".localize(), isOn: Preferences.shared.replaceLocalDataOnDownload)
-        contentView.addSubviewWithAnchors(replaceLocalDataOnDownloadSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        label = UILabel(text: "replaceLocalDataOnDownloadHint".localize())
+        deleteLocalDataOnDownloadSwitch.setupView(labelText: "deleteLocalDataOnDownload".localize(), isOn: Preferences.shared.deleteLocalDataOnDownload)
+        contentView.addSubviewWithAnchors(deleteLocalDataOnDownloadSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        label = UILabel(text: "deleteLocalDataOnDownloadHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: replaceLocalDataOnDownloadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(label, top: deleteLocalDataOnDownloadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        replaceICloudDataOnUploadSwitch.setupView(labelText: "replaceICloudDataOnUpload".localize(), isOn: Preferences.shared.replaceICloudDataOnUpload)
-        contentView.addSubviewWithAnchors(replaceICloudDataOnUploadSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        label = UILabel(text: "replaceICloudDataOnUploadHint".localize())
+        deleteICloudDataOnUploadSwitch.setupView(labelText: "deleteICloudDataOnUpload".localize(), isOn: Preferences.shared.deleteICloudDataOnUpload)
+        contentView.addSubviewWithAnchors(deleteICloudDataOnUploadSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        label = UILabel(text: "deleteICloudDataOnUploadHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: replaceICloudDataOnUploadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(label, top: deleteICloudDataOnUploadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
@@ -124,7 +124,7 @@ class ICloudViewController: PopupScrollViewController{
     func mergeFromICloud(){
         let synchronizer = CloudSynchronizer()
         Task{
-            try await synchronizer.synchronizeFromICloud(replaceLocalData: false)
+            try await synchronizer.synchronizeFromICloud(deleteLocalData: false)
             delegate?.appLoaded()
         }
     }
@@ -132,7 +132,7 @@ class ICloudViewController: PopupScrollViewController{
     func copyFromICloud(){
         let synchronizer = CloudSynchronizer()
         Task{
-            try await synchronizer.synchronizeFromICloud(replaceLocalData: true)
+            try await synchronizer.synchronizeFromICloud(deleteLocalData: true)
             delegate?.appLoaded()
         }
     }
@@ -140,7 +140,7 @@ class ICloudViewController: PopupScrollViewController{
     func mergeToICloud(){
         let synchronizer = CloudSynchronizer()
         Task{
-            try await synchronizer.synchronizeToICloud(replaceICloudData: false)
+            try await synchronizer.synchronizeToICloud(deleteICloudData: false)
             delegate?.appSaved()
         }
     }
@@ -148,7 +148,7 @@ class ICloudViewController: PopupScrollViewController{
     func copyToICloud(){
         let synchronizer = CloudSynchronizer()
         Task{
-            try await synchronizer.synchronizeToICloud(replaceICloudData: true)
+            try await synchronizer.synchronizeToICloud(deleteICloudData: true)
             delegate?.appSaved()
         }
     }
@@ -157,7 +157,7 @@ class ICloudViewController: PopupScrollViewController{
         let synchronizer = CloudSynchronizer()
         delegate?.startSynchronization()
         Task{
-            try await synchronizer.synchronizeICloud(replaceLocalData: replaceLocalDataOnDownloadSwitch.isOn, replaceICloudData: replaceICloudDataOnUploadSwitch.isOn)
+            try await synchronizer.synchronizeICloud(replaceLocalData: deleteLocalDataOnDownloadSwitch.isOn, replaceICloudData: deleteICloudDataOnUploadSwitch.isOn)
             delegate?.appSynchronized()
         }
         
@@ -165,8 +165,8 @@ class ICloudViewController: PopupScrollViewController{
     
     func saveICloudPreferences(){
         Preferences.shared.useICloud = useICloudSwitch.isOn
-        Preferences.shared.replaceLocalDataOnDownload = replaceLocalDataOnDownloadSwitch.isOn
-        Preferences.shared.replaceICloudDataOnUpload = replaceICloudDataOnUploadSwitch.isOn
+        Preferences.shared.deleteLocalDataOnDownload = deleteLocalDataOnDownloadSwitch.isOn
+        Preferences.shared.deleteICloudDataOnUpload = deleteICloudDataOnUploadSwitch.isOn
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
     }

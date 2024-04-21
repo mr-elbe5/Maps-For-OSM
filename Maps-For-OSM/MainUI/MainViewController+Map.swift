@@ -68,7 +68,8 @@ extension MainViewController: PlaceLayerDelegate{
     
     func showGroupDetails(group: PlaceGroup) {
         let controller = PlaceGroupViewController(group: group)
-        controller.delegate = self
+        controller.placeDelegate = self
+        controller.trackDelegate = self
         controller.modalPresentationStyle = .popover
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)

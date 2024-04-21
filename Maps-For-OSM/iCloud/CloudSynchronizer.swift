@@ -12,66 +12,61 @@ class CloudSynchronizer{
     func synchronizeICloud(replaceLocalData: Bool, replaceICloudData: Bool) async throws{
         AppData.shared.saveLocally()
         Task{
-            try await synchronizeFromICloud(replaceLocalData: replaceLocalData)
+            try await synchronizeFromICloud(deleteLocalData: replaceLocalData)
             AppData.shared.saveLocally()
-            try await synchronizeToICloud(replaceICloudData: replaceICloudData)
+            try await synchronizeToICloud(deleteICloudData: replaceICloudData)
         }
     }
     
-    func synchronizeFromICloud(replaceLocalData: Bool) async throws{
+    func synchronizeFromICloud(deleteLocalData: Bool) async throws{
         Log.debug("synchronize from iCloud")
         if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
             Log.debug("synchronize places from iCloud")
             let remoteFileMetaDataMap = await getRemoteFileMetaData()
-            //cleanup of icloud
-            let recordIdsToDelete = getUnreferencedRecordIds(allFiles: remoteFileMetaDataMap, fileItems: remotePlaces.fileItems)
-            if !recordIdsToDelete.isEmpty{
-                try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
-            }
             //places
             Log.debug("received \(remotePlaces.count) icloud places")
+            var oldLocalFileItems = FileItemList()
+            oldLocalFileItems.append(contentsOf: AppData.shared.places.fileItems)
             //setup local places
-            if replaceLocalData{
-                Log.debug("copying icloud places")
-                //remove stale local places - only iCloud places stay
-                let remotePlaceIds = remotePlaces.placeIds
-                for place in AppData.shared.places{
-                    if !remotePlaceIds.contains(place.id){
-                        Log.debug("found stale local place \(place.id)")
-                        AppData.shared.deletePlace(place)
-                    }
-                }
-                //remove stale local files - only remote files stay
-                //most should already have been removed by places
-                let localFiles = AppData.shared.places.fileItems
-                for fileItem in localFiles{
-                    if !remoteFileMetaDataMap.keys.contains(fileItem.id){
-                        Log.debug("deleting stale local file \(fileItem.fileName)")
-                        fileItem.prepareDelete()
-                    }
-                }
-                AppData.shared.places = remotePlaces
+            if deleteLocalData{
+                AppData.shared.places.removeAll()
+                AppData.shared.places.append(contentsOf: remotePlaces)
             }
             else{
-                Log.debug("merging icloud places with \(AppData.shared.places.count) local places")
-                mergePlaces(fromPlaces: remotePlaces, toPlaces: &AppData.shared.places)
-                Log.debug("merged to \(AppData.shared.places.count) local places")
-                //download new files
-                let localFileItems = AppData.shared.places.fileItems
-                for uuid in remoteFileMetaDataMap.keys{
-                    if let fileItem = getMatchingFileItem(uuid: uuid, fileItems: localFileItems){
-                        if !FileController.fileExists(url: fileItem.fileURL){
-                            if let fileDataRecord = try await getRemoteFileData(metaRecord: remoteFileMetaDataMap[uuid]!){
-                                downloadFile(record: fileDataRecord, fileItem: fileItem)
-                            }
-                            else{
-                                Log.error("could not download file \(uuid.uuidString)")
-                            }
-                        }
+                for place in AppData.shared.places{
+                    if remotePlaces.contains(where: {remotePlace in
+                        remotePlace.id == place.id
+                    }){
+                        //Log.debug("local place \(place.id) will be replaced")
+                        AppData.shared.places.remove(obj: place)
                     }
                     else{
-                        //should never happen after merge
-                        Log.error("file item not found for \(uuid.uuidString)")
+                        Log.debug("remote \(place.id) will be added locally")
+                    }
+                }
+                AppData.shared.places.append(contentsOf: remotePlaces)
+            }
+            let newLocalFileItems = AppData.shared.places.fileItems
+            for fileItem in oldLocalFileItems{
+                if !newLocalFileItems.contains(where: { newFileItem in
+                    newFileItem.id == fileItem.id
+                }){
+                    Log.debug("deleting local file \(fileItem.id)")
+                    fileItem.prepareDelete()
+                }
+                else{
+                    //Log.debug("local file \(fileItem.id) does not need download")
+                }
+            }
+            for fileItem in newLocalFileItems{
+                if !oldLocalFileItems.contains(where: { oldFileItem in
+                    fileItem.id == oldFileItem.id}), remoteFileMetaDataMap.keys.contains(fileItem.id) {
+                    Log.debug("downloading remote file \(fileItem.id)")
+                    if let fileDataRecord = try await getRemoteFileData(metaRecord: remoteFileMetaDataMap[fileItem.id]!){
+                        downloadFile(record: fileDataRecord, fileItem: fileItem)
+                    }
+                    else{
+                        Log.error("could not download file \(fileItem.id)")
                     }
                 }
             }
@@ -82,55 +77,51 @@ class CloudSynchronizer{
         }
     }
     
-    func synchronizeToICloud(replaceICloudData: Bool) async throws{
+    func synchronizeToICloud(deleteICloudData: Bool) async throws{
         Log.debug("synchronize to iCloud")
         if try await CKContainer.isConnected(){
             var recordsToSave = Array<CKRecord>()
             var recordsToDelete = Array<CKRecord.ID>()
-            let remotePlaceMetaData = await getRemotePlaceIds()
-            let remoteFileMetaData = await getRemoteFileMetaData()
+            let oldRemotePlaceIds = await getRemotePlaceIds()
+            let oldRemoteFileMetaData = await getRemoteFileMetaData()
             //places
-            Log.debug("having \(AppData.shared.places.count) local places")
+            Log.debug("getting \(oldRemotePlaceIds.count) remote places")
             //setup remote places
-            if replaceICloudData{
-                Log.debug("copying local places")
-                //remove stale iCloud places - only local places stay
-                let localPlaceIds = AppData.shared.places.placeIds
-                for uuid in remotePlaceMetaData{
-                    if !localPlaceIds.contains(uuid){
-                        Log.debug("found stale icloud place \(uuid)")
+            if deleteICloudData{
+                for uuid in oldRemotePlaceIds{
+                    if !AppData.shared.places.contains(where: { place in
+                        place.id == uuid
+                    }){
+                        Log.debug("setting remote place \(uuid) for delete")
                         recordsToDelete.append(CKRecord.ID(recordName: uuid.uuidString))
+                    }
+                    else{
+                        //Log.debug("remote place \(uuid) will be replaced")
                     }
                 }
-                //remove stale icloud files - only local files stay
-                let localFileIds = AppData.shared.places.fileItemIds
-                for uuid in remoteFileMetaData.keys{
-                    if !localFileIds.contains(uuid){
-                        Log.debug("found stale icloud file \(uuid)")
-                        recordsToDelete.append(CKRecord.ID(recordName: uuid.uuidString))
-                    }
+                for place in AppData.shared.places{
+                    recordsToSave.append(place.dataRecord)
                 }
             }
             else{
-                var remotePlaces = try await getRemotePlaces()
-                if remotePlaces == nil{
-                    remotePlaces = PlaceList()
-                }
-                Log.debug("merging local places with \(remotePlaces!.count) iCloud places")
-                mergePlaces(fromPlaces: AppData.shared.places, toPlaces: &remotePlaces!)
-                Log.debug("merged to \(remotePlaces!.count) remote places")
-                
-            }
-            for place in AppData.shared.places{
-                if !remotePlaceMetaData.contains(place.id){
-                    Log.debug("setting place \(place.id) for upload")
+                for place in AppData.shared.places{
                     recordsToSave.append(place.dataRecord)
                 }
             }
             let localFileItems = AppData.shared.places.fileItems
+            for uuid in oldRemoteFileMetaData.keys{
+                if !localFileItems.contains(where: { fileItem in
+                    fileItem.id == uuid
+                }){
+                    Log.debug("setting remote file \(uuid) for delete")
+                    recordsToDelete.append(oldRemoteFileMetaData[uuid]!.recordID)
+                }
+            }
             for fileItem in localFileItems{
-                if !remoteFileMetaData.keys.contains(fileItem.id){
-                    Log.debug("setting file \(fileItem.fileName) for upload")
+                if !oldRemoteFileMetaData.keys.contains(where:{ uuid in
+                    uuid == fileItem.id
+                }){
+                    Log.debug("setting local file \(fileItem.id) for upload")
                     recordsToSave.append(fileItem.fileRecord)
                 }
             }
@@ -142,6 +133,17 @@ class CloudSynchronizer{
         }
         else{
             Log.warn("no connection to iCloud")
+        }
+    }
+    
+    func cleanupICloud() async throws{
+        Log.debug("cleanup iCloud")
+        if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
+            let remoteFileMetaDataMap = await getRemoteFileMetaData()
+            let recordIdsToDelete = getUnreferencedRecordIds(allFiles: remoteFileMetaDataMap, fileItems: remotePlaces.fileItems)
+            if !recordIdsToDelete.isEmpty{
+                try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
+            }
         }
     }
     

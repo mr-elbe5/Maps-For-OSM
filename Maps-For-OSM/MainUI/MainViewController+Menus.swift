@@ -39,7 +39,8 @@ extension MainViewController: MainMenuDelegate{
     
     func openLocationList() {
         let controller = PlaceListViewController()
-        controller.delegate = self
+        controller.placeDelegate = self
+        controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }

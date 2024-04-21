@@ -116,15 +116,11 @@ class AppData{
     func convertNotes(){
         Log.info("converting notes to note items")
         for place in places{
-            if let note = place.note{
-                if !{
-                    for item in place.notes{
-                        if item.text == note{
-                            return true
-                        }
-                    }
-                    return false
-                }(){
+            if let note = place.note, !note.isEmpty{
+                if !place.notes.contains(where: { noteItem in
+                    noteItem.text == note
+                })
+                {
                     let noteItem = NoteItem()
                     noteItem.text = note
                     noteItem.creationDate = place.timestamp
