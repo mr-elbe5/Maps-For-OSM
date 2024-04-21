@@ -45,8 +45,6 @@ class Preferences: Identifiable, Codable{
         case maxSearchResults
         case maxPlaceMergeDistance
         case useICloud
-        case deleteLocalDataOnDownload
-        case deleteICloudOnUpload
     }
 
     var urlTemplate : String = osmUrl
@@ -62,8 +60,6 @@ class Preferences: Identifiable, Codable{
     var maxSearchResults = defaultMaxSearchResults
     var maxPlaceMergeDistance: Double = defaultMaxPlaceMergeDistance
     var useICloud: Bool = defaultUseICloud
-    var deleteLocalDataOnDownload = defaultDeleteLocalDataOnDownload
-    var deleteICloudDataOnUpload = defaultDeleteICloudDataOnUpload
     
     init(){
     }
@@ -81,8 +77,6 @@ class Preferences: Identifiable, Codable{
         maxSearchResults = try values.decodeIfPresent(Int.self, forKey: .maxSearchResults) ?? Preferences.defaultMaxSearchResults
         maxPlaceMergeDistance = try values.decodeIfPresent(Double.self, forKey: .maxPlaceMergeDistance) ?? Preferences.defaultMaxPlaceMergeDistance
         useICloud = try values.decodeIfPresent(Bool.self, forKey: .useICloud) ?? Preferences.defaultUseICloud
-        deleteLocalDataOnDownload = try values.decodeIfPresent(Bool.self, forKey: .deleteLocalDataOnDownload) ?? Preferences.defaultDeleteLocalDataOnDownload
-        deleteICloudDataOnUpload = try values.decodeIfPresent(Bool.self, forKey: .deleteICloudOnUpload) ?? Preferences.defaultDeleteICloudDataOnUpload
     }
     
     func encode(to encoder: Encoder) throws {
@@ -97,8 +91,6 @@ class Preferences: Identifiable, Codable{
         try container.encode(maxSearchResults, forKey: .maxSearchResults)
         try container.encode(maxPlaceMergeDistance, forKey: .maxPlaceMergeDistance)
         try container.encode(useICloud, forKey: .useICloud)
-        try container.encode(deleteLocalDataOnDownload, forKey: .deleteLocalDataOnDownload)
-        try container.encode(deleteICloudDataOnUpload, forKey: .deleteICloudOnUpload)
     }
     
     func save(){

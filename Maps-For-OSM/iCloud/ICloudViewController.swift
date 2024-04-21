@@ -6,21 +6,16 @@
 
 import UIKit
 
-protocol ICloudDelegate: AppLoaderDelegate{
-}
-
 class ICloudViewController: PopupScrollViewController{
     
     var useICloudSwitch = LabeledSwitchView()
-    var deleteLocalDataOnDownloadSwitch = LabeledSwitchView()
-    var deleteICloudDataOnUploadSwitch = LabeledSwitchView()
     var mergeFromICloudButton = UIButton()
     var copyFromICloudButton = UIButton()
     var mergeToICloudButton = UIButton()
     var copyToICloudButton = UIButton()
     var synchronizeButton = UIButton()
     
-    var delegate: ICloudDelegate? = nil
+    var delegate: AppLoaderDelegate? = nil
     
     override func loadView() {
         title = "iCloud".localize()
@@ -32,18 +27,6 @@ class ICloudViewController: PopupScrollViewController{
         var label = UILabel(text: "useICloudHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: useICloudSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
-        deleteLocalDataOnDownloadSwitch.setupView(labelText: "deleteLocalDataOnDownload".localize(), isOn: Preferences.shared.deleteLocalDataOnDownload)
-        contentView.addSubviewWithAnchors(deleteLocalDataOnDownloadSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        label = UILabel(text: "deleteLocalDataOnDownloadHint".localize())
-        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: deleteLocalDataOnDownloadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
-        deleteICloudDataOnUploadSwitch.setupView(labelText: "deleteICloudDataOnUpload".localize(), isOn: Preferences.shared.deleteICloudDataOnUpload)
-        contentView.addSubviewWithAnchors(deleteICloudDataOnUploadSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        label = UILabel(text: "deleteICloudDataOnUploadHint".localize())
-        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: deleteICloudDataOnUploadSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
@@ -123,50 +106,72 @@ class ICloudViewController: PopupScrollViewController{
     
     func mergeFromICloud(){
         let synchronizer = CloudSynchronizer()
+        let spinner = startSpinner()
+        spinner.startAnimating()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: false)
-            delegate?.appLoaded()
+            DispatchQueue.main.async{
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "mergedFromICloud".localize())
+                self.delegate?.dataChanged()
+            }
         }
     }
     
     func copyFromICloud(){
         let synchronizer = CloudSynchronizer()
+        let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: true)
-            delegate?.appLoaded()
+            DispatchQueue.main.async{
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "copiedFromICloud".localize())
+                self.delegate?.dataChanged()
+            }
         }
     }
     
     func mergeToICloud(){
         let synchronizer = CloudSynchronizer()
+        let spinner = startSpinner()
+        spinner.startAnimating()
         Task{
             try await synchronizer.synchronizeToICloud(deleteICloudData: false)
-            delegate?.appSaved()
+            DispatchQueue.main.async{
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "mergedToICloud".localize())
+            }
         }
     }
     
     func copyToICloud(){
         let synchronizer = CloudSynchronizer()
+        let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeToICloud(deleteICloudData: true)
-            delegate?.appSaved()
+            DispatchQueue.main.async{
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "copiedToICloud".localize())
+            }
         }
     }
     
     func synchronize(){
         let synchronizer = CloudSynchronizer()
-        delegate?.startSynchronization()
+        let spinner = startSpinner()
         Task{
-            try await synchronizer.synchronizeICloud(replaceLocalData: deleteLocalDataOnDownloadSwitch.isOn, replaceICloudData: deleteICloudDataOnUploadSwitch.isOn)
-            delegate?.appSynchronized()
+            try await synchronizer.synchronizeICloud(replaceLocalData: false, replaceICloudData: true)
+            DispatchQueue.main.async{
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "synchronized".localize())
+                self.delegate?.dataChanged()
+            }
         }
         
     }
     
     func saveICloudPreferences(){
         Preferences.shared.useICloud = useICloudSwitch.isOn
-        Preferences.shared.deleteLocalDataOnDownload = deleteLocalDataOnDownloadSwitch.isOn
-        Preferences.shared.deleteICloudDataOnUpload = deleteICloudDataOnUploadSwitch.isOn
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())
     }
@@ -186,33 +191,6 @@ extension ICloudViewController: SwitchDelegate{
     }
 }
 
-extension ICloudViewController: AppLoaderDelegate{
-    
-    func startSynchronization() {
-        
-    }
-    
-    func appSynchronized() {
-        delegate?.appLoaded()
-    }
-    
-    
-    func startLoading() {
-        //todo
-    }
-    
-    func appLoaded() {
-        delegate?.appLoaded()
-    }
-    
-    func startSaving() {
-        
-    }
-    
-    func appSaved() {
-    }
-    
-}
 
     
 

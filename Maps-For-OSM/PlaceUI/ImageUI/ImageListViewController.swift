@@ -108,18 +108,14 @@ class ImageListViewController: PopupTableViewController{
             if exportList.isEmpty{
                 return
             }
-            let spinner = UIActivityIndicatorView(style: .large)
-            spinner.startAnimating()
-            view.addSubview(spinner)
-            spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+            let spinner = startSpinner()
             DispatchQueue.global(qos: .userInitiated).async {
                 PHPhotoLibrary.requestAuthorization(){ status in
                     if status == PHAuthorizationStatus.authorized {
                         self.exportImagesToPhotoLibrary(images: exportList){ numCopied, numErrors in
                             AppData.shared.saveLocally()
                             DispatchQueue.main.async {
-                                spinner.stopAnimating()
-                                self.view.removeSubview(spinner)
+                                self.stopSpinner(spinner)
                                 if numErrors == 0{
                                     self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
                                 }

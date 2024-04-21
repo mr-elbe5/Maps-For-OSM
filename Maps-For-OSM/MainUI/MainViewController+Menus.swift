@@ -138,16 +138,12 @@ extension MainViewController: MainMenuDelegate{
     
     func createBackup(){
         let fileName = "maps4osm_backup_\(Date().shortFileDate()).zip"
-        let spinner = UIActivityIndicatorView(style: .large)
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        let spinner = startSpinner()
         DispatchQueue.main.async {
             if let _ = Backup.createBackupFile(name: fileName){
                 self.showDone(title: "success".localize(), text: "backupSaved".localize())
             }
-            spinner.stopAnimating()
-            self.view.removeSubview(spinner)
+            self.stopSpinner(spinner)
         }
     }
     
@@ -293,10 +289,7 @@ extension MainViewController : UIDocumentPickerDelegate{
     }
     
     private func importBackupFile(url: URL){
-        let spinner = UIActivityIndicatorView(style: .large)
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        let spinner = startSpinner()
         DispatchQueue.main.async {
             if Backup.unzipBackupFile(zipFileURL: url){
                 if Backup.restoreBackupFile(){
@@ -304,8 +297,7 @@ extension MainViewController : UIDocumentPickerDelegate{
                     self.mapView.updatePlaces()
                 }
             }
-            spinner.stopAnimating()
-            self.view.removeSubview(spinner)
+            self.stopSpinner(spinner)
         }
     }
     
@@ -335,6 +327,14 @@ extension MainViewController: TrackStatusDelegate{
     
     func togglePauseTracking() {
         TrackRecorder.isRecording = !TrackRecorder.isRecording
+    }
+    
+}
+
+extension MainViewController: AppLoaderDelegate{
+    
+    func dataChanged() {
+        mapView.updatePlaces()
     }
     
 }

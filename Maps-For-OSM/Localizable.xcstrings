@@ -562,6 +562,40 @@
         }
       }
     },
+    "copiedFromICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopieren aus der iCloud beendet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy from iCloud finished"
+          }
+        }
+      }
+    },
+    "copiedToICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopieren in die iCloud beendet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy to iCloud finished"
+          }
+        }
+      }
+    },
     "copyError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -885,23 +919,6 @@
         }
       }
     },
-    "deleteCloudDataOnUploadHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn dieser Schalter an ist, werden beim Upload alle iCloud-Daten, die nicht lokal existieren, gelöscht."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If this switch is on, all iCloud data not existing locally are deleted."
-          }
-        }
-      }
-    },
     "deleteHint" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -915,57 +932,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This action is executed immediately and cannot be undone."
-          }
-        }
-      }
-    },
-    "deleteICloudDataOnUpload" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud-Daten beim Upload löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete iCloud data on upload"
-          }
-        }
-      }
-    },
-    "deleteLocalDataOnDownload" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lokale Daten beim Download löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete local data on download"
-          }
-        }
-      }
-    },
-    "deleteLocalDataOnDownloadHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn dieser Schalter an ist, werden beim Download alle lokalen Daten, die nicht in der iCloud existieren, gelöscht."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If this switch is on, all local data not existing on iCloud are deleted."
           }
         }
       }
@@ -1867,6 +1833,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show only places with media"
+          }
+        }
+      }
+    },
+    "mergedFromICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusammenführen aus der iCloud beendet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge from iCloud finished"
+          }
+        }
+      }
+    },
+    "mergedToICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusammenführen in die iCloud beendet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge into iCloud finished"
           }
         }
       }
@@ -3185,6 +3185,23 @@
         }
       }
     },
+    "synchronized" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Synchronisation ist beendet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronization is ready"
+          }
+        }
+      }
+    },
     "synchronizeNow" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3208,13 +3225,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Es startet Download und Upload entsprechend der obigen Einstellungen."
+            "value" : "Es startet einen Download gefolgt von einem Upload in die iCloud."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "It starts download and upload according to the above switches."
+            "value" : "It starts download from followed by an upload to the iCloud."
           }
         }
       }

@@ -6,9 +6,6 @@
 
 import UIKit
 
-protocol PreferencesDelegate: AppLoaderDelegate{
-}
-
 class PreferencesViewController: PopupScrollViewController{
     
     var maxMergeDistanceField = LabeledTextField()
@@ -20,7 +17,7 @@ class PreferencesViewController: PopupScrollViewController{
     var minVerticalTrackpointDistanceField = LabeledTextField()
     var maxTrackpointInLineDeviationField = LabeledTextField()
     
-    var delegate: PreferencesDelegate? = nil
+    var delegate: AppLoaderDelegate? = nil
     
     override func loadView() {
         title = "preferences".localize()

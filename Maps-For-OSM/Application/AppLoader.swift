@@ -7,14 +7,12 @@
 import Foundation
 import CoreLocation
 import CloudKit
+import UIKit
 
 protocol AppLoaderDelegate{
-    func startLoading()
-    func appLoaded()
-    func startSaving()
-    func appSaved()
-    func startSynchronization()
-    func appSynchronized()
+    func startSpinner() -> UIActivityIndicatorView
+    func stopSpinner(_ spinner: UIActivityIndicatorView?)
+    func dataChanged()
 }
 
 struct AppLoader{
@@ -53,7 +51,9 @@ struct AppLoader{
             CKContainer.default().accountStatus(){ status, error in
                 if status == .available{
                     Log.debug("loading from iCloud")
-                    loadDataFromICloud(delegate: delegate)
+                    DispatchQueue.main.async{
+                        loadDataFromICloud(delegate: delegate)
+                    }
                 }
                 else{
                     Log.debug("iCloud not available")
@@ -64,11 +64,12 @@ struct AppLoader{
     
     static func loadDataFromICloud(delegate: AppLoaderDelegate? = nil){
         let synchronizer = CloudSynchronizer()
-        delegate?.startLoading()
+        let spinner = delegate?.startSpinner()
         Task{
-            try await synchronizer.synchronizeFromICloud(deleteLocalData: Preferences.shared.deleteLocalDataOnDownload)
+            try await synchronizer.synchronizeFromICloud(deleteLocalData: false)
             DispatchQueue.main.async{
-                delegate?.appLoaded()
+                delegate?.stopSpinner(spinner)
+                delegate?.dataChanged()
             }
             AppData.shared.saveLocally()
         }
@@ -93,14 +94,14 @@ struct AppLoader{
     
     static func saveData(delegate: AppLoaderDelegate? = nil){
         if Preferences.shared.useICloud{
+            let spinner = delegate?.startSpinner()
             let synchronizer = CloudSynchronizer()
-            delegate?.startSaving()
             Task{
-                try await synchronizer.synchronizeToICloud(deleteICloudData: Preferences.shared.deleteICloudDataOnUpload)
-                DispatchQueue.main.async{
-                    delegate?.appSaved()
-                }
+                try await synchronizer.synchronizeToICloud(deleteICloudData: true)
                 AppData.shared.saveLocally()
+                DispatchQueue.main.async{
+                    self.delegate?.stopSpinner(spinner)
+                }
             }
         }
         else{

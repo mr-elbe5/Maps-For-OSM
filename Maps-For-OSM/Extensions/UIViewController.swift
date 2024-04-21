@@ -48,5 +48,20 @@ extension UIViewController{
         showAlert(title: "error".localize(table: "Base"), text: reason.localize())
     }
     
+    func startSpinner() -> UIActivityIndicatorView{
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        spinner.setAnchors(centerX: view.centerXAnchor, centerY: view.centerYAnchor)
+        return spinner
+    }
+    
+    func stopSpinner(_ spinner: UIActivityIndicatorView?) {
+        if let spinner = spinner{
+            spinner.stopAnimating()
+            self.view.removeSubview(spinner)
+        }
+    }
+    
 }
 
