@@ -172,15 +172,15 @@ class PlaceGroupViewController: PopupTableViewController{
         for place in places{
             lat += place.coordinate.latitude
             lon += place.coordinate.longitude
-            if place.timestamp < timestamp{
-                timestamp = place.timestamp
+            if place.creationDate < timestamp{
+                timestamp = place.creationDate
             }
         }
         lat = lat/Double(count)
         lon = lon/Double(count)
         let newPlace = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         newPlace.evaluatePlacemark()
-        newPlace.timestamp = timestamp
+        newPlace.creationDate = timestamp
         for place in places{
             for item in place.allItems{
                 newPlace.addItem(item: item)

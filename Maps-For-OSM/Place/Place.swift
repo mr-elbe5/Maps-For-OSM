@@ -8,7 +8,11 @@ import CoreLocation
 import UIKit
 import CloudKit
 
-class Place : Selectable{
+class Place : Selectable, Comparable{
+    
+    static func < (lhs: Place, rhs: Place) -> Bool {
+        AppState.shared.sortAscending ? lhs.creationDate < rhs.creationDate : lhs.creationDate > rhs.creationDate
+    }
     
     static var recordMetaKeys = ["uuid"]
     static var recordDataKeys = ["uuid", "json"]
@@ -17,7 +21,8 @@ class Place : Selectable{
         case latitude
         case longitude
         case altitude
-        case timestamp
+        case creationDate
+        case timestamp //deprecated
         case name
         case address
         case note //deprecated
@@ -26,7 +31,7 @@ class Place : Selectable{
     }
     var coordinate: CLLocationCoordinate2D
     var altitude: Double
-    var timestamp: Date
+    var creationDate: Date
     var mapPoint: CGPoint
     var name : String = ""
     var address : String = ""
@@ -132,7 +137,7 @@ class Place : Selectable{
         mapPoint = CGPoint(coordinate)
         self.coordinate = coordinate
         altitude = 0
-        timestamp = Date()
+        creationDate = Date()
         super.init()
         evaluatePlacemark()
     }
@@ -144,7 +149,7 @@ class Place : Selectable{
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapPoint = CGPoint(coordinate)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
-        timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
+        creationDate = try values.decodeIfPresent(Date.self, forKeys: [.creationDate, .timestamp]) ?? Date()
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         self.items = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKeys: [.items, .media])?.toItemList() ?? PlaceItemList()
@@ -154,7 +159,7 @@ class Place : Selectable{
         for item in items{
             item.place = self
         }
-        items.sortByCreation()
+        items.sort()
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
         }
@@ -166,7 +171,7 @@ class Place : Selectable{
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
         try container.encode(altitude, forKey: .altitude)
-        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode(creationDate, forKey: .creationDate)
         try container.encode(name, forKey: .name)
         try container.encode(address, forKey: .address)
         var metaList = Array<PlaceItemMetaData>()
@@ -205,7 +210,9 @@ class Place : Selectable{
     }
     
     func addItem(item: PlaceItem){
-        if !items.contains(item){
+        if !items.contains(where: { otherItem in
+            item.id == otherItem.id
+        }){
             item.place = self
             items.append(item)
         }
@@ -230,7 +237,7 @@ class Place : Selectable{
     }
     
     func sortItems(){
-        items.sortByCreation()
+        items.sort()
     }
     
     func mergePlace(from sourcePlace: Place){
@@ -250,7 +257,7 @@ class Place : Selectable{
                 items.append(sourceItem)
             }
         }
-        items.sortByCreation()
+        items.sort()
     }
     
 }

@@ -26,7 +26,7 @@ class Selectable : NSObject, Identifiable, Codable{
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        id = try values.decode(UUID.self, forKey: .id)
     }
     
     func encode(to encoder: Encoder) throws {

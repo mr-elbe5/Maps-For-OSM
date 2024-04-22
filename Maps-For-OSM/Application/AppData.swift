@@ -114,7 +114,7 @@ class AppData{
     
     //deprecated
     func convertNotes(){
-        Log.info("converting notes to note items")
+        var count = 0
         for place in places{
             if let note = place.note, !note.isEmpty{
                 if !place.notes.contains(where: { noteItem in
@@ -123,12 +123,15 @@ class AppData{
                 {
                     let noteItem = NoteItem()
                     noteItem.text = note
-                    noteItem.creationDate = place.timestamp
+                    noteItem.creationDate = place.creationDate
                     place.addItem(item: noteItem)
                     place.note = ""
-                    Log.debug("added note item")
+                    count += 1
                 }
             }
+        }
+        if count > 0{
+            Log.info("converted \(count) notes to note items")
         }
     }
     

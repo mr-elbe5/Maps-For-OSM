@@ -15,6 +15,7 @@ class AppState: Identifiable, Codable{
     static let startZoom : Int = 4
     static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)
     static let defaultSearchRadius : Double = 100
+    static let defaultSortAscending = false
     
     static var shared = AppState()
     
@@ -30,6 +31,7 @@ class AppState: Identifiable, Codable{
         case searchTarget
         case searchRegion
         case searchRadius
+        case sortAscending
     }
 
     var version: Int
@@ -42,6 +44,7 @@ class AppState: Identifiable, Codable{
     var searchTarget : SearchQuery.SearchTarget = .any
     var searchRegion : SearchQuery.SearchRegion = .unlimited
     var searchRadius : Double = defaultSearchRadius
+    var sortAscending = defaultSortAscending
     
     init(){
         version = 1
@@ -69,6 +72,7 @@ class AppState: Identifiable, Codable{
         i = try values.decodeIfPresent(Int.self, forKey: .searchRegion) ?? 0
         searchRegion = SearchQuery.SearchRegion(rawValue: i) ?? .unlimited
         searchRadius = try values.decodeIfPresent(Double.self, forKey: .searchRadius) ?? AppState.defaultSearchRadius
+        sortAscending = try values.decodeIfPresent(Bool.self, forKey: .sortAscending) ?? AppState.defaultSortAscending
     }
     
     func encode(to encoder: Encoder) throws {
@@ -84,6 +88,7 @@ class AppState: Identifiable, Codable{
         try container.encode(searchTarget.rawValue, forKey: .searchTarget)
         try container.encode(searchRegion.rawValue, forKey: .searchRegion)
         try container.encode(searchRadius, forKey: .searchRadius)
+        try container.encode(sortAscending, forKey: .sortAscending)
     }
     
     func resetPosition(){

@@ -14,7 +14,11 @@ enum PlaceItemType: String, Codable{
     case note
 }
 
-class PlaceItem : Selectable{
+class PlaceItem : Selectable, Comparable{
+    
+    static func < (lhs: PlaceItem, rhs: PlaceItem) -> Bool {
+        AppState.shared.sortAscending ? lhs.creationDate < rhs.creationDate : lhs.creationDate > rhs.creationDate
+    }
     
     private enum CodingKeys: String, CodingKey {
         case creationDate

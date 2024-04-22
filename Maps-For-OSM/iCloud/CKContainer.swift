@@ -16,7 +16,7 @@ extension CKContainer{
     
     static func isConnected() async throws -> Bool{
         let status = try await container.accountStatus()
-        Log.debug("account status = \(status == .available ? "connected" : "disconnected")")
+        Log.info("account status = \(status == .available ? "connected" : "disconnected")")
         return status == .available
     }
     

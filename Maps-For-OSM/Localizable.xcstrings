@@ -188,6 +188,23 @@
         }
       }
     },
+    "audioCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonaufnahmen: "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audios: "
+          }
+        }
+      }
+    },
     "back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -320,6 +337,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "City"
+          }
+        }
+      }
+    },
+    "cleanupICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud aufräumen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cleanup iCloud"
+          }
+        }
+      }
+    },
+    "cleanupICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dies entfernt mögliche unbenutzte Dateidaten aus der iCloud."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This removes potential stale file data from iCloud"
           }
         }
       }
@@ -1463,6 +1514,23 @@
         }
       }
     },
+    "imageCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder: "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Images: "
+          }
+        }
+      }
+    },
     "imageLibrary" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1629,23 +1697,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Opens this Info"
-          }
-        }
-      }
-    },
-    "itemCount" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anzahl Elemente: "
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item count: "
           }
         }
       }
@@ -2122,6 +2173,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Note"
+          }
+        }
+      }
+    },
+    "noteCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notizen: "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes: "
           }
         }
       }
@@ -3389,6 +3457,23 @@
         }
       }
     },
+    "trackListName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour: "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track: "
+          }
+        }
+      }
+    },
     "trackName" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3644,6 +3729,40 @@
         }
       }
     },
+    "verifyLocalData" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Daten verifizieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify Local Data"
+          }
+        }
+      }
+    },
+    "verifyLocalDataHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dies repariert mögliche Inkonsistenzen der lokalen Daten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This repairs potential inconsistent local data."
+          }
+        }
+      }
+    },
     "verticalUncertainty" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3657,6 +3776,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vertical Uncertainty"
+          }
+        }
+      }
+    },
+    "videoCount" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videos: "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videos: "
           }
         }
       }

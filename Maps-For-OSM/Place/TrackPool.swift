@@ -42,9 +42,6 @@ class TrackPool{
             DataController.shared.remove(forKey: storeKey)
             Log.info("track pool invalidated")
         }
-        else{
-            Log.debug("no tracks to add to places")
-        }
     }
     
 }

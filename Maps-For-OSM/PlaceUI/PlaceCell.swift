@@ -52,7 +52,7 @@ class PlaceCell: TableViewCell{
         itemView.removeAllSubviews()
         
         if let place = place{
-            var header = UILabel(header: place.name)
+            let header = UILabel(header: place.name)
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
             let locationLabel = UILabel(text: place.address)
@@ -63,8 +63,57 @@ class PlaceCell: TableViewCell{
             coordinateLabel.textAlignment = .center
             itemView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
-            header = UILabel(text: "itemCount".localize() + String(place.itemCount))
-            itemView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
+            var lastView = coordinateLabel
+            var text: UILabel
+            var imageCount = 0
+            var audioCount = 0
+            var videoCount = 0
+            var noteCount = 0
+            var trackNames = Array<String>()
+            for item in place.allItems{
+                switch item.type{
+                case .image:
+                    imageCount += 1
+                case .audio:
+                    audioCount += 1
+                case .video:
+                    videoCount += 1
+                case .note:
+                    noteCount += 1
+                case .track:
+                    if let track = item as? TrackItem{
+                        trackNames.append(track.name)
+                    }
+                }
+            }
+            
+            if imageCount > 0{
+                text = UILabel(text: "imageCount".localize() + String(imageCount))
+                itemView.addSubviewWithAnchors(text, top: lastView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                lastView = text
+            }
+            if audioCount > 0{
+                text = UILabel(text: "audioCount".localize() + String(audioCount))
+                itemView.addSubviewWithAnchors(text, top: lastView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                lastView = text
+            }
+            if videoCount > 0{
+                text = UILabel(text: "videoCount".localize() + String(videoCount))
+                itemView.addSubviewWithAnchors(text, top: lastView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                lastView = text
+            }
+            if noteCount > 0{
+                text = UILabel(text: "noteCount".localize() + String(noteCount))
+                itemView.addSubviewWithAnchors(text, top: lastView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                lastView = text
+            }
+            for trackName in trackNames{
+                text = UILabel(text: "trackListName".localize() + trackName)
+                itemView.addSubviewWithAnchors(text, top: lastView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                lastView = text
+            }
+            
+            lastView.bottom(itemView.bottomAnchor, inset: -defaultInset)
             
         }
         

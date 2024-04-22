@@ -89,7 +89,7 @@ class PlaceLayerView: UIView {
             if let marker = subview as? PlaceMarker, marker.place == place{
                 return marker
             }
-            if let marker = subview as? PlaceGroupMarker, marker.placeGroup.hasLocation(location: place){
+            if let marker = subview as? PlaceGroupMarker, marker.placeGroup.hasPlace(place: place){
                 return marker
             }
         }

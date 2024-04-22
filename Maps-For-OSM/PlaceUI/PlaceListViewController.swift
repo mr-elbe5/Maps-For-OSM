@@ -11,6 +11,7 @@ import CoreLocation
 class PlaceListViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
+    let sortButton = UIButton().asIconButton("arrow.up.arrow.down", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
 
@@ -28,7 +29,12 @@ class PlaceListViewController: PopupTableViewController{
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(sortButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        sortButton.addAction(UIAction(){ action in
+            self.sortPlaces()
+        }, for: .touchDown)
+        
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: sortButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
@@ -51,6 +57,12 @@ class PlaceListViewController: PopupTableViewController{
             let controller = PlaceListInfoViewController()
             self.present(controller, animated: true)
         }, for: .touchDown)
+    }
+    
+    func sortPlaces(){
+        AppState.shared.sortAscending = !AppState.shared.sortAscending
+        AppData.shared.places.sortAll()
+        tableView.reloadData()
     }
     
     func toggleEditMode(){
@@ -128,10 +140,6 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

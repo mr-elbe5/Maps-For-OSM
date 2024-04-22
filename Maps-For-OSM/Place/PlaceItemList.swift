@@ -24,12 +24,6 @@ extension PlaceItemList{
         self.removeAll()
     }
     
-    mutating func sortByCreation(){
-        self.sort(by: {
-            $0.creationDate > $1.creationDate
-        })
-    }
-    
     var allSelected: Bool{
         get{
             !contains(where: {

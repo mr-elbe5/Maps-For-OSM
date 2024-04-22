@@ -31,6 +31,7 @@ struct AppLoader{
             Preferences.shared = prefs
         }
         else{
+            Log.info("no saved data available for preferences")
             Preferences.shared = Preferences()
         }
     }
@@ -40,23 +41,24 @@ struct AppLoader{
             AppState.shared = state
         }
         else{
+            Log.info("no saved data available for state")
             AppState.shared = AppState()
         }
     }
     
     static func loadData(delegate: AppLoaderDelegate? = nil){
-        Log.debug("loading from user defaults")
+        //Log.debug("loading from user defaults")
         loadFromUserDefaults()
         if Preferences.shared.useICloud{
             CKContainer.default().accountStatus(){ status, error in
                 if status == .available{
-                    Log.debug("loading from iCloud")
+                    //Log.debug("loading from iCloud")
                     DispatchQueue.main.async{
                         loadDataFromICloud(delegate: delegate)
                     }
                 }
                 else{
-                    Log.debug("iCloud not available")
+                    Log.warn("iCloud not available")
                 }
             }
         }

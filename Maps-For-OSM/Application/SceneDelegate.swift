@@ -43,12 +43,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         Log.info("SceneDelegate resigning active")
         AppLoader.saveInitalizationData()
+        AppLoader.saveData()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()
             }
         }
-        AppLoader.saveData()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

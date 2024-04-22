@@ -51,6 +51,13 @@ extension PlaceList{
         }
     }
     
+    mutating func sortAll(){
+        self.sort()
+        for place in self{
+            place.sortItems()
+        }
+    }
+    
     var filteredPlaces : PlaceList{
         switch AppState.shared.placeFilter{
         case .all: return self
@@ -98,6 +105,22 @@ extension PlaceList{
                 fileList.append(contentsOf: place.fileItems)
             }
             return fileList
+        }
+    }
+    
+    func updateCreationDates(){
+        for place in self{
+            if !place.allItems.isEmpty{
+                var creationDate = Date()
+                for item in place.allItems{
+                    if item.creationDate < creationDate{
+                        creationDate = item.creationDate
+                    }
+                }
+                if creationDate < place.creationDate{
+                    place.creationDate = creationDate
+                }
+            }
         }
     }
     

@@ -14,6 +14,8 @@ class ICloudViewController: PopupScrollViewController{
     var mergeToICloudButton = UIButton()
     var copyToICloudButton = UIButton()
     var synchronizeButton = UIButton()
+    var verifyLocalDataButton = UIButton()
+    var cleanupICloudButton = UIButton()
     
     var delegate: AppLoaderDelegate? = nil
     
@@ -28,22 +30,13 @@ class ICloudViewController: PopupScrollViewController{
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: useICloudSwitch.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        let saveButton = UIButton()
-        saveButton.setTitle("save".localize(), for: .normal)
-        saveButton.setTitleColor(.systemBlue, for: .normal)
-        saveButton.addAction(UIAction(){ action in
-            self.saveICloudPreferences()
-        }, for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: label.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
         mergeFromICloudButton.setTitle("mergeFromICloud".localize(), for: .normal)
         mergeFromICloudButton.setTitleColor(.systemBlue, for: .normal)
         mergeFromICloudButton.setTitleColor(.systemGray, for: .disabled)
         mergeFromICloudButton.addAction(UIAction(){ action in
             self.mergeFromICloud()
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(mergeFromICloudButton, top: saveButton.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(mergeFromICloudButton, top: label.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
         mergeFromICloudButton.isEnabled = Preferences.shared.useICloud
         label = UILabel(text: "mergeFromICloudHint".localize())
@@ -100,7 +93,32 @@ class ICloudViewController: PopupScrollViewController{
         synchronizeButton.isEnabled = Preferences.shared.useICloud
         label = UILabel(text: "synchronizeNowHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: synchronizeButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(label, top: synchronizeButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        
+        verifyLocalDataButton.setTitle("verifyLocalData".localize(), for: .normal)
+        verifyLocalDataButton.setTitleColor(.systemBlue, for: .normal)
+        verifyLocalDataButton.setTitleColor(.systemGray, for: .disabled)
+        verifyLocalDataButton.addAction(UIAction(){ action in
+            self.verifyLocalData()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(verifyLocalDataButton, top: label.bottomAnchor, insets: defaultInsets)
+        .centerX(contentView.centerXAnchor)
+        label = UILabel(text: "verifyLocalDataHint".localize())
+        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+        contentView.addSubviewWithAnchors(label, top: verifyLocalDataButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        
+        cleanupICloudButton.setTitle("cleanupICloud".localize(), for: .normal)
+        cleanupICloudButton.setTitleColor(.systemBlue, for: .normal)
+        cleanupICloudButton.setTitleColor(.systemGray, for: .disabled)
+        cleanupICloudButton.addAction(UIAction(){ action in
+            self.cleanupICloud()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(cleanupICloudButton, top: label.bottomAnchor, insets: defaultInsets)
+        .centerX(contentView.centerXAnchor)
+        cleanupICloudButton.isEnabled = Preferences.shared.useICloud
+        label = UILabel(text: "cleanupICloudHint".localize())
+        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+        contentView.addSubviewWithAnchors(label, top: cleanupICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
         
     }
     
@@ -110,6 +128,7 @@ class ICloudViewController: PopupScrollViewController{
         spinner.startAnimating()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: false)
+            AppData.shared.saveLocally()
             DispatchQueue.main.async{
                 self.stopSpinner(spinner)
                 self.showDone(title: "success".localize(), text: "mergedFromICloud".localize())
@@ -123,6 +142,7 @@ class ICloudViewController: PopupScrollViewController{
         let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: true)
+            AppData.shared.saveLocally()
             DispatchQueue.main.async{
                 self.stopSpinner(spinner)
                 self.showDone(title: "success".localize(), text: "copiedFromICloud".localize())
@@ -170,10 +190,23 @@ class ICloudViewController: PopupScrollViewController{
         
     }
     
-    func saveICloudPreferences(){
-        Preferences.shared.useICloud = useICloudSwitch.isOn
-        Preferences.shared.save()
-        showDone(title: "ok".localize(), text: "preferencesSaved".localize())
+    func verifyLocalData(){
+        AppData.shared.places.updateCreationDates()
+        AppData.shared.saveLocally()
+        self.delegate?.dataChanged()
+    }
+    
+    func cleanupICloud(){
+        let synchronizer = CloudSynchronizer()
+        let spinner = startSpinner()
+        Task{
+            try await synchronizer.cleanupICloud()
+            DispatchQueue.main.async{
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "cleanedUp".localize())
+            }
+        }
+        
     }
     
 }
@@ -182,6 +215,8 @@ extension ICloudViewController: SwitchDelegate{
     
     func switchValueDidChange(sender: LabeledSwitchView, isOn: Bool) {
         if sender == useICloudSwitch{
+            Preferences.shared.useICloud = useICloudSwitch.isOn
+            Preferences.shared.save()
             mergeFromICloudButton.isEnabled = isOn
             copyFromICloudButton.isEnabled = isOn
             mergeToICloudButton.isEnabled = isOn
