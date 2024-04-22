@@ -127,6 +127,7 @@
 		4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */; };
 		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
 		4E8F877F275796990027DAD4 /* PopupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F877E275796990027DAD4 /* PopupTableViewController.swift */; };
+		4E91559E2BD68030005FD77E /* TableSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E91559D2BD68030005FD77E /* TableSectionHeader.swift */; };
 		4E92113B2741127500DC5226 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92113A2741127500DC5226 /* AsyncOperation.swift */; };
 		4E9335A12BD3EC060094852D /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9335A02BD3EC060094852D /* KeyedDecodingContainer.swift */; };
 		4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */; };
@@ -303,6 +304,7 @@
 		4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListInfoViewController.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
 		4E8F877E275796990027DAD4 /* PopupTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTableViewController.swift; sourceTree = "<group>"; };
+		4E91559D2BD68030005FD77E /* TableSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionHeader.swift; sourceTree = "<group>"; };
 		4E92113A2741127500DC5226 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4E9335A02BD3EC060094852D /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				4E7C4E4E2BAEEF7F001494E9 /* Selectable.swift */,
 				4E7C4E502BAF2113001494E9 /* TableViewCell.swift */,
 				4E24F46927345D11004E69C2 /* TextEditArea.swift */,
+				4E91559D2BD68030005FD77E /* TableSectionHeader.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -963,6 +966,7 @@
 				4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */,
 				4E1B81162732EDC5003ED6B0 /* TileProvider.swift in Sources */,
 				4E0BD9A726EA0159005A4A94 /* UIViewController.swift in Sources */,
+				4E91559E2BD68030005FD77E /* TableSectionHeader.swift in Sources */,
 				4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */,
 				4E44248A2B94FA100007A26F /* CameraIconButton.swift in Sources */,
 				4E025E3D274E420800D56ED7 /* TimeInterval.swift in Sources */,

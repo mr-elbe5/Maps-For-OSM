@@ -10,6 +10,17 @@ import CoreLocation
 
 class PlaceListViewController: PopupTableViewController{
     
+    class Day{
+        
+        var date: Date
+        var places = PlaceList()
+        
+        init(_ date: Date){
+            self.date = date
+        }
+        
+    }
+    
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let sortButton = UIButton().asIconButton("arrow.up.arrow.down", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
@@ -18,12 +29,32 @@ class PlaceListViewController: PopupTableViewController{
     var placeDelegate: PlaceDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
+    var days = Array<Day>()
+    
     override func loadView() {
         title = "placeList".localize()
         super.loadView()
+        setupData()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.CELL_IDENT)
+    }
+    
+    func setupData(){
+        days.removeAll()
+        for place in AppData.shared.places{
+            let startOfDay = place.creationDate.startOfDay()
+            if var day = days.first(where: { day in
+                day.date == startOfDay
+            }){
+                day.places.append(place)
+            }
+            else{
+                var day = Day(startOfDay)
+                day.places.append(place)
+                days.append(day)
+            }
+        }
     }
     
     override func setupHeaderView(headerView: UIView){
@@ -62,6 +93,7 @@ class PlaceListViewController: PopupTableViewController{
     func sortPlaces(){
         AppState.shared.sortAscending = !AppState.shared.sortAscending
         AppData.shared.places.sortAll()
+        setupData()
         tableView.reloadData()
     }
     
@@ -113,6 +145,7 @@ class PlaceListViewController: PopupTableViewController{
                 AppData.shared.deletePlace(place)
             }
             self.placeDelegate?.placesChanged()
+            self.setupData()
             self.tableView.reloadData()
         }
     }
@@ -127,16 +160,25 @@ class PlaceListViewController: PopupTableViewController{
 extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return days.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        AppData.shared.places.count
+        let day = days[section]
+        return day.places.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let day = days[section]
+        let header = TableSectionHeader()
+        header.setupView(title: day.date.dateString())
+        return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.CELL_IDENT, for: indexPath) as! PlaceCell
-        cell.place = AppData.shared.places[indexPath.row]
+        let day = days[indexPath.section]
+        cell.place = day.places[indexPath.row]
         cell.delegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -198,5 +240,6 @@ extension PlaceListViewController : TrackDelegate{
     }
     
 }
+
 
 
