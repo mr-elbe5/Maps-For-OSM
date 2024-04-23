@@ -5,7 +5,6 @@
  */
 
 import CoreLocation
-import UIKit
 import CloudKit
 
 class Place : Selectable, Comparable{
