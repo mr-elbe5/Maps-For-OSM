@@ -770,7 +770,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps-For-OSM" */;
+			buildConfigurationList = 4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps-For-OSM-IOS" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1180,7 +1180,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps-For-OSM" */ = {
+		4E0BD97826E9FC66005A4A94 /* Build configuration list for PBXProject "Maps-For-OSM-IOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD98F26E9FC67005A4A94 /* Debug */,

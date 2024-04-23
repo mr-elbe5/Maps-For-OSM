@@ -1,12 +1,7 @@
 
-SwiftyMaps for OSM.xcodeproj/project.xcworkspace/xcuserdata/
-*.xcscheme
-SwiftyMaps for OSM.xcodeproj/xcuserdata/miro.xcuserdatad/
-.build
 
 .DS_Store
-SwiftyMaps.xcodeproj/project.xcworkspace/xcuserdata/miro.xcuserdatad/UserInterfaceState.xcuserstate
-SwiftyMaps.xcodeproj/xcuserdata/miro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
-Maps-For-OSM.xcodeproj/project.xcworkspace/xcuserdata/miro.xcuserdatad/UserInterfaceState.xcuserstate
-Maps-For-OSM.xcodeproj/xcuserdata/miro.xcuserdatad/xcdebugger
-Maps-For-OSM.xcodeproj/xcuserdata/miro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Maps-For-OSM-IOS.xcodeproj/xcuserdata/miro.xcuserdatad/xcdebugger
+Maps-For-OSM-IOS.xcodeproj/xcuserdata/miro.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Maps-For-OSM-IOS.xcodeproj/project.xcworkspace/xcuserdata/miro.xcuserdatad
+Maps-For-OSM-IOS.xcodeproj/xcuserdata/miro.xcuserdatad
