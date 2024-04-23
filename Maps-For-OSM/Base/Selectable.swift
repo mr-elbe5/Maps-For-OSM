@@ -6,32 +6,8 @@
 
 import Foundation
 
-class Selectable : NSObject, Identifiable, Codable{
-    
-    static func == (lhs: Selectable, rhs: Selectable) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    private enum CodingKeys: String, CodingKey {
-        case id
-    }
-    
-    var id : UUID
+class Selectable : IdObject{
     
     var selected = false
-    
-    override init(){
-        id = UUID()
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(UUID.self, forKey: .id)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-    }
     
 }

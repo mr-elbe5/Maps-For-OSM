@@ -188,6 +188,57 @@
         }
       }
     },
+    "assertedLocalConsistency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die lokale Datenkonsistenz wurde verifiziert."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local consistency has been asserted."
+          }
+        }
+      }
+    },
+    "assertLocalDataConsitency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lokale Daten verifizieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assert Local Consistency"
+          }
+        }
+      }
+    },
+    "assertLocalDataConsitencyHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dies repariert mögliche Inkonsistenzen der lokalen Daten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This repairs potential inconsistent local data."
+          }
+        }
+      }
+    },
     "audioCount" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3725,40 +3776,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use of iCloud data needs access to the iCloud with a personal account. It enables synchronizing data with other iPhones, iPads and the upcoming Mac app."
-          }
-        }
-      }
-    },
-    "verifyLocalData" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lokale Daten verifizieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Verify Local Data"
-          }
-        }
-      }
-    },
-    "verifyLocalDataHint" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dies repariert mögliche Inkonsistenzen der lokalen Daten."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This repairs potential inconsistent local data."
           }
         }
       }

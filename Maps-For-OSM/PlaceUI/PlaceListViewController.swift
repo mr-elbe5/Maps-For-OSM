@@ -44,13 +44,13 @@ class PlaceListViewController: PopupTableViewController{
         days.removeAll()
         for place in AppData.shared.places{
             let startOfDay = place.creationDate.startOfDay()
-            if var day = days.first(where: { day in
+            if let day = days.first(where: { day in
                 day.date == startOfDay
             }){
                 day.places.append(place)
             }
             else{
-                var day = Day(startOfDay)
+                let day = Day(startOfDay)
                 day.places.append(place)
                 days.append(day)
             }

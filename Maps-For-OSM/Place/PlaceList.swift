@@ -13,41 +13,13 @@ extension PlaceList{
     
     mutating func remove(_ place: Place){
         removeAll(where: {
-           $0 == place
+            $0.equals(place)
         })
     }
     
     mutating func removePlaces(of list: PlaceList){
         for place in list{
             remove(place)
-        }
-    }
-    
-    var allSelected: Bool{
-        get{
-            !contains(where: {
-                !$0.selected
-            })
-        }
-    }
-    
-    var allUnselected: Bool{
-        get{
-            !contains(where: {
-                $0.selected
-            })
-        }
-    }
-    
-    mutating func selectAll(){
-        for item in self{
-            item.selected = true
-        }
-    }
-    
-    mutating func deselectAll(){
-        for item in self{
-            item.selected = false
         }
     }
     
@@ -110,9 +82,9 @@ extension PlaceList{
     
     func updateCreationDates(){
         for place in self{
-            if !place.allItems.isEmpty{
+            if !place.items.isEmpty{
                 var creationDate = Date()
-                for item in place.allItems{
+                for item in place.items{
                     if item.creationDate < creationDate{
                         creationDate = item.creationDate
                     }
@@ -122,6 +94,29 @@ extension PlaceList{
                 }
             }
         }
+    }
+    
+    mutating func removeDuplicates(){
+        for place in self{
+            let duplicates = getDuplicates(of: place)
+            if duplicates.count > 0{
+                Log.warn("removing \(count) duplicates of id \(place.id)")
+            }
+            for duplicate in duplicates{
+                self.remove(duplicate)
+            }
+            place.items.removeDuplicates()
+        }
+    }
+    
+    func getDuplicates(of place: Place) -> PlaceList{
+        var list = PlaceList()
+        for otherPlace in self{
+            if place != otherPlace, place.equals(otherPlace){
+                list.append(otherPlace)
+            }
+        }
+        return list
     }
     
 }

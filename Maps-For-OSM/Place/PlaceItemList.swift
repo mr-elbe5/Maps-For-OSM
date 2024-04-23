@@ -13,7 +13,7 @@ extension PlaceItemList{
     mutating func remove(_ item: PlaceItem){
         item.prepareDelete()
         removeAll(where: {
-           $0 == item
+            $0.equals(item)
         })
     }
     
@@ -24,32 +24,26 @@ extension PlaceItemList{
         self.removeAll()
     }
     
-    var allSelected: Bool{
-        get{
-            !contains(where: {
-                !$0.selected
-            })
-        }
-    }
-    
-    var allUnselected: Bool{
-        get{
-            !contains(where: {
-                $0.selected
-            })
-        }
-    }
-    
-    mutating func selectAll(){
+    mutating func removeDuplicates(){
         for item in self{
-            item.selected = true
+            let duplicates = getDuplicates(of: item)
+            if duplicates.count > 0{
+                Log.warn("\(count) duplicates of id \(item.id)")
+            }
+            for duplicate in duplicates{
+                self.remove(duplicate)
+            }
         }
     }
     
-    mutating func deselectAll(){
-        for item in self{
-            item.selected = false
+    func getDuplicates(of item: PlaceItem) -> PlaceItemList{
+        var list = PlaceItemList()
+        for otherItem in self{
+            if item != otherItem, item.equals(otherItem){
+                list.append(otherItem)
+            }
         }
+        return list
     }
     
 }

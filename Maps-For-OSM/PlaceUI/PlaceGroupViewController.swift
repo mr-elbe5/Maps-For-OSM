@@ -182,7 +182,7 @@ class PlaceGroupViewController: PopupTableViewController{
         newPlace.evaluatePlacemark()
         newPlace.creationDate = timestamp
         for place in places{
-            for item in place.allItems{
+            for item in place.items{
                 newPlace.addItem(item: item)
             }
         }

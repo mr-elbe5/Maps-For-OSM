@@ -221,7 +221,7 @@ extension Array<TrackItem>{
     
     mutating func remove(_ track: TrackItem){
         for idx in 0..<self.count{
-            if self[idx] == track{
+            if self[idx].equals(track){
                 self.remove(at: idx)
                 return
             }

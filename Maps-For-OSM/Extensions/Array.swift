@@ -27,5 +27,39 @@ extension Array{
         return arr
     }
     
+    func containsEqual(_ obj: IdObject) -> Bool{
+        self.contains(where: {
+            ($0 as? IdObject)?.equals(obj) ?? false
+        })
+    }
+    
+    var allSelected: Bool{
+        get{
+            allSatisfy({
+                ($0 as? Selectable)?.selected ?? false
+            })
+        }
+    }
+    
+    var allUnselected: Bool{
+        get{
+            allSatisfy({
+                !(($0 as? Selectable)?.selected ?? false)
+            })
+        }
+    }
+    
+    mutating func selectAll(){
+        for item in self{
+            (item as? Selectable)?.selected = true
+        }
+    }
+    
+    mutating func deselectAll(){
+        for item in self{
+            (item as? Selectable)?.selected = false
+        }
+    }
+    
 }
 

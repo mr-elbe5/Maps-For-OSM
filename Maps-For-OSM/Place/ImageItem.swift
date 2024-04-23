@@ -45,7 +45,7 @@ extension Array<ImageItem>{
     
     mutating func remove(_ image: ImageItem){
         for idx in 0..<self.count{
-            if self[idx] == image{
+            if self[idx].equals(image){
                 self.remove(at: idx)
                 return
             }

@@ -14,7 +14,7 @@ class ICloudViewController: PopupScrollViewController{
     var mergeToICloudButton = UIButton()
     var copyToICloudButton = UIButton()
     var synchronizeButton = UIButton()
-    var verifyLocalDataButton = UIButton()
+    var assertLocalDataConsitencyButton = UIButton()
     var cleanupICloudButton = UIButton()
     
     var delegate: AppLoaderDelegate? = nil
@@ -95,17 +95,17 @@ class ICloudViewController: PopupScrollViewController{
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: synchronizeButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        verifyLocalDataButton.setTitle("verifyLocalData".localize(), for: .normal)
-        verifyLocalDataButton.setTitleColor(.systemBlue, for: .normal)
-        verifyLocalDataButton.setTitleColor(.systemGray, for: .disabled)
-        verifyLocalDataButton.addAction(UIAction(){ action in
-            self.verifyLocalData()
+        assertLocalDataConsitencyButton.setTitle("assertLocalDataConsitency".localize(), for: .normal)
+        assertLocalDataConsitencyButton.setTitleColor(.systemBlue, for: .normal)
+        assertLocalDataConsitencyButton.setTitleColor(.systemGray, for: .disabled)
+        assertLocalDataConsitencyButton.addAction(UIAction(){ action in
+            self.assertLocalDataConsitency()
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(verifyLocalDataButton, top: label.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(assertLocalDataConsitencyButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "verifyLocalDataHint".localize())
+        label = UILabel(text: "assertLocalDataConsitencyHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: verifyLocalDataButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(label, top: assertLocalDataConsitencyButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         cleanupICloudButton.setTitle("cleanupICloud".localize(), for: .normal)
         cleanupICloudButton.setTitleColor(.systemBlue, for: .normal)
@@ -190,10 +190,12 @@ class ICloudViewController: PopupScrollViewController{
         
     }
     
-    func verifyLocalData(){
+    func assertLocalDataConsitency(){
         AppData.shared.places.updateCreationDates()
+        AppData.shared.places.removeDuplicates()
         AppData.shared.saveLocally()
         self.delegate?.dataChanged()
+        self.showDone(title: "success".localize(), text: "assertedLocalConsistency".localize())
     }
     
     func cleanupICloud(){

@@ -37,8 +37,8 @@ class Place : Selectable, Comparable{
     var address : String = ""
     //deprecated
     var note : String? = nil
-    private var items : PlaceItemList
-    private var _coordinateRegion: CoordinateRegion? = nil
+    var items : PlaceItemList
+    var _coordinateRegion: CoordinateRegion? = nil
     
     var itemCount: Int{
         items.count
@@ -56,10 +56,6 @@ class Place : Selectable, Comparable{
     
     var hasItems : Bool{
         !items.isEmpty
-    }
-    
-    var allItems: PlaceItemList{
-        items
     }
     
     var allItemsSelected: Bool{
@@ -210,9 +206,7 @@ class Place : Selectable, Comparable{
     }
     
     func addItem(item: PlaceItem){
-        if !items.contains(where: { otherItem in
-            item.id == otherItem.id
-        }){
+        if !items.containsEqual(item){
             item.place = self
             items.append(item)
         }
@@ -247,7 +241,7 @@ class Place : Selectable, Comparable{
         for sourceItem in sourcePlace.items{
             var found = false
             for targetItem in items{
-                if sourceItem == targetItem{
+                if sourceItem.equals(targetItem){
                     targetItem.mergeItem(from: sourceItem)
                     found = true
                     break

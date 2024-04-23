@@ -70,7 +70,7 @@ class PlaceCell: TableViewCell{
             var videoCount = 0
             var noteCount = 0
             var trackNames = Array<String>()
-            for item in place.allItems{
+            for item in place.items{
                 switch item.type{
                 case .image:
                     imageCount += 1

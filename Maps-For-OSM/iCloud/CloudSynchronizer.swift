@@ -11,16 +11,14 @@ class CloudSynchronizer{
     
     func synchronizeICloud(replaceLocalData: Bool, replaceICloudData: Bool) async throws{
         AppData.shared.saveLocally()
-        Task{
-            try await synchronizeFromICloud(deleteLocalData: replaceLocalData)
-            AppData.shared.saveLocally()
-            try await synchronizeToICloud(deleteICloudData: replaceICloudData)
-        }
+        try await synchronizeFromICloud(deleteLocalData: replaceLocalData)
+        AppData.shared.saveLocally()
+        try await synchronizeToICloud(deleteICloudData: replaceICloudData)
     }
     
     func synchronizeFromICloud(deleteLocalData: Bool) async throws{
         Log.info("synchronizing from iCloud")
-        Log.info("starting with \(AppData.shared.places.count) places and \(AppData.shared.places.fileItems.count) files")
+        Log.info("starting download with \(AppData.shared.places.count) places and \(AppData.shared.places.fileItems.count) files")
         if try await CKContainer.isConnected(), let remotePlaces = try await getRemotePlaces(){
             //Log.debug("synchronize places from iCloud")
             let remoteFileMetaDataMap = await getRemoteFileMetaData()
@@ -35,9 +33,7 @@ class CloudSynchronizer{
             }
             else{
                 for place in AppData.shared.places{
-                    if remotePlaces.contains(where: {remotePlace in
-                        remotePlace.id == place.id
-                    }){
+                    if remotePlaces.containsEqual(place){
                         //Log.debug("local place \(place.id) will be replaced")
                         AppData.shared.places.remove(obj: place)
                     }
@@ -49,9 +45,7 @@ class CloudSynchronizer{
             }
             let newLocalFileItems = AppData.shared.places.fileItems
             for fileItem in oldLocalFileItems{
-                if !newLocalFileItems.contains(where: { newFileItem in
-                    newFileItem.id == fileItem.id
-                }){
+                if !newLocalFileItems.containsEqual(fileItem){
                     Log.info("deleting local file \(fileItem.id)")
                     fileItem.prepareDelete()
                 }
@@ -60,8 +54,7 @@ class CloudSynchronizer{
                 }
             }
             for fileItem in newLocalFileItems{
-                if !oldLocalFileItems.contains(where: { oldFileItem in
-                    fileItem.id == oldFileItem.id}), remoteFileMetaDataMap.keys.contains(fileItem.id) {
+                if !oldLocalFileItems.containsEqual(fileItem), remoteFileMetaDataMap.keys.contains(fileItem.id) {
                     Log.info("downloading remote file \(fileItem.id)")
                     if let fileDataRecord = try await getRemoteFileData(metaRecord: remoteFileMetaDataMap[fileItem.id]!){
                         downloadFile(record: fileDataRecord, fileItem: fileItem)
@@ -77,7 +70,7 @@ class CloudSynchronizer{
         else{
             Log.warn("no places on iCloud")
         }
-        Log.info("ending with \(AppData.shared.places.count) places and \(AppData.shared.places.fileItems.count) files")
+        Log.info("ending download with \(AppData.shared.places.count) places and \(AppData.shared.places.fileItems.count) files")
     }
     
     func synchronizeToICloud(deleteICloudData: Bool) async throws{
@@ -129,10 +122,10 @@ class CloudSynchronizer{
                 }
             }
             if !recordsToSave.isEmpty{
-                Log.info("saving \(recordsToSave.count) record(s) to iCloud")
+                Log.info("setting \(recordsToSave.count) record(s) for upload to iCloud")
             }
             if !recordsToDelete.isEmpty{
-                Log.info("deleting \(recordsToDelete.count) record(s) from iCloud")
+                Log.info("setting \(recordsToDelete.count) record(s) for delete from iCloud")
             }
             if recordsToSave.count > 0 || recordsToDelete.count > 0{
                 try await modifyRecords(recordsToSave: recordsToSave, recordIdsToDelete: recordsToDelete)
@@ -183,7 +176,7 @@ class CloudSynchronizer{
         for sourcePlace in sourcePlaces{
             var found = false
             for targetPlace in targetPlaces{
-                if sourcePlace == targetPlace{
+                if sourcePlace.equals(targetPlace){
                     targetPlace.mergePlace(from: sourcePlace)
                     found = true
                     //Log.debug("target place found: \(targetPlace.id)")

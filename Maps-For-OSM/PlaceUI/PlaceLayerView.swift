@@ -86,7 +86,7 @@ class PlaceLayerView: UIView {
     
     func getMarker(place: Place) -> Marker?{
         for subview in subviews{
-            if let marker = subview as? PlaceMarker, marker.place == place{
+            if let marker = subview as? PlaceMarker, marker.place.equals(place){
                 return marker
             }
             if let marker = subview as? PlaceGroupMarker, marker.placeGroup.hasPlace(place: place){

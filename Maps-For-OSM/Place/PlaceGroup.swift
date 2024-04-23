@@ -60,9 +60,7 @@ class PlaceGroup{
     }
     
     func hasPlace(place: Place) -> Bool{
-        places.contains(where: { otherPlace in
-            place.id == otherPlace.id
-        })
+        places.containsEqual(place)
     }
     
     func addPlace(place: Place){

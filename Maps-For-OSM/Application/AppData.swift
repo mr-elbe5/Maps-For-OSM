@@ -34,7 +34,7 @@ class AppData{
     
     func deletePlace(_ place: Place){
         for idx in 0..<places.count{
-            if places[idx] == place{
+            if places[idx].equals(place){
                 place.deleteAllItems()
                 places.remove(place)
                 return
