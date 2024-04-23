@@ -392,6 +392,23 @@
         }
       }
     },
+    "cleanedUp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die iCloud-Daten sind ok."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The iCloud data are ok"
+          }
+        }
+      }
+    },
     "cleanupICloud" : {
       "extractionState" : "manual",
       "localizations" : {

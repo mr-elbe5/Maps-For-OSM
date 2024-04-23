@@ -65,7 +65,7 @@ extension PlaceList{
             for place in self{
                 imageList.append(contentsOf: place.images)
             }
-            imageList.sortByDate()
+            imageList.sort()
             return imageList
         }
     }

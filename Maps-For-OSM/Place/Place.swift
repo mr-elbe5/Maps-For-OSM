@@ -79,13 +79,13 @@ class Place : Selectable, Comparable{
         }) != nil
     }
     
-    var tracks: Array<TrackItem>{
+    var tracks: TrackList{
         items.filter({
             $0.type == .track
         }) as! Array<TrackItem>
     }
     
-    var images: Array<ImageItem>{
+    var images: ImageList{
         items.filter({
             $0.type == .image
         }) as! Array<ImageItem>

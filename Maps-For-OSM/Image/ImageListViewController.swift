@@ -9,10 +9,20 @@ import UniformTypeIdentifiers
 import PhotosUI
 
 class ImageListViewController: PopupTableViewController{
-
-    var images: Array<ImageItem>? = nil
     
+    class Day{
+        
+        var date: Date
+        var images = ImageList()
+        
+        init(_ date: Date){
+            self.date = date
+        }
+        
+    }
+
     let editModeButton = UIButton().asIconButton("pencil", color: .label)
+    let sortButton = UIButton().asIconButton("arrow.up.arrow.down", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
@@ -20,19 +30,46 @@ class ImageListViewController: PopupTableViewController{
     var placeDelegate: PlaceDelegate? = nil
     var imageDelegate: ImageDelegate? = nil
     
+    var images = ImageList()
+    var days = Array<Day>()
+    
     override open func loadView() {
         title = "images".localize()
         super.loadView()
-        images?.sortByDate()
+        images = AppData.shared.places.imageItems
+        setupData()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ImageCell.self, forCellReuseIdentifier: ImageCell.CELL_IDENT)
     }
     
+    func setupData(){
+        days.removeAll()
+        images.sort()
+        for image in images{
+            let startOfDay = image.creationDate.startOfDay()
+            if let day = days.first(where: { day in
+                day.date == startOfDay
+            }){
+                day.images.append(image)
+            }
+            else{
+                let day = Day(startOfDay)
+                day.images.append(image)
+                days.append(day)
+            }
+        }
+    }
+    
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
         
-        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(sortButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        sortButton.addAction(UIAction(){ action in
+            self.sortImages()
+        }, for: .touchDown)
+        
+        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: sortButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
@@ -78,12 +115,19 @@ class ImageListViewController: PopupTableViewController{
             exportSelectedButton.isHidden = false
             deleteButton.isHidden = false
         }
-        images?.deselectAll()
+        images.deselectAll()
+        tableView.reloadData()
+    }
+    
+    func sortImages(){
+        AppState.shared.sortAscending = !AppState.shared.sortAscending
+        AppData.shared.places.sortAll()
+        setupData()
         tableView.reloadData()
     }
     
     func toggleSelectAll(){
-        if tableView.isEditing, var images = images{
+        if tableView.isEditing{
             if images.allSelected{
                 images.deselectAll()
             }
@@ -97,31 +141,29 @@ class ImageListViewController: PopupTableViewController{
     }
     
     func exportSelected(){
-        if let images = images{
-            var exportList = Array<ImageItem>()
-            for i in 0..<images.count{
-                let image = images[i]
-                if image.selected{
-                    exportList.append(image)
-                }
+        var exportList = Array<ImageItem>()
+        for i in 0..<images.count{
+            let image = images[i]
+            if image.selected{
+                exportList.append(image)
             }
-            if exportList.isEmpty{
-                return
-            }
-            let spinner = startSpinner()
-            DispatchQueue.global(qos: .userInitiated).async {
-                PHPhotoLibrary.requestAuthorization(){ status in
-                    if status == PHAuthorizationStatus.authorized {
-                        self.exportImagesToPhotoLibrary(images: exportList){ numCopied, numErrors in
-                            AppData.shared.saveLocally()
-                            DispatchQueue.main.async {
-                                self.stopSpinner(spinner)
-                                if numErrors == 0{
-                                    self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
-                                }
-                                else{
-                                    self.showAlert(title: "error".localize(), text: "imagesExportedWithErrors".localize(i1: numCopied, i2: numErrors))
-                                }
+        }
+        if exportList.isEmpty{
+            return
+        }
+        let spinner = startSpinner()
+        DispatchQueue.global(qos: .userInitiated).async {
+            PHPhotoLibrary.requestAuthorization(){ status in
+                if status == PHAuthorizationStatus.authorized {
+                    self.exportImagesToPhotoLibrary(images: exportList){ numCopied, numErrors in
+                        AppData.shared.saveLocally()
+                        DispatchQueue.main.async {
+                            self.stopSpinner(spinner)
+                            if numErrors == 0{
+                                self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
+                            }
+                            else{
+                                self.showAlert(title: "error".localize(), text: "imagesExportedWithErrors".localize(i1: numCopied, i2: numErrors))
                             }
                         }
                     }
@@ -159,32 +201,32 @@ class ImageListViewController: PopupTableViewController{
     }
     
     func deleteSelected(){
-        if let images = images{
-            var list = Array<ImageItem>()
-            for i in 0..<images.count{
-                let image = images[i]
-                if image.selected{
-                    list.append(image)
-                }
+        var list = Array<ImageItem>()
+        for i in 0..<images.count{
+            let image = images[i]
+            if image.selected{
+                list.append(image)
             }
-            if list.isEmpty{
-                return
+        }
+        if list.isEmpty{
+            return
+        }
+        showDestructiveApprove(title: "confirmDeleteImages".localize(i: list.count), text: "deleteHint".localize()){
+            for image in list{
+                image.place.deleteItem(item: image)
+                self.images.remove(image)
+                Log.debug("deleting image \(image.fileURL.lastPathComponent)")
             }
-            showDestructiveApprove(title: "confirmDeleteImages".localize(i: list.count), text: "deleteHint".localize()){
-                for image in list{
-                    image.place.deleteItem(item: image)
-                    self.images?.remove(image)
-                    Log.debug("deleting image \(image.fileURL.lastPathComponent)")
-                }
-                AppData.shared.saveLocally()
-                self.placeDelegate?.placesChanged()
-                self.tableView.reloadData()
-            }
+            AppData.shared.saveLocally()
+            self.images = AppData.shared.places.imageItems
+            self.setupData()
+            self.placeDelegate?.placesChanged()
+            self.tableView.reloadData()
         }
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        images?.deselectAll()
+        images.deselectAll()
         super.dismiss(animated: flag, completion: completion)
     }
     
@@ -193,25 +235,30 @@ class ImageListViewController: PopupTableViewController{
 extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        days.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        images?.count ?? 0
+        let day = days[section]
+        return day.images.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let day = days[section]
+        let header = TableSectionHeader()
+        header.setupView(title: day.date.dateString())
+        return header
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as! ImageCell
-        let image = images?.reversed()[indexPath.row]
-        cell.image = image
+        let day = days[indexPath.section]
+        cell.useShortDate = true
+        cell.image = day.images[indexPath.row]
         cell.placeDelegate = self
         cell.imageDelegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

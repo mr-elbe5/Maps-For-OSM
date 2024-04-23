@@ -20,6 +20,8 @@ class ImageCell: PlaceItemCell{
     var placeDelegate: PlaceDelegate? = nil
     var imageDelegate: ImageDelegate? = nil
     
+    var useShortDate = false
+    
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         var lastAnchor = iconView.trailingAnchor
@@ -49,7 +51,7 @@ class ImageCell: PlaceItemCell{
     }
     
     override func updateTimeLabel(isEditing: Bool){
-        timeLabel.text = image?.creationDate.dateTimeString()
+        timeLabel.text = useShortDate ? image?.creationDate.timeString() : image?.creationDate.dateTimeString()
     }
     
     override func updateItemView(isEditing: Bool){

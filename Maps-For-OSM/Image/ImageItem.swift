@@ -41,7 +41,9 @@ protocol ImageDelegate{
     func viewImage(image: ImageItem)
 }
 
-extension Array<ImageItem>{
+typealias ImageList = Array<ImageItem>
+
+extension ImageList{
     
     mutating func remove(_ image: ImageItem){
         for idx in 0..<self.count{
@@ -50,44 +52,6 @@ extension Array<ImageItem>{
                 return
             }
         }
-    }
-    
-    var allSelected: Bool{
-        get{
-            for item in self{
-                if !item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    var allUnselected: Bool{
-        get{
-            for item in self{
-                if item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    mutating func selectAll(){
-        for item in self{
-            item.selected = true
-        }
-    }
-    
-    mutating func deselectAll(){
-        for item in self{
-            item.selected = false
-        }
-    }
-    
-    mutating func sortByDate(){
-        self.sort(by: { $0.creationDate < $1.creationDate})
     }
     
 }

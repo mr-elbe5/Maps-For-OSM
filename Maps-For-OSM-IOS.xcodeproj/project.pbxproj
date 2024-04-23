@@ -380,26 +380,28 @@
 			path = iCloud;
 			sourceTree = "<group>";
 		};
-		4E0252572BC3F2E90010D234 /* AudioUI */ = {
+		4E0252572BC3F2E90010D234 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				4EF477152941EC8E00294B21 /* AudioItem.swift */,
 				4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */,
 				4EF477192941EED600294B21 /* AudioPlayerView.swift */,
 				4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */,
 				4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */,
 			);
-			path = AudioUI;
+			path = Audio;
 			sourceTree = "<group>";
 		};
-		4E0252582BC3F3010010D234 /* ImageUI */ = {
+		4E0252582BC3F3010010D234 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				4EF477132941EBC600294B21 /* ImageItem.swift */,
 				4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */,
 				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
 				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
 				4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */,
 			);
-			path = ImageUI;
+			path = Image;
 			sourceTree = "<group>";
 		};
 		4E0BD97426E9FC66005A4A94 = {
@@ -442,6 +444,11 @@
 				4E4B0A392BAED95700838EC0 /* MainUI */,
 				4E30799228D783F8005FBEF0 /* Place */,
 				4E5124212BAAF87100A5B416 /* PlaceUI */,
+				4E0252572BC3F2E90010D234 /* Audio */,
+				4E0252582BC3F3010010D234 /* Image */,
+				4E1982C62BAC248500A37AE0 /* Note */,
+				4E5124232BAAF8EA00A5B416 /* Track */,
+				4E5124242BAAF91800A5B416 /* Video */,
 				4EEF6F8228FAC58800543EBA /* Search */,
 				4E4B0A3A2BAED9E100838EC0 /* SearchUI */,
 				4E3BE7EA26EA7E57000F9069 /* Map */,
@@ -499,13 +506,14 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
-		4E1982C62BAC248500A37AE0 /* NoteUI */ = {
+		4E1982C62BAC248500A37AE0 /* Note */ = {
 			isa = PBXGroup;
 			children = (
+				4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */,
 				4E1982C42BAC246500A37AE0 /* NoteCell.swift */,
 				4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */,
 			);
-			path = NoteUI;
+			path = Note;
 			sourceTree = "<group>";
 		};
 		4E24F48B27345DD5004E69C2 /* Extensions */ = {
@@ -548,10 +556,7 @@
 		4E30799228D783F8005FBEF0 /* Place */ = {
 			isa = PBXGroup;
 			children = (
-				4EF477152941EC8E00294B21 /* AudioItem.swift */,
 				4EF477112941E98400294B21 /* FileItem.swift */,
-				4EF477132941EBC600294B21 /* ImageItem.swift */,
-				4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */,
 				4ED5DF43273E831B00549AF8 /* Place.swift */,
 				4E0252532BC3C6A70010D234 /* PlaceFilter.swift */,
 				4ED55ECC2976B17300C679AF /* PlaceGroup.swift */,
@@ -559,11 +564,6 @@
 				4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */,
 				4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */,
 				4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */,
-				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
-				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
-				4E08A329298976F2001D86F1 /* TrackpointList.swift */,
-				4E3A416428D85357004C9D90 /* TrackPool.swift */,
-				4EF4770F2941E94900294B21 /* VideoItem.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -653,11 +653,6 @@
 				4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */,
 				4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */,
 				4E89173E273688580046AC91 /* PlaceViewController.swift */,
-				4E0252572BC3F2E90010D234 /* AudioUI */,
-				4E0252582BC3F3010010D234 /* ImageUI */,
-				4E1982C62BAC248500A37AE0 /* NoteUI */,
-				4E5124232BAAF8EA00A5B416 /* TrackUI */,
-				4E5124242BAAF91800A5B416 /* VideoUI */,
 			);
 			path = PlaceUI;
 			sourceTree = "<group>";
@@ -673,9 +668,13 @@
 			path = MapUI;
 			sourceTree = "<group>";
 		};
-		4E5124232BAAF8EA00A5B416 /* TrackUI */ = {
+		4E5124232BAAF8EA00A5B416 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
+				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
+				4E08A329298976F2001D86F1 /* TrackpointList.swift */,
+				4E3A416428D85357004C9D90 /* TrackPool.swift */,
 				4EF353132BB56A7500A0A85B /* TrackInfoViewController.swift */,
 				4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
@@ -684,17 +683,18 @@
 				4E2088E42743A4280097BFBA /* TrackRecorder.swift */,
 				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
 			);
-			path = TrackUI;
+			path = Track;
 			sourceTree = "<group>";
 		};
-		4E5124242BAAF91800A5B416 /* VideoUI */ = {
+		4E5124242BAAF91800A5B416 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				4EF4770F2941E94900294B21 /* VideoItem.swift */,
 				4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */,
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
 				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
 			);
-			path = VideoUI;
+			path = Video;
 			sourceTree = "<group>";
 		};
 		4E9A245B275379B8004B43BE /* Tile */ = {

@@ -217,7 +217,9 @@ protocol TrackDelegate{
     func showTrackItemOnMap(item: TrackItem)
 }
 
-extension Array<TrackItem>{
+typealias TrackList = Array<TrackItem>
+
+extension TrackList{
     
     mutating func remove(_ track: TrackItem){
         for idx in 0..<self.count{
@@ -225,40 +227,6 @@ extension Array<TrackItem>{
                 self.remove(at: idx)
                 return
             }
-        }
-    }
-    
-    var allSelected: Bool{
-        get{
-            for item in self{
-                if !item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    var allUnselected: Bool{
-        get{
-            for item in self{
-                if item.selected{
-                    return false
-                }
-            }
-            return true
-        }
-    }
-    
-    mutating func selectAll(){
-        for item in self{
-            item.selected = true
-        }
-    }
-    
-    mutating func deselectAll(){
-        for item in self{
-            item.selected = false
         }
     }
     
