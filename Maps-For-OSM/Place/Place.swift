@@ -234,19 +234,8 @@ class Place : Selectable, Comparable{
     }
     
     func mergePlace(from sourcePlace: Place){
-        if coordinate != sourcePlace.coordinate{
-            Log.warn("coordinates dont match for \(id)")
-        }
         for sourceItem in sourcePlace.items{
-            var found = false
-            for targetItem in items{
-                if sourceItem.equals(targetItem){
-                    targetItem.mergeItem(from: sourceItem)
-                    found = true
-                    break
-                }
-            }
-            if !found{
+            if !items.containsEqual(sourceItem){
                 items.append(sourceItem)
             }
         }

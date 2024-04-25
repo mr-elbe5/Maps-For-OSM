@@ -122,11 +122,6 @@ class FileItem : PlaceItem{
         }
     }
     
-    override func mergeItem(from sourceItem: PlaceItem){
-        super.mergeItem(from: sourceItem)
-        //tod
-    }
-    
 }
 
 typealias FileItemList = Array<FileItem>

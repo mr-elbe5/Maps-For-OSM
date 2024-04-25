@@ -54,10 +54,4 @@ class PlaceItem : Selectable, Comparable{
     func prepareDelete(){
     }
     
-    func mergeItem(from sourceItem: PlaceItem){
-        if type != sourceItem.type{
-            Log.warn("types dont match for \(id)")
-        }
-    }
-    
 }
