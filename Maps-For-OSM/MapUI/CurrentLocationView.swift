@@ -10,9 +10,9 @@ import CoreLocation
 class CurrentLocationView : UIView{
     
     static var currentLocationColor = UIColor.systemBlue
-    static var currentDirectionColor = UIColor.red
-    
-    static let frameRect = CGRect(x: 0, y: 0, width: 32, height: 32)
+    static var currentDirectionColor = UIColor(red: 0.7, green: 0.7, blue: 1.0, alpha: 0.8)
+
+    static let frameRect = CGRect(x: 0, y: 0, width: 40, height: 40)
     
     let locationRadius : CGFloat = frameRect.width/2
     
@@ -43,6 +43,17 @@ class CurrentLocationView : UIView{
     override func draw(_ rect: CGRect) {
         let drawCenter = CGPoint(x: locationRadius, y: locationRadius)
         let ctx = UIGraphicsGetCurrentContext()!
+        let angle1 = (direction - 15)*CGFloat.pi/180
+        let angle2 = (direction + 15)*CGFloat.pi/180
+        
+        ctx.beginPath()
+        ctx.setFillColor(CurrentLocationView.currentDirectionColor.cgColor)
+        ctx.move(to: drawCenter)
+        ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle1), y: drawCenter.y - locationRadius * cos(angle1)))
+        ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle2), y: drawCenter.y - locationRadius * cos(angle2)))
+        ctx.closePath()
+        ctx.drawPath(using: .fill)
+        
         var color : CGColor!
         if accuracy <= 10{
             color = CurrentLocationView.currentLocationColor.cgColor
@@ -51,26 +62,19 @@ class CurrentLocationView : UIView{
             let redFactor = max(1.0, accuracy/100.0)
             color = UIColor(red: redFactor, green: 0, blue: 1.0, alpha: 1.0).cgColor
         }
-        ctx.beginPath()
-        ctx.addEllipse(in: CurrentLocationView.frameRect.scaleCenteredBy(0.3))
-        ctx.setFillColor(color)
-        ctx.drawPath(using: .fill)
         
         ctx.beginPath()
         ctx.setLineWidth(2.0)
-        ctx.addEllipse(in: CurrentLocationView.frameRect.scaleCenteredBy(0.6))
+        ctx.addEllipse(in: CurrentLocationView.frameRect.scaleCenteredBy(0.4))
         ctx.setStrokeColor(color)
-        ctx.drawPath(using: .stroke)
+        ctx.setFillColor(UIColor.white.cgColor)
+        ctx.drawPath(using: .fillStroke)
         
-        let angle1 = (direction - 15)*CGFloat.pi/180
-        let angle2 = (direction + 15)*CGFloat.pi/180
         ctx.beginPath()
-        ctx.setFillColor(CurrentLocationView.currentDirectionColor.cgColor)
-        ctx.move(to: drawCenter)
-        ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle1), y: drawCenter.y - locationRadius * cos(angle1)))
-        ctx.addLine(to: CGPoint(x: drawCenter.x + locationRadius * sin(angle2), y: drawCenter.y - locationRadius * cos(angle2)))
-        ctx.closePath()
+        ctx.addEllipse(in: CurrentLocationView.frameRect.scaleCenteredBy(0.2))
+        ctx.setFillColor(color)
         ctx.drawPath(using: .fill)
+        
     }
     
 }
