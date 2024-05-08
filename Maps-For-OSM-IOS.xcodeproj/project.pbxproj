@@ -468,7 +468,6 @@
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
 				4EB5B1732BEB616E0004A7FE /* AppURLs.swift */,
 				4E4424942B961D690007A26F /* Backup.swift */,
-				4E4790CC299297F6008EEA0A /* Log.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 			);
 			path = Application;
@@ -494,6 +493,7 @@
 				4E24F46727345D11004E69C2 /* Insets.swift */,
 				4E4D6A0027399CA1006CD741 /* LabeledSwitchView.swift */,
 				4E24F46B27345D11004E69C2 /* LabeledTextField.swift */,
+				4E4790CC299297F6008EEA0A /* Log.swift */,
 				4E0BD9A226EA0159005A4A94 /* PopupScrollViewController.swift */,
 				4E8F877E275796990027DAD4 /* PopupTableViewController.swift */,
 				4E55B2B629476EE9005D2BFB /* PopupViewController.swift */,
