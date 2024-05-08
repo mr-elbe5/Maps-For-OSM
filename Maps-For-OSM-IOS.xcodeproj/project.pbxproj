@@ -383,8 +383,8 @@
 		4E0252572BC3F2E90010D234 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				4EF477152941EC8E00294B21 /* AudioItem.swift */,
 				4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */,
+				4EF477152941EC8E00294B21 /* AudioItem.swift */,
 				4EF477192941EED600294B21 /* AudioPlayerView.swift */,
 				4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */,
 				4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */,
@@ -395,11 +395,11 @@
 		4E0252582BC3F3010010D234 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				4EF477132941EBC600294B21 /* ImageItem.swift */,
 				4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */,
-				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
-				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
+				4EF477132941EBC600294B21 /* ImageItem.swift */,
 				4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */,
+				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
+				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -440,21 +440,16 @@
 				4E0BD99726EA0020005A4A94 /* Application */,
 				4E0252482BC2CD3A0010D234 /* iCloud */,
 				4EF353192BB56AE900A0A85B /* Preferences */,
-				4EF3531A2BB56B1000A0A85B /* PreferencesUI */,
-				4E4B0A392BAED95700838EC0 /* MainUI */,
+				4E4B0A392BAED95700838EC0 /* Main */,
+				4E3BE7EA26EA7E57000F9069 /* Map */,
+				4E9A245B275379B8004B43BE /* Tile */,
 				4E30799228D783F8005FBEF0 /* Place */,
-				4E5124212BAAF87100A5B416 /* PlaceUI */,
 				4E0252572BC3F2E90010D234 /* Audio */,
 				4E0252582BC3F3010010D234 /* Image */,
 				4E1982C62BAC248500A37AE0 /* Note */,
 				4E5124232BAAF8EA00A5B416 /* Track */,
 				4E5124242BAAF91800A5B416 /* Video */,
 				4EEF6F8228FAC58800543EBA /* Search */,
-				4E4B0A3A2BAED9E100838EC0 /* SearchUI */,
-				4E3BE7EA26EA7E57000F9069 /* Map */,
-				4E5124222BAAF8C100A5B416 /* MapUI */,
-				4E9A245B275379B8004B43BE /* Tile */,
-				4E4B0A3B2BAEDA0D00838EC0 /* TileUI */,
 			);
 			path = "Maps-For-OSM";
 			sourceTree = "<group>";
@@ -462,7 +457,6 @@
 		4E0BD99726EA0020005A4A94 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				4E8168E62BCA976F00732D4C /* PlacemarkService.swift */,
 				4E1B810C2732EDC5003ED6B0 /* AppData.swift */,
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0252512BC3262E0010D234 /* AppLoader.swift */,
@@ -470,6 +464,7 @@
 				4E4424942B961D690007A26F /* Backup.swift */,
 				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
+				4E8168E62BCA976F00732D4C /* PlacemarkService.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 			);
 			path = Application;
@@ -509,8 +504,8 @@
 		4E1982C62BAC248500A37AE0 /* Note */ = {
 			isa = PBXGroup;
 			children = (
-				4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */,
 				4E1982C42BAC246500A37AE0 /* NoteCell.swift */,
+				4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */,
 				4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */,
 			);
 			path = Note;
@@ -557,13 +552,25 @@
 			isa = PBXGroup;
 			children = (
 				4EF477112941E98400294B21 /* FileItem.swift */,
+				4E79FBB2275BCE67001F0481 /* Marker.swift */,
 				4ED5DF43273E831B00549AF8 /* Place.swift */,
+				4E1D0E23274C223C00F3D584 /* PlaceCell.swift */,
 				4E0252532BC3C6A70010D234 /* PlaceFilter.swift */,
 				4ED55ECC2976B17300C679AF /* PlaceGroup.swift */,
+				4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */,
+				4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */,
+				4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */,
+				4EF3530F2BB56A1700A0A85B /* PlaceInfoViewController.swift */,
 				4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */,
+				4E51241F2BAAE78100A5B416 /* PlaceItemCell.swift */,
 				4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */,
 				4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */,
+				4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */,
 				4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */,
+				4EF353112BB56A4800A0A85B /* PlaceListInfoViewController.swift */,
+				4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */,
+				4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */,
+				4E89173E273688580046AC91 /* PlaceViewController.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -573,7 +580,11 @@
 			children = (
 				4E30799028D7520E005FBEF0 /* CoordinateRegion.swift */,
 				4EE1461D28D368870058F3D3 /* CoordinateSpan.swift */,
+				4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */,
+				4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */,
+				4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */,
 				4E5BC18F28F5B19C00A66E47 /* MapType.swift */,
+				4E1B810F2732EDC5003ED6B0 /* MapView.swift */,
 				4E30798E28D74EB1005FBEF0 /* TileRegion.swift */,
 				4EE1462D28D49F510058F3D3 /* World.swift */,
 			);
@@ -599,7 +610,7 @@
 			path = Camera;
 			sourceTree = "<group>";
 		};
-		4E4B0A392BAED95700838EC0 /* MainUI */ = {
+		4E4B0A392BAED95700838EC0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */,
@@ -613,73 +624,21 @@
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
 			);
-			path = MainUI;
-			sourceTree = "<group>";
-		};
-		4E4B0A3A2BAED9E100838EC0 /* SearchUI */ = {
-			isa = PBXGroup;
-			children = (
-				4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */,
-				4EF353092BB2C30100A0A85B /* SearchResultCell.swift */,
-				4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */,
-			);
-			path = SearchUI;
-			sourceTree = "<group>";
-		};
-		4E4B0A3B2BAEDA0D00838EC0 /* TileUI */ = {
-			isa = PBXGroup;
-			children = (
-				4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */,
-				4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */,
-				4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */,
-				4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */,
-				4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */,
-			);
-			path = TileUI;
-			sourceTree = "<group>";
-		};
-		4E5124212BAAF87100A5B416 /* PlaceUI */ = {
-			isa = PBXGroup;
-			children = (
-				4E79FBB2275BCE67001F0481 /* Marker.swift */,
-				4E1D0E23274C223C00F3D584 /* PlaceCell.swift */,
-				4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */,
-				4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */,
-				4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */,
-				4EF3530F2BB56A1700A0A85B /* PlaceInfoViewController.swift */,
-				4E51241F2BAAE78100A5B416 /* PlaceItemCell.swift */,
-				4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */,
-				4EF353112BB56A4800A0A85B /* PlaceListInfoViewController.swift */,
-				4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */,
-				4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */,
-				4E89173E273688580046AC91 /* PlaceViewController.swift */,
-			);
-			path = PlaceUI;
-			sourceTree = "<group>";
-		};
-		4E5124222BAAF8C100A5B416 /* MapUI */ = {
-			isa = PBXGroup;
-			children = (
-				4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */,
-				4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */,
-				4E1B810F2732EDC5003ED6B0 /* MapView.swift */,
-				4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */,
-			);
-			path = MapUI;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		4E5124232BAAF8EA00A5B416 /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
-				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
-				4E08A329298976F2001D86F1 /* TrackpointList.swift */,
-				4E3A416428D85357004C9D90 /* TrackPool.swift */,
-				4EF353132BB56A7500A0A85B /* TrackInfoViewController.swift */,
 				4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */,
+				4EF353132BB56A7500A0A85B /* TrackInfoViewController.swift */,
+				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
+				4E2088E62743AA670097BFBA /* Trackpoint.swift */,
+				4E08A329298976F2001D86F1 /* TrackpointList.swift */,
+				4E3A416428D85357004C9D90 /* TrackPool.swift */,
 				4E2088E42743A4280097BFBA /* TrackRecorder.swift */,
 				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
 			);
@@ -689,8 +648,8 @@
 		4E5124242BAAF91800A5B416 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				4EF4770F2941E94900294B21 /* VideoItem.swift */,
 				4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */,
+				4EF4770F2941E94900294B21 /* VideoItem.swift */,
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
 				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
 			);
@@ -701,8 +660,13 @@
 			isa = PBXGroup;
 			children = (
 				4E1B810D2732EDC5003ED6B0 /* MapTile.swift */,
-				4E1B81072732EDC4003ED6B0 /* TileProvider.swift */,
+				4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */,
+				4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */,
 				4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */,
+				4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */,
+				4E1B81072732EDC4003ED6B0 /* TileProvider.swift */,
+				4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */,
+				4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */,
 			);
 			path = Tile;
 			sourceTree = "<group>";
@@ -710,8 +674,11 @@
 		4EEF6F8228FAC58800543EBA /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A416628D8896F004C9D90 /* SearchQuery.swift */,
 				4EF3530B2BB333FE00A0A85B /* Nominatim.swift */,
+				4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */,
+				4E3A416628D8896F004C9D90 /* SearchQuery.swift */,
+				4EF353092BB2C30100A0A85B /* SearchResultCell.swift */,
+				4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -720,16 +687,9 @@
 			isa = PBXGroup;
 			children = (
 				4E55B2B02944B0EA005D2BFB /* Preferences.swift */,
-			);
-			path = Preferences;
-			sourceTree = "<group>";
-		};
-		4EF3531A2BB56B1000A0A85B /* PreferencesUI */ = {
-			isa = PBXGroup;
-			children = (
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
 			);
-			path = PreferencesUI;
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
