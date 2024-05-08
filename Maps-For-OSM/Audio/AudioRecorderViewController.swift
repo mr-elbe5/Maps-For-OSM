@@ -55,7 +55,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         audioFile.title = titleField.text?.trim() ?? ""
         audioFile.time = (audioRecorder.currentTime*100).rounded() / 100
         //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
-        if FileController.copyFile(fromURL: audioRecorder.tmpFileURL, toURL: FileController.getURL(dirURL: FileController.mediaDirURL,fileName: audioFile.fileName)){
+        if FileController.copyFile(fromURL: audioRecorder.tmpFileURL, toURL: FileController.getURL(dirURL: AppURLs.mediaDirURL,fileName: audioFile.fileName)){
             audioRecorder.cleanup()
             self.dismiss(animated: true){
                 self.delegate?.audioCaptured(audio: audioFile)

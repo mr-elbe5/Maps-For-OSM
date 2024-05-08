@@ -139,6 +139,7 @@
 		4EAF3D922BC58A9900FA6992 /* PlaceItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */; };
 		4EAF3D942BC58B4500FA6992 /* PlaceItemMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
+		4EB5B1742BEB616E0004A7FE /* AppURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5B1732BEB616E0004A7FE /* AppURLs.swift */; };
 		4EB9BCE82BB18B0900787A15 /* GPXData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE72BB18B0900787A15 /* GPXData.swift */; };
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
@@ -316,6 +317,7 @@
 		4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
 		4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemList.swift; sourceTree = "<group>"; };
 		4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemMetaData.swift; sourceTree = "<group>"; };
+		4EB5B1732BEB616E0004A7FE /* AppURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppURLs.swift; sourceTree = "<group>"; };
 		4EB9BCE72BB18B0900787A15 /* GPXData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXData.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
@@ -395,11 +397,13 @@
 		4E0252582BC3F3010010D234 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				4EAB349D2BA1B198004D187D /* ExifData.swift */,
 				4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */,
 				4EF477132941EBC600294B21 /* ImageItem.swift */,
 				4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */,
 				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
 				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
+				4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -438,6 +442,7 @@
 				4E0BD99E26EA010A005A4A94 /* Base */,
 				4E44248B2B94FACA0007A26F /* Camera */,
 				4E0BD99726EA0020005A4A94 /* Application */,
+				4EB5B1722BEB60D60004A7FE /* Location */,
 				4E0252482BC2CD3A0010D234 /* iCloud */,
 				4EF353192BB56AE900A0A85B /* Preferences */,
 				4E4B0A392BAED95700838EC0 /* Main */,
@@ -461,10 +466,9 @@
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
 				4E0252512BC3262E0010D234 /* AppLoader.swift */,
 				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
+				4EB5B1732BEB616E0004A7FE /* AppURLs.swift */,
 				4E4424942B961D690007A26F /* Backup.swift */,
-				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
 				4E4790CC299297F6008EEA0A /* Log.swift */,
-				4E8168E62BCA976F00732D4C /* PlacemarkService.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 			);
 			path = Application;
@@ -603,8 +607,6 @@
 				4E44247F2B94FA100007A26F /* CameraViewController+Session.swift */,
 				4E4424792B94FA0F0007A26F /* CameraViewController+Video.swift */,
 				4E0BD9C326EA02BA005A4A94 /* CaptureButton.swift */,
-				4EAB349D2BA1B198004D187D /* ExifData.swift */,
-				4E4424902B95C2FF0007A26F /* PhotoLibrary.swift */,
 				4E44247D2B94FA100007A26F /* PreviewView.swift */,
 			);
 			path = Camera;
@@ -669,6 +671,15 @@
 				4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */,
 			);
 			path = Tile;
+			sourceTree = "<group>";
+		};
+		4EB5B1722BEB60D60004A7FE /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				4E0BD9C426EA02BA005A4A94 /* LocationService.swift */,
+				4E8168E62BCA976F00732D4C /* PlacemarkService.swift */,
+			);
+			path = Location;
 			sourceTree = "<group>";
 		};
 		4EEF6F8228FAC58800543EBA /* Search */ = {
@@ -813,6 +824,7 @@
 				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4EF3531C2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift in Sources */,
 				4EA45A642747CA22001F3533 /* GPXParser.swift in Sources */,
+				4EB5B1742BEB616E0004A7FE /* AppURLs.swift in Sources */,
 				4E24F47327345D11004E69C2 /* IconInfoText.swift in Sources */,
 				4E0BD9CD26EA02BA005A4A94 /* CaptureButton.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,

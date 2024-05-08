@@ -20,7 +20,7 @@ struct AppLoader{
     static var delegate: AppLoaderDelegate? = nil
     
     static func initialize(){
-        FileController.initialize()
+        AppURLs.initialize()
         loadPreferences()
         loadAppState()
         PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")

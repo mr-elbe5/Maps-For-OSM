@@ -96,8 +96,8 @@ struct TileProvider{
     
     func deleteAllTiles(){
         do{
-            try FileManager.default.removeItem(at: FileController.tilesDirURL)
-            try FileManager.default.createDirectory(at: FileController.tilesDirURL, withIntermediateDirectories: true)
+            try FileManager.default.removeItem(at: AppURLs.tilesDirURL)
+            try FileManager.default.createDirectory(at: AppURLs.tilesDirURL, withIntermediateDirectories: true)
             //Log.debug("TileProvider tile directory cleared")
         }
         catch let err{
@@ -107,7 +107,7 @@ struct TileProvider{
     
     func dumpTiles(){
         var paths = Array<String>()
-        if let subpaths = FileManager.default.subpaths(atPath: FileController.tilesDirURL.path){
+        if let subpaths = FileManager.default.subpaths(atPath: AppURLs.tilesDirURL.path){
             for path in subpaths{
                 paths.append(path)
             }

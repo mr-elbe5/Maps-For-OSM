@@ -69,7 +69,7 @@ extension MainViewController: MainMenuDelegate{
     
     func importTrack(){
         let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
-        filePicker.directoryURL = FileController.exportGpxDirURL
+        filePicker.directoryURL = AppURLs.exportGpxDirURL
         filePicker.allowsMultipleSelection = false
         filePicker.delegate = self
         filePicker.modalPresentationStyle = .fullScreen
@@ -151,7 +151,7 @@ extension MainViewController: MainMenuDelegate{
         showDestructiveApprove(title: "restoreBackup".localize(), text: "restoreBackupHint".localize()){
             let types = UTType.types(tag: "zip", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
             let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
-            documentPickerController.directoryURL = FileController.backupDirURL
+            documentPickerController.directoryURL = AppURLs.backupDirURL
             documentPickerController.delegate = self
             self.present(documentPickerController, animated: true, completion: nil)
         }

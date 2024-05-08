@@ -28,7 +28,7 @@ class AudioRecorderView : UIView, AVAudioRecorderDelegate{
     var delegate: AudioRecorderDelegate? = nil
     
     init(){
-        tmpFileURL = FileController.temporaryURL.appendingPathComponent(tmpFileName)
+        tmpFileURL = AppURLs.temporaryURL.appendingPathComponent(tmpFileName)
         super.init(frame: .zero)
     }
     

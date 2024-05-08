@@ -33,7 +33,7 @@ class MapTile{
     }
     
     var fileUrl: URL{
-        FileController.tilesDirURL.appendingPathComponent("\(zoom)/\(x)/\(y).png")
+        AppURLs.tilesDirURL.appendingPathComponent("\(zoom)/\(x)/\(y).png")
     }
     
     var exists: Bool{
