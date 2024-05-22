@@ -49,7 +49,7 @@ class TrackItem : PlaceItem{
         if let pauseTime = pauseTime{
             return startTime.distance(to: pauseTime) - pauseLength
         }
-        return startTime.distance(to: Date()) - pauseLength
+        return startTime.distance(to: Date.localDate) - pauseLength
     }
     
     var startCoordinate: CLLocationCoordinate2D?{
@@ -62,8 +62,8 @@ class TrackItem : PlaceItem{
     
     override init(){
         name = "trk"
-        startTime = Date()
-        endTime = Date()
+        startTime = Date.localDate
+        endTime = Date.localDate
         trackpoints = TrackpointList()
         distance = 0
         upDistance = 0
@@ -74,8 +74,8 @@ class TrackItem : PlaceItem{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date()
-        endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date()
+        startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date.localDate
+        endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date.localDate
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         trackpoints = try values.decodeIfPresent(TrackpointList.self, forKey: .trackpoints) ?? TrackpointList()
         distance = try values.decodeIfPresent(CGFloat.self, forKey: .distance) ?? 0
@@ -100,12 +100,12 @@ class TrackItem : PlaceItem{
     }
     
     func pauseTracking(){
-        pauseTime = Date()
+        pauseTime = Date.localDate
     }
     
     func resumeTracking(){
         if let pauseTime = pauseTime{
-            pauseLength += pauseTime.distance(to: Date())
+            pauseLength += pauseTime.distance(to: Date.localDate)
             self.pauseTime = nil
         }
     }

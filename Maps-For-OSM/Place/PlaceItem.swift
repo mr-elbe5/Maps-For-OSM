@@ -35,13 +35,13 @@ class PlaceItem : Selectable, Comparable{
     var place: Place!
     
     override init(){
-        creationDate = Date()
+        creationDate = Date.localDate
         super.init()
     }
     
     required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
-        creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
+        creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date.localDate
         try super.init(from: decoder)
     }
     

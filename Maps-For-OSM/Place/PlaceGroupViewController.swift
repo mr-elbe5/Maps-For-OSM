@@ -168,7 +168,7 @@ class PlaceGroupViewController: PopupTableViewController{
         }
         var lat = 0.0
         var lon = 0.0
-        var timestamp = Date()
+        var timestamp = Date.localDate
         for place in places{
             lat += place.coordinate.latitude
             lon += place.coordinate.longitude

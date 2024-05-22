@@ -8,6 +8,14 @@ import Foundation
 
 extension Date{
     
+    static var localDate: Date{
+        get{
+            var secs = Date().timeIntervalSince1970
+            secs += Double(TimeZone.current.secondsFromGMT())
+            return Date(timeIntervalSince1970: secs)
+        }
+    }
+    
     func startOfDay() -> Date{
         var cal = Calendar.current
         cal.timeZone = TimeZone(abbreviation: "UTC")!

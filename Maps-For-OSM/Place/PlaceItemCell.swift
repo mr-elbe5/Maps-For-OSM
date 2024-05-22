@@ -9,7 +9,7 @@ import UIKit
 class PlaceItemCell: TableViewCell{
     
     var dateTimeView = UIView()
-    var timeLabel = UILabel(text: Date().dateTimeString())
+    var timeLabel = UILabel(text: Date.localDate.dateTimeString())
     
     override func setupCellBody(){
         cellBody.addSubviewFilling(itemView, insets: .zero)

@@ -74,7 +74,7 @@ class Trackpoint: Codable, Identifiable{
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapPoint = CGPoint(coordinate)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
-        timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date()
+        timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date.localDate
         valid = try values.decodeIfPresent(Bool.self, forKey: .valid) ?? true
     }
     

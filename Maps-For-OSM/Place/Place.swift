@@ -144,7 +144,7 @@ class Place : Selectable, Comparable{
         coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         mapPoint = CGPoint(coordinate)
         altitude = try values.decodeIfPresent(CLLocationDistance.self, forKey: .altitude) ?? 0
-        creationDate = try values.decodeIfPresent(Date.self, forKeys: [.creationDate, .timestamp]) ?? Date()
+        creationDate = try values.decodeIfPresent(Date.self, forKeys: [.creationDate, .timestamp]) ?? Date.localDate
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         address = try values.decodeIfPresent(String.self, forKey: .address) ?? ""
         self.items = try values.decodeIfPresent(Array<PlaceItemMetaData>.self, forKeys: [.items, .media])?.toItemList() ?? PlaceItemList()

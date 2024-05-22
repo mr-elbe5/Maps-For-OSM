@@ -83,7 +83,7 @@ extension PlaceList{
     func updateCreationDates(){
         for place in self{
             if !place.items.isEmpty{
-                var creationDate = Date()
+                var creationDate = Date.localDate
                 for item in place.items{
                     if item.creationDate < creationDate{
                         creationDate = item.creationDate

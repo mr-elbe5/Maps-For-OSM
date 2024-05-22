@@ -137,7 +137,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func createBackup(){
-        let fileName = "maps4osm_backup_\(Date().shortFileDate()).zip"
+        let fileName = "maps4osm_backup_\(Date.localDate.shortFileDate()).zip"
         let spinner = startSpinner()
         DispatchQueue.main.async {
             if let _ = Backup.createBackupFile(name: fileName){
@@ -184,7 +184,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 newPlace = true
                             }
                             let image = ImageItem()
-                            image.creationDate = creationDate ?? Date()
+                            image.creationDate = creationDate ?? Date.localDate
                             image.saveImage(uiImage: uiimage)
                             place!.addItem(item: image)
                             DispatchQueue.main.async {
@@ -211,7 +211,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 newPlace = true
                             }
                             let video = VideoItem()
-                            video.creationDate = creationDate ?? Date()
+                            video.creationDate = creationDate ?? Date.localDate
                             video.setFileNameFromURL(url)
                             if let data = FileController.readFile(url: url){
                                 video.saveFile(data: data)
@@ -266,8 +266,8 @@ extension MainViewController : UIDocumentPickerDelegate{
                 track.name = name
             }
             track.evaluateImportedTrackpoints()
-            track.startTime = track.trackpoints.first?.timestamp ?? Date()
-            track.endTime = track.trackpoints.last?.timestamp ?? Date()
+            track.startTime = track.trackpoints.first?.timestamp ?? Date.localDate
+            track.endTime = track.trackpoints.last?.timestamp ?? Date.localDate
             track.creationDate = track.startTime
             var newPlace = false
             var place = AppData.shared.getPlace(coordinate: track.startCoordinate!)
