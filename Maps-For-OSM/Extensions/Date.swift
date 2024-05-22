@@ -10,10 +10,32 @@ extension Date{
     
     static var localDate: Date{
         get{
-            var secs = Date().timeIntervalSince1970
-            secs += Double(TimeZone.current.secondsFromGMT())
-            return Date(timeIntervalSince1970: secs)
+            Date().toLocalDate()
         }
+    }
+    
+    func toLocalDate() -> Date{
+        var secs = self.timeIntervalSince1970
+        secs += Double(TimeZone.current.secondsFromGMT())
+        return Date(timeIntervalSince1970: secs)
+    }
+    
+    func toUTCDate() -> Date{
+        var secs = self.timeIntervalSince1970
+        secs -= Double(TimeZone.current.secondsFromGMT())
+        return Date(timeIntervalSince1970: secs)
+    }
+    
+    func dateString() -> String{
+        DateFormatter.localizedString(from: self.toUTCDate(), dateStyle: .medium, timeStyle: .none)
+    }
+    
+    func dateTimeString() -> String{
+        return DateFormatter.localizedString(from: self.toUTCDate(), dateStyle: .medium, timeStyle: .short)
+    }
+    
+    func timeString() -> String{
+        return DateFormatter.localizedString(from: self.toUTCDate(), dateStyle: .none, timeStyle: .short)
     }
     
     func startOfDay() -> Date{
@@ -29,14 +51,6 @@ extension Date{
         return cal.date(from: components)!
     }
     
-    func dateString() -> String{
-        return DateFormats.dateOnlyFormatter.string(from: self)
-    }
-    
-    func dateTimeString() -> String{
-        return DateFormats.dateTimeFormatter.string(from: self)
-    }
-    
     func timestampString() -> String{
         return DateFormats.timestampFormatter.string(from: self)
     }
@@ -47,10 +61,6 @@ extension Date{
     
     func shortFileDate() -> String{
         return DateFormats.shortFileDateFormatter.string(from: self)
-    }
-    
-    func timeString() -> String{
-        return DateFormats.timeOnlyFormatter.string(from: self)
     }
     
     func isoString() -> String{
@@ -71,27 +81,6 @@ extension Date {
 }
 
 class DateFormats{
-    
-    static var dateOnlyFormatter : DateFormatter{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        return dateFormatter
-    }
-    
-    static var timeOnlyFormatter : DateFormatter{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }
-    
-    static var dateTimeFormatter : DateFormatter{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }
     
     static var timestampFormatter : DateFormatter{
         let dateFormatter = DateFormatter()
