@@ -5,6 +5,7 @@
  */
 
 import CloudKit
+import CommonBasics
 
 class FileItem : PlaceItem{
     

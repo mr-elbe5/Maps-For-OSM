@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import CommonBasics
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

@@ -8,6 +8,7 @@ import Foundation
 import CoreLocation
 import CloudKit
 import UIKit
+import CommonBasics
 
 protocol AppLoaderDelegate{
     func startSpinner() -> UIActivityIndicatorView

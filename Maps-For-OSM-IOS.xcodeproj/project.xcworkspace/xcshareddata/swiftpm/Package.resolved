@@ -1,6 +1,24 @@
 {
-  "originHash" : "06769e8d8c1631cc56af6c35d0a5d62dda58842ac4d1f5e7dc2c98d19d1972b6",
+  "originHash" : "85ae0a8b3371dad1190163979a0790c8f80176cb68deca702bcfa88d7d0d8032",
   "pins" : [
+    {
+      "identity" : "commonbasics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/CommonBasics",
+      "state" : {
+        "revision" : "1e3aaa5a216cf08a0b3ec8719143ed022930d84b",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "iosbasics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/IOSBasics",
+      "state" : {
+        "revision" : "097b21a2d268fcf2f22edaf36cd5c8162741b5d1",
+        "version" : "1.0.2"
+      }
+    },
     {
       "identity" : "zip",
       "kind" : "remoteSourceControl",

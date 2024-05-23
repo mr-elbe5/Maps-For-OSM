@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import CommonBasics
 
 typealias PlaceItemList = Array<PlaceItem>
 

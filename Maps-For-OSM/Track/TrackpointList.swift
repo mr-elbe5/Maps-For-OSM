@@ -5,6 +5,7 @@
  */
 
 import CoreLocation
+import CommonBasics
 
 typealias TrackpointList = Array<Trackpoint>
 

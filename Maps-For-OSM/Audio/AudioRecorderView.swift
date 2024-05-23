@@ -6,6 +6,8 @@
 
 import UIKit
 import AVFoundation
+import CommonBasics
+import IOSBasics
 
 protocol AudioRecorderDelegate{
     func recordingFinished()

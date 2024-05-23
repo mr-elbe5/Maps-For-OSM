@@ -6,6 +6,8 @@
 
 import UIKit
 import AVFoundation
+import CommonBasics
+import IOSBasics
 
 protocol AudioCaptureDelegate{
     func audioCaptured(audio: AudioItem)

@@ -9,6 +9,8 @@ import CoreLocation
 import AVFoundation
 import Photos
 import PhotosUI
+import CommonBasics
+import IOSBasics
 
 extension MainViewController: LocationServiceDelegate{
     

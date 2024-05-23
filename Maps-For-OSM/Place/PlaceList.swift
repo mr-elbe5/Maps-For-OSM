@@ -6,6 +6,7 @@
 
 import Foundation
 import CloudKit
+import CommonBasics
 
 typealias PlaceList = Array<Place>
 

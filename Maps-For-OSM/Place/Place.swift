@@ -6,6 +6,7 @@
 
 import CoreLocation
 import CloudKit
+import CommonBasics
 
 class Place : Selectable, Comparable{
     

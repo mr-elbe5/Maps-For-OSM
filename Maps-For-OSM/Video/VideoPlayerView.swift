@@ -6,6 +6,7 @@
 
 import UIKit
 import AVFoundation
+import CommonBasics
 
 class VideoPlayerView: UIView {
     

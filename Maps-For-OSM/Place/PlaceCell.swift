@@ -5,7 +5,8 @@
  */
 
 import UIKit
-
+import CommonBasics
+import IOSBasics
 
 protocol PlaceCellDelegate{
     func viewPlace(place: Place)

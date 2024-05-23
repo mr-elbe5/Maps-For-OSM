@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import CommonBasics
 
 protocol DownloadDelegate {
     func downloadSucceeded()

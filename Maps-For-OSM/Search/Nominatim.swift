@@ -6,6 +6,7 @@
 
 import Foundation
 import CoreLocation
+import CommonBasics
 
 class Nominatim {
     

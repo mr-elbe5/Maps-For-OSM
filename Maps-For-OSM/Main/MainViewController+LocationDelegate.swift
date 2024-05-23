@@ -7,6 +7,8 @@
 import UIKit
 import CoreLocation
 import AVFoundation
+import CommonBasics
+import IOSBasics
 
 extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
                                 CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{

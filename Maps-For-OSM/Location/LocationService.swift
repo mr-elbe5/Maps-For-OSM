@@ -6,6 +6,7 @@
 
 import Foundation
 import CoreLocation
+import CommonBasics
 
 protocol LocationServiceDelegate{
     func locationDidChange(location: CLLocation)

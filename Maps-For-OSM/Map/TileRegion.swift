@@ -6,6 +6,8 @@
 
 import UIKit
 import CoreLocation
+import CommonBasics
+import IOSBasics
 
 class TileRegion : CoordinateRegion{
     

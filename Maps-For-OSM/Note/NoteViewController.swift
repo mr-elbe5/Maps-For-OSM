@@ -6,6 +6,8 @@
 
 import UIKit
 import CoreLocation
+import CommonBasics
+import IOSBasics
 
 protocol NoteViewDelegate{
     func addNote(text: String, coordinate: CLLocationCoordinate2D)

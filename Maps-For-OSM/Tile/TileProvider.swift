@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import CommonBasics
 
 struct TileProvider{
     

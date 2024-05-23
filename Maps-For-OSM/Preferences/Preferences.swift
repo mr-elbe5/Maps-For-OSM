@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import CommonBasics
 
 class Preferences: Identifiable, Codable{
     

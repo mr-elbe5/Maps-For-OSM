@@ -5,6 +5,7 @@
  */
 
 import Photos
+import CommonBasics
 
 class PhotoLibrary{
     
