@@ -331,7 +331,7 @@ extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationCont
         guard let imageURL = info[.imageURL] as? URL else {return}
         let image = ImageItem()
         //image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
+        if FileManager.default.copyFile(fromURL: imageURL, toURL: image.fileURL){
             place.addItem(item: image)
             AppData.shared.saveLocally()
             self.tableView.reloadData()

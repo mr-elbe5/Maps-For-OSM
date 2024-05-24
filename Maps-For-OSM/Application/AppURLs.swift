@@ -46,15 +46,15 @@ class AppURLs {
         if !FileManager.default.fileExists(atPath: temporaryPath){
             return 0
         }
-        return FileController.deleteAllFiles(dirURL: temporaryURL)
+        return FileManager.default.deleteAllFiles(dirURL: temporaryURL)
     }
     
     static func logFileInfo(){
-        var names = FileController.listAllFiles(dirPath: temporaryPath)
+        var names = FileManager.default.listAllFiles(dirPath: temporaryPath)
         for name in names{
             print(name)
         }
-        names = FileController.listAllFiles(dirPath: mediaDirURL.path)
+        names = FileManager.default.listAllFiles(dirPath: mediaDirURL.path)
         for name in names{
             print(name)
         }

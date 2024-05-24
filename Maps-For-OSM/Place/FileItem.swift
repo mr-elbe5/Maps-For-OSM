@@ -25,14 +25,14 @@ class FileItem : PlaceItem{
             Log.error("File has no name")
             return ""
         }
-        return FileController.getPath(dirPath: AppURLs.mediaDirURL.path,fileName: fileName)
+        return FileManager.default.getPath(dirPath: AppURLs.mediaDirURL.path,fileName: fileName)
     }
     
     var fileURL : URL{
         if fileName.isEmpty{
             Log.error("File has no name")
         }
-        return FileController.getURL(dirURL: AppURLs.mediaDirURL,fileName: fileName)
+        return AppURLs.mediaDirURL.appendingPathComponent(fileName)
     }
     
     var fileRecordId : CKRecord.ID{
@@ -95,14 +95,14 @@ class FileItem : PlaceItem{
     }
     
     func getFile() -> Data?{
-        let url = FileController.getURL(dirURL: AppURLs.mediaDirURL,fileName: fileName)
-        return FileController.readFile(url: url)
+        let url = AppURLs.mediaDirURL.appendingPathComponent(fileName)
+        return FileManager.default.readFile(url: url)
     }
     
     func saveFile(data: Data){
         if !fileExists(){
-            let url = FileController.getURL(dirURL: AppURLs.mediaDirURL,fileName: fileName)
-            if !FileController.saveFile(data: data, url: url){
+            let url = AppURLs.mediaDirURL.appendingPathComponent(fileName)
+            if !FileManager.default.saveFile(data: data, url: url){
                 Log.error("file could not be saved at \(url)")
             }
         }
@@ -112,12 +112,12 @@ class FileItem : PlaceItem{
     }
     
     func fileExists() -> Bool{
-        return FileController.fileExists(dirPath: AppURLs.mediaDirURL.path, fileName: fileName)
+        return FileManager.default.fileExists(dirPath: AppURLs.mediaDirURL.path, fileName: fileName)
     }
     
     override func prepareDelete(){
-        if FileController.fileExists(dirPath: AppURLs.mediaDirURL.path, fileName: fileName){
-            if !FileController.deleteFile(dirURL: AppURLs.mediaDirURL, fileName: fileName){
+        if FileManager.default.fileExists(dirPath: AppURLs.mediaDirURL.path, fileName: fileName){
+            if !FileManager.default.deleteFile(dirURL: AppURLs.mediaDirURL, fileName: fileName){
                 Log.error("FileItem could not delete file: \(fileName)")
             }
         }

@@ -7,6 +7,7 @@
 import Foundation
 import CoreLocation
 import CommonBasics
+import IOSBasics
 
 class GPXCreator : NSObject{
     
@@ -17,7 +18,7 @@ class GPXCreator : NSObject{
         if let url = URL(string: "track_\(fileName)_\(track.startTime.fileDate()).gpx", relativeTo: AppURLs.temporaryURL){
             let s = trackString(track: track)
             if let data = s.data(using: .utf8){
-                return FileController.saveFile(data : data, url: url) ? url : nil
+                return FileManager.default.saveFile(data : data, url: url) ? url : nil
             }
         }
         return nil

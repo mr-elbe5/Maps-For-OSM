@@ -60,7 +60,7 @@ class ImageCell: PlaceItemCell{
         itemView.removeAllSubviews()
         if let image = image{
             let imageView = UIImageView()
-            imageView.setDefaults()
+            imageView.withDefaults()
             imageView.setRoundedBorders()
             itemView.addSubviewWithAnchors(imageView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
             imageView.image = image.getImage()

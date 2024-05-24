@@ -289,7 +289,7 @@ class CloudSynchronizer{
     private func downloadFile(record: CKRecord, fileItem: FileItem){
         //Log.debug("downloading file \(fileItem.id)")
         if let asset = record.asset("asset"), let sourceURL = asset.fileURL{
-            if FileController.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
+            if FileManager.default.copyFile(fromURL: sourceURL, toURL: fileItem.fileURL, replace: true){
                 //Log.debug("download succeeded for \(fileItem.fileURL.lastPathComponent)")
             }
             else{

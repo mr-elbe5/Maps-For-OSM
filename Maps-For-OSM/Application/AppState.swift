@@ -98,7 +98,7 @@ class AppState: Identifiable, Codable{
     }
     
     func save(){
-        DataController.shared.save(forKey: AppState.storeKey, value: self)
+        UserDefaults.standard.save(forKey: AppState.storeKey, value: self)
     }
     
 }

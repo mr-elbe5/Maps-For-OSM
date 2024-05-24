@@ -9,6 +9,7 @@ import CoreLocation
 import CloudKit
 import UIKit
 import CommonBasics
+import IOSBasics
 
 protocol AppLoaderDelegate{
     func startSpinner() -> UIActivityIndicatorView
@@ -22,13 +23,14 @@ struct AppLoader{
     
     static func initialize(){
         AppURLs.initialize()
+        MapTile.tilesDirURL = AppURLs.tilesDirURL
         loadPreferences()
         loadAppState()
         PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
     }
     
     static func loadPreferences(){
-        if let prefs : Preferences = DataController.shared.load(forKey: Preferences.storeKey){
+        if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
             Preferences.shared = prefs
         }
         else{
@@ -38,7 +40,7 @@ struct AppLoader{
     }
     
     static func loadAppState(){
-        if let state : AppState = DataController.shared.load(forKey: AppState.storeKey){
+        if let state : AppState = UserDefaults.standard.load(forKey: AppState.storeKey){
             AppState.shared = state
         }
         else{

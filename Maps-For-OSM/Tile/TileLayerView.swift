@@ -77,7 +77,7 @@ class TileLayerView: UIView {
             return
         }
         mapGearImage?.draw(in: rect.scaleCenteredBy(0.25))
-        TileProvider.shared.loadTileImage(tile: tile){ success in
+        TileProvider.shared.loadTileImage(tile: tile, template: Preferences.shared.urlTemplate){ success in
             if success{
                 DispatchQueue.main.async {
                     self.setNeedsDisplay(rect)

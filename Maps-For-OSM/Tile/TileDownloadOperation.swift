@@ -6,6 +6,7 @@
 
 import Foundation
 import CommonBasics
+import IOSBasics
 
 protocol DownloadDelegate {
     func downloadSucceeded()
@@ -24,7 +25,7 @@ class TileDownloadOperation : AsyncOperation {
     
     override func startExecution(){
         //debug("TileDownloadOperation starting download of \(tile.shortDescription)")
-        TileProvider.shared.loadTileImage(tile: tile){ success in
+        TileProvider.shared.loadTileImage(tile: tile, template: Preferences.shared.urlTemplate){ success in
             if success{
                 DispatchQueue.main.async { [self] in
                     delegate?.downloadSucceeded()

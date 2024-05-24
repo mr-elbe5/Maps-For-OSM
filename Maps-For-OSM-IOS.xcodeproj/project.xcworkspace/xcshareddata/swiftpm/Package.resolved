@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/CommonBasics",
       "state" : {
-        "revision" : "1e3aaa5a216cf08a0b3ec8719143ed022930d84b",
-        "version" : "1.0.3"
+        "revision" : "a5034f3561a935a42a3e075b09faa826ec11e712",
+        "version" : "1.1.0"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/IOSBasics",
       "state" : {
-        "revision" : "097b21a2d268fcf2f22edaf36cd5c8162741b5d1",
-        "version" : "1.0.2"
+        "revision" : "0d7017ebf49abcb70fd2b566439942a636a9c080",
+        "version" : "1.1.1"
       }
     },
     {

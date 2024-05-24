@@ -176,7 +176,7 @@ class Place : Selectable, Comparable{
     }
     
     func evaluatePlacemark(){
-        PlacemarkService.shared.getPlacemark(for: self){ result in
+        PlacemarkService.shared.getPlacemark(for: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){ result in
             if let placemark = result{
                 if self.name.isEmpty, let name = placemark.name{
                     self.name = name

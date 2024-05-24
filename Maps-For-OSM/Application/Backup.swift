@@ -53,20 +53,20 @@ class Backup{
     }
     
     static func restoreBackupFile() -> Bool{
-        var count = FileController.deleteAllFiles(dirURL: AppURLs.mediaDirURL)
+        var count = FileManager.default.deleteAllFiles(dirURL: AppURLs.mediaDirURL)
         if count > 0{
             Log.info("\(count) media files deleted before restore")
         }
-        let fileNames = FileController.listAllFiles(dirPath: AppURLs.temporaryURL.appendingPathComponent("media").path)
+        let fileNames = FileManager.default.listAllFiles(dirPath: AppURLs.temporaryURL.appendingPathComponent("media").path)
         for name in fileNames{
-            FileController.copyFile(fromURL: AppURLs.temporaryURL.appendingPathComponent("media").appendingPathComponent(name), toURL: AppURLs.mediaDirURL.appendingPathComponent(name), replace: true)
+            FileManager.default.copyFile(fromURL: AppURLs.temporaryURL.appendingPathComponent("media").appendingPathComponent(name), toURL: AppURLs.mediaDirURL.appendingPathComponent(name), replace: true)
         }
         var url = AppURLs.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
         AppData.shared.loadFromFile(url: url)
         AppData.shared.saveLocally()
         //deprecated
         url = AppURLs.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
-        if FileController.fileExists(url: url){
+        if FileManager.default.fileExists(url: url){
             TrackPool.loadFromFile(url: url)
             TrackPool.addTracksToPlaces()
             AppData.shared.convertNotes()

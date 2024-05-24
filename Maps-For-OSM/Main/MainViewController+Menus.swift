@@ -215,7 +215,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                             let video = VideoItem()
                             video.creationDate = creationDate ?? Date.localDate
                             video.setFileNameFromURL(url)
-                            if let data = FileController.readFile(url: url){
+                            if let data = FileManager.default.readFile(url: url){
                                 video.saveFile(data: data)
                                 place!.addItem(item: video)
                                 DispatchQueue.main.async {

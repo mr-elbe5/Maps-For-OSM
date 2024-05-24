@@ -143,12 +143,12 @@ class TrackItem : PlaceItem{
     @discardableResult
     func addLocation(_ location: CLLocation) -> Bool{
         let tp = Trackpoint(location: location)
-        tp.checkValidity()
-        if !tp.horizontallyValid{
+        tp.checkValidity(maxUncertainty: Preferences.shared.maxHorizontalUncertainty)
+        if !tp.horizontallyValid(maxUncertainty: Preferences.shared.maxHorizontalUncertainty){
             return false
         }
         if let previousTrackpoint = trackpoints.last{
-            tp.updateDeltas(from: previousTrackpoint)
+            tp.updateDeltas(from: previousTrackpoint, minVerticalDistance: Preferences.shared.minVerticalTrackpointDistance)
             if tp.timeDiff < Preferences.shared.trackpointInterval{
                 return false
             }
@@ -195,7 +195,7 @@ class TrackItem : PlaceItem{
         //check for middle coordinate being close to expected coordinate
         if tp1.coordinate.distance(to: expectedCoordinate) <= Preferences.shared.maxTrackpointInLineDeviation{
             trackpoints.remove(at: last - 1)
-            tp2.updateDeltas(from: tp0)
+            tp2.updateDeltas(from: tp0, minVerticalDistance: Preferences.shared.minVerticalTrackpointDistance)
             return true
         }
         return false

@@ -65,7 +65,7 @@ class AppData{
     // local persistance
     
     func loadLocally(){
-        if let list : PlaceList = DataController.shared.load(forKey: AppData.storeKey){
+        if let list : PlaceList = UserDefaults.standard.load(forKey: AppData.storeKey){
             places = list
         }
         else{
@@ -74,7 +74,7 @@ class AppData{
     }
     
     func saveLocally(){
-        DataController.shared.save(forKey: AppData.storeKey, value: places)
+        UserDefaults.standard.save(forKey: AppData.storeKey, value: places)
     }
     
     // file persistance
@@ -82,20 +82,20 @@ class AppData{
     func saveAsFile() -> URL?{
         let value = places.toJSON()
         let url = AppURLs.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
-        if FileController.saveFile(text: value, url: url){
+        if FileManager.default.saveFile(text: value, url: url){
             return url
         }
         return nil
     }
     
     func loadFromFile(url: URL){
-        if let string = FileController.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
+        if let string = FileManager.default.readTextFile(url: url),let data : PlaceList = PlaceList.fromJSON(encoded: string){
             places = data
         }
     }
     
     func cleanupFiles(){
-        let fileURLs = FileController.listAllURLs(dirURL: AppURLs.mediaDirURL)
+        let fileURLs = FileManager.default.listAllURLs(dirURL: AppURLs.mediaDirURL)
         var itemURLs = Array<URL>()
         var count = 0
         for item in places.fileItems{
@@ -104,7 +104,7 @@ class AppData{
         for url in fileURLs{
             if !itemURLs.contains(url){
                 Log.debug("deleting local file \(url.lastPathComponent)")
-                FileController.deleteFile(url: url)
+                FileManager.default.deleteFile(url: url)
                 count += 1
             }
         }

@@ -44,7 +44,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
         let image = ImageItem()
         image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
+        if FileManager.default.copyFile(fromURL: imageURL, toURL: image.fileURL){
             var coordinate: CLLocationCoordinate2D?
             if let coord = pickerController.coordinate{
                 coordinate = coord

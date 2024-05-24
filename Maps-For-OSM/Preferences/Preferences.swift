@@ -95,7 +95,7 @@ class Preferences: Identifiable, Codable{
     }
     
     func save(){
-        DataController.shared.save(forKey: Preferences.storeKey, value: self)
+        UserDefaults.standard.save(forKey: Preferences.storeKey, value: self)
     }
     
 }
