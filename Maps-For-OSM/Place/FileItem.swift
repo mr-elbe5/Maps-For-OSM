@@ -5,7 +5,7 @@
  */
 
 import CloudKit
-import CommonBasics
+import E5Data
 
 class FileItem : PlaceItem{
     
@@ -25,7 +25,7 @@ class FileItem : PlaceItem{
             Log.error("File has no name")
             return ""
         }
-        return FileManager.default.getPath(dirPath: AppURLs.mediaDirURL.path,fileName: fileName)
+        return AppURLs.mediaDirURL.path.appendingPathComponent(fileName)
     }
     
     var fileURL : URL{

@@ -5,8 +5,8 @@
  */
 
 import UIKit
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
 
 class TileSourceViewController: PopupScrollViewController{
     

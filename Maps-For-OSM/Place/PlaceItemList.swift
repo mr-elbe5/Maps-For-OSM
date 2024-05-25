@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import CommonBasics
+import E5Data
 
 typealias PlaceItemList = Array<PlaceItem>
 

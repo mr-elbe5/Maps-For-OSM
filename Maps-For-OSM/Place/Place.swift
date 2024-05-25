@@ -6,9 +6,14 @@
 
 import CoreLocation
 import CloudKit
-import CommonBasics
+import E5Data
+import E5MapData
 
-class Place : Selectable, Comparable{
+class Place : UUIDObject, Comparable{
+    
+    static func == (lhs: Place, rhs: Place) -> Bool {
+        lhs.id == rhs.id
+    }
     
     static func < (lhs: Place, rhs: Place) -> Bool {
         AppState.shared.sortAscending ? lhs.creationDate < rhs.creationDate : lhs.creationDate > rhs.creationDate

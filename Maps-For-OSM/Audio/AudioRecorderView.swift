@@ -6,8 +6,9 @@
 
 import UIKit
 import AVFoundation
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
+import E5IOSAV
 
 protocol AudioRecorderDelegate{
     func recordingFinished()

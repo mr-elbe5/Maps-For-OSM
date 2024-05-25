@@ -7,8 +7,9 @@
 import UIKit
 import CoreLocation
 import AVFoundation
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
+import E5MapData
 
 class PlaceViewController: PopupTableViewController{
     

@@ -7,8 +7,9 @@
 import UIKit
 import UniformTypeIdentifiers
 import PhotosUI
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
+import E5PhotoLib
 
 class ImageListViewController: PopupTableViewController{
     

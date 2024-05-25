@@ -8,8 +8,11 @@ import Foundation
 import CoreLocation
 import CloudKit
 import UIKit
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
+import E5MapData
+import E5IOSMapUI
+import E5PhotoLib
 
 protocol AppLoaderDelegate{
     func startSpinner() -> UIActivityIndicatorView

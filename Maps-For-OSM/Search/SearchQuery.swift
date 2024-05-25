@@ -6,7 +6,8 @@
 
 import Foundation
 import CoreLocation
-import CommonBasics
+import E5Data
+import E5MapData
 
 class SearchQuery {
     

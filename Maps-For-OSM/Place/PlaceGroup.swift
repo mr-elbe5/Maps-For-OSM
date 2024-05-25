@@ -5,6 +5,7 @@
  */
 
 import CoreLocation
+import E5Data
 
 class PlaceGroup{
     

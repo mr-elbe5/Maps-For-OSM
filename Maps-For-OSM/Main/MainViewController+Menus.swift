@@ -9,8 +9,10 @@ import CoreLocation
 import AVFoundation
 import Photos
 import PhotosUI
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5MapData
+import E5IOSUI
+import E5IOSMapUI
 
 extension MainViewController: MainMenuDelegate{
     

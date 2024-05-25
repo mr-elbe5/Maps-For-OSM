@@ -5,8 +5,9 @@
  */
 
 import Foundation
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
+import E5IOSMapUI
 
 protocol DownloadDelegate {
     func downloadSucceeded()

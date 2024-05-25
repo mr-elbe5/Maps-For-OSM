@@ -6,8 +6,8 @@
 
 import UIKit
 import AVFoundation
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
 
 class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     

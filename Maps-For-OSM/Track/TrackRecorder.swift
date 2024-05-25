@@ -6,7 +6,9 @@
 
 import CoreLocation
 import UIKit
-import IOSBasics
+import E5IOSUI
+import E5MapData
+import E5IOSMapUI
 
 class TrackRecorder{
     

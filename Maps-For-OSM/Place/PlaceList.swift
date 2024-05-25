@@ -6,7 +6,7 @@
 
 import Foundation
 import CloudKit
-import CommonBasics
+import E5Data
 
 typealias PlaceList = Array<Place>
 

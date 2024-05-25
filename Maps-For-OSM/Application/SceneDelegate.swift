@@ -5,7 +5,8 @@
  */
 
 import UIKit
-import CommonBasics
+import E5Data
+import E5MapData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

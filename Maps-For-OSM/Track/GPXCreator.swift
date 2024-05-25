@@ -6,8 +6,10 @@
 
 import Foundation
 import CoreLocation
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
+import E5MapData
+import E5IOSMapUI
 
 class GPXCreator : NSObject{
     

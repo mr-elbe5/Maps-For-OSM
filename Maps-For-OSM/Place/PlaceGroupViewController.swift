@@ -6,8 +6,8 @@
 
 import UIKit
 import CoreLocation
-import CommonBasics
-import IOSBasics
+import E5Data
+import E5IOSUI
 
 class PlaceGroupViewController: PopupTableViewController{
     

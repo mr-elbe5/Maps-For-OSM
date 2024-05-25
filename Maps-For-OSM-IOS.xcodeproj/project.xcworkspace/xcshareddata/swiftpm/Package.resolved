@@ -1,22 +1,58 @@
 {
-  "originHash" : "85ae0a8b3371dad1190163979a0790c8f80176cb68deca702bcfa88d7d0d8032",
+  "originHash" : "2b1b157734a1b0825214d5c6af3e08cd4fece873ed87c57932f715208ecdf355",
   "pins" : [
     {
-      "identity" : "commonbasics",
+      "identity" : "e5data",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/CommonBasics",
+      "location" : "https://git.elbe5cloud.de/miro/E5Data",
       "state" : {
-        "revision" : "a5034f3561a935a42a3e075b09faa826ec11e712",
-        "version" : "1.1.0"
+        "revision" : "cdab88d379fa946acdda5474a9e46babb669ba6d",
+        "version" : "1.0.4"
       }
     },
     {
-      "identity" : "iosbasics",
+      "identity" : "e5iosav",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/IOSBasics",
+      "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
       "state" : {
-        "revision" : "0d7017ebf49abcb70fd2b566439942a636a9c080",
-        "version" : "1.1.1"
+        "revision" : "312b4a83e427ba6d1118f257b201b2ff43e5fe2d",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "e5iosmapui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5IOSMapUI",
+      "state" : {
+        "revision" : "9bfad3ea269c68cb2310a8e106a194a00ce59a36",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "e5iosui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5IOSUI",
+      "state" : {
+        "revision" : "8d05226bb1fddcedc914190f587a5840997eb969",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "e5mapdata",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5MapData",
+      "state" : {
+        "revision" : "89f4d5e5af4ef34fcc47cdfbec6e85941a488e73",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "e5photolib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5PhotoLib",
+      "state" : {
+        "revision" : "d568867b6be2bdc5460b809aa62468203b3bc5ec",
+        "version" : "1.0.0"
       }
     },
     {

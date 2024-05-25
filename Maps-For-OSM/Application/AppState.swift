@@ -5,7 +5,9 @@
  */
 
 import CoreLocation
-import CommonBasics
+import E5Data
+import E5Data
+import E5MapData
 
 class AppState: Identifiable, Codable{
     

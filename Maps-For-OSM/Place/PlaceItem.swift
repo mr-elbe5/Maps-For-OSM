@@ -5,7 +5,7 @@
  */
 
 import Foundation
-import CommonBasics
+import E5Data
 
 enum PlaceItemType: String, Codable{
     case audio
@@ -15,7 +15,11 @@ enum PlaceItemType: String, Codable{
     case note
 }
 
-class PlaceItem : Selectable, Comparable{
+class PlaceItem : UUIDObject, Comparable{
+
+    static func == (lhs: PlaceItem, rhs: PlaceItem) -> Bool {
+        lhs.id == rhs.id
+    }
     
     static func < (lhs: PlaceItem, rhs: PlaceItem) -> Bool {
         AppState.shared.sortAscending ? lhs.creationDate < rhs.creationDate : lhs.creationDate > rhs.creationDate
