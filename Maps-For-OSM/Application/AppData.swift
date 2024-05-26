@@ -81,7 +81,7 @@ class AppData{
     
     func saveAsFile() -> URL?{
         let value = places.toJSON()
-        let url = AppURLs.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
+        let url = FileManager.tempURL.appendingPathComponent(AppData.storeKey + ".json")
         if FileManager.default.saveFile(text: value, url: url){
             return url
         }
@@ -95,7 +95,7 @@ class AppData{
     }
     
     func cleanupFiles(){
-        let fileURLs = FileManager.default.listAllURLs(dirURL: AppURLs.mediaDirURL)
+        let fileURLs = FileManager.default.listAllURLs(dirURL: FileManager.mediaDirURL)
         var itemURLs = Array<URL>()
         var count = 0
         for item in places.fileItems{

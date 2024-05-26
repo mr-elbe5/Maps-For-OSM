@@ -13,13 +13,13 @@ class Backup{
     
     static func createBackupFile(name: String) -> URL?{
         do {
-            let count = AppURLs.deleteTemporaryFiles()
+            let count = FileManager.default.deleteTemporaryFiles()
             if count > 0{
                 Log.info("\(count) temporary files deleted before backup")
             }
             var paths = Array<URL>()
-            let zipFileURL = AppURLs.backupDirURL.appendingPathComponent(name)
-            paths.append(AppURLs.mediaDirURL)
+            let zipFileURL = FileManager.backupDirURL.appendingPathComponent(name)
+            paths.append(FileManager.mediaDirURL)
             if let url = AppData.shared.saveAsFile(){
                 paths.append(url)
             }
@@ -36,12 +36,12 @@ class Backup{
     
     static func unzipBackupFile(zipFileURL: URL) -> Bool{
         do {
-            let count = AppURLs.deleteTemporaryFiles()
+            let count = FileManager.default.deleteTemporaryFiles()
             if count > 0{
                 Log.info("\(count) temporary files deleted before restore")
             }
-            try FileManager.default.createDirectory(at: AppURLs.temporaryURL, withIntermediateDirectories: true)
-            try Zip.unzipFile(zipFileURL, destination: AppURLs.temporaryURL, overwrite: true, password: nil, progress: { (progress) -> () in
+            try FileManager.default.createDirectory(at: FileManager.tempURL, withIntermediateDirectories: true)
+            try Zip.unzipFile(zipFileURL, destination: FileManager.tempURL, overwrite: true, password: nil, progress: { (progress) -> () in
                 //Log.debug(progress)
             })
             return true
@@ -53,25 +53,25 @@ class Backup{
     }
     
     static func restoreBackupFile() -> Bool{
-        var count = FileManager.default.deleteAllFiles(dirURL: AppURLs.mediaDirURL)
+        var count = FileManager.default.deleteAllFiles(dirURL: FileManager.mediaDirURL)
         if count > 0{
             Log.info("\(count) media files deleted before restore")
         }
-        let fileNames = FileManager.default.listAllFiles(dirPath: AppURLs.temporaryURL.appendingPathComponent("media").path)
+        let fileNames = FileManager.default.listAllFiles(dirPath: FileManager.tempURL.appendingPathComponent("media").path)
         for name in fileNames{
-            FileManager.default.copyFile(fromURL: AppURLs.temporaryURL.appendingPathComponent("media").appendingPathComponent(name), toURL: AppURLs.mediaDirURL.appendingPathComponent(name), replace: true)
+            FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent("media").appendingPathComponent(name), toURL: FileManager.mediaDirURL.appendingPathComponent(name), replace: true)
         }
-        var url = AppURLs.temporaryURL.appendingPathComponent(AppData.storeKey + ".json")
+        var url = FileManager.tempURL.appendingPathComponent(AppData.storeKey + ".json")
         AppData.shared.loadFromFile(url: url)
         AppData.shared.saveLocally()
         //deprecated
-        url = AppURLs.temporaryURL.appendingPathComponent(TrackPool.storeKey + ".json")
+        url = FileManager.tempURL.appendingPathComponent(TrackPool.storeKey + ".json")
         if FileManager.default.fileExists(url: url){
             TrackPool.loadFromFile(url: url)
             TrackPool.addTracksToPlaces()
             AppData.shared.convertNotes()
         }
-        count = AppURLs.deleteTemporaryFiles()
+        count = FileManager.default.deleteTemporaryFiles()
         if count > 0{
             Log.info("\(count) temporary files deleted after restore")
         }

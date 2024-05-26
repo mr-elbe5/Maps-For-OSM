@@ -122,9 +122,9 @@ class TrackListViewController: PopupTableViewController{
     func exportTrack(item: TrackItem) {
         if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
-            controller.directoryURL = AppURLs.exportGpxDirURL
+            controller.directoryURL = FileManager.exportGpxDirURL
             present(controller, animated: true) {
-                AppURLs.logFileInfo()
+                FileManager.default.logFileInfo()
             }
         }
     }

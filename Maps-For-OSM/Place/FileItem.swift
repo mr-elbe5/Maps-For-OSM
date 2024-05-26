@@ -25,14 +25,14 @@ class FileItem : PlaceItem{
             Log.error("File has no name")
             return ""
         }
-        return AppURLs.mediaDirURL.path.appendingPathComponent(fileName)
+        return FileManager.mediaDirURL.path.appendingPathComponent(fileName)
     }
     
     var fileURL : URL{
         if fileName.isEmpty{
             Log.error("File has no name")
         }
-        return AppURLs.mediaDirURL.appendingPathComponent(fileName)
+        return FileManager.mediaDirURL.appendingPathComponent(fileName)
     }
     
     var fileRecordId : CKRecord.ID{
@@ -95,13 +95,13 @@ class FileItem : PlaceItem{
     }
     
     func getFile() -> Data?{
-        let url = AppURLs.mediaDirURL.appendingPathComponent(fileName)
+        let url = FileManager.mediaDirURL.appendingPathComponent(fileName)
         return FileManager.default.readFile(url: url)
     }
     
     func saveFile(data: Data){
         if !fileExists(){
-            let url = AppURLs.mediaDirURL.appendingPathComponent(fileName)
+            let url = FileManager.mediaDirURL.appendingPathComponent(fileName)
             if !FileManager.default.saveFile(data: data, url: url){
                 Log.error("file could not be saved at \(url)")
             }
@@ -112,12 +112,12 @@ class FileItem : PlaceItem{
     }
     
     func fileExists() -> Bool{
-        return FileManager.default.fileExists(dirPath: AppURLs.mediaDirURL.path, fileName: fileName)
+        return FileManager.default.fileExists(dirPath: FileManager.mediaDirURL.path, fileName: fileName)
     }
     
     override func prepareDelete(){
-        if FileManager.default.fileExists(dirPath: AppURLs.mediaDirURL.path, fileName: fileName){
-            if !FileManager.default.deleteFile(dirURL: AppURLs.mediaDirURL, fileName: fileName){
+        if FileManager.default.fileExists(dirPath: FileManager.mediaDirURL.path, fileName: fileName){
+            if !FileManager.default.deleteFile(dirURL: FileManager.mediaDirURL, fileName: fileName){
                 Log.error("FileItem could not delete file: \(fileName)")
             }
         }

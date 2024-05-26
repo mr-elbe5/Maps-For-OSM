@@ -25,11 +25,8 @@ struct AppLoader{
     static var delegate: AppLoaderDelegate? = nil
     
     static func initialize(){
-        AppURLs.initialize()
-        MapTile.tilesDirURL = AppURLs.tilesDirURL
         loadPreferences()
         loadAppState()
-        PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
     }
     
     static func loadPreferences(){
