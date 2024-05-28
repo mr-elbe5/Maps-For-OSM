@@ -1,5 +1,5 @@
 {
-  "originHash" : "2b1b157734a1b0825214d5c6af3e08cd4fece873ed87c57932f715208ecdf355",
+  "originHash" : "2426bdb6e4b45d505c7781712fcfeff5a9fcf65666553a0740567d9a581f8bdb",
   "pins" : [
     {
       "identity" : "e5data",
@@ -15,16 +15,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
       "state" : {
-        "revision" : "9985b3e6416e1d8c1471e2f339a9efc53b21e38d",
-        "version" : "1.0.3"
-      }
-    },
-    {
-      "identity" : "e5iosmapui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5IOSMapUI",
-      "state" : {
-        "revision" : "e35bfcd05bc2c0752267df1df7ef4d89889e9036",
+        "revision" : "312b4a83e427ba6d1118f257b201b2ff43e5fe2d",
         "version" : "1.0.1"
       }
     },
@@ -33,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5IOSUI",
       "state" : {
-        "revision" : "4a363497177b03b09c2d7bb03c69e438a5e0f8e1",
-        "version" : "1.0.5"
+        "revision" : "8d05226bb1fddcedc914190f587a5840997eb969",
+        "version" : "1.0.0"
       }
     },
     {
@@ -53,6 +44,15 @@
       "state" : {
         "revision" : "d568867b6be2bdc5460b809aa62468203b3bc5ec",
         "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "maps-for-osm-data",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/Maps-For-OSM-Data",
+      "state" : {
+        "revision" : "fb72d62ede783e00c5682a3b6f1ca8aa833ef913",
+        "version" : "1.0.6"
       }
     },
     {

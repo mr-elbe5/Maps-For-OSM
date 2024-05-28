@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import Maps_For_OSM_Data
 
 class PlaceMarker : Marker{
     

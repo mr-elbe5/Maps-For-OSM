@@ -8,6 +8,7 @@ import UIKit
 import AVFoundation
 import E5Data
 import E5IOSUI
+import Maps_For_OSM_Data
 
 protocol AudioCaptureDelegate{
     func audioCaptured(audio: AudioItem)

@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E02524D2BC2D7890010D234 /* CKContainer.swift */; };
-		4E0252522BC3262E0010D234 /* AppLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252512BC3262E0010D234 /* AppLoader.swift */; };
-		4E0252542BC3C6A70010D234 /* PlaceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252532BC3C6A70010D234 /* PlaceFilter.swift */; };
-		4E02525A2BC548EE0010D234 /* CKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0252592BC548EE0010D234 /* CKRecord.swift */; };
 		4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E025E3A274E3C4300D56ED7 /* StatusView.swift */; };
 		4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */; };
 		4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */; };
@@ -23,72 +19,52 @@
 		4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */; };
 		4E1982C32BAB5A0700A37AE0 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */; };
 		4E1982C52BAC246600A37AE0 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C42BAC246500A37AE0 /* NoteCell.swift */; };
-		4E1982C82BAC24AD00A37AE0 /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */; };
 		4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B80F02732ED43003ED6B0 /* MainViewController.swift */; };
 		4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */; };
 		4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */; };
 		4E1B81142732EDC5003ED6B0 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */; };
 		4E1B81172732EDC5003ED6B0 /* PlaceLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */; };
 		4E1B81182732EDC5003ED6B0 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */; };
-		4E1B811B2732EDC5003ED6B0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810C2732EDC5003ED6B0 /* AppData.swift */; };
 		4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810F2732EDC5003ED6B0 /* MapView.swift */; };
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
 		4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */; };
 		4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */; };
 		4E1D0E24274C223C00F3D584 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* PlaceCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
-		4E2088E32743A24E0097BFBA /* TrackItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E22743A24E0097BFBA /* TrackItem.swift */; };
-		4E2088E52743A4280097BFBA /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088E42743A4280097BFBA /* TrackRecorder.swift */; };
 		4E22EB3F2BBC1E26003E8936 /* Info.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E22EB3E2BBC1E26003E8936 /* Info.xcstrings */; };
 		4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579012B99C26700481B23 /* Localizable.xcstrings */; };
 		4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */; };
 		4E2579132B9DB5B200481B23 /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
 		4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
 		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
-		4E38B25D2C00A29B00F5742F /* SearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38B25C2C00A29B00F5742F /* SearchQuery.swift */; };
-		4E3A416528D85357004C9D90 /* TrackPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A416428D85357004C9D90 /* TrackPool.swift */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
-		4E4424952B961D690007A26F /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4424942B961D690007A26F /* Backup.swift */; };
+		4E4798812C05ED8100B49506 /* Maps-For-OSM-Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4798802C05ED8100B49506 /* Maps-For-OSM-Data */; };
+		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
 		4E4B0A302BAD803D00838EC0 /* MainViewController+Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Menus.swift */; };
 		4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */; };
 		4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */; };
-		4E51241E2BAADCDE00A5B416 /* PlaceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */; };
 		4E5124202BAAE78100A5B416 /* PlaceItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241F2BAAE78100A5B416 /* PlaceItemCell.swift */; };
-		4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B02944B0EA005D2BFB /* Preferences.swift */; };
 		4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */; };
-		4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFA928DAEC5B007AD900 /* AppState.swift */; };
 		4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */; };
-		4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5BC18F28F5B19C00A66E47 /* MapType.swift */; };
 		4E5BD27C2C01FD6A0049AF27 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD27B2C01FD6A0049AF27 /* E5Data */; };
 		4E5BD27F2C01FD740049AF27 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD27E2C01FD740049AF27 /* E5MapData */; };
 		4E5BD2822C01FD7F0049AF27 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD2812C01FD7F0049AF27 /* E5IOSUI */; };
-		4E5BD2852C01FDAE0049AF27 /* E5IOSMapUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD2842C01FDAE0049AF27 /* E5IOSMapUI */; };
 		4E5BD2882C01FFEC0049AF27 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD2872C01FFEC0049AF27 /* E5PhotoLib */; };
 		4E5BD28B2C0200170049AF27 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD28A2C0200170049AF27 /* E5IOSAV */; };
 		4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */; };
 		4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
-		4E7E61082BFFC020001DB192 /* GPXCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E61062BFFC020001DB192 /* GPXCreator.swift */; };
-		4E7E610C2BFFC293001DB192 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E610A2BFFC293001DB192 /* CLLocation.swift */; };
 		4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */; };
 		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
-		4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */; };
-		4EA9B8212BC6D22800C98852 /* CloudSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */; };
-		4EAF3D902BC58A2500FA6992 /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */; };
-		4EAF3D922BC58A9900FA6992 /* PlaceItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */; };
-		4EAF3D942BC58B4500FA6992 /* PlaceItemMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
-		4EB5B1742BEB616E0004A7FE /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5B1732BEB616E0004A7FE /* FileManager.swift */; };
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
 		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */; };
 		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */; };
-		4ED55ECE2976B17400C679AF /* PlaceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECC2976B17300C679AF /* PlaceGroup.swift */; };
 		4ED55ECF2976B17400C679AF /* PlaceGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */; };
-		4ED5DF44273E831B00549AF8 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED5DF43273E831B00549AF8 /* Place.swift */; };
 		4ED5FC452BBDA98B00E96EBB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
 		4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */; };
@@ -102,10 +78,7 @@
 		4EF3531E2BB56BDE00A0A85B /* TileSourceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */; };
 		4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */; };
 		4EF353222BB5718400A0A85B /* SearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */; };
-		4EF477102941E94900294B21 /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF4770F2941E94900294B21 /* VideoItem.swift */; };
-		4EF477122941E98400294B21 /* FileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477112941E98400294B21 /* FileItem.swift */; };
 		4EF477142941EBC600294B21 /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477132941EBC600294B21 /* ImageItem.swift */; };
-		4EF477162941EC8E00294B21 /* AudioItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477152941EC8E00294B21 /* AudioItem.swift */; };
 		4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */; };
 		4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477192941EED600294B21 /* AudioPlayerView.swift */; };
 		4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */; };
@@ -113,10 +86,6 @@
 
 /* Begin PBXFileReference section */
 		4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
-		4E02524D2BC2D7890010D234 /* CKContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKContainer.swift; sourceTree = "<group>"; };
-		4E0252512BC3262E0010D234 /* AppLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoader.swift; sourceTree = "<group>"; };
-		4E0252532BC3C6A70010D234 /* PlaceFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceFilter.swift; sourceTree = "<group>"; };
-		4E0252592BC548EE0010D234 /* CKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKRecord.swift; sourceTree = "<group>"; };
 		4E025E3A274E3C4300D56ED7 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps for OSM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,22 +100,18 @@
 		4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		4E1982C42BAC246500A37AE0 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
-		4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		4E1B80F02732ED43003ED6B0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentLocationView.swift; sourceTree = "<group>"; };
 		4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLayerView.swift; sourceTree = "<group>"; };
 		4E1B81052732EDC4003ED6B0 /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceLayerView.swift; sourceTree = "<group>"; };
 		4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
-		4E1B810C2732EDC5003ED6B0 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		4E1B810F2732EDC5003ED6B0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E23274C223C00F3D584 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
-		4E2088E22743A24E0097BFBA /* TrackItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackItem.swift; sourceTree = "<group>"; };
-		4E2088E42743A4280097BFBA /* TrackRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4E22EB3E2BBC1E26003E8936 /* Info.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Info.xcstrings; sourceTree = "<group>"; };
 		4E2579012B99C26700481B23 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
@@ -154,43 +119,27 @@
 		4E2579102B9DB5B200481B23 /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
 		4E2579112B9DB5B200481B23 /* Location.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Location.xcstrings; sourceTree = "<group>"; };
 		4E2579122B9DB5B200481B23 /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
-		4E38B25C2C00A29B00F5742F /* SearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchQuery.swift; sourceTree = "<group>"; };
-		4E3A416428D85357004C9D90 /* TrackPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPool.swift; sourceTree = "<group>"; };
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
-		4E4424942B961D690007A26F /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
+		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuView.swift; sourceTree = "<group>"; };
 		4E4B0A2F2BAD803D00838EC0 /* MainViewController+Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Menus.swift"; sourceTree = "<group>"; };
 		4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStatusView.swift; sourceTree = "<group>"; };
 		4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
-		4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItem.swift; sourceTree = "<group>"; };
 		4E51241F2BAAE78100A5B416 /* PlaceItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemCell.swift; sourceTree = "<group>"; };
-		4E55B2B02944B0EA005D2BFB /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		4E55EFA928DAEC5B007AD900 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
-		4E5BC18F28F5B19C00A66E47 /* MapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapType.swift; sourceTree = "<group>"; };
 		4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Map.swift"; sourceTree = "<group>"; };
 		4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossLocationMenuViewController.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
-		4E7E61062BFFC020001DB192 /* GPXCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXCreator.swift; sourceTree = "<group>"; };
-		4E7E610A2BFFC293001DB192 /* CLLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListInfoViewController.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
-		4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
-		4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSynchronizer.swift; sourceTree = "<group>"; };
-		4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
-		4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemList.swift; sourceTree = "<group>"; };
-		4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceItemMetaData.swift; sourceTree = "<group>"; };
-		4EB5B1732BEB616E0004A7FE /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
 		4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+LocationDelegate.swift"; sourceTree = "<group>"; };
 		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadViewController.swift; sourceTree = "<group>"; };
-		4ED55ECC2976B17300C679AF /* PlaceGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceGroup.swift; sourceTree = "<group>"; };
 		4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceGroupMarker.swift; sourceTree = "<group>"; };
-		4ED5DF43273E831B00549AF8 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollView.swift; sourceTree = "<group>"; };
 		4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -204,10 +153,7 @@
 		4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceInfoViewController.swift; sourceTree = "<group>"; };
 		4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadInfoViewController.swift; sourceTree = "<group>"; };
 		4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
-		4EF4770F2941E94900294B21 /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
-		4EF477112941E98400294B21 /* FileItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileItem.swift; sourceTree = "<group>"; };
 		4EF477132941EBC600294B21 /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
-		4EF477152941EC8E00294B21 /* AudioItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioItem.swift; sourceTree = "<group>"; };
 		4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		4EF477192941EED600294B21 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
@@ -219,10 +165,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E5BD27C2C01FD6A0049AF27 /* E5Data in Frameworks */,
+				4E4798812C05ED8100B49506 /* Maps-For-OSM-Data in Frameworks */,
 				4EB311A72B8B7B47008A710E /* Zip in Frameworks */,
 				4E5BD2822C01FD7F0049AF27 /* E5IOSUI in Frameworks */,
 				4E5BD27F2C01FD740049AF27 /* E5MapData in Frameworks */,
-				4E5BD2852C01FDAE0049AF27 /* E5IOSMapUI in Frameworks */,
 				4E5BD2882C01FFEC0049AF27 /* E5PhotoLib in Frameworks */,
 				4E5BD28B2C0200170049AF27 /* E5IOSAV in Frameworks */,
 			);
@@ -231,22 +177,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E0252482BC2CD3A0010D234 /* iCloud */ = {
-			isa = PBXGroup;
-			children = (
-				4E02524D2BC2D7890010D234 /* CKContainer.swift */,
-				4E0252592BC548EE0010D234 /* CKRecord.swift */,
-				4EA9B8202BC6D22800C98852 /* CloudSynchronizer.swift */,
-				4E9C8DEB2BD155DA00286B8F /* ICloudViewController.swift */,
-			);
-			path = iCloud;
-			sourceTree = "<group>";
-		};
 		4E0252572BC3F2E90010D234 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
 				4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */,
-				4EF477152941EC8E00294B21 /* AudioItem.swift */,
 				4EF477192941EED600294B21 /* AudioPlayerView.swift */,
 				4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */,
 				4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */,
@@ -297,11 +231,10 @@
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
 				4E0BD99726EA0020005A4A94 /* Application */,
-				4EB5B1722BEB60D60004A7FE /* Location */,
-				4E0252482BC2CD3A0010D234 /* iCloud */,
 				4EF353192BB56AE900A0A85B /* Preferences */,
 				4E4B0A392BAED95700838EC0 /* Main */,
 				4E3BE7EA26EA7E57000F9069 /* Map */,
+				4E4798852C060D0C00B49506 /* iCloud */,
 				4E9A245B275379B8004B43BE /* Tile */,
 				4E30799228D783F8005FBEF0 /* Place */,
 				4E0252572BC3F2E90010D234 /* Audio */,
@@ -317,12 +250,7 @@
 		4E0BD99726EA0020005A4A94 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				4E1B810C2732EDC5003ED6B0 /* AppData.swift */,
 				4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */,
-				4E0252512BC3262E0010D234 /* AppLoader.swift */,
-				4E55EFA928DAEC5B007AD900 /* AppState.swift */,
-				4EB5B1732BEB616E0004A7FE /* FileManager.swift */,
-				4E4424942B961D690007A26F /* Backup.swift */,
 				4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */,
 			);
 			path = Application;
@@ -332,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				4E1982C42BAC246500A37AE0 /* NoteCell.swift */,
-				4E1982C72BAC24AD00A37AE0 /* NoteItem.swift */,
 				4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */,
 			);
 			path = Note;
@@ -341,22 +268,14 @@
 		4E30799228D783F8005FBEF0 /* Place */ = {
 			isa = PBXGroup;
 			children = (
-				4EF477112941E98400294B21 /* FileItem.swift */,
 				4E79FBB2275BCE67001F0481 /* Marker.swift */,
-				4ED5DF43273E831B00549AF8 /* Place.swift */,
 				4E1D0E23274C223C00F3D584 /* PlaceCell.swift */,
-				4E0252532BC3C6A70010D234 /* PlaceFilter.swift */,
-				4ED55ECC2976B17300C679AF /* PlaceGroup.swift */,
 				4EF3531B2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift */,
 				4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */,
 				4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */,
 				4EF3530F2BB56A1700A0A85B /* PlaceInfoViewController.swift */,
-				4E51241D2BAADCDE00A5B416 /* PlaceItem.swift */,
 				4E51241F2BAAE78100A5B416 /* PlaceItemCell.swift */,
-				4EAF3D912BC58A9900FA6992 /* PlaceItemList.swift */,
-				4EAF3D932BC58B4500FA6992 /* PlaceItemMetaData.swift */,
 				4E1B81082732EDC4003ED6B0 /* PlaceLayerView.swift */,
-				4EAF3D8F2BC58A2500FA6992 /* PlaceList.swift */,
 				4EF353112BB56A4800A0A85B /* PlaceListInfoViewController.swift */,
 				4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */,
 				4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */,
@@ -371,10 +290,17 @@
 				4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */,
 				4E1B81032732EDC4003ED6B0 /* CurrentLocationView.swift */,
 				4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */,
-				4E5BC18F28F5B19C00A66E47 /* MapType.swift */,
 				4E1B810F2732EDC5003ED6B0 /* MapView.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		4E4798852C060D0C00B49506 /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				4E4798822C060CDE00B49506 /* ICloudViewController.swift */,
+			);
+			path = iCloud;
 			sourceTree = "<group>";
 		};
 		4E4B0A392BAED95700838EC0 /* Main */ = {
@@ -397,15 +323,11 @@
 		4E5124232BAAF8EA00A5B416 /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				4E7E61062BFFC020001DB192 /* GPXCreator.swift */,
 				4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */,
 				4EF353132BB56A7500A0A85B /* TrackInfoViewController.swift */,
-				4E2088E22743A24E0097BFBA /* TrackItem.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
-				4E3A416428D85357004C9D90 /* TrackPool.swift */,
-				4E2088E42743A4280097BFBA /* TrackRecorder.swift */,
 				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
 			);
 			path = Track;
@@ -415,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */,
-				4EF4770F2941E94900294B21 /* VideoItem.swift */,
 				4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */,
 				4E44248C2B95022B0007A26F /* VideoViewController.swift */,
 			);
@@ -435,18 +356,9 @@
 			path = Tile;
 			sourceTree = "<group>";
 		};
-		4EB5B1722BEB60D60004A7FE /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				4E7E610A2BFFC293001DB192 /* CLLocation.swift */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
 		4EEF6F8228FAC58800543EBA /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				4E38B25C2C00A29B00F5742F /* SearchQuery.swift */,
 				4EF353212BB5718400A0A85B /* SearchInfoViewController.swift */,
 				4EF353092BB2C30100A0A85B /* SearchResultCell.swift */,
 				4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */,
@@ -457,7 +369,6 @@
 		4EF353192BB56AE900A0A85B /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				4E55B2B02944B0EA005D2BFB /* Preferences.swift */,
 				4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */,
 			);
 			path = Preferences;
@@ -484,9 +395,9 @@
 				4E5BD27B2C01FD6A0049AF27 /* E5Data */,
 				4E5BD27E2C01FD740049AF27 /* E5MapData */,
 				4E5BD2812C01FD7F0049AF27 /* E5IOSUI */,
-				4E5BD2842C01FDAE0049AF27 /* E5IOSMapUI */,
 				4E5BD2872C01FFEC0049AF27 /* E5PhotoLib */,
 				4E5BD28A2C0200170049AF27 /* E5IOSAV */,
+				4E4798802C05ED8100B49506 /* Maps-For-OSM-Data */,
 			);
 			productName = SwiftyMapViewer;
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
@@ -522,9 +433,9 @@
 				4E5BD27A2C01FD6A0049AF27 /* XCRemoteSwiftPackageReference "E5Data" */,
 				4E5BD27D2C01FD740049AF27 /* XCRemoteSwiftPackageReference "E5MapData" */,
 				4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
-				4E5BD2832C01FDAE0049AF27 /* XCRemoteSwiftPackageReference "E5IOSMapUI" */,
 				4E5BD2862C01FFEC0049AF27 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
 				4E5BD2892C0200170049AF27 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
+				4E47987F2C05ED8100B49506 /* XCRemoteSwiftPackageReference "Maps-For-OSM-Data" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -561,90 +472,63 @@
 			files = (
 				4ED55ECF2976B17400C679AF /* PlaceGroupMarker.swift in Sources */,
 				4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */,
-				4E1982C82BAC24AD00A37AE0 /* NoteItem.swift in Sources */,
 				4E5124202BAAE78100A5B416 /* PlaceItemCell.swift in Sources */,
 				4EF3530A2BB2C30100A0A85B /* SearchResultCell.swift in Sources */,
-				4E4424952B961D690007A26F /* Backup.swift in Sources */,
 				4EF353162BB56A9900A0A85B /* TrackListInfoViewController.swift in Sources */,
 				4EF353142BB56A7500A0A85B /* TrackInfoViewController.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E4B0A302BAD803D00838EC0 /* MainViewController+Menus.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageItem.swift in Sources */,
-				4E7E610C2BFFC293001DB192 /* CLLocation.swift in Sources */,
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4EF353202BB56CDB00A0A85B /* PreloadInfoViewController.swift in Sources */,
 				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */,
 				4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */,
-				4E02525A2BC548EE0010D234 /* CKRecord.swift in Sources */,
 				4E0BD9B326EA0170005A4A94 /* MainInfoViewController.swift in Sources */,
-				4EF477102941E94900294B21 /* VideoItem.swift in Sources */,
 				4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */,
 				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4EF3531C2BB56B9100A0A85B /* PlaceGroupInfoViewController.swift in Sources */,
-				4EB5B1742BEB616E0004A7FE /* FileManager.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
 				4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */,
 				4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */,
-				4ED5DF44273E831B00549AF8 /* Place.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */,
-				4E55EFAA28DAEC5B007AD900 /* AppState.swift in Sources */,
 				4E1B81172732EDC5003ED6B0 /* PlaceLayerView.swift in Sources */,
-				4E3A416528D85357004C9D90 /* TrackPool.swift in Sources */,
 				4E1D0E24274C223C00F3D584 /* PlaceCell.swift in Sources */,
-				4E2088E52743A4280097BFBA /* TrackRecorder.swift in Sources */,
 				4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,
-				4E5BC19028F5B19C00A66E47 /* MapType.swift in Sources */,
 				4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */,
-				4E0252522BC3262E0010D234 /* AppLoader.swift in Sources */,
 				4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */,
-				4E7E61082BFFC020001DB192 /* GPXCreator.swift in Sources */,
 				4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
-				4EAF3D902BC58A2500FA6992 /* PlaceList.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */,
 				4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */,
 				4EF353122BB56A4800A0A85B /* PlaceListInfoViewController.swift in Sources */,
 				4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */,
-				4ED55ECE2976B17400C679AF /* PlaceGroup.swift in Sources */,
-				4E38B25D2C00A29B00F5742F /* SearchQuery.swift in Sources */,
 				4E1982BF2BAB58CE00A37AE0 /* VideoCell.swift in Sources */,
-				4EF477162941EC8E00294B21 /* AudioItem.swift in Sources */,
 				4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */,
 				4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */,
 				4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */,
 				4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* MainMenuView.swift in Sources */,
+				4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */,
 				4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */,
 				4E1B81182732EDC5003ED6B0 /* PlaceMarker.swift in Sources */,
 				4EF353102BB56A1700A0A85B /* PlaceInfoViewController.swift in Sources */,
 				4EF3531E2BB56BDE00A0A85B /* TileSourceInfoViewController.swift in Sources */,
-				4E2088E32743A24E0097BFBA /* TrackItem.swift in Sources */,
-				4E51241E2BAADCDE00A5B416 /* PlaceItem.swift in Sources */,
-				4EF477122941E98400294B21 /* FileItem.swift in Sources */,
-				4EAF3D942BC58B4500FA6992 /* PlaceItemMetaData.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
-				4E02524E2BC2D7890010D234 /* CKContainer.swift in Sources */,
 				4E1982C52BAC246600A37AE0 /* NoteCell.swift in Sources */,
 				4E1982C32BAB5A0700A37AE0 /* TrackCell.swift in Sources */,
 				4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */,
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4EF353222BB5718400A0A85B /* SearchInfoViewController.swift in Sources */,
-				4EA9B8212BC6D22800C98852 /* CloudSynchronizer.swift in Sources */,
 				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
 				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
-				4E0252542BC3C6A70010D234 /* PlaceFilter.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
-				4EAF3D922BC58A9900FA6992 /* PlaceItemList.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
-				4E9C8DEC2BD155DA00286B8F /* ICloudViewController.swift in Sources */,
-				4E55B2B12944B0EA005D2BFB /* Preferences.swift in Sources */,
 				4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */,
-				4E1B811B2732EDC5003ED6B0 /* AppData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -799,7 +683,6 @@
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -829,7 +712,6 @@
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -871,6 +753,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E47987F2C05ED8100B49506 /* XCRemoteSwiftPackageReference "Maps-For-OSM-Data" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://git.elbe5cloud.de/miro/Maps-For-OSM-Data";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4E5BD27A2C01FD6A0049AF27 /* XCRemoteSwiftPackageReference "E5Data" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://git.elbe5cloud.de/miro/E5Data";
@@ -890,14 +780,6 @@
 		4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://git.elbe5cloud.de/miro/E5IOSUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		4E5BD2832C01FDAE0049AF27 /* XCRemoteSwiftPackageReference "E5IOSMapUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://git.elbe5cloud.de/miro/E5IOSMapUI";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
@@ -930,6 +812,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E4798802C05ED8100B49506 /* Maps-For-OSM-Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E47987F2C05ED8100B49506 /* XCRemoteSwiftPackageReference "Maps-For-OSM-Data" */;
+			productName = "Maps-For-OSM-Data";
+		};
 		4E5BD27B2C01FD6A0049AF27 /* E5Data */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E5BD27A2C01FD6A0049AF27 /* XCRemoteSwiftPackageReference "E5Data" */;
@@ -944,11 +831,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
 			productName = E5IOSUI;
-		};
-		4E5BD2842C01FDAE0049AF27 /* E5IOSMapUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E5BD2832C01FDAE0049AF27 /* XCRemoteSwiftPackageReference "E5IOSMapUI" */;
-			productName = E5IOSMapUI;
 		};
 		4E5BD2872C01FFEC0049AF27 /* E5PhotoLib */ = {
 			isa = XCSwiftPackageProductDependency;

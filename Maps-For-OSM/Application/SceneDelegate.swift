@@ -7,8 +7,7 @@
 import UIKit
 import E5Data
 import E5MapData
-import E5IOSMapUI
-import E5PhotoLib
+import Maps_For_OSM_Data
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,10 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Log.info("SceneDelegate will connect")
-        FileManager.initializePrivateDir()
-        FileManager.initializeAppDirs()
-        MapTile.tilesDirURL = FileManager.tilesDirURL
-        PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
         AppLoader.initialize()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)

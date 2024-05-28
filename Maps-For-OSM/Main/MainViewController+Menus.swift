@@ -12,7 +12,7 @@ import PhotosUI
 import E5Data
 import E5MapData
 import E5IOSUI
-import E5IOSMapUI
+import Maps_For_OSM_Data
 
 extension MainViewController: MainMenuDelegate{
     

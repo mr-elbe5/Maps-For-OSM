@@ -6,29 +6,9 @@
 
 import UIKit
 import E5Data
+import Maps_For_OSM_Data
 
-class ImageItem : FileItem{
-    
-    override var type : PlaceItemType{
-        .image
-    }
-    
-    override init(){
-        super.init()
-        fileName = "img_\(id).jpg"
-    }
-    
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
-    
-    func getImage() -> UIImage?{
-        if let data = getFile(){
-            return UIImage(data: data)
-        } else{
-            return nil
-        }
-    }
+extension ImageItem{
     
     func saveImage(uiImage: UIImage){
         if let data = uiImage.jpegData(compressionQuality: 0.8){
@@ -37,24 +17,3 @@ class ImageItem : FileItem{
     }
     
 }
-
-protocol ImageDelegate{
-    func viewImage(image: ImageItem)
-}
-
-typealias ImageList = Array<ImageItem>
-
-extension ImageList{
-    
-    mutating func remove(_ image: ImageItem){
-        for idx in 0..<self.count{
-            if self[idx].equals(image){
-                self.remove(at: idx)
-                return
-            }
-        }
-    }
-    
-}
-
-
