@@ -11,7 +11,6 @@ import E5Data
 import E5IOSUI
 import E5IOSAV
 import E5MapData
-import Maps_For_OSM_Data
 
 extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
                                 CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{

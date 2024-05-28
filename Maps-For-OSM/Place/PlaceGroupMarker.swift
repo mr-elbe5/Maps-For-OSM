@@ -5,7 +5,7 @@
  */
 
 import UIKit
-import Maps_For_OSM_Data
+import E5MapData
 
 class PlaceGroupMarker : Marker{
     

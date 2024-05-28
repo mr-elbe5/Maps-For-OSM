@@ -9,7 +9,6 @@ import CoreLocation
 import E5Data
 import E5IOSUI
 import E5MapData
-import Maps_For_OSM_Data
 
 protocol MapPositionDelegate{
     func showCrossLocationMenu()
@@ -24,11 +23,6 @@ class MapView: UIView {
     var crossLocationView = UIButton().asIconButton("plus.circle", color: .systemBlue)
     
     var delegate: MapPositionDelegate? = nil
-    
-    var zoom: Int{
-        get{scrollView.zoom}
-        set{scrollView.zoom = newValue}
-    }
     
     var contentOffset : CGPoint{
         scrollView.contentOffset
@@ -79,7 +73,7 @@ class MapView: UIView {
     }
     
     func updatePlaceLayer(){
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -89,7 +83,7 @@ class MapView: UIView {
     
     func zoomTo(zoom: Int, animated: Bool){
         scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
-        self.zoom = zoom
+        AppState.shared.zoom = zoom
         placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
@@ -151,7 +145,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didChangeZoom() {
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        placeLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     // for infinite scroll using 3 * content width

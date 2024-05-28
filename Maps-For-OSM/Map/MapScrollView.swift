@@ -9,7 +9,6 @@ import CoreLocation
 import E5Data
 import E5IOSUI
 import E5MapData
-import Maps_For_OSM_Data
 
 protocol MapScrollViewDelegate{
     
@@ -20,8 +19,6 @@ protocol MapScrollViewDelegate{
 }
 
 class MapScrollView : UIScrollView{
-    
-    var zoom : Int = 0
     
     var tileLayerView = TileLayerView()
     
@@ -83,8 +80,8 @@ class MapScrollView : UIScrollView{
     
     func setZoomFromScale(scale: Double){
         let zoom = World.maxZoom - World.zoomLevelFromScale(scale: 1.0/scale)
-        if zoom != self.zoom{
-            self.zoom = zoom
+        if zoom != AppState.shared.zoom{
+            AppState.shared.zoom = zoom
         }
     }
     
@@ -137,8 +134,8 @@ extension MapScrollView : UIScrollViewDelegate{
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         mapDelegate?.didZoom()
         let zoom = World.maxZoom - World.zoomLevelFromScale(scale: 1.0/scale)
-        if zoom != self.zoom{
-            self.zoom = zoom
+        if zoom != AppState.shared.zoom{
+            AppState.shared.zoom = zoom
             self.mapDelegate?.didChangeZoom()
         }
     }

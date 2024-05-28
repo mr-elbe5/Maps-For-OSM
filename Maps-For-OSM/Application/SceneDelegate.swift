@@ -7,7 +7,6 @@
 import UIKit
 import E5Data
 import E5MapData
-import Maps_For_OSM_Data
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

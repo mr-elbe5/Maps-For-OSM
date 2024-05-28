@@ -38,7 +38,6 @@
 		4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
 		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
-		4E4798812C05ED8100B49506 /* Maps-For-OSM-Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E4798802C05ED8100B49506 /* Maps-For-OSM-Data */; };
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
 		4E4B0A302BAD803D00838EC0 /* MainViewController+Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Menus.swift */; };
@@ -62,7 +61,6 @@
 		4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
 		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */; };
-		4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */; };
 		4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */; };
 		4ED55ECF2976B17400C679AF /* PlaceGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */; };
 		4ED5FC452BBDA98B00E96EBB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */; };
@@ -137,7 +135,6 @@
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
 		4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+LocationDelegate.swift"; sourceTree = "<group>"; };
-		4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDownloadOperation.swift; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloadViewController.swift; sourceTree = "<group>"; };
 		4ED55ECD2976B17400C679AF /* PlaceGroupMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceGroupMarker.swift; sourceTree = "<group>"; };
 		4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -165,7 +162,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E5BD27C2C01FD6A0049AF27 /* E5Data in Frameworks */,
-				4E4798812C05ED8100B49506 /* Maps-For-OSM-Data in Frameworks */,
 				4EB311A72B8B7B47008A710E /* Zip in Frameworks */,
 				4E5BD2822C01FD7F0049AF27 /* E5IOSUI in Frameworks */,
 				4E5BD27F2C01FD740049AF27 /* E5MapData in Frameworks */,
@@ -348,7 +344,6 @@
 			children = (
 				4EF3531F2BB56CDB00A0A85B /* PreloadInfoViewController.swift */,
 				4ECFC99E26FBB8AF0083977B /* PreloadViewController.swift */,
-				4ECFC99A26FB551B0083977B /* TileDownloadOperation.swift */,
 				4E1B81042732EDC4003ED6B0 /* TileLayerView.swift */,
 				4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */,
 				4EF3531D2BB56BDE00A0A85B /* TileSourceInfoViewController.swift */,
@@ -397,7 +392,6 @@
 				4E5BD2812C01FD7F0049AF27 /* E5IOSUI */,
 				4E5BD2872C01FFEC0049AF27 /* E5PhotoLib */,
 				4E5BD28A2C0200170049AF27 /* E5IOSAV */,
-				4E4798802C05ED8100B49506 /* Maps-For-OSM-Data */,
 			);
 			productName = SwiftyMapViewer;
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
@@ -435,7 +429,6 @@
 				4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
 				4E5BD2862C01FFEC0049AF27 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
 				4E5BD2892C0200170049AF27 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
-				4E47987F2C05ED8100B49506 /* XCRemoteSwiftPackageReference "Maps-For-OSM-Data" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -522,7 +515,6 @@
 				4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */,
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4EF353222BB5718400A0A85B /* SearchInfoViewController.swift in Sources */,
-				4ECFC99B26FB551B0083977B /* TileDownloadOperation.swift in Sources */,
 				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
@@ -753,14 +745,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E47987F2C05ED8100B49506 /* XCRemoteSwiftPackageReference "Maps-For-OSM-Data" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://git.elbe5cloud.de/miro/Maps-For-OSM-Data";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		4E5BD27A2C01FD6A0049AF27 /* XCRemoteSwiftPackageReference "E5Data" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://git.elbe5cloud.de/miro/E5Data";
@@ -812,11 +796,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E4798802C05ED8100B49506 /* Maps-For-OSM-Data */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E47987F2C05ED8100B49506 /* XCRemoteSwiftPackageReference "Maps-For-OSM-Data" */;
-			productName = "Maps-For-OSM-Data";
-		};
 		4E5BD27B2C01FD6A0049AF27 /* E5Data */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E5BD27A2C01FD6A0049AF27 /* XCRemoteSwiftPackageReference "E5Data" */;

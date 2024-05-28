@@ -10,7 +10,6 @@ import AVFoundation
 import E5Data
 import E5IOSUI
 import E5MapData
-import Maps_For_OSM_Data
 
 class PlaceViewController: PopupTableViewController{
     

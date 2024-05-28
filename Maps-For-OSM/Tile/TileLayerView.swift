@@ -8,7 +8,6 @@ import UIKit
 import E5Data
 import E5IOSUI
 import E5MapData
-import Maps_For_OSM_Data
 
 class TileLayerView: UIView {
     
@@ -30,6 +29,7 @@ class TileLayerView: UIView {
             }
         }
     }
+    
     var zoom : Int = 0
     
     override init(frame: CGRect){
@@ -58,6 +58,17 @@ class TileLayerView: UIView {
         drawTile(rect: rect)
     }
     
+    private func getTileData(rect: CGRect) -> MapTileData{
+        var x = Int(round(rect.minX / scaleToPlanet / World.tileSize.width))
+        let currentMaxTiles = Int(World.zoomScale(at: zoom))
+        // for infinite scroll
+        while x >= currentMaxTiles{
+            x -= currentMaxTiles
+        }
+        let y = Int(round(rect.minY / scaleToPlanet / World.tileSize.height))
+        return MapTileData(zoom: zoom, x: x, y: y)
+    }
+    
     func drawRect(ctx: CGContext, rect: CGRect, color: UIColor){
         ctx.setStrokeColor(color.cgColor)
         ctx.setLineWidth(2.0/ctx.ctm.a)
@@ -66,14 +77,7 @@ class TileLayerView: UIView {
     
     // rect is in contentSize = planetSize
     func drawTile(rect: CGRect){
-        var x = Int(round(rect.minX / scaleToPlanet / World.tileSize.width))
-        let y = Int(round(rect.minY / scaleToPlanet / World.tileSize.height))
-        let currentMaxTiles = Int(World.zoomScale(at: zoom))
-        // for infinite scroll
-        while x >= currentMaxTiles{
-            x -= currentMaxTiles
-        }
-        let tile = MapTile.getTile(zoom: zoom, x: x, y: y)
+        let tile = MapTile.getTile(data: getTileData(rect: rect))
         if let image = tile.image{
             image.draw(in: rect)
             return

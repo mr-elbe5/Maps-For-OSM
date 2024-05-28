@@ -12,7 +12,6 @@ import PhotosUI
 import E5Data
 import E5MapData
 import E5IOSUI
-import Maps_For_OSM_Data
 
 extension MainViewController: MainMenuDelegate{
     
@@ -314,14 +313,14 @@ extension MainViewController: MapMenuDelegate{
     }
     
     func zoomIn() {
-        if mapView.zoom < World.maxZoom{
-            mapView.zoomTo(zoom: mapView.zoom + 1, animated: true)
+        if AppState.shared.zoom < World.maxZoom{
+            mapView.zoomTo(zoom: AppState.shared.zoom + 1, animated: true)
         }
     }
     
     func zoomOut() {
-        if mapView.zoom > World.minZoom{
-            mapView.zoomTo(zoom: mapView.zoom - 1, animated: true)
+        if AppState.shared.zoom > World.minZoom{
+            mapView.zoomTo(zoom: AppState.shared.zoom - 1, animated: true)
         }
     }
     

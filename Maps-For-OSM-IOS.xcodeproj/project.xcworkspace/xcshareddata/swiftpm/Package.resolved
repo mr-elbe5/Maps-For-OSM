@@ -1,5 +1,5 @@
 {
-  "originHash" : "2426bdb6e4b45d505c7781712fcfeff5a9fcf65666553a0740567d9a581f8bdb",
+  "originHash" : "039bf0b0c0847498540d78ff0bd2fc8dd88c756b70514c31eedf6d078dfd7150",
   "pins" : [
     {
       "identity" : "e5data",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5MapData",
       "state" : {
-        "revision" : "89f4d5e5af4ef34fcc47cdfbec6e85941a488e73",
-        "version" : "1.0.1"
+        "revision" : "34054f7b28f9225699bf09dc87743c2da62fd9de",
+        "version" : "1.0.4"
       }
     },
     {
@@ -44,15 +44,6 @@
       "state" : {
         "revision" : "d568867b6be2bdc5460b809aa62468203b3bc5ec",
         "version" : "1.0.0"
-      }
-    },
-    {
-      "identity" : "maps-for-osm-data",
-      "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/Maps-For-OSM-Data",
-      "state" : {
-        "revision" : "fb72d62ede783e00c5682a3b6f1ca8aa833ef913",
-        "version" : "1.0.6"
       }
     },
     {
