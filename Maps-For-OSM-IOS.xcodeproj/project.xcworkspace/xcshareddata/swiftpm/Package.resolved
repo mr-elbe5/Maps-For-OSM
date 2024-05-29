@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5Data",
       "state" : {
-        "revision" : "a1f38e18a1ec9794129b062ea3c3849f902dfae7",
-        "version" : "1.0.9"
+        "revision" : "611b30e29aa91abbc4952ffefc53aac8a8a172fe",
+        "version" : "1.0.10"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5MapData",
       "state" : {
-        "revision" : "34054f7b28f9225699bf09dc87743c2da62fd9de",
-        "version" : "1.0.4"
+        "revision" : "f8bde295f5d3c749eeb29137be8cc528091835e7",
+        "version" : "1.0.5"
       }
     },
     {
