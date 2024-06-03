@@ -129,8 +129,13 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     func photoCaptured(data: Data, location: CLLocation?) {
         if let cllocation = location{
             let imageFile = ImageItem()
-            imageFile.saveFile(data: data)
-            Log.debug("photo saved locally")
+            var imageData = data
+            if let dataWithCoordinates = data.setImageProperties(altitude: cllocation.altitude, latitude: cllocation.coordinate.latitude, longitude: cllocation.coordinate.longitude, utType: imageFile.fileURL.utType!){
+                imageData = dataWithCoordinates
+            }
+            
+            imageFile.saveFile(data: imageData)
+            Log.info("photo saved locally as \(imageFile.fileName)")
             var newPlace = false
             var place = AppData.shared.getPlace(coordinate: cllocation.coordinate)
             if place == nil{
