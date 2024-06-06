@@ -157,49 +157,23 @@ class ImageListViewController: PopupTableViewController{
         }
         let spinner = startSpinner()
         DispatchQueue.global(qos: .userInitiated).async {
-            PHPhotoLibrary.requestAuthorization(){ status in
-                if status == PHAuthorizationStatus.authorized {
-                    self.exportImagesToPhotoLibrary(images: exportList){ numCopied, numErrors in
-                        AppData.shared.saveLocally()
-                        DispatchQueue.main.async {
-                            self.stopSpinner(spinner)
-                            if numErrors == 0{
-                                self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
-                            }
-                            else{
-                                self.showAlert(title: "error".localize(), text: "imagesExportedWithErrors".localize(i1: numCopied, i2: numErrors))
-                            }
-                        }
+            var numCopied = 0
+            for image in exportList{
+                do{
+                    let targetURL = FileManager.exportMediaDirURL.appendingPathComponent(image.fileName)
+                    if FileManager.default.fileExists(url: targetURL){
+                        FileManager.default.deleteFile(url: targetURL)
                     }
+                    try FileManager.default.copyItem(at: image.fileURL, to: targetURL)
+                    numCopied += 1
+                }
+                catch (let err){
+                    Log.error(err.localizedDescription)
                 }
             }
-        }
-    }
-    
-    private func exportImagesToPhotoLibrary(images: Array<ImageItem>, result: @escaping (Int, Int) -> Void){
-        var numCopied = 0
-        var numErrors = 0
-        for item in images{
-            if let data = item.getFile(){
-                if item.type == .image{
-                    PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: CLLocation(coordinate: item.place.coordinate, altitude: item.place.altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: item.creationDate), resultHandler: { localIdentifier in
-                        if !localIdentifier.isEmpty{
-                            numCopied += 1
-                        }
-                        else{
-                            numErrors += 1
-                        }
-                        if numErrors + numCopied == images.count{
-                            result(numCopied, numErrors)
-                        }
-                    })
-                }
-            }
-            else{
-                numErrors += 1
-                if numErrors + numCopied == images.count{
-                    result(numCopied, numErrors)
-                }
+            DispatchQueue.main.async {
+                self.stopSpinner(spinner)
+                self.showDone(title: "success".localize(), text: "imagesExported".localize(i: numCopied))
             }
         }
     }

@@ -1656,30 +1656,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ Bilder wurden nach 'Fotos' exportiert"
+            "value" : "%@ Bilder wurden nach Dateien/Maps for OSM/media exportiert"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%@ images have been exported to 'Photos'"
-          }
-        }
-      }
-    },
-    "imagesExportedWithErrors" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ Bilder wurden nach 'Fotos' exportiert (%@ Fehler)"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ images have been exported to 'Photos' (%@ errors)"
+            "value" : "%@ images have been exported to Files/Maps for OSM/media"
           }
         }
       }
