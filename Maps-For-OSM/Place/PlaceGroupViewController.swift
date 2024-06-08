@@ -42,32 +42,33 @@ class PlaceGroupViewController: PopupTableViewController{
     
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
+        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
         
-        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(editModeButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         selectAllButton.addAction(UIAction(){ action in
             self.toggleSelectAll()
         }, for: .touchDown)
         selectAllButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(mergeButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(mergeButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         mergeButton.addAction(UIAction(){ action in
             self.mergeSelected()
         }, for: .touchDown)
         mergeButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(deleteButton, top: headerView.topAnchor, leading: mergeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: mergeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteButton.addAction(UIAction(){ action in
             self.deleteSelected()
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
         
         let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PlaceGroupInfoViewController()
             self.present(controller, animated: true)

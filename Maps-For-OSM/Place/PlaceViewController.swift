@@ -51,50 +51,51 @@ class PlaceViewController: PopupTableViewController{
     
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
+        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
         
-        headerView.addSubviewWithAnchors(editModeButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(editModeButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         editModeButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(addImageButton, top: headerView.topAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(addImageButton, top: buttonTopAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addImageButton.addAction(UIAction(){ action in
             self.openAddImage()
         }, for: .touchDown)
         addImageButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(addAudioButton, top: headerView.topAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(addAudioButton, top: buttonTopAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addAudioButton.addAction(UIAction(){ action in
             self.openAudioRecorder()
         }, for: .touchDown)
         addAudioButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(addNoteButton, top: headerView.topAnchor, leading: addAudioButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(addNoteButton, top: buttonTopAnchor, leading: addAudioButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addNoteButton.addAction(UIAction(){ action in
             self.openAddNote()
         }, for: .touchDown)
         addNoteButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(selectAllButton, top: headerView.topAnchor, leading: addNoteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: addNoteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         selectAllButton.addAction(UIAction(){ action in
             self.toggleSelectAll()
         }, for: .touchDown)
         selectAllButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(deleteSelectedButton, top: headerView.topAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(deleteSelectedButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteSelectedButton.addAction(UIAction(){ action in
             self.deleteSelected()
         }, for: .touchDown)
         deleteSelectedButton.isHidden = !tableView.isEditing
         
-        headerView.addSubviewWithAnchors(deletePlaceButton, top: headerView.topAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(deletePlaceButton, top: buttonTopAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deletePlaceButton.addAction(UIAction(){ action in
             self.deletePlace()
         }, for: .touchDown)
         deletePlaceButton.isHidden = !tableView.isEditing
         
         let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = PlaceInfoViewController()
             self.present(controller, animated: true)
@@ -329,15 +330,26 @@ extension PlaceViewController : PlaceDelegate{
 extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageItem()
-        //image.setFileNameFromURL(imageURL)
-        if FileManager.default.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            place.addItem(item: image)
-            AppData.shared.saveLocally()
-            self.tableView.reloadData()
+        if let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
+            let image = ImageItem()
+            var imageData = data
+            let metaData = ImageMetaData()
+            metaData.readData(data: data)
+            if !metaData.hasGPSData{
+                if let dataWithCoordinates = data.setImageProperties(altitude: place.altitude, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude, utType: image.fileURL.utType!){
+                    imageData = dataWithCoordinates
+                }
+            }
+            if FileManager.default.saveFile(data: imageData, url: image.fileURL){
+                place.addItem(item: image)
+                AppData.shared.saveLocally()
+                self.tableView.reloadData()
+                picker.dismiss(animated: false)
+                return
+            }
         }
         picker.dismiss(animated: false)
+        showError("imageImportError".localize())
     }
     
 }

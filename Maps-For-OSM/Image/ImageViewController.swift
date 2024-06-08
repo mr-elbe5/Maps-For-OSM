@@ -14,7 +14,6 @@ class ImageViewController: PopupScrollViewController, UIScrollViewDelegate {
     var imageView : UIImageView? = nil
     
     override func loadView() {
-        title = "Image".localize()
         super.loadView()
         if let image = uiImage{
             scrollView.maximumZoomScale = 1.0

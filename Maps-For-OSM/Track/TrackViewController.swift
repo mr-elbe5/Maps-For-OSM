@@ -50,13 +50,14 @@ class TrackViewController: PopupScrollViewController{
     
     override func setupHeaderView(headerView: UIView){
         super.setupHeaderView(headerView: headerView)
+        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
         
-        headerView.addSubviewWithAnchors(editButton, top: headerView.topAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(editButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         editButton.addAction(UIAction(){ action in
             self.toggleEditMode()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(mapButton, top: headerView.topAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(mapButton, top: buttonTopAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         mapButton.addAction(UIAction(){ action in
             self.dismiss(animated: true){
                 self.delegate?.showTrackItemOnMap(item: self.track)
@@ -64,7 +65,7 @@ class TrackViewController: PopupScrollViewController{
         }, for: .touchDown)
         
         let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: headerView.topAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         infoButton.addAction(UIAction(){ action in
             let controller = TrackInfoViewController()
             self.present(controller, animated: true)

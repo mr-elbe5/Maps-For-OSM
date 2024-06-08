@@ -256,6 +256,23 @@
         }
       }
     },
+    "audioRecording" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonaufnahme"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Recording"
+          }
+        }
+      }
+    },
     "back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1582,6 +1599,23 @@
         }
       }
     },
+    "image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image"
+          }
+        }
+      }
+    },
     "imageCount" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1595,6 +1629,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Images: "
+          }
+        }
+      }
+    },
+    "imageImportError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Bild konnte nicht importiert werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The image could not be imported."
           }
         }
       }

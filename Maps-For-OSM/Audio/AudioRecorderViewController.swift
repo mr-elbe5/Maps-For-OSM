@@ -31,6 +31,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
     }
     
     override func loadView() {
+        title = "audioRecording".localize()
         super.loadView()
         scrollView.backgroundColor = .black
         

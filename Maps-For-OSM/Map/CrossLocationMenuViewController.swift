@@ -53,10 +53,6 @@ class CrossLocationMenuViewController: PopupScrollViewController{
         view.frame = CGRect(origin: CGPoint(x: view.frame.width/2 - frameSize.width/2, y: view.frame.height/2 - frameSize.height/2), size: frameSize)
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-    }
-    
     func setupContent(){
         view.setRoundedBorders(radius: 10)
         locationLabel.textAlignment = .center

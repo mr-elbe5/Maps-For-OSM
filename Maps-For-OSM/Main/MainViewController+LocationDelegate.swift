@@ -41,12 +41,9 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         pickerController.modalPresentationStyle = .fullScreen
         self.present(pickerController, animated: true, completion: nil)
     }
-        
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL, let pickerController = picker as? ImagePickerController else {return}
-        let image = ImageItem()
-        image.setFileNameFromURL(imageURL)
-        if FileManager.default.copyFile(fromURL: imageURL, toURL: image.fileURL){
+        if let pickerController = picker as? ImagePickerController, let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
             var coordinate: CLLocationCoordinate2D?
             if let coord = pickerController.coordinate{
                 coordinate = coord
@@ -54,7 +51,16 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             else{
                 coordinate = LocationService.shared.location?.coordinate
             }
-            if let coordinate = coordinate{
+            let image = ImageItem()
+            var imageData = data
+            let metaData = ImageMetaData()
+            metaData.readData(data: data)
+            if !metaData.hasGPSData, let coordinate = coordinate{
+                if let dataWithCoordinates = data.setImageProperties(altitude: nil, latitude: coordinate.latitude, longitude: coordinate.longitude, utType: image.fileURL.utType!){
+                    imageData = dataWithCoordinates
+                }
+            }
+            if let coordinate = coordinate, FileManager.default.saveFile(data: imageData, url: image.fileURL){
                 var newPlace = false
                 var place = AppData.shared.getPlace(coordinate: coordinate)
                 if place == nil{
@@ -71,9 +77,13 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
                         self.placeChanged(place: place!)
                     }
                 }
+                picker.dismiss(animated: false)
+                return
             }
+            
         }
         picker.dismiss(animated: false)
+        showError("imageImportError".localize())
     }
     
     func openAddNote(at coordinate: CLLocationCoordinate2D) {
