@@ -9,8 +9,14 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
+public protocol PlaceDelegate{
+    func placeChanged(place: Place)
+    func placesChanged()
+    func showPlaceOnMap(place: Place)
+}
+
 protocol PlaceCellDelegate{
-    func viewPlace(place: Place)
+    func editPlace(place: Place)
     func showPlaceOnMap(place: Place)
 }
 
@@ -25,28 +31,24 @@ class PlaceCell: TableViewCell{
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         if let place = place{
-            var lastAnchor = iconView.trailingAnchor
-            if isEditing{
-                let selectedButton = UIButton().asIconButton(place.selected ? "checkmark.square" : "square", color: .label)
-                selectedButton.addAction(UIAction(){ action in
-                    place.selected = !place.selected
-                    selectedButton.setImage(UIImage(systemName: place.selected ? "checkmark.square" : "square"), for: .normal)
-                }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
-                lastAnchor = selectedButton.leadingAnchor
-            }
+            let selectedButton = UIButton().asIconButton(place.selected ? "checkmark.square" : "square", color: .label)
+            selectedButton.addAction(UIAction(){ action in
+                place.selected = !place.selected
+                selectedButton.setImage(UIImage(systemName: place.selected ? "checkmark.square" : "square"), for: .normal)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.delegate?.showPlaceOnMap(place: place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addAction(UIAction(){ action in
-                self.delegate?.viewPlace(place: place)
+            let editButton = UIButton().asIconButton("pencil", color: .label)
+            editButton.addAction(UIAction(){ action in
+                self.delegate?.editPlace(place: place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     

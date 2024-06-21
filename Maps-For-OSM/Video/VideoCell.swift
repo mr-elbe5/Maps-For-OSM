@@ -9,6 +9,10 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
+public protocol VideoDelegate{
+    func viewVideoItem(item: VideoItem)
+}
+
 class VideoCell: PlaceItemCell{
     
     static let CELL_IDENT = "videoCell"

@@ -9,6 +9,11 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
+public protocol TrackDelegate{
+    func editTrackItem(item: TrackItem)
+    func showTrackItemOnMap(item: TrackItem)
+}
+
 class TrackCell: PlaceItemCell{
 
     static let CELL_IDENT = "trackCell"
@@ -21,28 +26,25 @@ class TrackCell: PlaceItemCell{
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         if let track = track{
-            var lastAnchor = iconView.trailingAnchor
-            if isEditing{
-                let selectedButton = UIButton().asIconButton(track.selected ? "checkmark.square" : "square", color: .label)
-                selectedButton.addAction(UIAction(){ action in
-                    track.selected = !track.selected
-                    selectedButton.setImage(UIImage(systemName: track.selected ? "checkmark.square" : "square"), for: .normal)
-                }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
-                lastAnchor = selectedButton.leadingAnchor
-            }
+            
+            let selectedButton = UIButton().asIconButton(track.selected ? "checkmark.square" : "square", color: .label)
+            selectedButton.addAction(UIAction(){ action in
+                track.selected = !track.selected
+                selectedButton.setImage(UIImage(systemName: track.selected ? "checkmark.square" : "square"), for: .normal)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.trackDelegate?.showTrackItemOnMap(item: track)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
-            viewButton.addAction(UIAction(){ action in
-                self.trackDelegate?.viewTrackItem(item: track)
+            let editButton = UIButton().asIconButton("pencil", color: .label)
+            editButton.addAction(UIAction(){ action in
+                self.trackDelegate?.editTrackItem(item: track)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     
@@ -56,25 +58,14 @@ class TrackCell: PlaceItemCell{
             let header = UILabel(header: "track".localize())
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
-            var nextAnchor = header.bottomAnchor
             
-            if isEditing{
-                let nameField = UITextField()
-                nameField.setDefaults()
-                nameField.text = item.name
-                nameField.delegate = self
-                itemView.addSubviewWithAnchors(nameField, top: nextAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
-                nextAnchor = nameField.bottomAnchor
-            }
-            else{
-                let nameLabel = UILabel(text: item.name)
-                nameLabel.textAlignment = .center
-                itemView.addSubviewWithAnchors(nameLabel, top: nextAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
-                nextAnchor = nameLabel.bottomAnchor
-            }
+            let nameLabel = UILabel(text: item.name)
+            nameLabel.textAlignment = .center
+            itemView.addSubviewWithAnchors(nameLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+            
             let tp = item.trackpoints.isEmpty ? nil : item.trackpoints[0]
             let startLabel = UILabel(text: "\("start".localize()): \(tp?.coordinate.asString ?? ""), \(item.startTime.dateTimeString())")
-            itemView.addSubviewWithAnchors(startLabel, top: nextAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+            itemView.addSubviewWithAnchors(startLabel, top: nameLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
             let endLabel = UILabel(text: "\("end".localize()): \(item.endTime.dateTimeString())")
             itemView.addSubviewWithAnchors(endLabel, top: startLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)

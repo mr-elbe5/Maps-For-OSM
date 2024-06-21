@@ -63,35 +63,28 @@ class CrossLocationMenuViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, insets: flatInsets)
             .centerX(contentView.centerXAnchor)
         
-        let createPlaceButton = UIButton().asTextButton("createPlace".localize())
-        createPlaceButton.setRoundedBorders()
+        let createPlaceButton = UIButton().asTextButton("createPlace".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
         createPlaceButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
             self.delegate?.addPlace(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let addImageButton = UIButton().asTextButton("addImage".localize())
-        addImageButton.setTitleColor(.systemBlue, for: .normal)
-        addImageButton.setRoundedBorders()
+        let addImageButton = UIButton().asTextButton("addImage".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
         addImageButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
             self.delegate?.openAddImage(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addImageButton, top: createPlaceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let addAudioButton = UIButton().asTextButton("addAudio".localize())
-        addAudioButton.setTitleColor(.systemBlue, for: .normal)
-        addAudioButton.setRoundedBorders()
+        let addAudioButton = UIButton().asTextButton("addAudio".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
         addAudioButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
             self.delegate?.openAudioRecorder(at: self.coordinate)
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(addAudioButton, top: addImageButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let addNoteButton = UIButton().asTextButton("addNote".localize())
-        addNoteButton.setTitleColor(.systemBlue, for: .normal)
-        addNoteButton.setRoundedBorders()
+        let addNoteButton = UIButton().asTextButton("addNote".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
         addNoteButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
             self.delegate?.openAddNote(at: self.coordinate)

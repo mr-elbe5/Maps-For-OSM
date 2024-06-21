@@ -53,7 +53,7 @@ extension MainViewController: MapPositionDelegate{
 extension MainViewController: PlaceLayerDelegate{
     
     func showPlaceDetails(place: Place) {
-        let controller = PlaceViewController(location: place)
+        let controller = EditPlaceViewController(location: place)
         controller.place = place
         controller.modalPresentationStyle = .fullScreen
         controller.placeDelegate = self
@@ -98,8 +98,8 @@ extension MainViewController: ImageDelegate {
 
 extension MainViewController: TrackDelegate{
     
-    func viewTrackItem(item: TrackItem) {
-        let controller = TrackViewController(track: item)
+    func editTrackItem(item: TrackItem) {
+        let controller = EditTrackViewController(track: item)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)

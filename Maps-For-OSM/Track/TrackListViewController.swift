@@ -15,7 +15,6 @@ class TrackListViewController: PopupTableViewController{
 
     var tracks: Array<TrackItem>? = nil
     
-    let editModeButton = UIButton().asIconButton("pencil", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
@@ -35,22 +34,15 @@ class TrackListViewController: PopupTableViewController{
         super.setupHeaderView(headerView: headerView)
         let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
         
-        headerView.addSubviewWithAnchors(editModeButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        editModeButton.addAction(UIAction(){ action in
-            self.toggleEditMode()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         selectAllButton.addAction(UIAction(){ action in
             self.toggleSelectAll()
         }, for: .touchDown)
-        selectAllButton.isHidden = !tableView.isEditing
         
         headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteButton.addAction(UIAction(){ action in
             self.deleteSelected()
         }, for: .touchDown)
-        deleteButton.isHidden = !tableView.isEditing
         
         let infoButton = UIButton().asIconButton("info")
         headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
@@ -58,23 +50,6 @@ class TrackListViewController: PopupTableViewController{
             let controller = TrackListInfoViewController()
             self.present(controller, animated: true)
         }, for: .touchDown)
-    }
-    
-    func toggleEditMode(){
-        if tableView.isEditing{
-            editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-            tableView.isEditing = false
-            selectAllButton.isHidden = true
-            deleteButton.isHidden = true
-        }
-        else{
-            editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
-            tableView.isEditing = true
-            selectAllButton.isHidden = false
-            deleteButton.isHidden = false
-        }
-        tracks?.deselectAll()
-        tableView.reloadData()
     }
     
     func toggleSelectAll(){
@@ -153,10 +128,6 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
     }
@@ -185,8 +156,8 @@ extension TrackListViewController : PlaceDelegate{
     
 extension TrackListViewController : TrackDelegate{
     
-    func viewTrackItem(item: TrackItem) {
-        let trackController = TrackViewController(track: item)
+    func editTrackItem(item: TrackItem) {
+        let trackController = EditTrackViewController(track: item)
         trackController.track = item
         trackController.delegate = self
         trackController.modalPresentationStyle = .fullScreen

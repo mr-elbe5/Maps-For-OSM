@@ -13,7 +13,6 @@ import E5MapData
 
 class EditPlaceViewController: PopupTableViewController{
     
-    let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
     let addImageButton = UIButton().asIconButton("photo", color: .label)
     let addAudioButton = UIButton().asIconButton("mic", color: .label)
     let addNoteButton = UIButton().asIconButton("pencil.and.list.clipboard", color: .label)
@@ -53,46 +52,35 @@ class EditPlaceViewController: PopupTableViewController{
         super.setupHeaderView(headerView: headerView)
         let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
         
-        headerView.addSubviewWithAnchors(editModeButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        editModeButton.addAction(UIAction(){ action in
-            self.toggleEditMode()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(addImageButton, top: buttonTopAnchor, leading: editModeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        headerView.addSubviewWithAnchors(addImageButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addImageButton.addAction(UIAction(){ action in
             self.openAddImage()
         }, for: .touchDown)
-        addImageButton.isHidden = !tableView.isEditing
         
         headerView.addSubviewWithAnchors(addAudioButton, top: buttonTopAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addAudioButton.addAction(UIAction(){ action in
             self.openAudioRecorder()
         }, for: .touchDown)
-        addAudioButton.isHidden = !tableView.isEditing
         
         headerView.addSubviewWithAnchors(addNoteButton, top: buttonTopAnchor, leading: addAudioButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         addNoteButton.addAction(UIAction(){ action in
             self.openAddNote()
         }, for: .touchDown)
-        addNoteButton.isHidden = !tableView.isEditing
         
         headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: addNoteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         selectAllButton.addAction(UIAction(){ action in
             self.toggleSelectAll()
         }, for: .touchDown)
-        selectAllButton.isHidden = !tableView.isEditing
         
         headerView.addSubviewWithAnchors(deleteSelectedButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deleteSelectedButton.addAction(UIAction(){ action in
             self.deleteSelected()
         }, for: .touchDown)
-        deleteSelectedButton.isHidden = !tableView.isEditing
         
         headerView.addSubviewWithAnchors(deletePlaceButton, top: buttonTopAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         deletePlaceButton.addAction(UIAction(){ action in
             self.deletePlace()
         }, for: .touchDown)
-        deletePlaceButton.isHidden = !tableView.isEditing
         
         let infoButton = UIButton().asIconButton("info")
         headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
@@ -149,44 +137,15 @@ class EditPlaceViewController: PopupTableViewController{
         self.present(controller, animated: true)
     }
     
-    func toggleEditMode(){
-        if tableView.isEditing{
-            AppData.shared.saveLocally()
-            placeDelegate?.placeChanged(place: place)
-            editModeButton.setImage(UIImage(systemName: "pencil"), for: .normal)
-            tableView.isEditing = false
-            addImageButton.isHidden = true
-            addAudioButton.isHidden = true
-            addNoteButton.isHidden = true
-            selectAllButton.isHidden = true
-            deleteSelectedButton.isHidden = true
-            deletePlaceButton.isHidden = true
+    func toggleSelectAll(){
+        if place.allItemsSelected{
+            place.deselectAllItems()
         }
         else{
-            editModeButton.setImage(UIImage(systemName: "pencil.slash"), for: .normal)
-            tableView.isEditing = true
-            addImageButton.isHidden = false
-            addAudioButton.isHidden = false
-            addNoteButton.isHidden = false
-            selectAllButton.isHidden = false
-            deleteSelectedButton.isHidden = false
-            deletePlaceButton.isHidden = false
+            place.selectAllItems()
         }
-        place.deselectAllItems()
-        tableView.reloadData()
-    }
-    
-    func toggleSelectAll(){
-        if tableView.isEditing{
-            if place.allItemsSelected{
-                place.deselectAllItems()
-            }
-            else{
-                place.selectAllItems()
-            }
-            for cell in tableView.visibleCells{
-                (cell as? PlaceItemCell)?.updateIconView(isEditing: true)
-            }
+        for cell in tableView.visibleCells{
+            (cell as? PlaceItemCell)?.updateIconView(isEditing: true)
         }
     }
     
@@ -239,7 +198,7 @@ extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
             if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? AudioItem{
                 cell.audio = audioItem
                 cell.placeDelegate = self
-                cell.updateCell(isEditing: tableView.isEditing)
+                cell.updateCell()
                 return cell
             }
             else{
@@ -251,7 +210,7 @@ extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.video = videoItem
                 cell.placeDelegate = self
                 cell.videoDelegate = self
-                cell.updateCell(isEditing: tableView.isEditing)
+                cell.updateCell()
                 return cell
             }
             else{
@@ -263,7 +222,7 @@ extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.image = imageItem
                 cell.placeDelegate = self
                 cell.imageDelegate = self
-                cell.updateCell(isEditing: tableView.isEditing)
+                cell.updateCell()
                 return cell
             }
             else{
@@ -275,7 +234,7 @@ extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.track = trackItem
                 cell.placeDelegate = self
                 cell.trackDelegate = self
-                cell.updateCell(isEditing: tableView.isEditing)
+                cell.updateCell()
                 return cell
             }
             else{
@@ -286,7 +245,7 @@ extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
             if let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.CELL_IDENT, for: indexPath) as? NoteCell, let noteItem = item as? NoteItem{
                 cell.note = noteItem
                 cell.delegate = self
-                cell.updateCell(isEditing: tableView.isEditing)
+                cell.updateCell()
                 return cell
             }
             else{
@@ -431,8 +390,8 @@ extension EditPlaceViewController : ImageDelegate{
 
 extension EditPlaceViewController : TrackDelegate{
     
-    func viewTrackItem(item: TrackItem) {
-        let controller = TrackViewController(track: item)
+    func editTrackItem(item: TrackItem) {
+        let controller = EditTrackViewController(track: item)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }

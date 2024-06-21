@@ -27,7 +27,7 @@
 		4E1B81182732EDC5003ED6B0 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */; };
 		4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810F2732EDC5003ED6B0 /* MapView.swift */; };
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
-		4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */; };
+		4E1D0E20274BDB1900F3D584 /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* EditTrackViewController.swift */; };
 		4E1D0E22274C21CD00F3D584 /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */; };
 		4E1D0E24274C223C00F3D584 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* PlaceCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
@@ -53,7 +53,7 @@
 		4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E82563F2BBC41F50080A4AA /* ImageListInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */; };
-		4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* PlaceViewController.swift */; };
+		4E89173F273688580046AC91 /* EditPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* EditPlaceViewController.swift */; };
 		4EB311A72B8B7B47008A710E /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB311A62B8B7B47008A710E /* Zip */; };
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
 		4EC520182C0DEECB009C4A49 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC520172C0DEECB009C4A49 /* E5IOSAV */; };
@@ -108,7 +108,7 @@
 		4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
 		4E1B810F2732EDC5003ED6B0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
-		4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
+		4E1D0E1F274BDB1900F3D584 /* EditTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackViewController.swift; sourceTree = "<group>"; };
 		4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E23274C223C00F3D584 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossLocationMenuViewController.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		4E82563E2BBC41F50080A4AA /* ImageListInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListInfoViewController.swift; sourceTree = "<group>"; };
-		4E89173E273688580046AC91 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		4E89173E273688580046AC91 /* EditPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceViewController.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* PlaceGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 				4EF353112BB56A4800A0A85B /* PlaceListInfoViewController.swift */,
 				4E1D0E21274C21CD00F3D584 /* PlaceListViewController.swift */,
 				4E1B81092732EDC5003ED6B0 /* PlaceMarker.swift */,
-				4E89173E273688580046AC91 /* PlaceViewController.swift */,
+				4E89173E273688580046AC91 /* EditPlaceViewController.swift */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -328,7 +328,7 @@
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4EF353152BB56A9900A0A85B /* TrackListInfoViewController.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
-				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
+				4E1D0E1F274BDB1900F3D584 /* EditTrackViewController.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -500,14 +500,14 @@
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4ECC1ACC2BA2FB3300B9CCBD /* PlaceGroupViewController.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
-				4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */,
+				4E1D0E20274BDB1900F3D584 /* EditTrackViewController.swift in Sources */,
 				4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */,
 				4EF353122BB56A4800A0A85B /* PlaceListInfoViewController.swift in Sources */,
 				4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */,
 				4E1982BF2BAB58CE00A37AE0 /* VideoCell.swift in Sources */,
 				4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */,
 				4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */,
-				4E89173F273688580046AC91 /* PlaceViewController.swift in Sources */,
+				4E89173F273688580046AC91 /* EditPlaceViewController.swift in Sources */,
 				4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* MainMenuView.swift in Sources */,
 				4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */,
@@ -676,7 +676,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -685,7 +685,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -705,7 +705,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -714,7 +714,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.6;
+				MARKETING_VERSION = 3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

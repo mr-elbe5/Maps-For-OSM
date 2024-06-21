@@ -20,14 +20,11 @@ class EditTrackViewController: PopupScrollViewController{
     
     var track: TrackItem
     
-    var editMode = false
-    
-    let editButton = UIButton().asIconButton("pencil", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .white)
     let mapButton = UIButton().asIconButton("map", color: .white)
     
-    var nameEditField : UITextField? = nil
-    var noteEditView : TextEditArea? = nil
+    var nameEditField = UITextField()
+    var noteEditView = TextEditArea()
     
     var delegate : TrackDelegate? = nil
     
@@ -52,12 +49,7 @@ class EditTrackViewController: PopupScrollViewController{
         super.setupHeaderView(headerView: headerView)
         let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
         
-        headerView.addSubviewWithAnchors(editButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        editButton.addAction(UIAction(){ action in
-            self.toggleEditMode()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(mapButton, top: buttonTopAnchor, leading: editButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
+        headerView.addSubviewWithAnchors(mapButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         mapButton.addAction(UIAction(){ action in
             self.dismiss(animated: true){
                 self.delegate?.showTrackItemOnMap(item: self.track)
@@ -74,8 +66,6 @@ class EditTrackViewController: PopupScrollViewController{
     
     func setupContent() {
         contentView.removeAllSubviews()
-        nameEditField = nil
-        noteEditView = nil
         if !track.trackpoints.isEmpty {
             var header = UILabel(header: "startLocation".localize())
             contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
@@ -89,39 +79,20 @@ class EditTrackViewController: PopupScrollViewController{
             header = UILabel(header: "name".localize())
             contentView.addSubviewWithAnchors(header, top: timeLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
             
-            var lastView: UIView = header
+            nameEditField.setDefaults()
+            nameEditField.text = track.name
+            nameEditField.setKeyboardToolbar(doneTitle: "done".localize())
+            contentView.addSubviewWithAnchors(nameEditField, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             
-            if editMode{
-                nameEditField = UITextField()
-                nameEditField?.setDefaults()
-                nameEditField?.text = track.name
-                nameEditField?.setKeyboardToolbar(doneTitle: "done".localize())
-                
-                let noteEditView = TextEditArea().defaultWithBorder()
-                noteEditView.text = track.note
-                contentView.addSubviewWithAnchors(noteEditView, top: lastView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-                self.noteEditView = noteEditView
-                
-                let saveButton = UIButton()
-                saveButton.setTitle("save".localize(), for: .normal)
-                saveButton.setTitleColor(.systemBlue, for: .normal)
-                saveButton.addAction(UIAction(){ action in
-                    self.save()
-                }, for: .touchDown)
-                contentView.addSubviewWithAnchors(saveButton, top: noteEditView.bottomAnchor, insets: defaultInsets)
-                    .centerX(contentView.centerXAnchor)
-                lastView = saveButton
-            }
-            else{
-                let nameLabel = UILabel(text: track.name)
-                contentView.addSubviewWithAnchors(nameLabel, top: lastView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
-                let noteLabel = UILabel(text: track.note)
-                contentView.addSubviewWithAnchors(noteLabel, top: nameLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-                lastView = noteLabel
-            }
+            header = UILabel(header: "note".localize())
+            contentView.addSubviewWithAnchors(header, top: nameEditField.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
+            
+            noteEditView.setDefaults()
+            noteEditView.text = track.note
+            contentView.addSubviewWithAnchors(noteEditView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             
             header = UILabel(header: "distances".localize())
-            contentView.addSubviewWithAnchors(header, top: lastView.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
+            contentView.addSubviewWithAnchors(header, top: noteEditView.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
             
             let distanceLabel = UILabel(text: "\("distance".localize()): \(Int(track.distance))m")
             contentView.addSubviewWithAnchors(distanceLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
@@ -133,31 +104,25 @@ class EditTrackViewController: PopupScrollViewController{
             contentView.addSubviewWithAnchors(downDistanceLabel, top: upDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
             
             let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
-            contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
+            contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+            
+            let saveButton = UIButton()
+            saveButton.setTitle("save".localize(), for: .normal)
+            saveButton.setTitleColor(.systemBlue, for: .normal)
+            saveButton.addAction(UIAction(){ action in
+                self.save()
+            }, for: .touchDown)
+            contentView.addSubviewWithAnchors(saveButton, top: durationLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+                .centerX(contentView.centerXAnchor)
                 
         }
         
     }
     
-    func toggleEditMode(){
-        if editMode{
-            editButton.tintColor = .black
-            editMode = false
-        }
-        else{
-            editButton.tintColor = .systemBlue
-            editMode = true
-        }
-        setupContent()
-    }
-    
     func save(){
-        track.name = nameEditField?.text ?? "Tour"
-        track.note = noteEditView?.text ?? ""
+        track.name = nameEditField.text ?? "Tour"
+        track.note = noteEditView.text ?? ""
         AppData.shared.saveLocally()
-        if editMode{
-            toggleEditMode()
-        }
     }
     
 }

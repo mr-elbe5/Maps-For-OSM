@@ -236,8 +236,8 @@ extension PlaceGroupViewController : PlaceCellDelegate{
         }
     }
     
-    func viewPlace(place: Place) {
-        let placeController = PlaceViewController(location: place)
+    func editPlace(place: Place) {
+        let placeController = EditPlaceViewController(location: place)
         placeController.place = place
         placeController.placeDelegate = self
         placeController.trackDelegate = self
@@ -261,8 +261,8 @@ extension PlaceGroupViewController : PlaceDelegate{
 
 extension PlaceGroupViewController : TrackDelegate{
     
-    func viewTrackItem(item: TrackItem) {
-        let controller = TrackViewController(track: item)
+    func editTrackItem(item: TrackItem) {
+        let controller = EditTrackViewController(track: item)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
