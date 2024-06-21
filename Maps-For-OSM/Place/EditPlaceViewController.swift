@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PlaceViewController: PopupTableViewController{
+class EditPlaceViewController: PopupTableViewController{
     
     let editModeButton = UIButton().asIconButton("pencil.circle", color: .label)
     let addImageButton = UIButton().asIconButton("photo", color: .label)
@@ -222,7 +222,7 @@ class PlaceViewController: PopupTableViewController{
     
 }
 
-extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
+extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -310,7 +310,7 @@ extension PlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceViewController : PlaceDelegate{
+extension EditPlaceViewController : PlaceDelegate{
     
     func placeChanged(place: Place) {
         self.placeDelegate?.placeChanged(place: place)
@@ -327,7 +327,7 @@ extension PlaceViewController : PlaceDelegate{
     
 }
 
-extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension EditPlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
@@ -354,7 +354,7 @@ extension PlaceViewController: UIImagePickerControllerDelegate, UINavigationCont
     
 }
 
-extension PlaceViewController: NoteViewDelegate{
+extension EditPlaceViewController: NoteViewDelegate{
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
@@ -382,7 +382,7 @@ extension PlaceViewController: NoteViewDelegate{
     
 }
 
-extension PlaceViewController: AudioCaptureDelegate{
+extension EditPlaceViewController: AudioCaptureDelegate{
     
     func audioCaptured(audio: AudioItem){
         if let coordinate = LocationService.shared.location?.coordinate{
@@ -407,7 +407,7 @@ extension PlaceViewController: AudioCaptureDelegate{
     }
 }
 
-extension PlaceViewController : VideoDelegate{
+extension EditPlaceViewController : VideoDelegate{
     
     func viewVideoItem(item: VideoItem) {
         let controller = VideoViewController()
@@ -418,7 +418,7 @@ extension PlaceViewController : VideoDelegate{
     
 }
 
-extension PlaceViewController : ImageDelegate{
+extension EditPlaceViewController : ImageDelegate{
     
     func viewImage(image: ImageItem) {
         let controller = ImageViewController()
@@ -429,7 +429,7 @@ extension PlaceViewController : ImageDelegate{
     
 }
 
-extension PlaceViewController : TrackDelegate{
+extension EditPlaceViewController : TrackDelegate{
     
     func viewTrackItem(item: TrackItem) {
         let controller = TrackViewController(track: item)
