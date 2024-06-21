@@ -24,22 +24,18 @@ class NoteCell: PlaceItemCell{
     override func updateIconView(isEditing: Bool = false){
         iconView.removeAllSubviews()
         if let note = note{
-            var lastAnchor = iconView.trailingAnchor
-            if isEditing{
-                let selectedButton = UIButton().asIconButton(note.selected ? "checkmark.square" : "square", color: .label)
-                selectedButton.addAction(UIAction(){ action in
-                    note.selected = !note.selected
-                    selectedButton.setImage(UIImage(systemName: note.selected ? "checkmark.square" : "square"), for: .normal)
-                }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
-                lastAnchor = selectedButton.leadingAnchor
-            }
+            let selectedButton = UIButton().asIconButton(note.selected ? "checkmark.square" : "square", color: .label)
+            selectedButton.addAction(UIAction(){ action in
+                note.selected = !note.selected
+                selectedButton.setImage(UIImage(systemName: note.selected ? "checkmark.square" : "square"), for: .normal)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.delegate?.showPlaceOnMap(place: note.place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
         }
     }
@@ -54,19 +50,8 @@ class NoteCell: PlaceItemCell{
             let header = UILabel(header: "note".localize())
             itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, insets: UIEdgeInsets(top: 40, left: defaultInset, bottom: defaultInset, right: defaultInset))
                 .centerX(itemView.centerXAnchor)
-            if isEditing{
-                let noteField = UITextView()
-                noteField.setDefaults()
-                noteField.text = note.text
-                noteField.delegate = self
-                itemView.addSubviewWithAnchors(noteField, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
-                    .height(200, priority: highPriority)
-            }
-            else{
-                let noteLabel = UILabel(text: note.text)
-                itemView.addSubviewWithAnchors(noteLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
-            }
-            
+            let noteLabel = UILabel(text: note.text)
+            itemView.addSubviewWithAnchors(noteLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: defaultInsets)
         }
     }
     

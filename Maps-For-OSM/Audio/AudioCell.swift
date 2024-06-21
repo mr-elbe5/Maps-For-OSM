@@ -33,22 +33,18 @@ class AudioCell: PlaceItemCell{
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         if let audio = audio{
-            var lastAnchor = iconView.trailingAnchor
-            if isEditing{
-                let selectedButton = UIButton().asIconButton(audio.selected ? "checkmark.square" : "square", color: .label)
-                selectedButton.addAction(UIAction(){ action in
-                    audio.selected = !audio.selected
-                    selectedButton.setImage(UIImage(systemName: audio.selected ? "checkmark.square" : "square"), for: .normal)
-                }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
-                lastAnchor = selectedButton.leadingAnchor
-            }
+            let selectedButton = UIButton().asIconButton(audio.selected ? "checkmark.square" : "square", color: .label)
+            selectedButton.addAction(UIAction(){ action in
+                audio.selected = !audio.selected
+                selectedButton.setImage(UIImage(systemName: audio.selected ? "checkmark.square" : "square"), for: .normal)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.placeDelegate?.showPlaceOnMap(place: audio.place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
     }
     
@@ -62,24 +58,15 @@ class AudioCell: PlaceItemCell{
             let audioView = AudioPlayerView()
             audioView.setupView()
             itemView.addSubviewWithAnchors(audioView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 1, left: defaultInset, bottom: 0, right: defaultInset))
-            if isEditing{
-                let titleField = UITextField()
-                titleField.setDefaults()
-                titleField.text = audio.title
-                titleField.delegate = self
-                itemView.addSubviewWithAnchors(titleField, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+            if !audio.title.isEmpty{
+                let titleView = UILabel(text: audio.title)
+                itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
             }
             else{
-                if !audio.title.isEmpty{
-                    let titleView = UILabel(text: audio.title)
-                    itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
-                }
-                else{
-                    audioView.bottom(itemView.bottomAnchor, inset: -defaultInset)
-                }
-                audioView.url = audio.fileURL
-                audioView.enablePlayer()
+                audioView.bottom(itemView.bottomAnchor, inset: -defaultInset)
             }
+            audioView.url = audio.fileURL
+            audioView.enablePlayer()
         }
     }
 

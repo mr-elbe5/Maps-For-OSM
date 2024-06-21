@@ -30,22 +30,18 @@ class VideoCell: PlaceItemCell{
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         if let video = video{
-            var lastAnchor = iconView.trailingAnchor
-            if isEditing{
-                let selectedButton = UIButton().asIconButton(video.selected ? "checkmark.square" : "square", color: .label)
-                selectedButton.addAction(UIAction(){ action in
-                    video.selected = !video.selected
-                    selectedButton.setImage(UIImage(systemName: video.selected ? "checkmark.square" : "square"), for: .normal)
-                }, for: .touchDown)
-                iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: lastAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
-                lastAnchor = selectedButton.leadingAnchor
-            }
+            let selectedButton = UIButton().asIconButton(video.selected ? "checkmark.square" : "square", color: .label)
+            selectedButton.addAction(UIAction(){ action in
+                video.selected = !video.selected
+                selectedButton.setImage(UIImage(systemName: video.selected ? "checkmark.square" : "square"), for: .normal)
+            }, for: .touchDown)
+            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
                 self.placeDelegate?.showPlaceOnMap(place: video.place)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: lastAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
@@ -69,21 +65,12 @@ class VideoCell: PlaceItemCell{
             videoView.url = video.fileURL
             videoView.setAspectRatioConstraint()
             
-            if isEditing{
-                let titleField = UITextField()
-                titleField.setDefaults()
-                titleField.text = video.title
-                titleField.delegate = self
-                itemView.addSubviewWithAnchors(titleField, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor)
+            if !video.title.isEmpty{
+                let titleView = UILabel(text: video.title)
+                itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
             }
             else{
-                if !video.title.isEmpty{
-                    let titleView = UILabel(text: video.title)
-                    itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
-                }
-                else{
-                    videoView.bottom(itemView.bottomAnchor)
-                }
+                videoView.bottom(itemView.bottomAnchor)
             }
         }
     }
