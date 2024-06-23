@@ -28,6 +28,12 @@ class PlaceCell: TableViewCell{
     
     var delegate: PlaceCellDelegate? = nil
     
+    override open func setupCellBody(){
+        cellBody.addSubviewFilling(itemView, insets: .zero)
+        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        cellBody.addSubviewWithAnchors(iconView, top: iconView.bottomAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
+    }
+    
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
         if let place = place{
@@ -44,7 +50,7 @@ class PlaceCell: TableViewCell{
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
-            let editButton = UIButton().asIconButton("pencil", color: .label)
+            let editButton = UIButton().asIconButton("magnifyingglass", color: .label)
             editButton.addAction(UIAction(){ action in
                 self.delegate?.editPlace(place: place)
             }, for: .touchDown)
@@ -56,12 +62,16 @@ class PlaceCell: TableViewCell{
         itemView.removeAllSubviews()
         
         if let place = place{
-            let header = UILabel(header: place.name)
-            itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+            var topAnchor = itemView.topAnchor
+            if !place.name.isEmpty{
+                let header = UILabel(header: place.name)
+                itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+                topAnchor = header.bottomAnchor
+            }
             
             let locationLabel = UILabel(text: place.address)
             locationLabel.textAlignment = .center
-            itemView.addSubviewWithAnchors(locationLabel, top: header.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+            itemView.addSubviewWithAnchors(locationLabel, top: topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
             let coordinateLabel = UILabel(text: place.coordinate.asString)
             coordinateLabel.textAlignment = .center
