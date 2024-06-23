@@ -196,7 +196,6 @@ class ICloudViewController: PopupScrollViewController{
     func assertLocalDataConsitency(){
         AppData.shared.places.updateCreationDates()
         AppData.shared.places.removeDuplicates()
-        AppData.shared.places.reloadPlacemarks()
         AppData.shared.saveLocally()
         self.delegate?.dataChanged()
         self.showDone(title: "success".localize(), text: "assertedLocalConsistency".localize())

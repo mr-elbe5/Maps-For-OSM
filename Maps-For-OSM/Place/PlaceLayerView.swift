@@ -71,6 +71,7 @@ class PlaceLayerView: UIView {
                 else if let place = group.places.first{
                     let marker = PlaceMarker(place: place)
                     marker.addAction(UIAction{ action in
+                        place.assertPlacemark()
                         self.delegate?.showPlaceDetails(place: place)
                     }, for: .touchDown)
                     addSubview(marker)
