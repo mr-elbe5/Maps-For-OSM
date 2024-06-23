@@ -25,7 +25,6 @@ class StatusView : UIView{
     var gpsSpeed : UILabel? = nil
     var horizontalUncertaintyLabel : UILabel? = nil
     var verticalUncertaintyLabel : UILabel? = nil
-    var speedUncertaintyFactorLabel : UILabel? = nil
     
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
@@ -45,7 +44,6 @@ class StatusView : UIView{
         gpsSpeed = nil
         horizontalUncertaintyLabel = nil
         verticalUncertaintyLabel = nil
-        speedUncertaintyFactorLabel = nil
         if isDetailed{
             var label = UILabel(text: "\("coordinate".localize()):")
             coordinateLabel = UILabel()
@@ -69,12 +67,6 @@ class StatusView : UIView{
             label = UILabel(text: "\("horizontalUncertainty".localize()):")
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
-            speedUncertaintyFactorLabel = UILabel()
-            label = UILabel(text: "\("speedUncertaintyFactor".localize()):")
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(speedUncertaintyFactorLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
             label = UILabel(text: "\("positionValidityHint".localize())")
@@ -105,13 +97,6 @@ class StatusView : UIView{
         altitudeLabel?.text = "\(Int(location.altitude)) m"
         gpsSpeed?.text = "\(Int(max(0,location.speed*3.6))) km/h"
         horizontalUncertaintyLabel?.text = location.horizontalAccuracy < 0 ? "?" : "\(String(floor(location.horizontalAccuracy))) m"
-        horizontalUncertaintyLabel?.textColor = location.horizontalAccuracyValid ? .darkGray : .red
-        var s = "?"
-        if location.speedAccuracy > 0 && location.speedAccuracyValid{
-            s = String(floor(location.speedAccuracy))
-        }
-        speedUncertaintyFactorLabel?.text = s
-        speedUncertaintyFactorLabel?.textColor = location.speedAccuracyValid ? .darkGray : .red
     }
     
     func updateDirection(direction: CLLocationDirection) {

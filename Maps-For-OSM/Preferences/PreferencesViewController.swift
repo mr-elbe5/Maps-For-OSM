@@ -15,7 +15,6 @@ class PreferencesViewController: PopupScrollViewController{
     var followTrackSwitch = LabeledSwitchView()
     var trackpointIntervalField = LabeledTextField()
     var maxHorizontalUncertaintyField = LabeledTextField()
-    var maxSpeedUncertaintyFactorField = LabeledTextField()
     var minHorizontalTrackpointDistanceField = LabeledTextField()
     var minVerticalTrackpointDistanceField = LabeledTextField()
     var maxTrackpointInLineDeviationField = LabeledTextField()
@@ -61,11 +60,8 @@ class PreferencesViewController: PopupScrollViewController{
         maxHorizontalUncertaintyField.setupView(labelText: "maxHorizontalUncertainty".localize(), text: String(Preferences.shared.maxHorizontalUncertainty), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxHorizontalUncertaintyField, top: trackpointIntervalField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        maxSpeedUncertaintyFactorField.setupView(labelText: "maxSpeedUncertaintyFactor".localize(), text: String(Int(Preferences.shared.maxSpeedUncertaintyFactor)), isHorizontal: false)
-        contentView.addSubviewWithAnchors(maxSpeedUncertaintyFactorField, top: maxHorizontalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
         minHorizontalTrackpointDistanceField.setupView(labelText: "minHorizontalTrackpointDistance".localize(), text: String(Preferences.shared.minHorizontalTrackpointDistance), isHorizontal: false)
-        contentView.addSubviewWithAnchors(minHorizontalTrackpointDistanceField, top: maxSpeedUncertaintyFactorField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(minHorizontalTrackpointDistanceField, top: maxHorizontalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         minVerticalTrackpointDistanceField.setupView(labelText: "minVerticalTrackpointDistance".localize(), text: String(Preferences.shared.minVerticalTrackpointDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(minVerticalTrackpointDistanceField, top: minHorizontalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
@@ -107,10 +103,6 @@ class PreferencesViewController: PopupScrollViewController{
         val = Double(maxHorizontalUncertaintyField.text)
         if let val = val{
             Preferences.shared.maxHorizontalUncertainty = val
-        }
-        val = Double(maxSpeedUncertaintyFactorField.text)
-        if let val = val{
-            Preferences.shared.maxSpeedUncertaintyFactor = val
         }
         val = Double(minHorizontalTrackpointDistanceField.text)
         if let val = val{

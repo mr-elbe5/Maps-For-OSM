@@ -17,12 +17,11 @@ extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
-        if TrackRecorder.isRecording{
-            if TrackRecorder.updateTrack(with: location){
-                trackChanged()
-                if Preferences.shared.followTrack{
-                    mapView.focusUserLocation()
-                }
+        if TrackRecorder.isRecording, location.horizontalUncertainty < Preferences.shared.maxHorizontalUncertainty{
+            TrackRecorder.track?.addTrackpoint(from: location)
+            trackChanged()
+            if Preferences.shared.followTrack{
+                mapView.focusUserLocation()
             }
             trackStatusView.updateTrackInfo()
         }

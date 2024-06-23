@@ -230,15 +230,13 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     }
     
     func startTrackRecording(at coordinate: CLLocationCoordinate2D) {
-        if let location = LocationService.shared.location{
-            TrackRecorder.startRecording(startLocation: location)
-            if let track = TrackRecorder.track{
-                TrackItem.visibleTrack = track
-                self.trackChanged()
-                self.trackStatusView.isHidden = false
-                self.statusView.isHidden = true
-                self.trackStatusView.startTrackInfo()
-            }
+        TrackRecorder.startRecording()
+        if let track = TrackRecorder.track{
+            TrackItem.visibleTrack = track
+            self.trackChanged()
+            self.trackStatusView.isHidden = false
+            self.statusView.isHidden = true
+            self.trackStatusView.startTrackInfo()
         }
     }
     

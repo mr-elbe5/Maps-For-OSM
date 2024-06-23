@@ -46,7 +46,6 @@
 		4E5124202BAAE78100A5B416 /* PlaceItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241F2BAAE78100A5B416 /* PlaceItemCell.swift */; };
 		4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */; };
 		4E55EFAE28DAF951007AD900 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* PreferencesViewController.swift */; };
-		4E5BD27F2C01FD740049AF27 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD27E2C01FD740049AF27 /* E5MapData */; };
 		4E5BD2822C01FD7F0049AF27 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD2812C01FD7F0049AF27 /* E5IOSUI */; };
 		4E5BD2882C01FFEC0049AF27 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4E5BD2872C01FFEC0049AF27 /* E5PhotoLib */; };
 		4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */; };
@@ -82,6 +81,7 @@
 		4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */; };
 		4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477192941EED600294B21 /* AudioPlayerView.swift */; };
 		4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */; };
+		4EFF86952C273B8300D0DEB0 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF86942C273B8300D0DEB0 /* E5MapData */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,10 +166,10 @@
 				4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */,
 				4EB311A72B8B7B47008A710E /* Zip in Frameworks */,
 				4E5BD2822C01FD7F0049AF27 /* E5IOSUI in Frameworks */,
+				4EFF86952C273B8300D0DEB0 /* E5MapData in Frameworks */,
 				4EC520212C0DF33F009C4A49 /* E5IOSAV in Frameworks */,
 				4EC520182C0DEECB009C4A49 /* E5IOSAV in Frameworks */,
 				4EC5201E2C0DF334009C4A49 /* E5Data in Frameworks */,
-				4E5BD27F2C01FD740049AF27 /* E5MapData in Frameworks */,
 				4E5BD2882C01FFEC0049AF27 /* E5PhotoLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,13 +391,13 @@
 			name = "Maps for OSM";
 			packageProductDependencies = (
 				4EB311A62B8B7B47008A710E /* Zip */,
-				4E5BD27E2C01FD740049AF27 /* E5MapData */,
 				4E5BD2812C01FD7F0049AF27 /* E5IOSUI */,
 				4E5BD2872C01FFEC0049AF27 /* E5PhotoLib */,
 				4EC520172C0DEECB009C4A49 /* E5IOSAV */,
 				4EC5201A2C0DF030009C4A49 /* E5Data */,
 				4EC5201D2C0DF334009C4A49 /* E5Data */,
 				4EC520202C0DF33F009C4A49 /* E5IOSAV */,
+				4EFF86942C273B8300D0DEB0 /* E5MapData */,
 			);
 			productName = SwiftyMapViewer;
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
@@ -430,11 +430,11 @@
 			mainGroup = 4E0BD97426E9FC66005A4A94;
 			packageReferences = (
 				4EB311A52B8B7B47008A710E /* XCRemoteSwiftPackageReference "Zip" */,
-				4E5BD27D2C01FD740049AF27 /* XCRemoteSwiftPackageReference "E5MapData" */,
 				4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
 				4E5BD2862C01FFEC0049AF27 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
 				4EC5201C2C0DF334009C4A49 /* XCRemoteSwiftPackageReference "E5Data" */,
 				4EC5201F2C0DF33F009C4A49 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
+				4EFF86932C273B8300D0DEB0 /* XCLocalSwiftPackageReference "../E5MapData" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -750,15 +750,14 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		4E5BD27D2C01FD740049AF27 /* XCRemoteSwiftPackageReference "E5MapData" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://git.elbe5cloud.de/miro/E5MapData";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		4EFF86932C273B8300D0DEB0 /* XCLocalSwiftPackageReference "../E5MapData" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../E5MapData;
 		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
 		4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://git.elbe5cloud.de/miro/E5IOSUI";
@@ -802,11 +801,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E5BD27E2C01FD740049AF27 /* E5MapData */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E5BD27D2C01FD740049AF27 /* XCRemoteSwiftPackageReference "E5MapData" */;
-			productName = E5MapData;
-		};
 		4E5BD2812C01FD7F0049AF27 /* E5IOSUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4E5BD2802C01FD7F0049AF27 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
@@ -839,6 +833,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EC5201F2C0DF33F009C4A49 /* XCRemoteSwiftPackageReference "E5IOSAV" */;
 			productName = E5IOSAV;
+		};
+		4EFF86942C273B8300D0DEB0 /* E5MapData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = E5MapData;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
