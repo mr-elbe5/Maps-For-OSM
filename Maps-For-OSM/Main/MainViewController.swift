@@ -36,8 +36,8 @@ class MainViewController: UIViewController {
         setupActionMenuView(layoutGuide: layoutGuide)
         setupMapMenuView(layoutGuide: layoutGuide)
         setupLicenseView(layoutGuide: layoutGuide)
-        setupStatusView(layoutGuide: layoutGuide)
         setupTrackStatusView(layoutGuide: layoutGuide)
+        setupStatusView(layoutGuide: layoutGuide)
         mapView.delegate = self
     }
     
@@ -96,21 +96,19 @@ class MainViewController: UIViewController {
     
     func setupStatusView(layoutGuide: UILayoutGuide){
         statusView.setup()
-        view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
+        view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: trackStatusView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
     }
     
     func setupTrackStatusView(layoutGuide: UILayoutGuide){
         trackStatusView.setup()
         trackStatusView.delegate = self
         view.addSubviewWithAnchors(trackStatusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
-        trackStatusView.isHidden = true
+        trackStatusView.hide(true)
     }
     
     func updateFollowTrack(){
-        if Preferences.shared.followTrack{
-            if TrackRecorder.isRecording{
-                mapView.focusUserLocation()
-            }
+        if Preferences.shared.followTrack, TrackRecorder.isRecording{
+            mapView.focusUserLocation()
         }
     }
     

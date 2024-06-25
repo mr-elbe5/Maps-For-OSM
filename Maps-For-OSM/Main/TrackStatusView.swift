@@ -27,12 +27,16 @@ class TrackStatusView : UIView{
     
     var timer : Timer? = nil
     
+    var zeroHeightConstraint: NSLayoutConstraint? = nil
+    
     var delegate: TrackStatusDelegate? = nil
     
     func setup(){
         backgroundColor = UIColor(white: 1.0, alpha: 0.5)
         layer.cornerRadius = 10
         layer.masksToBounds = true
+        zeroHeightConstraint = heightAnchor.constraint(equalToConstant: 0)
+        
         let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
         distanceIcon.tintColor = .darkGray
         addSubviewWithAnchors(distanceIcon, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: smallInsets)
@@ -72,19 +76,22 @@ class TrackStatusView : UIView{
         addSubviewWithAnchors(pauseResumeButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
     }
     
+    func hide(_ flag: Bool){
+        isHidden = flag
+        zeroHeightConstraint?.isActive = flag
+    }
+    
     func startTrackInfo(){
         pauseResumeButton.asIconButton("pause.circle")
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
     func updateTrackInfo(){
-        if let track = TrackRecorder.track{
+        if let track = TrackRecorder.instance?.track{
             distanceLabel.text = "\(Int(track.distance)) m"
             distanceUpLabel.text = "\(Int(track.upDistance)) m"
             distanceDownLabel.text = "\(Int(track.downDistance)) m"
-            if let tp = track.trackpoints.last{
-                speedLabel.text = "\(tp.kmhSpeed) km/h"
-            }
+            speedLabel.text = "\(TrackRecorder.instance?.kmhSpeed ?? 0) km/h"
         }
     }
     
@@ -103,7 +110,7 @@ class TrackStatusView : UIView{
     }
     
     @objc func updateTime(){
-        if let track = TrackRecorder.track{
+        if let track = TrackRecorder.instance?.track{
             timeLabel.text = track.durationUntilNow.hmString()
         }
     }

@@ -100,7 +100,7 @@ class StatusView : UIView{
     }
     
     func updateDirection(direction: CLLocationDirection) {
-        if TrackRecorder.track == nil{
+        if TrackRecorder.instance == nil{
             compassLabel?.text="\(Int(direction))°"
         }
     }

@@ -329,7 +329,9 @@ extension MainViewController: MapMenuDelegate{
 extension MainViewController: TrackStatusDelegate{
     
     func togglePauseTracking() {
-        TrackRecorder.isRecording = !TrackRecorder.isRecording
+        if let trackRecorder = TrackRecorder.instance{
+            trackRecorder.isRecording = !trackRecorder.isRecording
+        }
     }
     
 }

@@ -69,7 +69,7 @@ class ActionMenuView: UIView {
     }
     
     func toggleTrackRecording(){
-        if TrackRecorder.track == nil{
+        if TrackRecorder.instance == nil{
             if let coordinate = LocationService.shared.location?.coordinate{
                 self.delegate?.startTrackRecording(at: coordinate)
                 toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)

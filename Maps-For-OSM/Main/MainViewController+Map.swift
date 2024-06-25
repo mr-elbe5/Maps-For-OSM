@@ -17,8 +17,8 @@ extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
-        if TrackRecorder.isRecording, location.horizontalUncertainty < Preferences.shared.maxHorizontalUncertainty{
-            TrackRecorder.track?.addTrackpoint(from: location)
+        if TrackRecorder.isRecording, location.horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty{
+            TrackRecorder.instance?.track.addTrackpoint(from: location)
             trackChanged()
             if Preferences.shared.followTrack{
                 mapView.focusUserLocation()

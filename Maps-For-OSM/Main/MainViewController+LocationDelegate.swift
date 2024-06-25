@@ -230,18 +230,17 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     }
     
     func startTrackRecording(at coordinate: CLLocationCoordinate2D) {
-        TrackRecorder.startRecording()
-        if let track = TrackRecorder.track{
-            TrackItem.visibleTrack = track
+        TrackRecorder.startTracking()
+        if let trackRecorder = TrackRecorder.instance{
+            TrackItem.visibleTrack = trackRecorder.track
             self.trackChanged()
-            self.trackStatusView.isHidden = false
-            self.statusView.isHidden = true
+            self.trackStatusView.hide(false)
             self.trackStatusView.startTrackInfo()
         }
     }
     
     func saveTrack() {
-        if let track = TrackRecorder.track, let coordinate = track.startCoordinate{
+        if let track = TrackRecorder.stopTracking(), let coordinate = track.startCoordinate{
             track.name = "trackName".localize(param: track.startTime.dateString())
             var newPlace = false
             var place = AppData.shared.getPlace(coordinate: coordinate)
@@ -253,9 +252,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             AppData.shared.saveLocally()
             TrackItem.visibleTrack = track
             self.trackChanged()
-            TrackRecorder.stopRecording()
-            self.trackStatusView.isHidden = true
-            self.statusView.isHidden = false
+            self.trackStatusView.hide(true)
             DispatchQueue.main.async {
                 if newPlace{
                     self.placesChanged()
@@ -268,13 +265,11 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     }
     
     func cancelTrack() {
-        if TrackRecorder.track != nil{
-            TrackRecorder.stopRecording()
+        if TrackRecorder.stopTracking() != nil{
             TrackItem.visibleTrack = nil
             self.trackChanged()
             self.trackStatusView.stopTrackInfo()
-            self.trackStatusView.isHidden = true
-            self.statusView.isHidden = false
+            self.trackStatusView.hide(true)
         }
     }
     
