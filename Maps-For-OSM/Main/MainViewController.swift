@@ -31,6 +31,19 @@ class MainViewController: UIViewController {
         mapView.setDefaultLocation()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let trackRecorder = TrackRecorder.instance, trackRecorder.interrupted{
+            showDecide(title: "interruptedTrackFound".localize(), text: "shouldResumeInterruptedTrack".localize(), onYes: {
+                trackRecorder.isRecording = true
+                trackRecorder.interrupted = false
+                self.actionMenuView.updateTrackingButton()
+            }, onNo:{
+                TrackRecorder.instance = nil
+            })
+        }
+    }
+    
     func setupViews(){
         let layoutGuide = view.safeAreaLayoutGuide
         setupMapView(layoutGuide: layoutGuide)

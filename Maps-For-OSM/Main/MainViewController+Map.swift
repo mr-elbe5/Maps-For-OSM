@@ -29,9 +29,8 @@ extension MainViewController: LocationServiceDelegate{
             else if trackRecorder.track.trackpoints.isEmpty, let cancelAlert = cancelAlert{
                 cancelAlert.dismiss(animated: false)
                 self.cancelAlert = nil
-                actionMenuView.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)
-                actionMenuView.toggleTrackingButton.showsMenuAsPrimaryAction = true
-                startTrackRecording(at: location.coordinate)
+                startTrackRecording(at: location)
+                actionMenuView.updateTrackingButton()
             }
             
         }

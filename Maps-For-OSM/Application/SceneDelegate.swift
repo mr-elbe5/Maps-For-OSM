@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Log.info("SceneDelegate will connect")
         AppLoader.initialize()
+        TrackRecorder.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -24,10 +25,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppLoader.loadData(delegate: mainViewController)
         LocationService.shared.serviceDelegate = mainViewController
         LocationService.shared.requestWhenInUseAuthorization()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         Log.info("SceneDelegate did disconnect")
+        TrackRecorder.save()
         LocationService.shared.stop()
         let count = FileManager.default.deleteTemporaryFiles()
         if count > 0{

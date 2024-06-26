@@ -1820,6 +1820,23 @@
         }
       }
     },
+    "interruptedTrackFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unterbrochene Tour gefunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found an interrupted Track"
+          }
+        }
+      }
+    },
     "loadError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3085,6 +3102,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Share Image"
+          }
+        }
+      }
+    },
+    "shouldResumeInterruptedTrack" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Unterbrochene Tour fortsetzen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume this interrupted track?"
           }
         }
       }

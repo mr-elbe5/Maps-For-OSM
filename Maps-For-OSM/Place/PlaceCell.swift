@@ -29,9 +29,9 @@ class PlaceCell: TableViewCell{
     var delegate: PlaceCellDelegate? = nil
     
     override open func setupCellBody(){
-        cellBody.addSubviewFilling(itemView, insets: .zero)
         iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
-        cellBody.addSubviewWithAnchors(iconView, top: iconView.bottomAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
+        cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
+        cellBody.addSubviewWithAnchors(itemView, top: iconView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: .zero)
     }
     
     override func updateIconView(isEditing: Bool){

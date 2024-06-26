@@ -89,6 +89,17 @@ class ActionMenuView: UIView {
         return UIMenu(title: "", children: actions)
     }
     
+    func updateTrackingButton(){
+        if TrackRecorder.instance == nil{
+            self.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.departure"), for: .normal)
+            self.toggleTrackingButton.showsMenuAsPrimaryAction = false
+        }
+        else{
+            toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)
+            toggleTrackingButton.showsMenuAsPrimaryAction = true
+        }
+    }
+    
 }
 
 

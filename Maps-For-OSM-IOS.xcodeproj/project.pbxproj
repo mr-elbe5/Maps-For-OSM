@@ -72,6 +72,8 @@
 		4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */; };
 		4EFF86952C273B8300D0DEB0 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF86942C273B8300D0DEB0 /* E5MapData */; };
 		4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */; };
+		4EFF869B2C2C09F700D0DEB0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF869A2C2C09F700D0DEB0 /* E5IOSUI */; };
+		4EFF869E2C2C2D0700D0DEB0 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF869D2C2C2D0700D0DEB0 /* E5MapData */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,10 +145,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EFF869B2C2C09F700D0DEB0 /* E5IOSUI in Frameworks */,
 				4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */,
 				4EB311A72B8B7B47008A710E /* Zip in Frameworks */,
 				4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */,
 				4EFF86952C273B8300D0DEB0 /* E5MapData in Frameworks */,
+				4EFF869E2C2C2D0700D0DEB0 /* E5MapData in Frameworks */,
 				4EC520212C0DF33F009C4A49 /* E5IOSAV in Frameworks */,
 				4EC520182C0DEECB009C4A49 /* E5IOSAV in Frameworks */,
 				4EC5201E2C0DF334009C4A49 /* E5Data in Frameworks */,
@@ -368,6 +372,8 @@
 				4EC520202C0DF33F009C4A49 /* E5IOSAV */,
 				4EFF86942C273B8300D0DEB0 /* E5MapData */,
 				4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */,
+				4EFF869A2C2C09F700D0DEB0 /* E5IOSUI */,
+				4EFF869D2C2C2D0700D0DEB0 /* E5MapData */,
 			);
 			productName = SwiftyMapViewer;
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
@@ -403,8 +409,8 @@
 				4E5BD2862C01FFEC0049AF27 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
 				4EC5201C2C0DF334009C4A49 /* XCRemoteSwiftPackageReference "E5Data" */,
 				4EC5201F2C0DF33F009C4A49 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
-				4EFF86932C273B8300D0DEB0 /* XCLocalSwiftPackageReference "../E5MapData" */,
-				4EFF86962C2AFC0E00D0DEB0 /* XCLocalSwiftPackageReference "../E5IOSUI" */,
+				4EFF86992C2C09F700D0DEB0 /* XCRemoteSwiftPackageReference "e5iosui" */,
+				4EFF869C2C2C2D0700D0DEB0 /* XCRemoteSwiftPackageReference "e5mapdata" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -710,17 +716,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		4EFF86932C273B8300D0DEB0 /* XCLocalSwiftPackageReference "../E5MapData" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../E5MapData;
-		};
-		4EFF86962C2AFC0E00D0DEB0 /* XCLocalSwiftPackageReference "../E5IOSUI" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../E5IOSUI;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
 		4E5BD2862C01FFEC0049AF27 /* XCRemoteSwiftPackageReference "E5PhotoLib" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -752,6 +747,22 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.3;
+			};
+		};
+		4EFF86992C2C09F700D0DEB0 /* XCRemoteSwiftPackageReference "e5iosui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://git.elbe5cloud.de/miro/e5iosui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.8;
+			};
+		};
+		4EFF869C2C2C2D0700D0DEB0 /* XCRemoteSwiftPackageReference "e5mapdata" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://git.elbe5cloud.de/miro/e5mapdata";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.14;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -792,6 +803,16 @@
 		4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = E5IOSUI;
+		};
+		4EFF869A2C2C09F700D0DEB0 /* E5IOSUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EFF86992C2C09F700D0DEB0 /* XCRemoteSwiftPackageReference "e5iosui" */;
+			productName = E5IOSUI;
+		};
+		4EFF869D2C2C2D0700D0DEB0 /* E5MapData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EFF869C2C2C2D0700D0DEB0 /* XCRemoteSwiftPackageReference "e5mapdata" */;
+			productName = E5MapData;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
