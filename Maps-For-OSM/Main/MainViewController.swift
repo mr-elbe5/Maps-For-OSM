@@ -19,6 +19,8 @@ class MainViewController: UIViewController {
     var trackStatusView = TrackStatusView()
     var licenseView = UIView()
     
+    var cancelAlert: UIAlertController? = nil
+    
     override func loadView() {
         super.loadView()
         setupViews()

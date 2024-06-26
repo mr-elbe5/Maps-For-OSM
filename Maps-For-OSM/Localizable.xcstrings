@@ -1803,6 +1803,23 @@
         }
       }
     },
+    "infoURL" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://elbe5.de/openstreetmapkarten/mapsforosmiosapp.html"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://en.elbe5.de/openstreetmapmaps/mapsforosmiosapp.html"
+          }
+        }
+      }
+    },
     "loadError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2581,6 +2598,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please Note"
+          }
+        }
+      }
+    },
+    "pleaseWait" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte warten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please Wait"
           }
         }
       }
@@ -3878,6 +3912,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thos icon starts video mode (record videos)"
+          }
+        }
+      }
+    },
+    "waitingForGPS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf GPS warten..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Waiting for GPS..."
           }
         }
       }

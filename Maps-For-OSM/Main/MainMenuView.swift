@@ -36,8 +36,6 @@ protocol MainMenuDelegate{
     func createBackup()
     func restoreBackup()
     
-    func openInfo()
-    
 }
 
 class MainMenuView: UIView {
@@ -78,7 +76,7 @@ class MainMenuView: UIView {
         let infoButton = UIButton().asIconButton("info")
         addSubviewWithAnchors(infoButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 10))
         infoButton.addAction(UIAction(){ action in
-            self.delegate?.openInfo()
+            UIApplication.shared.open(URL(string: "infoURL".localize())!)
         }, for: .touchDown)
         
         let settingsButton = UIButton().asIconButton("gearshape")

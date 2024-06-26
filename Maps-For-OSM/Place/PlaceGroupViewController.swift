@@ -66,13 +66,6 @@ class PlaceGroupViewController: PopupTableViewController{
             self.deleteSelected()
         }, for: .touchDown)
         deleteButton.isHidden = !tableView.isEditing
-        
-        let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        infoButton.addAction(UIAction(){ action in
-            let controller = PlaceGroupInfoViewController()
-            self.present(controller, animated: true)
-        }, for: .touchDown)
     }
     
     override func setupSubheaderView(subheaderView: UIView) {

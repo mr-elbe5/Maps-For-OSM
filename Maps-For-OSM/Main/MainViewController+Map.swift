@@ -17,13 +17,23 @@ extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
-        if TrackRecorder.isRecording, location.horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty{
-            TrackRecorder.instance?.track.addTrackpoint(from: location)
-            trackChanged()
-            if Preferences.shared.followTrack{
-                mapView.focusUserLocation()
+        if let trackRecorder = TrackRecorder.instance, location.horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty{
+            if TrackRecorder.isRecording{
+                TrackRecorder.instance?.track.addTrackpoint(from: location)
+                trackChanged()
+                if Preferences.shared.followTrack{
+                    mapView.focusUserLocation()
+                }
+                trackStatusView.updateTrackInfo()
             }
-            trackStatusView.updateTrackInfo()
+            else if trackRecorder.track.trackpoints.isEmpty, let cancelAlert = cancelAlert{
+                cancelAlert.dismiss(animated: false)
+                self.cancelAlert = nil
+                actionMenuView.toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)
+                actionMenuView.toggleTrackingButton.showsMenuAsPrimaryAction = true
+                startTrackRecording(at: location.coordinate)
+            }
+            
         }
         if statusView.isDetailed{
             statusView.updateDetailInfo(location: location)

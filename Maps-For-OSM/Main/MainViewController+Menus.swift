@@ -127,11 +127,6 @@ extension MainViewController: MainMenuDelegate{
         present(controller, animated: true)
     }
     
-    func openInfo() {
-        let controller = MainInfoViewController()
-        present(controller, animated: true)
-    }
-    
     func openSearch() {
         let controller = SearchViewController()
         controller.delegate = self

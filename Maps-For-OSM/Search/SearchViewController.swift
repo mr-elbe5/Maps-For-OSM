@@ -39,18 +39,6 @@ class SearchViewController: PopupTableViewController{
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.CELL_IDENT)
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
-        
-        let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        infoButton.addAction(UIAction(){ action in
-            let controller = SearchInfoViewController()
-            self.present(controller, animated: true)
-        }, for: .touchDown)
-    }
-    
     override func setupSubheaderView(subheaderView: UIView){
         searchField.placeholder = "searchPlaceholder".localize()
         searchField.borderStyle = .roundedRect

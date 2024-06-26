@@ -229,8 +229,15 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         }
     }
     
-    func startTrackRecording(at coordinate: CLLocationCoordinate2D) {
+    func startTracking() {
         TrackRecorder.startTracking()
+        cancelAlert = showCancel(title: "pleaseWait".localize(), text: "waitingForGPS".localize()){
+            self.cancelAlert = nil
+            return
+        }
+    }
+    
+    func startTrackRecording(at coordinate: CLLocationCoordinate2D) {
         if let trackRecorder = TrackRecorder.instance{
             TrackItem.visibleTrack = trackRecorder.track
             self.trackChanged()

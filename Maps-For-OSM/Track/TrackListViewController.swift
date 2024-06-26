@@ -43,13 +43,6 @@ class TrackListViewController: PopupTableViewController{
         deleteButton.addAction(UIAction(){ action in
             self.deleteSelected()
         }, for: .touchDown)
-        
-        let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        infoButton.addAction(UIAction(){ action in
-            let controller = TrackListInfoViewController()
-            self.present(controller, animated: true)
-        }, for: .touchDown)
     }
     
     func toggleSelectAll(){

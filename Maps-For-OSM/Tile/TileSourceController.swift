@@ -75,19 +75,6 @@ class TileSourceViewController: PopupScrollViewController{
         
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
-        
-        let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        infoButton.addAction(UIAction(){ action in
-            let controller = TileSourceInfoViewController()
-            controller.modalPresentationStyle = .fullScreen
-            self.present(controller, animated: true)
-        }, for: .touchDown)
-    }
-    
     func save(){
         let newTemplate = tileUrlTemplateField.text
         if newTemplate != Preferences.shared.urlTemplate{

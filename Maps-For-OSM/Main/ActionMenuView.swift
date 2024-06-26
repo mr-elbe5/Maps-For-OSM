@@ -18,7 +18,7 @@ protocol ActionMenuDelegate{
     func openAddNote(at coordinate: CLLocationCoordinate2D)
     func openAudioRecorder(at coordinate: CLLocationCoordinate2D)
     
-    func startTrackRecording(at coordinate: CLLocationCoordinate2D)
+    func startTracking()
     func saveTrack()
     func cancelTrack()
 }
@@ -70,11 +70,7 @@ class ActionMenuView: UIView {
     
     func toggleTrackRecording(){
         if TrackRecorder.instance == nil{
-            if let coordinate = LocationService.shared.location?.coordinate{
-                self.delegate?.startTrackRecording(at: coordinate)
-                toggleTrackingButton.setImage(UIImage(systemName: "figure.walk.motion")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal), for: .normal)
-                toggleTrackingButton.showsMenuAsPrimaryAction = true
-            }
+            self.delegate?.startTracking()
         }
     }
     
