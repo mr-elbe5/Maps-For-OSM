@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidDisconnect(_ scene: UIScene) {
         Log.info("SceneDelegate did disconnect")
-        TrackRecorder.save()
+        TrackRecorder.instance?.save()
         LocationService.shared.stop()
         let count = FileManager.default.deleteTemporaryFiles()
         if count > 0{

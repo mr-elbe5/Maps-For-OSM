@@ -1,5 +1,5 @@
 {
-  "originHash" : "c2cae479d5291ee51e1e315d1156eca9916593e1fcd0a631b1c1f3f57a0f63d5",
+  "originHash" : "328cc31bfc196c4c28a9c1d82a5b5e518091c93d314721ca48d9c993fb3ba66f",
   "pins" : [
     {
       "identity" : "e5data",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/e5mapdata",
       "state" : {
-        "revision" : "cdfa78c4392c38222bc56b863c2bbaa54d8f8294",
-        "version" : "1.0.14"
+        "revision" : "02906673f6d10a64228e4d818c54d2d202f4f232",
+        "version" : "1.0.15"
       }
     },
     {
