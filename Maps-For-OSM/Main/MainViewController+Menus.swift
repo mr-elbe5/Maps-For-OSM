@@ -105,10 +105,6 @@ extension MainViewController: MainMenuDelegate{
         present(picker, animated: true)
     }
     
-    func applyFilter() {
-        mapView.updateLocations()
-    }
-    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
@@ -122,7 +118,6 @@ extension MainViewController: MainMenuDelegate{
     
     func openPreferences(){
         let controller = PreferencesViewController()
-        controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
     }
@@ -292,7 +287,7 @@ extension MainViewController : UIDocumentPickerDelegate{
             if Backup.unzipBackupFile(zipFileURL: url){
                 if Backup.restoreBackupFile(){
                     self.showDone(title: "success".localize(), text: "restoreDone".localize())
-                    self.mapView.updateLocations()
+                    self.mapView.updateLocationLayer()
                 }
             }
             self.stopSpinner(spinner)
@@ -331,11 +326,10 @@ extension MainViewController: TrackStatusDelegate{
     
 }
 
-extension MainViewController: AppLoaderDelegate{
+extension MainViewController: ICloudDelegate{
     
     func dataChanged() {
-        mapView.updateLocations()
+        mapView.updateLocationLayer()
     }
     
 }
-

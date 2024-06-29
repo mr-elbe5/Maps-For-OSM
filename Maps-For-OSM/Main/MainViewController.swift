@@ -132,7 +132,7 @@ class MainViewController: UIViewController {
     }
     
     func locationsChanged() {
-        mapView.updateLocations()
+        mapView.updateLocationLayer()
     }
     
     func trackChanged() {

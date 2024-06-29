@@ -42,7 +42,7 @@ class MapView: UIView {
     func setupLocationLayerView(controller: LocationLayerDelegate){
         addSubviewFilling(locationLayerView)
         locationLayerView.delegate = controller
-        updateLocations()
+        updateLocationLayer()
         locationLayerView.isHidden = !AppState.shared.showLocations
     }
     
@@ -61,11 +61,6 @@ class MapView: UIView {
 
     func clearTiles(){
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
-    }
-    
-    func updateLocations(){
-        locationLayerView.updateLocations()
-        updateLocationLayer()
     }
     
     func updateLocation(for location: Location){

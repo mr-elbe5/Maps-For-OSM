@@ -14,15 +14,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Log.info("SceneDelegate will connect")
-        AppLoader.initialize()
+        if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
+            Preferences.shared = prefs
+        }
+        else{
+            Log.info("no saved data available for preferences")
+            Preferences.shared = Preferences()
+        }
+        if let state : AppState = UserDefaults.standard.load(forKey: AppState.storeKey){
+            AppState.shared = state
+        }
+        else{
+            Log.info("no saved data available for state")
+            AppState.shared = AppState()
+        }
         TrackRecorder.load()
+        AppData.shared.loadLocally()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let mainViewController = MainViewController()
         window?.rootViewController = mainViewController
         window?.makeKeyAndVisible()
-        AppLoader.loadData(delegate: mainViewController)
         LocationService.shared.serviceDelegate = mainViewController
         LocationService.shared.requestWhenInUseAuthorization()
         
@@ -47,8 +60,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         Log.info("SceneDelegate resigning active")
-        AppLoader.saveInitalizationData()
-        AppLoader.saveData()
+        AppState.shared.save()
+        Preferences.shared.save()
+        AppData.shared.saveLocally()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()

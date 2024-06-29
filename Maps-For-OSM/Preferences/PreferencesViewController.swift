@@ -19,8 +19,6 @@ class PreferencesViewController: PopupScrollViewController{
     var minVerticalTrackpointDistanceField = LabeledTextField()
     var maxTrackpointInLineDeviationField = LabeledTextField()
     
-    var delegate: AppLoaderDelegate? = nil
-    
     override func loadView() {
         title = "preferences".localize()
         super.loadView()

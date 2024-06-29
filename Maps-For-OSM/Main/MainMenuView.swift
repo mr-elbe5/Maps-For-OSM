@@ -21,8 +21,6 @@ protocol MainMenuDelegate{
     func openImageList()
     func importImages()
     
-    func applyFilter()
-    
     func focusUserLocation()
     
     func openSearch()
@@ -84,38 +82,23 @@ class MainMenuView: UIView {
         settingsButton.menu = getSettingsMenu()
         settingsButton.showsMenuAsPrimaryAction = true
         
+        let iCloudButton = UIButton().asIconButton("cloud")
+        addSubviewWithAnchors(iCloudButton, top: topAnchor, trailing: settingsButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
+        iCloudButton.addAction(UIAction(){ action in
+            self.delegate?.openICloud()
+        }, for: .touchDown)
+        
         let searchButton = UIButton().asIconButton("magnifyingglass")
-        addSubviewWithAnchors(searchButton, top: topAnchor, trailing: settingsButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
+        addSubviewWithAnchors(searchButton, top: topAnchor, trailing: iCloudButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
         searchButton.addAction(UIAction(){ action in
             self.delegate?.openSearch()
         }, for: .touchDown)
-        updateLocationMenuButton()
     }
     
     func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
         actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
-        })
-        actions.append(UIAction(title: "allLocations".localize(), image: UIImage(named: "mappin.green")){ action in
-            AppState.shared.locationFilter = .all
-            self.delegate?.applyFilter()
-            self.updateLocationMenuButton()
-        })
-        actions.append(UIAction(title: "mediaLocations".localize(), image: UIImage(named: "mappin.red")){ action in
-            AppState.shared.locationFilter = .media
-            self.delegate?.applyFilter()
-            self.updateLocationMenuButton()
-        })
-        actions.append(UIAction(title: "trackLocations".localize(), image: UIImage(named: "mappin.blue")){ action in
-            AppState.shared.locationFilter = .track
-            self.delegate?.applyFilter()
-            self.updateLocationMenuButton()
-        })
-        actions.append(UIAction(title: "noteLocations".localize(), image: UIImage(named: "mappin.gray")){ action in
-            AppState.shared.locationFilter = .note
-            self.delegate?.applyFilter()
-            self.updateLocationMenuButton()
         })
         if AppState.shared.showLocations{
             actions.append(UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
@@ -163,9 +146,6 @@ class MainMenuView: UIView {
         actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
             self.delegate?.openPreferences()
         })
-        actions.append(UIAction(title: "iCloud".localize(), image: UIImage(systemName: "cloud")){ action in
-            self.delegate?.openICloud()
-        })
         actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "map")){ action in
             self.delegate?.refreshMap()
         })
@@ -189,19 +169,6 @@ class MainMenuView: UIView {
     
     func updateLocationMenu(){
         self.locationMenuButton.menu = self.getLocationMenu()
-    }
-    
-    func updateLocationMenuButton(){
-        switch AppState.shared.locationFilter{
-        case .all:
-            locationMenuButton.tintColor = .systemGreen
-        case .media:
-            locationMenuButton.tintColor = .systemRed
-        case .track:
-            locationMenuButton.tintColor = .systemBlue
-        case .note:
-            locationMenuButton.tintColor = .systemGray
-        }
     }
     
 }

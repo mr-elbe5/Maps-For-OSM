@@ -17,13 +17,7 @@ protocol LocationLayerDelegate{
 
 class LocationLayerView: UIView {
     
-    var locations = LocationList()
-    
     var delegate: LocationLayerDelegate? = nil
-    
-    func updateLocations(){
-        locations = AppData.shared.locations.filteredLocations
-    }
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
         //Log.debug("setupMarkers, zoom=\(zoom),offset=\(offset),scale=\(scale)")
@@ -31,20 +25,18 @@ class LocationLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == World.maxZoom{
-            for location in locations{
+            for location in AppData.shared.locations{
                 let marker = LocationMarker(location: location)
                 marker.addAction(UIAction{ action in
                     self.delegate?.showLocationDetails(location: marker.location)
                 }, for: .touchDown)
                 addSubview(marker)
-                //marker.menu = getMarkerMenu(marker: marker)
-                //marker.showsMenuAsPrimaryAction = true
             }
         }
         else{
             let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
             var groups = Array<LocationGroup>()
-            for location in locations{
+            for location in AppData.shared.locations{
                 var grouped = false
                 for group in groups{
                     if group.isWithinRadius(location: location, radius: planetDist){
