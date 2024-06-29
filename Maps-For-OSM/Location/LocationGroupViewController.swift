@@ -18,7 +18,7 @@ class LocationGroupViewController: PopupTableViewController{
     let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var placeDelegate: LocationDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
     init(group: LocationGroup){
@@ -34,7 +34,7 @@ class LocationGroupViewController: PopupTableViewController{
     }
     
     override func loadView() {
-        title = "placeGroup".localize()
+        title = "locationGroup".localize()
         createSubheaderView()
         super.loadView()
     }
@@ -68,7 +68,7 @@ class LocationGroupViewController: PopupTableViewController{
         let coordinateLabel = UILabel(text: group.centralCoordinate?.asString ?? "")
         subheaderView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: flatInsets)
         
-        header = UILabel(header: "places".localize())
+        header = UILabel(header: "locations".localize())
         subheaderView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: subheaderView.leadingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
     
@@ -95,13 +95,13 @@ class LocationGroupViewController: PopupTableViewController{
         if list.isEmpty{
             return
         }
-        showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
-            print("deleting \(list.count) places")
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(i: list.count), text: "deleteHint".localize()){
+            print("deleting \(list.count) locations")
             for location in list{
                 AppData.shared.deleteLocation(location)
                 self.group.locations.remove(location)
             }
-            self.placeDelegate?.locationsChanged()
+            self.locationDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -117,27 +117,27 @@ class LocationGroupViewController: PopupTableViewController{
         if list.isEmpty{
             return
         }
-        showDestructiveApprove(title: "confirmMergePlaces".localize(i: list.count), text: "mergeHint".localize()){
-            print("merging \(list.count) places")
-            if let newPlace = self.mergePlaces(list){
-                AppData.shared.locations.append(newPlace)
+        showDestructiveApprove(title: "confirmMergeLocations".localize(i: list.count), text: "mergeHint".localize()){
+            Log.debug("merging \(list.count) locations")
+            if let newLocation = self.mergeLocations(list){
+                AppData.shared.locations.append(newLocation)
                 AppData.shared.locations.removeLocations(of: list)
                 AppData.shared.saveLocally()
-                self.placeDelegate?.locationsChanged()
+                self.locationDelegate?.locationsChanged()
                 self.tableView.reloadData()
             }
         }
     }
     
-    private func mergePlaces(_ places: LocationList) -> Location?{
-        let count = places.count
+    private func mergeLocations(_ locations: LocationList) -> Location?{
+        let count = locations.count
         if count < 2{
             return nil
         }
         var lat = 0.0
         var lon = 0.0
         var timestamp = Date.localDate
-        for location in places{
+        for location in locations{
             lat += location.coordinate.latitude
             lon += location.coordinate.longitude
             if location.creationDate < timestamp{
@@ -146,16 +146,16 @@ class LocationGroupViewController: PopupTableViewController{
         }
         lat = lat/Double(count)
         lon = lon/Double(count)
-        let newPlace = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
-        newPlace.evaluatePlacemark()
-        newPlace.creationDate = timestamp
-        for location in places{
+        let newLocation = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        newLocation.evaluatePlacemark()
+        newLocation.creationDate = timestamp
+        for location in locations{
             for item in location.items{
-                newPlace.addItem(item: item)
+                newLocation.addItem(item: item)
             }
         }
-        newPlace.sortItems()
-        return newPlace
+        newLocation.sortItems()
+        return newLocation
     }
     
 }
@@ -196,17 +196,17 @@ extension LocationGroupViewController : LocationCellDelegate{
     
     func showLocationOnMap(location: Location) {
         self.dismiss(animated: true){
-            self.placeDelegate?.showLocationOnMap(location: location)
+            self.locationDelegate?.showLocationOnMap(location: location)
         }
     }
     
     func editLocation(location: Location) {
-        let placeController = EditLocationViewController(location: location)
-        placeController.location = location
-        placeController.locationDelegate = self
-        placeController.trackDelegate = self
-        placeController.modalPresentationStyle = .fullScreen
-        self.present(placeController, animated: true)
+        let controller = EditLocationViewController(location: location)
+        controller.location = location
+        controller.locationDelegate = self
+        controller.trackDelegate = self
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
     }
     
 }
@@ -214,11 +214,11 @@ extension LocationGroupViewController : LocationCellDelegate{
 extension LocationGroupViewController : LocationDelegate{
     
     func locationChanged(location: Location) {
-        placeDelegate?.locationChanged(location: location)
+        locationDelegate?.locationChanged(location: location)
     }
     
     func locationsChanged() {
-        placeDelegate?.locationsChanged()
+        locationDelegate?.locationsChanged()
     }
     
 }

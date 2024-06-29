@@ -16,7 +16,7 @@ class LocationListViewController: PopupTableViewController{
     class Day{
         
         var date: Date
-        var places = LocationList()
+        var locations = LocationList()
         
         init(_ date: Date){
             self.date = date
@@ -34,7 +34,7 @@ class LocationListViewController: PopupTableViewController{
     var days = Array<Day>()
     
     override func loadView() {
-        title = "placeList".localize()
+        title = "LocationList".localize()
         super.loadView()
         setupData()
         tableView.delegate = self
@@ -49,11 +49,11 @@ class LocationListViewController: PopupTableViewController{
             if let day = days.first(where: { day in
                 day.date == startOfDay
             }){
-                day.places.append(location)
+                day.locations.append(location)
             }
             else{
                 let day = Day(startOfDay)
-                day.places.append(location)
+                day.locations.append(location)
                 days.append(day)
             }
         }
@@ -65,7 +65,7 @@ class LocationListViewController: PopupTableViewController{
         
         headerView.addSubviewWithAnchors(sortButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
         sortButton.addAction(UIAction(){ action in
-            self.sortPlaces()
+            self.sortLocations()
         }, for: .touchDown)
         
         headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: sortButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
@@ -79,7 +79,7 @@ class LocationListViewController: PopupTableViewController{
         }, for: .touchDown)
     }
     
-    func sortPlaces(){
+    func sortLocations(){
         AppState.shared.sortAscending = !AppState.shared.sortAscending
         AppData.shared.locations.sortAll()
         setupData()
@@ -109,8 +109,8 @@ class LocationListViewController: PopupTableViewController{
         if list.isEmpty{
             return
         }
-        showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
-            print("deleting \(list.count) places")
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(i: list.count), text: "deleteHint".localize()){
+            Log.debug("deleting \(list.count) locations")
             for location in list{
                 AppData.shared.deleteLocation(location)
             }
@@ -135,7 +135,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let day = days[section]
-        return day.places.count
+        return day.locations.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -148,7 +148,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationCell.CELL_IDENT, for: indexPath) as! LocationCell
         let day = days[indexPath.section]
-        cell.location = day.places[indexPath.row]
+        cell.location = day.locations[indexPath.row]
         cell.delegate = self
         cell.updateCell()
         return cell
@@ -173,12 +173,12 @@ extension LocationListViewController : LocationCellDelegate{
     }
     
     func editLocation(location: Location) {
-        let placeController = EditLocationViewController(location: location)
-        placeController.location = location
-        placeController.locationDelegate = self
-        placeController.trackDelegate = self
-        placeController.modalPresentationStyle = .fullScreen
-        self.present(placeController, animated: true)
+        let controller = EditLocationViewController(location: location)
+        controller.location = location
+        controller.locationDelegate = self
+        controller.trackDelegate = self
+        controller.modalPresentationStyle = .fullScreen
+        self.present(controller, animated: true)
     }
     
 }

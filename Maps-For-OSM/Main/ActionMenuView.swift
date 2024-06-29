@@ -12,7 +12,7 @@ import E5IOSUI
 
 protocol ActionMenuDelegate{
     
-    func addPlace(at coordinate: CLLocationCoordinate2D)
+    func addLocation(at coordinate: CLLocationCoordinate2D)
     func openCamera(at coordinate: CLLocationCoordinate2D)
     func openAddImage(at coordinate: CLLocationCoordinate2D)
     func openAddNote(at coordinate: CLLocationCoordinate2D)

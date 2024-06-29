@@ -52,6 +52,23 @@
         }
       }
     },
+    "addLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ort markieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark Location"
+          }
+        }
+      }
+    },
     "addNote" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -86,23 +103,6 @@
         }
       }
     },
-    "addPlace" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ort markieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mark Place"
-          }
-        }
-      }
-    },
     "addVideo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -120,19 +120,19 @@
         }
       }
     },
-    "allPlaces" : {
+    "allLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Alle Orte anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show all Places"
+            "value" : "Show all Locations"
           }
         }
       }
@@ -562,7 +562,7 @@
         }
       }
     },
-    "confirmDeletePlace" : {
+    "confirmDeleteLocation" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -579,7 +579,7 @@
         }
       }
     },
-    "confirmDeletePlaces" : {
+    "confirmDeleteLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -834,19 +834,19 @@
         }
       }
     },
-    "createPlace" : {
+    "createLocation" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Markierung erstellen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Set Marker"
+            "value" : "Set Location Marker"
           }
         }
       }
@@ -1004,19 +1004,19 @@
         }
       }
     },
-    "deleteAllPlaces" : {
+    "deleteAllLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Alle Markierungen löschen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete all Places"
+            "value" : "Delete all Locations"
           }
         }
       }
@@ -1072,36 +1072,36 @@
         }
       }
     },
-    "deletePlace" : {
+    "deleteLocation" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ort löschen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete Place"
+            "value" : "Delete Location"
           }
         }
       }
     },
-    "deletePlaces" : {
+    "deleteLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Alle Ortsmarkierungen löschen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete all LPlaces"
+            "value" : "Delete all Locations"
           }
         }
       }
@@ -1531,19 +1531,19 @@
         }
       }
     },
-    "hidePlaces" : {
+    "hideLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Markierte Orte ausblenden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hide Place Markers"
+            "value" : "Hide Location Markers"
           }
         }
       }
@@ -2296,23 +2296,6 @@
         }
       }
     },
-    "moveToScreenCenter" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ort auf Bildschirmmitte (Kreuz) verschieben"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Move Place to Screen Center (Cross Position)"
-          }
-        }
-      }
-    },
     "name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2942,6 +2925,23 @@
         }
       }
     },
+    "saveLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Position speichern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save Location"
+          }
+        }
+      }
+    },
     "saveLog" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2955,23 +2955,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save Log"
-          }
-        }
-      }
-    },
-    "savePlace" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Position speichern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save Place"
           }
         }
       }
@@ -3038,7 +3021,7 @@
         }
       }
     },
-    "searchPlace" : {
+    "searchLocation" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3060,14 +3043,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ort"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Place"
+            "value" : "Location"
           }
         }
       }
@@ -3157,36 +3140,36 @@
         }
       }
     },
-    "showPlaceList" : {
+    "showLocationList" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Alle Orte..."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All Places..."
+            "value" : "All Locations..."
           }
         }
       }
     },
-    "showPlaces" : {
+    "showLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Markierte Orte anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show Place Markers"
+            "value" : "Show Location Markers"
           }
         }
       }
@@ -3304,19 +3287,19 @@
         }
       }
     },
-    "startPlace" : {
+    "startLocation" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Startposition"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start Place"
+            "value" : "Start Location"
           }
         }
       }

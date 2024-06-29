@@ -62,7 +62,7 @@ class LocationLayerView: UIView {
             }
             for group in groups{
                 if group.locations.count > 1{
-                    let marker = LocationGroupMarker(placeGroup: group)
+                    let marker = LocationGroupMarker(locationGroup: group)
                     marker.addAction(UIAction{ action in
                         self.delegate?.showGroupDetails(group: group)
                     }, for: .touchDown)
@@ -93,7 +93,7 @@ class LocationLayerView: UIView {
             if let marker = subview as? LocationMarker, marker.location.equals(location){
                 return marker
             }
-            if let marker = subview as? LocationGroupMarker, marker.placeGroup.hasLocation(location: location){
+            if let marker = subview as? LocationGroupMarker, marker.locationGroup.hasLocation(location: location){
                 return marker
             }
         }
@@ -112,13 +112,13 @@ class LocationLayerView: UIView {
             if let marker = subview as? LocationMarker{
                 marker.updatePosition(to: CGPoint(x: (marker.location.mapPoint.x - offset.x)*scale , y: (marker.location.mapPoint.y - offset.y)*scale))
             }
-            else if let groupMarker = subview as? LocationGroupMarker, let center = groupMarker.placeGroup.centerPlanetPosition{
+            else if let groupMarker = subview as? LocationGroupMarker, let center = groupMarker.locationGroup.centerPlanetPosition{
                 groupMarker.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
             }
         }
     }
     
-    func updatePlaceStatus(_ location: Location){
+    func updateLocationStatus(_ location: Location){
         if let marker = getMarker(location: location){
             marker.updateImage()
         }

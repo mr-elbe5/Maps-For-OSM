@@ -30,7 +30,7 @@ class ImageListViewController: PopupTableViewController{
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var placeDelegate: LocationDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var imageDelegate: ImageDelegate? = nil
     
     var images = ImageList()
@@ -164,7 +164,7 @@ class ImageListViewController: PopupTableViewController{
             AppData.shared.saveLocally()
             self.images = AppData.shared.locations.imageItems
             self.setupData()
-            self.placeDelegate?.locationsChanged()
+            self.locationDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -199,7 +199,7 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
         let day = days[indexPath.section]
         cell.useShortDate = true
         cell.image = day.images[indexPath.row]
-        cell.placeDelegate = self
+        cell.locationDelegate = self
         cell.imageDelegate = self
         cell.updateCell(isEditing: tableView.isEditing)
         return cell
@@ -218,17 +218,17 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
 extension ImageListViewController : LocationDelegate{
     
     func locationChanged(location: Location) {
-        self.placeDelegate?.locationChanged(location: location)
+        self.locationDelegate?.locationChanged(location: location)
     }
     
     func locationsChanged() {
-        self.placeDelegate?.locationsChanged()
+        self.locationDelegate?.locationsChanged()
     }
     
     
     func showLocationOnMap(location: Location) {
         self.dismiss(animated: true){
-            self.placeDelegate?.showLocationOnMap(location: location)
+            self.locationDelegate?.showLocationOnMap(location: location)
         }
     }
 }

@@ -79,7 +79,7 @@ extension MainViewController: LocationLayerDelegate{
     
     func showGroupDetails(group: LocationGroup) {
         let controller = LocationGroupViewController(group: group)
-        controller.placeDelegate = self
+        controller.locationDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .popover
         controller.modalPresentationStyle = .fullScreen

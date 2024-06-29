@@ -218,7 +218,7 @@
 				4E3BE7EA26EA7E57000F9069 /* Map */,
 				4E4798852C060D0C00B49506 /* iCloud */,
 				4E9A245B275379B8004B43BE /* Tile */,
-				4E30799228D783F8005FBEF0 /* Place */,
+				4E30799228D783F8005FBEF0 /* Location */,
 				4E0252572BC3F2E90010D234 /* Audio */,
 				4E0252582BC3F3010010D234 /* Image */,
 				4E1982C62BAC248500A37AE0 /* Note */,
@@ -247,7 +247,7 @@
 			path = Note;
 			sourceTree = "<group>";
 		};
-		4E30799228D783F8005FBEF0 /* Place */ = {
+		4E30799228D783F8005FBEF0 /* Location */ = {
 			isa = PBXGroup;
 			children = (
 				4E79FBB2275BCE67001F0481 /* Marker.swift */,
@@ -260,7 +260,7 @@
 				4E1B81092732EDC5003ED6B0 /* LocationMarker.swift */,
 				4E89173E273688580046AC91 /* EditLocationViewController.swift */,
 			);
-			path = Place;
+			path = Location;
 			sourceTree = "<group>";
 		};
 		4E3BE7EA26EA7E57000F9069 /* Map */ = {

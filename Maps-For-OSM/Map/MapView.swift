@@ -39,7 +39,7 @@ class MapView: UIView {
         addSubviewFilling(trackLayerView)
     }
     
-    func setupPlaceLayerView(controller: LocationLayerDelegate){
+    func setupLocationLayerView(controller: LocationLayerDelegate){
         addSubviewFilling(locationLayerView)
         locationLayerView.delegate = controller
         updateLocations()
@@ -65,14 +65,14 @@ class MapView: UIView {
     
     func updateLocations(){
         locationLayerView.updateLocations()
-        updatePlaceLayer()
+        updateLocationLayer()
     }
     
-    func updatePlace(for location: Location){
+    func updateLocation(for location: Location){
         locationLayerView.updateMarker(for: location)
     }
     
-    func updatePlaceLayer(){
+    func updateLocationLayer(){
         locationLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
@@ -96,7 +96,7 @@ class MapView: UIView {
         scaleTo(scale: AppState.shared.scale)
         Log.info("moving to \(AppState.shared.coordinate.shortString)")
         scrollToScreenCenter(coordinate: AppState.shared.coordinate)
-        updatePlaceLayer()
+        updateLocationLayer()
     }
     
     func locationDidChange(location: CLLocation) {

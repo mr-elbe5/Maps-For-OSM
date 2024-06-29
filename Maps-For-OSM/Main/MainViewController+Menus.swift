@@ -54,7 +54,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func deleteAllLocations(){
-        showDestructiveApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             AppData.shared.deleteAllLocations()
             AppData.shared.saveLocally()
             self.locationsChanged()
@@ -87,7 +87,7 @@ extension MainViewController: MainMenuDelegate{
     func openImageList() {
         let controller = ImageListViewController()
         controller.images = AppData.shared.locations.imageItems
-        controller.placeDelegate = self
+        controller.locationDelegate = self
         controller.imageDelegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -175,18 +175,18 @@ extension MainViewController: PHPickerViewControllerDelegate{
                     if let uiimage = uiimage as? UIImage {
                         //Log.debug("got image \(uiimage.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
-                            var newPlace = false
+                            var newLocation = false
                             var location = AppData.shared.getLocation(coordinate: coordinate)
                             if location == nil{
                                 location = AppData.shared.createLocation(coordinate: coordinate)
-                                newPlace = true
+                                newLocation = true
                             }
                             let image = ImageItem()
                             image.creationDate = creationDate ?? Date.localDate
                             image.saveImage(uiImage: uiimage)
                             location!.addItem(item: image)
                             DispatchQueue.main.async {
-                                if newPlace{
+                                if newLocation{
                                     self.locationsChanged()
                                 }
                                 else{
@@ -202,11 +202,11 @@ extension MainViewController: PHPickerViewControllerDelegate{
                     if let url = url {
                         //Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
-                            var newPlace = false
+                            var newLocation = false
                             var location = AppData.shared.getLocation(coordinate: coordinate)
                             if location == nil{
                                 location = AppData.shared.createLocation(coordinate: coordinate)
-                                newPlace = true
+                                newLocation = true
                             }
                             let video = VideoItem()
                             video.creationDate = creationDate ?? Date.localDate
@@ -215,7 +215,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 video.saveFile(data: data)
                                 location!.addItem(item: video)
                                 DispatchQueue.main.async {
-                                    if newPlace{
+                                    if newLocation{
                                         self.locationsChanged()
                                     }
                                     else{
@@ -267,16 +267,16 @@ extension MainViewController : UIDocumentPickerDelegate{
             track.startTime = track.trackpoints.first?.timestamp ?? Date.localDate
             track.endTime = track.trackpoints.last?.timestamp ?? Date.localDate
             track.creationDate = track.startTime
-            var newPlace = false
+            var newLocation = false
             var location = AppData.shared.getLocation(coordinate: track.startCoordinate!)
             if location == nil{
                 location = AppData.shared.createLocation(coordinate: track.startCoordinate!)
-                newPlace = true
+                newLocation = true
             }
             location!.addItem(item: track)
             AppData.shared.saveLocally()
             DispatchQueue.main.async {
-                if newPlace{
+                if newLocation{
                     self.locationsChanged()
                 }
                 else{

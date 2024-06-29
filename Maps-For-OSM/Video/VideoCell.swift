@@ -24,7 +24,7 @@ class VideoCell: LocationItemCell{
         }
     }
     
-    var placeDelegate: LocationDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var videoDelegate: VideoDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
@@ -39,7 +39,7 @@ class VideoCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.placeDelegate?.showLocationOnMap(location: video.location)
+                self.locationDelegate?.showLocationOnMap(location: video.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

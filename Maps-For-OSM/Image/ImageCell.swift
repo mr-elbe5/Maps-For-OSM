@@ -24,7 +24,7 @@ class ImageCell: LocationItemCell{
         }
     }
     
-    var placeDelegate: LocationDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var imageDelegate: ImageDelegate? = nil
     
     var useShortDate = false
@@ -42,7 +42,7 @@ class ImageCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.placeDelegate?.showLocationOnMap(location: image.location)
+                self.locationDelegate?.showLocationOnMap(location: image.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

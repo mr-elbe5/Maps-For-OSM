@@ -94,37 +94,37 @@ class MainMenuView: UIView {
     
     func getLocationMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "showPlaceList".localize(), image: UIImage(systemName: "list.bullet")){ action in
+        actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
             self.delegate?.openLocationList()
         })
-        actions.append(UIAction(title: "allPlaces".localize(), image: UIImage(named: "mappin.green")){ action in
+        actions.append(UIAction(title: "allLocations".localize(), image: UIImage(named: "mappin.green")){ action in
             AppState.shared.locationFilter = .all
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
-        actions.append(UIAction(title: "mediaPlaces".localize(), image: UIImage(named: "mappin.red")){ action in
+        actions.append(UIAction(title: "mediaLocations".localize(), image: UIImage(named: "mappin.red")){ action in
             AppState.shared.locationFilter = .media
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
-        actions.append(UIAction(title: "trackPlaces".localize(), image: UIImage(named: "mappin.blue")){ action in
+        actions.append(UIAction(title: "trackLocations".localize(), image: UIImage(named: "mappin.blue")){ action in
             AppState.shared.locationFilter = .track
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
-        actions.append(UIAction(title: "notePlaces".localize(), image: UIImage(named: "mappin.gray")){ action in
+        actions.append(UIAction(title: "noteLocations".localize(), image: UIImage(named: "mappin.gray")){ action in
             AppState.shared.locationFilter = .note
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
         if AppState.shared.showLocations{
-            actions.append(UIAction(title: "hidePlaces".localize(), image: UIImage(systemName: "mappin.slash")){ action in
+            actions.append(UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
                 self.updateLocationMenu()
             })
         }
         else{
-            actions.append(UIAction(title: "showPlaces".localize(), image: UIImage(systemName: "mappin")){ action in
+            actions.append(UIAction(title: "showLocations".localize(), image: UIImage(systemName: "mappin")){ action in
                 self.delegate?.showLocations(true)
                 self.updateLocationMenu()
                 

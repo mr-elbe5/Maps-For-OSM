@@ -62,7 +62,7 @@ class MainViewController: UIViewController {
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupCurrentLocationView()
-        mapView.setupPlaceLayerView(controller: self)
+        mapView.setupLocationLayerView(controller: self)
         mapView.setupCrossView()
     }
     
@@ -128,7 +128,7 @@ class MainViewController: UIViewController {
     }
     
     func locationChanged(location: Location) {
-        mapView.updatePlace(for: location)
+        mapView.updateLocation(for: location)
     }
     
     func locationsChanged() {

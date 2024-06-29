@@ -41,8 +41,8 @@ class SearchResultCell: UITableViewCell{
     func updateCell(isEditing: Bool = false){
         cellBody.removeAllSubviews()
         if let location = location{
-            let placeLabel = UILabel(text: location.name)
-            cellBody.addSubviewWithAnchors(placeLabel, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
+            let locationLabel = UILabel(text: location.name)
+            cellBody.addSubviewWithAnchors(locationLabel, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: defaultInsets)
         }
     }
     

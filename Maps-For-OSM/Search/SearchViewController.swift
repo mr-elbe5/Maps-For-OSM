@@ -31,7 +31,7 @@ class SearchViewController: PopupTableViewController{
     var locations = Array<NominatimLocation>()
     
     override func loadView() {
-        title = "searchPlace".localize()
+        title = "searchLocation".localize()
         createSubheaderView()
         super.loadView()
         tableView.delegate = self

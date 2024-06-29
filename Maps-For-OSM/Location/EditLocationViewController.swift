@@ -18,7 +18,7 @@ class EditLocationViewController: PopupTableViewController{
     let addNoteButton = UIButton().asIconButton("pencil.and.list.clipboard", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteSelectedButton = UIButton().asIconButton("trash.square", color: .red)
-    let deletePlaceButton = UIButton().asIconButton("trash", color: .red)
+    let deleteLocationButton = UIButton().asIconButton("trash", color: .red)
     
     var location: Location
     
@@ -77,9 +77,9 @@ class EditLocationViewController: PopupTableViewController{
             self.deleteSelected()
         }, for: .touchDown)
         
-        headerView.addSubviewWithAnchors(deletePlaceButton, top: buttonTopAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deletePlaceButton.addAction(UIAction(){ action in
-            self.deletePlace()
+        headerView.addSubviewWithAnchors(deleteLocationButton, top: buttonTopAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        deleteLocationButton.addAction(UIAction(){ action in
+            self.deleteLocation()
         }, for: .touchDown)
     }
     
@@ -163,8 +163,8 @@ class EditLocationViewController: PopupTableViewController{
         }
     }
     
-    func deletePlace(){
-        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deleteHint".localize()){
+    func deleteLocation(){
+        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteHint".localize()){
             print("deleting location")
             AppData.shared.deleteLocation(self.location)
             self.locationDelegate?.locationsChanged()
@@ -190,7 +190,7 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
         case .audio: 
             if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? AudioItem{
                 cell.audio = audioItem
-                cell.placeDelegate = self
+                cell.locationDelegate = self
                 cell.updateCell()
                 return cell
             }
@@ -201,7 +201,7 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
         case .video:
             if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let videoItem = item as? VideoItem{
                 cell.video = videoItem
-                cell.placeDelegate = self
+                cell.locationDelegate = self
                 cell.videoDelegate = self
                 cell.updateCell()
                 return cell
@@ -213,7 +213,7 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
         case .image:
             if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let imageItem = item as? ImageItem{
                 cell.image = imageItem
-                cell.placeDelegate = self
+                cell.locationDelegate = self
                 cell.imageDelegate = self
                 cell.updateCell()
                 return cell
@@ -225,7 +225,7 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
         case .track:
             if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let trackItem = item as? TrackItem{
                 cell.track = trackItem
-                cell.placeDelegate = self
+                cell.locationDelegate = self
                 cell.trackDelegate = self
                 cell.updateCell()
                 return cell
@@ -312,17 +312,17 @@ extension EditLocationViewController: NoteViewDelegate{
         if !text.isEmpty{
             let item = NoteItem()
             item.text = text
-            var newPlace = false
+            var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)
             if location == nil{
                 location = AppData.shared.createLocation(coordinate: coordinate)
-                newPlace = true
+                newLocation = true
             }
             location!.addItem(item: item)
             AppData.shared.saveLocally()
             tableView.reloadData()
             DispatchQueue.main.async {
-                if newPlace{
+                if newLocation{
                     self.locationsChanged()
                 }
                 else{
@@ -338,17 +338,17 @@ extension EditLocationViewController: AudioCaptureDelegate{
     
     func audioCaptured(audio: AudioItem){
         if let coordinate = LocationService.shared.location?.coordinate{
-            var newPlace = false
+            var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)
             if location == nil{
                 location = AppData.shared.createLocation(coordinate: coordinate)
-                newPlace = true
+                newLocation = true
             }
             location!.addItem(item: audio)
             AppData.shared.saveLocally()
             tableView.reloadData()
             DispatchQueue.main.async {
-                if newPlace{
+                if newLocation{
                     self.locationsChanged()
                 }
                 else{

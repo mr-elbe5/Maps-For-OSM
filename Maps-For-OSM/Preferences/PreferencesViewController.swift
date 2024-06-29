@@ -39,7 +39,7 @@ class PreferencesViewController: PopupScrollViewController{
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addAction(UIAction(){ action in
-            self.savePlacePreferences()
+            self.saveLocationPreferences()
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: label.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
@@ -82,7 +82,7 @@ class PreferencesViewController: PopupScrollViewController{
         
     }
     
-    func savePlacePreferences(){
+    func saveLocationPreferences(){
         let val = Double(maxMergeDistanceField.text)
         if let val = val{
             if Preferences.shared.maxLocationMergeDistance != val{

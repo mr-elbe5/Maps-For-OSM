@@ -63,19 +63,19 @@ class CrossLocationMenuViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, insets: flatInsets)
             .centerX(contentView.centerXAnchor)
         
-        let createPlaceButton = UIButton().asTextButton("createPlace".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
-        createPlaceButton.addAction(UIAction(){ action in
+        let createLocationButton = UIButton().asTextButton("createLocation".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
+        createLocationButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
-            self.delegate?.addPlace(at: self.coordinate)
+            self.delegate?.addLocation(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(createPlaceButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(createLocationButton, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let addImageButton = UIButton().asTextButton("addImage".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
         addImageButton.addAction(UIAction(){ action in
             self.dismiss(animated: false)
             self.delegate?.openAddImage(at: self.coordinate)
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(addImageButton, top: createPlaceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(addImageButton, top: createLocationButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let addAudioButton = UIButton().asTextButton("addAudio".localize()).withTextColor(color: .systemBlue).withRoundedCorners()
         addAudioButton.addAction(UIAction(){ action in

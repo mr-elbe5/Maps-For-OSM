@@ -20,7 +20,7 @@ class TrackCell: LocationItemCell{
     
     var track : TrackItem? = nil
     
-    var placeDelegate: LocationDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
