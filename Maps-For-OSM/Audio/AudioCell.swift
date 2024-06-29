@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5MapData
 
-class AudioCell: PlaceItemCell{
+class AudioCell: LocationItemCell{
     
     static let CELL_IDENT = "audioCell"
     
@@ -19,7 +19,7 @@ class AudioCell: PlaceItemCell{
         }
     }
     
-    var placeDelegate: PlaceDelegate? = nil
+    var placeDelegate: LocationDelegate? = nil
     
     override func setupCellBody(){
         iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
@@ -42,7 +42,7 @@ class AudioCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.placeDelegate?.showPlaceOnMap(place: audio.place)
+                self.placeDelegate?.showLocationOnMap(location: audio.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

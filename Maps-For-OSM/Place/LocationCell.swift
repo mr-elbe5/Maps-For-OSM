@@ -9,24 +9,24 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
-public protocol PlaceDelegate{
-    func placeChanged(place: Place)
-    func placesChanged()
-    func showPlaceOnMap(place: Place)
+public protocol LocationDelegate{
+    func locationChanged(location: Location)
+    func locationsChanged()
+    func showLocationOnMap(location: Location)
 }
 
-protocol PlaceCellDelegate{
-    func editPlace(place: Place)
-    func showPlaceOnMap(place: Place)
+protocol LocationCellDelegate{
+    func editLocation(location: Location)
+    func showLocationOnMap(location: Location)
 }
 
-class PlaceCell: TableViewCell{
+class LocationCell: TableViewCell{
     
-    static let CELL_IDENT = "placeCell"
+    static let CELL_IDENT = "locationCell"
     
-    var place : Place? = nil
+    var location : Location? = nil
     
-    var delegate: PlaceCellDelegate? = nil
+    var delegate: LocationCellDelegate? = nil
     
     override open func setupCellBody(){
         iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
@@ -36,23 +36,23 @@ class PlaceCell: TableViewCell{
     
     override func updateIconView(isEditing: Bool){
         iconView.removeAllSubviews()
-        if let place = place{
-            let selectedButton = UIButton().asIconButton(place.selected ? "checkmark.square" : "square", color: .label)
+        if let location = location{
+            let selectedButton = UIButton().asIconButton(location.selected ? "checkmark.square" : "square", color: .label)
             selectedButton.addAction(UIAction(){ action in
-                place.selected = !place.selected
-                selectedButton.setImage(UIImage(systemName: place.selected ? "checkmark.square" : "square"), for: .normal)
+                location.selected = !location.selected
+                selectedButton.setImage(UIImage(systemName: location.selected ? "checkmark.square" : "square"), for: .normal)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: place)
+                self.delegate?.showLocationOnMap(location: location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let editButton = UIButton().asIconButton("magnifyingglass", color: .label)
             editButton.addAction(UIAction(){ action in
-                self.delegate?.editPlace(place: place)
+                self.delegate?.editLocation(location: location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }
@@ -61,19 +61,19 @@ class PlaceCell: TableViewCell{
     override func updateItemView(isEditing: Bool){
         itemView.removeAllSubviews()
         
-        if let place = place{
+        if let location = location{
             var topAnchor = itemView.topAnchor
-            if !place.name.isEmpty{
-                let header = UILabel(header: place.name)
+            if !location.name.isEmpty{
+                let header = UILabel(header: location.name)
                 itemView.addSubviewWithAnchors(header, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
                 topAnchor = header.bottomAnchor
             }
             
-            let locationLabel = UILabel(text: place.address)
+            let locationLabel = UILabel(text: location.address)
             locationLabel.textAlignment = .center
             itemView.addSubviewWithAnchors(locationLabel, top: topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             
-            let coordinateLabel = UILabel(text: place.coordinate.asString)
+            let coordinateLabel = UILabel(text: location.coordinate.asString)
             coordinateLabel.textAlignment = .center
             itemView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
@@ -84,7 +84,7 @@ class PlaceCell: TableViewCell{
             var videoCount = 0
             var noteCount = 0
             var trackNames = Array<String>()
-            for item in place.items{
+            for item in location.items{
                 switch item.type{
                 case .image:
                     imageCount += 1

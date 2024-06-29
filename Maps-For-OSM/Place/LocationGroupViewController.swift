@@ -10,23 +10,23 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PlaceGroupViewController: PopupTableViewController{
+class LocationGroupViewController: PopupTableViewController{
     
-    var group: PlaceGroup
+    var group: LocationGroup
     
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var placeDelegate: PlaceDelegate? = nil
+    var placeDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
-    init(group: PlaceGroup){
+    init(group: LocationGroup){
         self.group = group
         super.init()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.CELL_IDENT)
+        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
     }
     
     required init?(coder: NSCoder) {
@@ -73,23 +73,23 @@ class PlaceGroupViewController: PopupTableViewController{
     }
     
     func toggleSelectAll(){
-        if AppData.shared.places.allSelected{
-            AppData.shared.places.deselectAll()
+        if AppData.shared.locations.allSelected{
+            AppData.shared.locations.deselectAll()
         }
         else{
-            AppData.shared.places.selectAll()
+            AppData.shared.locations.selectAll()
         }
         for cell in tableView.visibleCells{
-            (cell as? PlaceCell)?.updateIconView(isEditing: true)
+            (cell as? LocationCell)?.updateIconView(isEditing: true)
         }
     }
     
     func deleteSelected(){
-        var list = PlaceList()
-        for i in 0..<group.places.count{
-            let place = group.places[i]
-            if place.selected{
-                list.append(place)
+        var list = LocationList()
+        for i in 0..<group.locations.count{
+            let location = group.locations[i]
+            if location.selected{
+                list.append(location)
             }
         }
         if list.isEmpty{
@@ -97,21 +97,21 @@ class PlaceGroupViewController: PopupTableViewController{
         }
         showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
             print("deleting \(list.count) places")
-            for place in list{
-                AppData.shared.deletePlace(place)
-                self.group.places.remove(place)
+            for location in list{
+                AppData.shared.deleteLocation(location)
+                self.group.locations.remove(location)
             }
-            self.placeDelegate?.placesChanged()
+            self.placeDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
     
     func mergeSelected(){
-        var list = PlaceList()
-        for i in 0..<group.places.count{
-            let place = group.places[i]
-            if place.selected{
-                list.append(place)
+        var list = LocationList()
+        for i in 0..<group.locations.count{
+            let location = group.locations[i]
+            if location.selected{
+                list.append(location)
             }
         }
         if list.isEmpty{
@@ -120,16 +120,16 @@ class PlaceGroupViewController: PopupTableViewController{
         showDestructiveApprove(title: "confirmMergePlaces".localize(i: list.count), text: "mergeHint".localize()){
             print("merging \(list.count) places")
             if let newPlace = self.mergePlaces(list){
-                AppData.shared.places.append(newPlace)
-                AppData.shared.places.removePlaces(of: list)
+                AppData.shared.locations.append(newPlace)
+                AppData.shared.locations.removeLocations(of: list)
                 AppData.shared.saveLocally()
-                self.placeDelegate?.placesChanged()
+                self.placeDelegate?.locationsChanged()
                 self.tableView.reloadData()
             }
         }
     }
     
-    private func mergePlaces(_ places: PlaceList) -> Place?{
+    private func mergePlaces(_ places: LocationList) -> Location?{
         let count = places.count
         if count < 2{
             return nil
@@ -137,20 +137,20 @@ class PlaceGroupViewController: PopupTableViewController{
         var lat = 0.0
         var lon = 0.0
         var timestamp = Date.localDate
-        for place in places{
-            lat += place.coordinate.latitude
-            lon += place.coordinate.longitude
-            if place.creationDate < timestamp{
-                timestamp = place.creationDate
+        for location in places{
+            lat += location.coordinate.latitude
+            lon += location.coordinate.longitude
+            if location.creationDate < timestamp{
+                timestamp = location.creationDate
             }
         }
         lat = lat/Double(count)
         lon = lon/Double(count)
-        let newPlace = Place(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        let newPlace = Location(coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon))
         newPlace.evaluatePlacemark()
         newPlace.creationDate = timestamp
-        for place in places{
-            for item in place.items{
+        for location in places{
+            for item in location.items{
                 newPlace.addItem(item: item)
             }
         }
@@ -160,19 +160,19 @@ class PlaceGroupViewController: PopupTableViewController{
     
 }
 
-extension PlaceGroupViewController: UITableViewDelegate, UITableViewDataSource{
+extension LocationGroupViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        group.places.count
+        group.locations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.CELL_IDENT, for: indexPath) as! PlaceCell
-        cell.place = group.places[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationCell.CELL_IDENT, for: indexPath) as! LocationCell
+        cell.location = group.locations[indexPath.row]
         cell.delegate = self
         cell.updateCell()
         return cell
@@ -192,18 +192,18 @@ extension PlaceGroupViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceGroupViewController : PlaceCellDelegate{
+extension LocationGroupViewController : LocationCellDelegate{
     
-    func showPlaceOnMap(place: Place) {
+    func showLocationOnMap(location: Location) {
         self.dismiss(animated: true){
-            self.placeDelegate?.showPlaceOnMap(place: place)
+            self.placeDelegate?.showLocationOnMap(location: location)
         }
     }
     
-    func editPlace(place: Place) {
-        let placeController = EditPlaceViewController(location: place)
-        placeController.place = place
-        placeController.placeDelegate = self
+    func editLocation(location: Location) {
+        let placeController = EditLocationViewController(location: location)
+        placeController.location = location
+        placeController.locationDelegate = self
         placeController.trackDelegate = self
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)
@@ -211,19 +211,19 @@ extension PlaceGroupViewController : PlaceCellDelegate{
     
 }
 
-extension PlaceGroupViewController : PlaceDelegate{
+extension LocationGroupViewController : LocationDelegate{
     
-    func placeChanged(place: Place) {
-        placeDelegate?.placeChanged(place: place)
+    func locationChanged(location: Location) {
+        placeDelegate?.locationChanged(location: location)
     }
     
-    func placesChanged() {
-        placeDelegate?.placesChanged()
+    func locationsChanged() {
+        placeDelegate?.locationsChanged()
     }
     
 }
 
-extension PlaceGroupViewController : TrackDelegate{
+extension LocationGroupViewController : TrackDelegate{
     
     func editTrackItem(item: TrackItem) {
         let controller = EditTrackViewController(track: item)

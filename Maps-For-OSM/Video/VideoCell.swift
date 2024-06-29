@@ -13,7 +13,7 @@ public protocol VideoDelegate{
     func viewVideoItem(item: VideoItem)
 }
 
-class VideoCell: PlaceItemCell{
+class VideoCell: LocationItemCell{
     
     static let CELL_IDENT = "videoCell"
     
@@ -24,7 +24,7 @@ class VideoCell: PlaceItemCell{
         }
     }
     
-    var placeDelegate: PlaceDelegate? = nil
+    var placeDelegate: LocationDelegate? = nil
     var videoDelegate: VideoDelegate? = nil
     
     override func updateIconView(isEditing: Bool){
@@ -39,7 +39,7 @@ class VideoCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.placeDelegate?.showPlaceOnMap(place: video.place)
+                self.placeDelegate?.showLocationOnMap(location: video.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

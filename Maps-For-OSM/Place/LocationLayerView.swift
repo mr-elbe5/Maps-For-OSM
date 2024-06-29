@@ -9,20 +9,20 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-protocol PlaceLayerDelegate{
-    func showPlaceDetails(place: Place)
-    func deletePlace(place: Place)
-    func showGroupDetails(group: PlaceGroup)
+protocol LocationLayerDelegate{
+    func showLocationDetails(location: Location)
+    func deleteLocation(location: Location)
+    func showGroupDetails(group: LocationGroup)
 }
 
-class PlaceLayerView: UIView {
+class LocationLayerView: UIView {
     
-    var places = PlaceList()
+    var locations = LocationList()
     
-    var delegate: PlaceLayerDelegate? = nil
+    var delegate: LocationLayerDelegate? = nil
     
-    func updatePlaces(){
-        places = AppData.shared.places.filteredPlaces
+    func updateLocations(){
+        locations = AppData.shared.locations.filteredLocations
     }
     
     func setupMarkers(zoom: Int, offset: CGPoint, scale: CGFloat){
@@ -31,10 +31,10 @@ class PlaceLayerView: UIView {
             subview.removeFromSuperview()
         }
         if zoom == World.maxZoom{
-            for place in places{
-                let marker = PlaceMarker(place: place)
+            for location in locations{
+                let marker = LocationMarker(location: location)
                 marker.addAction(UIAction{ action in
-                    self.delegate?.showPlaceDetails(place: marker.place)
+                    self.delegate?.showLocationDetails(location: marker.location)
                 }, for: .touchDown)
                 addSubview(marker)
                 //marker.menu = getMarkerMenu(marker: marker)
@@ -43,36 +43,36 @@ class PlaceLayerView: UIView {
         }
         else{
             let planetDist = World.zoomScaleToWorld(from: zoom) * 10 // 10m at full zoom
-            var groups = Array<PlaceGroup>()
-            for place in places{
+            var groups = Array<LocationGroup>()
+            for location in locations{
                 var grouped = false
                 for group in groups{
-                    if group.isWithinRadius(place: place, radius: planetDist){
-                        group.addPlace(place: place)
+                    if group.isWithinRadius(location: location, radius: planetDist){
+                        group.addLocation(location: location)
                         group.setCenter()
                         grouped = true
                     }
                 }
                 if !grouped{
-                    let group = PlaceGroup()
-                    group.addPlace(place: place)
+                    let group = LocationGroup()
+                    group.addLocation(location: location)
                     group.setCenter()
                     groups.append(group)
                 }
             }
             for group in groups{
-                if group.places.count > 1{
-                    let marker = PlaceGroupMarker(placeGroup: group)
+                if group.locations.count > 1{
+                    let marker = LocationGroupMarker(placeGroup: group)
                     marker.addAction(UIAction{ action in
                         self.delegate?.showGroupDetails(group: group)
                     }, for: .touchDown)
                     addSubview(marker)
                 }
-                else if let place = group.places.first{
-                    let marker = PlaceMarker(place: place)
+                else if let location = group.locations.first{
+                    let marker = LocationMarker(location: location)
                     marker.addAction(UIAction{ action in
-                        place.assertPlacemark()
-                        self.delegate?.showPlaceDetails(place: place)
+                        location.assertPlacemark()
+                        self.delegate?.showLocationDetails(location: location)
                     }, for: .touchDown)
                     addSubview(marker)
                 }
@@ -82,18 +82,18 @@ class PlaceLayerView: UIView {
         updatePosition(offset: offset, scale: scale)
     }
     
-    func updateMarker(for place: Place){
-        if let marker = getMarker(place: place){
+    func updateMarker(for location: Location){
+        if let marker = getMarker(location: location){
             marker.updateImage()
         }
     }
     
-    func getMarker(place: Place) -> Marker?{
+    func getMarker(location: Location) -> Marker?{
         for subview in subviews{
-            if let marker = subview as? PlaceMarker, marker.place.equals(place){
+            if let marker = subview as? LocationMarker, marker.location.equals(location){
                 return marker
             }
-            if let marker = subview as? PlaceGroupMarker, marker.placeGroup.hasPlace(place: place){
+            if let marker = subview as? LocationGroupMarker, marker.placeGroup.hasLocation(location: location){
                 return marker
             }
         }
@@ -109,17 +109,17 @@ class PlaceLayerView: UIView {
     func updatePosition(offset: CGPoint, scale: CGFloat){
         let offset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
         for subview in subviews{
-            if let marker = subview as? PlaceMarker{
-                marker.updatePosition(to: CGPoint(x: (marker.place.mapPoint.x - offset.x)*scale , y: (marker.place.mapPoint.y - offset.y)*scale))
+            if let marker = subview as? LocationMarker{
+                marker.updatePosition(to: CGPoint(x: (marker.location.mapPoint.x - offset.x)*scale , y: (marker.location.mapPoint.y - offset.y)*scale))
             }
-            else if let groupMarker = subview as? PlaceGroupMarker, let center = groupMarker.placeGroup.centerPlanetPosition{
+            else if let groupMarker = subview as? LocationGroupMarker, let center = groupMarker.placeGroup.centerPlanetPosition{
                 groupMarker.updatePosition(to: CGPoint(x: (center.x - offset.x)*scale , y: (center.y - offset.y)*scale))
             }
         }
     }
     
-    func updatePlaceStatus(_ place: Place){
-        if let marker = getMarker(place: place){
+    func updatePlaceStatus(_ location: Location){
+        if let marker = getMarker(location: location){
             marker.updateImage()
         }
     }

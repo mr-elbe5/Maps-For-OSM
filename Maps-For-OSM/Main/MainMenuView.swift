@@ -98,22 +98,22 @@ class MainMenuView: UIView {
             self.delegate?.openLocationList()
         })
         actions.append(UIAction(title: "allPlaces".localize(), image: UIImage(named: "mappin.green")){ action in
-            AppState.shared.placeFilter = .all
+            AppState.shared.locationFilter = .all
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
         actions.append(UIAction(title: "mediaPlaces".localize(), image: UIImage(named: "mappin.red")){ action in
-            AppState.shared.placeFilter = .media
+            AppState.shared.locationFilter = .media
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
         actions.append(UIAction(title: "trackPlaces".localize(), image: UIImage(named: "mappin.blue")){ action in
-            AppState.shared.placeFilter = .track
+            AppState.shared.locationFilter = .track
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
         actions.append(UIAction(title: "notePlaces".localize(), image: UIImage(named: "mappin.gray")){ action in
-            AppState.shared.placeFilter = .note
+            AppState.shared.locationFilter = .note
             self.delegate?.applyFilter()
             self.updateLocationMenuButton()
         })
@@ -192,7 +192,7 @@ class MainMenuView: UIView {
     }
     
     func updateLocationMenuButton(){
-        switch AppState.shared.placeFilter{
+        switch AppState.shared.locationFilter{
         case .all:
             locationMenuButton.tintColor = .systemGreen
         case .media:

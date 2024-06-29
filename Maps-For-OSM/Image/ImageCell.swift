@@ -13,7 +13,7 @@ public protocol ImageDelegate{
     func viewImage(image: ImageItem)
 }
 
-class ImageCell: PlaceItemCell{
+class ImageCell: LocationItemCell{
     
     static let CELL_IDENT = "imageCell"
     
@@ -24,7 +24,7 @@ class ImageCell: PlaceItemCell{
         }
     }
     
-    var placeDelegate: PlaceDelegate? = nil
+    var placeDelegate: LocationDelegate? = nil
     var imageDelegate: ImageDelegate? = nil
     
     var useShortDate = false
@@ -42,7 +42,7 @@ class ImageCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.placeDelegate?.showPlaceOnMap(place: image.place)
+                self.placeDelegate?.showLocationOnMap(location: image.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

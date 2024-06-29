@@ -567,14 +567,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wollen Sie die Markierung für diesen Ort löschen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to delete this place?"
+            "value" : "Do you want to delete this location?"
           }
         }
       }
@@ -584,14 +584,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wollen Sie alle ausgewählten Orte löschen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to delete all selected places?"
+            "value" : "Do you want to delete all selected locations?"
           }
         }
       }
@@ -664,19 +664,19 @@
         }
       }
     },
-    "confirmMergePlaces" : {
+    "confirmMergeLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wollen Sie die ausgewählten Orte zusammenführen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to merge the selected places?"
+            "value" : "Do you want to merge the selected locations?"
           }
         }
       }
@@ -1854,6 +1854,91 @@
         }
       }
     },
+    "location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ort"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
+    },
+    "location(s)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ort(e)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "location(s)"
+          }
+        }
+      }
+    },
+    "locationData" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Positonsangaben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Details"
+          }
+        }
+      }
+    },
+    "locationGroup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gruppe von Orten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Group"
+          }
+        }
+      }
+    },
+    "locationList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locations"
+          }
+        }
+      }
+    },
     "locationNotAuthorized" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1867,6 +1952,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Finding your location is not authorized. Please change your settings."
+          }
+        }
+      }
+    },
+    "locations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Orte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locations"
           }
         }
       }
@@ -1927,14 +2029,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Maximale Entfernung von Orten zum automatischen Zusammenführen [m]"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Maximal distance for automatically merging places [m]"
+            "value" : "Maximal distance for automatically merging locations [m]"
           }
         }
       }
@@ -1944,14 +2046,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Wenn ein neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "If a new place is needed and its location is closer than this distance to another place, this place is used and no new place is created."
+            "value" : "If a new location is needed and its coordinates are closer than this distance to another locations coordinates, this location is used and no new location is created."
           }
         }
       }
@@ -2007,19 +2109,19 @@
         }
       }
     },
-    "mediaPlaces" : {
+    "mediaLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nur Orte mit Medien anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show only places with media"
+            "value" : "Show only locations with media"
           }
         }
       }
@@ -2097,14 +2199,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Orte der Gruppe zusammenführen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Merge Places of Group"
+            "value" : "Merge Locations of Group"
           }
         }
       }
@@ -2114,14 +2216,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Die Elemente der Orte werden dem neuen Ort hinzugefügt. Die alten Orte werden gelöscht. Dies kann nicht rückgängig gemacht werden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Items of these places will be added to the new place. The old places will be deleted. This cannot be undone."
+            "value" : "Items of these locations will be added to the new location. The old locations will be deleted. This cannot be undone."
           }
         }
       }
@@ -2330,19 +2432,19 @@
         }
       }
     },
-    "notePlaces" : {
+    "noteLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nur Orte mit Notizen anzeigen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show only places with notes"
+            "value" : "Show only locations with notes"
           }
         }
       }
@@ -2496,108 +2598,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Photo has been copied."
-          }
-        }
-      }
-    },
-    "place" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ort"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Place"
-          }
-        }
-      }
-    },
-    "place(s)" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ort(e)"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "place(s)"
-          }
-        }
-      }
-    },
-    "placeData" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Positonsangaben"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Place Details"
-          }
-        }
-      }
-    },
-    "placeGroup" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gruppe von Orten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Place Group"
-          }
-        }
-      }
-    },
-    "placeList" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Orte"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Locations"
-          }
-        }
-      }
-    },
-    "places" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Orte"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Places"
           }
         }
       }
@@ -3644,6 +3644,23 @@
         }
       }
     },
+    "trackLocations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nur Orte mit Tourstart anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show only locations with tour starts"
+          }
+        }
+      }
+    },
     "trackName" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3657,23 +3674,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tour on %@"
-          }
-        }
-      }
-    },
-    "trackPlaces" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nur Orte mit Tourstart anzeigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show only places with tour starts"
           }
         }
       }

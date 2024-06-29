@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/e5mapdata",
       "state" : {
-        "revision" : "02906673f6d10a64228e4d818c54d2d202f4f232",
-        "version" : "1.0.15"
+        "revision" : "899b22a9630d8858c5d1b9fcf8a5639cf1e1c7d8",
+        "version" : "1.1.0"
       }
     },
     {

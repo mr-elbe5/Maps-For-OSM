@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class NoteCell: PlaceItemCell{
+class NoteCell: LocationItemCell{
     
     static let CELL_IDENT = "noteCell"
     
@@ -19,7 +19,7 @@ class NoteCell: PlaceItemCell{
         }
     }
     
-    var delegate: PlaceDelegate? = nil
+    var delegate: LocationDelegate? = nil
     
     override func updateIconView(isEditing: Bool = false){
         iconView.removeAllSubviews()
@@ -33,7 +33,7 @@ class NoteCell: PlaceItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showPlaceOnMap(place: note.place)
+                self.delegate?.showLocationOnMap(location: note.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

@@ -18,7 +18,7 @@ class MapView: UIView {
     
     var scrollView : MapScrollView!
     var trackLayerView = TrackLayerView()
-    var placeLayerView = PlaceLayerView()
+    var locationLayerView = LocationLayerView()
     var currentLocationView = CurrentLocationView(frame: CurrentLocationView.frameRect)
     var crossLocationView = UIButton().asIconButton("plus.circle", color: .systemBlue)
     
@@ -39,11 +39,11 @@ class MapView: UIView {
         addSubviewFilling(trackLayerView)
     }
     
-    func setupPlaceLayerView(controller: PlaceLayerDelegate){
-        addSubviewFilling(placeLayerView)
-        placeLayerView.delegate = controller
-        updatePlaces()
-        placeLayerView.isHidden = !AppState.shared.showLocations
+    func setupPlaceLayerView(controller: LocationLayerDelegate){
+        addSubviewFilling(locationLayerView)
+        locationLayerView.delegate = controller
+        updateLocations()
+        locationLayerView.isHidden = !AppState.shared.showLocations
     }
     
     func setupCurrentLocationView(){
@@ -63,17 +63,17 @@ class MapView: UIView {
         scrollView.tileLayerView.tileLayer.setNeedsDisplay()
     }
     
-    func updatePlaces(){
-        placeLayerView.updatePlaces()
+    func updateLocations(){
+        locationLayerView.updateLocations()
         updatePlaceLayer()
     }
     
-    func updatePlace(for place: Place){
-        placeLayerView.updateMarker(for: place)
+    func updatePlace(for location: Location){
+        locationLayerView.updateMarker(for: location)
     }
     
     func updatePlaceLayer(){
-        placeLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func scaleTo(scale: Double, animated : Bool = false){
@@ -84,7 +84,7 @@ class MapView: UIView {
     func zoomTo(zoom: Int, animated: Bool){
         scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
         AppState.shared.zoom = zoom
-        placeLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func setRegion(region: CoordinateRegion){
@@ -136,7 +136,7 @@ extension MapView : MapScrollViewDelegate{
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
         currentLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
-        placeLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         trackLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
     }
     
@@ -145,7 +145,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didChangeZoom() {
-        placeLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
+        locationLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     // for infinite scroll using 3 * content width

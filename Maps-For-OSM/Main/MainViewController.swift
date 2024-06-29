@@ -127,12 +127,12 @@ class MainViewController: UIViewController {
         }
     }
     
-    func placeChanged(place: Place) {
-        mapView.updatePlace(for: place)
+    func locationChanged(location: Location) {
+        mapView.updatePlace(for: location)
     }
     
-    func placesChanged() {
-        mapView.updatePlaces()
+    func locationsChanged() {
+        mapView.updateLocations()
     }
     
     func trackChanged() {

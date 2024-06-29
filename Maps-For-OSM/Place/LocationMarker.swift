@@ -7,25 +7,25 @@
 import UIKit
 import E5MapData
 
-class PlaceMarker : Marker{
+class LocationMarker : Marker{
     
     static var mapPinDefaultImage = UIImage(named: "mappin.green")
     static var mapPinMediaImage = UIImage(named: "mappin.red")
     static var mapPinTrackImage = UIImage(named: "mappin.blue")
     static var mapPinMediaTrackImage = UIImage(named: "mappin.purple")
     
-    var place : Place
+    var location : Location
     
     override var hasMedia : Bool{
-        place.hasMedia
+        location.hasMedia
     }
     
     override var hasTrack : Bool{
-        place.hasTrack
+        location.hasTrack
     }
     
-    init(place: Place){
-        self.place = place
+    init(location: Location){
+        self.location = location
         super.init(frame: .zero)
         updateImage()
     }
@@ -37,18 +37,18 @@ class PlaceMarker : Marker{
     override func updateImage(){
         if hasMedia{
             if hasTrack{
-                setImage(PlaceMarker.mapPinMediaTrackImage, for: .normal)
+                setImage(LocationMarker.mapPinMediaTrackImage, for: .normal)
             }
             else{
-                setImage(PlaceMarker.mapPinMediaImage, for: .normal)
+                setImage(LocationMarker.mapPinMediaImage, for: .normal)
             }
         }
         else{
             if hasTrack{
-                setImage(PlaceMarker.mapPinTrackImage, for: .normal)
+                setImage(LocationMarker.mapPinTrackImage, for: .normal)
             }
             else{
-                setImage(PlaceMarker.mapPinDefaultImage, for: .normal)
+                setImage(LocationMarker.mapPinDefaultImage, for: .normal)
             }
         }
     }

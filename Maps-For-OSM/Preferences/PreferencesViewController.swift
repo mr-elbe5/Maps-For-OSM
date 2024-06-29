@@ -25,10 +25,10 @@ class PreferencesViewController: PopupScrollViewController{
         title = "preferences".localize()
         super.loadView()
         
-        var header = UILabel(header: "places".localize())
+        var header = UILabel(header: "locations".localize())
         contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxPlaceMergeDistance), isHorizontal: false)
+        maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxLocationMergeDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxMergeDistanceField, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
         var label = UILabel(text: "maxMergeDistanceHint".localize())
@@ -85,8 +85,8 @@ class PreferencesViewController: PopupScrollViewController{
     func savePlacePreferences(){
         let val = Double(maxMergeDistanceField.text)
         if let val = val{
-            if Preferences.shared.maxPlaceMergeDistance != val{
-                Preferences.shared.maxPlaceMergeDistance = val
+            if Preferences.shared.maxLocationMergeDistance != val{
+                Preferences.shared.maxLocationMergeDistance = val
                 AppData.shared.resetCoordinateRegions()
             }
         }

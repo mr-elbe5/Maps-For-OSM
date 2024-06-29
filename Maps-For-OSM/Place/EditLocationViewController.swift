@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class EditPlaceViewController: PopupTableViewController{
+class EditLocationViewController: PopupTableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
     let addAudioButton = UIButton().asIconButton("mic", color: .label)
@@ -20,13 +20,13 @@ class EditPlaceViewController: PopupTableViewController{
     let deleteSelectedButton = UIButton().asIconButton("trash.square", color: .red)
     let deletePlaceButton = UIButton().asIconButton("trash", color: .red)
     
-    var place: Place
+    var location: Location
     
-    var placeDelegate: PlaceDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
-    init(location: Place){
-        self.place = location
+    init(location: Location){
+        self.location = location
         super.init()
         self.subheaderView = UIView()
     }
@@ -36,7 +36,7 @@ class EditPlaceViewController: PopupTableViewController{
     }
     
     override func loadView() {
-        title = "place".localize()
+        title = "location".localize()
         createSubheaderView()
         super.loadView()
         tableView.delegate = self
@@ -84,11 +84,11 @@ class EditPlaceViewController: PopupTableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView){
-        let locationLabel = UILabel(text: place.address)
+        let locationLabel = UILabel(text: location.address)
         locationLabel.textAlignment = .center
         subheaderView.addSubviewWithAnchors(locationLabel, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
         
-        let coordinateLabel = UILabel(text: place.coordinate.asString)
+        let coordinateLabel = UILabel(text: location.coordinate.asString)
         coordinateLabel.textAlignment = .center
         subheaderView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
@@ -124,28 +124,28 @@ class EditPlaceViewController: PopupTableViewController{
     }
     
     func openAddNote(){
-        let controller = NoteViewController(coordinate: place.coordinate)
+        let controller = NoteViewController(coordinate: location.coordinate)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
     func toggleSelectAll(){
-        if place.allItemsSelected{
-            place.deselectAllItems()
+        if location.allItemsSelected{
+            location.deselectAllItems()
         }
         else{
-            place.selectAllItems()
+            location.selectAllItems()
         }
         for cell in tableView.visibleCells{
-            (cell as? PlaceItemCell)?.updateIconView(isEditing: true)
+            (cell as? LocationItemCell)?.updateIconView(isEditing: true)
         }
     }
     
     func deleteSelected(){
-        var list = PlaceItemList()
-        for i in 0..<place.itemCount{
-            let item = place.item(at: i)
+        var list = LocatedItemsList()
+        for i in 0..<location.itemCount{
+            let item = location.item(at: i)
             if item.selected{
                 list.append(item)
             }
@@ -156,36 +156,36 @@ class EditPlaceViewController: PopupTableViewController{
         showDestructiveApprove(title: "confirmDeleteItems".localize(i: list.count), text: "deleteHint".localize()){
             print("deleting \(list.count) items")
             for item in list{
-                self.place.deleteItem(item: item)
+                self.location.deleteItem(item: item)
             }
-            self.placeDelegate?.placeChanged(place: self.place)
+            self.locationDelegate?.locationChanged(location: self.location)
             self.tableView.reloadData()
         }
     }
     
     func deletePlace(){
         showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deleteHint".localize()){
-            print("deleting place")
-            AppData.shared.deletePlace(self.place)
-            self.placeDelegate?.placesChanged()
+            print("deleting location")
+            AppData.shared.deleteLocation(self.location)
+            self.locationDelegate?.locationsChanged()
             self.dismiss(animated: false)
         }
     }
     
 }
 
-extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
+extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        place.itemCount
+        location.itemCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = place.item(at: indexPath.row)
+        let item = location.item(at: indexPath.row)
         switch item.type{
         case .audio: 
             if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? AudioItem{
@@ -262,24 +262,24 @@ extension EditPlaceViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension EditPlaceViewController : PlaceDelegate{
+extension EditLocationViewController : LocationDelegate{
     
-    func placeChanged(place: Place) {
-        self.placeDelegate?.placeChanged(place: place)
+    func locationChanged(location: Location) {
+        self.locationDelegate?.locationChanged(location: location)
     }
     
-    func placesChanged() {
-        self.placeDelegate?.placesChanged()
+    func locationsChanged() {
+        self.locationDelegate?.locationsChanged()
     }
     
-    func showPlaceOnMap(place: Place) {
+    func showLocationOnMap(location: Location) {
         self.dismiss(animated: true)
-        placeDelegate?.showPlaceOnMap(place: place)
+        locationDelegate?.showLocationOnMap(location: location)
     }
     
 }
 
-extension EditPlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension EditLocationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
@@ -288,12 +288,12 @@ extension EditPlaceViewController: UIImagePickerControllerDelegate, UINavigation
             let metaData = ImageMetaData()
             metaData.readData(data: data)
             if !metaData.hasGPSData{
-                if let dataWithCoordinates = data.setImageProperties(altitude: place.altitude, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude, utType: image.fileURL.utType!){
+                if let dataWithCoordinates = data.setImageProperties(altitude: location.altitude, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, utType: image.fileURL.utType!){
                     imageData = dataWithCoordinates
                 }
             }
             if FileManager.default.saveFile(data: imageData, url: image.fileURL){
-                place.addItem(item: image)
+                location.addItem(item: image)
                 AppData.shared.saveLocally()
                 self.tableView.reloadData()
                 picker.dismiss(animated: false)
@@ -306,27 +306,27 @@ extension EditPlaceViewController: UIImagePickerControllerDelegate, UINavigation
     
 }
 
-extension EditPlaceViewController: NoteViewDelegate{
+extension EditLocationViewController: NoteViewDelegate{
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
             let item = NoteItem()
             item.text = text
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: coordinate)
+            var location = AppData.shared.getLocation(coordinate: coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: coordinate)
                 newPlace = true
             }
-            place!.addItem(item: item)
+            location!.addItem(item: item)
             AppData.shared.saveLocally()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
@@ -334,32 +334,32 @@ extension EditPlaceViewController: NoteViewDelegate{
     
 }
 
-extension EditPlaceViewController: AudioCaptureDelegate{
+extension EditLocationViewController: AudioCaptureDelegate{
     
     func audioCaptured(audio: AudioItem){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: coordinate)
+            var location = AppData.shared.getLocation(coordinate: coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: coordinate)
                 newPlace = true
             }
-            place!.addItem(item: audio)
+            location!.addItem(item: audio)
             AppData.shared.saveLocally()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
     }
 }
 
-extension EditPlaceViewController : VideoDelegate{
+extension EditLocationViewController : VideoDelegate{
     
     func viewVideoItem(item: VideoItem) {
         let controller = VideoViewController()
@@ -370,7 +370,7 @@ extension EditPlaceViewController : VideoDelegate{
     
 }
 
-extension EditPlaceViewController : ImageDelegate{
+extension EditLocationViewController : ImageDelegate{
     
     func viewImage(image: ImageItem) {
         let controller = ImageViewController()
@@ -381,7 +381,7 @@ extension EditPlaceViewController : ImageDelegate{
     
 }
 
-extension EditPlaceViewController : TrackDelegate{
+extension EditLocationViewController : TrackDelegate{
     
     func editTrackItem(item: TrackItem) {
         let controller = EditTrackViewController(track: item)

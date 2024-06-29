@@ -14,13 +14,13 @@ public protocol TrackDelegate{
     func showTrackItemOnMap(item: TrackItem)
 }
 
-class TrackCell: PlaceItemCell{
+class TrackCell: LocationItemCell{
 
     static let CELL_IDENT = "trackCell"
     
     var track : TrackItem? = nil
     
-    var placeDelegate: PlaceDelegate? = nil
+    var placeDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
     override func updateIconView(isEditing: Bool){

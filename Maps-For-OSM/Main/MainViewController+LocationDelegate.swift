@@ -16,19 +16,19 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
                                 CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{
     
     func addPlace(at coordinate: CLLocationCoordinate2D) {
-        if let _ = AppData.shared.getPlace(coordinate: coordinate){
+        if let _ = AppData.shared.getLocation(coordinate: coordinate){
             return
         }
-        let _ = AppData.shared.createPlace(coordinate: coordinate)
+        let _ = AppData.shared.createLocation(coordinate: coordinate)
         DispatchQueue.main.async {
-            self.placesChanged()
+            self.locationsChanged()
         }
     }
     
-    func deletePlaceFromList(place: Place) {
-        AppData.shared.deletePlace(place)
+    func deletePlaceFromList(location: Location) {
+        AppData.shared.deleteLocation(location)
         AppData.shared.saveLocally()
-        placesChanged()
+        locationsChanged()
     }
     
     func openAddImage(at coordinate: CLLocationCoordinate2D) {
@@ -62,19 +62,19 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             }
             if let coordinate = coordinate, FileManager.default.saveFile(data: imageData, url: image.fileURL){
                 var newPlace = false
-                var place = AppData.shared.getPlace(coordinate: coordinate)
-                if place == nil{
-                    place = AppData.shared.createPlace(coordinate: coordinate)
+                var location = AppData.shared.getLocation(coordinate: coordinate)
+                if location == nil{
+                    location = AppData.shared.createLocation(coordinate: coordinate)
                     newPlace = true
                 }
-                place!.addItem(item: image)
+                location!.addItem(item: image)
                 AppData.shared.saveLocally()
                 DispatchQueue.main.async {
                     if newPlace{
-                        self.placesChanged()
+                        self.locationsChanged()
                     }
                     else{
-                        self.placeChanged(place: place!)
+                        self.locationChanged(location: location!)
                     }
                 }
                 picker.dismiss(animated: false)
@@ -96,21 +96,21 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: coordinate)
+            var location = AppData.shared.getLocation(coordinate: coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: coordinate)
                 newPlace = true
             }
             let note = NoteItem()
             note.text = text
-            place!.addItem(item: note)
+            location!.addItem(item: note)
             AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
@@ -147,19 +147,19 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             imageFile.saveFile(data: imageData)
             Log.info("photo saved locally as \(imageFile.fileName)")
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: cllocation.coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: cllocation.coordinate)
+            var location = AppData.shared.getLocation(coordinate: cllocation.coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: cllocation.coordinate)
                 newPlace = true
             }
-            place!.addItem(item: imageFile)
+            location!.addItem(item: imageFile)
             AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
@@ -170,19 +170,19 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             let videoFile = VideoItem()
             videoFile.saveFile(data: data)
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: cllocation.coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: cllocation.coordinate)
+            var location = AppData.shared.getLocation(coordinate: cllocation.coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: cllocation.coordinate)
                 newPlace = true
             }
-            place!.addItem(item: videoFile)
+            location!.addItem(item: videoFile)
             AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
@@ -211,19 +211,19 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     func audioCaptured(audio: AudioItem){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: coordinate)
+            var location = AppData.shared.getLocation(coordinate: coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: coordinate)
                 newPlace = true
             }
-            place!.addItem(item: audio)
+            location!.addItem(item: audio)
             AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
@@ -252,22 +252,22 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         if let track = TrackRecorder.stopTracking(), let coordinate = track.startCoordinate{
             track.name = "trackName".localize(param: track.startTime.dateString())
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: coordinate)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: coordinate)
+            var location = AppData.shared.getLocation(coordinate: coordinate)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: coordinate)
                 newPlace = true
             }
-            place!.addItem(item: track)
+            location!.addItem(item: track)
             AppData.shared.saveLocally()
             TrackItem.visibleTrack = track
             self.trackChanged()
             self.trackStatusView.hide(true)
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }

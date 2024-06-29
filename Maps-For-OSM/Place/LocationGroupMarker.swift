@@ -7,14 +7,14 @@
 import UIKit
 import E5MapData
 
-class PlaceGroupMarker : Marker{
+class LocationGroupMarker : Marker{
     
     static var mapPinDefaultImage = UIImage(named: "mappin.group.green")!
     static var mapPinMediaImage = UIImage(named: "mappin.group.red")!
     static var mapPinTrackImage = UIImage(named: "mappin.group.blue")!
     static var mapPinMediaTrackImage = UIImage(named: "mappin.group.purple")!
     
-    var placeGroup : PlaceGroup
+    var placeGroup : LocationGroup
     
     override var hasMedia : Bool{
         placeGroup.hasMedia
@@ -24,7 +24,7 @@ class PlaceGroupMarker : Marker{
         placeGroup.hasTrack
     }
     
-    init(placeGroup: PlaceGroup){
+    init(placeGroup: LocationGroup){
         self.placeGroup = placeGroup
         super.init(frame: .zero)
         updateImage()
@@ -37,18 +37,18 @@ class PlaceGroupMarker : Marker{
     override func updateImage(){
         if hasMedia{
             if hasTrack{
-                setImage(PlaceGroupMarker.mapPinMediaTrackImage, for: .normal)
+                setImage(LocationGroupMarker.mapPinMediaTrackImage, for: .normal)
             }
             else{
-                setImage(PlaceGroupMarker.mapPinMediaImage, for: .normal)
+                setImage(LocationGroupMarker.mapPinMediaImage, for: .normal)
             }
         }
         else{
             if hasTrack{
-                setImage(PlaceGroupMarker.mapPinTrackImage, for: .normal)
+                setImage(LocationGroupMarker.mapPinTrackImage, for: .normal)
             }
             else{
-                setImage(PlaceGroupMarker.mapPinDefaultImage, for: .normal)
+                setImage(LocationGroupMarker.mapPinDefaultImage, for: .normal)
             }
         }
     }

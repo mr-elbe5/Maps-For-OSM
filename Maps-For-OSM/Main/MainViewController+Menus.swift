@@ -41,8 +41,8 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func openLocationList() {
-        let controller = PlaceListViewController()
-        controller.placeDelegate = self
+        let controller = LocationListViewController()
+        controller.locationDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -50,21 +50,21 @@ extension MainViewController: MainMenuDelegate{
     
     func showLocations(_ show: Bool) {
         AppState.shared.showLocations = show
-        mapView.placeLayerView.isHidden = !AppState.shared.showLocations
+        mapView.locationLayerView.isHidden = !AppState.shared.showLocations
     }
     
     func deleteAllLocations(){
         showDestructiveApprove(title: "confirmDeletePlaces".localize(), text: "deletePlacesHint".localize()){
-            AppData.shared.deleteAllPlaces()
+            AppData.shared.deleteAllLocations()
             AppData.shared.saveLocally()
-            self.placesChanged()
+            self.locationsChanged()
         }
     }
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = AppData.shared.places.trackItems
-        controller.placeDelegate = self
+        controller.tracks = AppData.shared.locations.trackItems
+        controller.locationDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true)
@@ -86,7 +86,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openImageList() {
         let controller = ImageListViewController()
-        controller.images = AppData.shared.places.imageItems
+        controller.images = AppData.shared.locations.imageItems
         controller.placeDelegate = self
         controller.imageDelegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -106,7 +106,7 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func applyFilter() {
-        mapView.updatePlaces()
+        mapView.updateLocations()
     }
     
     func focusUserLocation() {
@@ -176,21 +176,21 @@ extension MainViewController: PHPickerViewControllerDelegate{
                         //Log.debug("got image \(uiimage.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
                             var newPlace = false
-                            var place = AppData.shared.getPlace(coordinate: coordinate)
-                            if place == nil{
-                                place = AppData.shared.createPlace(coordinate: coordinate)
+                            var location = AppData.shared.getLocation(coordinate: coordinate)
+                            if location == nil{
+                                location = AppData.shared.createLocation(coordinate: coordinate)
                                 newPlace = true
                             }
                             let image = ImageItem()
                             image.creationDate = creationDate ?? Date.localDate
                             image.saveImage(uiImage: uiimage)
-                            place!.addItem(item: image)
+                            location!.addItem(item: image)
                             DispatchQueue.main.async {
                                 if newPlace{
-                                    self.placesChanged()
+                                    self.locationsChanged()
                                 }
                                 else{
-                                    self.placeChanged(place: place!)
+                                    self.locationChanged(location: location!)
                                 }
                             }
                         }
@@ -203,9 +203,9 @@ extension MainViewController: PHPickerViewControllerDelegate{
                         //Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
                         if let coordinate = location?.coordinate{
                             var newPlace = false
-                            var place = AppData.shared.getPlace(coordinate: coordinate)
-                            if place == nil{
-                                place = AppData.shared.createPlace(coordinate: coordinate)
+                            var location = AppData.shared.getLocation(coordinate: coordinate)
+                            if location == nil{
+                                location = AppData.shared.createLocation(coordinate: coordinate)
                                 newPlace = true
                             }
                             let video = VideoItem()
@@ -213,13 +213,13 @@ extension MainViewController: PHPickerViewControllerDelegate{
                             video.setFileNameFromURL(url)
                             if let data = FileManager.default.readFile(url: url){
                                 video.saveFile(data: data)
-                                place!.addItem(item: video)
+                                location!.addItem(item: video)
                                 DispatchQueue.main.async {
                                     if newPlace{
-                                        self.placesChanged()
+                                        self.locationsChanged()
                                     }
                                     else{
-                                        self.placeChanged(place: place!)
+                                        self.locationChanged(location: location!)
                                     }
                                 }
                             }
@@ -268,19 +268,19 @@ extension MainViewController : UIDocumentPickerDelegate{
             track.endTime = track.trackpoints.last?.timestamp ?? Date.localDate
             track.creationDate = track.startTime
             var newPlace = false
-            var place = AppData.shared.getPlace(coordinate: track.startCoordinate!)
-            if place == nil{
-                place = AppData.shared.createPlace(coordinate: track.startCoordinate!)
+            var location = AppData.shared.getLocation(coordinate: track.startCoordinate!)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: track.startCoordinate!)
                 newPlace = true
             }
-            place!.addItem(item: track)
+            location!.addItem(item: track)
             AppData.shared.saveLocally()
             DispatchQueue.main.async {
                 if newPlace{
-                    self.placesChanged()
+                    self.locationsChanged()
                 }
                 else{
-                    self.placeChanged(place: place!)
+                    self.locationChanged(location: location!)
                 }
             }
         }
@@ -292,7 +292,7 @@ extension MainViewController : UIDocumentPickerDelegate{
             if Backup.unzipBackupFile(zipFileURL: url){
                 if Backup.restoreBackupFile(){
                     self.showDone(title: "success".localize(), text: "restoreDone".localize())
-                    self.mapView.updatePlaces()
+                    self.mapView.updateLocations()
                 }
             }
             self.stopSpinner(spinner)
@@ -334,7 +334,7 @@ extension MainViewController: TrackStatusDelegate{
 extension MainViewController: AppLoaderDelegate{
     
     func dataChanged() {
-        mapView.updatePlaces()
+        mapView.updateLocations()
     }
     
 }

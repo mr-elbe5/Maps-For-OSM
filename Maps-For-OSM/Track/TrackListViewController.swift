@@ -18,7 +18,7 @@ class TrackListViewController: PopupTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var placeDelegate: PlaceDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
     override open func loadView() {
@@ -73,12 +73,12 @@ class TrackListViewController: PopupTableViewController{
             }
             showDestructiveApprove(title: "confirmDeleteTracks".localize(i: list.count), text: "deleteHint".localize()){
                 for track in list{
-                    track.place.deleteItem(item: track)
+                    track.location.deleteItem(item: track)
                     self.tracks?.remove(track)
                     Log.debug("deleting track \(track.name)")
                 }
                 AppData.shared.saveLocally()
-                self.placeDelegate?.placesChanged()
+                self.locationDelegate?.locationsChanged()
                 self.tableView.reloadData()
             }
         }
@@ -131,18 +131,18 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension TrackListViewController : PlaceDelegate{
+extension TrackListViewController : LocationDelegate{
     
-    func placeChanged(place: Place) {
-        self.placeDelegate?.placeChanged(place: place)
+    func locationChanged(location: Location) {
+        self.locationDelegate?.locationChanged(location: location)
     }
     
-    func placesChanged() {
-        self.placeDelegate?.placesChanged()
+    func locationsChanged() {
+        self.locationDelegate?.locationsChanged()
     }
     
-    func showPlaceOnMap(place: Place) {
-        self.placeDelegate?.showPlaceOnMap(place: place)
+    func showLocationOnMap(location: Location) {
+        self.locationDelegate?.showLocationOnMap(location: location)
     }
     
 }

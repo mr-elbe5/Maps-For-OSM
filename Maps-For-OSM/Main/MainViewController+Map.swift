@@ -58,27 +58,27 @@ extension MainViewController: MapPositionDelegate{
     
 }
 
-extension MainViewController: PlaceLayerDelegate{
+extension MainViewController: LocationLayerDelegate{
     
-    func showPlaceDetails(place: Place) {
-        let controller = EditPlaceViewController(location: place)
-        controller.place = place
+    func showLocationDetails(location: Location) {
+        let controller = EditLocationViewController(location: location)
+        controller.location = location
         controller.modalPresentationStyle = .fullScreen
-        controller.placeDelegate = self
+        controller.locationDelegate = self
         controller.trackDelegate = self
         present(controller, animated: true)
     }
     
-    func deletePlace(place: Place) {
-        showDestructiveApprove(title: "confirmDeletePlace".localize(), text: "deletePlaceHint".localize()){
-            AppData.shared.deletePlace(place)
+    func deleteLocation(location: Location) {
+        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
+            AppData.shared.deleteLocation(location)
             AppData.shared.saveLocally()
-            self.placesChanged()
+            self.locationsChanged()
         }
     }
     
-    func showGroupDetails(group: PlaceGroup) {
-        let controller = PlaceGroupViewController(group: group)
+    func showGroupDetails(group: LocationGroup) {
+        let controller = LocationGroupViewController(group: group)
         controller.placeDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .popover
@@ -88,10 +88,10 @@ extension MainViewController: PlaceLayerDelegate{
     
 }
 
-extension MainViewController: PlaceDelegate{
+extension MainViewController: LocationDelegate{
     
-    func showPlaceOnMap(place: Place) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: place.coordinate)
+    func showLocationOnMap(location: Location) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
     }
     
 }

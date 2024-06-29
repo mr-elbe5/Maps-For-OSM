@@ -11,12 +11,12 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PlaceListViewController: PopupTableViewController{
+class LocationListViewController: PopupTableViewController{
     
     class Day{
         
         var date: Date
-        var places = PlaceList()
+        var places = LocationList()
         
         init(_ date: Date){
             self.date = date
@@ -28,7 +28,7 @@ class PlaceListViewController: PopupTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
 
-    var placeDelegate: PlaceDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
     var days = Array<Day>()
@@ -39,21 +39,21 @@ class PlaceListViewController: PopupTableViewController{
         setupData()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PlaceCell.self, forCellReuseIdentifier: PlaceCell.CELL_IDENT)
+        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
     }
     
     func setupData(){
         days.removeAll()
-        for place in AppData.shared.places{
-            let startOfDay = place.creationDate.startOfDay()
+        for location in AppData.shared.locations{
+            let startOfDay = location.creationDate.startOfDay()
             if let day = days.first(where: { day in
                 day.date == startOfDay
             }){
-                day.places.append(place)
+                day.places.append(location)
             }
             else{
                 let day = Day(startOfDay)
-                day.places.append(place)
+                day.places.append(location)
                 days.append(day)
             }
         }
@@ -81,29 +81,29 @@ class PlaceListViewController: PopupTableViewController{
     
     func sortPlaces(){
         AppState.shared.sortAscending = !AppState.shared.sortAscending
-        AppData.shared.places.sortAll()
+        AppData.shared.locations.sortAll()
         setupData()
         tableView.reloadData()
     }
     
     func toggleSelectAll(){
-        if AppData.shared.places.allSelected{
-            AppData.shared.places.deselectAll()
+        if AppData.shared.locations.allSelected{
+            AppData.shared.locations.deselectAll()
         }
         else{
-            AppData.shared.places.selectAll()
+            AppData.shared.locations.selectAll()
         }
         for cell in tableView.visibleCells{
-            (cell as? PlaceCell)?.updateIconView(isEditing: true)
+            (cell as? LocationCell)?.updateIconView(isEditing: true)
         }
     }
     
     func deleteSelected(){
-        var list = PlaceList()
-        for i in 0..<AppData.shared.places.count{
-            let place = AppData.shared.places[i]
-            if place.selected{
-                list.append(place)
+        var list = LocationList()
+        for i in 0..<AppData.shared.locations.count{
+            let location = AppData.shared.locations[i]
+            if location.selected{
+                list.append(location)
             }
         }
         if list.isEmpty{
@@ -111,23 +111,23 @@ class PlaceListViewController: PopupTableViewController{
         }
         showDestructiveApprove(title: "confirmDeletePlaces".localize(i: list.count), text: "deleteHint".localize()){
             print("deleting \(list.count) places")
-            for place in list{
-                AppData.shared.deletePlace(place)
+            for location in list{
+                AppData.shared.deleteLocation(location)
             }
-            self.placeDelegate?.placesChanged()
+            self.locationDelegate?.locationsChanged()
             self.setupData()
             self.tableView.reloadData()
         }
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        AppData.shared.places.deselectAll()
+        AppData.shared.locations.deselectAll()
         super.dismiss(animated: flag, completion: completion)
     }
     
 }
 
-extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
+extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return days.count
@@ -146,9 +146,9 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PlaceCell.CELL_IDENT, for: indexPath) as! PlaceCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationCell.CELL_IDENT, for: indexPath) as! LocationCell
         let day = days[indexPath.section]
-        cell.place = day.places[indexPath.row]
+        cell.location = day.places[indexPath.row]
         cell.delegate = self
         cell.updateCell()
         return cell
@@ -164,18 +164,18 @@ extension PlaceListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension PlaceListViewController : PlaceCellDelegate{
+extension LocationListViewController : LocationCellDelegate{
     
-    func showPlaceOnMap(place: Place) {
+    func showLocationOnMap(location: Location) {
         self.dismiss(animated: true){
-            self.placeDelegate?.showPlaceOnMap(place: place)
+            self.locationDelegate?.showLocationOnMap(location: location)
         }
     }
     
-    func editPlace(place: Place) {
-        let placeController = EditPlaceViewController(location: place)
-        placeController.place = place
-        placeController.placeDelegate = self
+    func editLocation(location: Location) {
+        let placeController = EditLocationViewController(location: location)
+        placeController.location = location
+        placeController.locationDelegate = self
         placeController.trackDelegate = self
         placeController.modalPresentationStyle = .fullScreen
         self.present(placeController, animated: true)
@@ -183,19 +183,19 @@ extension PlaceListViewController : PlaceCellDelegate{
     
 }
 
-extension PlaceListViewController : PlaceDelegate{
+extension LocationListViewController : LocationDelegate{
     
-    func placeChanged(place: Place) {
-        placeDelegate?.placeChanged(place: place)
+    func locationChanged(location: Location) {
+        locationDelegate?.locationChanged(location: location)
     }
     
-    func placesChanged() {
-        placeDelegate?.placesChanged()
+    func locationsChanged() {
+        locationDelegate?.locationsChanged()
     }
     
 }
 
-extension PlaceListViewController : TrackDelegate{
+extension LocationListViewController : TrackDelegate{
     
     func editTrackItem(item: TrackItem) {
         let controller = EditTrackViewController(track: item)

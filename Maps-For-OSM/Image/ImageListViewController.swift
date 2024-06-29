@@ -30,7 +30,7 @@ class ImageListViewController: PopupTableViewController{
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var placeDelegate: PlaceDelegate? = nil
+    var placeDelegate: LocationDelegate? = nil
     var imageDelegate: ImageDelegate? = nil
     
     var images = ImageList()
@@ -39,7 +39,7 @@ class ImageListViewController: PopupTableViewController{
     override open func loadView() {
         title = "images".localize()
         super.loadView()
-        images = AppData.shared.places.imageItems
+        images = AppData.shared.locations.imageItems
         setupData()
         tableView.delegate = self
         tableView.dataSource = self
@@ -91,7 +91,7 @@ class ImageListViewController: PopupTableViewController{
     
     func sortImages(){
         AppState.shared.sortAscending = !AppState.shared.sortAscending
-        AppData.shared.places.sortAll()
+        AppData.shared.locations.sortAll()
         setupData()
         tableView.reloadData()
     }
@@ -157,14 +157,14 @@ class ImageListViewController: PopupTableViewController{
         }
         showDestructiveApprove(title: "confirmDeleteImages".localize(i: list.count), text: "deleteHint".localize()){
             for image in list{
-                image.place.deleteItem(item: image)
+                image.location.deleteItem(item: image)
                 self.images.remove(image)
                 Log.debug("deleting image \(image.fileURL.lastPathComponent)")
             }
             AppData.shared.saveLocally()
-            self.images = AppData.shared.places.imageItems
+            self.images = AppData.shared.locations.imageItems
             self.setupData()
-            self.placeDelegate?.placesChanged()
+            self.placeDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -215,20 +215,20 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension ImageListViewController : PlaceDelegate{
+extension ImageListViewController : LocationDelegate{
     
-    func placeChanged(place: Place) {
-        self.placeDelegate?.placeChanged(place: place)
+    func locationChanged(location: Location) {
+        self.placeDelegate?.locationChanged(location: location)
     }
     
-    func placesChanged() {
-        self.placeDelegate?.placesChanged()
+    func locationsChanged() {
+        self.placeDelegate?.locationsChanged()
     }
     
     
-    func showPlaceOnMap(place: Place) {
+    func showLocationOnMap(location: Location) {
         self.dismiss(animated: true){
-            self.placeDelegate?.showPlaceOnMap(place: place)
+            self.placeDelegate?.showLocationOnMap(location: location)
         }
     }
 }

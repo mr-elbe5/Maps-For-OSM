@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class PlaceItemCell: TableViewCell{
+class LocationItemCell: TableViewCell{
     
     var dateTimeView = UIView()
     var timeLabel = UILabel(text: Date.localDate.dateTimeString())
