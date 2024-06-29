@@ -122,7 +122,7 @@ class LocationGroupViewController: PopupTableViewController{
             if let newLocation = self.mergeLocations(list){
                 AppData.shared.locations.append(newLocation)
                 AppData.shared.locations.removeLocations(of: list)
-                AppData.shared.saveLocally()
+                AppData.shared.save()
                 self.locationDelegate?.locationsChanged()
                 self.tableView.reloadData()
             }

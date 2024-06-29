@@ -161,7 +161,7 @@ class ImageListViewController: PopupTableViewController{
                 self.images.remove(image)
                 Log.debug("deleting image \(image.fileURL.lastPathComponent)")
             }
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             self.images = AppData.shared.locations.imageItems
             self.setupData()
             self.locationDelegate?.locationsChanged()

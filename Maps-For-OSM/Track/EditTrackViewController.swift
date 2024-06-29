@@ -122,7 +122,7 @@ class EditTrackViewController: PopupScrollViewController{
     func save(){
         track.name = nameEditField.text ?? "Tour"
         track.note = noteEditView.text ?? ""
-        AppData.shared.saveLocally()
+        AppData.shared.save()
     }
     
 }

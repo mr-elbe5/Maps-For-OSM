@@ -56,7 +56,7 @@ extension MainViewController: MainMenuDelegate{
     func deleteAllLocations(){
         showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
             AppData.shared.deleteAllLocations()
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             self.locationsChanged()
         }
     }
@@ -269,7 +269,7 @@ extension MainViewController : UIDocumentPickerDelegate{
                 newLocation = true
             }
             location!.addItem(item: track)
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             DispatchQueue.main.async {
                 if newLocation{
                     self.locationsChanged()

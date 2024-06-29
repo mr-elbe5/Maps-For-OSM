@@ -122,7 +122,7 @@ class ICloudViewController: PopupScrollViewController{
         spinner.startAnimating()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: false)
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             DispatchQueue.main.async{
                 self.stopSpinner(spinner)
                 self.showDone(title: "success".localize(), text: "mergedFromICloud".localize())
@@ -136,7 +136,7 @@ class ICloudViewController: PopupScrollViewController{
         let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: true)
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             DispatchQueue.main.async{
                 self.stopSpinner(spinner)
                 self.showDone(title: "success".localize(), text: "copiedFromICloud".localize())
@@ -187,7 +187,7 @@ class ICloudViewController: PopupScrollViewController{
     func assertLocalDataConsitency(){
         AppData.shared.locations.updateCreationDates()
         AppData.shared.locations.removeDuplicates()
-        AppData.shared.saveLocally()
+        AppData.shared.save()
         self.delegate?.dataChanged()
         self.showDone(title: "success".localize(), text: "assertedLocalConsistency".localize())
     }

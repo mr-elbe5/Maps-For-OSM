@@ -294,7 +294,7 @@ extension EditLocationViewController: UIImagePickerControllerDelegate, UINavigat
             }
             if FileManager.default.saveFile(data: imageData, url: image.fileURL){
                 location.addItem(item: image)
-                AppData.shared.saveLocally()
+                AppData.shared.save()
                 self.tableView.reloadData()
                 picker.dismiss(animated: false)
                 return
@@ -319,7 +319,7 @@ extension EditLocationViewController: NoteViewDelegate{
                 newLocation = true
             }
             location!.addItem(item: item)
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newLocation{
@@ -345,7 +345,7 @@ extension EditLocationViewController: AudioCaptureDelegate{
                 newLocation = true
             }
             location!.addItem(item: audio)
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newLocation{

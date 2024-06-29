@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             AppState.shared = AppState()
         }
         TrackRecorder.load()
-        AppData.shared.loadLocally()
+        AppData.shared.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
@@ -62,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Log.info("SceneDelegate resigning active")
         AppState.shared.save()
         Preferences.shared.save()
-        AppData.shared.saveLocally()
+        AppData.shared.save()
         if TrackRecorder.isRecording{
             if !LocationService.shared.authorizedForTracking{
                 LocationService.shared.requestAlwaysAuthorization()

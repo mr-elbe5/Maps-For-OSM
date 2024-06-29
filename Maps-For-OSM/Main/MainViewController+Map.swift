@@ -72,7 +72,7 @@ extension MainViewController: LocationLayerDelegate{
     func deleteLocation(location: Location) {
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
             AppData.shared.deleteLocation(location)
-            AppData.shared.saveLocally()
+            AppData.shared.save()
             self.locationsChanged()
         }
     }
