@@ -18,7 +18,7 @@ protocol ActiveTrackDelegate{
 
 class EditTrackViewController: PopupScrollViewController{
     
-    var track: TrackItem
+    var track: Track
     
     let deleteButton = UIButton().asIconButton("trash", color: .white)
     let mapButton = UIButton().asIconButton("map", color: .white)
@@ -28,7 +28,7 @@ class EditTrackViewController: PopupScrollViewController{
     
     var delegate : TrackDelegate? = nil
     
-    init(track: TrackItem){
+    init(track: Track){
         self.track = track
         super.init()
     }
@@ -52,16 +52,10 @@ class EditTrackViewController: PopupScrollViewController{
         headerView.addSubviewWithAnchors(mapButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
         mapButton.addAction(UIAction(){ action in
             self.dismiss(animated: true){
-                self.delegate?.showTrackItemOnMap(item: self.track)
+                self.delegate?.showTrackOnMap(item: self.track)
             }
         }, for: .touchDown)
         
-        let infoButton = UIButton().asIconButton("info")
-        headerView.addSubviewWithAnchors(infoButton, top: buttonTopAnchor, trailing: closeButton.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        infoButton.addAction(UIAction(){ action in
-            let controller = TrackInfoViewController()
-            self.present(controller, animated: true)
-        }, for: .touchDown)
     }
     
     func setupContent() {

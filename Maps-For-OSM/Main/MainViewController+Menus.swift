@@ -63,7 +63,7 @@ extension MainViewController: MainMenuDelegate{
     
     func openTrackList() {
         let controller = TrackListViewController()
-        controller.tracks = AppData.shared.locations.trackItems
+        controller.tracks = AppData.shared.locations.tracks
         controller.locationDelegate = self
         controller.trackDelegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -80,13 +80,13 @@ extension MainViewController: MainMenuDelegate{
     }
     
     func hideTrack() {
-        TrackItem.visibleTrack = nil
+        Track.visibleTrack = nil
         trackChanged()
     }
     
     func openImageList() {
         let controller = ImageListViewController()
-        controller.images = AppData.shared.locations.imageItems
+        controller.images = AppData.shared.locations.images
         controller.locationDelegate = self
         controller.imageDelegate = self
         controller.modalPresentationStyle = .fullScreen
@@ -176,7 +176,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 location = AppData.shared.createLocation(coordinate: coordinate)
                                 newLocation = true
                             }
-                            let image = ImageItem()
+                            let image = Image()
                             image.creationDate = creationDate ?? Date.localDate
                             image.saveImage(uiImage: uiimage)
                             location!.addItem(item: image)
@@ -203,7 +203,7 @@ extension MainViewController: PHPickerViewControllerDelegate{
                                 location = AppData.shared.createLocation(coordinate: coordinate)
                                 newLocation = true
                             }
-                            let video = VideoItem()
+                            let video = Video()
                             video.creationDate = creationDate ?? Date.localDate
                             video.setFileNameFromURL(url)
                             if let data = FileManager.default.readFile(url: url){
@@ -243,7 +243,7 @@ extension MainViewController : UIDocumentPickerDelegate{
     
     private func importGPXFile(url: URL){
         if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
-            let track = TrackItem()
+            let track = Track()
             track.name = gpxData.name
             for segment in gpxData.segments{
                 for point in segment.points{

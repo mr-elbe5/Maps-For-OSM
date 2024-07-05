@@ -10,15 +10,15 @@ import E5IOSUI
 import E5MapData
 
 public protocol TrackDelegate{
-    func editTrackItem(item: TrackItem)
-    func showTrackItemOnMap(item: TrackItem)
+    func editTrack(item: Track)
+    func showTrackOnMap(item: Track)
 }
 
 class TrackCell: LocationItemCell{
 
     static let CELL_IDENT = "trackCell"
     
-    var track : TrackItem? = nil
+    var track : Track? = nil
     
     var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
@@ -36,13 +36,13 @@ class TrackCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.trackDelegate?.showTrackItemOnMap(item: track)
+                self.trackDelegate?.showTrackOnMap(item: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let editButton = UIButton().asIconButton("pencil", color: .label)
             editButton.addAction(UIAction(){ action in
-                self.trackDelegate?.editTrackItem(item: track)
+                self.trackDelegate?.editTrack(item: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

@@ -95,7 +95,7 @@ class LocationCell: TableViewCell{
                 case .note:
                     noteCount += 1
                 case .track:
-                    if let track = item as? TrackItem{
+                    if let track = item as? Track{
                         trackNames.append(track.name)
                     }
                 }

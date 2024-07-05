@@ -10,14 +10,14 @@ import E5IOSUI
 import E5MapData
 
 public protocol VideoDelegate{
-    func viewVideoItem(item: VideoItem)
+    func viewVideo(item: Video)
 }
 
 class VideoCell: LocationItemCell{
     
     static let CELL_IDENT = "videoCell"
     
-    var video : VideoItem? = nil {
+    var video : Video? = nil {
         didSet {
             updateCell()
             setSelected(video?.selected ?? false, animated: false)
@@ -45,7 +45,7 @@ class VideoCell: LocationItemCell{
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.videoDelegate?.viewVideoItem(item: video)
+                self.videoDelegate?.viewVideo(item: video)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

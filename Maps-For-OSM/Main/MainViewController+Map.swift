@@ -98,7 +98,7 @@ extension MainViewController: LocationDelegate{
 
 extension MainViewController: ImageDelegate {
     
-    func viewImage(image: ImageItem) {
+    func viewImage(image: Image) {
         
     }
     
@@ -106,16 +106,16 @@ extension MainViewController: ImageDelegate {
 
 extension MainViewController: TrackDelegate{
     
-    func editTrackItem(item: TrackItem) {
+    func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func showTrackItemOnMap(item: TrackItem) {
+    func showTrackOnMap(item: Track) {
         if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
-            TrackItem.visibleTrack = item
+            Track.visibleTrack = item
             trackChanged()
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
             mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)

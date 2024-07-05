@@ -51,7 +51,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             else{
                 coordinate = LocationService.shared.location?.coordinate
             }
-            let image = ImageItem()
+            let image = Image()
             var imageData = data
             let metaData = ImageMetaData()
             metaData.readData(data: data)
@@ -101,7 +101,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
                 location = AppData.shared.createLocation(coordinate: coordinate)
                 newLocation = true
             }
-            let note = NoteItem()
+            let note = Note()
             note.text = text
             location!.addItem(item: note)
             AppData.shared.save()
@@ -138,7 +138,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     
     func photoCaptured(data: Data, location: CLLocation?) {
         if let cllocation = location{
-            let imageFile = ImageItem()
+            let imageFile = Image()
             var imageData = data
             if let dataWithCoordinates = data.setImageProperties(altitude: cllocation.altitude, latitude: cllocation.coordinate.latitude, longitude: cllocation.coordinate.longitude, utType: imageFile.fileURL.utType!){
                 imageData = dataWithCoordinates
@@ -167,7 +167,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     
     func videoCaptured(data: Data, cllocation: CLLocation?) {
         if let cllocation = cllocation{
-            let videoFile = VideoItem()
+            let videoFile = Video()
             videoFile.saveFile(data: data)
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: cllocation.coordinate)
@@ -208,7 +208,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         }
     }
     
-    func audioCaptured(audio: AudioItem){
+    func audioCaptured(audio: Audio){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)
@@ -241,7 +241,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         if let trackRecorder = TrackRecorder.instance{
             trackRecorder.track.addTrackpoint(from: location)
             trackRecorder.isRecording = true
-            TrackItem.visibleTrack = trackRecorder.track
+            Track.visibleTrack = trackRecorder.track
             self.trackChanged()
             self.trackStatusView.hide(false)
             self.trackStatusView.startTrackInfo()
@@ -259,7 +259,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             }
             location!.addItem(item: track)
             AppData.shared.save()
-            TrackItem.visibleTrack = track
+            Track.visibleTrack = track
             self.trackChanged()
             self.trackStatusView.hide(true)
             DispatchQueue.main.async {
@@ -275,7 +275,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     
     func cancelTrack() {
         if TrackRecorder.stopTracking() != nil{
-            TrackItem.visibleTrack = nil
+            Track.visibleTrack = nil
             self.trackChanged()
             self.trackStatusView.stopTrackInfo()
             self.trackStatusView.hide(true)

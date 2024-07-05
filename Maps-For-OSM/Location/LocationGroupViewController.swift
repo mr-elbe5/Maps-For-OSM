@@ -225,15 +225,15 @@ extension LocationGroupViewController : LocationDelegate{
 
 extension LocationGroupViewController : TrackDelegate{
     
-    func editTrackItem(item: TrackItem) {
+    func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func showTrackItemOnMap(item: TrackItem) {
+    func showTrackOnMap(item: Track) {
         self.dismiss(animated: true){
-            self.trackDelegate?.showTrackItemOnMap(item: item)
+            self.trackDelegate?.showTrackOnMap(item: item)
         }
     }
     

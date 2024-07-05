@@ -10,14 +10,14 @@ import E5IOSUI
 import E5MapData
 
 public protocol ImageDelegate{
-    func viewImage(image: ImageItem)
+    func viewImage(image: Image)
 }
 
 class ImageCell: LocationItemCell{
     
     static let CELL_IDENT = "imageCell"
     
-    var image : ImageItem? = nil {
+    var image : Image? = nil {
         didSet {
             updateCell()
             setSelected(image?.selected ?? false, animated: false)

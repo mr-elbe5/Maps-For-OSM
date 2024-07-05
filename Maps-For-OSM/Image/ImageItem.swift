@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5MapData
 
-extension ImageItem{
+extension Image{
     
     func saveImage(uiImage: UIImage){
         if let data = uiImage.jpegData(compressionQuality: 0.8){

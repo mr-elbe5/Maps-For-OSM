@@ -11,7 +11,7 @@ import E5IOSUI
 import E5MapData
 
 protocol AudioCaptureDelegate{
-    func audioCaptured(audio: AudioItem)
+    func audioCaptured(audio: Audio)
 }
 
 class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDelegate{
@@ -55,7 +55,7 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
     }
     
     func save(){
-        let audioFile = AudioItem()
+        let audioFile = Audio()
         audioFile.title = titleField.text?.trim() ?? ""
         audioFile.time = (audioRecorder.currentTime*100).rounded() / 100
         //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")

@@ -39,7 +39,7 @@ class ImageListViewController: PopupTableViewController{
     override open func loadView() {
         title = "images".localize()
         super.loadView()
-        images = AppData.shared.locations.imageItems
+        images = AppData.shared.locations.images
         setupData()
         tableView.delegate = self
         tableView.dataSource = self
@@ -111,7 +111,7 @@ class ImageListViewController: PopupTableViewController{
     }
     
     func exportSelected(){
-        var exportList = Array<ImageItem>()
+        var exportList = Array<Image>()
         for i in 0..<images.count{
             let image = images[i]
             if image.selected{
@@ -145,7 +145,7 @@ class ImageListViewController: PopupTableViewController{
     }
     
     func deleteSelected(){
-        var list = Array<ImageItem>()
+        var list = Array<Image>()
         for i in 0..<images.count{
             let image = images[i]
             if image.selected{
@@ -162,7 +162,7 @@ class ImageListViewController: PopupTableViewController{
                 Log.debug("deleting image \(image.fileURL.lastPathComponent)")
             }
             AppData.shared.save()
-            self.images = AppData.shared.locations.imageItems
+            self.images = AppData.shared.locations.images
             self.setupData()
             self.locationDelegate?.locationsChanged()
             self.tableView.reloadData()
@@ -235,7 +235,7 @@ extension ImageListViewController : LocationDelegate{
 
 extension ImageListViewController : ImageDelegate{
     
-    func viewImage(image: ImageItem) {
+    func viewImage(image: Image) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen

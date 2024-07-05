@@ -12,7 +12,7 @@ class AudioCell: LocationItemCell{
     
     static let CELL_IDENT = "audioCell"
     
-    var audio : AudioItem? = nil {
+    var audio : Audio? = nil {
         didSet {
             updateCell()
             setSelected(audio?.selected ?? false, animated: false)

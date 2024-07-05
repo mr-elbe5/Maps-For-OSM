@@ -20,7 +20,7 @@ class TrackLayerView: UIView {
     }
     
     func getTrackRect() -> CGRect?{
-        if let track = TrackItem.visibleTrack, let offset = offset, let boundingRect = track.trackpoints.boundingMapRect{
+        if let track = Track.visibleTrack, let offset = offset, let boundingRect = track.trackpoints.boundingMapRect{
             let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
             return CGRect(x: (boundingRect.minX  - mapOffset.x)*scale, y: (boundingRect.minY - mapOffset.y)*scale, width: boundingRect.width*scale, height: boundingRect.height*scale)
         }
@@ -33,7 +33,7 @@ class TrackLayerView: UIView {
         setNeedsDisplay()
     }
     
-    func getDrawPoints(track: TrackItem) -> Array<CGPoint>{
+    func getDrawPoints(track: Track) -> Array<CGPoint>{
         var points = Array<CGPoint>()
         if let offset = offset{
             let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
@@ -47,7 +47,7 @@ class TrackLayerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        if let track = TrackItem.visibleTrack{
+        if let track = Track.visibleTrack{
             if !track.trackpoints.isEmpty{
                 var drawPoints = Array<CGPoint>()
                 if let offset = offset{

@@ -188,8 +188,8 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
         let item = location.item(at: indexPath.row)
         switch item.type{
         case .audio: 
-            if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let audioItem = item as? AudioItem{
-                cell.audio = audioItem
+            if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let Audio = item as? Audio{
+                cell.audio = Audio
                 cell.locationDelegate = self
                 cell.updateCell()
                 return cell
@@ -199,8 +199,8 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
                 return UITableViewCell()
             }
         case .video:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let videoItem = item as? VideoItem{
-                cell.video = videoItem
+            if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let Video = item as? Video{
+                cell.video = Video
                 cell.locationDelegate = self
                 cell.videoDelegate = self
                 cell.updateCell()
@@ -211,8 +211,8 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
                 return UITableViewCell()
             }
         case .image:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let imageItem = item as? ImageItem{
-                cell.image = imageItem
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let Image = item as? Image{
+                cell.image = Image
                 cell.locationDelegate = self
                 cell.imageDelegate = self
                 cell.updateCell()
@@ -223,8 +223,8 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
                 return UITableViewCell()
             }
         case .track:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let trackItem = item as? TrackItem{
-                cell.track = trackItem
+            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let Track = item as? Track{
+                cell.track = Track
                 cell.locationDelegate = self
                 cell.trackDelegate = self
                 cell.updateCell()
@@ -235,8 +235,8 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
                 return UITableViewCell()
             }
         case .note:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.CELL_IDENT, for: indexPath) as? NoteCell, let noteItem = item as? NoteItem{
-                cell.note = noteItem
+            if let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.CELL_IDENT, for: indexPath) as? NoteCell, let Note = item as? Note{
+                cell.note = Note
                 cell.delegate = self
                 cell.updateCell()
                 return cell
@@ -283,7 +283,7 @@ extension EditLocationViewController: UIImagePickerControllerDelegate, UINavigat
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
-            let image = ImageItem()
+            let image = Image()
             var imageData = data
             let metaData = ImageMetaData()
             metaData.readData(data: data)
@@ -310,7 +310,7 @@ extension EditLocationViewController: NoteViewDelegate{
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
-            let item = NoteItem()
+            let item = Note()
             item.text = text
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)
@@ -336,7 +336,7 @@ extension EditLocationViewController: NoteViewDelegate{
 
 extension EditLocationViewController: AudioCaptureDelegate{
     
-    func audioCaptured(audio: AudioItem){
+    func audioCaptured(audio: Audio){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)
@@ -361,7 +361,7 @@ extension EditLocationViewController: AudioCaptureDelegate{
 
 extension EditLocationViewController : VideoDelegate{
     
-    func viewVideoItem(item: VideoItem) {
+    func viewVideo(item: Video) {
         let controller = VideoViewController()
         controller.videoURL = item.fileURL
         controller.modalPresentationStyle = .fullScreen
@@ -372,7 +372,7 @@ extension EditLocationViewController : VideoDelegate{
 
 extension EditLocationViewController : ImageDelegate{
     
-    func viewImage(image: ImageItem) {
+    func viewImage(image: Image) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         controller.modalPresentationStyle = .fullScreen
@@ -383,15 +383,15 @@ extension EditLocationViewController : ImageDelegate{
 
 extension EditLocationViewController : TrackDelegate{
     
-    func editTrackItem(item: TrackItem) {
+    func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)
     }
     
-    func showTrackItemOnMap(item: TrackItem) {
+    func showTrackOnMap(item: Track) {
         self.dismiss(animated: true){
-            self.trackDelegate?.showTrackItemOnMap(item: item)
+            self.trackDelegate?.showTrackOnMap(item: item)
         }
     }
     

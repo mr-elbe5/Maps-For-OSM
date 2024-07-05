@@ -13,7 +13,7 @@ import E5MapData
 
 class TrackListViewController: PopupTableViewController{
 
-    var tracks: Array<TrackItem>? = nil
+    var tracks: Array<Track>? = nil
     
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
@@ -61,7 +61,7 @@ class TrackListViewController: PopupTableViewController{
     
     func deleteSelected(){
         if let tracks = tracks{
-            var list = Array<TrackItem>()
+            var list = Array<Track>()
             for i in 0..<tracks.count{
                 let track = tracks[i]
                 if track.selected{
@@ -89,7 +89,7 @@ class TrackListViewController: PopupTableViewController{
         super.dismiss(animated: flag, completion: completion)
     }
     
-    func exportTrack(item: TrackItem) {
+    func exportTrack(item: Track) {
         if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             controller.directoryURL = FileManager.exportGpxDirURL
@@ -149,7 +149,7 @@ extension TrackListViewController : LocationDelegate{
     
 extension TrackListViewController : TrackDelegate{
     
-    func editTrackItem(item: TrackItem) {
+    func editTrack(item: Track) {
         let trackController = EditTrackViewController(track: item)
         trackController.track = item
         trackController.delegate = self
@@ -157,9 +157,9 @@ extension TrackListViewController : TrackDelegate{
         self.present(trackController, animated: true)
     }
     
-    func showTrackItemOnMap(item: TrackItem) {
+    func showTrackOnMap(item: Track) {
         self.dismiss(animated: true){
-            self.trackDelegate?.showTrackItemOnMap(item: item)
+            self.trackDelegate?.showTrackOnMap(item: item)
         }
     }
     
