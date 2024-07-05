@@ -34,7 +34,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let mainViewController = MainViewController()
-        window?.rootViewController = mainViewController
+        let navViewController = UINavigationController(rootViewController: mainViewController)
+        window?.rootViewController = navViewController
         window?.makeKeyAndVisible()
         LocationService.shared.serviceDelegate = mainViewController
         LocationService.shared.requestWhenInUseAuthorization()

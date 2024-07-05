@@ -16,7 +16,7 @@ protocol MapPositionDelegate{
 
 class MapView: UIView {
     
-    var scrollView : MapScrollView!
+    var scrollView = MapScrollView()
     var trackLayerView = TrackLayerView()
     var locationLayerView = LocationLayerView()
     var currentLocationView = CurrentLocationView(frame: CurrentLocationView.frameRect)
@@ -29,7 +29,6 @@ class MapView: UIView {
     }
     
     func setupScrollView(){
-        scrollView = MapScrollView(frame: bounds)
         addSubviewFilling(scrollView)
         scrollView.mapDelegate = self
     }

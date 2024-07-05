@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationListViewController: PopupTableViewController{
+class LocationListViewController: TableViewController{
     
     class Day{
         
@@ -34,12 +34,34 @@ class LocationListViewController: PopupTableViewController{
     var days = Array<Day>()
     
     override func loadView() {
-        title = "LocationList".localize()
+        title = "locations".localize()
         super.loadView()
         setupData()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
+    }
+    
+    override func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            AppData.shared.locations.deselectAll()
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "locations".localize(), image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: UIAction(){ action in
+            self.sortLocations()
+        }))
+        items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
+            self.toggleSelectAll()
+        }))
+        items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
+            self.deleteSelected()
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
+        
     }
     
     func setupData(){
@@ -57,26 +79,6 @@ class LocationListViewController: PopupTableViewController{
                 days.append(day)
             }
         }
-    }
-    
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
-        
-        headerView.addSubviewWithAnchors(sortButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        sortButton.addAction(UIAction(){ action in
-            self.sortLocations()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: sortButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        selectAllButton.addAction(UIAction(){ action in
-            self.toggleSelectAll()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addAction(UIAction(){ action in
-            self.deleteSelected()
-        }, for: .touchDown)
     }
     
     func sortLocations(){

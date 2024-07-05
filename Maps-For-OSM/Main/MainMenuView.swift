@@ -38,7 +38,7 @@ protocol MainMenuDelegate{
 
 class MainMenuView: UIView {
     
-    var locationMenuButton = UIButton().asIconButton("mappin")
+    var viewMenuButton = UIButton().asIconButton("eye")
     
     //MainViewController
     var delegate : MainMenuDelegate? = nil
@@ -50,20 +50,6 @@ class MainMenuView: UIView {
         
         let insets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         
-        addSubviewWithAnchors(locationMenuButton, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 20))
-        locationMenuButton.menu = getLocationMenu()
-        locationMenuButton.showsMenuAsPrimaryAction = true
-        
-        let trackMenuButton = UIButton().asIconButton("figure.walk")
-        addSubviewWithAnchors(trackMenuButton, top: topAnchor, leading: locationMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
-        trackMenuButton.menu = getTrackingMenu()
-        trackMenuButton.showsMenuAsPrimaryAction = true
-        
-        let imageMenuButton = UIButton().asIconButton("photo")
-        addSubviewWithAnchors(imageMenuButton, top: topAnchor, leading: trackMenuButton.trailingAnchor, bottom: bottomAnchor, insets: insets)
-        imageMenuButton.menu = getImageMenu()
-        imageMenuButton.showsMenuAsPrimaryAction = true
-        
         let focusCurrentLocationButton = UIButton().asIconButton("record.circle")
         addSubviewWithAnchors(focusCurrentLocationButton, top: topAnchor, bottom: bottomAnchor, insets: insets)
             .centerX(centerXAnchor)
@@ -71,35 +57,19 @@ class MainMenuView: UIView {
             self.delegate?.focusUserLocation()
         }, for: .touchDown)
         
-        let infoButton = UIButton().asIconButton("info")
-        addSubviewWithAnchors(infoButton, top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 10))
-        infoButton.addAction(UIAction(){ action in
-            UIApplication.shared.open(URL(string: "infoURL".localize())!)
-        }, for: .touchDown)
-        
-        let settingsButton = UIButton().asIconButton("gearshape")
-        addSubviewWithAnchors(settingsButton, top: topAnchor, trailing: infoButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
-        settingsButton.menu = getSettingsMenu()
-        settingsButton.showsMenuAsPrimaryAction = true
-        
-        let iCloudButton = UIButton().asIconButton("cloud")
-        addSubviewWithAnchors(iCloudButton, top: topAnchor, trailing: settingsButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
-        iCloudButton.addAction(UIAction(){ action in
-            self.delegate?.openICloud()
-        }, for: .touchDown)
+        addSubviewWithAnchors(viewMenuButton, top: topAnchor, leading: leadingAnchor, trailing: focusCurrentLocationButton.leadingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 20))
+        viewMenuButton.menu = getViewMenu()
+        viewMenuButton.showsMenuAsPrimaryAction = true
         
         let searchButton = UIButton().asIconButton("magnifyingglass")
-        addSubviewWithAnchors(searchButton, top: topAnchor, trailing: iCloudButton.leadingAnchor, bottom: bottomAnchor, insets: insets)
+        addSubviewWithAnchors(searchButton, top: topAnchor, leading: focusCurrentLocationButton.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: insets)
         searchButton.addAction(UIAction(){ action in
             self.delegate?.openSearch()
         }, for: .touchDown)
     }
     
-    func getLocationMenu() -> UIMenu{
+    func getViewMenu() -> UIMenu{
         var actions = Array<UIAction>()
-        actions.append(UIAction(title: "showLocationList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openLocationList()
-        })
         if AppState.shared.showLocations{
             actions.append(UIAction(title: "hideLocations".localize(), image: UIImage(systemName: "mappin.slash")){ action in
                 self.delegate?.showLocations(false)
@@ -113,30 +83,8 @@ class MainMenuView: UIView {
                 
             })
         }
-        return UIMenu(title: "", children: actions)
-    }
-    
-    func getTrackingMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "showTrackList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openTrackList()
-        })
-        actions.append(UIAction(title: "importTrack".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
-            self.delegate?.importTrack()
-        })
-        actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eraser")){ action in
+        actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eraser.line.dashed")){ action in
             self.delegate?.hideTrack()
-        })
-        return UIMenu(title: "", children: actions)
-    }
-    
-    func getImageMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "showImageList".localize(), image: UIImage(systemName: "list.bullet")){ action in
-            self.delegate?.openImageList()
-        })
-        actions.append(UIAction(title: "importImages".localize(), image: UIImage(systemName: "square.and.arrow.down")){ action in
-            self.delegate?.importImages()
         })
         return UIMenu(title: "", children: actions)
     }
@@ -168,7 +116,7 @@ class MainMenuView: UIView {
     }
     
     func updateLocationMenu(){
-        self.locationMenuButton.menu = self.getLocationMenu()
+        self.viewMenuButton.menu = self.getViewMenu()
     }
     
 }

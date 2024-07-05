@@ -1973,6 +1973,23 @@
         }
       }
     },
+    "map" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
+          }
+        }
+      }
+    },
     "mapPreload" : {
       "extractionState" : "manual",
       "localizations" : {
