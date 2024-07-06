@@ -119,7 +119,7 @@ class MainViewController: ViewController {
     }
     
     func setupMainMenuView(guide: UILayoutGuide){
-        view.addSubviewWithAnchors(mainMenuView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, insets: flatInsets)
+        view.addSubviewWithAnchors(mainMenuView, top: guide.topAnchor, insets: flatInsets).centerX(guide.centerXAnchor)
         mainMenuView.setup()
         mainMenuView.delegate = self
     }

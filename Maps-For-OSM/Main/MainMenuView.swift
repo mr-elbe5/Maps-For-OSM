@@ -38,7 +38,7 @@ protocol MainMenuDelegate{
 
 class MainMenuView: UIView {
     
-    var viewMenuButton = UIButton().asIconButton("eye")
+    var viewMenuButton = UIButton().asIconButton("map")
     
     //MainViewController
     var delegate : MainMenuDelegate? = nil

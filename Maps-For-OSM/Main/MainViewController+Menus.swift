@@ -125,7 +125,7 @@ extension MainViewController: MainMenuDelegate{
     func openSearch() {
         let controller = SearchViewController()
         controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
+        controller.modalPresentationStyle = .overCurrentContext
         present(controller, animated: true)
     }
     
