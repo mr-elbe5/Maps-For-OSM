@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PreferencesViewController: PopupScrollViewController{
+class PreferencesViewController: ScrollViewController{
     
     var maxMergeDistanceField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
@@ -22,7 +22,10 @@ class PreferencesViewController: PopupScrollViewController{
     override func loadView() {
         title = "preferences".localize()
         super.loadView()
-        
+        setupKeyboard()
+    }
+    
+    override func loadScrollableSubviews() {
         var header = UILabel(header: "locations".localize())
         contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -75,9 +78,6 @@ class PreferencesViewController: PopupScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
-        
-        setupKeyboard()
-        
     }
     
     func saveLocationPreferences(){

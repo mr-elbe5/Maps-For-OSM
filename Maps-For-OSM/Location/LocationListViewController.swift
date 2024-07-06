@@ -35,8 +35,8 @@ class LocationListViewController: TableViewController{
     
     override func loadView() {
         title = "locations".localize()
-        super.loadView()
         setupData()
+        super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
@@ -45,18 +45,18 @@ class LocationListViewController: TableViewController{
     override func updateNavigationItems() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             AppData.shared.locations.deselectAll()
-            self.navigationController?.popViewController(animated: true)
+            self.close()
         })
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "locations".localize(), image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "sort".localize(), image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: UIAction(){ action in
             self.sortLocations()
         }))
-        items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "selectAll".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
             self.toggleSelectAll()
         }))
-        items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteSelected()
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
@@ -122,11 +122,6 @@ class LocationListViewController: TableViewController{
         }
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        AppData.shared.locations.deselectAll()
-        super.dismiss(animated: flag, completion: completion)
-    }
-    
 }
 
 extension LocationListViewController: UITableViewDelegate, UITableViewDataSource{
@@ -169,9 +164,8 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
 extension LocationListViewController : LocationCellDelegate{
     
     func showLocationOnMap(location: Location) {
-        self.dismiss(animated: true){
-            self.locationDelegate?.showLocationOnMap(location: location)
-        }
+        self.close()
+        self.locationDelegate?.showLocationOnMap(location: location)
     }
     
     func editLocation(location: Location) {
@@ -179,8 +173,7 @@ extension LocationListViewController : LocationCellDelegate{
         controller.location = location
         controller.locationDelegate = self
         controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -201,14 +194,12 @@ extension LocationListViewController : TrackDelegate{
     
     func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(item: Track) {
-        self.dismiss(animated: true){
-            self.trackDelegate?.showTrackOnMap(item: item)
-        }
+        self.close()
+        self.trackDelegate?.showTrackOnMap(item: item)
     }
     
 }

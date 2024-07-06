@@ -23,14 +23,12 @@ extension MainViewController: MainMenuDelegate{
         let region = mapView.scrollView.tileRegion
         let controller = PreloadViewController()
         controller.mapRegion = region
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func changeTileSource() {
         let controller = TileSourceViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func deleteAllTiles(){
@@ -38,14 +36,6 @@ extension MainViewController: MainMenuDelegate{
             TileProvider.shared.deleteAllTiles()
             self.mapView.clearTiles()
         }
-    }
-    
-    func openLocationList() {
-        let controller = LocationListViewController()
-        controller.locationDelegate = self
-        controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
     }
     
     func showLocations(_ show: Bool) {
@@ -61,15 +51,6 @@ extension MainViewController: MainMenuDelegate{
         }
     }
     
-    func openTrackList() {
-        let controller = TrackListViewController()
-        controller.tracks = AppData.shared.locations.tracks
-        controller.locationDelegate = self
-        controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func importTrack(){
         let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
         filePicker.directoryURL = FileManager.exportGpxDirURL
@@ -82,15 +63,6 @@ extension MainViewController: MainMenuDelegate{
     func hideTrack() {
         Track.visibleTrack = nil
         trackChanged()
-    }
-    
-    func openImageList() {
-        let controller = ImageListViewController()
-        controller.images = AppData.shared.locations.images
-        controller.locationDelegate = self
-        controller.imageDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
     }
     
     func importImages() {
@@ -109,24 +81,10 @@ extension MainViewController: MainMenuDelegate{
         mapView.focusUserLocation()
     }
     
-    func openICloud(){
-        let controller = ICloudViewController()
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func openPreferences(){
-        let controller = PreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func openSearch() {
         let controller = SearchViewController()
         controller.delegate = self
-        controller.modalPresentationStyle = .overCurrentContext
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func createBackup(){

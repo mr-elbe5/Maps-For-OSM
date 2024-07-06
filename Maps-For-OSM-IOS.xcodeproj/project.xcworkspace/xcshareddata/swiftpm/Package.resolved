@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
       "state" : {
-        "revision" : "d5fcf80e1abff49e26588181dfc151b85f105a2d",
-        "version" : "1.0.10"
+        "revision" : "c8b74af39a17faa4d4113e10bd29138587dda3e0",
+        "version" : "1.0.11"
       }
     },
     {

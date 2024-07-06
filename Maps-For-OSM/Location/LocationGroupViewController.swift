@@ -10,7 +10,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationGroupViewController: PopupTableViewController{
+class LocationGroupViewController: TableViewController{
     
     var group: LocationGroup
     
@@ -39,24 +39,27 @@ class LocationGroupViewController: PopupTableViewController{
         super.loadView()
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
+    override func updateNavigationItems() {
+        super.updateNavigationItems()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            AppData.shared.locations.deselectAll()
+            self.navigationController?.popViewController(animated: true)
+        })
         
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        selectAllButton.addAction(UIAction(){ action in
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        
+        items.append(UIBarButtonItem(title: "selectAll".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
             self.toggleSelectAll()
-        }, for: .touchDown)
-    
-        headerView.addSubviewWithAnchors(mergeButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        mergeButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "merge".localize(), image: UIImage(systemName: "arrow.triangle.merge"), primaryAction: UIAction(){ action in
             self.mergeSelected()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: mergeButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteSelected()
-        }, for: .touchDown)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
         
     }
     
@@ -195,9 +198,8 @@ extension LocationGroupViewController: UITableViewDelegate, UITableViewDataSourc
 extension LocationGroupViewController : LocationCellDelegate{
     
     func showLocationOnMap(location: Location) {
-        self.dismiss(animated: true){
-            self.locationDelegate?.showLocationOnMap(location: location)
-        }
+        self.close()
+        self.locationDelegate?.showLocationOnMap(location: location)
     }
     
     func editLocation(location: Location) {
@@ -205,8 +207,7 @@ extension LocationGroupViewController : LocationCellDelegate{
         controller.location = location
         controller.locationDelegate = self
         controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -227,14 +228,12 @@ extension LocationGroupViewController : TrackDelegate{
     
     func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(item: Track) {
-        self.dismiss(animated: true){
-            self.trackDelegate?.showTrackOnMap(item: item)
-        }
+        self.close()
+        self.trackDelegate?.showTrackOnMap(item: item)
     }
     
 }

@@ -63,10 +63,9 @@ extension MainViewController: LocationLayerDelegate{
     func showLocationDetails(location: Location) {
         let controller = EditLocationViewController(location: location)
         controller.location = location
-        controller.modalPresentationStyle = .fullScreen
         controller.locationDelegate = self
         controller.trackDelegate = self
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func deleteLocation(location: Location) {
@@ -81,9 +80,7 @@ extension MainViewController: LocationLayerDelegate{
         let controller = LocationGroupViewController(group: group)
         controller.locationDelegate = self
         controller.trackDelegate = self
-        controller.modalPresentationStyle = .popover
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }

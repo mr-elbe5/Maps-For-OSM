@@ -8,6 +8,14 @@ import UIKit
 
 open class ViewController: UIViewController {
     
+    public  init(){
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override open func loadView() {
         super.loadView()
         view.backgroundColor = .black
@@ -22,6 +30,13 @@ open class ViewController: UIViewController {
     }
     
     open func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            self.close()
+        })
+    }
+    
+    open func close(){
+        self.navigationController?.popViewController(animated: true)
     }
     
     

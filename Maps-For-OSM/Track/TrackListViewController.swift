@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TrackListViewController: PopupTableViewController{
+class TrackListViewController: TableViewController{
 
     var tracks: Array<Track>? = nil
     
@@ -30,19 +30,23 @@ class TrackListViewController: PopupTableViewController{
         tableView.register(TrackCell.self, forCellReuseIdentifier: TrackCell.CELL_IDENT)
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
+    override func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            self.tracks?.deselectAll()
+            self.navigationController?.popViewController(animated: true)
+        })
         
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        selectAllButton.addAction(UIAction(){ action in
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
             self.toggleSelectAll()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteSelected()
-        }, for: .touchDown)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
+        
     }
     
     func toggleSelectAll(){
@@ -82,11 +86,6 @@ class TrackListViewController: PopupTableViewController{
                 self.tableView.reloadData()
             }
         }
-    }
-    
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        tracks?.deselectAll()
-        super.dismiss(animated: flag, completion: completion)
     }
     
     func exportTrack(item: Track) {
@@ -150,17 +149,15 @@ extension TrackListViewController : LocationDelegate{
 extension TrackListViewController : TrackDelegate{
     
     func editTrack(item: Track) {
-        let trackController = EditTrackViewController(track: item)
-        trackController.track = item
-        trackController.delegate = self
-        trackController.modalPresentationStyle = .fullScreen
-        self.present(trackController, animated: true)
+        let controller = EditTrackViewController(track: item)
+        controller.track = item
+        controller.delegate = self
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(item: Track) {
-        self.dismiss(animated: true){
-            self.trackDelegate?.showTrackOnMap(item: item)
-        }
+        self.close()
+        self.trackDelegate?.showTrackOnMap(item: item)
     }
     
 }

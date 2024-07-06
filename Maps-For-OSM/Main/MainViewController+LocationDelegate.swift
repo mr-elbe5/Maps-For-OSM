@@ -89,8 +89,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
     func openAddNote(at coordinate: CLLocationCoordinate2D) {
         let controller = NoteViewController(coordinate: coordinate)
         controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
@@ -121,10 +120,10 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let cameraCaptureController = CameraViewController()
-                    cameraCaptureController.delegate = self
-                    cameraCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(cameraCaptureController, animated: true)
+                    let controller = CameraViewController()
+                    controller.delegate = self
+                    controller.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(controller, animated: true)
                 }
                 return
             case .failure:
@@ -193,10 +192,10 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.delegate = self
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    self.present(audioCaptureController, animated: true)
+                    let controller = AudioRecorderViewController()
+                    controller.delegate = self
+                    controller.modalPresentationStyle = .fullScreen
+                    self.navigationController?.pushViewController(controller, animated: true)
                 }
                 return
             case .failure:

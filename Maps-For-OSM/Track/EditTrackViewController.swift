@@ -16,7 +16,7 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-class EditTrackViewController: PopupScrollViewController{
+class EditTrackViewController: ScrollViewController{
     
     var track: Track
     
@@ -40,25 +40,21 @@ class EditTrackViewController: PopupScrollViewController{
     override func loadView() {
         title = "track".localize()
         super.loadView()
-        scrollView.setupVertical()
-        setupContent()
         setupKeyboard()
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
-        
-        headerView.addSubviewWithAnchors(mapButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: wideInsets)
-        mapButton.addAction(UIAction(){ action in
-            self.dismiss(animated: true){
-                self.delegate?.showTrackOnMap(item: self.track)
-            }
-        }, for: .touchDown)
-        
+    override func updateNavigationItems() {
+        super.updateNavigationItems()
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "showOnMap", image: UIImage(systemName: "map"), primaryAction: UIAction(){ action in
+            self.delegate?.showTrackOnMap(item: self.track)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
+        navigationItem.trailingItemGroups = groups
     }
     
-    func setupContent() {
+    override func loadScrollableSubviews() {
         contentView.removeAllSubviews()
         if !track.trackpoints.isEmpty {
             var header = UILabel(header: "startLocation".localize())

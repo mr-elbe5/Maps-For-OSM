@@ -14,7 +14,7 @@ protocol AudioCaptureDelegate{
     func audioCaptured(audio: Audio)
 }
 
-class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDelegate{
+class AudioRecorderViewController : ScrollViewController, AVAudioRecorderDelegate{
     
     var audioRecorder = AudioRecorderView()
     var titleField = UITextField()
@@ -34,7 +34,10 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         title = "audioRecording".localize()
         super.loadView()
         scrollView.backgroundColor = .black
-        
+        setupKeyboard()
+    }
+    
+    override func loadScrollableSubviews() {
         audioRecorder.setupView()
         audioRecorder.delegate = self
         contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -51,7 +54,6 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         contentView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
         saveButton.isEnabled = false
-        setupKeyboard()
     }
     
     func save(){
@@ -61,9 +63,8 @@ class AudioRecorderViewController : PopupScrollViewController, AVAudioRecorderDe
         //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
         if FileManager.default.copyFile(fromURL: audioRecorder.tmpFileURL, toURL: FileManager.mediaDirURL.appendingPathComponent(audioFile.fileName)){
             audioRecorder.cleanup()
-            self.dismiss(animated: true){
-                self.delegate?.audioCaptured(audio: audioFile)
-            }
+            self.close()
+            self.delegate?.audioCaptured(audio: audioFile)
         }
         
     }

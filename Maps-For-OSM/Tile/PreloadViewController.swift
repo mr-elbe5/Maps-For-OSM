@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PreloadViewController: PopupScrollViewController{
+class PreloadViewController: ScrollViewController{
     
     var mapRegion: TileRegion? = nil
     
@@ -66,7 +66,18 @@ class PreloadViewController: PopupScrollViewController{
     override func loadView() {
         title = "mapPreload".localize()
         super.loadView()
-        
+        recalculateTiles()
+        if existingTiles == allTiles{
+            startButton.isEnabled = false
+            cancelButton.isEnabled = false
+        }
+        else{
+            startButton.isEnabled = true
+            cancelButton.isEnabled = false
+        }
+    }
+    
+    override func loadScrollableSubviews() {
         let note = UILabel()
         note.numberOfLines = 0
         note.lineBreakMode = .byWordWrapping
@@ -167,16 +178,6 @@ class PreloadViewController: PopupScrollViewController{
         errorsValueLabel.text = String(errors)
         contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
-        recalculateTiles()
-        
-        if existingTiles == allTiles{
-            startButton.isEnabled = false
-            cancelButton.isEnabled = false
-        }
-        else{
-            startButton.isEnabled = true
-            cancelButton.isEnabled = false
-        }
     }
     
     func reset(){

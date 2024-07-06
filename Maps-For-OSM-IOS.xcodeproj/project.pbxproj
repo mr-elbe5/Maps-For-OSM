@@ -13,6 +13,8 @@
 		4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98926E9FC67005A4A94 /* Assets.xcassets */; };
 		4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */; };
 		4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */; };
+		4E1359432C396A2F007F8720 /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1359422C396A2F007F8720 /* ScrollViewController.swift */; };
+		4E1359452C39718F007F8720 /* MapCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1359442C39718F007F8720 /* MapCameraViewController.swift */; };
 		4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */; };
 		4E1982BF2BAB58CE00A37AE0 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */; };
 		4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */; };
@@ -89,6 +91,8 @@
 		4E0BD98C26E9FC67005A4A94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E0BD98E26E9FC67005A4A94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		4E1359422C396A2F007F8720 /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
+		4E1359442C39718F007F8720 /* MapCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCameraViewController.swift; sourceTree = "<group>"; };
 		4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
 		4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 				4EA30CF72C381C5A002EA622 /* TableViewController.swift */,
 				4EA30CF92C382231002EA622 /* ViewController.swift */,
 				4EA30CFB2C38461B002EA622 /* BackupViewController.swift */,
+				4E1359422C396A2F007F8720 /* ScrollViewController.swift */,
+				4E1359442C39718F007F8720 /* MapCameraViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -463,12 +469,14 @@
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */,
 				4EA30CFA2C382231002EA622 /* ViewController.swift in Sources */,
+				4E1359432C396A2F007F8720 /* ScrollViewController.swift in Sources */,
 				4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */,
 				4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */,
 				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
 				4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */,
 				4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */,
+				4E1359452C39718F007F8720 /* MapCameraViewController.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* PreloadViewController.swift in Sources */,
 				4E1B81172732EDC5003ED6B0 /* LocationLayerView.swift in Sources */,
 				4E1D0E24274C223C00F3D584 /* LocationCell.swift in Sources */,

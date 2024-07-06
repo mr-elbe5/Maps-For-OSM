@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class ImageViewController: PopupScrollViewController, UIScrollViewDelegate {
+class ImageViewController: ScrollViewController, UIScrollViewDelegate {
     
     var uiImage : UIImage? = nil
     var imageView : UIImageView? = nil

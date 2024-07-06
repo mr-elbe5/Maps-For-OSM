@@ -11,28 +11,11 @@ import E5MapData
 
 protocol MainMenuDelegate{
     
-    func openLocationList()
     func showLocations(_ show: Bool)
-    
-    func openTrackList()
-    func importTrack()
     func hideTrack()
-    
-    func openImageList()
-    func importImages()
-    
     func focusUserLocation()
-    
     func openSearch()
-    
-    func openICloud()
-    func openPreferences()
     func refreshMap()
-    func openPreloadTiles()
-    func changeTileSource()
-    func deleteAllTiles()
-    func createBackup()
-    func restoreBackup()
     
 }
 
@@ -85,32 +68,6 @@ class MainMenuView: UIView {
         }
         actions.append(UIAction(title: "hideTrack".localize(), image: UIImage(systemName: "eraser.line.dashed")){ action in
             self.delegate?.hideTrack()
-        })
-        return UIMenu(title: "", children: actions)
-    }
-    
-    func getSettingsMenu() -> UIMenu{
-        var actions = Array<UIAction>()
-        actions.append(UIAction(title: "preferences".localize(), image: UIImage(systemName: "gearshape")){ action in
-            self.delegate?.openPreferences()
-        })
-        actions.append(UIAction(title: "refreshMap".localize(), image: UIImage(systemName: "map")){ action in
-            self.delegate?.refreshMap()
-        })
-        actions.append(UIAction(title: "preloadTiles".localize(), image: UIImage(systemName: "map")){ action in
-            self.delegate?.openPreloadTiles()
-        })
-        actions.append(UIAction(title: "changeTileSource".localize(), image: UIImage(systemName: "map")){ action in
-            self.delegate?.changeTileSource()
-        })
-        actions.append(UIAction(title: "deleteAllTiles".localize(), image: UIImage(systemName: "map")?.withTintColor(.red, renderingMode: .alwaysOriginal)){ action in
-            self.delegate?.deleteAllTiles()
-        })
-        actions.append(UIAction(title: "createBackup".localize(), image: UIImage(systemName: "tray")){ action in
-            self.delegate?.createBackup()
-        })
-        actions.append(UIAction(title: "restoreBackup".localize(), image: UIImage(systemName: "tray")){ action in
-            self.delegate?.restoreBackup()
         })
         return UIMenu(title: "", children: actions)
     }
