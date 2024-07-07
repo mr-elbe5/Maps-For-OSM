@@ -14,6 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Log.info("SceneDelegate will connect")
+        
+        FileManager.initializePrivateDir()
+        FileManager.default.initializeAppDirs()
+        
         if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
             Preferences.shared = prefs
         }
