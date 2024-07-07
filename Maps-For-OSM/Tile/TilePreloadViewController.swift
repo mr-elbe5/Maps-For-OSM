@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PreloadViewController: ScrollViewController{
+class TilePreloadViewController: ScrollViewController{
     
     var mapRegion: TileRegion? = nil
     
@@ -85,7 +85,7 @@ class PreloadViewController: ScrollViewController{
         contentView.addSubviewWithAnchors(note, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let sourceLabel = UILabel()
-        sourceLabel.text = "\("currentTileSource:".localize()) \(Preferences.shared.urlTemplate)"
+        sourceLabel.text = "\("currentTileSource:".localize())\n\(Preferences.shared.urlTemplate)"
         contentView.addSubviewWithAnchors(sourceLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         minZoom = World.minZoom
@@ -260,7 +260,7 @@ class PreloadViewController: ScrollViewController{
     
 }
 
-extension PreloadViewController: DownloadDelegate{
+extension TilePreloadViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1

@@ -57,7 +57,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ort markieren"
           }
         },
@@ -125,7 +125,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Alle Orte anzeigen"
           }
         },
@@ -567,7 +567,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Wollen Sie die Markierung für diesen Ort löschen?"
           }
         },
@@ -584,7 +584,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Wollen Sie alle ausgewählten Orte löschen?"
           }
         },
@@ -669,7 +669,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Wollen Sie die ausgewählten Orte zusammenführen?"
           }
         },
@@ -839,7 +839,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Markierung erstellen"
           }
         },
@@ -1009,7 +1009,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Alle Markierungen löschen"
           }
         },
@@ -1077,7 +1077,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ort löschen"
           }
         },
@@ -1094,8 +1094,8 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Alle Ortsmarkierungen löschen"
+            "state" : "translated",
+            "value" : "Alle Orte löschen"
           }
         },
         "en" : {
@@ -1536,7 +1536,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Markierte Orte ausblenden"
           }
         },
@@ -1859,7 +1859,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ort"
           }
         },
@@ -1876,7 +1876,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ort(e)"
           }
         },
@@ -1893,7 +1893,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Positonsangaben"
           }
         },
@@ -1910,7 +1910,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Gruppe von Orten"
           }
         },
@@ -1961,7 +1961,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Orte"
           }
         },
@@ -2046,7 +2046,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Maximale Entfernung von Orten zum automatischen Zusammenführen [m]"
           }
         },
@@ -2063,7 +2063,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Wenn ein neuer Ort benötigt wird und es existiert ein Ort in einer Entfernung unter diesem Wert, wird dieser Ort benutzt und kein neuer erstellt."
           }
         },
@@ -2122,23 +2122,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Images, Videos and Audios"
-          }
-        }
-      }
-    },
-    "mediaLocations" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nur Orte mit Medien anzeigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show only locations with media"
           }
         }
       }
@@ -2216,7 +2199,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Orte der Gruppe zusammenführen"
           }
         },
@@ -2233,7 +2216,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Die Elemente der Orte werden dem neuen Ort hinzugefügt. Die alten Orte werden gelöscht. Dies kann nicht rückgängig gemacht werden."
           }
         },
@@ -2428,23 +2411,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes: "
-          }
-        }
-      }
-    },
-    "noteLocations" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nur Orte mit Notizen anzeigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show only locations with notes"
           }
         }
       }
@@ -2727,13 +2693,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kartenkacheln vorladen..."
+            "value" : "Kartenkacheln vorladen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Preload Tiles..."
+            "value" : "Preload Tiles"
           }
         }
       }
@@ -2947,7 +2913,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Position speichern"
           }
         },
@@ -3060,7 +3026,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ort"
           }
         },
@@ -3111,7 +3077,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Unterbrochene Tour fortsetzen?"
           }
         },
@@ -3140,46 +3106,12 @@
         }
       }
     },
-    "showImageList" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle Bilder..."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All Images..."
-          }
-        }
-      }
-    },
-    "showLocationList" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Alle Orte..."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All Locations..."
-          }
-        }
-      }
-    },
     "showLocations" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Markierte Orte anzeigen"
           }
         },
@@ -3187,23 +3119,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show Location Markers"
-          }
-        }
-      }
-    },
-    "showTrackList" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle aufgezeichneten Touren..."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All recorded Tracks..."
           }
         }
       }
@@ -3309,7 +3224,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Startposition"
           }
         },
@@ -3644,40 +3559,6 @@
         }
       }
     },
-    "trackLocations" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nur Orte mit Tourstart anzeigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show only locations with tour starts"
-          }
-        }
-      }
-    },
-    "trackName" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tour am %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tour on %@"
-          }
-        }
-      }
-    },
     "trackpointInterval" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3708,6 +3589,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tracks"
+          }
+        }
+      }
+    },
+    "trackSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toureinstellungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track Settings"
           }
         }
       }

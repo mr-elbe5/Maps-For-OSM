@@ -12,7 +12,7 @@ import E5IOSUI
 class MainViewController: ViewController {
     
     var mapView = MapView()
-    var mainMenuView = MainMenuView()
+    var mainMenuView = TopMenuView()
     var actionMenuView = ActionMenuView()
     var mapMenuView = MapMenuView()
     var statusView = StatusView()
@@ -45,7 +45,7 @@ class MainViewController: ViewController {
             controller.imageDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
         navigationItem.leadingItemGroups = groups
         
         //right
@@ -59,19 +59,10 @@ class MainViewController: ViewController {
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
         items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "settings".localize(), image: UIImage(systemName: "gearshape"), primaryAction: UIAction(){ action in
-            let controller = PreferencesViewController()
+            let controller = SettingsViewController()
+            controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        items.append(UIBarButtonItem(title: "tiles".localize(), image: UIImage(systemName: "map"), primaryAction: UIAction(){ action in
-            let controller = TileSourceViewController()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
-        items.append(UIBarButtonItem(title: "backup".localize(), image: UIImage(systemName: "tray"), primaryAction: UIAction(){ action in
-            let controller = BackupViewController()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
-        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "gearshape")), items: items))
-        items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
             UIApplication.shared.open(URL(string: "infoURL".localize())!)
         }))
@@ -99,7 +90,7 @@ class MainViewController: ViewController {
     
     override open func loadSubviews(guide: UILayoutGuide) {
         setupMapView(guide: guide)
-        setupMainMenuView(guide: guide)
+        setupTopMenuView(guide: guide)
         setupActionMenuView(guide: guide)
         setupMapMenuView(guide: guide)
         setupLicenseView(guide: guide)
@@ -118,20 +109,20 @@ class MainViewController: ViewController {
         mapView.setupCrossView()
     }
     
-    func setupMainMenuView(guide: UILayoutGuide){
-        view.addSubviewWithAnchors(mainMenuView, top: guide.topAnchor, insets: flatInsets).centerX(guide.centerXAnchor)
+    func setupTopMenuView(guide: UILayoutGuide){
+        view.addSubviewWithAnchors(mainMenuView, top: guide.topAnchor, insets: defaultInsets).centerX(guide.centerXAnchor)
         mainMenuView.setup()
         mainMenuView.delegate = self
     }
     
     func setupActionMenuView(guide: UILayoutGuide){
-        view.addSubviewWithAnchors(actionMenuView, top: mainMenuView.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(actionMenuView, top: guide.topAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
         actionMenuView.setup()
         actionMenuView.delegate = self
     }
     
     func setupMapMenuView(guide: UILayoutGuide){
-        view.addSubviewWithAnchors(mapMenuView, top: actionMenuView.bottomAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(mapMenuView, top: guide.topAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
         mapMenuView.setup()
         mapMenuView.delegate = self
     }

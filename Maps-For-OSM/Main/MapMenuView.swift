@@ -11,12 +11,15 @@ import E5IOSUI
 import E5MapData
 
 protocol MapMenuDelegate{
-    func updateCross()
+    func showLocations(_ flag: Bool)
+    func hideTrack()
     func zoomIn()
     func zoomOut()
 }
 
 class MapMenuView: UIView {
+    
+    var showLocationsButton = UIButton().asIconButton("mappin.slash")
     
     var delegate : MapMenuDelegate? = nil
     
@@ -27,15 +30,26 @@ class MapMenuView: UIView {
         
         let insets = UIEdgeInsets(top: 20, left: 5, bottom: 20, right: 5)
         
-        let crossButton = UIButton().asIconButton("plus.circle", color: .systemBlue)
-        addSubviewWithAnchors(crossButton, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: UIEdgeInsets(top: 10, left: 5, bottom: 20, right: 5))
-        crossButton.addAction(UIAction(){ action in
-            AppState.shared.showCross = !AppState.shared.showCross
-            self.delegate?.updateCross()
+        addSubviewWithAnchors(showLocationsButton, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
+        showLocationsButton.addAction(UIAction(){ action in
+            if AppState.shared.showLocations{
+                self.delegate?.showLocations(false)
+                self.showLocationsButton.setImage(UIImage(systemName: "mappin"), for: .normal)
+            }
+            else{
+                self.delegate?.showLocations(true)
+                self.showLocationsButton.setImage(UIImage(systemName: "mappin.slash"), for: .normal)
+            }
+        }, for: .touchDown)
+        
+        let hideTrackButton = UIButton().asIconButton("eraser.line.dashed")
+        addSubviewWithAnchors(hideTrackButton, top: showLocationsButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
+        hideTrackButton.addAction(UIAction(){ action in
+            self.delegate?.hideTrack()
         }, for: .touchDown)
         
         let zoomInButton = UIButton().asIconButton("plus")
-        addSubviewWithAnchors(zoomInButton, top: crossButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
+        addSubviewWithAnchors(zoomInButton, top: hideTrackButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         zoomInButton.addAction(UIAction(){ action in
             self.delegate?.zoomIn()
         }, for: .touchDown)
