@@ -13,7 +13,7 @@ protocol ICloudDelegate{
     func dataChanged()
 }
 
-class ICloudViewController: PopupScrollViewController{
+class ICloudViewController: ScrollViewController{
     
     var useICloudSwitch = LabeledSwitchView()
     var mergeFromICloudButton = UIButton()
@@ -29,7 +29,9 @@ class ICloudViewController: PopupScrollViewController{
     override func loadView() {
         title = "iCloud".localize()
         super.loadView()
-        
+    }
+    
+    override func loadScrollableSubviews() {
         mergeFromICloudButton.setTitle("mergeFromICloud".localize(), for: .normal)
         mergeFromICloudButton.setTitleColor(.systemBlue, for: .normal)
         mergeFromICloudButton.setTitleColor(.systemGray, for: .disabled)
@@ -113,7 +115,6 @@ class ICloudViewController: PopupScrollViewController{
         label = UILabel(text: "cleanupICloudHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: cleanupICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
-        
     }
     
     func mergeFromICloud(){

@@ -21,16 +21,14 @@ extension MainViewController: MainMenuDelegate{
     
     func openPreloadTiles() {
         let region = mapView.scrollView.tileRegion
-        let controller = PreloadViewController()
+        let controller = TilePreloadViewController()
         controller.mapRegion = region
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func changeTileSource() {
         let controller = TileSourceViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func deleteAllTiles(){
@@ -38,14 +36,6 @@ extension MainViewController: MainMenuDelegate{
             TileProvider.shared.deleteAllTiles()
             self.mapView.clearTiles()
         }
-    }
-    
-    func openLocationList() {
-        let controller = LocationListViewController()
-        controller.locationDelegate = self
-        controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
     }
     
     func showLocations(_ show: Bool) {
@@ -61,15 +51,6 @@ extension MainViewController: MainMenuDelegate{
         }
     }
     
-    func openTrackList() {
-        let controller = TrackListViewController()
-        controller.tracks = AppData.shared.locations.tracks
-        controller.locationDelegate = self
-        controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func importTrack(){
         let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
         filePicker.directoryURL = FileManager.exportGpxDirURL
@@ -82,15 +63,6 @@ extension MainViewController: MainMenuDelegate{
     func hideTrack() {
         Track.visibleTrack = nil
         trackChanged()
-    }
-    
-    func openImageList() {
-        let controller = ImageListViewController()
-        controller.images = AppData.shared.locations.images
-        controller.locationDelegate = self
-        controller.imageDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
     }
     
     func importImages() {
@@ -109,45 +81,10 @@ extension MainViewController: MainMenuDelegate{
         mapView.focusUserLocation()
     }
     
-    func openICloud(){
-        let controller = ICloudViewController()
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func openPreferences(){
-        let controller = PreferencesViewController()
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
     func openSearch() {
         let controller = SearchViewController()
         controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        present(controller, animated: true)
-    }
-    
-    func createBackup(){
-        let fileName = "maps4osm_backup_\(Date.localDate.shortFileDate()).zip"
-        let spinner = startSpinner()
-        DispatchQueue.main.async {
-            if let _ = Backup.createBackupFile(name: fileName){
-                self.showDone(title: "success".localize(), text: "backupSaved".localize())
-            }
-            self.stopSpinner(spinner)
-        }
-    }
-    
-    func restoreBackup(){
-        showDestructiveApprove(title: "restoreBackup".localize(), text: "restoreBackupHint".localize()){
-            let types = UTType.types(tag: "zip", tagClass: UTTagClass.filenameExtension, conformingTo: nil)
-            let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
-            documentPickerController.directoryURL = FileManager.backupDirURL
-            documentPickerController.delegate = self
-            self.present(documentPickerController, animated: true, completion: nil)
-        }
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -235,9 +172,6 @@ extension MainViewController : UIDocumentPickerDelegate{
             if url.pathExtension == "gpx"{
                 importGPXFile(url: url)
             }
-            if url.pathExtension == "zip"{
-                importBackupFile(url: url)
-            }
         }
     }
     
@@ -281,19 +215,6 @@ extension MainViewController : UIDocumentPickerDelegate{
         }
     }
     
-    private func importBackupFile(url: URL){
-        let spinner = startSpinner()
-        DispatchQueue.main.async {
-            if Backup.unzipBackupFile(zipFileURL: url){
-                if Backup.restoreBackupFile(){
-                    self.showDone(title: "success".localize(), text: "restoreDone".localize())
-                    self.mapView.updateLocationLayer()
-                }
-            }
-            self.stopSpinner(spinner)
-        }
-    }
-    
 }
 
 extension MainViewController: MapMenuDelegate{
@@ -329,6 +250,18 @@ extension MainViewController: TrackStatusDelegate{
 extension MainViewController: ICloudDelegate{
     
     func dataChanged() {
+        mapView.updateLocationLayer()
+    }
+    
+}
+
+extension MainViewController: SettingsViewDelegate{
+    
+    func getRegion() -> TileRegion {
+        mapView.scrollView.tileRegion
+    }
+    
+    func backupRestored() {
         mapView.updateLocationLayer()
     }
     

@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PreloadViewController: PopupScrollViewController{
+class TilePreloadViewController: ScrollViewController{
     
     var mapRegion: TileRegion? = nil
     
@@ -66,7 +66,18 @@ class PreloadViewController: PopupScrollViewController{
     override func loadView() {
         title = "mapPreload".localize()
         super.loadView()
-        
+        recalculateTiles()
+        if existingTiles == allTiles{
+            startButton.isEnabled = false
+            cancelButton.isEnabled = false
+        }
+        else{
+            startButton.isEnabled = true
+            cancelButton.isEnabled = false
+        }
+    }
+    
+    override func loadScrollableSubviews() {
         let note = UILabel()
         note.numberOfLines = 0
         note.lineBreakMode = .byWordWrapping
@@ -74,7 +85,7 @@ class PreloadViewController: PopupScrollViewController{
         contentView.addSubviewWithAnchors(note, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let sourceLabel = UILabel()
-        sourceLabel.text = "\("currentTileSource:".localize()) \(Preferences.shared.urlTemplate)"
+        sourceLabel.text = "\("currentTileSource:".localize())\n\(Preferences.shared.urlTemplate)"
         contentView.addSubviewWithAnchors(sourceLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
         minZoom = World.minZoom
@@ -167,16 +178,6 @@ class PreloadViewController: PopupScrollViewController{
         errorsValueLabel.text = String(errors)
         contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
-        recalculateTiles()
-        
-        if existingTiles == allTiles{
-            startButton.isEnabled = false
-            cancelButton.isEnabled = false
-        }
-        else{
-            startButton.isEnabled = true
-            cancelButton.isEnabled = false
-        }
     }
     
     func reset(){
@@ -259,7 +260,7 @@ class PreloadViewController: PopupScrollViewController{
     
 }
 
-extension PreloadViewController: DownloadDelegate{
+extension TilePreloadViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1

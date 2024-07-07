@@ -16,7 +16,7 @@ protocol SearchDelegate{
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?)
 }
 
-class SearchViewController: PopupTableViewController{
+class SearchViewController: TableViewController{
     
     var searchField = UITextField()
     var targetControl = UISegmentedControl()
@@ -33,6 +33,7 @@ class SearchViewController: PopupTableViewController{
     override func loadView() {
         title = "searchLocation".localize()
         createSubheaderView()
+        subheaderView?.backgroundColor = .white
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -188,9 +189,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
 extension SearchViewController: SearchResultCellDelegate{
     
     func showResult(location: NominatimLocation){
-        self.dismiss(animated: false){
-            self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
-        }
+        self.close()
+        self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
     }
     
 }

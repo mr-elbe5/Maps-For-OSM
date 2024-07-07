@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class EditLocationViewController: PopupTableViewController{
+class EditLocationViewController: TableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
     let addAudioButton = UIButton().asIconButton("mic", color: .label)
@@ -48,39 +48,38 @@ class EditLocationViewController: PopupTableViewController{
         tableView.register(NoteCell.self, forCellReuseIdentifier: NoteCell.CELL_IDENT)
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
+    override func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            AppData.shared.locations.deselectAll()
+            self.close()
+        })
         
-        headerView.addSubviewWithAnchors(addImageButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        addImageButton.addAction(UIAction(){ action in
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "addImage".localize(), image: UIImage(systemName: "photo"), primaryAction: UIAction(){ action in
             self.openAddImage()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(addAudioButton, top: buttonTopAnchor, leading: addImageButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        addAudioButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "addAudio".localize(), image: UIImage(systemName: "mic"), primaryAction: UIAction(){ action in
             self.openAudioRecorder()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(addNoteButton, top: buttonTopAnchor, leading: addAudioButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        addNoteButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "addNote".localize(), image: UIImage(systemName: "pencil.and.list.clipboard"), primaryAction: UIAction(){ action in
             self.openAddNote()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: addNoteButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        selectAllButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "addNote".localize(), image: UIImage(systemName: "pencil.and.list.clipboard"), primaryAction: UIAction(){ action in
+            self.openAddNote()
+        }))
+        items.append(UIBarButtonItem(title: "selectAll".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
             self.toggleSelectAll()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteSelectedButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteSelectedButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "deleteSelected".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteSelected()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteLocationButton, top: buttonTopAnchor, leading: deleteSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteLocationButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteLocation()
-        }, for: .touchDown)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
+        
     }
     
     override func setupSubheaderView(subheaderView: UIView){
@@ -108,10 +107,9 @@ class EditLocationViewController: PopupTableViewController{
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let audioCaptureController = AudioRecorderViewController()
-                    audioCaptureController.modalPresentationStyle = .fullScreen
-                    audioCaptureController.delegate = self
-                    self.present(audioCaptureController, animated: true)
+                    let controller = AudioRecorderViewController()
+                    controller.delegate = self
+                    self.navigationController?.pushViewController(controller, animated: true)
                 }
                 return
             case .failure:
@@ -126,8 +124,7 @@ class EditLocationViewController: PopupTableViewController{
     func openAddNote(){
         let controller = NoteViewController(coordinate: location.coordinate)
         controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func toggleSelectAll(){
@@ -168,7 +165,7 @@ class EditLocationViewController: PopupTableViewController{
             print("deleting location")
             AppData.shared.deleteLocation(self.location)
             self.locationDelegate?.locationsChanged()
-            self.dismiss(animated: false)
+            self.close()
         }
     }
     
@@ -273,7 +270,7 @@ extension EditLocationViewController : LocationDelegate{
     }
     
     func showLocationOnMap(location: Location) {
-        self.dismiss(animated: true)
+        self.close()
         locationDelegate?.showLocationOnMap(location: location)
     }
     
@@ -364,8 +361,7 @@ extension EditLocationViewController : VideoDelegate{
     func viewVideo(item: Video) {
         let controller = VideoViewController()
         controller.videoURL = item.fileURL
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -375,8 +371,7 @@ extension EditLocationViewController : ImageDelegate{
     func viewImage(image: Image) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -385,14 +380,12 @@ extension EditLocationViewController : TrackDelegate{
     
     func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(item: Track) {
-        self.dismiss(animated: true){
-            self.trackDelegate?.showTrackOnMap(item: item)
-        }
+        self.close()
+        self.trackDelegate?.showTrackOnMap(item: item)
     }
     
 }

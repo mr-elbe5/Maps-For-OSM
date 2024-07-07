@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationListViewController: PopupTableViewController{
+class LocationListViewController: TableViewController{
     
     class Day{
         
@@ -34,12 +34,34 @@ class LocationListViewController: PopupTableViewController{
     var days = Array<Day>()
     
     override func loadView() {
-        title = "LocationList".localize()
-        super.loadView()
+        title = "locations".localize()
         setupData()
+        super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
+    }
+    
+    override func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            AppData.shared.locations.deselectAll()
+            self.close()
+        })
+        
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "sort".localize(), image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: UIAction(){ action in
+            self.sortLocations()
+        }))
+        items.append(UIBarButtonItem(title: "selectAll".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
+            self.toggleSelectAll()
+        }))
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
+            self.deleteSelected()
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
+        
     }
     
     func setupData(){
@@ -57,26 +79,6 @@ class LocationListViewController: PopupTableViewController{
                 days.append(day)
             }
         }
-    }
-    
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
-        
-        headerView.addSubviewWithAnchors(sortButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        sortButton.addAction(UIAction(){ action in
-            self.sortLocations()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: sortButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        selectAllButton.addAction(UIAction(){ action in
-            self.toggleSelectAll()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addAction(UIAction(){ action in
-            self.deleteSelected()
-        }, for: .touchDown)
     }
     
     func sortLocations(){
@@ -118,11 +120,6 @@ class LocationListViewController: PopupTableViewController{
             self.setupData()
             self.tableView.reloadData()
         }
-    }
-    
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        AppData.shared.locations.deselectAll()
-        super.dismiss(animated: flag, completion: completion)
     }
     
 }
@@ -167,9 +164,8 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
 extension LocationListViewController : LocationCellDelegate{
     
     func showLocationOnMap(location: Location) {
-        self.dismiss(animated: true){
-            self.locationDelegate?.showLocationOnMap(location: location)
-        }
+        self.close()
+        self.locationDelegate?.showLocationOnMap(location: location)
     }
     
     func editLocation(location: Location) {
@@ -177,8 +173,7 @@ extension LocationListViewController : LocationCellDelegate{
         controller.location = location
         controller.locationDelegate = self
         controller.trackDelegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
@@ -199,14 +194,12 @@ extension LocationListViewController : TrackDelegate{
     
     func editTrack(item: Track) {
         let controller = EditTrackViewController(track: item)
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(item: Track) {
-        self.dismiss(animated: true){
-            self.trackDelegate?.showTrackOnMap(item: item)
-        }
+        self.close()
+        self.trackDelegate?.showTrackOnMap(item: item)
     }
     
 }

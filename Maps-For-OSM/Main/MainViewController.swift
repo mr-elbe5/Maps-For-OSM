@@ -9,10 +9,10 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
-class MainViewController: UIViewController {
+class MainViewController: ViewController {
     
     var mapView = MapView()
-    var mainMenuView = MainMenuView()
+    var mainMenuView = TopMenuView()
     var actionMenuView = ActionMenuView()
     var mapMenuView = MapMenuView()
     var statusView = StatusView()
@@ -21,9 +21,53 @@ class MainViewController: UIViewController {
     
     var cancelAlert: UIAlertController? = nil
     
-    override func loadView() {
-        super.loadView()
-        setupViews()
+    override func updateNavigationItems() {
+        // left
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "locations".localize(), image: UIImage(systemName: "mappin"), primaryAction: UIAction(){ action in
+            let controller = LocationListViewController()
+            controller.locationDelegate = self
+            controller.trackDelegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "figure.walk"), primaryAction: UIAction(){ action in
+            let controller = TrackListViewController()
+            controller.tracks = AppData.shared.locations.tracks
+            controller.locationDelegate = self
+            controller.trackDelegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "photo"), primaryAction: UIAction(){ action in
+            let controller = ImageListViewController()
+            controller.images = AppData.shared.locations.images
+            controller.locationDelegate = self
+            controller.imageDelegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
+        navigationItem.leadingItemGroups = groups
+        
+        //right
+        groups = Array<UIBarButtonItemGroup>()
+        items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "cloud".localize(), image: UIImage(systemName: "cloud"), primaryAction: UIAction(){ action in
+            let controller = ICloudViewController()
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
+        items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "settings".localize(), image: UIImage(systemName: "gearshape"), primaryAction: UIAction(){ action in
+            let controller = SettingsViewController()
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
+            UIApplication.shared.open(URL(string: "infoURL".localize())!)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
+        navigationItem.trailingItemGroups = groups
     }
     
     override func viewDidLoad() {
@@ -44,20 +88,19 @@ class MainViewController: UIViewController {
         }
     }
     
-    func setupViews(){
-        let layoutGuide = view.safeAreaLayoutGuide
-        setupMapView(layoutGuide: layoutGuide)
-        setupMainMenuView(layoutGuide: layoutGuide)
-        setupActionMenuView(layoutGuide: layoutGuide)
-        setupMapMenuView(layoutGuide: layoutGuide)
-        setupLicenseView(layoutGuide: layoutGuide)
-        setupTrackStatusView(layoutGuide: layoutGuide)
-        setupStatusView(layoutGuide: layoutGuide)
+    override open func loadSubviews(guide: UILayoutGuide) {
+        setupMapView(guide: guide)
+        setupTopMenuView(guide: guide)
+        setupActionMenuView(guide: guide)
+        setupMapMenuView(guide: guide)
+        setupLicenseView(guide: guide)
+        setupTrackStatusView(guide: guide)
+        setupStatusView(guide: guide)
         mapView.delegate = self
     }
     
-    func setupMapView(layoutGuide: UILayoutGuide){
-        view.addSubviewFilling(mapView)
+    func setupMapView(guide: UILayoutGuide){
+        view.addSubviewWithAnchors(mapView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor)
         mapView.frame = view.bounds
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
@@ -66,26 +109,26 @@ class MainViewController: UIViewController {
         mapView.setupCrossView()
     }
     
-    func setupMainMenuView(layoutGuide: UILayoutGuide){
-        view.addSubviewWithAnchors(mainMenuView, top: layoutGuide.topAnchor, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, insets: flatInsets)
+    func setupTopMenuView(guide: UILayoutGuide){
+        view.addSubviewWithAnchors(mainMenuView, top: guide.topAnchor, insets: defaultInsets).centerX(guide.centerXAnchor)
         mainMenuView.setup()
         mainMenuView.delegate = self
     }
     
-    func setupActionMenuView(layoutGuide: UILayoutGuide){
-        view.addSubviewWithAnchors(actionMenuView, top: mainMenuView.bottomAnchor, leading: layoutGuide.leadingAnchor, insets: defaultInsets)
+    func setupActionMenuView(guide: UILayoutGuide){
+        view.addSubviewWithAnchors(actionMenuView, top: guide.topAnchor, leading: guide.leadingAnchor, insets: defaultInsets)
         actionMenuView.setup()
         actionMenuView.delegate = self
     }
     
-    func setupMapMenuView(layoutGuide: UILayoutGuide){
-        view.addSubviewWithAnchors(mapMenuView, top: actionMenuView.bottomAnchor, leading: layoutGuide.leadingAnchor, insets: defaultInsets)
+    func setupMapMenuView(guide: UILayoutGuide){
+        view.addSubviewWithAnchors(mapMenuView, top: guide.topAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
         mapMenuView.setup()
         mapMenuView.delegate = self
     }
     
-    func setupLicenseView(layoutGuide: UILayoutGuide){
-        view.addSubviewWithAnchors(licenseView, trailing: layoutGuide.trailingAnchor, bottom: layoutGuide.bottomAnchor, insets: defaultInsets)
+    func setupLicenseView(guide: UILayoutGuide){
+        view.addSubviewWithAnchors(licenseView, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: defaultInsets)
         
         var label = UILabel()
         label.textColor = .darkGray
@@ -109,15 +152,15 @@ class MainViewController: UIViewController {
         label.text = " contributors"
     }
     
-    func setupStatusView(layoutGuide: UILayoutGuide){
+    func setupStatusView(guide: UILayoutGuide){
         statusView.setup()
-        view.addSubviewWithAnchors(statusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: trackStatusView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
+        view.addSubviewWithAnchors(statusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: trackStatusView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
     }
     
-    func setupTrackStatusView(layoutGuide: UILayoutGuide){
+    func setupTrackStatusView(guide: UILayoutGuide){
         trackStatusView.setup()
         trackStatusView.delegate = self
-        view.addSubviewWithAnchors(trackStatusView, leading: layoutGuide.leadingAnchor, trailing: layoutGuide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
+        view.addSubviewWithAnchors(trackStatusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
         trackStatusView.hide(true)
     }
     

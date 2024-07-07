@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5Data",
       "state" : {
-        "revision" : "a993c1e73c93f9c9ca513fab3f7d204fe8f855d5",
-        "version" : "1.0.25"
+        "revision" : "c1a53b09b7750a1ba6b1356ca9342ab2d531f45e",
+        "version" : "1.0.26"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
       "state" : {
-        "revision" : "9985b3e6416e1d8c1471e2f339a9efc53b21e38d",
-        "version" : "1.0.3"
+        "revision" : "c8b74af39a17faa4d4113e10bd29138587dda3e0",
+        "version" : "1.0.11"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/e5iosui",
       "state" : {
-        "revision" : "7eeeee8a9add6e4fb8fa80f35407206f94f1c122",
-        "version" : "1.0.9"
+        "revision" : "5c518049b6a673cd6bd2c76f1d72b6d2e6f490e4",
+        "version" : "1.0.14"
       }
     },
     {

@@ -9,14 +9,17 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TileSourceViewController: PopupScrollViewController{
+class TileSourceViewController: ScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
     
     override func loadView() {
         title = "tileSource".localize()
         super.loadView()
-        
+        setupKeyboard()
+    }
+    
+    override func loadScrollableSubviews() {
         tileUrlTemplateField.setupView(labelText: "urlTemplate".localize(), text: Preferences.shared.urlTemplate, isHorizontal: false)
         contentView.addSubviewWithAnchors(tileUrlTemplateField, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -70,9 +73,6 @@ class TileSourceViewController: PopupScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: osmInfoLink.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
-        
-        setupKeyboard()
-        
     }
     
     func save(){

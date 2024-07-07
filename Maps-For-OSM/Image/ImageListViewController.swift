@@ -12,7 +12,7 @@ import E5IOSUI
 import E5PhotoLib
 import E5MapData
 
-class ImageListViewController: PopupTableViewController{
+class ImageListViewController: TableViewController{
     
     class Day{
         
@@ -64,29 +64,29 @@ class ImageListViewController: PopupTableViewController{
         }
     }
     
-    override func setupHeaderView(headerView: UIView){
-        super.setupHeaderView(headerView: headerView)
-        let buttonTopAnchor = titleLabel?.bottomAnchor ?? headerView.topAnchor
+    override func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            self.images.deselectAll()
+            self.navigationController?.popViewController(animated: true)
+        })
         
-        headerView.addSubviewWithAnchors(sortButton, top: buttonTopAnchor, leading: headerView.leadingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        sortButton.addAction(UIAction(){ action in
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "sort".localize(), image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: UIAction(){ action in
             self.sortImages()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(selectAllButton, top: buttonTopAnchor, leading: sortButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        selectAllButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "selectAll".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in
             self.toggleSelectAll()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(exportSelectedButton, top: buttonTopAnchor, leading: selectAllButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        exportSelectedButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "export".localize(), image: UIImage(systemName: "square.and.arrow.up"), primaryAction: UIAction(){ action in
             self.exportSelected()
-        }, for: .touchDown)
-        
-        headerView.addSubviewWithAnchors(deleteButton, top: buttonTopAnchor, leading: exportSelectedButton.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
-        deleteButton.addAction(UIAction(){ action in
+        }))
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash.square")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteSelected()
-        }, for: .touchDown)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
+        
     }
     
     func sortImages(){
@@ -169,11 +169,6 @@ class ImageListViewController: PopupTableViewController{
         }
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        images.deselectAll()
-        super.dismiss(animated: flag, completion: completion)
-    }
-    
 }
 
 extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
@@ -227,9 +222,8 @@ extension ImageListViewController : LocationDelegate{
     
     
     func showLocationOnMap(location: Location) {
-        self.dismiss(animated: true){
-            self.locationDelegate?.showLocationOnMap(location: location)
-        }
+        self.close()
+        self.locationDelegate?.showLocationOnMap(location: location)
     }
 }
 
@@ -238,8 +232,7 @@ extension ImageListViewController : ImageDelegate{
     func viewImage(image: Image) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }

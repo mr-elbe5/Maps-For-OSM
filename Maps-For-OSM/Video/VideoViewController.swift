@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class VideoViewController: PopupViewController {
+class VideoViewController: ViewController {
     
     var videoURL : URL? = nil
     
@@ -16,11 +16,8 @@ class VideoViewController: PopupViewController {
     var videoView = VideoPlayerView()
     var volumeView = VolumeSlider()
     
-    override func loadView() {
-        super.loadView()
-        view.backgroundColor = .systemGroupedBackground
-        let guide = view.safeAreaLayoutGuide
-        view.addSubviewWithAnchors(contentView, top: headerView?.bottomAnchor ?? guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+    override func loadSubviews(guide: UILayoutGuide) {
+        view.addSubviewWithAnchors(contentView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         contentView.backgroundColor = .black
         
         if let url = videoURL{

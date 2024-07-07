@@ -9,9 +9,8 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class PreferencesViewController: PopupScrollViewController{
+class TrackSettingsViewController: ScrollViewController{
     
-    var maxMergeDistanceField = LabeledTextField()
     var followTrackSwitch = LabeledSwitchView()
     var trackpointIntervalField = LabeledTextField()
     var maxHorizontalUncertaintyField = LabeledTextField()
@@ -20,34 +19,15 @@ class PreferencesViewController: PopupScrollViewController{
     var maxTrackpointInLineDeviationField = LabeledTextField()
     
     override func loadView() {
-        title = "preferences".localize()
+        title = "trackSettings".localize()
         super.loadView()
-        
-        var header = UILabel(header: "locations".localize())
-        contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxLocationMergeDistance), isHorizontal: false)
-        contentView.addSubviewWithAnchors(maxMergeDistanceField, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
-        var label = UILabel(text: "maxMergeDistanceHint".localize())
+        setupKeyboard()
+    }
+    
+    override func loadScrollableSubviews() {
+        let label = UILabel(text: "trackSettingsHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: maxMergeDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
-        var saveButton = UIButton()
-        saveButton.setTitle("save".localize(), for: .normal)
-        saveButton.setTitleColor(.systemBlue, for: .normal)
-        saveButton.addAction(UIAction(){ action in
-            self.saveLocationPreferences()
-        }, for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: label.bottomAnchor, insets: doubleInsets)
-        .centerX(contentView.centerXAnchor)
-        
-        header = UILabel(header: "tracks".localize())
-        contentView.addSubviewWithAnchors(header, top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        label = UILabel(text: "trackSettingsHint".localize())
-        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(label, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         followTrackSwitch.setupView(labelText: "followTrack".localize(), isOn: Preferences.shared.followTrack)
         contentView.addSubviewWithAnchors(followTrackSwitch, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -67,32 +47,17 @@ class PreferencesViewController: PopupScrollViewController{
         maxTrackpointInLineDeviationField.setupView(labelText: "maxTrackpointInLineDeviation".localize(), text: String(Preferences.shared.maxTrackpointInLineDeviation), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxTrackpointInLineDeviationField, top: minVerticalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        saveButton = UIButton()
+        let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addAction(UIAction(){ action in
-            self.saveTrackPreferences()
+            self.save()
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
-        
-        setupKeyboard()
-        
     }
     
-    func saveLocationPreferences(){
-        let val = Double(maxMergeDistanceField.text)
-        if let val = val{
-            if Preferences.shared.maxLocationMergeDistance != val{
-                Preferences.shared.maxLocationMergeDistance = val
-                AppData.shared.resetCoordinateRegions()
-            }
-        }
-        Preferences.shared.save()
-        showDone(title: "ok".localize(), text: "preferencesSaved".localize())
-    }
-    
-    func saveTrackPreferences(){
+    func save(){
         Preferences.shared.followTrack = followTrackSwitch.isOn
         var val = Double(trackpointIntervalField.text)
         if let val = val{

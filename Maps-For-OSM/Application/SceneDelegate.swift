@@ -14,6 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         Log.info("SceneDelegate will connect")
+        
+        FileManager.initializePrivateDir()
+        FileManager.default.initializeAppDirs()
+        
         if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
             Preferences.shared = prefs
         }
@@ -34,7 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let mainViewController = MainViewController()
-        window?.rootViewController = mainViewController
+        let navViewController = UINavigationController(rootViewController: mainViewController)
+        window?.rootViewController = navViewController
         window?.makeKeyAndVisible()
         LocationService.shared.serviceDelegate = mainViewController
         LocationService.shared.requestWhenInUseAuthorization()

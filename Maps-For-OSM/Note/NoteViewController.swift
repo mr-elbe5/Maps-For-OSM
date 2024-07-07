@@ -13,7 +13,7 @@ protocol NoteViewDelegate{
     func addNote(text: String, coordinate: CLLocationCoordinate2D)
 }
 
-class NoteViewController: PopupScrollViewController{
+class NoteViewController: ScrollViewController{
     
     var coordinate : CLLocationCoordinate2D
     var noteEditView = TextEditArea().defaultWithBorder()
@@ -32,7 +32,10 @@ class NoteViewController: PopupScrollViewController{
     override func loadView() {
         title = "note".localize()
         super.loadView()
-        
+        setupKeyboard()
+    }
+    
+    override func loadScrollableSubviews() {
         contentView.addSubviewWithAnchors(noteEditView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
             
         let saveButton = UIButton().asTextButton("save".localize()).withTextColor(color: .systemBlue)
@@ -41,12 +44,10 @@ class NoteViewController: PopupScrollViewController{
             }, for: .touchDown)
         contentView.addSubviewWithAnchors(saveButton, top: noteEditView.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
                 .centerX(contentView.centerXAnchor)
-        
-        setupKeyboard()
     }
     
     func save(){
-        self.dismiss(animated: false)
+        self.close()
         delegate?.addNote(text: noteEditView.text, coordinate: coordinate)
     }
     
