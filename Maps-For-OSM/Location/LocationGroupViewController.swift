@@ -64,7 +64,6 @@ class LocationGroupViewController: TableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView) {
-        
         var header = UILabel(header: "center".localize())
         subheaderView.addSubviewWithAnchors(header, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, insets: defaultInsets)
         
@@ -83,7 +82,7 @@ class LocationGroupViewController: TableViewController{
             AppData.shared.locations.selectAll()
         }
         for cell in tableView.visibleCells{
-            (cell as? LocationCell)?.updateIconView(isEditing: true)
+            (cell as? LocationCell)?.updateIconView()
         }
     }
     
@@ -203,7 +202,7 @@ extension LocationGroupViewController : LocationCellDelegate{
     }
     
     func editLocation(location: Location) {
-        let controller = EditLocationViewController(location: location)
+        let controller = LocationViewController(location: location)
         controller.location = location
         controller.locationDelegate = self
         controller.trackDelegate = self
@@ -227,7 +226,7 @@ extension LocationGroupViewController : LocationDelegate{
 extension LocationGroupViewController : TrackDelegate{
     
     func editTrack(item: Track) {
-        let controller = EditTrackViewController(track: item)
+        let controller = TrackViewController(track: item)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

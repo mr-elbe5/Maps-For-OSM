@@ -26,6 +26,7 @@ open class TableViewController: ViewController {
     
     open func createSubheaderView(){
         let subheaderView = UIView()
+        subheaderView.backgroundColor = .white
         setupSubheaderView(subheaderView: subheaderView)
         self.subheaderView = subheaderView
     }

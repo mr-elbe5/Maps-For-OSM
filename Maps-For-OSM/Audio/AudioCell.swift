@@ -30,7 +30,7 @@ class AudioCell: LocationItemCell{
         cellBody.addSubviewWithAnchors(itemView, top: iconView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: .zero)
     }
     
-    override func updateIconView(isEditing: Bool){
+    override func updateIconView(){
         iconView.removeAllSubviews()
         if let audio = audio{
             let selectedButton = UIButton().asIconButton(audio.selected ? "checkmark.square" : "square", color: .label)
@@ -48,11 +48,11 @@ class AudioCell: LocationItemCell{
         }
     }
     
-    override func updateTimeLabel(isEditing: Bool){
+    override func updateTimeLabel(){
         timeLabel.text = audio?.creationDate.dateTimeString()
     }
     
-    override func updateItemView(isEditing: Bool){
+    override func updateItemView(){
         itemView.removeAllSubviews()
         if let audio = audio{
             let audioView = AudioPlayerView()

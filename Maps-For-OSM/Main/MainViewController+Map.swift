@@ -61,7 +61,7 @@ extension MainViewController: MapPositionDelegate{
 extension MainViewController: LocationLayerDelegate{
     
     func showLocationDetails(location: Location) {
-        let controller = EditLocationViewController(location: location)
+        let controller = LocationViewController(location: location)
         controller.location = location
         controller.locationDelegate = self
         controller.trackDelegate = self
@@ -104,7 +104,7 @@ extension MainViewController: ImageDelegate {
 extension MainViewController: TrackDelegate{
     
     func editTrack(item: Track) {
-        let controller = EditTrackViewController(track: item)
+        let controller = TrackViewController(track: item)
         controller.delegate = self
         controller.modalPresentationStyle = .fullScreen
         self.present(controller, animated: true)

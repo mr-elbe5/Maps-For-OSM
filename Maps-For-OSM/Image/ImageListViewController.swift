@@ -97,16 +97,14 @@ class ImageListViewController: TableViewController{
     }
     
     func toggleSelectAll(){
-        if tableView.isEditing{
-            if images.allSelected{
-                images.deselectAll()
-            }
-            else{
-                images.selectAll()
-            }
-            for cell in tableView.visibleCells{
-                (cell as? ImageCell)?.updateIconView(isEditing: true)
-            }
+        if images.allSelected{
+            images.deselectAll()
+        }
+        else{
+            images.selectAll()
+        }
+        for cell in tableView.visibleCells{
+            (cell as? ImageCell)?.updateIconView()
         }
     }
     
@@ -196,7 +194,7 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
         cell.image = day.images[indexPath.row]
         cell.locationDelegate = self
         cell.imageDelegate = self
-        cell.updateCell(isEditing: tableView.isEditing)
+        cell.updateCell()
         return cell
     }
     

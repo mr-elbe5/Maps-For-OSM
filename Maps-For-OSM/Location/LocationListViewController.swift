@@ -96,7 +96,7 @@ class LocationListViewController: TableViewController{
             AppData.shared.locations.selectAll()
         }
         for cell in tableView.visibleCells{
-            (cell as? LocationCell)?.updateIconView(isEditing: true)
+            (cell as? LocationCell)?.updateIconView()
         }
     }
     
@@ -169,7 +169,7 @@ extension LocationListViewController : LocationCellDelegate{
     }
     
     func editLocation(location: Location) {
-        let controller = EditLocationViewController(location: location)
+        let controller = LocationViewController(location: location)
         controller.location = location
         controller.locationDelegate = self
         controller.trackDelegate = self
@@ -193,7 +193,7 @@ extension LocationListViewController : LocationDelegate{
 extension LocationListViewController : TrackDelegate{
     
     func editTrack(item: Track) {
-        let controller = EditTrackViewController(track: item)
+        let controller = TrackViewController(track: item)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

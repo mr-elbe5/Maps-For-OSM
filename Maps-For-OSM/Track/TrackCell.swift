@@ -23,7 +23,7 @@ class TrackCell: LocationItemCell{
     var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
-    override func updateIconView(isEditing: Bool){
+    override func updateIconView(){
         iconView.removeAllSubviews()
         if let track = track{
             
@@ -40,7 +40,7 @@ class TrackCell: LocationItemCell{
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
-            let editButton = UIButton().asIconButton("pencil", color: .label)
+            let editButton = UIButton().asIconButton("magnifyingglass", color: .label)
             editButton.addAction(UIAction(){ action in
                 self.trackDelegate?.editTrack(item: track)
             }, for: .touchDown)
@@ -48,11 +48,11 @@ class TrackCell: LocationItemCell{
         }
     }
     
-    override func updateTimeLabel(isEditing: Bool){
+    override func updateTimeLabel(){
         timeLabel.text = track?.creationDate.dateTimeString()
     }
     
-    override func updateItemView(isEditing: Bool){
+    override func updateItemView(){
         itemView.removeAllSubviews()
         if let item = track{
             let header = UILabel(header: "track".localize())

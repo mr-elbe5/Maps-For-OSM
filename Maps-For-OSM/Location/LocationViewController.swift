@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class EditLocationViewController: TableViewController{
+class LocationViewController: TableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
     let addAudioButton = UIButton().asIconButton("mic", color: .label)
@@ -62,7 +62,7 @@ class EditLocationViewController: TableViewController{
         items.append(UIBarButtonItem(title: "addAudio".localize(), image: UIImage(systemName: "mic"), primaryAction: UIAction(){ action in
             self.openAudioRecorder()
         }))
-        items.append(UIBarButtonItem(title: "addNote".localize(), image: UIImage(systemName: "pencil.and.list.clipboard"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "addVideo".localize(), image: UIImage(systemName: "pencil.and.list.clipboard"), primaryAction: UIAction(){ action in
             self.openAddNote()
         }))
         items.append(UIBarButtonItem(title: "addNote".localize(), image: UIImage(systemName: "pencil.and.list.clipboard"), primaryAction: UIAction(){ action in
@@ -77,7 +77,7 @@ class EditLocationViewController: TableViewController{
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             self.deleteLocation()
         }))
-        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil")), items: items))
         navigationItem.trailingItemGroups = groups
         
     }
@@ -135,7 +135,7 @@ class EditLocationViewController: TableViewController{
             location.selectAllItems()
         }
         for cell in tableView.visibleCells{
-            (cell as? LocationItemCell)?.updateIconView(isEditing: true)
+            (cell as? LocationItemCell)?.updateIconView()
         }
     }
     
@@ -171,7 +171,7 @@ class EditLocationViewController: TableViewController{
     
 }
 
-extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource{
+extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -259,7 +259,7 @@ extension EditLocationViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension EditLocationViewController : LocationDelegate{
+extension LocationViewController : LocationDelegate{
     
     func locationChanged(location: Location) {
         self.locationDelegate?.locationChanged(location: location)
@@ -276,7 +276,7 @@ extension EditLocationViewController : LocationDelegate{
     
 }
 
-extension EditLocationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension LocationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
@@ -303,7 +303,7 @@ extension EditLocationViewController: UIImagePickerControllerDelegate, UINavigat
     
 }
 
-extension EditLocationViewController: NoteViewDelegate{
+extension LocationViewController: NoteViewDelegate{
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
@@ -331,7 +331,7 @@ extension EditLocationViewController: NoteViewDelegate{
     
 }
 
-extension EditLocationViewController: AudioCaptureDelegate{
+extension LocationViewController: AudioCaptureDelegate{
     
     func audioCaptured(audio: Audio){
         if let coordinate = LocationService.shared.location?.coordinate{
@@ -356,7 +356,7 @@ extension EditLocationViewController: AudioCaptureDelegate{
     }
 }
 
-extension EditLocationViewController : VideoDelegate{
+extension LocationViewController : VideoDelegate{
     
     func viewVideo(item: Video) {
         let controller = VideoViewController()
@@ -366,7 +366,7 @@ extension EditLocationViewController : VideoDelegate{
     
 }
 
-extension EditLocationViewController : ImageDelegate{
+extension LocationViewController : ImageDelegate{
     
     func viewImage(image: Image) {
         let controller = ImageViewController()
@@ -376,10 +376,10 @@ extension EditLocationViewController : ImageDelegate{
     
 }
 
-extension EditLocationViewController : TrackDelegate{
+extension LocationViewController : TrackDelegate{
     
     func editTrack(item: Track) {
-        let controller = EditTrackViewController(track: item)
+        let controller = TrackViewController(track: item)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -29,7 +29,7 @@ class ImageCell: LocationItemCell{
     
     var useShortDate = false
     
-    override func updateIconView(isEditing: Bool){
+    override func updateIconView(){
         iconView.removeAllSubviews()
         if let image = image{
             
@@ -54,11 +54,11 @@ class ImageCell: LocationItemCell{
         }
     }
     
-    override func updateTimeLabel(isEditing: Bool){
+    override func updateTimeLabel(){
         timeLabel.text = useShortDate ? image?.creationDate.timeString() : image?.creationDate.dateTimeString()
     }
     
-    override func updateItemView(isEditing: Bool){
+    override func updateItemView(){
         itemView.removeAllSubviews()
         if let image = image{
             let imageView = UIImageView()

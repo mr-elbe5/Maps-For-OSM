@@ -21,7 +21,7 @@ class NoteCell: LocationItemCell{
     
     var delegate: LocationDelegate? = nil
     
-    override func updateIconView(isEditing: Bool = false){
+    override func updateIconView(){
         iconView.removeAllSubviews()
         if let note = note{
             let selectedButton = UIButton().asIconButton(note.selected ? "checkmark.square" : "square", color: .label)
@@ -40,11 +40,11 @@ class NoteCell: LocationItemCell{
         }
     }
     
-    override func updateTimeLabel(isEditing: Bool = false){
+    override func updateTimeLabel(){
         timeLabel.text = note?.creationDate.dateTimeString()
     }
     
-    override func updateItemView(isEditing: Bool = false){
+    override func updateItemView(){
         itemView.removeAllSubviews()
         if let note = note{
             let header = UILabel(header: "note".localize())

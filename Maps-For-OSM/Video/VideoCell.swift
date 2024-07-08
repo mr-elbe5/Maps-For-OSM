@@ -27,7 +27,7 @@ class VideoCell: LocationItemCell{
     var locationDelegate: LocationDelegate? = nil
     var videoDelegate: VideoDelegate? = nil
     
-    override func updateIconView(isEditing: Bool){
+    override func updateIconView(){
         iconView.removeAllSubviews()
         if let video = video{
             let selectedButton = UIButton().asIconButton(video.selected ? "checkmark.square" : "square", color: .label)
@@ -52,11 +52,11 @@ class VideoCell: LocationItemCell{
         }
     }
     
-    override func updateTimeLabel(isEditing: Bool){
+    override func updateTimeLabel(){
         timeLabel.text = video?.creationDate.dateTimeString()
     }
     
-    override func updateItemView(isEditing: Bool){
+    override func updateItemView(){
         itemView.removeAllSubviews()
         if let video = video{
             let videoView = VideoPlayerView()

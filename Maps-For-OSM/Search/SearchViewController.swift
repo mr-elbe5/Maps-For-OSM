@@ -33,7 +33,6 @@ class SearchViewController: TableViewController{
     override func loadView() {
         title = "searchLocation".localize()
         createSubheaderView()
-        subheaderView?.backgroundColor = .white
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
