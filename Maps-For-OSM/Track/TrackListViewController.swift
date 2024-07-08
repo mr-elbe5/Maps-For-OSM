@@ -50,7 +50,7 @@ class TrackListViewController: TableViewController{
     }
     
     func toggleSelectAll(){
-        if tableView.isEditing, var tracks = tracks{
+        if var tracks = tracks{
             if tracks.allSelected{
                 tracks.deselectAll()
             }
@@ -58,7 +58,7 @@ class TrackListViewController: TableViewController{
                 tracks.selectAll()
             }
             for cell in tableView.visibleCells{
-                (cell as? TrackCell)?.updateIconView(isEditing: true)
+                (cell as? TrackCell)?.updateIconView()
             }
         }
     }
@@ -116,7 +116,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
         cell.track = track
         cell.locationDelegate = self
         cell.trackDelegate = self
-        cell.updateCell(isEditing: tableView.isEditing)
+        cell.updateCell()
         return cell
     }
     
@@ -149,7 +149,7 @@ extension TrackListViewController : LocationDelegate{
 extension TrackListViewController : TrackDelegate{
     
     func editTrack(item: Track) {
-        let controller = EditTrackViewController(track: item)
+        let controller = TrackViewController(track: item)
         controller.track = item
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)

@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.elbe5cloud.de/miro/e5iosui",
       "state" : {
-        "revision" : "5c518049b6a673cd6bd2c76f1d72b6d2e6f490e4",
-        "version" : "1.0.14"
+        "revision" : "c6e602ec6c42bf5bc851334a6c132d34d4983705",
+        "version" : "1.0.15"
       }
     },
     {

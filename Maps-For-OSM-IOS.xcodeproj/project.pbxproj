@@ -28,7 +28,7 @@
 		4E1B81182732EDC5003ED6B0 /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B81092732EDC5003ED6B0 /* LocationMarker.swift */; };
 		4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1B810F2732EDC5003ED6B0 /* MapView.swift */; };
 		4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */; };
-		4E1D0E20274BDB1900F3D584 /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* EditTrackViewController.swift */; };
+		4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */; };
 		4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */; };
 		4E1D0E24274C223C00F3D584 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* LocationCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
@@ -50,7 +50,7 @@
 		4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */; };
 		4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
-		4E89173F273688580046AC91 /* EditLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* EditLocationViewController.swift */; };
+		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
 		4EA30CF82C381C5A002EA622 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF72C381C5A002EA622 /* TableViewController.swift */; };
 		4EA30CFA2C382231002EA622 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF92C382231002EA622 /* ViewController.swift */; };
@@ -108,7 +108,7 @@
 		4E1B81092732EDC5003ED6B0 /* LocationMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarker.swift; sourceTree = "<group>"; };
 		4E1B810F2732EDC5003ED6B0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListViewController.swift; sourceTree = "<group>"; };
-		4E1D0E1F274BDB1900F3D584 /* EditTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackViewController.swift; sourceTree = "<group>"; };
+		4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E23274C223C00F3D584 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Map.swift"; sourceTree = "<group>"; };
 		4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossLocationMenuViewController.swift; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
-		4E89173E273688580046AC91 /* EditLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditLocationViewController.swift; sourceTree = "<group>"; };
+		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4EA30CF52C37F706002EA622 /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4EA30CF72C381C5A002EA622 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4EA30CF92C382231002EA622 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 				4E1B81082732EDC4003ED6B0 /* LocationLayerView.swift */,
 				4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */,
 				4E1B81092732EDC5003ED6B0 /* LocationMarker.swift */,
-				4E89173E273688580046AC91 /* EditLocationViewController.swift */,
+				4E89173E273688580046AC91 /* LocationViewController.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -325,7 +325,7 @@
 				4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
-				4E1D0E1F274BDB1900F3D584 /* EditTrackViewController.swift */,
+				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -495,14 +495,14 @@
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4ECC1ACC2BA2FB3300B9CCBD /* LocationGroupViewController.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
-				4E1D0E20274BDB1900F3D584 /* EditTrackViewController.swift in Sources */,
+				4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */,
 				4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */,
 				4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */,
 				4E1982BF2BAB58CE00A37AE0 /* VideoCell.swift in Sources */,
 				4EA30CFC2C38461B002EA622 /* BackupViewController.swift in Sources */,
 				4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */,
 				4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */,
-				4E89173F273688580046AC91 /* EditLocationViewController.swift in Sources */,
+				4E89173F273688580046AC91 /* LocationViewController.swift in Sources */,
 				4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* TopMenuView.swift in Sources */,
 				4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */,

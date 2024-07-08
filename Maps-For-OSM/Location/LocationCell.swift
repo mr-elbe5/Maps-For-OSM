@@ -34,7 +34,7 @@ class LocationCell: TableViewCell{
         cellBody.addSubviewWithAnchors(itemView, top: iconView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: .zero)
     }
     
-    override func updateIconView(isEditing: Bool){
+    override func updateIconView(){
         iconView.removeAllSubviews()
         if let location = location{
             let selectedButton = UIButton().asIconButton(location.selected ? "checkmark.square" : "square", color: .label)
@@ -58,7 +58,7 @@ class LocationCell: TableViewCell{
         }
     }
     
-    override func updateItemView(isEditing: Bool){
+    override func updateItemView(){
         itemView.removeAllSubviews()
         
         if let location = location{

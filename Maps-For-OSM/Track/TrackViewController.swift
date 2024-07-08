@@ -16,7 +16,7 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-class EditTrackViewController: ScrollViewController{
+class TrackViewController: ScrollViewController{
     
     var track: Track
     

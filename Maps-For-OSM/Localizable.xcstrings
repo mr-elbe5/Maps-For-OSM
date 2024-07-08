@@ -24,7 +24,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tonaufnahme hinzufügen"
+            "value" : "Ton hinzufügen"
           }
         },
         "en" : {
@@ -568,13 +568,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie die Markierung für diesen Ort löschen?"
+            "value" : "Wollen Sie diesen Ort mit allen Elementen löschen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to delete this location?"
+            "value" : "Do you want to delete this location with all elements?"
           }
         }
       }
@@ -585,13 +585,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie alle ausgewählten Orte löschen?"
+            "value" : "Wollen Sie alle ausgewählten Orte mit allen Elementen löschen?"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to delete all selected locations?"
+            "value" : "Do you want to delete all selected locations with all elements?"
           }
         }
       }
@@ -1102,6 +1102,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete all Locations"
+          }
+        }
+      }
+    },
+    "deleteSelected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewählte löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete selected"
           }
         }
       }
@@ -3034,6 +3051,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Location"
+          }
+        }
+      }
+    },
+    "selectAll" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle auswählen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select all"
           }
         }
       }

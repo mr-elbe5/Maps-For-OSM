@@ -22,13 +22,13 @@ class LocationItemCell: TableViewCell{
         cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
     }
     
-    override func updateCell(isEditing: Bool = false){
-        updateItemView(isEditing: isEditing)
-        updateTimeLabel(isEditing: isEditing)
-        updateIconView(isEditing: isEditing)
+    override func updateCell(){
+        updateItemView()
+        updateTimeLabel()
+        updateIconView()
     }
     
-    func updateTimeLabel(isEditing: Bool){
+    func updateTimeLabel(){
     }
     
 }
