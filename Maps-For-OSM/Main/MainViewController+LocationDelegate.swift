@@ -120,7 +120,7 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
             switch result{
             case .success(()):
                 DispatchQueue.main.async {
-                    let controller = CameraViewController()
+                    let controller = DarkCameraViewController()
                     controller.delegate = self
                     controller.modalPresentationStyle = .fullScreen
                     self.navigationController?.pushViewController(controller, animated: true)

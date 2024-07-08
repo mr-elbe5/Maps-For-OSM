@@ -6,7 +6,7 @@
 
 import UIKit
 
-open class ViewController: UIViewController {
+open class DarkNavViewController: UIViewController {
     
     public  init(){
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +21,9 @@ open class ViewController: UIViewController {
         view.backgroundColor = .black
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.tintColor = .white
+        if let title = self.title{
+            self.navigationItem.titleView = UILabel(text: title).withTextColor(.white)
+        }
         let guide = view.safeAreaLayoutGuide
         loadSubviews(guide: guide)
         updateNavigationItems()

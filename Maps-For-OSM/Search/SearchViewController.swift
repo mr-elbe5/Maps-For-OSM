@@ -16,7 +16,7 @@ protocol SearchDelegate{
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?)
 }
 
-class SearchViewController: TableViewController{
+class SearchViewController: DarkNavTableViewController{
     
     var searchField = UITextField()
     var targetControl = UISegmentedControl()

@@ -16,7 +16,7 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-class TrackViewController: ScrollViewController{
+class TrackViewController: DarkNavScrollViewController{
     
     var track: Track
     

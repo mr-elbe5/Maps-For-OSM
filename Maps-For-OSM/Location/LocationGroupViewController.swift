@@ -10,7 +10,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationGroupViewController: TableViewController{
+class LocationGroupViewController: DarkNavTableViewController{
     
     var group: LocationGroup
     

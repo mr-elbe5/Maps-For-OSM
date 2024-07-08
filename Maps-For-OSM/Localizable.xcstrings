@@ -2755,6 +2755,23 @@
         }
       }
     },
+    "recalculateTiles" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenkacheln neu berechnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recalculate Tiles"
+          }
+        }
+      }
+    },
     "refreshMap" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3521,6 +3538,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Title/Text"
+          }
+        }
+      }
+    },
+    "tooManyTiles" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sie haben zu viele Kartenkacheln angefragt (mehr als %@). Versuchen Sie es bitte mit einer kleineren Region oder tieferen/weniger Zoom-Ebenen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sorry, you requested too many map tiles (more than %@). Please try with a smaller region or lower/ less zoom levels."
           }
         }
       }

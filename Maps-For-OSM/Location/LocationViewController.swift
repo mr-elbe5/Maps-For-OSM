@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationViewController: TableViewController{
+class LocationViewController: DarkNavTableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
     let addAudioButton = UIButton().asIconButton("mic", color: .label)

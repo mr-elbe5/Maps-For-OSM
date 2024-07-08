@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationListViewController: TableViewController{
+class LocationListViewController: DarkNavTableViewController{
     
     class Day{
         

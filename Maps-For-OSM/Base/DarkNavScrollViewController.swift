@@ -6,7 +6,7 @@
 
 import UIKit
 
-class ScrollViewController: ViewController {
+class DarkNavScrollViewController: DarkNavViewController {
     
     public var scrollView = UIScrollView()
     public var contentView = UIView()

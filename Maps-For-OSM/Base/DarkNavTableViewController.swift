@@ -6,7 +6,7 @@
 
 import UIKit
 
-open class TableViewController: ViewController {
+open class DarkNavTableViewController: DarkNavViewController {
     
     public var subheaderView : UIView? = nil
     public var tableView = UITableView()

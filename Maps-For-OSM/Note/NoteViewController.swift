@@ -13,7 +13,7 @@ protocol NoteViewDelegate{
     func addNote(text: String, coordinate: CLLocationCoordinate2D)
 }
 
-class NoteViewController: ScrollViewController{
+class NoteViewController: DarkNavScrollViewController{
     
     var coordinate : CLLocationCoordinate2D
     var noteEditView = TextEditArea().defaultWithBorder()

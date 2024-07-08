@@ -15,7 +15,7 @@ protocol SettingsViewDelegate{
     func backupRestored()
 }
 
-class SettingsViewController: ScrollViewController{
+class SettingsViewController: DarkNavScrollViewController{
     
     var maxMergeDistanceField = LabeledTextField()
     
@@ -29,19 +29,25 @@ class SettingsViewController: ScrollViewController{
     
     override func loadScrollableSubviews() {
         
-        let trackSettingsButton = NavigationButton(name: "trackSettings".localize(), action: UIAction(){ action in
+        var header = UILabel(header: "tracks".localize())
+        contentView.addSubviewWithAnchors(header, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        let trackSettingsButton = UIButton(name: "trackSettings".localize(), action: UIAction(){ action in
             let controller = TrackSettingsViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         })
-        contentView.addSubviewWithAnchors(trackSettingsButton, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(trackSettingsButton, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let tileSourceButton = NavigationButton(name: "tileSource".localize(), action: UIAction(){ action in
+        header = UILabel(header: "map".localize())
+        contentView.addSubviewWithAnchors(header, top: trackSettingsButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        let tileSourceButton = UIButton(name: "tileSource".localize(), action: UIAction(){ action in
             let controller = TileSourceViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         })
-        contentView.addSubviewWithAnchors(tileSourceButton, top: trackSettingsButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(tileSourceButton, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        let tilePreloadButton = NavigationButton(name: "preloadTiles".localize(), action: UIAction(){ action in
+        let tilePreloadButton = UIButton(name: "preloadTiles".localize(), action: UIAction(){ action in
             if let region = self.delegate?.getRegion(){
                 let controller = TilePreloadViewController()
                 controller.mapRegion = region
@@ -50,7 +56,7 @@ class SettingsViewController: ScrollViewController{
         })
         contentView.addSubviewWithAnchors(tilePreloadButton, top: tileSourceButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        var header = UILabel(header: "backup".localize())
+        header = UILabel(header: "backup".localize())
         contentView.addSubviewWithAnchors(header, top: tilePreloadButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let createBackupButton = UIButton()

@@ -9,7 +9,7 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
-class MainViewController: ViewController {
+class MainViewController: DarkNavViewController {
     
     var mapView = MapView()
     var mainMenuView = TopMenuView()

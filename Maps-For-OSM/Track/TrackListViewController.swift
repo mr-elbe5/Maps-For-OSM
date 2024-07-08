@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TrackListViewController: TableViewController{
+class TrackListViewController: DarkNavTableViewController{
 
     var tracks: Array<Track>? = nil
     

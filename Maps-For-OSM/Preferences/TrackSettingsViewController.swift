@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TrackSettingsViewController: ScrollViewController{
+class TrackSettingsViewController: DarkNavScrollViewController{
     
     var followTrackSwitch = LabeledSwitchView()
     var trackpointIntervalField = LabeledTextField()

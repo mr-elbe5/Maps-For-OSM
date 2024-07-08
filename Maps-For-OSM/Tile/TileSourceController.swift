@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TileSourceViewController: ScrollViewController{
+class TileSourceViewController: DarkNavScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
     

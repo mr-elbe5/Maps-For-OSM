@@ -9,7 +9,9 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TilePreloadViewController: ScrollViewController{
+class TilePreloadViewController: DarkNavScrollViewController{
+    
+    static var maxDownloadTiles = 5000
     
     var mapRegion: TileRegion? = nil
     
@@ -21,40 +23,17 @@ class TilePreloadViewController: ScrollViewController{
     
     var tiles = [MapTile]()
     
-    var minZoomSlider = UISlider()
-    var minZoomLabel = UILabel()
-    var maxZoomSlider = UISlider()
-    var maxZoomLabel = UILabel()
+    var minZoomControl = UISegmentedControl()
+    var maxZoomControl = UISegmentedControl()
     
-    private var _minZoom : Int = World.minZoom
-    var minZoom : Int{
-        get{
-            _minZoom
-        }
-        set{
-            if _minZoom != newValue{
-                _minZoom = newValue
-                minZoomLabel.text = "\(_minZoom)"
-            }
-        }
-    }
-    private var _maxZoom : Int = World.maxZoom
-    var maxZoom : Int{
-        get{
-            _maxZoom
-        }
-        set{
-            if _maxZoom != newValue{
-                _maxZoom = newValue
-                maxZoomLabel.text = "\(_maxZoom)"
-            }
-        }
-    }
+    var minZoom : Int = World.minZoom
+    var maxZoom : Int = World.maxZoom
     
     var allTilesValueLabel = UILabel()
     var existingTilesValueLabel = UILabel()
     var tilesToLoadValueLabel = UILabel()
     
+    let calculateButton = UIButton()
     var startButton = UIButton()
     var cancelButton = UIButton()
     
@@ -66,7 +45,7 @@ class TilePreloadViewController: ScrollViewController{
     override func loadView() {
         title = "mapPreload".localize()
         super.loadView()
-        recalculateTiles()
+        //recalculateTiles()
         if existingTiles == allTiles{
             startButton.isEnabled = false
             cancelButton.isEnabled = false
@@ -88,56 +67,49 @@ class TilePreloadViewController: ScrollViewController{
         sourceLabel.text = "\("currentTileSource:".localize())\n\(Preferences.shared.urlTemplate)"
         contentView.addSubviewWithAnchors(sourceLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
-        minZoom = World.minZoom
-        maxZoom = World.maxZoom
-        let minFloat = Float(minZoom)
-        let maxFloat = Float(maxZoom)
-        let trackTintColor = UIColor.systemBlue
-        
         var label = UILabel()
         label.text = "fromZoom:".localize()
         contentView.addSubviewWithAnchors(label, top: sourceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
-        minZoomSlider.minimumValue = minFloat
-        minZoomSlider.maximumValue = maxFloat
-        minZoomSlider.value = minFloat
-        minZoomSlider.minimumTrackTintColor = trackTintColor
-        minZoomSlider.maximumTrackTintColor = trackTintColor
-        contentView.addSubviewWithAnchors(minZoomSlider, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
-        minZoomSlider.addAction(UIAction(){ action in
-            self.minZoomSlider.value = round(self.minZoomSlider.value)
-            self.minZoom = Int(self.minZoomSlider.value)
-            self.recalculateTiles()
-        }, for: .valueChanged)
-        
-        minZoomLabel = UILabel()
-        minZoomLabel.text = "\(minZoom)"
-        contentView.addSubviewWithAnchors(minZoomLabel, top: minZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
+        let segSize = World.maxZoom - World.minZoom
+        for i: Int in 0...segSize{
+            minZoomControl.insertSegment(action: UIAction(){ action in
+                self.enableCalculation(true)
+                self.enableDownload(false)
+                self.minZoom = i + World.minZoom
+            }, at: i, animated: false)
+            minZoomControl.setTitle(String(i + World.minZoom), forSegmentAt: i)
+        }
+        minZoomControl.selectedSegmentIndex = 0
+        contentView.addSubviewWithAnchors(minZoomControl, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         label = UILabel()
         label.text = "toZoom:".localize()
-        contentView.addSubviewWithAnchors(label, top: minZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(label, top: minZoomControl.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
-        maxZoomSlider.minimumValue = minFloat
-        maxZoomSlider.maximumValue = maxFloat
-        maxZoomSlider.value = maxFloat - 2
-        maxZoomSlider.minimumTrackTintColor = trackTintColor
-        maxZoomSlider.maximumTrackTintColor = trackTintColor
-        contentView.addSubviewWithAnchors(maxZoomSlider, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
-        maxZoomSlider.addAction(UIAction(){ action in
-            self.maxZoomSlider.value = round(self.maxZoomSlider.value)
-            self.maxZoom = Int(self.maxZoomSlider.value)
+        for i: Int in 0...segSize{
+            maxZoomControl.insertSegment(action: UIAction(){ action in
+                self.enableCalculation(true)
+                self.enableDownload(false)
+                self.maxZoom = i + World.minZoom
+            }, at: i, animated: false)
+            maxZoomControl.setTitle(String(i + World.minZoom), forSegmentAt: i)
+        }
+        maxZoomControl.selectedSegmentIndex = 0
+        contentView.addSubviewWithAnchors(maxZoomControl, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        calculateButton.setTitle("recalculateTiles".localize(), for: .normal)
+        calculateButton.setTitleColor(.systemBlue, for: .normal)
+        calculateButton.setTitleColor(.systemGray, for: .disabled)
+        calculateButton.addAction(UIAction(){ action in
             self.recalculateTiles()
         }, for: .touchDown)
-        
-        maxZoomLabel = UILabel()
-        maxZoomLabel.text = "\(maxZoom)"
-        contentView.addSubviewWithAnchors(maxZoomLabel, top: maxZoomSlider.bottomAnchor, insets: .zero).centerX(contentView.centerXAnchor)
+        contentView.addSubviewWithAnchors(calculateButton, top: maxZoomControl.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let allTilesLabel = UILabel()
         allTilesLabel.text = "allTilesForDownload".localize()
-        contentView.addSubviewWithAnchors(allTilesLabel, top: maxZoomLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubviewWithAnchors(allTilesValueLabel, top: maxZoomLabel.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(allTilesLabel, top: calculateButton.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(allTilesValueLabel, top: calculateButton.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
         
         let existingTilesLabel = UILabel()
         existingTilesLabel.text = "existingTiles".localize()
@@ -178,6 +150,9 @@ class TilePreloadViewController: ScrollViewController{
         errorsValueLabel.text = String(errors)
         contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
+        enableCalculation(true)
+        enableDownload(false)
+        
     }
     
     func reset(){
@@ -205,6 +180,7 @@ class TilePreloadViewController: ScrollViewController{
     }
     
     func recalculateTiles(){
+        let spinner = startSpinner()
         tiles.removeAll()
         if let region = mapRegion{
             reset()
@@ -213,10 +189,28 @@ class TilePreloadViewController: ScrollViewController{
                     continue
                 }
                 if let tileSet = region.tiles[zoom]{
+                    for _ in tileSet.minX...tileSet.maxX{
+                        for _ in tileSet.minY...tileSet.maxY{
+                            allTiles += 1
+                        }
+                    }
+                }
+            }
+            if allTiles > TilePreloadViewController.maxDownloadTiles{
+                updateValueViews()
+                enableDownload(false)
+                stopSpinner(spinner)
+                showError("tooManyTiles".localize(param: String(TilePreloadViewController.maxDownloadTiles)))
+                return
+            }
+            for zoom in region.tiles.keys{
+                if zoom < minZoom || zoom > maxZoom{
+                    continue
+                }
+                if let tileSet = region.tiles[zoom]{
                     for x in tileSet.minX...tileSet.maxX{
                         for y in tileSet.minY...tileSet.maxY{
                             let tile = MapTile(zoom: zoom, x: x, y: y)
-                            allTiles += 1
                             if tile.exists{
                                 existingTiles += 1
                                 continue
@@ -228,6 +222,8 @@ class TilePreloadViewController: ScrollViewController{
             }
         }
         updateValueViews()
+        enableDownload(true)
+        stopSpinner(spinner)
     }
     
     func startDownload(){
@@ -238,8 +234,8 @@ class TilePreloadViewController: ScrollViewController{
             errors = 0
             updateValueViews()
         }
-        startButton.isEnabled = false
-        cancelButton.isEnabled = true
+        enableDownload(false)
+        enableCalculation(false)
         downloadQueue = OperationQueue()
         downloadQueue!.name = "downloadQueue"
         downloadQueue!.maxConcurrentOperationCount = 2
@@ -253,9 +249,17 @@ class TilePreloadViewController: ScrollViewController{
     func cancelDownload(){
         downloadQueue?.cancelAllOperations()
         reset()
-        recalculateTiles()
-        startButton.isEnabled = true
-        cancelButton.isEnabled = false
+        enableDownload(true)
+        enableCalculation(true)
+    }
+    
+    func enableCalculation(_ flag: Bool){
+        calculateButton.isEnabled = flag
+    }
+    
+    func enableDownload(_ flag: Bool){
+        startButton.isEnabled = flag
+        cancelButton.isEnabled = !flag
     }
     
 }
@@ -280,8 +284,7 @@ extension TilePreloadViewController: DownloadDelegate{
     private func checkCompletion(){
         if existingTiles + errors == allTiles{
             updateSliderColor()
-            startButton.isEnabled = errors > 0
-            cancelButton.isEnabled = false
+            enableDownload(true)
             downloadQueue?.cancelAllOperations()
             downloadQueue = nil
         }

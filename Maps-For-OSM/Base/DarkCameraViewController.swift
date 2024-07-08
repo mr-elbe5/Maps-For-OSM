@@ -12,13 +12,20 @@ import E5Data
 import E5IOSAV
 import E5IOSUI
 
-class MapCameraViewController: CameraViewController {
+class DarkCameraViewController: CameraViewController {
     
     override public func loadView() {
         super.loadView()
         view.backgroundColor = .black
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.tintColor = .white
+        updateNavigationItems()
+    }
+    
+    public func updateNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
+            self.navigationController?.popViewController(animated: true)
+        })
     }
     
 }

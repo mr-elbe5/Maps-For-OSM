@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class ImageViewController: ScrollViewController, UIScrollViewDelegate {
+class ImageViewController: DarkNavScrollViewController, UIScrollViewDelegate {
     
     var uiImage : UIImage? = nil
     var imageView : UIImageView? = nil

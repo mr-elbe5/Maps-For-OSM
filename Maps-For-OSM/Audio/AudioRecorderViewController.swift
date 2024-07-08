@@ -14,7 +14,7 @@ protocol AudioCaptureDelegate{
     func audioCaptured(audio: Audio)
 }
 
-class AudioRecorderViewController : ScrollViewController, AVAudioRecorderDelegate{
+class AudioRecorderViewController : DarkNavScrollViewController, AVAudioRecorderDelegate{
     
     var audioRecorder = AudioRecorderView()
     var titleField = UITextField()

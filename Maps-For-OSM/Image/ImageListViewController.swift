@@ -12,7 +12,7 @@ import E5IOSUI
 import E5PhotoLib
 import E5MapData
 
-class ImageListViewController: TableViewController{
+class ImageListViewController: DarkNavTableViewController{
     
     class Day{
         

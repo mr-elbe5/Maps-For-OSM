@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class VideoViewController: ViewController {
+class VideoViewController: DarkNavViewController {
     
     var videoURL : URL? = nil
     
