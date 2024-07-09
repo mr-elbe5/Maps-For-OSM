@@ -8,7 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class VideoViewController: DarkNavViewController {
+class VideoViewController: NavViewController {
     
     var videoURL : URL? = nil
     
@@ -17,6 +17,7 @@ class VideoViewController: DarkNavViewController {
     var volumeView = VolumeSlider()
     
     override func loadSubviews(guide: UILayoutGuide) {
+        setBlackNavigation()
         view.addSubviewWithAnchors(contentView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         contentView.backgroundColor = .black
         

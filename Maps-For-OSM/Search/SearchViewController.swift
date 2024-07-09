@@ -16,7 +16,7 @@ protocol SearchDelegate{
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?)
 }
 
-class SearchViewController: DarkNavTableViewController{
+class SearchViewController: NavTableViewController{
     
     var searchField = UITextField()
     var targetControl = UISegmentedControl()
@@ -34,6 +34,7 @@ class SearchViewController: DarkNavTableViewController{
         title = "searchLocation".localize()
         createSubheaderView()
         super.loadView()
+        setBlackNavigation()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.CELL_IDENT)
@@ -43,6 +44,7 @@ class SearchViewController: DarkNavTableViewController{
         searchField.placeholder = "searchPlaceholder".localize()
         searchField.borderStyle = .roundedRect
         searchField.text = AppState.shared.searchString
+        subheaderView.setBackground(.secondarySystemBackground)
         subheaderView.addSubviewWithAnchors(searchField, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
         
         targetControl.insertSegment(action: UIAction(){_ in 

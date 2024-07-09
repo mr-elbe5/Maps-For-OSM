@@ -13,7 +13,7 @@ protocol ICloudDelegate{
     func dataChanged()
 }
 
-class ICloudViewController: DarkNavScrollViewController{
+class ICloudViewController: NavScrollViewController{
     
     var useICloudSwitch = LabeledSwitchView()
     var mergeFromICloudButton = UIButton()

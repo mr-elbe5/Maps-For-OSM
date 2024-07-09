@@ -27,8 +27,6 @@ class SearchResultCell: UITableViewCell{
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         isUserInteractionEnabled = true
-        backgroundColor = .clear
-        cellBody.setBackground(.white).setRoundedBorders()
         cellBody.addTarget(self, action: #selector(showLocation), for: .touchDown)
         contentView.addSubviewFilling(cellBody, insets: defaultInsets)
         accessoryType = .none

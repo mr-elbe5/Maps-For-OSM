@@ -16,7 +16,7 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
-class TrackViewController: DarkNavScrollViewController{
+class TrackViewController: NavScrollViewController{
     
     var track: Track
     
@@ -31,6 +31,7 @@ class TrackViewController: DarkNavScrollViewController{
     init(track: Track){
         self.track = track
         super.init()
+        
     }
     
     required init?(coder: NSCoder) {

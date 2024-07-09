@@ -10,7 +10,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationGroupViewController: DarkNavTableViewController{
+class LocationGroupViewController: NavTableViewController{
     
     var group: LocationGroup
     
@@ -40,6 +40,7 @@ class LocationGroupViewController: DarkNavTableViewController{
     }
     
     override func updateNavigationItems() {
+        setBlackNavigation()
         super.updateNavigationItems()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             AppData.shared.locations.deselectAll()

@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TilePreloadViewController: DarkNavScrollViewController{
+class TilePreloadViewController: NavScrollViewController{
     
     static var maxDownloadTiles = 5000
     
@@ -45,7 +45,7 @@ class TilePreloadViewController: DarkNavScrollViewController{
     override func loadView() {
         title = "mapPreload".localize()
         super.loadView()
-        //recalculateTiles()
+        setBlackNavigation()
         if existingTiles == allTiles{
             startButton.isEnabled = false
             cancelButton.isEnabled = false

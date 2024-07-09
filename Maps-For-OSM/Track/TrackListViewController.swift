@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TrackListViewController: DarkNavTableViewController{
+class TrackListViewController: NavTableViewController{
 
     var tracks: Array<Track>? = nil
     
@@ -31,6 +31,7 @@ class TrackListViewController: DarkNavTableViewController{
     }
     
     override func updateNavigationItems() {
+        setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             self.tracks?.deselectAll()
             self.navigationController?.popViewController(animated: true)

@@ -13,7 +13,7 @@ protocol NoteViewDelegate{
     func addNote(text: String, coordinate: CLLocationCoordinate2D)
 }
 
-class NoteViewController: DarkNavScrollViewController{
+class NoteViewController: NavScrollViewController{
     
     var coordinate : CLLocationCoordinate2D
     var noteEditView = TextEditArea().defaultWithBorder()
@@ -23,6 +23,7 @@ class NoteViewController: DarkNavScrollViewController{
     init(coordinate: CLLocationCoordinate2D){
         self.coordinate = coordinate
         super.init()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -32,6 +33,7 @@ class NoteViewController: DarkNavScrollViewController{
     override func loadView() {
         title = "note".localize()
         super.loadView()
+        setBlackNavigation()
         setupKeyboard()
     }
     

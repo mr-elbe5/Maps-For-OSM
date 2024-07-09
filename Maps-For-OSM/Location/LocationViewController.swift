@@ -11,7 +11,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class LocationViewController: DarkNavTableViewController{
+class LocationViewController: NavTableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
     let addAudioButton = UIButton().asIconButton("mic", color: .label)
@@ -28,7 +28,6 @@ class LocationViewController: DarkNavTableViewController{
     init(location: Location){
         self.location = location
         super.init()
-        self.subheaderView = UIView()
     }
     
     required init?(coder: NSCoder) {
@@ -49,6 +48,7 @@ class LocationViewController: DarkNavTableViewController{
     }
     
     override func updateNavigationItems() {
+        setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             AppData.shared.locations.deselectAll()
             self.close()

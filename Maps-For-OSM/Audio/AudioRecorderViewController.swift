@@ -14,7 +14,7 @@ protocol AudioCaptureDelegate{
     func audioCaptured(audio: Audio)
 }
 
-class AudioRecorderViewController : DarkNavScrollViewController, AVAudioRecorderDelegate{
+class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDelegate{
     
     var audioRecorder = AudioRecorderView()
     var titleField = UITextField()
@@ -22,17 +22,10 @@ class AudioRecorderViewController : DarkNavScrollViewController, AVAudioRecorder
     
     var delegate: AudioCaptureDelegate? = nil
     
-    override init(){
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func loadView() {
         title = "audioRecording".localize()
         super.loadView()
+        setBlackNavigation()
         scrollView.backgroundColor = .black
         setupKeyboard()
     }

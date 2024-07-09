@@ -12,7 +12,7 @@ import E5IOSUI
 import E5PhotoLib
 import E5MapData
 
-class ImageListViewController: DarkNavTableViewController{
+class ImageListViewController: NavTableViewController{
     
     class Day{
         
@@ -65,6 +65,7 @@ class ImageListViewController: DarkNavTableViewController{
     }
     
     override func updateNavigationItems() {
+        setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             self.images.deselectAll()
             self.navigationController?.popViewController(animated: true)

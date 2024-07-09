@@ -29,7 +29,8 @@ class LocationCell: TableViewCell{
     var delegate: LocationCellDelegate? = nil
     
     override open func setupCellBody(){
-        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        cellBody.setBackground(.secondarySystemBackground).setRoundedBorders()
+        iconView.setBackground(.tertiarySystemBackground).setRoundedEdges()
         cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
         cellBody.addSubviewWithAnchors(itemView, top: iconView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: .zero)
     }

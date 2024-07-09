@@ -9,7 +9,7 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
-class MainViewController: DarkNavViewController {
+class MainViewController: NavViewController {
     
     var mapView = MapView()
     var mainMenuView = TopMenuView()
@@ -22,6 +22,7 @@ class MainViewController: DarkNavViewController {
     var cancelAlert: UIAlertController? = nil
     
     override func updateNavigationItems() {
+        setBlackNavigation()
         // left
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()

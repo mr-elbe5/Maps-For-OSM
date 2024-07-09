@@ -9,13 +9,14 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-class TileSourceViewController: DarkNavScrollViewController{
+class TileSourceViewController: NavScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
     
     override func loadView() {
         title = "tileSource".localize()
         super.loadView()
+        setBlackNavigation()
         setupKeyboard()
     }
     

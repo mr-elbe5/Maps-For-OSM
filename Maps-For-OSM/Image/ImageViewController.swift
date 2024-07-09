@@ -8,13 +8,14 @@ import UIKit
 import E5Data
 import E5IOSUI
 
-class ImageViewController: DarkNavScrollViewController, UIScrollViewDelegate {
+class ImageViewController: NavScrollViewController, UIScrollViewDelegate {
     
     var uiImage : UIImage? = nil
     var imageView : UIImageView? = nil
     
     override func loadView() {
         super.loadView()
+        setBlackNavigation()
         if let image = uiImage{
             scrollView.maximumZoomScale = 1.0
             scrollView.delegate = self

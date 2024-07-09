@@ -15,7 +15,7 @@ protocol SettingsViewDelegate{
     func backupRestored()
 }
 
-class SettingsViewController: DarkNavScrollViewController{
+class SettingsViewController: NavScrollViewController{
     
     var maxMergeDistanceField = LabeledTextField()
     

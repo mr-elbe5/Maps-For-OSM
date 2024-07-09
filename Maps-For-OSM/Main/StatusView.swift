@@ -27,7 +27,7 @@ class StatusView : UIView{
     var verticalUncertaintyLabel : UILabel? = nil
     
     func setup(){
-        backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+        backgroundColor = UIStatics.transparentBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
@@ -78,14 +78,14 @@ class StatusView : UIView{
     
     func setupDefaultView(){
         let compassIcon = UIImageView(image: UIImage(systemName: "safari"))
-        compassIcon.tintColor = .darkGray
+        compassIcon.tintColor = .label
         defaultView.addSubviewWithAnchors(compassIcon, top: defaultView.topAnchor, leading: defaultView.leadingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
         compassLabel = UILabel(text: "0°")
-        compassLabel!.textColor = .darkGray
+        compassLabel!.textColor = .label
         defaultView.addSubviewWithAnchors(compassLabel!, top: defaultView.topAnchor, leading: compassIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
         
         detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle")
-        detailButton.tintColor = .darkGray
+        detailButton.tintColor = .label
         detailButton.addAction(UIAction(){ action in
             self.toggleDetailed()
         }, for: .touchDown)

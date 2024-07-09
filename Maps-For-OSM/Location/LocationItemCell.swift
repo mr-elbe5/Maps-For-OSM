@@ -15,8 +15,9 @@ class LocationItemCell: TableViewCell{
     
     override func setupCellBody(){
         cellBody.addSubviewFilling(itemView, insets: .zero)
-        iconView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
-        dateTimeView.setBackground(UIColor(white: 1.0, alpha: 0.3)).setRoundedEdges()
+        cellBody.setBackground(.secondarySystemBackground)
+        iconView.setBackground(.tertiarySystemBackground).setRoundedEdges()
+        dateTimeView.setBackground(.tertiarySystemBackground).setRoundedEdges()
         cellBody.addSubviewWithAnchors(dateTimeView, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, insets: smallInsets)
         dateTimeView.addSubviewFilling(timeLabel, insets: smallInsets)
         cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)

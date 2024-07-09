@@ -12,7 +12,7 @@ import E5Data
 import E5IOSAV
 import E5IOSUI
 
-class DarkCameraViewController: CameraViewController {
+class CameraViewController: E5CameraViewController {
     
     override public func loadView() {
         super.loadView()

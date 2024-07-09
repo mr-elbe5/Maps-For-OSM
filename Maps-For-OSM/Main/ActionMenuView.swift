@@ -30,7 +30,7 @@ class ActionMenuView: UIView {
     var toggleTrackingButton = UIButton().asIconButton("figure.walk.departure")
     
     func setup(){
-        backgroundColor = UIColor(white: 1.0, alpha: 0.5)
+        backgroundColor = UIStatics.transparentBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
