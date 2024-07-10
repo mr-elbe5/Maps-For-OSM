@@ -34,7 +34,6 @@ class SearchViewController: NavTableViewController{
         title = "searchLocation".localize()
         createSubheaderView()
         super.loadView()
-        setBlackNavigation()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.CELL_IDENT)

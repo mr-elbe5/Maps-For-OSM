@@ -22,7 +22,8 @@ class MainViewController: NavViewController {
     var cancelAlert: UIAlertController? = nil
     
     override func updateNavigationItems() {
-        setBlackNavigation()
+        //setBlackNavigation()
+        view.setBackground(.systemBackground)
         // left
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()

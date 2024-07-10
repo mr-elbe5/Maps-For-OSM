@@ -33,7 +33,6 @@ class NoteViewController: NavScrollViewController{
     override func loadView() {
         title = "note".localize()
         super.loadView()
-        setBlackNavigation()
         setupKeyboard()
     }
     

@@ -25,7 +25,6 @@ class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDele
     override func loadView() {
         title = "audioRecording".localize()
         super.loadView()
-        setBlackNavigation()
         scrollView.backgroundColor = .black
         setupKeyboard()
     }

@@ -65,7 +65,6 @@ class ImageListViewController: NavTableViewController{
     }
     
     override func updateNavigationItems() {
-        setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             self.images.deselectAll()
             self.navigationController?.popViewController(animated: true)

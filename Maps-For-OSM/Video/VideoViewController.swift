@@ -17,7 +17,6 @@ class VideoViewController: NavViewController {
     var volumeView = VolumeSlider()
     
     override func loadSubviews(guide: UILayoutGuide) {
-        setBlackNavigation()
         view.addSubviewWithAnchors(contentView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor, insets: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
         contentView.backgroundColor = .black
         

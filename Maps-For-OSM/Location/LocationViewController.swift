@@ -48,7 +48,6 @@ class LocationViewController: NavTableViewController{
     }
     
     override func updateNavigationItems() {
-        setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             AppData.shared.locations.deselectAll()
             self.close()

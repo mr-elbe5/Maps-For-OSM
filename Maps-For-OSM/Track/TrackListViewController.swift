@@ -31,7 +31,6 @@ class TrackListViewController: NavTableViewController{
     }
     
     override func updateNavigationItems() {
-        setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             self.tracks?.deselectAll()
             self.navigationController?.popViewController(animated: true)

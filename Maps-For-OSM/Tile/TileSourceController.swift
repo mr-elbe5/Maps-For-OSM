@@ -16,7 +16,6 @@ class TileSourceViewController: NavScrollViewController{
     override func loadView() {
         title = "tileSource".localize()
         super.loadView()
-        setBlackNavigation()
         setupKeyboard()
     }
     

@@ -15,7 +15,6 @@ class ImageViewController: NavScrollViewController, UIScrollViewDelegate {
     
     override func loadView() {
         super.loadView()
-        setBlackNavigation()
         if let image = uiImage{
             scrollView.maximumZoomScale = 1.0
             scrollView.delegate = self

@@ -45,7 +45,6 @@ class TilePreloadViewController: NavScrollViewController{
     override func loadView() {
         title = "mapPreload".localize()
         super.loadView()
-        setBlackNavigation()
         if existingTiles == allTiles{
             startButton.isEnabled = false
             cancelButton.isEnabled = false

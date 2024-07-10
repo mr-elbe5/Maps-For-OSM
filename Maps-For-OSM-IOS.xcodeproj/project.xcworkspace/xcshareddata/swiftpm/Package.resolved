@@ -1,5 +1,5 @@
 {
-  "originHash" : "6b049ff08b930adbd0f981bc4f200585cea556358acfdd29223dc98ba37a66c4",
+  "originHash" : "20dae9b072272fe24932a757aa8574c3abf0b8237d527105d1ac4d2a534ed2d4",
   "pins" : [
     {
       "identity" : "e5data",
@@ -22,10 +22,10 @@
     {
       "identity" : "e5iosui",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mr-elbe5/E5IOSUI",
+      "location" : "https://github.com/mr-elbe5/E5IOSUI.git",
       "state" : {
-        "revision" : "1783444d3473f19197406bab6757a6de6dce1f6c",
-        "version" : "1.0.24"
+        "revision" : "2e4315db863581a4c881e7b80d165f7af872f77a",
+        "version" : "1.0.25"
       }
     },
     {
