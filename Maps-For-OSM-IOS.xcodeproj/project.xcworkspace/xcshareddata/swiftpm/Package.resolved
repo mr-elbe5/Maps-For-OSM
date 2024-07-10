@@ -1,10 +1,10 @@
 {
-  "originHash" : "328cc31bfc196c4c28a9c1d82a5b5e518091c93d314721ca48d9c993fb3ba66f",
+  "originHash" : "6b049ff08b930adbd0f981bc4f200585cea556358acfdd29223dc98ba37a66c4",
   "pins" : [
     {
       "identity" : "e5data",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5Data",
+      "location" : "https://github.com/mr-elbe5/E5Data.git",
       "state" : {
         "revision" : "c1a53b09b7750a1ba6b1356ca9342ab2d531f45e",
         "version" : "1.0.26"
@@ -13,37 +13,37 @@
     {
       "identity" : "e5iosav",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
+      "location" : "https://github.com/mr-elbe5/E5IOSAV.git",
       "state" : {
-        "revision" : "2ad1cf9600a25c3199d282a7b14f3c30dbf1519e",
-        "version" : "1.0.12"
+        "revision" : "b2571747c15cafb2c853b7b6486437005f776d1c",
+        "version" : "1.0.14"
       }
     },
     {
       "identity" : "e5iosui",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/e5iosui",
+      "location" : "https://github.com/mr-elbe5/E5IOSUI",
       "state" : {
-        "revision" : "457e2bb77e086410243eee833dbb327161112023",
-        "version" : "1.0.22"
+        "revision" : "1783444d3473f19197406bab6757a6de6dce1f6c",
+        "version" : "1.0.24"
       }
     },
     {
       "identity" : "e5mapdata",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/e5mapdata",
+      "location" : "https://github.com/mr-elbe5/E5MapData.git",
       "state" : {
-        "revision" : "48d2cb455e541b5fb8cd7aedb0e702155deaf075",
-        "version" : "1.1.7"
+        "revision" : "f9075462b03d8d51f6a3be4ce64f38e69edd1a99",
+        "version" : "1.1.8"
       }
     },
     {
       "identity" : "e5photolib",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5PhotoLib",
+      "location" : "https://github.com/mr-elbe5/E5PhotoLib.git",
       "state" : {
-        "revision" : "d568867b6be2bdc5460b809aa62468203b3bc5ec",
-        "version" : "1.0.0"
+        "revision" : "4f7211f70869988eb3ea6aa05c497ad8edb23413",
+        "version" : "1.0.10"
       }
     },
     {
