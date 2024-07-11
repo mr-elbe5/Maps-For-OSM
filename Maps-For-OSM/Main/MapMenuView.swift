@@ -24,7 +24,6 @@ class MapMenuView: UIView {
     var delegate : MapMenuDelegate? = nil
     
     func setup(){
-        backgroundColor = UIStatics.transparentBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         

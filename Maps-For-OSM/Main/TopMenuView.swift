@@ -24,7 +24,6 @@ class TopMenuView: UIView {
     var delegate : MainMenuDelegate? = nil
     
     func setup(){
-        backgroundColor = UIStatics.transparentBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         

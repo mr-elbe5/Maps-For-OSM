@@ -50,7 +50,6 @@
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
-		4EA5C6C82C3D35A3003348A6 /* UIStatics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5C6C72C3D35A3003348A6 /* UIStatics.swift */; };
 		4EB694532C3EAC720058BAD0 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694522C3EAC720058BAD0 /* E5Data */; };
 		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
 		4EB6945A2C3EAE560058BAD0 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694592C3EAE560058BAD0 /* E5MapData */; };
@@ -127,7 +126,6 @@
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4EA30CF52C37F706002EA622 /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
-		4EA5C6C72C3D35A3003348A6 /* UIStatics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStatics.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* LocationGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 				4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
-				4EA5C6C72C3D35A3003348A6 /* UIStatics.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -480,7 +477,6 @@
 				4E1359452C39718F007F8720 /* CameraViewController.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* TilePreloadViewController.swift in Sources */,
 				4E1B81172732EDC5003ED6B0 /* LocationLayerView.swift in Sources */,
-				4EA5C6C82C3D35A3003348A6 /* UIStatics.swift in Sources */,
 				4E1D0E24274C223C00F3D584 /* LocationCell.swift in Sources */,
 				4E025E3B274E3C4300D56ED7 /* StatusView.swift in Sources */,
 				4E0BD98326E9FC66005A4A94 /* SceneDelegate.swift in Sources */,

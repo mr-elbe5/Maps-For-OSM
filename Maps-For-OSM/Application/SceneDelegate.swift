@@ -39,8 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         let mainViewController = MainViewController()
         let navViewController = UINavigationController(rootViewController: mainViewController)
+        navViewController.navigationBar.tintColor = .label
         window?.rootViewController = navViewController
-        //window?.overrideUserInterfaceStyle = .dark
         window?.makeKeyAndVisible()
         LocationService.shared.serviceDelegate = mainViewController
         LocationService.shared.requestWhenInUseAuthorization()

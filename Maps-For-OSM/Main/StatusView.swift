@@ -27,7 +27,6 @@ class StatusView : UIView{
     var verticalUncertaintyLabel : UILabel? = nil
     
     func setup(){
-        backgroundColor = UIStatics.transparentBackground
         layer.cornerRadius = 10
         layer.masksToBounds = true
         

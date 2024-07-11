@@ -11,8 +11,11 @@ import E5IOSUI
 
 class MainViewController: NavViewController {
     
+    static var lightTransparentColor = UIColor(white: 1.0, alpha: 0.5)
+    static var darkTransparentColor = UIColor(white: 0.0, alpha: 0.5)
+    
     var mapView = MapView()
-    var mainMenuView = TopMenuView()
+    var topMenuView = TopMenuView()
     var actionMenuView = ActionMenuView()
     var mapMenuView = MapMenuView()
     var statusView = StatusView()
@@ -21,8 +24,9 @@ class MainViewController: NavViewController {
     
     var cancelAlert: UIAlertController? = nil
     
+    var transparentColor: UIColor = MainViewController.lightTransparentColor
+    
     override func updateNavigationItems() {
-        //setBlackNavigation()
         view.setBackground(.systemBackground)
         // left
         var groups = Array<UIBarButtonItemGroup>()
@@ -90,7 +94,17 @@ class MainViewController: NavViewController {
         }
     }
     
-    override open func loadSubviews(guide: UILayoutGuide) {
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        transparentColor = isDarkMode ? MainViewController.darkTransparentColor : MainViewController.lightTransparentColor
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setTransparentBackgrounds()
+    }
+    
+    override func loadSubviews(guide: UILayoutGuide) {
         setupMapView(guide: guide)
         setupTopMenuView(guide: guide)
         setupActionMenuView(guide: guide)
@@ -112,9 +126,9 @@ class MainViewController: NavViewController {
     }
     
     func setupTopMenuView(guide: UILayoutGuide){
-        view.addSubviewWithAnchors(mainMenuView, top: guide.topAnchor, insets: defaultInsets).centerX(guide.centerXAnchor)
-        mainMenuView.setup()
-        mainMenuView.delegate = self
+        view.addSubviewWithAnchors(topMenuView, top: guide.topAnchor, insets: defaultInsets).centerX(guide.centerXAnchor)
+        topMenuView.setup()
+        topMenuView.delegate = self
     }
     
     func setupActionMenuView(guide: UILayoutGuide){
@@ -127,6 +141,14 @@ class MainViewController: NavViewController {
         view.addSubviewWithAnchors(mapMenuView, top: guide.topAnchor, trailing: guide.trailingAnchor, insets: defaultInsets)
         mapMenuView.setup()
         mapMenuView.delegate = self
+    }
+    
+    func setTransparentBackgrounds(){
+        topMenuView.setBackground(transparentColor)
+        actionMenuView.setBackground(transparentColor)
+        mapMenuView.setBackground(transparentColor)
+        statusView.setBackground(transparentColor)
+        trackStatusView.setBackground(transparentColor)
     }
     
     func setupLicenseView(guide: UILayoutGuide){

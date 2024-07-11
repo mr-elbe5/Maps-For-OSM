@@ -32,7 +32,6 @@ class TrackStatusView : UIView{
     var delegate: TrackStatusDelegate? = nil
     
     func setup(){
-        backgroundColor = UIStatics.transparentBackground
         layer.masksToBounds = true
         zeroHeightConstraint = heightAnchor.constraint(equalToConstant: 0)
         
