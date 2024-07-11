@@ -8,6 +8,7 @@ import UIKit
 import E5Data
 import E5MapData
 import E5IOSUI
+import CoreLocation
 
 class MainViewController: NavViewController {
     
@@ -25,6 +26,7 @@ class MainViewController: NavViewController {
     var cancelAlert: UIAlertController? = nil
     
     var transparentColor: UIColor = MainViewController.lightTransparentColor
+    var startCoordinate: CLLocationCoordinate2D? = nil
     
     override func updateNavigationItems() {
         view.setBackground(.systemBackground)
@@ -78,11 +80,16 @@ class MainViewController: NavViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.setDefaultLocation()
+        startCoordinate = AppState.shared.coordinate
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if let coord = startCoordinate{
+            AppState.shared.coordinate = coord
+            mapView.setDefaultLocation(at: CGPoint(x: mapView.frame.size.width/2, y: mapView.frame.size.height/2))
+            startCoordinate = nil
+        }
         if let trackRecorder = TrackRecorder.instance, trackRecorder.interrupted{
             showDecide(title: "interruptedTrackFound".localize(), text: "shouldResumeInterruptedTrack".localize(), onYes: {
                 trackRecorder.isRecording = true
@@ -117,7 +124,6 @@ class MainViewController: NavViewController {
     
     func setupMapView(guide: UILayoutGuide){
         view.addSubviewWithAnchors(mapView, top: guide.topAnchor, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: guide.bottomAnchor)
-        mapView.frame = view.bounds
         mapView.setupScrollView()
         mapView.setupTrackLayerView()
         mapView.setupCurrentLocationView()

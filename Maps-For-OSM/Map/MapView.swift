@@ -86,10 +86,10 @@ class MapView: UIView {
         scrollToScreenCenter(coordinate: region.center)
     }
     
-    func setDefaultLocation(){
+    func setDefaultLocation(at center: CGPoint){
         scaleTo(scale: AppState.shared.scale)
         Log.info("moving to \(AppState.shared.coordinate.shortString)")
-        scrollToScreenCenter(coordinate: AppState.shared.coordinate)
+        scrollView.scrollToScreenPoint(coordinate: AppState.shared.coordinate, screenPoint: center)
         updateLocationLayer()
     }
     
