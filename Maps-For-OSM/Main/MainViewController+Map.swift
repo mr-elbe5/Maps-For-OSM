@@ -114,8 +114,10 @@ extension MainViewController: TrackDelegate{
         if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
             Track.visibleTrack = item
             trackChanged()
+            let zoomScale = World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)
+            AppState.shared.zoom = World.maxZoom + World.zoomLevelFromScale(scale: zoomScale)
+            mapView.scrollView.setZoomScale(zoomScale*0.9, animated: false)
             mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)*0.9, animated: true)
         }
     }
     

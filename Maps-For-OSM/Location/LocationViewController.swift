@@ -35,7 +35,6 @@ class LocationViewController: NavTableViewController{
     }
     
     override func loadView() {
-        title = "location".localize()
         createSubheaderView()
         super.loadView()
         tableView.delegate = self
