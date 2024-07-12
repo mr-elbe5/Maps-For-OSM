@@ -28,8 +28,9 @@ class LocationListViewController: NavTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
 
-    var locationDelegate: LocationDelegate? = nil
-    var trackDelegate: TrackDelegate? = nil
+    var mainViewController: MainViewController?{
+        navigationController?.rootViewController as? MainViewController
+    }
     
     var days = Array<Day>()
     
@@ -116,7 +117,6 @@ class LocationListViewController: NavTableViewController{
             for location in list{
                 AppData.shared.deleteLocation(location)
             }
-            self.locationDelegate?.locationsChanged()
             self.setupData()
             self.tableView.reloadData()
         }
@@ -164,42 +164,23 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
 extension LocationListViewController : LocationCellDelegate{
     
     func showLocationOnMap(location: Location) {
-        self.close()
-        self.locationDelegate?.showLocationOnMap(location: location)
+        navigationController?.popToRootViewController(animated: true)
+        mainViewController?.showLocationOnMap(location: location)
     }
     
     func editLocation(location: Location) {
         let controller = LocationViewController(location: location)
         controller.location = location
-        controller.locationDelegate = self
-        controller.trackDelegate = self
+        controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-}
-
-extension LocationListViewController : LocationDelegate{
-    
     func locationChanged(location: Location) {
-        locationDelegate?.locationChanged(location: location)
+        mainViewController?.locationChanged(location: location)
     }
     
     func locationsChanged() {
-        locationDelegate?.locationsChanged()
-    }
-    
-}
-
-extension LocationListViewController : TrackDelegate{
-    
-    func editTrack(item: Track) {
-        let controller = TrackViewController(track: item)
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func showTrackOnMap(item: Track) {
-        self.close()
-        self.trackDelegate?.showTrackOnMap(item: item)
+        mainViewController?.locationsChanged()
     }
     
 }

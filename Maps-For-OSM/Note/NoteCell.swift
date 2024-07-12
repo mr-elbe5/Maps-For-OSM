@@ -19,7 +19,7 @@ class NoteCell: LocationItemCell{
         }
     }
     
-    var delegate: LocationDelegate? = nil
+    var delegate: LocationItemCellDelegate? = nil
     
     override func updateIconView(){
         iconView.removeAllSubviews()

@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-public protocol ImageDelegate{
+public protocol ImageCellDelegate: LocationItemCellDelegate{
     func viewImage(image: Image)
 }
 
@@ -24,8 +24,7 @@ class ImageCell: LocationItemCell{
         }
     }
     
-    var locationDelegate: LocationDelegate? = nil
-    var imageDelegate: ImageDelegate? = nil
+    var delegate: ImageCellDelegate? = nil
     
     var useShortDate = false
     
@@ -42,13 +41,13 @@ class ImageCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.locationDelegate?.showLocationOnMap(location: image.location)
+                self.delegate?.showLocationOnMap(location: image.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.imageDelegate?.viewImage(image: image)
+                self.delegate?.viewImage(image: image)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

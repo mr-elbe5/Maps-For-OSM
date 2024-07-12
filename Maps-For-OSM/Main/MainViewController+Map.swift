@@ -63,8 +63,7 @@ extension MainViewController: LocationLayerDelegate{
     func showLocationDetails(location: Location) {
         let controller = LocationViewController(location: location)
         controller.location = location
-        controller.locationDelegate = self
-        controller.trackDelegate = self
+        controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -78,48 +77,12 @@ extension MainViewController: LocationLayerDelegate{
     
     func showGroupDetails(group: LocationGroup) {
         let controller = LocationGroupViewController(group: group)
-        controller.locationDelegate = self
-        controller.trackDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
 }
 
-extension MainViewController: LocationDelegate{
-    
-    func showLocationOnMap(location: Location) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
-    }
-    
-}
-
-extension MainViewController: ImageDelegate {
-    
-    func viewImage(image: Image) {
-        
-    }
-    
-}
-
-extension MainViewController: TrackDelegate{
-    
-    func editTrack(item: Track) {
-        let controller = TrackViewController(track: item)
-        controller.delegate = self
-        controller.modalPresentationStyle = .fullScreen
-        self.present(controller, animated: true)
-    }
-    
-    func showTrackOnMap(item: Track) {
-        if !item.trackpoints.isEmpty, let boundingRect = item.trackpoints.boundingMapRect{
-            Track.visibleTrack = item
-            trackChanged()
-            let zoomScale = World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)
-            AppState.shared.zoom = World.maxZoom + World.zoomLevelFromScale(scale: zoomScale)
-            mapView.scrollView.setZoomScale(zoomScale*0.9, animated: false)
-            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
-        }
-    }
+extension MainViewController: LocationViewDelegate{
     
 }
 

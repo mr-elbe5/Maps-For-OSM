@@ -16,7 +16,7 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     
     let locationLabel = UILabel(text: "")
     
-    var frameSize = CGSize(width: 300, height: 400)
+    var frameSize = CGSize(width: 300, height: 350)
     
     var delegate: ActionMenuDelegate? = nil
     
@@ -32,8 +32,23 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     
     override func loadView() {
         super.loadView()
+        view.backgroundColor = .white
+        scrollView.backgroundColor = .white
         scrollView.setupVertical()
         setupContent()
+    }
+    
+    override func setupHeaderView(headerView: UIView){
+        if let title = title{
+            let label = UILabel(header: title)
+            headerView.addSubviewWithAnchors(label, top: headerView.topAnchor, insets: defaultInsets)
+                .centerX(headerView.centerXAnchor)
+            titleLabel = label
+        }
+        headerView.addSubviewWithAnchors(closeButton, top: headerView.topAnchor, trailing: headerView.trailingAnchor, bottom: headerView.bottomAnchor, insets: defaultInsets)
+        closeButton.addAction(UIAction(){ action in
+            self.dismiss(animated: true)
+        }, for: .touchDown)
     }
     
     override func viewDidLoad() {
@@ -56,6 +71,7 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     func setupContent(){
         view.setRoundedBorders(radius: 10)
         locationLabel.textAlignment = .center
+        contentView.backgroundColor = .white
         contentView.addSubviewWithAnchors(locationLabel, top: contentView.topAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
         

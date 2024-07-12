@@ -30,11 +30,14 @@ class ImageListViewController: NavTableViewController{
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var locationDelegate: LocationDelegate? = nil
-    var imageDelegate: ImageDelegate? = nil
+    var delegate: ImageCellDelegate? = nil
     
     var images = ImageList()
     var days = Array<Day>()
+    
+    var mainViewController: MainViewController?{
+        navigationController?.rootViewController as? MainViewController
+    }
     
     override open func loadView() {
         title = "images".localize()
@@ -162,7 +165,7 @@ class ImageListViewController: NavTableViewController{
             AppData.shared.save()
             self.images = AppData.shared.locations.images
             self.setupData()
-            self.locationDelegate?.locationsChanged()
+            self.mainViewController?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -192,8 +195,7 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
         let day = days[indexPath.section]
         cell.useShortDate = true
         cell.image = day.images[indexPath.row]
-        cell.locationDelegate = self
-        cell.imageDelegate = self
+        cell.delegate = self
         cell.updateCell()
         return cell
     }
@@ -208,24 +210,21 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension ImageListViewController : LocationDelegate{
+extension ImageListViewController : ImageCellDelegate{
     
     func locationChanged(location: Location) {
-        self.locationDelegate?.locationChanged(location: location)
+        mainViewController?.locationChanged(location: location)
     }
     
     func locationsChanged() {
-        self.locationDelegate?.locationsChanged()
+        mainViewController?.locationsChanged()
     }
     
     
     func showLocationOnMap(location: Location) {
-        self.close()
-        self.locationDelegate?.showLocationOnMap(location: location)
+        navigationController?.popToRootViewController(animated: true)
+        mainViewController?.showLocationOnMap(location: location)
     }
-}
-
-extension ImageListViewController : ImageDelegate{
     
     func viewImage(image: Image) {
         let controller = ImageViewController()

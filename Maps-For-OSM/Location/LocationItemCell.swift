@@ -7,6 +7,15 @@
 import UIKit
 import E5Data
 import E5IOSUI
+import E5MapData
+
+public protocol LocationItemCellDelegate{
+    
+    func locationChanged(location: Location)
+    func locationsChanged()
+    func showLocationOnMap(location: Location)
+    
+}
 
 class LocationItemCell: TableViewCell{
     

@@ -9,9 +9,9 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-public protocol TrackDelegate{
-    func editTrack(item: Track)
-    func showTrackOnMap(item: Track)
+public protocol TrackCellDelegate{
+    func showTrackOnMap(track: Track)
+    func editTrack(track: Track)
 }
 
 class TrackCell: LocationItemCell{
@@ -20,8 +20,7 @@ class TrackCell: LocationItemCell{
     
     var track : Track? = nil
     
-    var locationDelegate: LocationDelegate? = nil
-    var trackDelegate: TrackDelegate? = nil
+    var delegate: TrackCellDelegate? = nil
     
     override func updateIconView(){
         iconView.removeAllSubviews()
@@ -36,13 +35,13 @@ class TrackCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.trackDelegate?.showTrackOnMap(item: track)
+                self.delegate?.showTrackOnMap(track: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let editButton = UIButton().asIconButton("magnifyingglass", color: .label)
             editButton.addAction(UIAction(){ action in
-                self.trackDelegate?.editTrack(item: track)
+                self.delegate?.editTrack(track: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

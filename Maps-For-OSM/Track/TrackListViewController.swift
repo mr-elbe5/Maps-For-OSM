@@ -18,8 +18,11 @@ class TrackListViewController: NavTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var locationDelegate: LocationDelegate? = nil
-    var trackDelegate: TrackDelegate? = nil
+    var locationDelegate: LocationCellDelegate? = nil
+    
+    var mainViewController: MainViewController?{
+        navigationController?.rootViewController as? MainViewController
+    }
     
     override open func loadView() {
         title = "trackList".localize()
@@ -114,8 +117,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as! TrackCell
         let track = tracks?.reversed()[indexPath.row]
         cell.track = track
-        cell.locationDelegate = self
-        cell.trackDelegate = self
+        cell.delegate = self
         cell.updateCell()
         return cell
     }
@@ -129,35 +131,18 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
 }
-
-extension TrackListViewController : LocationDelegate{
+  
+extension TrackListViewController : TrackCellDelegate{
     
-    func locationChanged(location: Location) {
-        self.locationDelegate?.locationChanged(location: location)
-    }
-    
-    func locationsChanged() {
-        self.locationDelegate?.locationsChanged()
-    }
-    
-    func showLocationOnMap(location: Location) {
-        self.locationDelegate?.showLocationOnMap(location: location)
-    }
-    
-}
-    
-extension TrackListViewController : TrackDelegate{
-    
-    func editTrack(item: Track) {
-        let controller = TrackViewController(track: item)
-        controller.track = item
-        controller.delegate = self
+    func editTrack(track: Track) {
+        let controller = TrackViewController(track: track)
+        controller.track = track
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func showTrackOnMap(item: Track) {
-        self.close()
-        self.trackDelegate?.showTrackOnMap(item: item)
+    func showTrackOnMap(track: Track) {
+        navigationController?.popToRootViewController(animated: true)
+        mainViewController?.showTrackOnMap(track: track)
     }
     
 }

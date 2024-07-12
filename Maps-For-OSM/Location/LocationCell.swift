@@ -9,13 +9,7 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
-public protocol LocationDelegate{
-    func locationChanged(location: Location)
-    func locationsChanged()
-    func showLocationOnMap(location: Location)
-}
-
-protocol LocationCellDelegate{
+protocol LocationCellDelegate: LocationViewDelegate{
     func editLocation(location: Location)
     func showLocationOnMap(location: Location)
 }

@@ -26,7 +26,9 @@ class TrackViewController: NavScrollViewController{
     var nameEditField = UITextField()
     var noteEditView = TextEditArea()
     
-    var delegate : TrackDelegate? = nil
+    var mainViewController: MainViewController?{
+        navigationController?.rootViewController as? MainViewController
+    }
     
     init(track: Track){
         self.track = track
@@ -50,7 +52,8 @@ class TrackViewController: NavScrollViewController{
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "showOnMap", image: UIImage(systemName: "map"), primaryAction: UIAction(){ action in
-            self.delegate?.showTrackOnMap(item: self.track)
+            self.navigationController?.popToRootViewController(animated: true)
+            self.mainViewController?.showTrackOnMap(track: self.track)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
         navigationItem.trailingItemGroups = groups

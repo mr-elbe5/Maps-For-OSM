@@ -11,6 +11,11 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
+protocol LocationViewDelegate{
+    func locationChanged(location: Location)
+    func locationsChanged()
+}
+
 class LocationViewController: NavTableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
@@ -22,8 +27,11 @@ class LocationViewController: NavTableViewController{
     
     var location: Location
     
-    var locationDelegate: LocationDelegate? = nil
-    var trackDelegate: TrackDelegate? = nil
+    var delegate : LocationViewDelegate? = nil
+    
+    var mainViewController: MainViewController?{
+        navigationController?.rootViewController as? MainViewController
+    }
     
     init(location: Location){
         self.location = location
@@ -151,7 +159,7 @@ class LocationViewController: NavTableViewController{
             for item in list{
                 self.location.deleteItem(item: item)
             }
-            self.locationDelegate?.locationChanged(location: self.location)
+            self.mainViewController?.locationChanged(location: self.location)
             self.tableView.reloadData()
         }
     }
@@ -160,7 +168,7 @@ class LocationViewController: NavTableViewController{
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteHint".localize()){
             print("deleting location")
             AppData.shared.deleteLocation(self.location)
-            self.locationDelegate?.locationsChanged()
+            self.mainViewController?.locationsChanged()
             self.close()
         }
     }
@@ -183,7 +191,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         case .audio: 
             if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let Audio = item as? Audio{
                 cell.audio = Audio
-                cell.locationDelegate = self
+                cell.delegate = self
                 cell.updateCell()
                 return cell
             }
@@ -194,8 +202,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         case .video:
             if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let Video = item as? Video{
                 cell.video = Video
-                cell.locationDelegate = self
-                cell.videoDelegate = self
+                cell.delegate = self
                 cell.updateCell()
                 return cell
             }
@@ -206,8 +213,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         case .image:
             if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let Image = item as? Image{
                 cell.image = Image
-                cell.locationDelegate = self
-                cell.imageDelegate = self
+                cell.delegate = self
                 cell.updateCell()
                 return cell
             }
@@ -218,8 +224,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         case .track:
             if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let Track = item as? Track{
                 cell.track = Track
-                cell.locationDelegate = self
-                cell.trackDelegate = self
+                cell.delegate = self
                 cell.updateCell()
                 return cell
             }
@@ -255,19 +260,19 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
 
-extension LocationViewController : LocationDelegate{
+extension LocationViewController : LocationItemCellDelegate{
     
     func locationChanged(location: Location) {
-        self.locationDelegate?.locationChanged(location: location)
+        delegate?.locationChanged(location: location)
     }
     
     func locationsChanged() {
-        self.locationDelegate?.locationsChanged()
+        delegate?.locationsChanged()
     }
     
     func showLocationOnMap(location: Location) {
-        self.close()
-        locationDelegate?.showLocationOnMap(location: location)
+        navigationController?.popToRootViewController(animated: true)
+        mainViewController?.showLocationOnMap(location: location)
     }
     
 }
@@ -352,7 +357,7 @@ extension LocationViewController: AudioCaptureDelegate{
     }
 }
 
-extension LocationViewController : VideoDelegate{
+extension LocationViewController : VideoCellDelegate{
     
     func viewVideo(item: Video) {
         let controller = VideoViewController()
@@ -362,7 +367,7 @@ extension LocationViewController : VideoDelegate{
     
 }
 
-extension LocationViewController : ImageDelegate{
+extension LocationViewController : ImageCellDelegate{
     
     func viewImage(image: Image) {
         let controller = ImageViewController()
@@ -372,16 +377,16 @@ extension LocationViewController : ImageDelegate{
     
 }
 
-extension LocationViewController : TrackDelegate{
+extension LocationViewController : TrackCellDelegate{
     
-    func editTrack(item: Track) {
-        let controller = TrackViewController(track: item)
+    func editTrack(track: Track) {
+        let controller = TrackViewController(track: track)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func showTrackOnMap(item: Track) {
-        self.close()
-        self.trackDelegate?.showTrackOnMap(item: item)
+    func showTrackOnMap(track: Track) {
+        navigationController?.popToRootViewController(animated: true)
+        mainViewController?.showTrackOnMap(track: track)
     }
     
 }

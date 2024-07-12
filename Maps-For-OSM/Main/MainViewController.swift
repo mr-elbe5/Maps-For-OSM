@@ -31,22 +31,16 @@ class MainViewController: NavViewController {
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "locations".localize(), image: UIImage(systemName: "mappin"), primaryAction: UIAction(){ action in
             let controller = LocationListViewController()
-            controller.locationDelegate = self
-            controller.trackDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "figure.walk"), primaryAction: UIAction(){ action in
             let controller = TrackListViewController()
             controller.tracks = AppData.shared.locations.tracks
-            controller.locationDelegate = self
-            controller.trackDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "photo"), primaryAction: UIAction(){ action in
             let controller = ImageListViewController()
             controller.images = AppData.shared.locations.images
-            controller.locationDelegate = self
-            controller.imageDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
@@ -193,6 +187,21 @@ class MainViewController: NavViewController {
     
     func trackChanged() {
         mapView.trackLayerView.setNeedsDisplay()
+    }
+    
+    func showLocationOnMap(location: Location) {
+        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
+    }
+    
+    func showTrackOnMap(track: Track) {
+        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
+            Track.visibleTrack = track
+            trackChanged()
+            let zoomScale = World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)
+            AppState.shared.zoom = World.maxZoom + World.zoomLevelFromScale(scale: zoomScale)
+            mapView.scrollView.setZoomScale(zoomScale*0.9, animated: false)
+            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
+        }
     }
     
 }

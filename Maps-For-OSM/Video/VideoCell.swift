@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-public protocol VideoDelegate{
+public protocol VideoCellDelegate: LocationItemCellDelegate{
     func viewVideo(item: Video)
 }
 
@@ -24,8 +24,7 @@ class VideoCell: LocationItemCell{
         }
     }
     
-    var locationDelegate: LocationDelegate? = nil
-    var videoDelegate: VideoDelegate? = nil
+    var delegate: VideoCellDelegate? = nil
     
     override func updateIconView(){
         iconView.removeAllSubviews()
@@ -39,13 +38,13 @@ class VideoCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.locationDelegate?.showLocationOnMap(location: video.location)
+                self.delegate?.showLocationOnMap(location: video.location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
-                self.videoDelegate?.viewVideo(item: video)
+                self.delegate?.viewVideo(item: video)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
