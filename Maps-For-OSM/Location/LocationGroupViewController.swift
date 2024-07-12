@@ -64,14 +64,13 @@ class LocationGroupViewController: NavTableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView) {
+        super.setupSubheaderView(subheaderView: subheaderView)
         var header = UILabel(header: "center".localize())
         subheaderView.addSubviewWithAnchors(header, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, insets: defaultInsets)
         
         let coordinateLabel = UILabel(text: group.centralCoordinate?.asString ?? "")
-        subheaderView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: flatInsets)
+        subheaderView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
         
-        header = UILabel(header: "locations".localize())
-        subheaderView.addSubviewWithAnchors(header, top: coordinateLabel.bottomAnchor, leading: subheaderView.leadingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
     
     func toggleSelectAll(){

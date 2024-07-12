@@ -78,6 +78,7 @@ class LocationViewController: NavTableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView){
+        super.setupSubheaderView(subheaderView: subheaderView)
         let locationLabel = UILabel(text: location.address)
         locationLabel.textAlignment = .center
         subheaderView.addSubviewWithAnchors(locationLabel, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
