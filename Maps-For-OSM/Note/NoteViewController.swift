@@ -38,7 +38,7 @@ class NoteViewController: NavScrollViewController{
     
     override func loadScrollableSubviews() {
         contentView.addSubviewWithAnchors(noteEditView, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-            
+        
         let saveButton = UIButton().asTextButton("save".localize()).withTextColor(color: .systemBlue)
             saveButton.addAction(UIAction(){ action in
                 self.save()

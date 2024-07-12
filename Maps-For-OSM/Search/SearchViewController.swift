@@ -40,6 +40,7 @@ class SearchViewController: NavTableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView){
+        subheaderView.backgroundColor = .white
         searchField.placeholder = "searchPlaceholder".localize()
         searchField.borderStyle = .roundedRect
         searchField.text = AppState.shared.searchString

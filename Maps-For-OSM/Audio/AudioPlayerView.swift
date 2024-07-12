@@ -15,8 +15,8 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     var playerItem : AVPlayerItem? = nil
     
     var playProgress = UIProgressView()
-    var rewindButton = UIButton().asIconButton("repeat", color: .white)
-    var playButton = UIButton().asIconButton("play.fill", color: .white)
+    var rewindButton = UIButton().asIconButton("repeat", color: .label)
+    var playButton = UIButton().asIconButton("play.fill", color: .label)
     var volumeSlider = VolumeSlider()
     
     var timeObserverToken : Any? = nil
@@ -41,7 +41,7 @@ class AudioPlayerView : UIView, AVAudioPlayerDelegate{
     override init(frame: CGRect) {
         self.player = AVPlayer()
         super.init(frame: frame)
-        backgroundColor = .black
+        backgroundColor = .white
         setRoundedBorders()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
@@ -168,10 +168,10 @@ class VolumeSlider : UISlider{
         super.init(frame: .zero)
         minimumValue = minValue
         maximumValue = maxValue
-        tintColor = .white
-        minimumValueImage = UIImage(systemName: "speaker")?.withTintColor(iconColor)
-        maximumValueImage = UIImage(systemName: "speaker.3")?.withTintColor(iconColor)
-        thumbTintColor = .white
+        tintColor = .label
+        minimumValueImage = UIImage(systemName: "speaker")?.withTintColor(.icon)
+        maximumValueImage = UIImage(systemName: "speaker.3")?.withTintColor(.icon)
+        thumbTintColor = .label
         self.value = value
     }
     

@@ -25,21 +25,21 @@ class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDele
     override func loadView() {
         title = "audioRecording".localize()
         super.loadView()
-        scrollView.backgroundColor = .black
         setupKeyboard()
     }
     
     override func loadScrollableSubviews() {
         audioRecorder.setupView()
         audioRecorder.delegate = self
-        contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: narrowInsets)
         
         titleField.setDefaults(placeholder: "comment".localize())
+        titleField.textColor = .text
         titleField.setKeyboardToolbar(doneTitle: "done".localize())
         contentView.addSubviewWithAnchors(titleField, top: audioRecorder.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        saveButton.asTextButton("save".localize()).withTextColor(color: .white)
-        saveButton.setTitleColor(.lightGray, for: .disabled)
+        saveButton.asTextButton("save".localize()).withTextColor(color: .systemBlue)
+        saveButton.setTitleColor(.buttonDisabled, for: .disabled)
         saveButton.addAction(UIAction(){ action in
             self.save()
         }, for: .touchDown)

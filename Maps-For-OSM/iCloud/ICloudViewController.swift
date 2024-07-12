@@ -29,6 +29,7 @@ class ICloudViewController: NavScrollViewController{
     override func loadView() {
         title = "iCloud".localize()
         super.loadView()
+        scrollView.backgroundColor = .white
     }
     
     override func loadScrollableSubviews() {

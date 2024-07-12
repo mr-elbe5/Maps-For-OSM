@@ -37,14 +37,12 @@ class LocationListViewController: NavTableViewController{
         title = "locations".localize()
         setupData()
         super.loadView()
-        view.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
     }
     
     override func updateNavigationItems() {
-        //setBlackNavigation()
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             AppData.shared.locations.deselectAll()
             self.close()
