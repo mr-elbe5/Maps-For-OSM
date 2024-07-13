@@ -33,7 +33,7 @@ class NoteCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showLocationOnMap(location: note.location)
+                self.delegate?.showLocationOnMap(coordinate: note.location.coordinate)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

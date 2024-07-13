@@ -41,7 +41,7 @@ class ImageCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showLocationOnMap(location: image.location)
+                self.delegate?.showLocationOnMap(coordinate: image.location.coordinate)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

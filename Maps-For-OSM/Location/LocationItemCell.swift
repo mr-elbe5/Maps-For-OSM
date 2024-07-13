@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import CoreLocation
 import E5Data
 import E5IOSUI
 import E5MapData
@@ -13,7 +14,7 @@ public protocol LocationItemCellDelegate{
     
     func locationChanged(location: Location)
     func locationsChanged()
-    func showLocationOnMap(location: Location)
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D)
     
 }
 

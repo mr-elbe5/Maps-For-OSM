@@ -220,10 +220,9 @@ extension ImageListViewController : ImageCellDelegate{
         mainViewController?.locationsChanged()
     }
     
-    
-    func showLocationOnMap(location: Location) {
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showLocationOnMap(location: location)
+        mainViewController?.showLocationOnMap(coordinate: coordinate)
     }
     
     func viewImage(image: Image) {

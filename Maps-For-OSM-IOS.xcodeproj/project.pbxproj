@@ -47,12 +47,13 @@
 		4E55EFAE28DAF951007AD900 /* TrackSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55EFAD28DAF951007AD900 /* TrackSettingsViewController.swift */; };
 		4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */; };
 		4E6EBDEA2BBFE9C5009BE87C /* CrossLocationMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6EBDE92BBFE9C5009BE87C /* CrossLocationMenuViewController.swift */; };
+		4E72513C2C4261E100EBA2BF /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4E72513B2C4261E100EBA2BF /* E5MapData */; };
+		4E72513F2C4282AE00EBA2BF /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4E72513E2C4282AE00EBA2BF /* E5MapData */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
 		4EB694532C3EAC720058BAD0 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694522C3EAC720058BAD0 /* E5Data */; };
 		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
-		4EB6945A2C3EAE560058BAD0 /* E5MapData in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694592C3EAE560058BAD0 /* E5MapData */; };
 		4EB6945D2C3EAE8A0058BAD0 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945C2C3EAE8A0058BAD0 /* E5IOSAV */; };
 		4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */; };
 		4EB694632C3EAF240058BAD0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694622C3EAF240058BAD0 /* Zip */; };
@@ -153,10 +154,11 @@
 			files = (
 				4EB6945D2C3EAE8A0058BAD0 /* E5IOSAV in Frameworks */,
 				4EB694532C3EAC720058BAD0 /* E5Data in Frameworks */,
+				4E72513F2C4282AE00EBA2BF /* E5MapData in Frameworks */,
 				4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */,
-				4EB6945A2C3EAE560058BAD0 /* E5MapData in Frameworks */,
 				4EB694632C3EAF240058BAD0 /* Zip in Frameworks */,
 				4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */,
+				4E72513C2C4261E100EBA2BF /* E5MapData in Frameworks */,
 				4EFF86952C273B8300D0DEB0 /* E5MapData in Frameworks */,
 				4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */,
 				4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */,
@@ -387,10 +389,11 @@
 				4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */,
 				4EB694522C3EAC720058BAD0 /* E5Data */,
 				4EB694562C3EADBB0058BAD0 /* E5PhotoLib */,
-				4EB694592C3EAE560058BAD0 /* E5MapData */,
 				4EB6945C2C3EAE8A0058BAD0 /* E5IOSAV */,
 				4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */,
 				4EB694622C3EAF240058BAD0 /* Zip */,
+				4E72513B2C4261E100EBA2BF /* E5MapData */,
+				4E72513E2C4282AE00EBA2BF /* E5MapData */,
 			);
 			productName = SwiftyMapViewer;
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
@@ -424,10 +427,10 @@
 			packageReferences = (
 				4EB694512C3EAC720058BAD0 /* XCRemoteSwiftPackageReference "E5Data" */,
 				4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
-				4EB694582C3EAE560058BAD0 /* XCRemoteSwiftPackageReference "E5MapData" */,
 				4EB6945B2C3EAE8A0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
 				4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
 				4EB694612C3EAF240058BAD0 /* XCRemoteSwiftPackageReference "Zip" */,
+				4E72513D2C4282AE00EBA2BF /* XCRemoteSwiftPackageReference "E5MapData" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -737,6 +740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E72513D2C4282AE00EBA2BF /* XCRemoteSwiftPackageReference "E5MapData" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mr-elbe5/E5MapData.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.9;
+			};
+		};
 		4EB694512C3EAC720058BAD0 /* XCRemoteSwiftPackageReference "E5Data" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mr-elbe5/E5Data.git";
@@ -751,14 +762,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.10;
-			};
-		};
-		4EB694582C3EAE560058BAD0 /* XCRemoteSwiftPackageReference "E5MapData" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/E5MapData.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.8;
 			};
 		};
 		4EB6945B2C3EAE8A0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSAV" */ = {
@@ -788,6 +791,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E72513B2C4261E100EBA2BF /* E5MapData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = E5MapData;
+		};
+		4E72513E2C4282AE00EBA2BF /* E5MapData */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E72513D2C4282AE00EBA2BF /* XCRemoteSwiftPackageReference "E5MapData" */;
+			productName = E5MapData;
+		};
 		4EB694522C3EAC720058BAD0 /* E5Data */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4EB694512C3EAC720058BAD0 /* XCRemoteSwiftPackageReference "E5Data" */;
@@ -797,11 +809,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */;
 			productName = E5PhotoLib;
-		};
-		4EB694592C3EAE560058BAD0 /* E5MapData */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EB694582C3EAE560058BAD0 /* XCRemoteSwiftPackageReference "E5MapData" */;
-			productName = E5MapData;
 		};
 		4EB6945C2C3EAE8A0058BAD0 /* E5IOSAV */ = {
 			isa = XCSwiftPackageProductDependency;

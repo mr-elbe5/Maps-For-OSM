@@ -198,9 +198,9 @@ extension LocationGroupViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension LocationGroupViewController : LocationCellDelegate{
     
-    func showLocationOnMap(location: Location) {
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showLocationOnMap(location: location)
+        mainViewController?.showLocationOnMap(coordinate: coordinate)
     }
     
     func editLocation(location: Location) {

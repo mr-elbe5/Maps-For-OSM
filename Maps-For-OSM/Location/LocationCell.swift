@@ -5,13 +5,14 @@
  */
 
 import UIKit
+import CoreLocation
 import E5Data
 import E5MapData
 import E5IOSUI
 
 protocol LocationCellDelegate: LocationViewDelegate{
     func editLocation(location: Location)
-    func showLocationOnMap(location: Location)
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D)
 }
 
 class LocationCell: TableViewCell{
@@ -42,7 +43,7 @@ class LocationCell: TableViewCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showLocationOnMap(location: location)
+                self.delegate?.showLocationOnMap(coordinate: location.coordinate)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             

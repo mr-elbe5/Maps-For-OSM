@@ -98,11 +98,10 @@ extension MainViewController: SearchDelegate{
     
     func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?) {
         if let mapRect = mapRect{
-            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
-            mapView.scrollView.setZoomScale(World.getZoomScaleToFit(mapRect: mapRect, scaledBounds: mapView.bounds)*0.9, animated: true)
+            mapView.showMapRectOnMap(mapRect: mapRect)
         }
         else{
-            mapView.scrollView.scrollToScreenCenter(coordinate: coordinate)
+            mapView.showLocationOnMap(coordinate: coordinate)
         }
     }
     

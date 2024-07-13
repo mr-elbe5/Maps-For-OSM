@@ -1,5 +1,5 @@
 {
-  "originHash" : "20dae9b072272fe24932a757aa8574c3abf0b8237d527105d1ac4d2a534ed2d4",
+  "originHash" : "5cfdb2058ced58d1ab707982d4ddaa3b8544e1f9a36678a18907d9e085e1ed86",
   "pins" : [
     {
       "identity" : "e5data",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5MapData.git",
       "state" : {
-        "revision" : "f9075462b03d8d51f6a3be4ce64f38e69edd1a99",
-        "version" : "1.1.8"
+        "revision" : "bc766d6585f8c205855a3e17668bb49664828dfb",
+        "version" : "1.1.9"
       }
     },
     {

@@ -75,9 +75,10 @@ class MainViewController: NavViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        Log.debug("main did appear")
         if let coord = startCoordinate{
             AppState.shared.coordinate = coord
-            mapView.setDefaultLocation(at: CGPoint(x: mapView.frame.size.width/2, y: mapView.frame.size.height/2))
+            mapView.setDefaultLocation()
             startCoordinate = nil
         }
         if let trackRecorder = TrackRecorder.instance, trackRecorder.interrupted{
@@ -189,18 +190,15 @@ class MainViewController: NavViewController {
         mapView.trackLayerView.setNeedsDisplay()
     }
     
-    func showLocationOnMap(location: Location) {
-        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
+        mapView.showLocationOnMap(coordinate: coordinate)
     }
     
     func showTrackOnMap(track: Track) {
         if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
             Track.visibleTrack = track
             trackChanged()
-            let zoomScale = World.getZoomScaleToFit(mapRect: boundingRect, scaledBounds: mapView.bounds)
-            AppState.shared.zoom = World.maxZoom + World.zoomLevelFromScale(scale: zoomScale)
-            mapView.scrollView.setZoomScale(zoomScale*0.9, animated: false)
-            mapView.scrollView.scrollToScreenCenter(coordinate: boundingRect.centerCoordinate)
+            mapView.showMapRectOnMap(mapRect: boundingRect)
         }
     }
     

@@ -70,26 +70,24 @@ class MapView: UIView {
         locationLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
-    func scaleTo(scale: Double, animated : Bool = false){
-        scrollView.setZoomScale(scale, animated: animated)
-        scrollView.setZoomFromScale(scale: scale)
-    }
-    
     func zoomTo(zoom: Int, animated: Bool){
-        scaleTo(scale: World.zoomScale(from: World.maxZoom, to: zoom), animated: animated)
+        Log.debug("zooming to \(zoom)")
+        scrollView.zoomTo(zoom, animated: animated)
+        Log.debug("zoomScale is \(scrollView.zoomScale)")
         AppState.shared.zoom = zoom
         locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func setRegion(region: CoordinateRegion){
-        scrollView.setZoomScale(World.getZoomScaleToFit(region: region, scaledBounds: bounds), animated: true)
+        scrollView.zoomTo(World.getZoomToFit(mapRect: region.mapRect, scaledBounds: bounds), animated: true)
         scrollToScreenCenter(coordinate: region.center)
     }
     
-    func setDefaultLocation(at center: CGPoint){
-        scaleTo(scale: AppState.shared.scale)
+    func setDefaultLocation(){
+        Log.info("zooming to \(AppState.shared.zoom)")
+        scrollView.zoomTo(AppState.shared.zoom)
         Log.info("moving to \(AppState.shared.coordinate.shortString)")
-        scrollView.scrollToScreenPoint(coordinate: AppState.shared.coordinate, screenPoint: center)
+        scrollView.scrollToScreenPoint(coordinate: AppState.shared.coordinate, screenPoint: CGPoint(x: frame.width/2, y: frame.height/2))
         updateLocationLayer()
     }
     
@@ -113,13 +111,26 @@ class MapView: UIView {
     }
     
     func updatePosition(){
-        AppState.shared.scale = scrollView.zoomScale
         AppState.shared.coordinate = scrollView.screenCenterCoordinate
         AppState.shared.save()
     }
     
+    func updateZoom(){
+        AppState.shared.zoom = World.zoomLevelFromScale(scale: scrollView.zoomScale)
+    }
+    
     func refresh(){
         scrollView.tileLayerView.refresh()
+    }
+    
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
+        scrollView.scrollToScreenCenter(coordinate: coordinate)
+    }
+    
+    func showMapRectOnMap(mapRect: CGRect) {
+        let viewRect = bounds.scaleBy(0.9)
+        zoomTo(zoom: World.getZoomToFit(mapRect: mapRect, scaledBounds: viewRect), animated: false)
+        scrollView.scrollToScreenCenter(coordinate: mapRect.centerCoordinate)
     }
     
 }
@@ -135,7 +146,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didZoom() {
-        updatePosition()
+        updateZoom()
     }
     
     func didChangeZoom() {
