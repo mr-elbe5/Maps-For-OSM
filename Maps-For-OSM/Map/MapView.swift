@@ -24,6 +24,8 @@ class MapView: UIView {
     
     var delegate: MapPositionDelegate? = nil
     
+    var canUpdatePosition = false
+    
     var contentOffset : CGPoint{
         scrollView.contentOffset
     }
@@ -71,9 +73,8 @@ class MapView: UIView {
     }
     
     func zoomTo(zoom: Int, animated: Bool){
-        Log.debug("zooming to \(zoom)")
+        Log.info("zooming to \(zoom)")
         scrollView.zoomTo(zoom, animated: animated)
-        Log.debug("zoomScale is \(scrollView.zoomScale)")
         AppState.shared.zoom = zoom
         locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
@@ -83,12 +84,14 @@ class MapView: UIView {
         scrollToScreenCenter(coordinate: region.center)
     }
     
-    func setDefaultLocation(){
+    func setStartLocation(){
+        Log.info("setting start location")
         Log.info("zooming to \(AppState.shared.zoom)")
         scrollView.zoomTo(AppState.shared.zoom)
         Log.info("moving to \(AppState.shared.coordinate.shortString)")
         scrollView.scrollToScreenPoint(coordinate: AppState.shared.coordinate, screenPoint: CGPoint(x: frame.width/2, y: frame.height/2))
         updateLocationLayer()
+        canUpdatePosition = true
     }
     
     func locationDidChange(location: CLLocation) {
@@ -111,8 +114,10 @@ class MapView: UIView {
     }
     
     func updatePosition(){
-        AppState.shared.coordinate = scrollView.screenCenterCoordinate
-        AppState.shared.save()
+        if canUpdatePosition{
+            AppState.shared.coordinate = scrollView.screenCenterCoordinate
+            AppState.shared.save()
+        }
     }
     
     func updateZoom(){
@@ -138,6 +143,7 @@ class MapView: UIView {
 extension MapView : MapScrollViewDelegate{
     
     func didScroll() {
+        //Log.debug("did scroll")
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
         currentLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
@@ -146,6 +152,7 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didZoom() {
+        //Log.debug("did zoom")
         updateZoom()
     }
     

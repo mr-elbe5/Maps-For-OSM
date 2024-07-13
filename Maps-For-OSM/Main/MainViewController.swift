@@ -75,10 +75,10 @@ class MainViewController: NavViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Log.debug("main did appear")
+        //Log.debug("main did appear")
         if let coord = startCoordinate{
             AppState.shared.coordinate = coord
-            mapView.setDefaultLocation()
+            mapView.setStartLocation()
             startCoordinate = nil
         }
         if let trackRecorder = TrackRecorder.instance, trackRecorder.interrupted{

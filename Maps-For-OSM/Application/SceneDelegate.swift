@@ -28,6 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         if let state : AppState = UserDefaults.standard.load(forKey: AppState.storeKey){
             AppState.shared = state
+            Log.info("last location: \(AppState.shared.coordinate)")
+            Log.info("last zoom: \(AppState.shared.zoom)")
         }
         else{
             Log.info("no saved data available for state")
@@ -66,7 +68,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        Log.info("SceneDelegate resigning active")
+        Log.info("SceneDelegate resigning active, saving state, prferences and data")
         AppState.shared.save()
         Preferences.shared.save()
         AppData.shared.save()
