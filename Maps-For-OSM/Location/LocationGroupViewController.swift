@@ -29,7 +29,7 @@ class LocationGroupViewController: NavTableViewController{
         super.init()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
+        tableView.register(LocationGroupCell.self, forCellReuseIdentifier: LocationGroupCell.LOCATION_CELL_IDENT)
     }
     
     required init?(coder: NSCoder) {
@@ -175,7 +175,7 @@ extension LocationGroupViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: LocationCell.CELL_IDENT, for: indexPath) as! LocationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationGroupCell.LOCATION_CELL_IDENT, for: indexPath) as! LocationGroupCell
         cell.location = group.locations[indexPath.row]
         cell.delegate = self
         cell.updateCell()

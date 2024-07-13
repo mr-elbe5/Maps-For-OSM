@@ -40,7 +40,7 @@ class LocationListViewController: NavTableViewController{
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(LocationCell.self, forCellReuseIdentifier: LocationCell.CELL_IDENT)
+        tableView.register(LocationListCell.self, forCellReuseIdentifier: LocationListCell.LOCATION_CELL_IDENT)
     }
     
     override func updateNavigationItems() {
@@ -143,7 +143,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: LocationCell.CELL_IDENT, for: indexPath) as! LocationCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationListCell.LOCATION_CELL_IDENT, for: indexPath) as! LocationListCell
         let day = days[indexPath.section]
         cell.location = day.locations[indexPath.row]
         cell.delegate = self

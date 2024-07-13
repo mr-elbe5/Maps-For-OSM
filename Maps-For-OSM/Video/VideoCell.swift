@@ -36,17 +36,11 @@ class VideoCell: LocationItemCell{
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
-            let mapButton = UIButton().asIconButton("map", color: .label)
-            mapButton.addAction(UIAction(){ action in
-                self.delegate?.showLocationOnMap(coordinate: video.location.coordinate)
-            }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
-            
             let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
             viewButton.addAction(UIAction(){ action in
                 self.delegate?.viewVideo(item: video)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(viewButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
         }
     }

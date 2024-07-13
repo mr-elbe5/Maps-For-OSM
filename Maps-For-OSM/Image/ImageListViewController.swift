@@ -46,7 +46,7 @@ class ImageListViewController: NavTableViewController{
         setupData()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ImageCell.self, forCellReuseIdentifier: ImageCell.CELL_IDENT)
+        tableView.register(ImageListCell.self, forCellReuseIdentifier: ImageListCell.LIST_CELL_IDENT)
     }
     
     func setupData(){
@@ -191,7 +191,7 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as! ImageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.LIST_CELL_IDENT, for: indexPath) as! ImageListCell
         let day = days[indexPath.section]
         cell.useShortDate = true
         cell.image = day.images[indexPath.row]

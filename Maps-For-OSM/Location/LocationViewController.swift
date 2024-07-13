@@ -47,11 +47,11 @@ class LocationViewController: NavTableViewController{
         super.loadView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(AudioCell.self, forCellReuseIdentifier: AudioCell.CELL_IDENT)
-        tableView.register(VideoCell.self, forCellReuseIdentifier: VideoCell.CELL_IDENT)
-        tableView.register(ImageCell.self, forCellReuseIdentifier: ImageCell.CELL_IDENT)
-        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackCell.CELL_IDENT)
-        tableView.register(NoteCell.self, forCellReuseIdentifier: NoteCell.CELL_IDENT)
+        tableView.register(LocationAudioCell.self, forCellReuseIdentifier: LocationAudioCell.LOCATION_CELL_IDENT)
+        tableView.register(LocationVideoCell.self, forCellReuseIdentifier: LocationVideoCell.LOCATION_CELL_IDENT)
+        tableView.register(LocationImageCell.self, forCellReuseIdentifier: LocationImageCell.LOCATION_CELL_IDENT)
+        tableView.register(LocationTrackCell.self, forCellReuseIdentifier: LocationTrackCell.LOCATION_CELL_IDENT)
+        tableView.register(LocationNoteCell.self, forCellReuseIdentifier: LocationNoteCell.LOCATION_CELL_IDENT)
     }
     
     override func updateNavigationItems() {
@@ -62,6 +62,11 @@ class LocationViewController: NavTableViewController{
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "showOnMap".localize(), image: UIImage(systemName: "map"), primaryAction: UIAction(){ action in
+            self.showLocationOnMap(coordinate: self.location.coordinate)
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
+        items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "addImage".localize(), image: UIImage(systemName: "photo"), primaryAction: UIAction(){ action in
             self.openAddImage()
         }))
@@ -189,7 +194,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         let item = location.item(at: indexPath.row)
         switch item.type{
         case .audio: 
-            if let cell = tableView.dequeueReusableCell(withIdentifier: AudioCell.CELL_IDENT, for: indexPath) as? AudioCell, let Audio = item as? Audio{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationAudioCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationAudioCell, let Audio = item as? Audio{
                 cell.audio = Audio
                 cell.delegate = self
                 cell.updateCell()
@@ -200,7 +205,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .video:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: VideoCell.CELL_IDENT, for: indexPath) as? VideoCell, let Video = item as? Video{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationVideoCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationVideoCell, let Video = item as? Video{
                 cell.video = Video
                 cell.delegate = self
                 cell.updateCell()
@@ -211,7 +216,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .image:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: ImageCell.CELL_IDENT, for: indexPath) as? ImageCell, let Image = item as? Image{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationImageCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationImageCell, let Image = item as? Image{
                 cell.image = Image
                 cell.delegate = self
                 cell.updateCell()
@@ -222,7 +227,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .track:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as? TrackCell, let Track = item as? Track{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationTrackCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationTrackCell, let Track = item as? Track{
                 cell.track = Track
                 cell.delegate = self
                 cell.updateCell()
@@ -233,7 +238,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .note:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.CELL_IDENT, for: indexPath) as? NoteCell, let Note = item as? Note{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationNoteCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationNoteCell, let Note = item as? Note{
                 cell.note = Note
                 cell.delegate = self
                 cell.updateCell()

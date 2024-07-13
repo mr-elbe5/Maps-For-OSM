@@ -29,13 +29,7 @@ class NoteCell: LocationItemCell{
                 note.selected = !note.selected
                 selectedButton.setImage(UIImage(systemName: note.selected ? "checkmark.square" : "square"), for: .normal)
             }, for: .touchDown)
-            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
-            
-            let mapButton = UIButton().asIconButton("map", color: .label)
-            mapButton.addAction(UIAction(){ action in
-                self.delegate?.showLocationOnMap(coordinate: note.location.coordinate)
-            }, for: .touchDown)
-            iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
+            iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
         }
     }

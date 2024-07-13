@@ -30,7 +30,7 @@ class TrackListViewController: NavTableViewController{
         tracks?.sortByDate()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackCell.CELL_IDENT)
+        tableView.register(TrackListCell.self, forCellReuseIdentifier: TrackListCell.LIST_CELL_IDENT)
     }
     
     override func updateNavigationItems() {
@@ -114,7 +114,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TrackCell.CELL_IDENT, for: indexPath) as! TrackCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TrackListCell.LIST_CELL_IDENT, for: indexPath) as! TrackListCell
         let track = tracks?.reversed()[indexPath.row]
         cell.track = track
         cell.delegate = self

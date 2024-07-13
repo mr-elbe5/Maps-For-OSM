@@ -3174,6 +3174,23 @@
         }
       }
     },
+    "showOnMap" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf der Karte zeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show on Map"
+          }
+        }
+      }
+    },
     "showTrackpoints" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3547,7 +3564,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sie haben zu viele Kartenkacheln angefragt (mehr als %@). Versuchen Sie es bitte mit einer kleineren Region oder tieferen/weniger Zoom-Ebenen."
           }
         },
