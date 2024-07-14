@@ -39,7 +39,7 @@
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
-		4E4B0A302BAD803D00838EC0 /* MainViewController+Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Menus.swift */; };
+		4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */; };
 		4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */; };
 		4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */; };
 		4E5124202BAAE78100A5B416 /* LocationItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241F2BAAE78100A5B416 /* LocationItemCell.swift */; };
@@ -58,6 +58,13 @@
 		4E72514D2C42D5DA00EBA2BF /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72514C2C42D5DA00EBA2BF /* LocationListCell.swift */; };
 		4E72514F2C42D5F200EBA2BF /* LocationGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72514E2C42D5F200EBA2BF /* LocationGroupCell.swift */; };
 		4E7251512C42D72600EBA2BF /* TrackListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7251502C42D72600EBA2BF /* TrackListCell.swift */; };
+		4E7251532C43B9EC00EBA2BF /* MainViewController+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7251522C43B9EC00EBA2BF /* MainViewController+Search.swift */; };
+		4E7251552C43BA3E00EBA2BF /* MainViewController+Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7251542C43BA3E00EBA2BF /* MainViewController+Location.swift */; };
+		4E7251572C43BB8B00EBA2BF /* MainViewController+Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7251562C43BB8B00EBA2BF /* MainViewController+Note.swift */; };
+		4E7251592C43BC7200EBA2BF /* MainViewController+Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7251582C43BC7200EBA2BF /* MainViewController+Track.swift */; };
+		4E72515B2C43BC8800EBA2BF /* MainViewController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72515A2C43BC8800EBA2BF /* MainViewController+Audio.swift */; };
+		4E72515D2C43C05E00EBA2BF /* MainViewController+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */; };
+		4E72515F2C43C15A00EBA2BF /* MainViewController+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
@@ -71,7 +78,7 @@
 		4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC5201A2C0DF030009C4A49 /* E5Data */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* LocationGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* LocationGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
-		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */; };
+		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */; };
 		4ECFC99F26FBB8AF0083977B /* TilePreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* TilePreloadViewController.swift */; };
 		4ED55ECF2976B17400C679AF /* LocationGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECD2976B17400C679AF /* LocationGroupMarker.swift */; };
 		4ED5FC452BBDA98B00E96EBB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */; };
@@ -126,7 +133,7 @@
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuView.swift; sourceTree = "<group>"; };
-		4E4B0A2F2BAD803D00838EC0 /* MainViewController+Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Menus.swift"; sourceTree = "<group>"; };
+		4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Cloud.swift"; sourceTree = "<group>"; };
 		4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStatusView.swift; sourceTree = "<group>"; };
 		4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		4E51241F2BAAE78100A5B416 /* LocationItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationItemCell.swift; sourceTree = "<group>"; };
@@ -143,13 +150,20 @@
 		4E72514C2C42D5DA00EBA2BF /* LocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
 		4E72514E2C42D5F200EBA2BF /* LocationGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupCell.swift; sourceTree = "<group>"; };
 		4E7251502C42D72600EBA2BF /* TrackListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListCell.swift; sourceTree = "<group>"; };
+		4E7251522C43B9EC00EBA2BF /* MainViewController+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Search.swift"; sourceTree = "<group>"; };
+		4E7251542C43BA3E00EBA2BF /* MainViewController+Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Location.swift"; sourceTree = "<group>"; };
+		4E7251562C43BB8B00EBA2BF /* MainViewController+Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Note.swift"; sourceTree = "<group>"; };
+		4E7251582C43BC7200EBA2BF /* MainViewController+Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Track.swift"; sourceTree = "<group>"; };
+		4E72515A2C43BC8800EBA2BF /* MainViewController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Audio.swift"; sourceTree = "<group>"; };
+		4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Tiles.swift"; sourceTree = "<group>"; };
+		4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Settings.swift"; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4EA30CF52C37F706002EA622 /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* LocationGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
-		4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+LocationDelegate.swift"; sourceTree = "<group>"; };
+		4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Image.swift"; sourceTree = "<group>"; };
 		4ECFC99E26FBB8AF0083977B /* TilePreloadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilePreloadViewController.swift; sourceTree = "<group>"; };
 		4ED55ECD2976B17400C679AF /* LocationGroupMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationGroupMarker.swift; sourceTree = "<group>"; };
 		4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -324,12 +338,19 @@
 				4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */,
 				4E1B81052732EDC4003ED6B0 /* TopMenuView.swift */,
 				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
-				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift */,
+				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */,
 				4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */,
-				4E4B0A2F2BAD803D00838EC0 /* MainViewController+Menus.swift */,
+				4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */,
 				4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
+				4E7251522C43B9EC00EBA2BF /* MainViewController+Search.swift */,
+				4E7251542C43BA3E00EBA2BF /* MainViewController+Location.swift */,
+				4E7251562C43BB8B00EBA2BF /* MainViewController+Note.swift */,
+				4E7251582C43BC7200EBA2BF /* MainViewController+Track.swift */,
+				4E72515A2C43BC8800EBA2BF /* MainViewController+Audio.swift */,
+				4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */,
+				4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -492,16 +513,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ED55ECF2976B17400C679AF /* LocationGroupMarker.swift in Sources */,
+				4E7251552C43BA3E00EBA2BF /* MainViewController+Location.swift in Sources */,
 				4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */,
 				4E5124202BAAE78100A5B416 /* LocationItemCell.swift in Sources */,
 				4EF3530A2BB2C30100A0A85B /* SearchResultCell.swift in Sources */,
+				4E72515D2C43C05E00EBA2BF /* MainViewController+Tiles.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
-				4E4B0A302BAD803D00838EC0 /* MainViewController+Menus.swift in Sources */,
+				4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */,
 				4E7251512C42D72600EBA2BF /* TrackListCell.swift in Sources */,
 				4EF477142941EBC600294B21 /* ImageItem.swift in Sources */,
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4E72514F2C42D5F200EBA2BF /* LocationGroupCell.swift in Sources */,
-				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+LocationDelegate.swift in Sources */,
+				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Image.swift in Sources */,
 				4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */,
 				4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */,
 				4EECDD772C3A81790080241F /* SettingsViewController.swift in Sources */,
@@ -524,6 +547,7 @@
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
 				4ECC1ACC2BA2FB3300B9CCBD /* LocationGroupViewController.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
+				4E72515B2C43BC8800EBA2BF /* MainViewController+Audio.swift in Sources */,
 				4E1D0E20274BDB1900F3D584 /* TrackViewController.swift in Sources */,
 				4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */,
 				4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */,
@@ -532,6 +556,7 @@
 				4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */,
 				4E89173F273688580046AC91 /* LocationViewController.swift in Sources */,
 				4E5F8C8C298D18F700D1CE5C /* MainViewController+Map.swift in Sources */,
+				4E72515F2C43C15A00EBA2BF /* MainViewController+Settings.swift in Sources */,
 				4E1B81142732EDC5003ED6B0 /* TopMenuView.swift in Sources */,
 				4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */,
 				4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */,
@@ -540,6 +565,7 @@
 				4E1982C52BAC246600A37AE0 /* NoteCell.swift in Sources */,
 				4E1982C32BAB5A0700A37AE0 /* TrackCell.swift in Sources */,
 				4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */,
+				4E7251532C43B9EC00EBA2BF /* MainViewController+Search.swift in Sources */,
 				4E72514B2C42D46400EBA2BF /* LocationVideoCell.swift in Sources */,
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
 				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
@@ -550,6 +576,8 @@
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,
 				4E7251452C42D42F00EBA2BF /* LocationTrackCell.swift in Sources */,
 				4E55EFAE28DAF951007AD900 /* TrackSettingsViewController.swift in Sources */,
+				4E7251572C43BB8B00EBA2BF /* MainViewController+Note.swift in Sources */,
+				4E7251592C43BC7200EBA2BF /* MainViewController+Track.swift in Sources */,
 				4E7251492C42D45200EBA2BF /* LocationAudioCell.swift in Sources */,
 				4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */,
 			);

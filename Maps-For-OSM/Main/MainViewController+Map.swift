@@ -6,42 +6,46 @@
 
 import UIKit
 import CoreLocation
-import AVFoundation
-import Photos
-import PhotosUI
 import E5Data
-import E5IOSUI
 import E5MapData
 
-extension MainViewController: LocationServiceDelegate{
+extension MainViewController: MainMenuDelegate, ActionMenuDelegate, MapMenuDelegate{
     
-    func locationDidChange(location: CLLocation) {
-        mapView.locationDidChange(location: location)
-        if let trackRecorder = TrackRecorder.instance, location.horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty{
-            if TrackRecorder.isRecording{
-                TrackRecorder.instance?.track.addTrackpoint(from: location)
-                trackChanged()
-                if Preferences.shared.followTrack{
-                    mapView.focusUserLocation()
-                }
-                trackStatusView.updateTrackInfo()
-            }
-            else if trackRecorder.track.trackpoints.isEmpty, let cancelAlert = cancelAlert{
-                cancelAlert.dismiss(animated: false)
-                self.cancelAlert = nil
-                startTrackRecording(at: location)
-                actionMenuView.updateTrackingButton()
-            }
-            
-        }
-        if statusView.isDetailed{
-            statusView.updateDetailInfo(location: location)
+    func refreshMap() {
+        mapView.refresh()
+    }
+    
+    func showLocations(_ show: Bool) {
+        AppState.shared.showLocations = show
+        mapView.locationLayerView.isHidden = !AppState.shared.showLocations
+    }
+    
+    func deleteAllLocations(){
+        showDestructiveApprove(title: "confirmDeleteLocations".localize(), text: "deleteLocationsHint".localize()){
+            AppData.shared.deleteAllLocations()
+            AppData.shared.save()
+            self.locationsChanged()
         }
     }
     
-    func directionDidChange(direction: CLLocationDirection) {
-        mapView.setDirection(direction)
-        statusView.updateDirection(direction: direction)
+    func focusUserLocation() {
+        mapView.focusUserLocation()
+    }
+    
+    func updateCross() {
+        mapView.crossLocationView.isHidden = !AppState.shared.showCross
+    }
+    
+    func zoomIn() {
+        if AppState.shared.zoom < World.maxZoom{
+            mapView.zoomTo(zoom: AppState.shared.zoom + 1, animated: true)
+        }
+    }
+    
+    func zoomOut() {
+        if AppState.shared.zoom > World.minZoom{
+            mapView.zoomTo(zoom: AppState.shared.zoom - 1, animated: true)
+        }
     }
     
 }
@@ -82,29 +86,5 @@ extension MainViewController: LocationLayerDelegate{
     
 }
 
-extension MainViewController: LocationViewDelegate{
-    
-}
-
-extension MainViewController: SearchDelegate{
-    
-    func getCurrentRegion() -> CoordinateRegion {
-        mapView.scrollView.visibleRegion
-    }
-    
-    func getCurrentCenter() -> CLLocationCoordinate2D {
-        mapView.scrollView.screenCenterCoordinate
-    }
-    
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?) {
-        if let mapRect = mapRect{
-            mapView.showMapRectOnMap(mapRect: mapRect)
-        }
-        else{
-            mapView.showLocationOnMap(coordinate: coordinate)
-        }
-    }
-    
-}
 
 

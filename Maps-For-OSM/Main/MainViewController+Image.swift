@@ -7,28 +7,24 @@
 import UIKit
 import CoreLocation
 import AVFoundation
+import PhotosUI
 import E5Data
 import E5IOSUI
 import E5IOSAV
 import E5MapData
 
-extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
-                                CameraDelegate, AudioCaptureDelegate, NoteViewDelegate{
+extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CameraDelegate{
     
-    func addLocation(at coordinate: CLLocationCoordinate2D) {
-        if let _ = AppData.shared.getLocation(coordinate: coordinate){
-            return
-        }
-        let _ = AppData.shared.createLocation(coordinate: coordinate)
-        DispatchQueue.main.async {
-            self.locationsChanged()
-        }
-    }
-    
-    func deleteLocationFromList(location: Location) {
-        AppData.shared.deleteLocation(location)
-        AppData.shared.save()
-        locationsChanged()
+    func importImages() {
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        configuration.filter = PHPickerFilter.any(of: [.images, .videos])
+        configuration.preferredAssetRepresentationMode = .automatic
+        configuration.selection = .ordered
+        configuration.selectionLimit = 0
+        configuration.disabledCapabilities = [.search, .stagingArea]
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
     }
     
     func openAddImage(at coordinate: CLLocationCoordinate2D) {
@@ -84,35 +80,6 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         }
         picker.dismiss(animated: false)
         showError("imageImportError".localize())
-    }
-    
-    func openAddNote(at coordinate: CLLocationCoordinate2D) {
-        let controller = NoteViewController(coordinate: coordinate)
-        controller.delegate = self
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func addNote(text: String, coordinate: CLLocationCoordinate2D) {
-        if !text.isEmpty{
-            var newLocation = false
-            var location = AppData.shared.getLocation(coordinate: coordinate)
-            if location == nil{
-                location = AppData.shared.createLocation(coordinate: coordinate)
-                newLocation = true
-            }
-            let note = Note()
-            note.text = text
-            location!.addItem(item: note)
-            AppData.shared.save()
-            DispatchQueue.main.async {
-                if newLocation{
-                    self.locationsChanged()
-                }
-                else{
-                    self.locationChanged(location: location!)
-                }
-            }
-        }
     }
     
     func openCamera(at coordinate: CLLocationCoordinate2D) {
@@ -187,98 +154,76 @@ extension MainViewController: ActionMenuDelegate, UIImagePickerControllerDelegat
         }
     }
     
-    func openAudioRecorder(at coordinate: CLLocationCoordinate2D){
-        AVCaptureDevice.askAudioAuthorization(){ result in
-            switch result{
-            case .success(()):
-                DispatchQueue.main.async {
-                    let controller = AudioRecorderViewController()
-                    controller.delegate = self
-                    controller.modalPresentationStyle = .fullScreen
-                    self.navigationController?.pushViewController(controller, animated: true)
-                }
-                return
-            case .failure:
-                DispatchQueue.main.async {
-                    self.showError("MainViewController audioNotAuthorized")
-                }
-                return
-            }
-        }
-    }
-    
-    func audioCaptured(audio: Audio){
-        if let coordinate = LocationService.shared.location?.coordinate{
-            var newLocation = false
-            var location = AppData.shared.getLocation(coordinate: coordinate)
-            if location == nil{
-                location = AppData.shared.createLocation(coordinate: coordinate)
-                newLocation = true
-            }
-            location!.addItem(item: audio)
-            AppData.shared.save()
-            DispatchQueue.main.async {
-                if newLocation{
-                    self.locationsChanged()
-                }
-                else{
-                    self.locationChanged(location: location!)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        for result in results{
+            var location: CLLocation? = nil
+            var creationDate : Date? = nil
+            if let ident = result.assetIdentifier{
+                if let fetchResult = PHAsset.fetchAssets(withLocalIdentifiers: [ident], options: nil).firstObject{
+                    location = fetchResult.location
+                    creationDate = fetchResult.creationDate
                 }
             }
-        }
-    }
-    
-    func startTracking() {
-        TrackRecorder.startTracking()
-        cancelAlert = showCancel(title: "pleaseWait".localize(), text: "waitingForGPS".localize()){
-            self.cancelAlert = nil
-            return
-        }
-    }
-    
-    func startTrackRecording(at location: CLLocation) {
-        if let trackRecorder = TrackRecorder.instance{
-            trackRecorder.track.addTrackpoint(from: location)
-            trackRecorder.isRecording = true
-            Track.visibleTrack = trackRecorder.track
-            self.trackChanged()
-            self.trackStatusView.hide(false)
-            self.trackStatusView.startTrackInfo()
-        }
-    }
-    
-    func saveTrack() {
-        if let track = TrackRecorder.stopTracking(), let coordinate = track.startCoordinate{
-            track.name = "trackName".localize(param: track.startTime.dateString())
-            var newLocation = false
-            var location = AppData.shared.getLocation(coordinate: coordinate)
-            if location == nil{
-                location = AppData.shared.createLocation(coordinate: coordinate)
-                newLocation = true
-            }
-            location!.addItem(item: track)
-            AppData.shared.save()
-            Track.visibleTrack = track
-            self.trackChanged()
-            self.trackStatusView.hide(true)
-            DispatchQueue.main.async {
-                if newLocation{
-                    self.locationsChanged()
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) {  uiimage, error in
+                    if let uiimage = uiimage as? UIImage {
+                        //Log.debug("got image \(uiimage.description) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        if let coordinate = location?.coordinate{
+                            var newLocation = false
+                            var location = AppData.shared.getLocation(coordinate: coordinate)
+                            if location == nil{
+                                location = AppData.shared.createLocation(coordinate: coordinate)
+                                newLocation = true
+                            }
+                            let image = Image()
+                            image.creationDate = creationDate ?? Date.localDate
+                            image.saveImage(uiImage: uiimage)
+                            location!.addItem(item: image)
+                            DispatchQueue.main.async {
+                                if newLocation{
+                                    self.locationsChanged()
+                                }
+                                else{
+                                    self.locationChanged(location: location!)
+                                }
+                            }
+                        }
+                    }
                 }
-                else{
-                    self.locationChanged(location: location!)
+            }
+            else{
+                itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, err in
+                    if let url = url {
+                        //Log.debug("got video url: \(url) at location \(location?.coordinate ?? CLLocationCoordinate2D())")
+                        if let coordinate = location?.coordinate{
+                            var newLocation = false
+                            var location = AppData.shared.getLocation(coordinate: coordinate)
+                            if location == nil{
+                                location = AppData.shared.createLocation(coordinate: coordinate)
+                                newLocation = true
+                            }
+                            let video = Video()
+                            video.creationDate = creationDate ?? Date.localDate
+                            video.setFileNameFromURL(url)
+                            if let data = FileManager.default.readFile(url: url){
+                                video.saveFile(data: data)
+                                location!.addItem(item: video)
+                                DispatchQueue.main.async {
+                                    if newLocation{
+                                        self.locationsChanged()
+                                    }
+                                    else{
+                                        self.locationChanged(location: location!)
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-    }
-    
-    func cancelTrack() {
-        if TrackRecorder.stopTracking() != nil{
-            Track.visibleTrack = nil
-            self.trackChanged()
-            self.trackStatusView.stopTrackInfo()
-            self.trackStatusView.hide(true)
-        }
+        picker.dismiss(animated: false)
     }
     
 }

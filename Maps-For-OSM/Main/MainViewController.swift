@@ -164,19 +164,13 @@ class MainViewController: NavViewController {
         view.addSubviewWithAnchors(statusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: trackStatusView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
     }
     
-    func setupTrackStatusView(guide: UILayoutGuide){
-        trackStatusView.setBackground(.transparentColor)
-        trackStatusView.setup()
-        trackStatusView.delegate = self
-        view.addSubviewWithAnchors(trackStatusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
-        trackStatusView.hide(true)
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
+        mapView.showLocationOnMap(coordinate: coordinate)
     }
     
-    func updateFollowTrack(){
-        if Preferences.shared.followTrack, TrackRecorder.isRecording{
-            mapView.focusUserLocation()
-        }
-    }
+}
+
+extension MainViewController: LocationViewDelegate{
     
     func locationChanged(location: Location) {
         mapView.updateLocation(for: location)
@@ -186,20 +180,20 @@ class MainViewController: NavViewController {
         mapView.updateLocationLayer()
     }
     
-    func trackChanged() {
-        mapView.trackLayerView.setNeedsDisplay()
-    }
-    
-    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
-        mapView.showLocationOnMap(coordinate: coordinate)
-    }
-    
-    func showTrackOnMap(track: Track) {
-        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
-            Track.visibleTrack = track
-            trackChanged()
-            mapView.showMapRectOnMap(mapRect: boundingRect)
+    func addLocation(at coordinate: CLLocationCoordinate2D) {
+        if let _ = AppData.shared.getLocation(coordinate: coordinate){
+            return
         }
+        let _ = AppData.shared.createLocation(coordinate: coordinate)
+        DispatchQueue.main.async {
+            self.locationsChanged()
+        }
+    }
+    
+    func deleteLocationFromList(location: Location) {
+        AppData.shared.deleteLocation(location)
+        AppData.shared.save()
+        locationsChanged()
     }
     
 }
