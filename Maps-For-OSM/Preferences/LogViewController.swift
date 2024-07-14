@@ -12,6 +12,8 @@ class LogViewController: NavTableViewController{
     
     var logLevelControl = UISegmentedControl()
     
+    var logs = Array(Log.cache.reversed())
+    
     override func loadView() {
         title = "log".localize()
         createSubheaderView()
@@ -19,6 +21,7 @@ class LogViewController: NavTableViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LogCell.self, forCellReuseIdentifier: LogCell.CELL_IDENT)
+        Log.delegate = self
     }
     
     override func setupSubheaderView(subheaderView: UIView){
@@ -54,18 +57,10 @@ class LogViewController: NavTableViewController{
         clearButton.setTitle("clearLog".localize(), for: .normal)
         clearButton.setTitleColor(.systemBlue, for: .normal)
         clearButton.addAction(UIAction(){ action in
-            Log.cache.removeAll()
+            self.logs.removeAll()
             self.tableView.reloadData()
         }, for: .touchDown)
-        subheaderView.addSubviewWithAnchors(clearButton, top: logLevelControl.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
-        
-        let reloadButton = UIButton()
-        reloadButton.setTitle("reload".localize(), for: .normal)
-        reloadButton.setTitleColor(.systemBlue, for: .normal)
-        reloadButton.addAction(UIAction(){ action in
-            self.tableView.reloadData()
-        }, for: .touchDown)
-        subheaderView.addSubviewWithAnchors(reloadButton, top: clearButton.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
+        subheaderView.addSubviewWithAnchors(clearButton, top: logLevelControl.bottomAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, bottom: subheaderView.bottomAnchor, insets: defaultInsets)
     }
     
 }
@@ -77,12 +72,12 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Log.cache.count
+        logs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogCell.CELL_IDENT, for: indexPath) as! LogCell
-        cell.log = Log.cache[indexPath.row]
+        cell.log = logs[indexPath.row]
         cell.updateCell()
         return cell
     }
@@ -93,6 +88,15 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+    
+}
+
+extension LogViewController: LogDelegate{
+    
+    func newLog(log: String) {
+        logs.insert(log, at: 0)
+        tableView.reloadData()
     }
     
 }
