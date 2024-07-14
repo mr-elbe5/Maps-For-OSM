@@ -10,7 +10,7 @@ import E5IOSUI
 import E5MapData
 import UniformTypeIdentifiers
 
-protocol SettingsViewDelegate{
+protocol SettingsViewDelegate: TileSourceDelegate{
     func getRegion() -> TileRegion
     func backupRestored()
 }
@@ -44,6 +44,7 @@ class SettingsViewController: NavScrollViewController{
         
         let tileSourceButton = UIButton(name: "tileSource".localize(), action: UIAction(){ action in
             let controller = TileSourceViewController()
+            controller.delegate = self.delegate
             self.navigationController?.pushViewController(controller, animated: true)
         })
         contentView.addSubviewWithAnchors(tileSourceButton, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
@@ -76,8 +77,20 @@ class SettingsViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(restoreBackupButton, top: createBackupButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        header = UILabel(header: "locations".localize())
+        header = UILabel(header: "log".localize())
         contentView.addSubviewWithAnchors(header, top: restoreBackupButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        let openLogButton = UIButton()
+        openLogButton.setTitle("openLog".localize(), for: .normal)
+        openLogButton.setTitleColor(.systemBlue, for: .normal)
+        openLogButton.addAction(UIAction(){ action in
+            let controller = LogViewController()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(openLogButton, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        header = UILabel(header: "locations".localize())
+        contentView.addSubviewWithAnchors(header, top: openLogButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         maxMergeDistanceField.setupView(labelText: "maxMergeDistance".localize(), text: String(Preferences.shared.maxLocationMergeDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(maxMergeDistanceField, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)

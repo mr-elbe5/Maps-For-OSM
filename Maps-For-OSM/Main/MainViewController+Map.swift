@@ -11,10 +11,6 @@ import E5MapData
 
 extension MainViewController: MainMenuDelegate, ActionMenuDelegate, MapMenuDelegate{
     
-    func refreshMap() {
-        mapView.refresh()
-    }
-    
     func showLocations(_ show: Bool) {
         AppState.shared.showLocations = show
         mapView.locationLayerView.isHidden = !AppState.shared.showLocations
@@ -34,6 +30,10 @@ extension MainViewController: MainMenuDelegate, ActionMenuDelegate, MapMenuDeleg
     
     func updateCross() {
         mapView.crossLocationView.isHidden = !AppState.shared.showCross
+    }
+    
+    func refreshMap() {
+        mapView.refresh()
     }
     
     func zoomIn() {

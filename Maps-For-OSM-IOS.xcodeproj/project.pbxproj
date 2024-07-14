@@ -14,6 +14,8 @@
 		4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */; };
 		4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */; };
 		4E1359452C39718F007F8720 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1359442C39718F007F8720 /* CameraViewController.swift */; };
+		4E14AFBC2C442223005C5DB4 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14AFBB2C442223005C5DB4 /* LogViewController.swift */; };
+		4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14AFBD2C442541005C5DB4 /* LogCell.swift */; };
 		4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */; };
 		4E1982BF2BAB58CE00A37AE0 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */; };
 		4E1982C12BAB59CD00A37AE0 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */; };
@@ -107,6 +109,8 @@
 		4E0BD98E26E9FC67005A4A94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		4E1359442C39718F007F8720 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		4E14AFBB2C442223005C5DB4 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		4E14AFBD2C442541005C5DB4 /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
 		4E1982BC2BAB55E400A37AE0 /* AudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
 		4E1982BE2BAB58CE00A37AE0 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
@@ -410,6 +414,8 @@
 			children = (
 				4EECDD762C3A81790080241F /* SettingsViewController.swift */,
 				4E55EFAD28DAF951007AD900 /* TrackSettingsViewController.swift */,
+				4E14AFBB2C442223005C5DB4 /* LogViewController.swift */,
+				4E14AFBD2C442541005C5DB4 /* LogCell.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -527,6 +533,7 @@
 				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Image.swift in Sources */,
 				4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */,
 				4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */,
+				4E14AFBC2C442223005C5DB4 /* LogViewController.swift in Sources */,
 				4EECDD772C3A81790080241F /* SettingsViewController.swift in Sources */,
 				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4E1B811E2732EDC5003ED6B0 /* MapView.swift in Sources */,
@@ -571,6 +578,7 @@
 				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E7251432C42D35B00EBA2BF /* LocationImageCell.swift in Sources */,
+				4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
 				4E1B80F12732ED43003ED6B0 /* MainViewController.swift in Sources */,

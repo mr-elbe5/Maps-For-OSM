@@ -13,6 +13,7 @@ import E5MapData
 protocol MapMenuDelegate{
     func showLocations(_ flag: Bool)
     func hideTrack()
+    func refreshMap()
     func zoomIn()
     func zoomOut()
 }
@@ -47,8 +48,14 @@ class MapMenuView: UIView {
             self.delegate?.hideTrack()
         }, for: .touchDown)
         
+        let refreshButton = UIButton().asIconButton("arrow.clockwise")
+        addSubviewWithAnchors(refreshButton, top: hideTrackButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
+        refreshButton.addAction(UIAction(){ action in
+            self.delegate?.refreshMap()
+        }, for: .touchDown)
+        
         let zoomInButton = UIButton().asIconButton("plus")
-        addSubviewWithAnchors(zoomInButton, top: hideTrackButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
+        addSubviewWithAnchors(zoomInButton, top: refreshButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         zoomInButton.addAction(UIAction(){ action in
             self.delegate?.zoomIn()
         }, for: .touchDown)

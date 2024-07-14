@@ -9,9 +9,15 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
+protocol TileSourceDelegate{
+    func deleteAllTiles()
+}
+
 class TileSourceViewController: NavScrollViewController{
     
     var tileUrlTemplateField = LabeledTextField()
+    
+    var delegate: TileSourceDelegate? = nil
     
     override func loadView() {
         title = "tileSource".localize()
@@ -80,6 +86,7 @@ class TileSourceViewController: NavScrollViewController{
         let newTemplate = tileUrlTemplateField.text
         if newTemplate != Preferences.shared.urlTemplate{
             Preferences.shared.urlTemplate = newTemplate
+            delegate?.deleteAllTiles()
         }
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "tileSourceSaved".localize())

@@ -18,6 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileManager.initializePrivateDir()
         FileManager.default.initializeAppDirs()
         UIColor.setColors()
+        Log.useCache = true
+        Log.logLevel = .info
         
         if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
             Preferences.shared = prefs
