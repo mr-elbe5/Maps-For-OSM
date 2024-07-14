@@ -36,6 +36,7 @@ extension MainViewController: NoteViewDelegate{
                 else{
                     self.locationChanged(location: location!)
                 }
+                self.showLocationOnMap(coordinate: location!.coordinate)
             }
         }
     }

@@ -336,21 +336,21 @@
 			isa = PBXGroup;
 			children = (
 				4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */,
-				4E1B81052732EDC4003ED6B0 /* TopMenuView.swift */,
 				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
-				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */,
-				4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */,
+				4E72515A2C43BC8800EBA2BF /* MainViewController+Audio.swift */,
 				4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */,
+				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */,
+				4E7251542C43BA3E00EBA2BF /* MainViewController+Location.swift */,
+				4E5F8C8B298D18F700D1CE5C /* MainViewController+Map.swift */,
+				4E7251562C43BB8B00EBA2BF /* MainViewController+Note.swift */,
+				4E7251522C43B9EC00EBA2BF /* MainViewController+Search.swift */,
+				4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */,
+				4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */,
+				4E7251582C43BC7200EBA2BF /* MainViewController+Track.swift */,
 				4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
+				4E1B81052732EDC4003ED6B0 /* TopMenuView.swift */,
 				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
-				4E7251522C43B9EC00EBA2BF /* MainViewController+Search.swift */,
-				4E7251542C43BA3E00EBA2BF /* MainViewController+Location.swift */,
-				4E7251562C43BB8B00EBA2BF /* MainViewController+Note.swift */,
-				4E7251582C43BC7200EBA2BF /* MainViewController+Track.swift */,
-				4E72515A2C43BC8800EBA2BF /* MainViewController+Audio.swift */,
-				4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */,
-				4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";

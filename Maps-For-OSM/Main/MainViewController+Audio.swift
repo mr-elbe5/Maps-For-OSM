@@ -51,6 +51,7 @@ extension MainViewController: AudioCaptureDelegate{
                 else{
                     self.locationChanged(location: location!)
                 }
+                self.showLocationOnMap(coordinate: location!.coordinate)
             }
         }
     }
