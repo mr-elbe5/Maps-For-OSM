@@ -14,7 +14,6 @@ extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
         mapView.locationDidChange(location: location)
-        Log.debug(location.coordinate.shortString)
         if let trackRecorder = TrackRecorder.instance, location.horizontalAccuracy < Preferences.shared.maxHorizontalUncertainty{
             if TrackRecorder.isRecording{
                 TrackRecorder.instance?.track.addTrackpoint(from: location)
@@ -25,6 +24,7 @@ extension MainViewController: LocationServiceDelegate{
                 trackStatusView.updateTrackInfo()
             }
             else if trackRecorder.track.trackpoints.isEmpty, let cancelAlert = cancelAlert{
+                Log.info("closing GPS wait alert")
                 cancelAlert.dismiss(animated: false)
                 self.cancelAlert = nil
                 startTrackRecording(at: location)

@@ -143,7 +143,6 @@ class MapView: UIView {
 extension MapView : MapScrollViewDelegate{
     
     func didScroll() {
-        //Log.debug("did scroll")
         assertCenteredContent(scrollView: scrollView)
         updatePosition()
         currentLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
@@ -152,7 +151,6 @@ extension MapView : MapScrollViewDelegate{
     }
     
     func didZoom() {
-        //Log.debug("did zoom")
         updateZoom()
     }
     

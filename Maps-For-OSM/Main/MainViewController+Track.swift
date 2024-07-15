@@ -74,6 +74,7 @@ extension MainViewController{
     func saveTrack() {
         if let track = TrackRecorder.stopTracking(), let coordinate = track.startCoordinate{
             track.name = "trackName".localize(param: track.startTime.dateString())
+            Log.info("saving track \(track.name)")
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)
             if location == nil{
@@ -85,6 +86,7 @@ extension MainViewController{
             Track.visibleTrack = track
             self.trackChanged()
             self.trackStatusView.hide(true)
+            TrackRecorder.instance = nil
             DispatchQueue.main.async {
                 if newLocation{
                     self.locationsChanged()
@@ -98,11 +100,13 @@ extension MainViewController{
     
     func cancelTrack() {
         if TrackRecorder.stopTracking() != nil{
+            Log.info("track cancelled")
             Track.visibleTrack = nil
             self.trackChanged()
             self.trackStatusView.stopTrackInfo()
             self.trackStatusView.hide(true)
         }
+        TrackRecorder.instance = nil
     }
     
 }

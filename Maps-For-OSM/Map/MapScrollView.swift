@@ -116,7 +116,6 @@ class MapScrollView : UIScrollView{
         let y = World.scaledY(coordinate.latitude, downScale: zoomScale)
         let pnt = CGPoint(x: min(max(0, x - screenPoint.x), contentSize.width - visibleSize.width),
                           y: min(max(0, y - screenPoint.y), contentSize.height - visibleSize.height))
-        Log.info("scrolling to point \(pnt)")
         setContentOffset(pnt, animated: true)
     }
     

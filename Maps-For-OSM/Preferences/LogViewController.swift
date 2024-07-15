@@ -12,7 +12,7 @@ class LogViewController: NavTableViewController{
     
     var logLevelControl = UISegmentedControl()
     
-    var logs = Array(Log.cache.reversed())
+    var logs: Array<String> = Array()
     
     override func loadView() {
         title = "log".localize()
@@ -21,7 +21,19 @@ class LogViewController: NavTableViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LogCell.self, forCellReuseIdentifier: LogCell.CELL_IDENT)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        logs.append(contentsOf: Log.cache.reversed())
+        tableView.reloadData()
         Log.delegate = self
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        Log.delegate = nil
+        logs.removeAll()
     }
     
     override func setupSubheaderView(subheaderView: UIView){
@@ -57,6 +69,7 @@ class LogViewController: NavTableViewController{
         clearButton.setTitle("clearLog".localize(), for: .normal)
         clearButton.setTitleColor(.systemBlue, for: .normal)
         clearButton.addAction(UIAction(){ action in
+            Log.cache.removeAll()
             self.logs.removeAll()
             self.tableView.reloadData()
         }, for: .touchDown)
@@ -77,8 +90,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogCell.CELL_IDENT, for: indexPath) as! LogCell
-        cell.log = logs[indexPath.row]
-        cell.updateCell()
+        cell.updateCell(log: logs[indexPath.row])
         return cell
     }
     

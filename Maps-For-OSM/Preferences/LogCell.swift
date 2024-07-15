@@ -14,17 +14,16 @@ class LogCell: TableViewCell{
     
     static let CELL_IDENT = "logCell"
     
-    var log = ""
+    var label = UILabel(text: "")
     
     override func setupCellBody(){
         cellBody.addSubviewFilling(itemView, insets: .zero)
         cellBody.setBackground(.cellBackground)
+        itemView.addSubviewFilling(label, insets: smallInsets)
     }
     
-    override func updateItemView(){
-        itemView.removeAllSubviews()
-        let label = UILabel(text: log)
-        itemView.addSubviewFilling(label, insets: smallInsets)
+    func updateCell(log: String){
+        label.text = log
     }
     
 }
