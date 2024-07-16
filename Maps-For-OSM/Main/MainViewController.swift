@@ -35,7 +35,6 @@ class MainViewController: NavViewController {
         }))
         items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "figure.walk"), primaryAction: UIAction(){ action in
             let controller = TrackListViewController()
-            controller.tracks = AppData.shared.locations.tracks
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "photo"), primaryAction: UIAction(){ action in
@@ -166,34 +165,6 @@ class MainViewController: NavViewController {
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         mapView.showLocationOnMap(coordinate: coordinate)
-    }
-    
-}
-
-extension MainViewController: LocationViewDelegate{
-    
-    func locationChanged(location: Location) {
-        mapView.updateLocation(for: location)
-    }
-    
-    func locationsChanged() {
-        mapView.updateLocationLayer()
-    }
-    
-    func addLocation(at coordinate: CLLocationCoordinate2D) {
-        if let _ = AppData.shared.getLocation(coordinate: coordinate){
-            return
-        }
-        let _ = AppData.shared.createLocation(coordinate: coordinate)
-        DispatchQueue.main.async {
-            self.locationsChanged()
-        }
-    }
-    
-    func deleteLocationFromList(location: Location) {
-        AppData.shared.deleteLocation(location)
-        AppData.shared.save()
-        locationsChanged()
     }
     
 }

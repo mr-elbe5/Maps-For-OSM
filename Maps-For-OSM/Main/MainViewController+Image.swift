@@ -55,7 +55,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
                             location!.addItem(item: image)
                             DispatchQueue.main.async {
                                 if newLocation{
-                                    self.locationsChanged()
+                                    self.locationAdded(location: location!)
                                 }
                                 else{
                                     self.locationChanged(location: location!)
@@ -84,7 +84,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
                                 location!.addItem(item: video)
                                 DispatchQueue.main.async {
                                     if newLocation{
-                                        self.locationsChanged()
+                                        self.locationAdded(location: location!)
                                     }
                                     else{
                                         self.locationChanged(location: location!)
@@ -139,7 +139,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
                 AppData.shared.save()
                 DispatchQueue.main.async {
                     if newLocation{
-                        self.locationsChanged()
+                        self.locationAdded(location: location!)
                     }
                     else{
                         self.locationChanged(location: location!)
@@ -195,7 +195,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
             AppData.shared.save()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationsChanged()
+                    self.locationAdded(location: location!)
                 }
                 else{
                     self.locationChanged(location: location!)
@@ -219,7 +219,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
             AppData.shared.save()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationsChanged()
+                    self.locationAdded(location: location!)
                 }
                 else{
                     self.locationChanged(location: location!)

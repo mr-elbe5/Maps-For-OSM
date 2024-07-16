@@ -11,11 +11,6 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-protocol LocationViewDelegate{
-    func locationChanged(location: Location)
-    func locationsChanged()
-}
-
 class LocationViewController: NavTableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
@@ -27,7 +22,7 @@ class LocationViewController: NavTableViewController{
     
     var location: Location
     
-    var delegate : LocationViewDelegate? = nil
+    var delegate : LocationChangeDelegate? = nil
     
     var mainViewController: MainViewController?{
         navigationController?.rootViewController as? MainViewController
@@ -173,7 +168,7 @@ class LocationViewController: NavTableViewController{
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteHint".localize()){
             print("deleting location")
             AppData.shared.deleteLocation(self.location)
-            self.mainViewController?.locationsChanged()
+            self.mainViewController?.locationDeleted(location: self.location)
             self.close()
         }
     }
@@ -267,8 +262,16 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension LocationViewController : LocationItemCellDelegate{
     
+    func locationAdded(location: Location) {
+        delegate?.locationAdded(location: location)
+    }
+    
     func locationChanged(location: Location) {
         delegate?.locationChanged(location: location)
+    }
+    
+    func locationDeleted(location: Location) {
+        delegate?.locationDeleted(location: location)
     }
     
     func locationsChanged() {
@@ -326,7 +329,7 @@ extension LocationViewController: NoteViewDelegate{
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationsChanged()
+                    self.locationAdded(location: location!)
                 }
                 else{
                     self.locationChanged(location: location!)
@@ -352,7 +355,7 @@ extension LocationViewController: AudioCaptureDelegate{
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationsChanged()
+                    self.locationAdded(location: location!)
                 }
                 else{
                     self.locationChanged(location: location!)

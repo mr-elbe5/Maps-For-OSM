@@ -24,6 +24,16 @@ extension MainViewController: MainMenuDelegate, ActionMenuDelegate, MapMenuDeleg
         }
     }
     
+    func addLocation(at coordinate: CLLocationCoordinate2D) {
+        if let _ = AppData.shared.getLocation(coordinate: coordinate){
+            return
+        }
+        let location = AppData.shared.createLocation(coordinate: coordinate)
+        DispatchQueue.main.async {
+            self.locationAdded(location: location)
+        }
+    }
+    
     func focusUserLocation() {
         mapView.focusUserLocation()
     }
@@ -75,7 +85,7 @@ extension MainViewController: LocationLayerDelegate{
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
             AppData.shared.deleteLocation(location)
             AppData.shared.save()
-            self.locationsChanged()
+            self.locationDeleted(location: location)
         }
     }
     

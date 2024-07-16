@@ -175,8 +175,16 @@ extension LocationListViewController : LocationCellDelegate{
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    func locationAdded(location: Location) {
+        mainViewController?.locationAdded(location: location)
+    }
+    
     func locationChanged(location: Location) {
         mainViewController?.locationChanged(location: location)
+    }
+    
+    func locationDeleted(location: Location) {
+        mainViewController?.locationDeleted(location: location)
     }
     
     func locationsChanged() {

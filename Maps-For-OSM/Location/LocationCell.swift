@@ -10,7 +10,7 @@ import E5Data
 import E5MapData
 import E5IOSUI
 
-protocol LocationCellDelegate: LocationViewDelegate{
+protocol LocationCellDelegate: LocationChangeDelegate{
     func editLocation(location: Location)
     func showLocationOnMap(coordinate: CLLocationCoordinate2D)
 }

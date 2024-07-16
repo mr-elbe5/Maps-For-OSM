@@ -10,6 +10,13 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
+protocol LocationChangeDelegate{
+    func locationAdded(location: Location)
+    func locationChanged(location: Location)
+    func locationDeleted(location: Location)
+    func locationsChanged()
+}
+
 extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
@@ -40,6 +47,26 @@ extension MainViewController: LocationServiceDelegate{
     func directionDidChange(direction: CLLocationDirection) {
         mapView.setDirection(direction)
         statusView.updateDirection(direction: direction)
+    }
+    
+}
+
+extension MainViewController: LocationChangeDelegate{
+    //todo
+    func locationAdded(location: Location) {
+        mapView.updateLocationLayer()
+    }
+    
+    func locationChanged(location: Location) {
+        mapView.updateLocationLayer()
+    }
+    
+    func locationDeleted(location: Location) {
+        mapView.updateLocationLayer()
+    }
+    
+    func locationsChanged() {
+        mapView.updateLocationLayer()
     }
     
 }

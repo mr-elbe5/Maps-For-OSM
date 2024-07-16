@@ -46,7 +46,7 @@ extension MainViewController: AudioCaptureDelegate{
             AppData.shared.save()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationsChanged()
+                    self.locationAdded(location: location!)
                 }
                 else{
                     self.locationChanged(location: location!)

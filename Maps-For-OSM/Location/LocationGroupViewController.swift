@@ -210,8 +210,16 @@ extension LocationGroupViewController : LocationCellDelegate{
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    func locationAdded(location: Location) {
+        delegate?.locationAdded(location: location)
+    }
+    
     func locationChanged(location: Location) {
         delegate?.locationChanged(location: location)
+    }
+    
+    func locationDeleted(location: Location) {
+        delegate?.locationDeleted(location: location)
     }
     
     func locationsChanged() {

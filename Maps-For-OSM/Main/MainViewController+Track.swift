@@ -38,15 +38,6 @@ extension MainViewController{
         }
     }
     
-    func importTrack(){
-        let filePicker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType(filenameExtension: "gpx")!])
-        filePicker.directoryURL = FileManager.exportGpxDirURL
-        filePicker.allowsMultipleSelection = false
-        filePicker.delegate = self
-        filePicker.modalPresentationStyle = .fullScreen
-        self.present(filePicker, animated: true)
-    }
-    
     func hideTrack() {
         Track.visibleTrack = nil
         trackChanged()
@@ -89,7 +80,7 @@ extension MainViewController{
             TrackRecorder.instance = nil
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationsChanged()
+                    self.locationAdded(location: location!)
                 }
                 else{
                     self.locationChanged(location: location!)
@@ -121,56 +112,5 @@ extension MainViewController: TrackStatusDelegate{
     
 }
 
-extension MainViewController : UIDocumentPickerDelegate{
-    
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if let url = urls.first{
-            if url.pathExtension == "gpx"{
-                importGPXFile(url: url)
-            }
-        }
-    }
-    
-    private func importGPXFile(url: URL){
-        if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
-            let track = Track()
-            track.name = gpxData.name
-            for segment in gpxData.segments{
-                for point in segment.points{
-                    track.trackpoints.append(Trackpoint(location: point.location))
-                }
-            }
-            track.evaluateImportedTrackpoints()
-            if track.name.isEmpty{
-                let ext = url.pathExtension
-                var name = url.lastPathComponent
-                name = String(name[name.startIndex...name.index(name.endIndex, offsetBy: -ext.count)])
-                Log.debug(name)
-                track.name = name
-            }
-            track.evaluateImportedTrackpoints()
-            track.startTime = track.trackpoints.first?.timestamp ?? Date.localDate
-            track.endTime = track.trackpoints.last?.timestamp ?? Date.localDate
-            track.creationDate = track.startTime
-            var newLocation = false
-            var location = AppData.shared.getLocation(coordinate: track.startCoordinate!)
-            if location == nil{
-                location = AppData.shared.createLocation(coordinate: track.startCoordinate!)
-                newLocation = true
-            }
-            location!.addItem(item: track)
-            AppData.shared.save()
-            DispatchQueue.main.async {
-                if newLocation{
-                    self.locationsChanged()
-                }
-                else{
-                    self.locationChanged(location: location!)
-                }
-            }
-        }
-    }
-    
-}
 
 
