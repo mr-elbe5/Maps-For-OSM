@@ -8,9 +8,11 @@ import UIKit
 import E5Data
 import E5IOSUI
 import E5MapData
+import CoreLocation
 
-public protocol ImageCellDelegate: LocationItemCellDelegate{
+public protocol ImageCellDelegate {
     func viewImage(image: Image)
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D)
 }
 
 class ImageCell: LocationItemCell{

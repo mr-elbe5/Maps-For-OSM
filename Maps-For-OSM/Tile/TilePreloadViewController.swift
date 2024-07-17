@@ -37,7 +37,8 @@ class TilePreloadViewController: NavScrollViewController{
     var startButton = UIButton()
     var cancelButton = UIButton()
     
-    var loadedTilesSlider = UISlider()
+    var progressView = UIProgressView()
+    
     var errorsValueLabel = UILabel()
     
     var deleteButton = UIButton()
@@ -139,16 +140,14 @@ class TilePreloadViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(cancelButton, top: tilesToLoadLabel.bottomAnchor, leading: contentView.centerXAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        loadedTilesSlider.minimumValue = 0
-        loadedTilesSlider.maximumValue = Float(allTiles)
-        loadedTilesSlider.value = 0
-        contentView.addSubviewWithAnchors(loadedTilesSlider, top: startButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        progressView.progress = 0
+        contentView.addSubviewWithAnchors(progressView, top: startButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
         
         let errorsInfo = UILabel()
         errorsInfo.text = "unloadedTiles".localize()
-        contentView.addSubviewWithAnchors(errorsInfo, top: loadedTilesSlider.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(errorsInfo, top: progressView.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
-        contentView.addSubviewWithAnchors(errorsValueLabel, top: loadedTilesSlider.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(errorsValueLabel, top: progressView.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
         enableCalculation(true)
         enableDownload(false)
@@ -166,17 +165,11 @@ class TilePreloadViewController: NavScrollViewController{
         existingTilesValueLabel.text = String(existingTiles)
         tilesToLoadValueLabel.text = String(allTiles - existingTiles)
         errorsValueLabel.text = String(errors)
-        loadedTilesSlider.maximumValue = Float(allTiles)
         updateSliderValue()
-        updateSliderColor()
     }
     
     func updateSliderValue(){
-        loadedTilesSlider.value = Float(existingTiles + errors)
-    }
-    
-    func updateSliderColor(){
-        loadedTilesSlider.thumbTintColor = (existingTiles + errors == allTiles) ? (errors > 0 ? .systemRed : .systemGreen) : .systemGray
+        progressView.progress = Float(existingTiles + errors)/Float(allTiles)
     }
     
     func recalculateTiles(){
@@ -283,7 +276,6 @@ extension TilePreloadViewController: DownloadDelegate{
     
     private func checkCompletion(){
         if existingTiles + errors == allTiles{
-            updateSliderColor()
             enableDownload(true)
             downloadQueue?.cancelAllOperations()
             downloadQueue = nil

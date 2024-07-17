@@ -11,7 +11,6 @@ import E5MapData
 
 protocol LocationLayerDelegate{
     func showLocationDetails(location: Location)
-    func deleteLocation(location: Location)
     func showGroupDetails(group: LocationGroup)
 }
 

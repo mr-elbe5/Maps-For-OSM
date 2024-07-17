@@ -211,18 +211,22 @@ extension LocationGroupViewController : LocationCellDelegate{
     }
     
     func locationAdded(location: Location) {
+        tableView.reloadData()
         delegate?.locationAdded(location: location)
     }
     
     func locationChanged(location: Location) {
+        tableView.reloadData()
         delegate?.locationChanged(location: location)
     }
     
     func locationDeleted(location: Location) {
+        tableView.reloadData()
         delegate?.locationDeleted(location: location)
     }
     
     func locationsChanged() {
+        tableView.reloadData()
         delegate?.locationsChanged()
     }
     

@@ -169,7 +169,7 @@ class LocationViewController: NavTableViewController{
             print("deleting location")
             AppData.shared.deleteLocation(self.location)
             self.mainViewController?.locationDeleted(location: self.location)
-            self.close()
+            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     
@@ -262,20 +262,9 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension LocationViewController : LocationItemCellDelegate{
     
-    func locationAdded(location: Location) {
-        delegate?.locationAdded(location: location)
-    }
-    
     func locationChanged(location: Location) {
+        tableView.reloadData()
         delegate?.locationChanged(location: location)
-    }
-    
-    func locationDeleted(location: Location) {
-        delegate?.locationDeleted(location: location)
-    }
-    
-    func locationsChanged() {
-        delegate?.locationsChanged()
     }
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
@@ -303,6 +292,7 @@ extension LocationViewController: UIImagePickerControllerDelegate, UINavigationC
                 AppData.shared.save()
                 self.tableView.reloadData()
                 picker.dismiss(animated: false)
+                self.locationChanged(location: location)
                 return
             }
         }
@@ -318,23 +308,10 @@ extension LocationViewController: NoteViewDelegate{
         if !text.isEmpty{
             let item = Note()
             item.text = text
-            var newLocation = false
-            var location = AppData.shared.getLocation(coordinate: coordinate)
-            if location == nil{
-                location = AppData.shared.createLocation(coordinate: coordinate)
-                newLocation = true
-            }
-            location!.addItem(item: item)
+            location.addItem(item: item)
             AppData.shared.save()
             tableView.reloadData()
-            DispatchQueue.main.async {
-                if newLocation{
-                    self.locationAdded(location: location!)
-                }
-                else{
-                    self.locationChanged(location: location!)
-                }
-            }
+            self.delegate?.locationChanged(location: location)
         }
     }
     
@@ -343,25 +320,10 @@ extension LocationViewController: NoteViewDelegate{
 extension LocationViewController: AudioCaptureDelegate{
     
     func audioCaptured(audio: Audio){
-        if let coordinate = LocationService.shared.location?.coordinate{
-            var newLocation = false
-            var location = AppData.shared.getLocation(coordinate: coordinate)
-            if location == nil{
-                location = AppData.shared.createLocation(coordinate: coordinate)
-                newLocation = true
-            }
-            location!.addItem(item: audio)
-            AppData.shared.save()
-            tableView.reloadData()
-            DispatchQueue.main.async {
-                if newLocation{
-                    self.locationAdded(location: location!)
-                }
-                else{
-                    self.locationChanged(location: location!)
-                }
-            }
-        }
+        location.addItem(item: audio)
+        AppData.shared.save()
+        tableView.reloadData()
+        self.delegate?.locationChanged(location: location)
     }
 }
 

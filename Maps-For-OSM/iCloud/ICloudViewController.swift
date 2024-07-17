@@ -8,6 +8,7 @@ import UIKit
 import E5Data
 import E5IOSUI
 import E5MapData
+import CloudKit
 
 protocol ICloudDelegate{
     func dataChanged()
@@ -24,12 +25,34 @@ class ICloudViewController: NavScrollViewController{
     var assertLocalDataConsitencyButton = UIButton()
     var cleanupICloudButton = UIButton()
     
+    var progressView = UIProgressView()
+    var currentStep: Int = 0
+    var maxSteps: Int = 1
+    
     var delegate: ICloudDelegate? = nil
     
     override func loadView() {
         title = "iCloud".localize()
         super.loadView()
         scrollView.backgroundColor = .white
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        enableButtons(true)
+        Task{
+            var connected = false
+            do{
+                connected =  try await CKContainer.isConnected()
+            }
+            catch{
+            }
+            if !connected{
+                DispatchQueue.main.async{
+                    self.enableButtons(false)
+                    self.showAlert(title: "noICloud".localize(), text: "noICloudHint".localize())
+                }
+            }
+        }
     }
     
     override func loadScrollableSubviews() {
@@ -115,11 +138,36 @@ class ICloudViewController: NavScrollViewController{
         .centerX(contentView.centerXAnchor)
         label = UILabel(text: "cleanupICloudHint".localize())
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
-        contentView.addSubviewWithAnchors(label, top: cleanupICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
+        contentView.addSubviewWithAnchors(label, top: cleanupICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
+        
+        setupProgressView(max: 1)
+        contentView.addSubviewWithAnchors(progressView, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        
+    }
+    
+    func enableButtons(_ flag: Bool){
+        mergeFromICloudButton.isEnabled = flag
+        copyFromICloudButton.isEnabled = flag
+        mergeToICloudButton.isEnabled = flag
+        copyToICloudButton.isEnabled = flag
+        synchronizeButton.isEnabled = flag
+        cleanupICloudButton.isEnabled = flag
+    }
+    
+    func setupProgressView(max: Int){
+        maxSteps = max
+        currentStep = 0
+        progressView.progress = 0
+    }
+    
+    func increaseProgressView(){
+        currentStep += 1
+        progressView.setProgress(Float(currentStep) / Float(maxSteps), animated: false)
     }
     
     func mergeFromICloud(){
         let synchronizer = CloudSynchronizer()
+        synchronizer.delegate = self
         let spinner = startSpinner()
         spinner.startAnimating()
         Task{
@@ -135,6 +183,7 @@ class ICloudViewController: NavScrollViewController{
     
     func copyFromICloud(){
         let synchronizer = CloudSynchronizer()
+        synchronizer.delegate = self
         let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeFromICloud(deleteLocalData: true)
@@ -149,6 +198,7 @@ class ICloudViewController: NavScrollViewController{
     
     func mergeToICloud(){
         let synchronizer = CloudSynchronizer()
+        synchronizer.delegate = self
         let spinner = startSpinner()
         spinner.startAnimating()
         Task{
@@ -162,6 +212,7 @@ class ICloudViewController: NavScrollViewController{
     
     func copyToICloud(){
         let synchronizer = CloudSynchronizer()
+        synchronizer.delegate = self
         let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeToICloud(deleteICloudData: true)
@@ -174,6 +225,7 @@ class ICloudViewController: NavScrollViewController{
     
     func synchronize(){
         let synchronizer = CloudSynchronizer()
+        synchronizer.delegate = self
         let spinner = startSpinner()
         Task{
             try await synchronizer.synchronizeICloud(replaceLocalData: false, replaceICloudData: true)
@@ -196,6 +248,7 @@ class ICloudViewController: NavScrollViewController{
     
     func cleanupICloud(){
         let synchronizer = CloudSynchronizer()
+        synchronizer.delegate = self
         let spinner = startSpinner()
         Task{
             try await synchronizer.cleanupICloud()
@@ -205,6 +258,18 @@ class ICloudViewController: NavScrollViewController{
             }
         }
         
+    }
+    
+}
+
+extension ICloudViewController: CloudSynchronizerDelegate{
+    
+    func setMaxSteps(_ value: Int) {
+        setupProgressView(max: value)
+    }
+    
+    func nextStep() {
+        increaseProgressView()
     }
     
 }

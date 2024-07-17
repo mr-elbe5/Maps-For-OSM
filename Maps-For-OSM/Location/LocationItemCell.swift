@@ -10,10 +10,8 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-public protocol LocationItemCellDelegate{
-    
+protocol LocationItemCellDelegate{
     func locationChanged(location: Location)
-    func locationsChanged()
     func showLocationOnMap(coordinate: CLLocationCoordinate2D)
     
 }

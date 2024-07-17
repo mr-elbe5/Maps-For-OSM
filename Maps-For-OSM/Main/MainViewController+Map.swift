@@ -81,14 +81,6 @@ extension MainViewController: LocationLayerDelegate{
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func deleteLocation(location: Location) {
-        showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteLocationHint".localize()){
-            AppData.shared.deleteLocation(location)
-            AppData.shared.save()
-            self.locationDeleted(location: location)
-        }
-    }
-    
     func showGroupDetails(group: LocationGroup) {
         let controller = LocationGroupViewController(group: group)
         self.navigationController?.pushViewController(controller, animated: true)

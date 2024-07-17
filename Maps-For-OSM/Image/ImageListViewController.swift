@@ -212,14 +212,6 @@ extension ImageListViewController: UITableViewDelegate, UITableViewDataSource{
 
 extension ImageListViewController : ImageCellDelegate{
     
-    func locationChanged(location: Location) {
-        mainViewController?.locationChanged(location: location)
-    }
-    
-    func locationsChanged() {
-        mainViewController?.locationsChanged()
-    }
-    
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         navigationController?.popToRootViewController(animated: true)
         mainViewController?.showLocationOnMap(coordinate: coordinate)

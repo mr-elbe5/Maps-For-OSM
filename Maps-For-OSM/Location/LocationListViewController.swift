@@ -176,18 +176,22 @@ extension LocationListViewController : LocationCellDelegate{
     }
     
     func locationAdded(location: Location) {
+        tableView.reloadData()
         mainViewController?.locationAdded(location: location)
     }
     
     func locationChanged(location: Location) {
+        tableView.reloadData()
         mainViewController?.locationChanged(location: location)
     }
     
     func locationDeleted(location: Location) {
+        tableView.reloadData()
         mainViewController?.locationDeleted(location: location)
     }
     
     func locationsChanged() {
+        tableView.reloadData()
         mainViewController?.locationsChanged()
     }
     

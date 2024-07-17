@@ -9,7 +9,7 @@ import E5Data
 import E5IOSUI
 import E5MapData
 
-public protocol VideoCellDelegate: LocationItemCellDelegate{
+protocol VideoCellDelegate: LocationItemCellDelegate{
     func viewVideo(item: Video)
 }
 

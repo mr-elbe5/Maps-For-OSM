@@ -68,6 +68,7 @@
 		4E72515D2C43C05E00EBA2BF /* MainViewController+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */; };
 		4E72515F2C43C15A00EBA2BF /* MainViewController+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
+		4E7AD5582C468C4700AC02D9 /* MainViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7AD5572C468C4700AC02D9 /* MainViewController+Camera.swift */; };
 		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
 		4EB694532C3EAC720058BAD0 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694522C3EAC720058BAD0 /* E5Data */; };
@@ -162,6 +163,7 @@
 		4E72515C2C43C05E00EBA2BF /* MainViewController+Tiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Tiles.swift"; sourceTree = "<group>"; };
 		4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Settings.swift"; sourceTree = "<group>"; };
 		4E79FBB2275BCE67001F0481 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		4E7AD5572C468C4700AC02D9 /* MainViewController+Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Camera.swift"; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4EA30CF52C37F706002EA622 /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */,
 				4E1B80F02732ED43003ED6B0 /* MainViewController.swift */,
 				4E72515A2C43BC8800EBA2BF /* MainViewController+Audio.swift */,
+				4E7AD5572C468C4700AC02D9 /* MainViewController+Camera.swift */,
 				4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */,
 				4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */,
 				4E7251542C43BA3E00EBA2BF /* MainViewController+Location.swift */,
@@ -542,6 +545,7 @@
 				4E7251472C42D43F00EBA2BF /* LocationNoteCell.swift in Sources */,
 				4E1982BD2BAB55E400A37AE0 /* AudioCell.swift in Sources */,
 				4E1359452C39718F007F8720 /* CameraViewController.swift in Sources */,
+				4E7AD5582C468C4700AC02D9 /* MainViewController+Camera.swift in Sources */,
 				4ECFC99F26FBB8AF0083977B /* TilePreloadViewController.swift in Sources */,
 				4E1B81172732EDC5003ED6B0 /* LocationLayerView.swift in Sources */,
 				4EF56CCC2C403B0000B0A0F3 /* UIColor.swift in Sources */,

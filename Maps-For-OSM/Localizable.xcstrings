@@ -2415,6 +2415,40 @@
         }
       }
     },
+    "noICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud ist nicht verbunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud not connected"
+          }
+        }
+      }
+    },
+    "noICloudHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbinden Sie sich bitte zuerst mit der iCloud in 'Einstellungen'."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please connect to your iCloud account in 'Settings' first."
+          }
+        }
+      }
+    },
     "north" : {
       "extractionState" : "manual",
       "localizations" : {
