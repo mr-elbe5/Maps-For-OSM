@@ -115,6 +115,7 @@ class SearchViewController: NavTableViewController{
             switch AppState.shared.searchRegion{
             case .current:
                 if let currentRegion = delegate?.getCurrentRegion(){
+                    Log.debug("searching in current region \(currentRegion)")
                     searchQuery.coordinateRegion = currentRegion
                 }
                 else{
@@ -123,6 +124,7 @@ class SearchViewController: NavTableViewController{
             case .radius:
                 if let currentCenter = delegate?.getCurrentCenter(){
                     let coordinateRegion = currentCenter.coordinateRegion(radiusMeters: AppState.shared.searchRadius*1000)
+                    Log.debug("searching in radius region \(coordinateRegion)")
                     searchQuery.coordinateRegion = coordinateRegion
                 }
                 else{

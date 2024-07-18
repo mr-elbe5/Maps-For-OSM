@@ -79,11 +79,6 @@ class MapView: UIView {
         locationLayerView.setupMarkers(zoom: zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
-    func setRegion(region: CoordinateRegion){
-        scrollView.zoomTo(World.getZoomToFit(mapRect: region.mapRect, scaledBounds: bounds), animated: true)
-        scrollToScreenCenter(coordinate: region.center)
-    }
-    
     func setStartLocation(){
         Log.info("setting start location")
         Log.info("zooming to \(AppState.shared.zoom)")
