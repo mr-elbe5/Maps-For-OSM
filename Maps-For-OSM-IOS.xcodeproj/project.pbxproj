@@ -90,7 +90,7 @@
 		4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */; };
 		4EF3530A2BB2C30100A0A85B /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF353092BB2C30100A0A85B /* SearchResultCell.swift */; };
 		4EF3530E2BB43E6800A0A85B /* MapMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */; };
-		4EF477142941EBC600294B21 /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477132941EBC600294B21 /* ImageItem.swift */; };
+		4EF477142941EBC600294B21 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477132941EBC600294B21 /* Image.swift */; };
 		4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */; };
 		4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477192941EED600294B21 /* AudioPlayerView.swift */; };
 		4EF56CCC2C403B0000B0A0F3 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF56CCB2C403B0000B0A0F3 /* UIColor.swift */; };
@@ -178,7 +178,7 @@
 		4EEF6F8328FAC5C500543EBA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4EF353092BB2C30100A0A85B /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMenuView.swift; sourceTree = "<group>"; };
-		4EF477132941EBC600294B21 /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
+		4EF477132941EBC600294B21 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		4EF477192941EED600294B21 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		4EF56CCB2C403B0000B0A0F3 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1982C02BAB59CD00A37AE0 /* ImageCell.swift */,
-				4EF477132941EBC600294B21 /* ImageItem.swift */,
+				4EF477132941EBC600294B21 /* Image.swift */,
 				4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */,
 				4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */,
 				4E7251402C42D26800EBA2BF /* ImageListCell.swift */,
@@ -530,7 +530,7 @@
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */,
 				4E7251512C42D72600EBA2BF /* TrackListCell.swift in Sources */,
-				4EF477142941EBC600294B21 /* ImageItem.swift in Sources */,
+				4EF477142941EBC600294B21 /* Image.swift in Sources */,
 				4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */,
 				4E72514F2C42D5F200EBA2BF /* LocationGroupCell.swift in Sources */,
 				4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Image.swift in Sources */,

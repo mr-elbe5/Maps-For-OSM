@@ -7,6 +7,7 @@
 import UIKit
 import E5Data
 import E5MapData
+import E5PhotoLib
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -20,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIColor.setColors()
         Log.useCache = true
         Log.logLevel = .info
-        
+        PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
         if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
             Preferences.shared = prefs
         }
