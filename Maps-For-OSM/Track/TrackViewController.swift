@@ -20,9 +20,6 @@ class TrackViewController: NavScrollViewController{
     
     var track: Track
     
-    let deleteButton = UIButton().asIconButton("trash", color: .white)
-    let mapButton = UIButton().asIconButton("map", color: .white)
-    
     var nameEditField = UITextField()
     var noteEditView = TextEditArea()
     
@@ -54,6 +51,9 @@ class TrackViewController: NavScrollViewController{
         items.append(UIBarButtonItem(title: "showOnMap", image: UIImage(systemName: "map"), primaryAction: UIAction(){ action in
             self.navigationController?.popToRootViewController(animated: true)
             self.mainViewController?.showTrackOnMap(track: self.track)
+        }))
+        items.append(UIBarButtonItem(title: "export", image: UIImage(systemName: "square.and.arrow.up"), primaryAction: UIAction(){ action in
+            self.exportTrack(item: self.track)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
         navigationItem.trailingItemGroups = groups
@@ -112,6 +112,14 @@ class TrackViewController: NavScrollViewController{
                 
         }
         
+    }
+    
+    func exportTrack(item: Track) {
+        if let url = GPXCreator.createTemporaryFile(track: item){
+            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
+            controller.directoryURL = FileManager.exportGpxDirURL
+            present(controller, animated: true)
+        }
     }
     
     func save(){

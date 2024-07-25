@@ -105,16 +105,6 @@ class TrackListViewController: NavTableViewController{
         self.present(filePicker, animated: true)
     }
     
-    func exportTrack(item: Track) {
-        if let url = GPXCreator.createTemporaryFile(track: item){
-            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
-            controller.directoryURL = FileManager.exportGpxDirURL
-            present(controller, animated: true) {
-                FileManager.default.logFileInfo()
-            }
-        }
-    }
-    
 }
 
 extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
