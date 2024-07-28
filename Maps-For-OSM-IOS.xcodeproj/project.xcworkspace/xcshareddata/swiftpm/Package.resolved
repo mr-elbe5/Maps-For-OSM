@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5Data.git",
       "state" : {
-        "revision" : "9a3790f34ed2c5ec1df97c34f3540537a9d30f51",
-        "version" : "1.0.28"
+        "revision" : "0fc486df977d924f3a0f7f509c58653888cd06e4",
+        "version" : "1.0.29"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5IOSAV.git",
       "state" : {
-        "revision" : "b2571747c15cafb2c853b7b6486437005f776d1c",
-        "version" : "1.0.14"
+        "revision" : "2719161551a677aa8a9e13cb8e06e4694dfdfdbb",
+        "version" : "1.0.15"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5IOSUI.git",
       "state" : {
-        "revision" : "03ef31abfd024164eda7cb9318fb181bc416ad61",
-        "version" : "1.0.31"
+        "revision" : "9c72ef635cfb27adc057cfed0036ac97e3de551d",
+        "version" : "1.0.32"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5MapData.git",
       "state" : {
-        "revision" : "227831f0fadf9104289973f8ffd9f4501cd79cde",
-        "version" : "1.1.17"
+        "revision" : "aae492c974a7177a96d5e1ad7ad980f42729476a",
+        "version" : "1.1.19"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5PhotoLib.git",
       "state" : {
-        "revision" : "4f7211f70869988eb3ea6aa05c497ad8edb23413",
-        "version" : "1.0.10"
+        "revision" : "90a077dcd3d5cf7f4bd3f01f58b64466acef8016",
+        "version" : "1.0.11"
       }
     },
     {
