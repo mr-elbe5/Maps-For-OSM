@@ -123,10 +123,10 @@ class SettingsViewController: NavScrollViewController{
     }
     
     func createBackup(){
-        let fileName = "maps4osm_backup_\(Date.localDate.shortFileDate()).zip"
+        let url = FileManager.backupDirURL.appendingPathComponent("maps4osm_backup_\(Date.localDate.shortFileDate()).zip")
         let spinner = startSpinner()
         DispatchQueue.main.async {
-            if let _ = Backup.createBackupFile(name: fileName){
+            if Backup.createBackupFile(at: url){
                 self.showDone(title: "success".localize(), text: "backupSaved".localize())
             }
             self.stopSpinner(spinner)

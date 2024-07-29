@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5MapData.git",
       "state" : {
-        "revision" : "aae492c974a7177a96d5e1ad7ad980f42729476a",
-        "version" : "1.1.19"
+        "revision" : "11f18165fd80c2abc090054ad4f9bcef9d0307ea",
+        "version" : "1.1.20"
       }
     },
     {
