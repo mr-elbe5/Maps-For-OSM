@@ -19,14 +19,6 @@ class TrackLayerView: UIView {
         return false
     }
     
-    func getTrackRect() -> CGRect?{
-        if let track = Track.visibleTrack, let offset = offset, let boundingRect = track.trackpoints.boundingMapRect{
-            let mapOffset = CGPoint(x: offset.x/scale, y: offset.y/scale).normalizedPoint
-            return CGRect(x: (boundingRect.minX  - mapOffset.x)*scale, y: (boundingRect.minY - mapOffset.y)*scale, width: boundingRect.width*scale, height: boundingRect.height*scale)
-        }
-        return nil
-    }
-    
     func updatePosition(offset: CGPoint, scale: CGFloat){
         self.offset = offset
         self.scale = scale
