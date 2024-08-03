@@ -74,7 +74,6 @@
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
 		4EB694532C3EAC720058BAD0 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694522C3EAC720058BAD0 /* E5Data */; };
 		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
-		4EB6945D2C3EAE8A0058BAD0 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945C2C3EAE8A0058BAD0 /* E5IOSAV */; };
 		4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */; };
 		4EB694632C3EAF240058BAD0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694622C3EAF240058BAD0 /* Zip */; };
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
@@ -85,6 +84,8 @@
 		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */; };
 		4ECFC99F26FBB8AF0083977B /* TilePreloadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFC99E26FBB8AF0083977B /* TilePreloadViewController.swift */; };
 		4ED55ECF2976B17400C679AF /* LocationGroupMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED55ECD2976B17400C679AF /* LocationGroupMarker.swift */; };
+		4ED5AF292C5E14F000D89313 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED5AF282C5E14F000D89313 /* E5IOSAV */; };
+		4ED5AF2C2C5E226900D89313 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4ED5AF2B2C5E226900D89313 /* E5IOSAV */; };
 		4ED5FC452BBDA98B00E96EBB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
 		4EECDD772C3A81790080241F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EECDD762C3A81790080241F /* SettingsViewController.swift */; };
@@ -192,10 +193,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EB6945D2C3EAE8A0058BAD0 /* E5IOSAV in Frameworks */,
 				4EB694532C3EAC720058BAD0 /* E5Data in Frameworks */,
 				4E72513F2C4282AE00EBA2BF /* E5MapData in Frameworks */,
 				4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */,
+				4ED5AF2C2C5E226900D89313 /* E5IOSAV in Frameworks */,
+				4ED5AF292C5E14F000D89313 /* E5IOSAV in Frameworks */,
 				4EB694632C3EAF240058BAD0 /* Zip in Frameworks */,
 				4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */,
 				4E72513C2C4261E100EBA2BF /* E5MapData in Frameworks */,
@@ -449,11 +451,12 @@
 				4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */,
 				4EB694522C3EAC720058BAD0 /* E5Data */,
 				4EB694562C3EADBB0058BAD0 /* E5PhotoLib */,
-				4EB6945C2C3EAE8A0058BAD0 /* E5IOSAV */,
 				4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */,
 				4EB694622C3EAF240058BAD0 /* Zip */,
 				4E72513B2C4261E100EBA2BF /* E5MapData */,
 				4E72513E2C4282AE00EBA2BF /* E5MapData */,
+				4ED5AF282C5E14F000D89313 /* E5IOSAV */,
+				4ED5AF2B2C5E226900D89313 /* E5IOSAV */,
 			);
 			productName = SwiftyMapViewer;
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM.app */;
@@ -487,10 +490,10 @@
 			packageReferences = (
 				4EB694512C3EAC720058BAD0 /* XCRemoteSwiftPackageReference "E5Data" */,
 				4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
-				4EB6945B2C3EAE8A0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
 				4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
 				4EB694612C3EAF240058BAD0 /* XCRemoteSwiftPackageReference "Zip" */,
 				4E72513D2C4282AE00EBA2BF /* XCRemoteSwiftPackageReference "E5MapData" */,
+				4ED5AF2A2C5E226900D89313 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -750,6 +753,7 @@
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -779,6 +783,7 @@
 				INFOPLIST_FILE = "Maps-For-OSM/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -844,14 +849,6 @@
 				minimumVersion = 1.0.10;
 			};
 		};
-		4EB6945B2C3EAE8A0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSAV" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/E5IOSAV.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.14;
-			};
-		};
 		4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mr-elbe5/E5IOSUI.git";
@@ -866,6 +863,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.1.2;
+			};
+		};
+		4ED5AF2A2C5E226900D89313 /* XCRemoteSwiftPackageReference "E5IOSAV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mr-elbe5/E5IOSAV.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.17;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -890,11 +895,6 @@
 			package = 4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */;
 			productName = E5PhotoLib;
 		};
-		4EB6945C2C3EAE8A0058BAD0 /* E5IOSAV */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EB6945B2C3EAE8A0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSAV" */;
-			productName = E5IOSAV;
-		};
 		4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
@@ -912,6 +912,15 @@
 		4EC5201A2C0DF030009C4A49 /* E5Data */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = E5Data;
+		};
+		4ED5AF282C5E14F000D89313 /* E5IOSAV */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = E5IOSAV;
+		};
+		4ED5AF2B2C5E226900D89313 /* E5IOSAV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4ED5AF2A2C5E226900D89313 /* XCRemoteSwiftPackageReference "E5IOSAV" */;
+			productName = E5IOSAV;
 		};
 		4EFF86942C273B8300D0DEB0 /* E5MapData */ = {
 			isa = XCSwiftPackageProductDependency;

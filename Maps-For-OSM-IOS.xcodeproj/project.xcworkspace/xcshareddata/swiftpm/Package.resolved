@@ -1,5 +1,5 @@
 {
-  "originHash" : "20dae9b072272fe24932a757aa8574c3abf0b8237d527105d1ac4d2a534ed2d4",
+  "originHash" : "1606bbe6403e53412d784d98f4523abe17a1b4d04853a442f576fae42bf9ae23",
   "pins" : [
     {
       "identity" : "e5data",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5IOSAV.git",
       "state" : {
-        "revision" : "2719161551a677aa8a9e13cb8e06e4694dfdfdbb",
-        "version" : "1.0.15"
+        "revision" : "76f5088834f55cc34370c85de99aa98210cd6dbe",
+        "version" : "1.0.17"
       }
     },
     {

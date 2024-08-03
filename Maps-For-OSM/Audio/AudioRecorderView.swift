@@ -186,9 +186,16 @@ class AudioSession{
                         try session.setCategory(.playAndRecord, mode: .default)
                         try session.overrideOutputAudioPort(.speaker)
                         try session.setActive(true)
-                        AVAudioApplication.requestRecordPermission{allowed in
-                            isEnabled = allowed
-                            callback(.success(()))
+                        AVCaptureDevice.askAudioAuthorization(){ result in
+                            switch result{
+                            case .success(()):
+                                isEnabled = true
+                                callback(.success(()))
+                                return
+                            case .failure:
+                                callback(.failure(NSError()))
+                                return
+                            }
                         }
                     } catch {
                         callback(.failure(NSError()))
