@@ -27,7 +27,7 @@ class ActionMenuView: UIView {
     
     var delegate : ActionMenuDelegate? = nil
     
-    var toggleTrackingButton = UIButton().asIconButton("figure.walk.departure")
+    var toggleTrackingButton = UIButton().asIconButton("figure.walk.departure", color: .darkText)
     
     func setup(){
         layer.cornerRadius = 10
@@ -41,7 +41,7 @@ class ActionMenuView: UIView {
         }, for: .touchDown)
         toggleTrackingButton.menu = getEndTrackingMenu()
         
-        let cameraButton = UIButton().asIconButton("camera")
+        let cameraButton = UIButton().asIconButton("camera", color: .darkText)
         addSubviewWithAnchors(cameraButton, top: toggleTrackingButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         cameraButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
@@ -49,7 +49,7 @@ class ActionMenuView: UIView {
             }
         }, for: .touchDown)
         
-        let audioButton = UIButton().asIconButton("mic")
+        let audioButton = UIButton().asIconButton("mic", color: .darkText)
         addSubviewWithAnchors(audioButton, top: cameraButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         audioButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{
@@ -57,7 +57,7 @@ class ActionMenuView: UIView {
             }
         }, for: .touchDown)
         
-        let noteButton = UIButton().asIconButton("pencil.and.list.clipboard")
+        let noteButton = UIButton().asIconButton("square.and.pencil", color: .darkText)
         addSubviewWithAnchors(noteButton, top: audioButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 20, left: 5, bottom: 10, right: 5))
         noteButton.addAction(UIAction(){ action in
             if let coordinate = LocationService.shared.location?.coordinate{

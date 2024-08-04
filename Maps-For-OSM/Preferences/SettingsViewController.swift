@@ -24,7 +24,6 @@ class SettingsViewController: NavScrollViewController{
     override func loadView() {
         title = "preferences".localize()
         super.loadView()
-        scrollView.backgroundColor = .white
         setupKeyboard()
     }
     

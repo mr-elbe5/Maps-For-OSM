@@ -13,17 +13,17 @@ extension UIColor{
     static var iconViewColor = UIColor(white: 1.0, alpha: 0.5)
     
     static func setColors(){
-        background = .black
-        tableBackground = .black
-        sectionHeaderBackground = .white
-        subheaderBackground = .white
-        cellBackground = UIColor(white: 0.95, alpha: 1.0)
-        scrollViewBackground = .black
+        background = UIColor.systemBackground
+        tableBackground = UIColor.systemBackground
+        sectionHeaderBackground = UIColor.tertiarySystemBackground
+        subheaderBackground = UIColor.tertiarySystemBackground
+        cellBackground = UIColor.secondarySystemBackground
+        scrollViewBackground = UIColor.systemBackground
         sectionBackground = UIColor.systemBackground
         navbarBackground = .black
         
         text = .label
-        icon = .label
+        icon = .darkText
         iconDisabled = .systemGray
         button = UIColor.systemBlue
         buttonDisabled = UIColor.systemGray

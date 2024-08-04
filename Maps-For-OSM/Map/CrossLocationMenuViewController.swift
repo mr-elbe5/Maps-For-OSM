@@ -32,8 +32,8 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = .white
-        scrollView.backgroundColor = .white
+        view.backgroundColor = .systemBackground
+        scrollView.backgroundColor = .systemBackground
         scrollView.setupVertical()
         setupContent()
     }
@@ -49,6 +49,7 @@ class CrossLocationMenuViewController: PopupScrollViewController{
         closeButton.addAction(UIAction(){ action in
             self.dismiss(animated: true)
         }, for: .touchDown)
+        closeButton.tintColor = .label
     }
     
     override func viewDidLoad() {
@@ -71,7 +72,6 @@ class CrossLocationMenuViewController: PopupScrollViewController{
     func setupContent(){
         view.setRoundedBorders(radius: 10)
         locationLabel.textAlignment = .center
-        contentView.backgroundColor = .white
         contentView.addSubviewWithAnchors(locationLabel, top: contentView.topAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
         

@@ -20,7 +20,7 @@ protocol MapMenuDelegate{
 
 class MapMenuView: UIView {
     
-    var showLocationsButton = UIButton().asIconButton("mappin.slash")
+    var showLocationsButton = UIButton().asIconButton("mappin.slash", color: .darkText)
     
     var delegate : MapMenuDelegate? = nil
     
@@ -42,25 +42,25 @@ class MapMenuView: UIView {
             }
         }, for: .touchDown)
         
-        let hideTrackButton = UIButton().asIconButton("eraser.line.dashed")
+        let hideTrackButton = UIButton().asIconButton("eraser.line.dashed", color: .darkText)
         addSubviewWithAnchors(hideTrackButton, top: showLocationsButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         hideTrackButton.addAction(UIAction(){ action in
             self.delegate?.hideTrack()
         }, for: .touchDown)
         
-        let refreshButton = UIButton().asIconButton("arrow.clockwise")
+        let refreshButton = UIButton().asIconButton("arrow.clockwise", color: .darkText)
         addSubviewWithAnchors(refreshButton, top: hideTrackButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         refreshButton.addAction(UIAction(){ action in
             self.delegate?.refreshMap()
         }, for: .touchDown)
         
-        let zoomInButton = UIButton().asIconButton("plus")
+        let zoomInButton = UIButton().asIconButton("plus", color: .darkText)
         addSubviewWithAnchors(zoomInButton, top: refreshButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: insets)
         zoomInButton.addAction(UIAction(){ action in
             self.delegate?.zoomIn()
         }, for: .touchDown)
         
-        let zoomOutButton = UIButton().asIconButton("minus")
+        let zoomOutButton = UIButton().asIconButton("minus", color: .darkText)
         addSubviewWithAnchors(zoomOutButton, top: zoomInButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 20, left: 5, bottom: 10, right: 5))
         zoomOutButton.addAction(UIAction(){ action in
             self.delegate?.zoomOut()

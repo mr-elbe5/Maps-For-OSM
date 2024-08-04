@@ -29,14 +29,14 @@ class VideoCell: LocationItemCell{
     override func updateIconView(){
         iconView.removeAllSubviews()
         if let video = video{
-            let selectedButton = UIButton().asIconButton(video.selected ? "checkmark.square" : "square", color: .label)
+            let selectedButton = UIButton().asIconButton(video.selected ? "checkmark.square" : "square", color: .darkGray)
             selectedButton.addAction(UIAction(){ action in
                 video.selected = !video.selected
                 selectedButton.setImage(UIImage(systemName: video.selected ? "checkmark.square" : "square"), for: .normal)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(selectedButton, top: iconView.topAnchor, trailing: iconView.trailingAnchor , bottom: iconView.bottomAnchor, insets: iconInsets)
             
-            let viewButton = UIButton().asIconButton("magnifyingglass", color: .label)
+            let viewButton = UIButton().asIconButton("magnifyingglass", color: .darkGray)
             viewButton.addAction(UIAction(){ action in
                 self.delegate?.viewVideo(item: video)
             }, for: .touchDown)
@@ -54,7 +54,7 @@ class VideoCell: LocationItemCell{
         if let video = video{
             let videoView = VideoPlayerView()
             videoView.setRoundedBorders()
-            itemView.addSubviewWithAnchors(videoView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
+            itemView.addSubviewWithAnchors(videoView, top: iconView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
             videoView.url = video.fileURL
             videoView.setAspectRatioConstraint()
             

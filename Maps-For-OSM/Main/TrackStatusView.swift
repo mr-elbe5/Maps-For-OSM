@@ -36,38 +36,38 @@ class TrackStatusView : UIView{
         zeroHeightConstraint = heightAnchor.constraint(equalToConstant: 0)
         
         let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
-        distanceIcon.tintColor = .label
+        distanceIcon.tintColor = .darkText
         addSubviewWithAnchors(distanceIcon, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: smallInsets)
-        distanceLabel.textColor = .label
+        distanceLabel.textColor = .darkText
         addSubviewWithAnchors(distanceLabel, top: topAnchor, leading: distanceIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
         let distanceUpIcon = UIImageView(image: UIImage(systemName: "arrow.up"))
-        distanceUpIcon.tintColor = .label
+        distanceUpIcon.tintColor = .darkText
         addSubviewWithAnchors(distanceUpIcon, top: topAnchor, leading: distanceLabel.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
-        distanceUpLabel.textColor = .label
+        distanceUpLabel.textColor = .darkText
         addSubviewWithAnchors(distanceUpLabel, top: topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
         let distanceDownIcon = UIImageView(image: UIImage(systemName: "arrow.down"))
-        distanceDownIcon.tintColor = .label
+        distanceDownIcon.tintColor = .darkText
         addSubviewWithAnchors(distanceDownIcon, top: topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
-        distanceDownLabel.textColor = .label
+        distanceDownLabel.textColor = .darkText
         addSubviewWithAnchors(distanceDownLabel, top: topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
         let speedIcon = UIImageView(image: UIImage(systemName: "speedometer"))
-        speedIcon.tintColor = .label
+        speedIcon.tintColor = .darkText
         addSubviewWithAnchors(speedIcon, top: topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: bottomAnchor, insets: flatInsets)
-        speedLabel.textColor = .label
+        speedLabel.textColor = .darkText
         addSubviewWithAnchors(speedLabel, top: topAnchor, leading: speedIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
         let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
-        timeIcon.tintColor = .label
+        timeIcon.tintColor = .darkText
         addSubviewWithAnchors(timeIcon, leading: speedLabel.trailingAnchor, insets: smallInsets)
             .centerY(centerYAnchor)
-        timeLabel.textColor = .label
+        timeLabel.textColor = .darkText
         addSubviewWithAnchors(timeLabel, top: topAnchor, leading: timeIcon.trailingAnchor, bottom: bottomAnchor, insets: smallInsets)
         
         pauseResumeButton.asIconButton("pause.circle")
-        pauseResumeButton.tintColor = .label
+        pauseResumeButton.tintColor = .darkText
         pauseResumeButton.addAction(UIAction(){ action in
             self.togglePauseResume()
         }, for: .touchDown)
@@ -80,7 +80,7 @@ class TrackStatusView : UIView{
     }
     
     func startTrackInfo(){
-        pauseResumeButton.asIconButton("pause.circle")
+        pauseResumeButton.asIconButton("pause.circle", color: .darkText)
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
     }
     
@@ -115,7 +115,7 @@ class TrackStatusView : UIView{
     
     func togglePauseResume(){
         delegate?.togglePauseTracking()
-        pauseResumeButton.asIconButton(TrackRecorder.isRecording ? "pause.circle" : "play.circle")
+        pauseResumeButton.asIconButton(TrackRecorder.isRecording ? "pause.circle" : "play.circle", color: .darkText)
     }
     
 }

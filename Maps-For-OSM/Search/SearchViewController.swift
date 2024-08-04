@@ -40,14 +40,13 @@ class SearchViewController: NavTableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView){
-        subheaderView.backgroundColor = .white
+        subheaderView.setRoundedEdges()
         searchField.placeholder = "searchPlaceholder".localize()
         searchField.borderStyle = .roundedRect
         searchField.text = AppState.shared.searchString
-        subheaderView.setBackground(.secondarySystemBackground)
         subheaderView.addSubviewWithAnchors(searchField, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)
         
-        targetControl.insertSegment(action: UIAction(){_ in 
+        targetControl.insertSegment(action: UIAction(){_ in
             self.target = .any
         }, at: 0, animated: false)
         targetControl.setTitle("anyTarget".localize(), forSegmentAt: 0)

@@ -29,7 +29,7 @@ class TopMenuView: UIView {
         
         let insets = UIEdgeInsets(top: 5, left: 20, bottom: 5, right: 20)
         
-        let focusCurrentLocationButton = UIButton().asIconButton("record.circle")
+        let focusCurrentLocationButton = UIButton().asIconButton("record.circle", color: .darkText)
         addSubviewWithAnchors(focusCurrentLocationButton, top: topAnchor, bottom: bottomAnchor, insets: insets)
             .centerX(centerXAnchor)
         focusCurrentLocationButton.addAction(UIAction(){ action in
@@ -43,7 +43,7 @@ class TopMenuView: UIView {
             self.delegate?.updateCross()
         }, for: .touchDown)
         
-        let searchButton = UIButton().asIconButton("magnifyingglass")
+        let searchButton = UIButton().asIconButton("magnifyingglass", color: .darkText)
         addSubviewWithAnchors(searchButton, top: topAnchor, leading: focusCurrentLocationButton.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: insets)
         searchButton.addAction(UIAction(){ action in
             self.delegate?.openSearch()

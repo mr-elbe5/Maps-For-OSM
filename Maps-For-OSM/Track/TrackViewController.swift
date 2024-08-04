@@ -40,7 +40,6 @@ class TrackViewController: NavScrollViewController{
     override func loadView() {
         title = "track".localize()
         super.loadView()
-        scrollView.backgroundColor = .white
         setupKeyboard()
     }
     

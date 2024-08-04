@@ -68,7 +68,7 @@ class LocationViewController: NavTableViewController{
         items.append(UIBarButtonItem(title: "addAudio".localize(), image: UIImage(systemName: "mic"), primaryAction: UIAction(){ action in
             self.openAudioRecorder()
         }))
-        items.append(UIBarButtonItem(title: "addNote".localize(), image: UIImage(systemName: "pencil.and.list.clipboard"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "addNote".localize(), image: UIImage(systemName: "square.and.pencil"), primaryAction: UIAction(){ action in
             self.openAddNote()
         }))
         items.append(UIBarButtonItem(title: "selectAll".localize(), image: UIImage(systemName: "checkmark.square"), primaryAction: UIAction(){ action in

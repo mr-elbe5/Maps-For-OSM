@@ -34,7 +34,6 @@ class ICloudViewController: NavScrollViewController{
     override func loadView() {
         title = "iCloud".localize()
         super.loadView()
-        scrollView.backgroundColor = .white
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,7 +63,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(mergeFromICloudButton, top: contentView.topAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
-        var label = UILabel(text: "mergeFromICloudHint".localize())
+        var label = UILabel(text: "mergeFromICloudHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: mergeFromICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
@@ -76,7 +75,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(copyFromICloudButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "copyFromICloudHint".localize())
+        label = UILabel(text: "copyFromICloudHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: copyFromICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
@@ -88,7 +87,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(mergeToICloudButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "mergeToICloudHint".localize())
+        label = UILabel(text: "mergeToICloudHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: mergeToICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
@@ -100,7 +99,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(copyToICloudButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "copyToICloudHint".localize())
+        label = UILabel(text: "copyToICloudHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: copyToICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
@@ -112,7 +111,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(synchronizeButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "synchronizeNowHint".localize())
+        label = UILabel(text: "synchronizeNowHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: synchronizeButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
@@ -124,7 +123,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(assertLocalDataConsitencyButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "assertLocalDataConsitencyHint".localize())
+        label = UILabel(text: "assertLocalDataConsitencyHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: assertLocalDataConsitencyButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
@@ -136,7 +135,7 @@ class ICloudViewController: NavScrollViewController{
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(cleanupICloudButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
-        label = UILabel(text: "cleanupICloudHint".localize())
+        label = UILabel(text: "cleanupICloudHint".localize()).withTextColor(.label)
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: cleanupICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         

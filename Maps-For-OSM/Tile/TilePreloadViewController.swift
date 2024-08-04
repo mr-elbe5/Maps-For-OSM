@@ -46,7 +46,6 @@ class TilePreloadViewController: NavScrollViewController{
     override func loadView() {
         title = "mapPreload".localize()
         super.loadView()
-        scrollView.backgroundColor = .white
         if existingTiles == allTiles{
             startButton.isEnabled = false
             cancelButton.isEnabled = false

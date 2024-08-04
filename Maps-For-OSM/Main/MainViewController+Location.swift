@@ -52,7 +52,7 @@ extension MainViewController: LocationServiceDelegate{
 }
 
 extension MainViewController: LocationChangeDelegate{
-    //todo
+    
     func locationAdded(location: Location) {
         mapView.updateLocationLayer()
     }

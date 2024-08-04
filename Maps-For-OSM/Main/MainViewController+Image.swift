@@ -21,7 +21,6 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
         configuration.preferredAssetRepresentationMode = .automatic
         configuration.selection = .ordered
         configuration.selectionLimit = 0
-        //configuration.disabledCapabilities = [.search, .stagingArea]
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         present(picker, animated: true)

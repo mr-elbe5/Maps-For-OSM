@@ -59,7 +59,7 @@ class ImageCell: LocationItemCell{
             let imageView = UIImageView()
             imageView.withDefaults()
             imageView.setRoundedBorders()
-            itemView.addSubviewWithAnchors(imageView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
+            itemView.addSubviewWithAnchors(imageView, top: iconView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
             imageView.image = image.getImage()
             imageView.setAspectRatioConstraint()
             if !image.title.isEmpty{

@@ -44,31 +44,31 @@ class StatusView : UIView{
         horizontalUncertaintyLabel = nil
         verticalUncertaintyLabel = nil
         if isDetailed{
-            var label = UILabel(text: "\("coordinate".localize()):")
-            coordinateLabel = UILabel()
+            var label = UILabel(text: "\("coordinate".localize()):").withTextColor(.darkText)
+            coordinateLabel = UILabel().withTextColor(.darkText)
             detailView.addSubviewWithAnchors(label, top: detailView.topAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(coordinateLabel!, top: detailView.topAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             var nextAnchor = label.bottomAnchor
             
-            altitudeLabel = UILabel()
-            label = UILabel(text: "\("altitude".localize()):")
+            altitudeLabel = UILabel().withTextColor(.darkText)
+            label = UILabel(text: "\("altitude".localize()):").withTextColor(.darkText)
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(altitudeLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            gpsSpeed = UILabel()
-            label = UILabel(text: "\("speed".localize()):")
+            gpsSpeed = UILabel().withTextColor(.darkText)
+            label = UILabel(text: "\("speed".localize()):").withTextColor(.darkText)
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(gpsSpeed!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            horizontalUncertaintyLabel = UILabel()
-            label = UILabel(text: "\("horizontalUncertainty".localize()):")
+            horizontalUncertaintyLabel = UILabel().withTextColor(.darkText)
+            label = UILabel(text: "\("horizontalUncertainty".localize()):").withTextColor(.darkText)
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
             detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            label = UILabel(text: "\("positionValidityHint".localize())")
+            label = UILabel(text: "\("positionValidityHint".localize())").withTextColor(.darkText)
             label.numberOfLines = 0
             detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, insets: defaultInsets)
             label.bottom(detailView.bottomAnchor)
@@ -77,14 +77,12 @@ class StatusView : UIView{
     
     func setupDefaultView(){
         let compassIcon = UIImageView(image: UIImage(systemName: "safari"))
-        compassIcon.tintColor = .label
+        compassIcon.tintColor = .darkText
         defaultView.addSubviewWithAnchors(compassIcon, top: defaultView.topAnchor, leading: defaultView.leadingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
-        compassLabel = UILabel(text: "0°")
-        compassLabel!.textColor = .label
+        compassLabel = UILabel(text: "0°").withTextColor(.darkText)
         defaultView.addSubviewWithAnchors(compassLabel!, top: defaultView.topAnchor, leading: compassIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
         
-        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle")
-        detailButton.tintColor = .label
+        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle", color: .darkText)
         detailButton.addAction(UIAction(){ action in
             self.toggleDetailed()
         }, for: .touchDown)
@@ -107,7 +105,7 @@ class StatusView : UIView{
     func toggleDetailed(){
         isDetailed = !isDetailed
         setupDetailView()
-        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle")
+        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle", color: .darkText)
         setNeedsLayout()
     }
     

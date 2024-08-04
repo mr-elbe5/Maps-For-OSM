@@ -22,7 +22,7 @@ class TileSourceViewController: NavScrollViewController{
     override func loadView() {
         title = "tileSource".localize()
         super.loadView()
-        scrollView.backgroundColor = .white
+        scrollView.backgroundColor = .scrollViewBackground
         setupKeyboard()
     }
     
