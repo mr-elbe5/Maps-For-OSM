@@ -39,7 +39,6 @@ class LogViewController: NavTableViewController{
     }
     
     override func setupSubheaderView(subheaderView: UIView){
-        subheaderView.backgroundColor = .subheaderBackground
         super.setupSubheaderView(subheaderView: subheaderView)
         let header = UILabel(header: "logLevel".localize())
         subheaderView.addSubviewWithAnchors(header, top: subheaderView.topAnchor, leading: subheaderView.leadingAnchor, trailing: subheaderView.trailingAnchor, insets: defaultInsets)

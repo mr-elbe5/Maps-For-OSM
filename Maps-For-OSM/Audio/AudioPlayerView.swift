@@ -169,8 +169,8 @@ class VolumeSlider : UISlider{
         minimumValue = minValue
         maximumValue = maxValue
         tintColor = .label
-        minimumValueImage = UIImage(systemName: "speaker")?.withTintColor(.icon)
-        maximumValueImage = UIImage(systemName: "speaker.3")?.withTintColor(.icon)
+        minimumValueImage = UIImage(systemName: "speaker")
+        maximumValueImage = UIImage(systemName: "speaker.3")
         thumbTintColor = .label
         self.value = value
     }

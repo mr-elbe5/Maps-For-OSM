@@ -23,14 +23,8 @@ class LocationCell: TableViewCell{
     
     var delegate: LocationCellDelegate? = nil
     
-    override open func setupCellBody(){
-        cellBody.setBackground(.cellBackground).setRoundedBorders()
-        iconView.setBackground(.iconViewColor).setRoundedEdges()
-        cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)
-        cellBody.addSubviewWithAnchors(itemView, top: iconView.bottomAnchor, leading: cellBody.leadingAnchor, trailing: cellBody.trailingAnchor, bottom: cellBody.bottomAnchor, insets: .zero)
-    }
-    
     override func updateIconView(){
+        iconView.setBackground(.iconViewColor).setGrayRoundedBorders()
         iconView.removeAllSubviews()
         if let location = location{
             let selectedButton = UIButton().asIconButton(location.selected ? "checkmark.square" : "square", color: .label)

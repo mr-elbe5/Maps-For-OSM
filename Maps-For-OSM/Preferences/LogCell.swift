@@ -18,8 +18,6 @@ class LogCell: TableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setBackground(.systemBackground)
-        cellBody.backgroundColor = .cellBackground
     }
     
     required init?(coder: NSCoder) {

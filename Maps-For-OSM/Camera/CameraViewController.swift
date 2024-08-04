@@ -16,11 +16,9 @@ class CameraViewController: E5CameraViewController {
     
     override public func loadView() {
         super.loadView()
-        view.backgroundColor = .background
-        bodyView.backgroundColor = .background
-        navigationController?.navigationBar.barStyle = .current
-        navigationController?.navigationBar.backgroundColor = .navbarBackground
-        navigationController?.navigationBar.tintColor = .navbarTint
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.backgroundColor = .black
+        navigationController?.navigationBar.tintColor = .white
         updateNavigationItems()
     }
     

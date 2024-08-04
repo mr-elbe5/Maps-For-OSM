@@ -40,7 +40,6 @@ class AudioRecorderView : UIView, AVAudioRecorderDelegate{
     }
     
     func setupView() {
-        backgroundColor = .background
         setRoundedBorders()
         timeLabel.textAlignment = .center
         timeLabel.textColor = .white
@@ -218,12 +217,10 @@ class AudioProgressView : UIView{
     var loudLabel = UIImageView(image: UIImage(systemName: "speaker.3"))
     
     func setupView() {
-        lowLabel.tintColor = .text
         addSubviewWithAnchors(lowLabel, top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor, insets: defaultInsets)
         progress.progressTintColor = .systemRed
         progress.progress = 0.0
         addSubviewWithAnchors(progress, top: topAnchor, leading: lowLabel.trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
-        loudLabel.tintColor = .text
         addSubviewWithAnchors(loudLabel, top: topAnchor, leading: progress.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
     }
     

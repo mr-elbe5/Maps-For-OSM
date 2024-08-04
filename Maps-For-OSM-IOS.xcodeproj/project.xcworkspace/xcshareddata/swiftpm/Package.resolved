@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5IOSUI.git",
       "state" : {
-        "revision" : "9c72ef635cfb27adc057cfed0036ac97e3de551d",
-        "version" : "1.0.32"
+        "revision" : "90ace0503b3328f95fe906e8d180001feb2b82ec",
+        "version" : "1.0.38"
       }
     },
     {

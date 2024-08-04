@@ -18,7 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         FileManager.initializePrivateDir()
         FileManager.default.initializeAppDirs()
-        UIColor.setColors()
         Log.useCache = true
         Log.logLevel = .info
         PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")

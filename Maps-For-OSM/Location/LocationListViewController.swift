@@ -38,7 +38,6 @@ class LocationListViewController: NavTableViewController{
         title = "locations".localize()
         setupData()
         super.loadView()
-        view.backgroundColor = .background
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationListCell.self, forCellReuseIdentifier: LocationListCell.LOCATION_CELL_IDENT)

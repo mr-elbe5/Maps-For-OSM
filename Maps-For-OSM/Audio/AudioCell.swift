@@ -22,10 +22,9 @@ class AudioCell: LocationItemCell{
     var delegate: LocationItemCellDelegate? = nil
     
     override func setupCellBody(){
-        cellBody.backgroundColor = .cellBackground
         cellBody.setRoundedBorders()
-        iconView.setBackground(.iconViewColor).setRoundedEdges()
-        dateTimeView.setBackground(.iconViewColor).setRoundedEdges()
+        iconView.setBackground(.iconViewColor).setGrayRoundedBorders()
+        dateTimeView.setBackground(.iconViewColor).setGrayRoundedBorders()
         cellBody.addSubviewWithAnchors(dateTimeView, top: cellBody.topAnchor, leading: cellBody.leadingAnchor, insets: smallInsets)
         dateTimeView.addSubviewFilling(timeLabel, insets: smallInsets)
         cellBody.addSubviewWithAnchors(iconView, top: cellBody.topAnchor, trailing: cellBody.trailingAnchor, insets: smallInsets)

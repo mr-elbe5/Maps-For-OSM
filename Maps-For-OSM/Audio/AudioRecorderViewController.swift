@@ -34,12 +34,11 @@ class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDele
         contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: narrowInsets)
         
         titleField.setDefaults(placeholder: "comment".localize())
-        titleField.textColor = .text
         titleField.setKeyboardToolbar(doneTitle: "done".localize())
         contentView.addSubviewWithAnchors(titleField, top: audioRecorder.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         saveButton.asTextButton("save".localize()).withTextColor(color: .systemBlue)
-        saveButton.setTitleColor(.buttonDisabled, for: .disabled)
+        saveButton.setTitleColor(.systemGray, for: .disabled)
         saveButton.addAction(UIAction(){ action in
             self.save()
         }, for: .touchDown)

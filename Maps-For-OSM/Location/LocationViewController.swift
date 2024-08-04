@@ -40,7 +40,6 @@ class LocationViewController: NavTableViewController{
     override func loadView() {
         createSubheaderView()
         super.loadView()
-        view.backgroundColor = .tableBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationAudioCell.self, forCellReuseIdentifier: LocationAudioCell.LOCATION_CELL_IDENT)
