@@ -28,6 +28,7 @@ class TrackListViewController: NavTableViewController{
         title = "trackList".localize()
         setupData()
         super.loadView()
+        view.backgroundColor = .background
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TrackListCell.self, forCellReuseIdentifier: TrackListCell.LIST_CELL_IDENT)

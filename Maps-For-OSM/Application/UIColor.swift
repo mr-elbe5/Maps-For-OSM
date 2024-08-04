@@ -13,8 +13,8 @@ extension UIColor{
     static var iconViewColor = UIColor(white: 1.0, alpha: 0.5)
     
     static func setColors(){
-        background = UIColor.systemBackground
-        tableBackground = UIColor.systemBackground
+        background = .black
+        tableBackground = .black
         sectionHeaderBackground = UIColor.tertiarySystemBackground
         subheaderBackground = UIColor.tertiarySystemBackground
         cellBackground = UIColor.secondarySystemBackground

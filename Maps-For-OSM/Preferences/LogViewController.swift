@@ -18,6 +18,8 @@ class LogViewController: NavTableViewController{
         title = "log".localize()
         createSubheaderView()
         super.loadView()
+        view.backgroundColor = .systemBackground
+        tableView.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LogCell.self, forCellReuseIdentifier: LogCell.CELL_IDENT)

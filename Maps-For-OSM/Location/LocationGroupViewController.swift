@@ -27,6 +27,7 @@ class LocationGroupViewController: NavTableViewController{
     init(group: LocationGroup){
         self.group = group
         super.init()
+        view.backgroundColor = .background
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LocationGroupCell.self, forCellReuseIdentifier: LocationGroupCell.LOCATION_CELL_IDENT)

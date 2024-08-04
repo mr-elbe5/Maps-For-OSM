@@ -34,6 +34,8 @@ class SearchViewController: NavTableViewController{
         title = "searchLocation".localize()
         createSubheaderView()
         super.loadView()
+        view.backgroundColor = .systemBackground
+        tableView.backgroundColor = .systemBackground
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchResultCell.self, forCellReuseIdentifier: SearchResultCell.CELL_IDENT)

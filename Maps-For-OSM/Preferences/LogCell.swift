@@ -16,9 +16,18 @@ class LogCell: TableViewCell{
     
     var label = UILabel(text: "")
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setBackground(.systemBackground)
+        cellBody.backgroundColor = .cellBackground
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func setupCellBody(){
         cellBody.addSubviewFilling(itemView, insets: .zero)
-        cellBody.setBackground(.cellBackground)
         itemView.addSubviewFilling(label, insets: smallInsets)
     }
     

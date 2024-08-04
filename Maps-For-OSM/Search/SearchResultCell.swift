@@ -26,7 +26,7 @@ class SearchResultCell: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .background
+        backgroundColor = .systemBackground
         isUserInteractionEnabled = true
         cellBody.backgroundColor = .cellBackground
         cellBody.addTarget(self, action: #selector(showLocation), for: .touchDown)
