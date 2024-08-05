@@ -42,6 +42,8 @@ class ImageListViewController: NavTableViewController{
     override open func loadView() {
         title = "images".localize()
         super.loadView()
+        view.backgroundColor = .black
+        tableView.backgroundColor = .black
         images = AppData.shared.locations.images
         setupData()
         tableView.delegate = self

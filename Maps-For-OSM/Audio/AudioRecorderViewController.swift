@@ -30,8 +30,9 @@ class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDele
     
     override func loadScrollableSubviews() {
         audioRecorder.setupView()
+        audioRecorder.backgroundColor = .black
         audioRecorder.delegate = self
-        contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: narrowInsets)
+        contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         titleField.setDefaults(placeholder: "comment".localize())
         titleField.setKeyboardToolbar(doneTitle: "done".localize())
