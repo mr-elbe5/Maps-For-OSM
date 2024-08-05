@@ -106,8 +106,30 @@ class TrackViewController: NavScrollViewController{
             saveButton.addAction(UIAction(){ action in
                 self.save()
             }, for: .touchDown)
-            contentView.addSubviewWithAnchors(saveButton, top: durationLabel.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(saveButton, top: durationLabel.bottomAnchor, insets: defaultInsets)
                 .centerX(contentView.centerXAnchor)
+            
+            var lastView: UIView = saveButton
+            
+            if let img = TrackImageCreator(track: track).createImage(size: CGSize(width: 500, height: 500)){
+                let imgView = UIImageView(image: img)
+                imgView.setAspectRatioConstraint()
+                contentView.addSubviewWithAnchors(imgView, top: saveButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+                lastView = imgView
+            }
+            else{
+                let loadButton = UIButton()
+                loadButton.setTitle("loadImage".localize(), for: .normal)
+                loadButton.setTitleColor(.systemBlue, for: .normal)
+                loadButton.addAction(UIAction(){ action in
+                    self.loadScrollableSubviews()
+                }, for: .touchDown)
+                contentView.addSubviewWithAnchors(loadButton, top: saveButton.bottomAnchor, insets: defaultInsets)
+                    .centerX(contentView.centerXAnchor)
+                lastView = loadButton
+            }
+            
+            lastView.bottom(contentView.bottomAnchor)
                 
         }
         

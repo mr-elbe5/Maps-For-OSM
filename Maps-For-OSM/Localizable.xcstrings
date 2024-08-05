@@ -1888,6 +1888,23 @@
         }
       }
     },
+    "loadImage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild laden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Load Image"
+          }
+        }
+      }
+    },
     "location" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2750,7 +2767,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "When recoding tracks, positions with red values are dicarded."
+            "value" : "When recording tracks, positions with red values are discarded."
           }
         }
       }
@@ -3095,17 +3112,6 @@
         }
       }
     },
-    "saveRecordedTour" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aufgezeichnete Tour speichern"
-          }
-        }
-      }
-    },
     "saveTrack" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3323,17 +3329,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show single trackpoints on track"
-          }
-        }
-      }
-    },
-    "sizeToLoad" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gesamtgröße zu ladender Kacheln (ca):"
           }
         }
       }
@@ -3775,7 +3770,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Time between Trackpoints [s]"
+            "value" : "Time between trackpoints [s]"
           }
         }
       }

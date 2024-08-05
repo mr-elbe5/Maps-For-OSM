@@ -68,9 +68,6 @@ class StatusView : UIView{
             detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
             nextAnchor = label.bottomAnchor
             
-            label = UILabel(text: "\("positionValidityHint".localize())").withTextColor(.darkText)
-            label.numberOfLines = 0
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, trailing: detailView.trailingAnchor, insets: defaultInsets)
             label.bottom(detailView.bottomAnchor)
         }
     }
