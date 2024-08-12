@@ -127,10 +127,10 @@ class MapView: UIView {
         scrollView.scrollToScreenCenter(coordinate: coordinate)
     }
     
-    func showMapRectOnMap(mapRect: CGRect) {
+    func showMapRectOnMap(worldRect: CGRect) {
         let viewSize = bounds.scaleBy(0.9).size
-        zoomTo(zoom: World.getZoomToFit(mapRect: mapRect, scaledSize: viewSize), animated: false)
-        scrollView.scrollToScreenCenter(coordinate: mapRect.centerCoordinate)
+        zoomTo(zoom: World.getZoomToFit(worldRect: worldRect, scaledSize: viewSize), animated: false)
+        scrollView.scrollToScreenCenter(coordinate: worldRect.centerCoordinate)
     }
     
 }

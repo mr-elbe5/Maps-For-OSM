@@ -34,7 +34,7 @@ extension MainViewController{
         if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
             Track.visibleTrack = track
             trackChanged()
-            mapView.showMapRectOnMap(mapRect: boundingRect)
+            mapView.showMapRectOnMap(worldRect: boundingRect)
         }
     }
     

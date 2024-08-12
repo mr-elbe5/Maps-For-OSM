@@ -13,7 +13,7 @@ import E5MapData
 protocol SearchDelegate{
     func getCurrentRegion() -> CoordinateRegion
     func getCurrentCenter() -> CLLocationCoordinate2D
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?)
+    func showSearchResult(coordinate: CLLocationCoordinate2D, worldRect: CGRect?)
 }
 
 class SearchViewController: NavTableViewController{
@@ -194,7 +194,7 @@ extension SearchViewController: SearchResultCellDelegate{
     
     func showResult(location: NominatimLocation){
         self.close()
-        self.delegate?.showSearchResult(coordinate: location.coordidate, mapRect: location.mapRect)
+        self.delegate?.showSearchResult(coordinate: location.coordidate, worldRect: location.mapRect)
     }
     
 }

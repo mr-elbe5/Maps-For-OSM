@@ -25,9 +25,9 @@ extension MainViewController: SearchDelegate{
         mapView.scrollView.screenCenterCoordinate
     }
     
-    func showSearchResult(coordinate: CLLocationCoordinate2D, mapRect: CGRect?) {
-        if let mapRect = mapRect{
-            mapView.showMapRectOnMap(mapRect: mapRect)
+    func showSearchResult(coordinate: CLLocationCoordinate2D, worldRect: CGRect?) {
+        if let worldRect = worldRect{
+            mapView.showMapRectOnMap(worldRect: worldRect)
         }
         else{
             mapView.showLocationOnMap(coordinate: coordinate)
