@@ -172,7 +172,8 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                     track.trackpoints.append(Trackpoint(location: point.location))
                 }
             }
-            track.evaluateImportedTrackpoints()
+            track.updateFromTrackpoints()
+            track.simplifyTrack()
             if track.name.isEmpty{
                 let ext = url.pathExtension
                 var name = url.lastPathComponent
@@ -180,10 +181,6 @@ extension TrackListViewController : UIDocumentPickerDelegate{
                 Log.debug(name)
                 track.name = name
             }
-            track.evaluateImportedTrackpoints()
-            track.startTime = track.trackpoints.first?.timestamp ?? Date.localDate
-            track.endTime = track.trackpoints.last?.timestamp ?? Date.localDate
-            track.creationDate = track.startTime
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: track.startCoordinate!)
             if location == nil{
