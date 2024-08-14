@@ -63,8 +63,8 @@ class ImageCell: LocationItemCell{
             imageView.image = image.getImage()
             imageView.setAspectRatioConstraint()
             if !image.comment.isEmpty{
-                let titleView = UILabel(text: image.comment)
-                itemView.addSubviewWithAnchors(titleView, top: imageView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
+                let commentView = UILabel(text: image.comment)
+                itemView.addSubviewWithAnchors(commentView, top: imageView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
             }
             else{
                 imageView.bottom(itemView.bottomAnchor)

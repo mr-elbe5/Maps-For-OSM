@@ -17,7 +17,7 @@ protocol AudioCaptureDelegate{
 class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDelegate{
     
     var audioRecorder = AudioRecorderView()
-    var titleField = UITextField()
+    var commentField = UITextField()
     var saveButton = UIButton()
     
     var delegate: AudioCaptureDelegate? = nil
@@ -34,23 +34,23 @@ class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDele
         audioRecorder.delegate = self
         contentView.addSubviewWithAnchors(audioRecorder, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
-        titleField.setDefaults(placeholder: "comment".localize())
-        titleField.setKeyboardToolbar(doneTitle: "done".localize())
-        contentView.addSubviewWithAnchors(titleField, top: audioRecorder.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        commentField.setDefaults(placeholder: "comment".localize())
+        commentField.setKeyboardToolbar(doneTitle: "done".localize())
+        contentView.addSubviewWithAnchors(commentField, top: audioRecorder.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         saveButton.asTextButton("save".localize()).withTextColor(color: .systemBlue)
         saveButton.setTitleColor(.systemGray, for: .disabled)
         saveButton.addAction(UIAction(){ action in
             self.save()
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: titleField.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: commentField.bottomAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
             .centerX(contentView.centerXAnchor)
         saveButton.isEnabled = false
     }
     
     func save(){
         let audioFile = Audio()
-        audioFile.comment = titleField.text?.trim() ?? ""
+        audioFile.comment = commentField.text?.trim() ?? ""
         audioFile.time = (audioRecorder.currentTime*100).rounded() / 100
         //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
         if FileManager.default.copyFile(fromURL: audioRecorder.tmpFileURL, toURL: FileManager.mediaDirURL.appendingPathComponent(audioFile.fileName)){
