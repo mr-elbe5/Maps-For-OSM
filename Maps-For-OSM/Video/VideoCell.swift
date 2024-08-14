@@ -58,8 +58,8 @@ class VideoCell: LocationItemCell{
             videoView.url = video.fileURL
             videoView.setAspectRatioConstraint()
             
-            if !video.title.isEmpty{
-                let titleView = UILabel(text: video.title)
+            if !video.comment.isEmpty{
+                let titleView = UILabel(text: video.comment)
                 itemView.addSubviewWithAnchors(titleView, top: videoView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
             }
             else{
@@ -74,7 +74,7 @@ extension VideoCell: UITextFieldDelegate{
     
     func textFieldDidChange(_ textField: UITextView) {
         if let item = video{
-            item.title = textField.text
+            item.comment = textField.text
         }
     }
     

@@ -62,8 +62,8 @@ class ImageCell: LocationItemCell{
             itemView.addSubviewWithAnchors(imageView, top: iconView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 2, left: 0, bottom: defaultInset, right: 0))
             imageView.image = image.getImage()
             imageView.setAspectRatioConstraint()
-            if !image.title.isEmpty{
-                let titleView = UILabel(text: image.title)
+            if !image.comment.isEmpty{
+                let titleView = UILabel(text: image.comment)
                 itemView.addSubviewWithAnchors(titleView, top: imageView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
             }
             else{
@@ -78,7 +78,7 @@ extension ImageCell: UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let item = image{
-            item.title = textField.text!
+            item.comment = textField.text!
         }
     }
     

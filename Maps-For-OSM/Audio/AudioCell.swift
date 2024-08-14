@@ -54,8 +54,8 @@ class AudioCell: LocationItemCell{
             let audioView = AudioPlayerView()
             audioView.setupView()
             itemView.addSubviewWithAnchors(audioView, top: itemView.topAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: UIEdgeInsets(top: 1, left: defaultInset, bottom: 0, right: defaultInset))
-            if !audio.title.isEmpty{
-                let titleView = UILabel(text: audio.title)
+            if !audio.comment.isEmpty{
+                let titleView = UILabel(text: audio.comment)
                 itemView.addSubviewWithAnchors(titleView, top: audioView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, bottom: itemView.bottomAnchor, insets: smallInsets)
             }
             else{
@@ -72,7 +72,7 @@ extension AudioCell: UITextFieldDelegate{
     
     func textFieldDidChange(_ textField: UITextView) {
         if let audio = audio{
-            audio.title = textField.text
+            audio.comment = textField.text
         }
     }
     

@@ -50,7 +50,7 @@ class AudioRecorderViewController : NavScrollViewController, AVAudioRecorderDele
     
     func save(){
         let audioFile = Audio()
-        audioFile.title = titleField.text?.trim() ?? ""
+        audioFile.comment = titleField.text?.trim() ?? ""
         audioFile.time = (audioRecorder.currentTime*100).rounded() / 100
         //Log.debug("AudioRecorderViewController saving url \(audioFile.fileURL)")
         if FileManager.default.copyFile(fromURL: audioRecorder.tmpFileURL, toURL: FileManager.mediaDirURL.appendingPathComponent(audioFile.fileName)){
