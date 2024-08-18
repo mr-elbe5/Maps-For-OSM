@@ -7,14 +7,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : ""
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Maps for OSM"
+            "value" : "Maps for OSM IOS"
           }
         }
       }

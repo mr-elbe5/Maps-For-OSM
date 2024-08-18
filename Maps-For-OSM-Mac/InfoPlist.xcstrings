@@ -1,0 +1,165 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maps For OSM"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Maps For OSM"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Maps-For-OSM"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Maps For OSM Mac"
+          }
+        }
+      }
+    },
+    "com.apple.security.assets.pictures.read-only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Bilder-Verzeichnis ist die Hauptquelle für angezeigte Bilder."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The pictures folder is the main source for viewed images."
+          }
+        }
+      }
+    },
+    "com.apple.security.files.bookmarks.app-scope" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bookmarks werden benötigt, um ausgewählte Verzeichnisse für die App sichtbar zu halten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bookmarks are needed to keep once selected folders visible to the app."
+          }
+        }
+      }
+    },
+    "com.apple.security.files.user-selected.read-write" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sie müssen die Möglichkeit haben, Verzeichnisse für den Bilderkatalog auszuwählen und Bilder in ein ausgewähltes Verzeichnis zu exportieren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You must be able to select directories for viewing images and for exporting to a selected directory."
+          }
+        }
+      }
+    },
+    "NSAppleMusicUsageDescription" : {
+      "comment" : "Privacy - Media Library Usage Description",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medien können in die  Medienbibliothek exportiert und aus ihr importiert werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Media may be exported to and imported from the media library."
+          }
+        }
+      }
+    },
+    "NSDocumentsFolderUsageDescription" : {
+      "comment" : "Privacy - Documents Folder Usage Description",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exporte werden in einem Unterverzeichnis von Dokumente gespeichert."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Exports are stored in a subfolder of the documents folder."
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mr@elbe5.de"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : ""
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryUsageDescription" : {
+      "comment" : "Privacy - Photo Library Usage Description",
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Der Zugang zu 'Fotos' wird benötigt, um Bilder von dort oder dorthin zu kopieren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to a location."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

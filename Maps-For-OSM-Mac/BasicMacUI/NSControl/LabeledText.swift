@@ -1,0 +1,41 @@
+/*
+ E5MacOSUI
+ Base classes and extension for IOS and MacOS
+ Copyright: Michael Rönnau mr@elbe5.de
+ */
+
+
+import AppKit
+
+open class LabeledText : NSView{
+    
+    private var label = NSTextField(labelWithString: "").asLabel()
+    private var textField = NSTextField(labelWithString: "").asLabel()
+    
+    public var text: String{
+        get{
+            return textField.stringValue
+        }
+        set{
+            textField.stringValue = newValue
+        }
+    }
+    
+    public func setupView(labelText: String, text: String = "", isHorizontal : Bool = true){
+        label.stringValue = labelText
+        addSubview(label)
+        textField.stringValue = text
+        addSubview(textField)
+        if isHorizontal{
+            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: centerXAnchor, bottom: bottomAnchor, insets: defaultInsets)
+            textField.setAnchors(top: topAnchor, leading: centerXAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        }
+        else{
+            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+            textField.setAnchors(top: label.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        }
+    }
+    
+}
+
+
