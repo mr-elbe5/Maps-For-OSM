@@ -3,7 +3,7 @@
   "strings" : {
     "CFBundleDisplayName" : {
       "comment" : "Bundle display name",
-      "extractionState" : "stale",
+      "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -14,7 +14,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Maps For OSM"
+            "value" : "Maps for OSM"
           }
         }
       }
@@ -25,8 +25,8 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Maps-For-OSM"
+            "state" : "translated",
+            "value" : "Maps For OSM"
           }
         },
         "en" : {
@@ -88,42 +88,6 @@
         }
       }
     },
-    "NSAppleMusicUsageDescription" : {
-      "comment" : "Privacy - Media Library Usage Description",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Medien können in die  Medienbibliothek exportiert und aus ihr importiert werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Media may be exported to and imported from the media library."
-          }
-        }
-      }
-    },
-    "NSDocumentsFolderUsageDescription" : {
-      "comment" : "Privacy - Documents Folder Usage Description",
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Exporte werden in einem Unterverzeichnis von Dokumente gespeichert."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Exports are stored in a subfolder of the documents folder."
-          }
-        }
-      }
-    },
     "NSHumanReadableCopyright" : {
       "comment" : "Copyright (human-readable)",
       "extractionState" : "extracted_with_value",
@@ -144,7 +108,7 @@
     },
     "NSPhotoLibraryUsageDescription" : {
       "comment" : "Privacy - Photo Library Usage Description",
-      "extractionState" : "stale",
+      "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
           "stringUnit" : {
