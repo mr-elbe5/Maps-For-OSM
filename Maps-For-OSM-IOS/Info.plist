@@ -28,6 +28,8 @@
 	<string>Access to the camera is needed for taking photos, which will be stored in the app in connection with its location.</string>
 	<key>NSDocumentsFolderUsageDescription</key>
 	<string>Access to the documents folder is needed for export and backups</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Michael Rönnau</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your location is needed for showing your current position and record it on demand.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

@@ -10,7 +10,7 @@ import PhotosUI
 import E5Data
 import E5IOSUI
 import E5PhotoLib
-import E5MapData
+
 
 class ImageListViewController: NavTableViewController{
     

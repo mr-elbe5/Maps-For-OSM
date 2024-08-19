@@ -6,7 +6,7 @@
 
 import CoreLocation
 import E5Data
-import E5MapData
+
 
 class TrackRecorder: Codable{
     

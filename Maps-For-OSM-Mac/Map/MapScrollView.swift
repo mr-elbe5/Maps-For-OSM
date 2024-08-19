@@ -7,7 +7,7 @@
 import AppKit
 import CoreLocation
 import E5Data
-import E5MapData
+
 
 
 protocol MapScrollViewDelegate: PlainMapScrollViewDelegate{
@@ -103,11 +103,11 @@ extension MapScrollView: DragDelegate{
 
 extension MapScrollView: LocationLayerDelegate{
     
-    func showLocationDetails(_ location: E5MapData.Location) {
+    func showLocationDetails(_ location: Location) {
         mapDelegate?.showLocationDetails(location)
     }
     
-    func showLocationGroupDetails(_ locationGroup: E5MapData.LocationGroup) {
+    func showLocationGroupDetails(_ locationGroup: LocationGroup) {
         mapDelegate?.showLocationGroupDetails(locationGroup)
     }
     

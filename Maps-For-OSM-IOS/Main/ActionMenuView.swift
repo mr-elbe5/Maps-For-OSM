@@ -7,7 +7,7 @@
 import UIKit
 import CoreLocation
 import E5Data
-import E5MapData
+
 import E5IOSUI
 
 protocol ActionMenuDelegate{

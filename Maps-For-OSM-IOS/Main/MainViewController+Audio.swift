@@ -9,8 +9,6 @@ import CoreLocation
 import AVFoundation
 import E5Data
 import E5IOSUI
-import E5IOSAV
-import E5MapData
 
 extension MainViewController: AudioCaptureDelegate{
     

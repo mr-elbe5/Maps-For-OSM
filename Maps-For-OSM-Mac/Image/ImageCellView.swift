@@ -6,7 +6,7 @@
 
 import AppKit
 
-import E5MapData
+
 
 protocol ImageCellDelegate{
     func editImage(_ image: Image)

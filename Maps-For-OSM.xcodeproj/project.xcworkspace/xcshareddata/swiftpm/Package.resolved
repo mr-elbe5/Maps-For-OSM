@@ -1,5 +1,5 @@
 {
-  "originHash" : "4ecb13b64d6f913998e71b886b9bd622648a4a5ac16fac0b1ec2f1d532eda30d",
+  "originHash" : "0a54977526bcf22adca101897903b438c0dd5c286a5fc7a8cb061a563a1b3b00",
   "pins" : [
     {
       "identity" : "e5data",
@@ -11,30 +11,12 @@
       }
     },
     {
-      "identity" : "e5iosav",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mr-elbe5/E5IOSAV.git",
-      "state" : {
-        "revision" : "76f5088834f55cc34370c85de99aa98210cd6dbe",
-        "version" : "1.0.17"
-      }
-    },
-    {
       "identity" : "e5iosui",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mr-elbe5/E5IOSUI.git",
       "state" : {
         "revision" : "90ace0503b3328f95fe906e8d180001feb2b82ec",
         "version" : "1.0.38"
-      }
-    },
-    {
-      "identity" : "e5mapdata",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mr-elbe5/E5MapData.git",
-      "state" : {
-        "revision" : "e27561a4d9a49b04d059a491c231ed90a2d58711",
-        "version" : "1.1.40"
       }
     },
     {

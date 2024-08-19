@@ -7,7 +7,7 @@ Copyright: Michael Rönnau mr@elbe5.de
 import AppKit
 import CoreLocation
 import E5Data
-import E5MapData
+
 
 protocol LocationGroupDelegate{
     func showLocationDetails(_ location: Location)
@@ -171,7 +171,7 @@ class LocationGroupDetailView: MapDetailView {
 
 extension LocationGroupDetailView: LocationCellDelegate{
     
-    func showLocationDetails(_ location: E5MapData.Location) {
+    func showLocationDetails(_ location: Location) {
         delegate?.showLocationDetails(location)
     }
     

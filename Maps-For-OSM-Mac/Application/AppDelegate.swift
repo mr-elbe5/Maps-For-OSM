@@ -6,8 +6,6 @@ Copyright: Michael Rönnau mr@elbe5.de
 
 import AppKit
 import E5Data
-import E5MapData
-import E5PhotoLib
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     

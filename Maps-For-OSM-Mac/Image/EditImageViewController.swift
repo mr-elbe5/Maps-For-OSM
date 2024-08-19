@@ -6,7 +6,7 @@
 
 import AppKit
 
-import E5MapData
+
 
 class EditImageViewController: ViewController {
     

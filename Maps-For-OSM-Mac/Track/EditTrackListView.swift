@@ -7,7 +7,7 @@
 import AppKit
 import CoreLocation
 import E5Data
-import E5MapData
+
 
 protocol EditTrackListDelegate{
     func trackpointChangedInList(_ trackpoint: Trackpoint)
@@ -110,7 +110,7 @@ class EditTrackListView: MenuScrollView{
 
 extension EditTrackListView: EditTrackCellDelegate{
     
-    func trackpointChanged(_ trackpoint: E5MapData.Trackpoint) {
+    func trackpointChanged(_ trackpoint: Trackpoint) {
         delegate?.trackpointChangedInList(trackpoint)
     }
     

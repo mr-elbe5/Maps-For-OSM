@@ -7,7 +7,7 @@
 import Foundation
 import AppKit
 import E5Data
-import E5MapData
+
 
 protocol ImageGridItemDelegate{
     func showImageFullSize(_ image: Image)

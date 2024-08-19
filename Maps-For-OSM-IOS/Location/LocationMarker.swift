@@ -5,7 +5,7 @@
  */
 
 import UIKit
-import E5MapData
+
 
 class LocationMarker : Marker{
     

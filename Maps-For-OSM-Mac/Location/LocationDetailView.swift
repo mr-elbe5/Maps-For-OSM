@@ -7,7 +7,7 @@ Copyright: Michael Rönnau mr@elbe5.de
 import AppKit
 import CoreLocation
 
-import E5MapData
+
 
 class LocationDetailView: MapDetailView {
     

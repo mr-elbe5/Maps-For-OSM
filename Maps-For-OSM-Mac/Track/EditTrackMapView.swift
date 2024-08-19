@@ -6,7 +6,7 @@
 
 import AppKit
 import E5Data
-import E5MapData
+
 import CoreLocation
 
 protocol EditTrackMapDelegate{

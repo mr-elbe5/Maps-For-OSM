@@ -6,7 +6,7 @@
 
 import AppKit
 
-import E5MapData
+
 
 protocol LocationCellDelegate{
     func showLocationDetails(_ location: Location)

@@ -7,7 +7,7 @@
 import AppKit
 import AVFoundation
 import AVKit
-import E5MapData
+
 
 class MediaPresenterView: NSView {
     

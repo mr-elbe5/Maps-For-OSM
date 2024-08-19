@@ -8,7 +8,7 @@ import AppKit
 import CoreLocation
 import UniformTypeIdentifiers
 
-import E5MapData
+
 
 protocol TilesSourceDelegate{
     func clearTiles()

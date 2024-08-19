@@ -37,40 +37,6 @@
         }
       }
     },
-    "com.apple.security.assets.pictures.read-only" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Das Bilder-Verzeichnis ist die Hauptquelle für angezeigte Bilder."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The pictures folder is the main source for viewed images."
-          }
-        }
-      }
-    },
-    "com.apple.security.files.bookmarks.app-scope" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bookmarks werden benötigt, um ausgewählte Verzeichnisse für die App sichtbar zu halten."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bookmarks are needed to keep once selected folders visible to the app."
-          }
-        }
-      }
-    },
     "com.apple.security.files.user-selected.read-write" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -95,31 +61,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "mr@elbe5.de"
+            "value" : "Michael Rönnau"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : ""
-          }
-        }
-      }
-    },
-    "NSPhotoLibraryUsageDescription" : {
-      "comment" : "Privacy - Photo Library Usage Description",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Der Zugang zu 'Fotos' wird benötigt, um Bilder von dort oder dorthin zu kopieren."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to a location."
+            "value" : "Michael Rönnau"
           }
         }
       }

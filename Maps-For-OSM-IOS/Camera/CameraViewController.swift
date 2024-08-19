@@ -9,7 +9,6 @@ import AVFoundation
 import CoreLocation
 import Photos
 import E5Data
-import E5IOSAV
 import E5IOSUI
 
 class CameraViewController: E5CameraViewController {

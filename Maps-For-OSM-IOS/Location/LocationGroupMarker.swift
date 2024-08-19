@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import E5MapData
 
 class LocationGroupMarker : Marker{
     

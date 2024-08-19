@@ -6,7 +6,7 @@
 
 import UIKit
 import E5Data
-import E5MapData
+
 
 class AudioCell: LocationItemCell{
     

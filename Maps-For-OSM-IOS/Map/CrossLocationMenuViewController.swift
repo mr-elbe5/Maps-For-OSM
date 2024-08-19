@@ -8,7 +8,7 @@ import UIKit
 import CoreLocation
 import E5Data
 import E5IOSUI
-import E5MapData
+
 
 class CrossLocationMenuViewController: PopupScrollViewController{
     

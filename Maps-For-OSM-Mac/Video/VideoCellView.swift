@@ -7,7 +7,7 @@
 import AppKit
 import AVFoundation
 import AVKit
-import E5MapData
+
 
 protocol VideoCellDelegate{
     func editVideo(_ video: Video)

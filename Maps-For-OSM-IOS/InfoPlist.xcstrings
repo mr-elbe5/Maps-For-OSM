@@ -7,7 +7,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : ""
           }
         },
@@ -60,6 +60,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Access to the camera is needed for taking photos, which will be stored in the app in connection with its location."
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Michael Rönnau"
           }
         }
       }

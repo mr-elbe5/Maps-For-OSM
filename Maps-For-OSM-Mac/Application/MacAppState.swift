@@ -6,7 +6,7 @@
 
 import AppKit
 import CoreLocation
-import E5MapData
+
 
 class MacAppState: AppState {
     

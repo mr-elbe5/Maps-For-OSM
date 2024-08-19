@@ -8,7 +8,6 @@ import UIKit
 import CoreLocation
 import E5Data
 import E5IOSUI
-import E5MapData
 
 protocol LocationChangeDelegate{
     func locationAdded(location: Location)

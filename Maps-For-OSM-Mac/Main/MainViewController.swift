@@ -9,7 +9,7 @@ import AVFoundation
 import CoreLocation
 import E5Data
 
-import E5MapData
+
 
 enum MainViewType: Int{
     case map

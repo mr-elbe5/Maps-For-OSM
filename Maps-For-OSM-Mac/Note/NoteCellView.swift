@@ -6,7 +6,7 @@
 
 import AppKit
 
-import E5MapData
+
 
 protocol NoteCellDelegate{
     func editNote(_ note: Note)

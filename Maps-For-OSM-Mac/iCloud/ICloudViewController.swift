@@ -7,7 +7,7 @@
 import AppKit
 import CoreLocation
 
-import E5MapData
+
 import CloudKit
 
 protocol ICloudDelegate{
