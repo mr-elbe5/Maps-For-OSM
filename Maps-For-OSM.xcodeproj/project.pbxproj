@@ -571,6 +571,7 @@
 				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-IOS */,
 				4EEA66FA2C71E254005C459C /* Maps-For-OSM-Mac */,
 				4ED7FF462C733AFA0045DACB /* MapData */,
+				4ED7FFF12C7351160045DACB /* MacUI */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
 				4E7C76872C71E758000A66A7 /* Frameworks */,
 			);
@@ -915,6 +916,22 @@
 			path = Note;
 			sourceTree = "<group>";
 		};
+		4ED7FFF12C7351160045DACB /* MacUI */ = {
+			isa = PBXGroup;
+			children = (
+				4EEA67222C71E493005C459C /* NSControl */,
+				4EEA672A2C71E493005C459C /* NSView */,
+				4EEA67312C71E493005C459C /* NSViewController */,
+				4EEA67362C71E493005C459C /* NSWindow */,
+				4EEA67372C71E493005C459C /* ImageFactory.swift */,
+				4EEA67382C71E493005C459C /* Insets.swift */,
+				4EEA67392C71E493005C459C /* NSImage.swift */,
+				4EEA673A2C71E493005C459C /* NSMenuItem.swift */,
+				4EEA673B2C71E493005C459C /* UTType.swift */,
+			);
+			path = MacUI;
+			sourceTree = "<group>";
+		};
 		4EEA66FA2C71E254005C459C /* Maps-For-OSM-Mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -929,7 +946,6 @@
 				4EEA670E2C71E493005C459C /* Location.xcstrings */,
 				4EEA67552C71E493005C459C /* Application */,
 				4EEA670C2C71E493005C459C /* Audio */,
-				4EEA673C2C71E493005C459C /* BasicMacUI */,
 				4EEA67602C71E493005C459C /* iCloud */,
 				4EEA674E2C71E493005C459C /* Image */,
 				4EEA676A2C71E493005C459C /* Location */,
@@ -1024,22 +1040,6 @@
 				4EEA67352C71E493005C459C /* WindowController.swift */,
 			);
 			path = NSWindow;
-			sourceTree = "<group>";
-		};
-		4EEA673C2C71E493005C459C /* BasicMacUI */ = {
-			isa = PBXGroup;
-			children = (
-				4EEA67222C71E493005C459C /* NSControl */,
-				4EEA672A2C71E493005C459C /* NSView */,
-				4EEA67312C71E493005C459C /* NSViewController */,
-				4EEA67362C71E493005C459C /* NSWindow */,
-				4EEA67372C71E493005C459C /* ImageFactory.swift */,
-				4EEA67382C71E493005C459C /* Insets.swift */,
-				4EEA67392C71E493005C459C /* NSImage.swift */,
-				4EEA673A2C71E493005C459C /* NSMenuItem.swift */,
-				4EEA673B2C71E493005C459C /* UTType.swift */,
-			);
-			path = BasicMacUI;
 			sourceTree = "<group>";
 		};
 		4EEA673F2C71E493005C459C /* Preferences */ = {
