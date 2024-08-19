@@ -13,7 +13,7 @@ class MainWindowController: NSWindowController {
     
     static var defaultRect: NSRect{
         if let screen = NSScreen.main{
-            return NSRect(x: 200, y: 200, width: Int(screen.frame.width) - 400, height: Int(screen.frame.height - 400))
+            return NSRect(x: Int(screen.frame.width/6), y: Int(screen.frame.height/6), width: Int(screen.frame.width*2/3), height: Int(screen.frame.height*2/3))
         }
         return NSRect(x: 50, y: 50, width: 1200, height: 800)
     }
