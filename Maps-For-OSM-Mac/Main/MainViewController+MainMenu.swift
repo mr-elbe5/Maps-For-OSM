@@ -41,11 +41,6 @@ extension MainViewController: MainMenuDelegate{
         ModalWindow.run(title: "preferences".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 200, height: 100))
     }
     
-    func openTiles() {
-        let controller = TilesViewController()
-        ModalWindow.run(title: "tiles".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200))
-    }
-    
     func openBackup() {
         let controller = BackupViewController()
         ModalWindow.run(title: "backup".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200))

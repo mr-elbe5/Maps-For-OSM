@@ -83,6 +83,10 @@ class MainViewController: ViewController {
         mapView.updateLocations()
     }
     
+    func updateMap(){
+        mapView.refreshMap()
+    }
+    
 }
 
 

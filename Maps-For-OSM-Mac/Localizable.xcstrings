@@ -1894,13 +1894,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die Kartensicht zeigt Karten auf der Basis der ausgewählten Quelle (oberes Menü - Kartensymbol) an.\nSie kann verschoben und gezoomt werden, sowohl mit der Maus als auch mit den Plus- und Minus-Zeichen oben links.\n\nAuf der Karte werden markierte Orte und ggf. Touren angezeigt, wobei die Farben auf die Inhalte hinweisen: grün - keine Medien, rot mit Medien, blau - Tourbeginn, violett - Medien und Tour. Liegen mehrere Markierungen eng zusammen, wird diese Gruppe durch ein Icon mit drei Nadeln angezeigt. Diese kann man durch Hineinzoomen auflösen.\n\nAnklicken einer Markierung öffnet die Detailansicht rechts.\n\nEs können über die Detailansicht von Orten Touren auf der Karten angezeigt werden (Kartensymbol).\n\nWeiterhin kann über das blaue Kreuz in der Kartenmitte eine Markierung gesetzt, eine Notiz, ein Bild oder andere Medien hinzugefügt werden.\n\nDer rechte Teil der Kartenansicht zeigt Details einer Gruppe oder eines einzelnen Ortes mit ihren zugeordneten Elementen. Diese können dort im Detail oder auf der Karte angezeigt, editiert oder gelöscht werden.\n\nInsbesondere können auch Touren im GPX-Format importiert, editiert und exportiert werden (Bleistift-Symbol).\n\nDas Menü links von oben:\n- Hineinzoomen\n- Herauszoomen\n- Kreuz in der Kartenmitte einblenden/ausblenden \n- auf aktuelle Position zentrieren\n- Ansicht neu laden\n- angezeigte Tour ausblenden"
+            "value" : "Die Kartensicht zeigt Karten auf der Basis der ausgewählten Quelle (oberes Menü - Kartensymbol) an.\nSie kann verschoben und gezoomt werden, sowohl mit der Maus als auch mit den Plus- und Minus-Zeichen oben links.\n\nAuf der Karte werden markierte Orte und ggf. Touren angezeigt, wobei die Farben auf die Inhalte hinweisen: grün - keine Medien, rot mit Medien, blau - Tourbeginn, violett - Medien und Tour. Liegen mehrere Markierungen eng zusammen, wird diese Gruppe durch ein Icon mit drei Nadeln angezeigt. Diese kann man durch Hineinzoomen auflösen.\n\nAnklicken einer Markierung öffnet die Detailansicht rechts.\n\nEs können über die Detailansicht von Orten Touren auf der Karten angezeigt werden (Kartensymbol).\n\nWeiterhin kann über das blaue Kreuz in der Kartenmitte eine Markierung gesetzt, eine Notiz, ein Bild oder andere Medien hinzugefügt werden.\n\nDer rechte Teil der Kartenansicht zeigt Details einer Gruppe oder eines einzelnen Ortes mit ihren zugeordneten Elementen. Diese können dort im Detail oder auf der Karte angezeigt, editiert oder gelöscht werden.\n\nInsbesondere können auch Touren im GPX-Format importiert, editiert und exportiert werden (Bleistift-Symbol).\n\nDas Menü links von oben:\n- Hineinzoomen\n- Herauszoomen\n- Kreuz in der Kartenmitte einblenden/ausblenden \n- auf aktuelle Position zentrieren\n- Ansicht neu laden\n- angezeigte Tour ausblenden\n\nWenn auf der Karte ein Platzhalter erscheint (Zahnrad), dann wird dieser Teil der Karte noch geladen. Man kann das mit dem \"Neu laden\"-Knopf überprüfen. "
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The map view shows maps on the basis of the selected source (top menu - map icon).\nIt can be scrolled, zoomed, as well using the mouse as using the plus and minus icons on the top left.\n\nOn the map marked locations are shown with pin icons in several colors: green - no media, red - with media, blue - track start, purple - media and track.\nIf several locations are too close, this group is shown with a triple pin icon. You can dissolve it by zooming in.\n\nClicking on a marker open the detail view on the right.\n\nUsing the detail view of locations you can show tracks which start there on the map (map icon).\n\nFurther, you can place a marker using the blue cross in the center of the map. There you can also add a note, an image or other media.\n\nThe right part of the map view shows details of a group or a single location with its attached items. These can can be viewed in detail or on the map, be edited or deleted.\n\nEspecially tracks in GPX format can be imported, viewed, edited and exported (pencil icon).\n\nThe left menu from the top:\n- zoom in\n- zoom out\n- show/hide the blue cross in the map center\n- refresh the map\n- hide a displayed track"
+            "value" : "The map view shows maps on the basis of the selected source (top menu - map icon).\nIt can be scrolled, zoomed, as well using the mouse as using the plus and minus icons on the top left.\n\nOn the map marked locations are shown with pin icons in several colors: green - no media, red - with media, blue - track start, purple - media and track.\nIf several locations are too close, this group is shown with a triple pin icon. You can dissolve it by zooming in.\n\nClicking on a marker open the detail view on the right.\n\nUsing the detail view of locations you can show tracks which start there on the map (map icon).\n\nFurther, you can place a marker using the blue cross in the center of the map. There you can also add a note, an image or other media.\n\nThe right part of the map view shows details of a group or a single location with its attached items. These can can be viewed in detail or on the map, be edited or deleted.\n\nEspecially tracks in GPX format can be imported, viewed, edited and exported (pencil icon).\n\nThe left menu from the top:\n- zoom in\n- zoom out\n- show/hide the blue cross in the map center\n- refresh the map\n- hide a displayed track\n\nIf the map shows a placeholder (gear image), this part of the map is still loading. You may check this with the refresh button."
           }
         }
       }
@@ -3401,6 +3401,23 @@
         }
       }
     },
+    "refresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu laden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        }
+      }
+    },
     "refreshMap" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4268,6 +4285,23 @@
         }
       }
     },
+    "toggleCross" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blende des Kreuz-Knopf in der Kartenmitte ein oder aus."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show or hide cross button in the map center."
+          }
+        }
+      }
+    },
     "toZoom:" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4761,6 +4795,23 @@
         }
       }
     },
+    "zoomIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hineinzoomen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom in"
+          }
+        }
+      }
+    },
     "zoomIndicator" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4774,6 +4825,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The text below the mode selector shows the current zoom factor. This is the software zoom created by pinching the preview screen. It creates a photo or video from a reduced area of the sensor blown up to full size."
+          }
+        }
+      }
+    },
+    "zoomOut" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herauszoomen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom out"
           }
         }
       }

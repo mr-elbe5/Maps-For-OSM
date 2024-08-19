@@ -193,7 +193,6 @@
 		4EEA67772C71E493005C459C /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA670D2C71E493005C459C /* Camera.xcstrings */; };
 		4EEA67782C71E493005C459C /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA670E2C71E493005C459C /* Location.xcstrings */; };
 		4EEA67792C71E493005C459C /* TileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA670F2C71E493005C459C /* TileLayerView.swift */; };
-		4EEA677A2C71E493005C459C /* TilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67102C71E493005C459C /* TilesViewController.swift */; };
 		4EEA677B2C71E493005C459C /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA67122C71E493005C459C /* InfoPlist.xcstrings */; };
 		4EEA677C2C71E493005C459C /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67132C71E493005C459C /* MainMenuView.swift */; };
 		4EEA677D2C71E493005C459C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67142C71E493005C459C /* MainViewController.swift */; };
@@ -426,7 +425,6 @@
 		4EEA670D2C71E493005C459C /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
 		4EEA670E2C71E493005C459C /* Location.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Location.xcstrings; sourceTree = "<group>"; };
 		4EEA670F2C71E493005C459C /* TileLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLayerView.swift; sourceTree = "<group>"; };
-		4EEA67102C71E493005C459C /* TilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TilesViewController.swift; sourceTree = "<group>"; };
 		4EEA67122C71E493005C459C /* InfoPlist.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		4EEA67132C71E493005C459C /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		4EEA67142C71E493005C459C /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -973,7 +971,6 @@
 			isa = PBXGroup;
 			children = (
 				4EEA670F2C71E493005C459C /* TileLayerView.swift */,
-				4EEA67102C71E493005C459C /* TilesViewController.swift */,
 			);
 			path = Tile;
 			sourceTree = "<group>";
@@ -1504,7 +1501,6 @@
 				4EEA67C02C71E493005C459C /* LocationGroupDetailView.swift in Sources */,
 				4EEA67832C71E493005C459C /* LabeledSwitchView.swift in Sources */,
 				4EEA679E2C71E493005C459C /* NSMenuItem.swift in Sources */,
-				4EEA677A2C71E493005C459C /* TilesViewController.swift in Sources */,
 				4EEA679C2C71E493005C459C /* Insets.swift in Sources */,
 				4ED7FFD42C733B650045DACB /* AppState.swift in Sources */,
 				4ED7FF862C733B650045DACB /* Preferences.swift in Sources */,

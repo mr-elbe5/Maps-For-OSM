@@ -11,15 +11,11 @@ class MainWindowController: NSWindowController {
     
     static var windowId = "mapsForOSMMainWindow"
     
-    static var defaultSize: NSSize = NSMakeSize(1200, 800)
     static var defaultRect: NSRect{
-        var x : CGFloat = 0
-        var y : CGFloat = 0
         if let screen = NSScreen.main{
-            x = screen.frame.width/2 - defaultSize.width/2
-            y = screen.frame.height/2 - defaultSize.height/2
+            return NSRect(x: 200, y: 200, width: Int(screen.frame.width) - 400, height: Int(screen.frame.height - 400))
         }
-        return NSMakeRect(x, y, defaultSize.width, defaultSize.height)
+        return NSRect(x: 50, y: 50, width: 1200, height: 800)
     }
     
     static var instance = MainWindowController()
@@ -33,9 +29,11 @@ class MainWindowController: NSWindowController {
         window.title = "Maps For OSM"
         window.minSize = CGSize(width: 800, height: 600)
         super.init(window: window)
-        self.window?.delegate = self
+        window.delegate = self
         contentViewController = MainViewController()
-        self.window?.setFrameUsingName(MainWindowController.windowId)
+        if !window.setFrameUsingName(MainWindowController.windowId){
+            window.setFrame(MainWindowController.defaultRect, display: true)
+        }
     }
     
     required init?(coder: NSCoder) {

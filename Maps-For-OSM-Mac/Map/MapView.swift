@@ -115,6 +115,7 @@ extension MapView: MapMenuDelegate{
     }
     
     func refreshMap() {
+        refresh()
         updateLocations()
     }
     

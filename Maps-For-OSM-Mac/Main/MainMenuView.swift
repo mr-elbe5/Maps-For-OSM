@@ -11,7 +11,6 @@ protocol MainMenuDelegate{
     func setView(_ type: MainViewType)
     func openICloud()
     func openPreferences()
-    func openTiles()
     func openBackup()
     func openHelp()
 }
@@ -22,7 +21,6 @@ class MainMenuView: NSView{
     var rightMenu = NSView()
     
     var openPreferencesButton: NSButton!
-    var openTilesSourceButton: NSButton!
     var openICloudButton: NSButton!
     var openBackupButton: NSButton!
     var openHelpButton: NSButton!
@@ -43,8 +41,6 @@ class MainMenuView: NSView{
         
         openPreferencesButton = NSButton(icon: "gearshape", target: self, action: #selector(openPreferences))
         openPreferencesButton.toolTip = "openPreferences".localize()
-        openTilesSourceButton = NSButton(icon: "map", target: self, action: #selector(openTiles))
-        openTilesSourceButton.toolTip = "openTiles".localize()
         openICloudButton = NSButton(icon: "cloud", target: self, action: #selector(openICloud))
         openICloudButton.toolTip = "openICloud".localize()
         openBackupButton = NSButton(icon: "doc.zipper", target: self, action: #selector(openBackup))
@@ -66,10 +62,8 @@ class MainMenuView: NSView{
         
         rightMenu.addSubview(openPreferencesButton)
         openPreferencesButton.setAnchors(top: rightMenu.topAnchor, leading: rightMenu.leadingAnchor, bottom: rightMenu.bottomAnchor, insets: defaultInsets)
-        rightMenu.addSubview(openTilesSourceButton)
-        openTilesSourceButton.setAnchors(top: rightMenu.topAnchor, leading: openPreferencesButton.trailingAnchor, bottom: rightMenu.bottomAnchor, insets: defaultInsets)
         rightMenu.addSubview(openICloudButton)
-        openICloudButton.setAnchors(top: rightMenu.topAnchor, leading: openTilesSourceButton.trailingAnchor, bottom: rightMenu.bottomAnchor, insets: defaultInsets)
+        openICloudButton.setAnchors(top: rightMenu.topAnchor, leading: openPreferencesButton.trailingAnchor, bottom: rightMenu.bottomAnchor, insets: defaultInsets)
         rightMenu.addSubview(openBackupButton)
         openBackupButton.setAnchors(top: rightMenu.topAnchor, leading: openICloudButton.trailingAnchor, bottom: rightMenu.bottomAnchor, insets: defaultInsets)
         rightMenu.addSubview(openHelpButton)
@@ -91,10 +85,6 @@ class MainMenuView: NSView{
     
     @objc func openICloud(){
         delegate?.openICloud()
-    }
-    
-    @objc func openTiles(){
-        delegate?.openTiles()
     }
     
     @objc func openBackup(){
