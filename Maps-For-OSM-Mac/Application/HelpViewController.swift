@@ -7,12 +7,14 @@
 import AppKit
 
 
-class HelpViewController: NSTabViewController {
+class HelpViewController: NSTabViewController, ModalResponder {
     
     var generalViewController = GeneralHelpViewController()
     var mapViewController = MapHelpViewController()
     var gridViewController = GridHelpViewController()
     var imageViewController = ImageHelpViewController()
+    
+    public var responseCode: NSApplication.ModalResponse = .cancel
     
     override func loadView() {
         super.loadView()

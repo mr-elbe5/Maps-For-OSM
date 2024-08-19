@@ -59,7 +59,9 @@ class TrackCellView : LocationItemCellView{
         itemView.addSubviewWithAnchors(upField, top: distField.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor)
         let downField = NSTextField(labelWithString: "\("downDistance".localize()): \(Int(track.downDistance))m")
         itemView.addSubviewWithAnchors(downField, top: upField.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor)
-        var lastView: NSView = downField
+        let trackpointsField = NSTextField(labelWithString: "\("numTrackpoints".localize()): \(Int(track.trackpoints.count))")
+        itemView.addSubviewWithAnchors(trackpointsField, top: downField.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor)
+        var lastView: NSView = trackpointsField
         if let img = track.getPreview(){
             let imgView = NSImageView(image: img)
             imgView.setAspectRatioConstraint()

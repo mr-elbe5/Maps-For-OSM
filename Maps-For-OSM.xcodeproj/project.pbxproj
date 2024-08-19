@@ -216,11 +216,9 @@
 		4EEA678E2C71E493005C459C /* NSStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67272C71E493005C459C /* NSStackView.swift */; };
 		4EEA678F2C71E493005C459C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67282C71E493005C459C /* NSView.swift */; };
 		4EEA67902C71E493005C459C /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67292C71E493005C459C /* SplitView.swift */; };
-		4EEA67912C71E493005C459C /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672B2C71E493005C459C /* FormViewController.swift */; };
 		4EEA67922C71E493005C459C /* NSAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672C2C71E493005C459C /* NSAlert.swift */; };
 		4EEA67932C71E493005C459C /* NSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672D2C71E493005C459C /* NSViewController.swift */; };
 		4EEA67942C71E493005C459C /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672E2C71E493005C459C /* PopoverViewController.swift */; };
-		4EEA67952C71E493005C459C /* StackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672F2C71E493005C459C /* StackViewController.swift */; };
 		4EEA67962C71E493005C459C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67302C71E493005C459C /* ViewController.swift */; };
 		4EEA67972C71E493005C459C /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67322C71E493005C459C /* ModalViewController.swift */; };
 		4EEA67982C71E493005C459C /* ModalWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67332C71E493005C459C /* ModalWindow.swift */; };
@@ -451,11 +449,9 @@
 		4EEA67272C71E493005C459C /* NSStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStackView.swift; sourceTree = "<group>"; };
 		4EEA67282C71E493005C459C /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
 		4EEA67292C71E493005C459C /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
-		4EEA672B2C71E493005C459C /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		4EEA672C2C71E493005C459C /* NSAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAlert.swift; sourceTree = "<group>"; };
 		4EEA672D2C71E493005C459C /* NSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSViewController.swift; sourceTree = "<group>"; };
 		4EEA672E2C71E493005C459C /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		4EEA672F2C71E493005C459C /* StackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackViewController.swift; sourceTree = "<group>"; };
 		4EEA67302C71E493005C459C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4EEA67322C71E493005C459C /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		4EEA67332C71E493005C459C /* ModalWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalWindow.swift; sourceTree = "<group>"; };
@@ -1011,11 +1007,9 @@
 		4EEA67312C71E493005C459C /* NSViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4EEA672B2C71E493005C459C /* FormViewController.swift */,
 				4EEA672C2C71E493005C459C /* NSAlert.swift */,
 				4EEA672D2C71E493005C459C /* NSViewController.swift */,
 				4EEA672E2C71E493005C459C /* PopoverViewController.swift */,
-				4EEA672F2C71E493005C459C /* StackViewController.swift */,
 				4EEA67302C71E493005C459C /* ViewController.swift */,
 			);
 			path = NSViewController;
@@ -1506,7 +1500,6 @@
 				4ED7FFBE2C733B650045DACB /* Trackpoint.swift in Sources */,
 				4EEA67B02C71E493005C459C /* FileManagerMac.swift in Sources */,
 				4EEA67C42C71E493005C459C /* LocationMarker.swift in Sources */,
-				4EEA67912C71E493005C459C /* FormViewController.swift in Sources */,
 				4EEA67872C71E493005C459C /* NSTextField.swift in Sources */,
 				4EEA67C02C71E493005C459C /* LocationGroupDetailView.swift in Sources */,
 				4EEA67832C71E493005C459C /* LabeledSwitchView.swift in Sources */,
@@ -1548,7 +1541,6 @@
 				4EEA679A2C71E493005C459C /* WindowController.swift in Sources */,
 				4EEA67AE2C71E493005C459C /* AppDelegate.swift in Sources */,
 				4EEA67B52C71E493005C459C /* EditTrackListCell.swift in Sources */,
-				4EEA67952C71E493005C459C /* StackViewController.swift in Sources */,
 				4ED7FFD02C733B650045DACB /* MapType.swift in Sources */,
 				4EEA67862C71E493005C459C /* NSButton.swift in Sources */,
 				4ED7FFC22C733B650045DACB /* Video.swift in Sources */,

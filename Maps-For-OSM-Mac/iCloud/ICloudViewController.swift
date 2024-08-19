@@ -20,7 +20,7 @@ protocol ICloudDelegate{
     func cleanupICloud()
 }
 
-class ICloudViewController: NSViewController, ICloudDelegate {
+class ICloudViewController: ModalViewController, ICloudDelegate {
     
     var contentView = ICloudView()
     

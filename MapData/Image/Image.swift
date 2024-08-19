@@ -83,9 +83,10 @@ open class Image : FileItem{
             let url = FileManager.previewsDirURL.appendingPathComponent(fileName)
             if let tiff = preview.tiffRepresentation, let tiffData = NSBitmapImageRep(data: tiff) {
                 if let previewData = tiffData.representation(using: .jpeg, properties: [:]) {
-                    FileManager.default.assertDirectoryFor(url: url)
-                    FileManager.default.saveFile(data: previewData, url: url)
-                    return preview
+                    if FileManager.default.assertDirectoryFor(url: url){
+                        FileManager.default.saveFile(data: previewData, url: url)
+                        return preview
+                    }
                 }
             }
             return preview

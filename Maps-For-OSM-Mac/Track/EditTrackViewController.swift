@@ -8,7 +8,7 @@ import AppKit
 import E5Data
 
 
-class EditTrackViewController: ViewController {
+class EditTrackViewController: ModalViewController {
     
     var startSize = CGSize(width: 1000, height: 800)
     
@@ -56,7 +56,7 @@ class EditTrackViewController: ViewController {
         simplifyView.addSubviewWithAnchors(minDistanceField, top: simplifyView.topAnchor, leading: simplifyLabel.trailingAnchor, bottom: simplifyView.bottomAnchor, insets: defaultInsets)
             .width(100)
         let simplifyButton = NSButton(title: "start".localize(), target: self, action: #selector(simplify))
-        simplifyView.addSubviewWithAnchors(simplifyButton, top: simplifyView.topAnchor, trailing: simplifyView.trailingAnchor, bottom: simplifyView.bottomAnchor, insets: defaultInsets)
+        simplifyView.addSubviewWithAnchors(simplifyButton, top: simplifyView.topAnchor, leading: minDistanceField.trailingAnchor, bottom: simplifyView.bottomAnchor, insets: defaultInsets)
         let saveButton = NSButton(title: "save".localize(), target: self, action: #selector(save))
         view.addSubviewWithAnchors(saveButton, top: simplifyView.bottomAnchor, bottom: view.bottomAnchor, insets: defaultInsets)
             .centerX(view.centerXAnchor)
@@ -80,7 +80,7 @@ class EditTrackViewController: ViewController {
         track.name = nameEditField.stringValue
         track.setTrackpoints(newTrack.trackpoints)
         track.trackpointsChanged()
-        NSApp.stopModal(withCode: .OK)
+        responseCode = .OK
         view.window?.close()
     }
     

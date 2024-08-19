@@ -16,7 +16,7 @@ protocol BackupDelegate{
     func restoreBackup()
 }
 
-class BackupViewController: NSViewController, BackupDelegate {
+class BackupViewController: ModalViewController, BackupDelegate {
     
     var contentView = BackupView()
     

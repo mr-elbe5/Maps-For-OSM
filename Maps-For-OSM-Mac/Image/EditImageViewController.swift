@@ -8,7 +8,7 @@ import AppKit
 
 
 
-class EditImageViewController: ViewController {
+class EditImageViewController: ModalViewController {
     
     var image: Image
     
@@ -48,7 +48,7 @@ class EditImageViewController: ViewController {
     @objc func save(){
         image.comment = commentEditField.stringValue
         AppData.shared.save()
-        NSApp.stopModal(withCode: .OK)
+        responseCode = .OK
         self.view.window?.close()
     }
     

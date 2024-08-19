@@ -8,7 +8,7 @@ import AppKit
 
 
 
-class EditNoteViewController: ViewController {
+class EditNoteViewController: ModalViewController {
     
     var noteEditField = NSTextField()
     
@@ -38,7 +38,7 @@ class EditNoteViewController: ViewController {
     
     @objc func save(){
         note.text = noteEditField.stringValue
-        NSApp.stopModal(withCode: .OK)
+        responseCode = .OK
         self.view.window?.close()
     }
     

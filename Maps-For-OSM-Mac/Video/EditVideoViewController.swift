@@ -9,7 +9,7 @@ import AVFoundation
 import AVKit
 
 
-class EditVideoViewController: ViewController {
+class EditVideoViewController: ModalViewController {
     
     var video: Video
     
@@ -56,7 +56,7 @@ class EditVideoViewController: ViewController {
     @objc func save(){
         video.comment = commentEditField.stringValue
         AppData.shared.save()
-        NSApp.stopModal(withCode: .OK)
+        responseCode = .OK
         self.view.window?.close()
     }
     

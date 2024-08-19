@@ -9,7 +9,7 @@ import CoreLocation
 
 
 
-class PreferencesViewController: NSViewController {
+class PreferencesViewController:ModalViewController {
     
     var contentView = PreferencesView()
     

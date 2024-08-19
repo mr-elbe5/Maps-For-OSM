@@ -8,6 +8,10 @@ import Foundation
 
 import AppKit
 
+protocol ModalResponder{
+    var responseCode: NSApplication.ModalResponse{get set}
+}
+
 open class ModalWindowController: NSWindowController, NSWindowDelegate{
     
     public convenience init(title: String, viewController: NSViewController, outerWindow: NSWindow, minSize: CGSize){
@@ -26,7 +30,12 @@ open class ModalWindowController: NSWindowController, NSWindowDelegate{
     }
     
     public func windowWillClose(_ notification: Notification) {
-        NSApp.stopModal()
+        if let responder = contentViewController as? ModalResponder{
+            NSApp.stopModal(withCode: responder.responseCode)
+        }
+        else{
+            NSApp.stopModal()
+        }
     }
     
 }

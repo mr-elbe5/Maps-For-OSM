@@ -15,7 +15,7 @@ protocol TilesSourceDelegate{
     func tileSourceChanged()
 }
 
-class TilesViewController: NSViewController, TilesSourceDelegate {
+class TilesViewController: ModalViewController, TilesSourceDelegate {
     
     var contentView = TilesView()
     
