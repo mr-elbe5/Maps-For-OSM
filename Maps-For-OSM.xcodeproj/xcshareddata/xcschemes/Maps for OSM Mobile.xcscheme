@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E0BD97C26E9FC66005A4A94"
-               BuildableName = "Maps for OSM IOS.app"
-               BlueprintName = "Maps for OSM IOS"
+               BuildableName = "Maps for OSM Mobile.app"
+               BlueprintName = "Maps for OSM Mobile"
                ReferencedContainer = "container:Maps-For-OSM.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,8 +46,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E0BD97C26E9FC66005A4A94"
-            BuildableName = "Maps for OSM IOS.app"
-            BlueprintName = "Maps for OSM IOS"
+            BuildableName = "Maps for OSM Mobile.app"
+            BlueprintName = "Maps for OSM Mobile"
             ReferencedContainer = "container:Maps-For-OSM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E0BD97C26E9FC66005A4A94"
-            BuildableName = "Maps for OSM IOS.app"
-            BlueprintName = "Maps for OSM IOS"
+            BuildableName = "Maps for OSM Mobile.app"
+            BlueprintName = "Maps for OSM Mobile"
             ReferencedContainer = "container:Maps-For-OSM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

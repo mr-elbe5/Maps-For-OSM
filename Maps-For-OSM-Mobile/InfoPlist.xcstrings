@@ -5,16 +5,10 @@
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Maps for OSM IOS"
+            "value" : "Maps for OSM Mobile"
           }
         }
       }
@@ -68,6 +62,12 @@
       "comment" : "Copyright (human-readable)",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Michael Rönnau"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",

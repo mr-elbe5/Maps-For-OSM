@@ -286,7 +286,7 @@
 /* Begin PBXFileReference section */
 		4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
 		4E025E3A274E3C4300D56ED7 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
-		4E0BD97D26E9FC66005A4A94 /* Maps for OSM IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps for OSM IOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E0BD97D26E9FC66005A4A94 /* Maps for OSM Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps for OSM Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0BD98026E9FC66005A4A94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98226E9FC66005A4A94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4E0BD98926E9FC67005A4A94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -416,7 +416,7 @@
 		4ED7FFE42C7341AD0045DACB /* CameraIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraIconButton.swift; sourceTree = "<group>"; };
 		4ED7FFEF2C7342D80045DACB /* AVCaptureDevice+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVCaptureDevice+Audio.swift"; sourceTree = "<group>"; };
 		4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollView.swift; sourceTree = "<group>"; };
-		4EEA66F92C71E254005C459C /* Maps For OSM Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps For OSM Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EEA66F92C71E254005C459C /* Maps For OSM Desktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps For OSM Desktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EEA66FF2C71E255005C459C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EEA67042C71E255005C459C /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
 		4EEA67082C71E493005C459C /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
@@ -565,9 +565,8 @@
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
-				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
-				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-IOS */,
-				4EEA66FA2C71E254005C459C /* Maps-For-OSM-Mac */,
+				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */,
+				4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */,
 				4ED7FF462C733AFA0045DACB /* MapData */,
 				4ED7FFF12C7351160045DACB /* MacUI */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
@@ -578,15 +577,16 @@
 		4E0BD97E26E9FC66005A4A94 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4E0BD97D26E9FC66005A4A94 /* Maps for OSM IOS.app */,
-				4EEA66F92C71E254005C459C /* Maps For OSM Mac.app */,
+				4E0BD97D26E9FC66005A4A94 /* Maps for OSM Mobile.app */,
+				4EEA66F92C71E254005C459C /* Maps For OSM Desktop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-IOS */ = {
+		4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */ = {
 			isa = PBXGroup;
 			children = (
+				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E2579102B9DB5B200481B23 /* Base.xcstrings */,
 				4E2579122B9DB5B200481B23 /* Camera.xcstrings */,
@@ -611,7 +611,7 @@
 				4E5124242BAAF91800A5B416 /* Video */,
 				4EEF6F8228FAC58800543EBA /* Search */,
 			);
-			path = "Maps-For-OSM-IOS";
+			path = "Maps-For-OSM-Mobile";
 			sourceTree = "<group>";
 		};
 		4E0BD99726EA0020005A4A94 /* Application */ = {
@@ -930,7 +930,7 @@
 			path = MacUI;
 			sourceTree = "<group>";
 		};
-		4EEA66FA2C71E254005C459C /* Maps-For-OSM-Mac */ = {
+		4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */ = {
 			isa = PBXGroup;
 			children = (
 				4EEA67042C71E255005C459C /* Maps for OSM.entitlements */,
@@ -955,7 +955,7 @@
 				4EEA675E2C71E493005C459C /* Track */,
 				4EEA67432C71E493005C459C /* Video */,
 			);
-			path = "Maps-For-OSM-Mac";
+			path = "Maps-For-OSM-Desktop";
 			sourceTree = "<group>";
 		};
 		4EEA670C2C71E493005C459C /* Audio */ = {
@@ -1167,9 +1167,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4E0BD97C26E9FC66005A4A94 /* Maps for OSM IOS */ = {
+		4E0BD97C26E9FC66005A4A94 /* Maps for OSM Mobile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "Maps for OSM IOS" */;
+			buildConfigurationList = 4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "Maps for OSM Mobile" */;
 			buildPhases = (
 				4E0BD97926E9FC66005A4A94 /* Sources */,
 				4E0BD97A26E9FC66005A4A94 /* Frameworks */,
@@ -1179,7 +1179,7 @@
 			);
 			dependencies = (
 			);
-			name = "Maps for OSM IOS";
+			name = "Maps for OSM Mobile";
 			packageProductDependencies = (
 				4EC5201A2C0DF030009C4A49 /* E5Data */,
 				4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */,
@@ -1188,12 +1188,12 @@
 				4EB694622C3EAF240058BAD0 /* Zip */,
 			);
 			productName = SwiftyMapViewer;
-			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM IOS.app */;
+			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM Mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4EEA66F82C71E254005C459C /* Maps For OSM Mac */ = {
+		4EEA66F82C71E254005C459C /* Maps For OSM Desktop */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4EEA67052C71E255005C459C /* Build configuration list for PBXNativeTarget "Maps For OSM Mac" */;
+			buildConfigurationList = 4EEA67052C71E255005C459C /* Build configuration list for PBXNativeTarget "Maps For OSM Desktop" */;
 			buildPhases = (
 				4EEA66F52C71E254005C459C /* Sources */,
 				4EEA66F62C71E254005C459C /* Frameworks */,
@@ -1203,13 +1203,13 @@
 			);
 			dependencies = (
 			);
-			name = "Maps For OSM Mac";
+			name = "Maps For OSM Desktop";
 			packageProductDependencies = (
 				4E7C76882C71E758000A66A7 /* E5Data */,
 				4E7C768E2C71E774000A66A7 /* Zip */,
 			);
 			productName = "Maps For OSM Mac";
-			productReference = 4EEA66F92C71E254005C459C /* Maps For OSM Mac.app */;
+			productReference = 4EEA66F92C71E254005C459C /* Maps For OSM Desktop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1250,8 +1250,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4E0BD97C26E9FC66005A4A94 /* Maps for OSM IOS */,
-				4EEA66F82C71E254005C459C /* Maps For OSM Mac */,
+				4E0BD97C26E9FC66005A4A94 /* Maps for OSM Mobile */,
+				4EEA66F82C71E254005C459C /* Maps For OSM Desktop */,
 			);
 		};
 /* End PBXProject section */
@@ -1699,11 +1699,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Maps for OSM.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mobile/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 5UG99476V8;
-				INFOPLIST_FILE = "Maps-For-OSM-IOS/Info.plist";
+				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1711,7 +1711,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.3;
+				MARKETING_VERSION = 4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1729,11 +1729,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Maps for OSM.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mobile/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEVELOPMENT_TEAM = 5UG99476V8;
-				INFOPLIST_FILE = "Maps-For-OSM-IOS/Info.plist";
+				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -1741,7 +1741,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.3;
+				MARKETING_VERSION = 4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1760,16 +1760,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mac/Maps for OSM.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Desktop/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Michael Rönnau";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -1794,16 +1793,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mac/Maps for OSM.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Desktop/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Michael Rönnau";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -1833,7 +1831,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "Maps for OSM IOS" */ = {
+		4E0BD99126E9FC67005A4A94 /* Build configuration list for PBXNativeTarget "Maps for OSM Mobile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E0BD99226E9FC67005A4A94 /* Debug */,
@@ -1842,7 +1840,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4EEA67052C71E255005C459C /* Build configuration list for PBXNativeTarget "Maps For OSM Mac" */ = {
+		4EEA67052C71E255005C459C /* Build configuration list for PBXNativeTarget "Maps For OSM Desktop" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4EEA67062C71E255005C459C /* Debug */,
