@@ -184,17 +184,19 @@ open class Track : LocatedItem{
         trackpoints.append(tp)
         distance += horizontalDiff
         let verticalDiff = lastAltitude - tp.altitude
-        if verticalDiff > Preferences.shared.minVerticalTrackpointDistance{
-            upDistance += verticalDiff
-            lastAltitude = tp.altitude
-            Log.debug("new altitude: \(lastAltitude)")
-            Log.debug("new up distance: \(upDistance) m")
-        }
-        else if verticalDiff < -Preferences.shared.minVerticalTrackpointDistance{
-            downDistance += -verticalDiff
-            lastAltitude = tp.altitude
-            Log.debug("new altitude: \(lastAltitude)")
-            Log.debug("new down distance: \(downDistance) m")
+        if abs(verticalDiff) > Preferences.shared.minVerticalTrackpointDistance{
+            if verticalDiff > 0{
+                upDistance += verticalDiff
+                lastAltitude = tp.altitude
+                Log.debug("new altitude: \(lastAltitude)")
+                Log.debug("new up distance: \(upDistance) m")
+            }
+            else {
+                downDistance += -verticalDiff
+                lastAltitude = tp.altitude
+                Log.debug("new altitude: \(lastAltitude)")
+                Log.debug("new down distance: \(downDistance) m")
+            }
         }
         endTime = tp.timestamp
     }

@@ -270,8 +270,8 @@ extension LocationViewController : LocationItemCellDelegate{
     }
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
-        navigationController?.popToRootViewController(animated: true)
         mainViewController?.showLocationOnMap(coordinate: coordinate)
+        navigationController?.popToRootViewController(animated: true)
     }
     
 }
