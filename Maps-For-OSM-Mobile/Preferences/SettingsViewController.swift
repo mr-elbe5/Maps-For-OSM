@@ -147,23 +147,20 @@ class SettingsViewController: NavScrollViewController{
 extension SettingsViewController : UIDocumentPickerDelegate{
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if let url = urls.first{
-            if url.pathExtension == "zip"{
-                importBackupFile(url: url)
-            }
-        }
-    }
-    
-    private func importBackupFile(url: URL){
-        let spinner = startSpinner()
-        DispatchQueue.main.async {
-            if Backup.unzipBackupFile(zipFileURL: url){
-                if Backup.restoreBackupFile(){
-                    self.showDone(title: "success".localize(), text: "restoreDone".localize())
-                    self.delegate?.backupRestored()
+        if let url = urls.first, url.pathExtension == "zip"{
+            if url.startAccessingSecurityScopedResource(){
+                let spinner = startSpinner()
+                DispatchQueue.main.async {
+                    if Backup.unzipBackupFile(zipFileURL: url){
+                        if Backup.restoreBackupFile(){
+                            self.showDone(title: "success".localize(), text: "restoreDone".localize())
+                            self.delegate?.backupRestored()
+                        }
+                    }
+                    self.stopSpinner(spinner)
+                    url.stopAccessingSecurityScopedResource()
                 }
             }
-            self.stopSpinner(spinner)
         }
     }
     
