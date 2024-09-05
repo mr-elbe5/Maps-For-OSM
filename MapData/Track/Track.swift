@@ -183,8 +183,8 @@ open class Track : LocatedItem{
         Log.info("adding trackpoint at \(tp.coordinate.shortString)")
         trackpoints.append(tp)
         distance += horizontalDiff
-        let verticalDiff = lastAltitude - tp.altitude
-        if abs(verticalDiff) > Preferences.shared.minVerticalTrackpointDistance{
+        let verticalDiff = tp.altitude - lastAltitude
+        if abs(verticalDiff) > max(location.horizontalAccuracy, Preferences.shared.minVerticalTrackpointDistance){
             if verticalDiff > 0{
                 upDistance += verticalDiff
                 lastAltitude = tp.altitude
