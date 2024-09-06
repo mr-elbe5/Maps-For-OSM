@@ -132,6 +132,51 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         }
     }
     
+    func importTrack() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.allowedContentTypes = [UTType(filenameExtension: "gpx")!]
+        panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
+        if panel.runModal() == .OK, let url = panel.urls.first{
+            if url.pathExtension == "gpx"{
+                importGPXFile(url: url)
+            }
+        }
+    }
+    
+    private func importGPXFile(url: URL){
+        if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
+            let track = Track()
+            track.name = gpxData.name
+            for segment in gpxData.segments{
+                for point in segment.points{
+                    track.trackpoints.append(Trackpoint(location: point.location))
+                }
+            }
+            track.updateFromTrackpoints()
+            track.simplifyTrack()
+            if track.name.isEmpty{
+                let ext = url.pathExtension
+                var name = url.lastPathComponent
+                name = String(name[name.startIndex...name.index(name.endIndex, offsetBy: -ext.count)])
+                Log.debug(name)
+                track.name = name
+            }
+            var location = AppData.shared.getLocation(coordinate: track.startCoordinate!)
+            if location == nil{
+                location = AppData.shared.createLocation(coordinate: track.startCoordinate!)
+            }
+            location!.addItem(item: track)
+            AppData.shared.save()
+            DispatchQueue.main.async {
+                self.mapView.updateLocations()
+                self.showTrackOnMap(track)
+            }
+        }
+    }
+    
     func deleteLocation(_ location: Location) {
         AppData.shared.deleteLocation(location)
     }

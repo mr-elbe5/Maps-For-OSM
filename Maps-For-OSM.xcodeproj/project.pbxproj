@@ -186,6 +186,7 @@
 		4ED7FFEE2C7341AD0045DACB /* CameraIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FFE42C7341AD0045DACB /* CameraIconButton.swift */; };
 		4ED7FFF02C7342D80045DACB /* AVCaptureDevice+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FFEF2C7342D80045DACB /* AVCaptureDevice+Audio.swift */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
+		4EE481E72C8B047600BB9B73 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE481E62C8B047600BB9B73 /* Info.plist */; };
 		4EEA67002C71E255005C459C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA66FF2C71E255005C459C /* Assets.xcassets */; };
 		4EEA67732C71E493005C459C /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA67082C71E493005C459C /* Base.xcstrings */; };
 		4EEA67752C71E493005C459C /* AudioCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA670A2C71E493005C459C /* AudioCellView.swift */; };
@@ -416,6 +417,7 @@
 		4ED7FFE42C7341AD0045DACB /* CameraIconButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraIconButton.swift; sourceTree = "<group>"; };
 		4ED7FFEF2C7342D80045DACB /* AVCaptureDevice+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVCaptureDevice+Audio.swift"; sourceTree = "<group>"; };
 		4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScrollView.swift; sourceTree = "<group>"; };
+		4EE481E62C8B047600BB9B73 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4EEA66F92C71E254005C459C /* Maps For OSM Desktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps For OSM Desktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EEA66FF2C71E255005C459C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EEA67042C71E255005C459C /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
@@ -933,6 +935,7 @@
 		4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */ = {
 			isa = PBXGroup;
 			children = (
+				4EE481E62C8B047600BB9B73 /* Info.plist */,
 				4EEA67042C71E255005C459C /* Maps for OSM.entitlements */,
 				4EEA66FF2C71E255005C459C /* Assets.xcassets */,
 				4EEA67402C71E493005C459C /* PrivacyInfo.xcprivacy */,
@@ -1278,6 +1281,7 @@
 			files = (
 				4EEA67BD2C71E493005C459C /* Info.xcstrings in Resources */,
 				4EEA67002C71E255005C459C /* Assets.xcassets in Resources */,
+				4EE481E72C8B047600BB9B73 /* Info.plist in Resources */,
 				4EEA677B2C71E493005C459C /* InfoPlist.xcstrings in Resources */,
 				4EEA67772C71E493005C459C /* Camera.xcstrings in Resources */,
 				4EEA67C62C71E493005C459C /* Localizable.xcstrings in Resources */,
@@ -1769,6 +1773,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Maps-For-OSM-Desktop/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Michael Rönnau";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -1802,6 +1807,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Maps-For-OSM-Desktop/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Michael Rönnau";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;

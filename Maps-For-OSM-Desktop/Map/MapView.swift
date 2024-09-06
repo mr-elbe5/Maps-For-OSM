@@ -21,6 +21,9 @@ protocol MapViewDelegate{
     //from markers
     func showLocationDetails(_ location: Location)
     func showLocationGroupDetails(_ locationGroup: LocationGroup)
+    
+    //from map menu
+    func importTrack()
 }
 
 class MapView: NSView {
@@ -116,6 +119,11 @@ extension MapView: MapMenuDelegate{
     
     func refreshMap() {
         refresh()
+        updateLocations()
+    }
+    
+    func importTrack() {
+        delegate?.importTrack()
         updateLocations()
     }
     

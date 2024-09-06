@@ -12,6 +12,7 @@ protocol MapMenuDelegate{
     func zoomOut()
     func toggleCross()
     func refreshMap()
+    func importTrack()
     func hideTrack()
 }
 
@@ -22,6 +23,7 @@ class MapMenuView: NSView{
     var toggleCrossButton: NSButton!
     var centerButton: NSButton!
     var refreshButton: NSButton!
+    var importTrackButton: NSButton!
     var hideTrackButton: NSButton!
     
     var delegate: MapMenuDelegate? = nil
@@ -37,6 +39,8 @@ class MapMenuView: NSView{
         toggleCrossButton.toolTip = "toggleCross".localize()
         refreshButton = NSButton(image: NSImage(systemSymbolName: "arrow.triangle.2.circlepath", accessibilityDescription: nil)!, target: self, action: #selector(refreshMap))
         refreshButton.toolTip = "refresh".localize()
+        importTrackButton = NSButton(image: NSImage(systemSymbolName: "square.and.arrow.down", accessibilityDescription: nil)!, target: self, action: #selector(importTrack))
+        importTrackButton.toolTip = "importTrack".localize()
         hideTrackButton = NSButton(image: NSImage(systemSymbolName: "eraser", accessibilityDescription: nil)!, target: self, action: #selector(hideTrack))
         hideTrackButton.toolTip = "hideTrack".localize()
     }
@@ -54,8 +58,10 @@ class MapMenuView: NSView{
         toggleCrossButton.setAnchors(top: zoomOutButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
         addSubview(refreshButton)
         refreshButton.setAnchors(top: toggleCrossButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+        addSubview(importTrackButton)
+        importTrackButton.setAnchors(top: refreshButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
         addSubview(hideTrackButton)
-        hideTrackButton.setAnchors(top: refreshButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
+        hideTrackButton.setAnchors(top: importTrackButton.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: defaultInsets)
     }
     
     @objc func zoomIn(){
@@ -72,6 +78,10 @@ class MapMenuView: NSView{
     
     @objc func refreshMap() {
         delegate?.refreshMap()
+    }
+    
+    @objc func importTrack() {
+        delegate?.importTrack()
     }
     
     @objc func hideTrack() {
