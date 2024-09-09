@@ -353,12 +353,21 @@ extension LocationViewController : TrackCellDelegate{
     
     func editTrack(track: Track) {
         let controller = TrackViewController(track: track)
+        controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(track: Track) {
         navigationController?.popToRootViewController(animated: true)
         mainViewController?.showTrackOnMap(track: track)
+    }
+    
+}
+
+extension LocationViewController : TrackDelegate{
+    
+    func trackChanged() {
+        tableView.reloadData()
     }
     
 }

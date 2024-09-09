@@ -16,6 +16,10 @@ protocol ActiveTrackDelegate{
     func saveActiveTrack()
 }
 
+protocol TrackDelegate{
+    func trackChanged()
+}
+
 class TrackViewController: NavScrollViewController{
     
     var track: Track
@@ -23,9 +27,18 @@ class TrackViewController: NavScrollViewController{
     var nameEditField = UITextField()
     var noteEditView = TextEditArea()
     
+    var timeLabel = UILabel(text: "")
+    var distanceLabel = UILabel(text: "\("distance".localize()): 0 m")
+    var upDistanceLabel = UILabel(text: "\("upDistance".localize()): 0 m")
+    var downDistanceLabel = UILabel(text: "\("downDistance".localize()): 0 m")
+    var durationLabel = UILabel(text: "\("duration".localize()): 00:00")
+    var trackpointsLabel = UILabel(text: "\("trackpoints".localize()): 0")
+    
     var mainViewController: MainViewController?{
         navigationController?.rootViewController as? MainViewController
     }
+    
+    var delegate: TrackDelegate? = nil
     
     init(track: Track){
         self.track = track
@@ -67,7 +80,6 @@ class TrackViewController: NavScrollViewController{
             let coordinateLabel = UILabel(text: track.trackpoints[0].coordinate.asString)
             contentView.addSubviewWithAnchors(coordinateLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
             
-            let timeLabel = UILabel(text: "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())")
             contentView.addSubviewWithAnchors(timeLabel, top: coordinateLabel.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor,insets: flatInsets)
             
             header = UILabel(header: "name".localize())
@@ -87,18 +99,22 @@ class TrackViewController: NavScrollViewController{
             
             header = UILabel(header: "distances".localize())
             contentView.addSubviewWithAnchors(header, top: noteEditView.bottomAnchor, leading: contentView.leadingAnchor,insets: defaultInsets)
-            
-            let distanceLabel = UILabel(text: "\("distance".localize()): \(Int(track.distance))m")
             contentView.addSubviewWithAnchors(distanceLabel, top: header.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
-            
-            let upDistanceLabel = UILabel(text: "\("upDistance".localize()): \(Int(track.upDistance))m")
             contentView.addSubviewWithAnchors(upDistanceLabel, top: distanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
-            
-            let downDistanceLabel = UILabel(text: "\("downDistance".localize()): \(Int(track.downDistance))m")
             contentView.addSubviewWithAnchors(downDistanceLabel, top: upDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor,insets: flatInsets)
-            
-            let durationLabel = UILabel(text: "\("duration".localize()): \(track.duration.hmsString())")
             contentView.addSubviewWithAnchors(durationLabel, top: downDistanceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+            contentView.addSubviewWithAnchors(trackpointsLabel, top: durationLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: flatInsets)
+            
+            updateLabels()
+            
+            let recalculateButton = UIButton()
+            recalculateButton.setTitle("recalculate".localize(), for: .normal)
+            recalculateButton.setTitleColor(.systemBlue, for: .normal)
+            recalculateButton.addAction(UIAction(){ action in
+                self.recalculate()
+            }, for: .touchDown)
+            contentView.addSubviewWithAnchors(recalculateButton, top: trackpointsLabel.bottomAnchor, insets: defaultInsets)
+                .centerX(contentView.centerXAnchor)
             
             let saveButton = UIButton()
             saveButton.setTitle("save".localize(), for: .normal)
@@ -106,7 +122,7 @@ class TrackViewController: NavScrollViewController{
             saveButton.addAction(UIAction(){ action in
                 self.save()
             }, for: .touchDown)
-            contentView.addSubviewWithAnchors(saveButton, top: durationLabel.bottomAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(saveButton, top: recalculateButton.bottomAnchor, insets: defaultInsets)
                 .centerX(contentView.centerXAnchor)
             
             var lastView: UIView = saveButton
@@ -135,6 +151,15 @@ class TrackViewController: NavScrollViewController{
         
     }
     
+    func updateLabels(){
+        timeLabel.text = "\(track.startTime.dateTimeString()) - \(track.endTime.dateTimeString())"
+        distanceLabel.text = "\("distance".localize()): \(Int(track.distance))m"
+        upDistanceLabel.text = "\("upDistance".localize()): \(Int(track.upDistance))m"
+        downDistanceLabel.text = "\("downDistance".localize()): \(Int(track.downDistance))m"
+        durationLabel.text = "\("duration".localize()): \(track.duration.hmsString())"
+        trackpointsLabel.text = "\("trackpoints".localize()): \(track.trackpoints.count)"
+    }
+    
     func exportTrack(item: Track) {
         if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
@@ -147,6 +172,14 @@ class TrackViewController: NavScrollViewController{
         track.name = nameEditField.text ?? "Tour"
         track.note = noteEditView.text ?? ""
         AppData.shared.save()
+        delegate?.trackChanged()
+    }
+    
+    func recalculate(){
+        track.updateFromTrackpoints()
+        AppData.shared.save()
+        updateLabels()
+        delegate?.trackChanged()
     }
     
 }

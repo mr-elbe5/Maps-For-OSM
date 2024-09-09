@@ -2806,6 +2806,23 @@
         }
       }
     },
+    "recalculate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu berechnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recalculate"
+          }
+        }
+      }
+    },
     "recalculateTiles" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3686,6 +3703,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Time between trackpoints [s]"
+          }
+        }
+      }
+    },
+    "trackpoints" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wegpunkte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trackpoints"
           }
         }
       }
