@@ -56,7 +56,13 @@ extension CLLocationCoordinate2D : Equatable{
         return String(format: "%.04f", abs(latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(longitude)) + "° "  + longitudeText
     }
     
-    public var shortString : String{
+    public var asShortString : String{
+        let latitudeText = latitude > 0 ? "northShort".localize(table: "Location") : "southShort".localize(table: "Location")
+        let longitudeText = longitude > 0 ? "eastShort".localize(table: "Location") : "westShort".localize(table: "Location")
+        return String(format: "%.04f", abs(latitude)) + "° " + latitudeText + ", " + String(format: "%.04f", abs(longitude)) + "° "  + longitudeText
+    }
+    
+    public var debugString : String{
         "lat: \(String(format: "%.7f", latitude)), lon: \(String(format: "%.7f", longitude))"
     }
     

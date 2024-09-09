@@ -15,8 +15,6 @@ class TrackSettingsViewController: NavScrollViewController{
     var trackpointIntervalField = LabeledTextField()
     var maxHorizontalUncertaintyField = LabeledTextField()
     var minHorizontalTrackpointDistanceField = LabeledTextField()
-    var minVerticalTrackpointDistanceField = LabeledTextField()
-    var maxTrackpointInLineDeviationField = LabeledTextField()
     
     override func loadView() {
         title = "trackSettings".localize()
@@ -41,19 +39,13 @@ class TrackSettingsViewController: NavScrollViewController{
         minHorizontalTrackpointDistanceField.setupView(labelText: "minHorizontalTrackpointDistance".localize(), text: String(Preferences.shared.minHorizontalTrackpointDistance), isHorizontal: false)
         contentView.addSubviewWithAnchors(minHorizontalTrackpointDistanceField, top: maxHorizontalUncertaintyField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
-        minVerticalTrackpointDistanceField.setupView(labelText: "minVerticalTrackpointDistance".localize(), text: String(Preferences.shared.minVerticalTrackpointDistance), isHorizontal: false)
-        contentView.addSubviewWithAnchors(minVerticalTrackpointDistanceField, top: minHorizontalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
-        maxTrackpointInLineDeviationField.setupView(labelText: "maxTrackpointInLineDeviation".localize(), text: String(Preferences.shared.maxTrackpointInLineDeviation), isHorizontal: false)
-        contentView.addSubviewWithAnchors(maxTrackpointInLineDeviationField, top: minVerticalTrackpointDistanceField.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
-        
         let saveButton = UIButton()
         saveButton.setTitle("save".localize(), for: .normal)
         saveButton.setTitleColor(.systemBlue, for: .normal)
         saveButton.addAction(UIAction(){ action in
             self.save()
         }, for: .touchDown)
-        contentView.addSubviewWithAnchors(saveButton, top: maxTrackpointInLineDeviationField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(saveButton, top: minHorizontalTrackpointDistanceField.bottomAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
         .centerX(contentView.centerXAnchor)
     }
     
@@ -70,14 +62,6 @@ class TrackSettingsViewController: NavScrollViewController{
         val = Double(minHorizontalTrackpointDistanceField.text)
         if let val = val{
             Preferences.shared.minHorizontalTrackpointDistance = val
-        }
-        val = Double(minVerticalTrackpointDistanceField.text)
-        if let val = val{
-            Preferences.shared.minVerticalTrackpointDistance = val
-        }
-        val = Double(maxTrackpointInLineDeviationField.text)
-        if let val = val{
-            Preferences.shared.maxTrackpointInLineDeviation = val
         }
         Preferences.shared.save()
         showDone(title: "ok".localize(), text: "preferencesSaved".localize())

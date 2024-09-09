@@ -1242,23 +1242,6 @@
         }
       }
     },
-    "east" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ost"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "East"
-          }
-        }
-      }
-    },
     "edit" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2177,23 +2160,6 @@
         }
       }
     },
-    "maxTrackpointInLineDeviation" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Maximale Abweichung von Wegpunkten einer Linie [m]"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Maximal Deviation for Trackpoints in Line [m]"
-          }
-        }
-      }
-    },
     "media" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2364,23 +2330,6 @@
         }
       }
     },
-    "minVerticalTrackpointDistance" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Minimale Wegpunkt-Höhendifferenz [m]"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Minimal Trackpoint Height Difference [m]"
-          }
-        }
-      }
-    },
     "name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2462,23 +2411,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please connect to your iCloud account in 'Settings' first."
-          }
-        }
-      }
-    },
-    "north" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nord"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "North"
           }
         }
       }
@@ -3333,23 +3265,6 @@
         }
       }
     },
-    "south" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Süd"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "South"
-          }
-        }
-      }
-    },
     "speed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4060,23 +3975,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Waiting for GPS..."
-          }
-        }
-      }
-    },
-    "west" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "West"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "West"
           }
         }
       }

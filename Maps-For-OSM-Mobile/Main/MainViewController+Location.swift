@@ -27,7 +27,7 @@ extension MainViewController: LocationServiceDelegate{
                 if Preferences.shared.followTrack{
                     mapView.focusUserLocation()
                 }
-                trackStatusView.updateTrackInfo()
+                statusView.updateTrackInfo()
             }
             else if trackRecorder.track.trackpoints.isEmpty, let cancelAlert = cancelAlert{
                 Log.info("closing GPS wait alert")
@@ -38,9 +38,7 @@ extension MainViewController: LocationServiceDelegate{
             }
             
         }
-        if statusView.isDetailed{
-            statusView.updateDetailInfo(location: location)
-        }
+        statusView.updateLocationInfo(location: location)
     }
     
     func directionDidChange(direction: CLLocationDirection) {

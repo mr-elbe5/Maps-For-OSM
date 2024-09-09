@@ -42,7 +42,6 @@
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
 		4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */; };
-		4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */; };
 		4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */; };
 		4E5124202BAAE78100A5B416 /* LocationItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E51241F2BAAE78100A5B416 /* LocationItemCell.swift */; };
 		4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */; };
@@ -324,7 +323,6 @@
 		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuView.swift; sourceTree = "<group>"; };
 		4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Cloud.swift"; sourceTree = "<group>"; };
-		4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStatusView.swift; sourceTree = "<group>"; };
 		4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
 		4E51241F2BAAE78100A5B416 /* LocationItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationItemCell.swift; sourceTree = "<group>"; };
 		4E55B2B229476E0B005D2BFB /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
@@ -697,7 +695,6 @@
 				4EF3530D2BB43E6800A0A85B /* MapMenuView.swift */,
 				4E025E3A274E3C4300D56ED7 /* StatusView.swift */,
 				4E1B81052732EDC4003ED6B0 /* TopMenuView.swift */,
-				4E4B0A332BAD929900838EC0 /* TrackStatusView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1408,7 +1405,6 @@
 				4E7251532C43B9EC00EBA2BF /* MainViewController+Search.swift in Sources */,
 				4E72514B2C42D46400EBA2BF /* LocationVideoCell.swift in Sources */,
 				4E55B2B329476E0B005D2BFB /* VideoPlayerView.swift in Sources */,
-				4E4B0A342BAD929900838EC0 /* TrackStatusView.swift in Sources */,
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E7251432C42D35B00EBA2BF /* LocationImageCell.swift in Sources */,
 				4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */,

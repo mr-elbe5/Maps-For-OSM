@@ -17,7 +17,6 @@ class MainViewController: NavViewController {
     var actionMenuView = ActionMenuView()
     var mapMenuView = MapMenuView()
     var statusView = StatusView()
-    var trackStatusView = TrackStatusView()
     var licenseView = UIView()
     
     var cancelAlert: UIAlertController? = nil
@@ -96,7 +95,6 @@ class MainViewController: NavViewController {
         setupActionMenuView(guide: guide)
         setupMapMenuView(guide: guide)
         setupLicenseView(guide: guide)
-        setupTrackStatusView(guide: guide)
         setupStatusView(guide: guide)
         mapView.delegate = self
     }
@@ -159,7 +157,8 @@ class MainViewController: NavViewController {
     func setupStatusView(guide: UILayoutGuide){
         statusView.setBackground(.transparentColor)
         statusView.setup()
-        view.addSubviewWithAnchors(statusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: trackStatusView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: defaultInset, right: defaultInset))
+        view.addSubviewWithAnchors(statusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: licenseView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: 0, right: defaultInset))
+        statusView.delegate = self
     }
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {

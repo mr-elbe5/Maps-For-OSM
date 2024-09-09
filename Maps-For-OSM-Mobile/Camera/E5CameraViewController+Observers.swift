@@ -65,6 +65,21 @@ extension E5CameraViewController{
         }
     }
     
+    override open func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+        switch UIDevice.current.orientation {
+        case UIDeviceOrientation.portraitUpsideDown:
+            previewView.videoPreviewLayer.connection?.videoOrientation = .portraitUpsideDown
+        case UIDeviceOrientation.landscapeLeft:
+            previewView.videoPreviewLayer.connection?.videoOrientation = .landscapeRight
+        case UIDeviceOrientation.landscapeRight:
+            previewView.videoPreviewLayer.connection?.videoOrientation = .landscapeLeft
+        case UIDeviceOrientation.portrait:
+            previewView.videoPreviewLayer.connection?.videoOrientation = .portrait
+        default:
+            break
+        }
+    }
+    
     @objc func subjectAreaDidChange(notification: NSNotification) {
         let devicePoint = CGPoint(x: 0.5, y: 0.5)
         focus(with: .continuousAutoFocus, exposureMode: .continuousAutoExposure, at: devicePoint, monitorSubjectAreaChange: false)

@@ -165,7 +165,7 @@ open class Track : LocatedItem{
         let tp = Trackpoint(location: location)
         if trackpoints.isEmpty{
             trackpoints.append(tp)
-            Log.info("starting track at \(tp.coordinate.shortString)")
+            Log.info("starting track at \(tp.coordinate.debugString)")
             startTime = tp.timestamp
             lastAltitude = tp.altitude
             return
@@ -180,11 +180,11 @@ open class Track : LocatedItem{
         if horizontalDiff < Preferences.shared.minHorizontalTrackpointDistance{
             return
         }
-        Log.info("adding trackpoint at \(tp.coordinate.shortString)")
+        Log.info("adding trackpoint at \(tp.coordinate.debugString)")
         trackpoints.append(tp)
         distance += horizontalDiff
         let verticalDiff = tp.altitude - lastAltitude
-        if abs(verticalDiff) > max(location.horizontalAccuracy, Preferences.shared.minVerticalTrackpointDistance){
+        if abs(verticalDiff) > max(location.horizontalAccuracy, Preferences.minVerticalTrackpointDistance){
             if verticalDiff > 0{
                 upDistance += verticalDiff
                 lastAltitude = tp.altitude
@@ -226,7 +226,6 @@ open class Track : LocatedItem{
     
     public func simplifyTrack(){
         Log.info("simplifying track starting with \(trackpoints.count) trackpoints")
-        Log.info("using max deviation of \(Preferences.shared.maxTrackpointInLineDeviation) m")
         var i = 0
         while i + 2 < trackpoints.count{
             if canDropMiddleTrackpoint(tp0: trackpoints[i], tp1: trackpoints[i+1], tp2: trackpoints[i+2]){
@@ -256,7 +255,7 @@ open class Track : LocatedItem{
         }
         let expectedCoordinate = CLLocationCoordinate2D(latitude: expectedLatitude, longitude: tp1.coordinate.longitude)
         //check for middle coordinate being close to expected coordinate
-        return tp1.coordinate.distance(to: expectedCoordinate) <= Preferences.shared.maxTrackpointInLineDeviation
+        return tp1.coordinate.distance(to: expectedCoordinate) <= Preferences.maxTrackpointInLineDeviation
     }
     
     public func getPreviewFile() -> Data?{

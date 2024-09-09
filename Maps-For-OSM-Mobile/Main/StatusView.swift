@@ -9,101 +9,138 @@ import CoreLocation
 import E5Data
 import E5IOSUI
 
+protocol TrackStatusDelegate{
+    func togglePauseTracking()
+}
 
 class StatusView : UIView{
     
-    var detailView = UIView()
     var defaultView = UIView()
-    var detailButton = UIButton()
     
-    var compassLabel : UILabel? = nil
+    var compassLabel = UILabel(text: "0°").withTextColor(.darkText)
+    var heightLabel = UILabel(text: "0 m").withTextColor(.darkText)
+    var coordinateLabel = UILabel(text: "").withTextColor(.darkText)
     
-    var isDetailed = false
+    var trackStatusView = UIView()
     
-    var coordinateLabel : UILabel? = nil
-    var altitudeLabel : UILabel? = nil
-    var gpsSpeed : UILabel? = nil
-    var horizontalUncertaintyLabel : UILabel? = nil
-    var verticalUncertaintyLabel : UILabel? = nil
+    var pauseResumeButton = UIButton()
+    var distanceLabel = UILabel(text: "0 m")
+    var distanceUpLabel = UILabel(text: "0 m")
+    var distanceDownLabel = UILabel(text: "0 m")
+    var timeLabel = UILabel()
+    
+    var timer : Timer? = nil
+    
+    var zeroHeightConstraint: NSLayoutConstraint? = nil
+    
+    var delegate: TrackStatusDelegate? = nil
     
     func setup(){
         layer.cornerRadius = 10
         layer.masksToBounds = true
+        zeroHeightConstraint = heightAnchor.constraint(equalToConstant: 0)
         
-        addSubviewWithAnchors(detailView, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: .zero)
-        addSubviewWithAnchors(defaultView, top: detailView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
-        setupDetailView()
-        setupDefaultView()
-    }
-    
-    func setupDetailView(){
-        detailView.removeAllSubviews()
-        coordinateLabel = nil
-        altitudeLabel = nil
-        gpsSpeed = nil
-        horizontalUncertaintyLabel = nil
-        verticalUncertaintyLabel = nil
-        if isDetailed{
-            var label = UILabel(text: "\("coordinate".localize()):").withTextColor(.darkText)
-            coordinateLabel = UILabel().withTextColor(.darkText)
-            detailView.addSubviewWithAnchors(label, top: detailView.topAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(coordinateLabel!, top: detailView.topAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            var nextAnchor = label.bottomAnchor
-            
-            altitudeLabel = UILabel().withTextColor(.darkText)
-            label = UILabel(text: "\("altitude".localize()):").withTextColor(.darkText)
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(altitudeLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
-            gpsSpeed = UILabel().withTextColor(.darkText)
-            label = UILabel(text: "\("speed".localize()):").withTextColor(.darkText)
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(gpsSpeed!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
-            horizontalUncertaintyLabel = UILabel().withTextColor(.darkText)
-            label = UILabel(text: "\("horizontalUncertainty".localize()):").withTextColor(.darkText)
-            detailView.addSubviewWithAnchors(label, top: nextAnchor, leading: detailView.leadingAnchor, insets: defaultInsets)
-            detailView.addSubviewWithAnchors(horizontalUncertaintyLabel!, top: nextAnchor, leading: label.trailingAnchor, insets: defaultInsets)
-            nextAnchor = label.bottomAnchor
-            
-            label.bottom(detailView.bottomAnchor)
-        }
-    }
-    
-    func setupDefaultView(){
+        addSubviewWithAnchors(defaultView, top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor)
+        
         let compassIcon = UIImageView(image: UIImage(systemName: "safari"))
         compassIcon.tintColor = .darkText
-        defaultView.addSubviewWithAnchors(compassIcon, top: defaultView.topAnchor, leading: defaultView.leadingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
+        defaultView.addSubviewWithAnchors(compassIcon, top: defaultView.topAnchor, leading: defaultView.leadingAnchor, bottom: defaultView.bottomAnchor, insets: smallInsets)
         compassLabel = UILabel(text: "0°").withTextColor(.darkText)
-        defaultView.addSubviewWithAnchors(compassLabel!, top: defaultView.topAnchor, leading: compassIcon.trailingAnchor, bottom: defaultView.bottomAnchor)
+        defaultView.addSubviewWithAnchors(compassLabel, top: defaultView.topAnchor, leading: compassIcon.trailingAnchor, bottom: defaultView.bottomAnchor, insets: smallInsets)
+        let heightIcon = UIImageView(image: UIImage(systemName: "mountain.2.circle"))
+        heightIcon.tintColor = .darkText
+        defaultView.addSubviewWithAnchors(heightIcon, top: defaultView.topAnchor, leading: compassLabel.trailingAnchor, bottom: defaultView.bottomAnchor, insets: smallInsets)
+        defaultView.addSubviewWithAnchors(heightLabel, top: defaultView.topAnchor, leading: heightIcon.trailingAnchor, bottom: defaultView.bottomAnchor, insets: smallInsets)
+        defaultView.addSubviewWithAnchors(coordinateLabel, top: defaultView.topAnchor, trailing: defaultView.trailingAnchor, bottom: defaultView.bottomAnchor, insets: smallInsets)
         
-        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle", color: .darkText)
-        detailButton.addAction(UIAction(){ action in
-            self.toggleDetailed()
+        addSubviewWithAnchors(trackStatusView, top: defaultView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        
+        let distanceIcon = UIImageView(image: UIImage(systemName: "arrow.right"))
+        distanceIcon.tintColor = .darkText
+        trackStatusView.addSubviewWithAnchors(distanceIcon, top: trackStatusView.topAnchor, leading: trackStatusView.leadingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        distanceLabel.textColor = .darkText
+        trackStatusView.addSubviewWithAnchors(distanceLabel, top: trackStatusView.topAnchor, leading: distanceIcon.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        
+        let distanceUpIcon = UIImageView(image: UIImage(systemName: "arrow.up"))
+        distanceUpIcon.tintColor = .darkText
+        trackStatusView.addSubviewWithAnchors(distanceUpIcon, top: trackStatusView.topAnchor, leading: distanceLabel.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        distanceUpLabel.textColor = .darkText
+        trackStatusView.addSubviewWithAnchors(distanceUpLabel, top: trackStatusView.topAnchor, leading: distanceUpIcon.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        
+        let distanceDownIcon = UIImageView(image: UIImage(systemName: "arrow.down"))
+        distanceDownIcon.tintColor = .darkText
+        trackStatusView.addSubviewWithAnchors(distanceDownIcon, top: trackStatusView.topAnchor, leading: distanceUpLabel.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        distanceDownLabel.textColor = .darkText
+        trackStatusView.addSubviewWithAnchors(distanceDownLabel, top: trackStatusView.topAnchor, leading: distanceDownIcon.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        
+        let timeIcon = UIImageView(image: UIImage(systemName: "stopwatch"))
+        timeIcon.tintColor = .darkText
+        trackStatusView.addSubviewWithAnchors(timeIcon, top: trackStatusView.topAnchor, leading: distanceDownLabel.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        timeLabel.textColor = .darkText
+        trackStatusView.addSubviewWithAnchors(timeLabel, top: trackStatusView.topAnchor, leading: timeIcon.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        
+        pauseResumeButton.asIconButton("pause.circle")
+        pauseResumeButton.tintColor = .darkText
+        pauseResumeButton.addAction(UIAction(){ action in
+            self.togglePauseResume()
         }, for: .touchDown)
-        defaultView.addSubviewWithAnchors(detailButton, top: defaultView.topAnchor, trailing: defaultView.trailingAnchor, bottom: defaultView.bottomAnchor, insets: flatInsets)
+        trackStatusView.addSubviewWithAnchors(pauseResumeButton, top: trackStatusView.topAnchor, trailing: trackStatusView.trailingAnchor, bottom: trackStatusView.bottomAnchor, insets: smallInsets)
+        
+        zeroHeightConstraint = trackStatusView.heightAnchor.constraint(equalToConstant: 0)
+        zeroHeightConstraint?.isActive = true
     }
     
-    func updateDetailInfo(location: CLLocation){
-        coordinateLabel?.text = location.coordinate.asString
-        altitudeLabel?.text = "\(Int(location.altitude)) m"
-        gpsSpeed?.text = "\(Int(max(0,location.speed*3.6))) km/h"
-        horizontalUncertaintyLabel?.text = location.horizontalAccuracy < 0 ? "?" : "\(String(floor(location.horizontalAccuracy))) m"
+    
+    func updateLocationInfo(location: CLLocation){
+        heightLabel.text = "\(Int(location.altitude)) m"
+        coordinateLabel.text = location.coordinate.asShortString
     }
     
     func updateDirection(direction: CLLocationDirection) {
-        if TrackRecorder.instance == nil{
-            compassLabel?.text="\(Int(direction))°"
+        compassLabel.text="\(Int(direction))°"
+    }
+    
+    func startTrackInfo(){
+        trackStatusView.isHidden = false
+        zeroHeightConstraint?.isActive = false
+        pauseResumeButton.asIconButton("pause.circle", color: .darkText)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    func updateTrackInfo(){
+        if let track = TrackRecorder.instance?.track{
+            distanceLabel.text = "\(Int(track.distance)) m"
+            distanceUpLabel.text = "\(Int(track.upDistance)) m"
+            distanceDownLabel.text = "\(Int(track.downDistance)) m"
+            heightLabel.text = "\(Int(track.lastAltitude)) m"
         }
     }
     
-    func toggleDetailed(){
-        isDetailed = !isDetailed
-        setupDetailView()
-        detailButton.asIconButton(isDetailed ? "chevron.down.circle" : "chevron.up.circle", color: .darkText)
-        setNeedsLayout()
+    func pauseTrackInfo(){
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func resumeTrackInfo(){
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+    }
+    
+    func stopTrackInfo(){
+        timer?.invalidate()
+        timer = nil
+        trackStatusView.isHidden = true
+        zeroHeightConstraint?.isActive = true
+    }
+    
+    @objc func updateTime(){
+        if let track = TrackRecorder.instance?.track{
+            timeLabel.text = track.durationUntilNow.hmString()
+        }
+    }
+    
+    func togglePauseResume(){
+        delegate?.togglePauseTracking()
+        pauseResumeButton.asIconButton(TrackRecorder.isRecording ? "pause.circle" : "play.circle", color: .darkText)
     }
     
 }

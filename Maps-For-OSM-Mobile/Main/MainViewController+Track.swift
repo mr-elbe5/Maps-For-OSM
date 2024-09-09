@@ -12,14 +12,6 @@ import UniformTypeIdentifiers
 
 extension MainViewController{
     
-    func setupTrackStatusView(guide: UILayoutGuide){
-        trackStatusView.setBackground(.transparentColor)
-        trackStatusView.setup()
-        trackStatusView.delegate = self
-        view.addSubviewWithAnchors(trackStatusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: licenseView.topAnchor, insets: flatInsets)
-        trackStatusView.hide(true)
-    }
-    
     func updateFollowTrack(){
         if Preferences.shared.followTrack, TrackRecorder.isRecording{
             mapView.focusUserLocation()
@@ -57,8 +49,7 @@ extension MainViewController{
             trackRecorder.isRecording = true
             Track.visibleTrack = trackRecorder.track
             self.trackChanged()
-            self.trackStatusView.hide(false)
-            self.trackStatusView.startTrackInfo()
+            self.statusView.startTrackInfo()
         }
     }
     
@@ -76,7 +67,7 @@ extension MainViewController{
             AppData.shared.save()
             Track.visibleTrack = track
             self.trackChanged()
-            self.trackStatusView.hide(true)
+            self.statusView.stopTrackInfo()
             TrackRecorder.instance = nil
             DispatchQueue.main.async {
                 if newLocation{
@@ -94,8 +85,7 @@ extension MainViewController{
             Log.info("track cancelled")
             Track.visibleTrack = nil
             self.trackChanged()
-            self.trackStatusView.stopTrackInfo()
-            self.trackStatusView.hide(true)
+            self.statusView.stopTrackInfo()
         }
         TrackRecorder.instance = nil
     }

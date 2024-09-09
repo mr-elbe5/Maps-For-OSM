@@ -83,7 +83,7 @@ class MapView: UIView {
         Log.info("setting start location")
         Log.info("zooming to \(AppState.shared.zoom)")
         scrollView.zoomTo(AppState.shared.zoom)
-        Log.info("moving to \(AppState.shared.coordinate.shortString)")
+        Log.info("moving to \(AppState.shared.coordinate.debugString)")
         scrollView.scrollToScreenPoint(coordinate: AppState.shared.coordinate, screenPoint: CGPoint(x: frame.width/2, y: frame.height/2))
         updateLocationLayer()
         canUpdatePosition = true

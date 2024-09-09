@@ -20,11 +20,9 @@ open class Preferences: Identifiable, Codable{
     public static var defaultTrackpointInterval: Double = 5
     public static var defaultMaxHorizontalUncertainty: Double = 5
     
-    public static var defaultMinHorizontalTrackpointDistance: Double = 5
-    public static var defaultMinVerticalTrackpointDistance: Double = 1.5
-    
-    public static var defaultMaxTrackpointInLineDeviation: Double = 2.0
-    
+    public static var defaultMinHorizontalTrackpointDistance: Double = 5.0
+    public static var minVerticalTrackpointDistance: Double = 5.0
+    public static var maxTrackpointInLineDeviation: Double = 2.0
     public static var defaultMaxLocationMergeDistance: Double = 10.0
     
     public static var defaultMaxSearchResults: Int = 5
@@ -39,8 +37,6 @@ open class Preferences: Identifiable, Codable{
         case maxHorizontalUncertainty
         case maxSpeedUncertaintyFactor
         case minHorizontalTrackpointDistance
-        case minVerticalTrackpointDistance
-        case maxTrackpointInLineDeviation
         case maxSearchResults
         case maxLocationMergeDistance
     }
@@ -52,8 +48,6 @@ open class Preferences: Identifiable, Codable{
     public var trackpointInterval: Double = defaultTrackpointInterval
     public var maxHorizontalUncertainty: Double = defaultMaxHorizontalUncertainty
     public var minHorizontalTrackpointDistance = defaultMinHorizontalTrackpointDistance
-    public var minVerticalTrackpointDistance = defaultMinVerticalTrackpointDistance
-    public var maxTrackpointInLineDeviation = defaultMaxTrackpointInLineDeviation
     public var maxSearchResults = defaultMaxSearchResults
     public var maxLocationMergeDistance: Double = defaultMaxLocationMergeDistance
     
@@ -67,8 +61,6 @@ open class Preferences: Identifiable, Codable{
         trackpointInterval = try values.decodeIfPresent(Double.self, forKey: .trackpointInterval) ?? Preferences.defaultTrackpointInterval
         maxHorizontalUncertainty = try values.decodeIfPresent(Double.self, forKey: .maxHorizontalUncertainty) ?? Preferences.defaultMaxHorizontalUncertainty
         minHorizontalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minHorizontalTrackpointDistance) ?? Preferences.defaultMinHorizontalTrackpointDistance
-        minVerticalTrackpointDistance = try values.decodeIfPresent(Double.self, forKey: .minVerticalTrackpointDistance) ?? Preferences.defaultMinVerticalTrackpointDistance
-        maxTrackpointInLineDeviation = try values.decodeIfPresent(Double.self, forKey: .maxTrackpointInLineDeviation) ?? Preferences.defaultMaxTrackpointInLineDeviation
         maxSearchResults = try values.decodeIfPresent(Int.self, forKey: .maxSearchResults) ?? Preferences.defaultMaxSearchResults
         maxLocationMergeDistance = try values.decodeIfPresent(Double.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
     }
@@ -79,8 +71,6 @@ open class Preferences: Identifiable, Codable{
         try container.encode(followTrack, forKey: .followTrack)
         try container.encode(maxHorizontalUncertainty, forKey: .maxHorizontalUncertainty)
         try container.encode(minHorizontalTrackpointDistance, forKey: .minHorizontalTrackpointDistance)
-        try container.encode(minVerticalTrackpointDistance, forKey: .minVerticalTrackpointDistance)
-        try container.encode(maxTrackpointInLineDeviation, forKey: .maxTrackpointInLineDeviation)
         try container.encode(maxSearchResults, forKey: .maxSearchResults)
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
     }
