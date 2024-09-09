@@ -52,7 +52,7 @@ class CrossLocationMenu: PopoverViewController {
                 if !str.isEmpty{
                     self.addText(str)
                 }
-                self.addText(coordinate.shortString)
+                self.addText(coordinate.debugString)
                 self.addButton(title: "addImage".localize(), icon: "photo", target:self, action: #selector(self.addImageAtCross))
                 self.addButton(title: "addVideo".localize(), icon: "video", target:self, action: #selector(self.addVideoAtCross))
                 self.addButton(title: "addAudio".localize(), icon: "mic", target:self, action: #selector(self.addAudioAtCross))

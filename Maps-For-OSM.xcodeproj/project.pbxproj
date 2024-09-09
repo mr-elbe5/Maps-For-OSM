@@ -185,7 +185,6 @@
 		4ED7FFEE2C7341AD0045DACB /* CameraIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FFE42C7341AD0045DACB /* CameraIconButton.swift */; };
 		4ED7FFF02C7342D80045DACB /* AVCaptureDevice+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FFEF2C7342D80045DACB /* AVCaptureDevice+Audio.swift */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
-		4EE481E72C8B047600BB9B73 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4EE481E62C8B047600BB9B73 /* Info.plist */; };
 		4EEA67002C71E255005C459C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA66FF2C71E255005C459C /* Assets.xcassets */; };
 		4EEA67732C71E493005C459C /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA67082C71E493005C459C /* Base.xcstrings */; };
 		4EEA67752C71E493005C459C /* AudioCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA670A2C71E493005C459C /* AudioCellView.swift */; };
@@ -1278,7 +1277,6 @@
 			files = (
 				4EEA67BD2C71E493005C459C /* Info.xcstrings in Resources */,
 				4EEA67002C71E255005C459C /* Assets.xcassets in Resources */,
-				4EE481E72C8B047600BB9B73 /* Info.plist in Resources */,
 				4EEA677B2C71E493005C459C /* InfoPlist.xcstrings in Resources */,
 				4EEA67772C71E493005C459C /* Camera.xcstrings in Resources */,
 				4EEA67C62C71E493005C459C /* Localizable.xcstrings in Resources */,

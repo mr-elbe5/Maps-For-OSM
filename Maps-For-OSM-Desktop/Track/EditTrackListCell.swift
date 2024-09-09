@@ -36,7 +36,7 @@ class EditTrackListCell: NSView{
         addSubviewWithAnchors(iconBar, top: topAnchor, trailing: trailingAnchor)
         selectedButton = NSButton(icon: trackpoint.selected ? "checkmark.square" : "square", target: self, action: #selector(selectionChanged))
         iconBar.addArrangedSubview(selectedButton)
-        let coordinateLabel = NSTextField(wrappingLabelWithString: trackpoint.coordinate.shortString)
+        let coordinateLabel = NSTextField(wrappingLabelWithString: trackpoint.coordinate.debugString)
         addSubviewWithAnchors(coordinateLabel, top: iconBar.bottomAnchor,leading: leadingAnchor, trailing: trailingAnchor, insets: smallInsets)
         let altitudeLabel = NSTextField(wrappingLabelWithString: "alt: \(Int(trackpoint.altitude))m")
         addSubviewWithAnchors(altitudeLabel, top: coordinateLabel.bottomAnchor,leading: leadingAnchor,trailing: trailingAnchor, insets: smallInsets)
