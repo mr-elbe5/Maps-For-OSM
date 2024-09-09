@@ -39,6 +39,7 @@ extension MainViewController{
         TrackRecorder.startTracking()
         cancelAlert = showCancel(title: "pleaseWait".localize(), text: "waitingForGPS".localize()){
             self.cancelAlert = nil
+            TrackRecorder.instance = nil
             return
         }
     }

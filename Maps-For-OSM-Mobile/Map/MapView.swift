@@ -121,6 +121,7 @@ class MapView: UIView {
     
     func refresh(){
         scrollView.tileLayerView.refresh()
+        locationLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
     }
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {

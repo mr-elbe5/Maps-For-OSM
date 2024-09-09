@@ -67,7 +67,11 @@ class LocationCell: TableViewCell{
             coordinateLabel.textAlignment = .center
             itemView.addSubviewWithAnchors(coordinateLabel, top: locationLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
             
-            var lastView = coordinateLabel
+            let altitudeLabel = UILabel(text: "\(location.altitude) m")
+            altitudeLabel.textAlignment = .center
+            itemView.addSubviewWithAnchors(altitudeLabel, top: coordinateLabel.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: flatInsets)
+            
+            var lastView = altitudeLabel
             var text: UILabel
             var imageCount = 0
             var audioCount = 0
