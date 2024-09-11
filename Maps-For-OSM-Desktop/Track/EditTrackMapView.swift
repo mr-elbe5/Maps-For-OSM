@@ -87,15 +87,12 @@ class EditTrackMapView : NSClipView{
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        Log.info("start draw")
         if !worldViewRect.isEmpty{
             let ctx = NSGraphicsContext.current!.cgContext
             drawTiles()
             drawTrack(ctx)
         }
-        Log.info("start draw markers")
         super.draw(dirtyRect)
-        Log.info("end draw markers")
     }
     
     func drawTiles() {
@@ -136,8 +133,19 @@ class EditTrackMapView : NSClipView{
 
 extension EditTrackMapView: TrackpointMarkerDelegate{
     
-    func pointTapped(_ editpoint: DrawTrackpoint) {
-        delegate?.trackpointChangedInMap(editpoint.trackpoint)
+    func pointTapped(_ marker: TrackpointMarker, commandPressed: Bool) {
+        let trackpoint = marker.point.trackpoint
+        if !commandPressed{
+            for sv in subviews{
+                if let m = sv as? TrackpointMarker, m != marker{
+                    m.point.trackpoint.selected = false
+                    m.needsDisplay = true
+                }
+            }
+        }
+        trackpoint.selected = !trackpoint.selected
+        marker.needsDisplay = true
+        delegate?.trackpointChangedInMap(trackpoint)
     }
     
     func markerMoved(){

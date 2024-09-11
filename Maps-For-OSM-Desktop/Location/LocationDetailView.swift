@@ -223,9 +223,6 @@ extension LocationDetailView: AudioCellDelegate{
 extension LocationDetailView: TrackCellDelegate{
     
     func editTrack(_ track: Track) {
-        if track.trackpoints.count > 100{
-            NSAlert.showMessage(message: "manyTrackpoints".localize(i: track.trackpoints.count))
-        }
         let controller = EditTrackViewController(track: track)
         if ModalWindow.run(title: "editTrack".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200)) == .OK{
             AppData.shared.save()

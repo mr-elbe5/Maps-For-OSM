@@ -10,7 +10,7 @@ import E5Data
 import CoreLocation
 
 protocol TrackpointMarkerDelegate{
-    func pointTapped(_ editpoint: DrawTrackpoint)
+    func pointTapped(_ marker: TrackpointMarker, commandPressed: Bool)
     func markerMoved()
 }
 
@@ -46,9 +46,7 @@ class TrackpointMarker: NSControl{
     override func mouseUp(with event: NSEvent) {
         if event.type == .leftMouseUp{
             if offset == .zero{
-                point.trackpoint.selected = !point.trackpoint.selected
-                needsDisplay = true
-                delegate?.pointTapped(point)
+                delegate?.pointTapped(self, commandPressed: event.modifierFlags.contains(.command))
             }
             else{
                 point.updateTrackpoint(offset: offset)
