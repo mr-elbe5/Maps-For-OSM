@@ -52,6 +52,23 @@
         }
       }
     },
+    "eastShort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E"
+          }
+        }
+      }
+    },
     "north" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -65,6 +82,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "North"
+          }
+        }
+      }
+    },
+    "northShort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "N"
           }
         }
       }
@@ -86,6 +120,23 @@
         }
       }
     },
+    "southShort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S"
+          }
+        }
+      }
+    },
     "west" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -99,6 +150,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "West"
+          }
+        }
+      }
+    },
+    "westShort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "W"
           }
         }
       }

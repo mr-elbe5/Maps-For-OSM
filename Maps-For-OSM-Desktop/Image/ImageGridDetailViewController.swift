@@ -49,16 +49,14 @@ class ImageGridDetailViewController: PopoverViewController {
             let lensModelView = NSTextField(labelWithString: image.metaData?.cameraModel ?? "")
             let widthView = NSTextField(labelWithString: intString(val: image.metaData?.width) + " px")
             let heightView = NSTextField(labelWithString: intString(val: image.metaData?.height) + " px")
-            let latitudeView = NSTextField(labelWithString: coordString(val: image.metaData?.latitude) + "°")
-            let longitudeView = NSTextField(labelWithString: coordString(val: image.metaData?.longitude) + "°")
+            let coordinateView = NSTextField(labelWithString: coordString(lat: image.metaData?.latitude, lon: image.metaData?.longitude))
             let altitudeView = NSTextField(labelWithString: intString(val: image.metaData?.altitude) + " m")
             let exifCreationDateView = NSTextField(labelWithString: image.metaData?.dateTime?.dateTimeString() ?? "")
             addDataLine(name: "name", view: nameView)
             addDataLine(name: "camera", view: lensModelView)
             addDataLine(name: "width".localize(), view: widthView)
             addDataLine(name: "height".localize(), view: heightView)
-            addDataLine(name: "latitude".localize(), view: latitudeView)
-            addDataLine(name: "longitude".localize(), view: longitudeView)
+            addDataLine(name: "coordinates".localize(), view: coordinateView)
             addDataLine(name: "altitude".localize(), view: altitudeView)
             addDataLine(name: "creationDate".localize(), view: exifCreationDateView)
         }
@@ -70,9 +68,10 @@ class ImageGridDetailViewController: PopoverViewController {
             return ""
         }
         
-        func coordString(val: Double?) -> String{
-            if let val = val{
-                return String(format: "%.5f", val)
+        func coordString(lat: Double?, lon: Double?) -> String{
+            if let lat = lat, let lon = lon{
+                let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                return coord.asShortString
             }
             return ""
         }

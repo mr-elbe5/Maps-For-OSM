@@ -70,7 +70,7 @@ class TrackCellView : LocationItemCellView{
         }
         else{
             let loadPreviewButton = NSButton(title: "loadPreview".localize(), target: self, action: #selector(loadPreview))
-            itemView.addSubviewWithAnchors(loadPreviewButton, top: nameField.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
+            itemView.addSubviewWithAnchors(loadPreviewButton, top: lastView.bottomAnchor, leading: itemView.leadingAnchor, trailing: itemView.trailingAnchor, insets: defaultInsets)
             lastView = loadPreviewButton
         }
         lastView.bottom(itemView.bottomAnchor, inset: defaultInset)

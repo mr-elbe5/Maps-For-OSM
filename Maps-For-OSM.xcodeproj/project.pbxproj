@@ -40,6 +40,7 @@
 		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
+		4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */; };
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
 		4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */; };
 		4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */; };
@@ -248,8 +249,7 @@
 		4EEA67B22C71E493005C459C /* MacAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67532C71E493005C459C /* MacAppState.swift */; };
 		4EEA67B32C71E493005C459C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67542C71E493005C459C /* main.swift */; };
 		4EEA67B42C71E493005C459C /* DrawTrackpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67562C71E493005C459C /* DrawTrackpoint.swift */; };
-		4EEA67B52C71E493005C459C /* EditTrackListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67572C71E493005C459C /* EditTrackListCell.swift */; };
-		4EEA67B62C71E493005C459C /* EditTrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67582C71E493005C459C /* EditTrackListView.swift */; };
+		4EEA67B52C71E493005C459C /* EditTrackpointDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67572C71E493005C459C /* EditTrackpointDetailView.swift */; };
 		4EEA67B72C71E493005C459C /* EditTrackMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67592C71E493005C459C /* EditTrackMapView.swift */; };
 		4EEA67B82C71E493005C459C /* EditTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA675A2C71E493005C459C /* EditTrackViewController.swift */; };
 		4EEA67B92C71E493005C459C /* TrackCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA675B2C71E493005C459C /* TrackCellView.swift */; };
@@ -320,6 +320,7 @@
 		4E2579122B9DB5B200481B23 /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
+		4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackMenuView.swift; sourceTree = "<group>"; };
 		4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuView.swift; sourceTree = "<group>"; };
 		4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Cloud.swift"; sourceTree = "<group>"; };
 		4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
@@ -480,8 +481,7 @@
 		4EEA67532C71E493005C459C /* MacAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacAppState.swift; sourceTree = "<group>"; };
 		4EEA67542C71E493005C459C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4EEA67562C71E493005C459C /* DrawTrackpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTrackpoint.swift; sourceTree = "<group>"; };
-		4EEA67572C71E493005C459C /* EditTrackListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTrackListCell.swift; sourceTree = "<group>"; };
-		4EEA67582C71E493005C459C /* EditTrackListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTrackListView.swift; sourceTree = "<group>"; };
+		4EEA67572C71E493005C459C /* EditTrackpointDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTrackpointDetailView.swift; sourceTree = "<group>"; };
 		4EEA67592C71E493005C459C /* EditTrackMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTrackMapView.swift; sourceTree = "<group>"; };
 		4EEA675A2C71E493005C459C /* EditTrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTrackViewController.swift; sourceTree = "<group>"; };
 		4EEA675B2C71E493005C459C /* TrackCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCellView.swift; sourceTree = "<group>"; };
@@ -1096,13 +1096,13 @@
 			isa = PBXGroup;
 			children = (
 				4EEA67562C71E493005C459C /* DrawTrackpoint.swift */,
-				4EEA67572C71E493005C459C /* EditTrackListCell.swift */,
-				4EEA67582C71E493005C459C /* EditTrackListView.swift */,
+				4EEA67572C71E493005C459C /* EditTrackpointDetailView.swift */,
 				4EEA67592C71E493005C459C /* EditTrackMapView.swift */,
 				4EEA675A2C71E493005C459C /* EditTrackViewController.swift */,
 				4EEA675B2C71E493005C459C /* TrackCellView.swift */,
 				4EEA675C2C71E493005C459C /* TrackLayerView.swift */,
 				4EEA675D2C71E493005C459C /* TrackpointMarker.swift */,
+				4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -1478,7 +1478,6 @@
 				4EEA67C82C71E493005C459C /* MapDetailView.swift in Sources */,
 				4ED7FFA22C733B650045DACB /* LocationGroup.swift in Sources */,
 				4EEA67982C71E493005C459C /* ModalWindow.swift in Sources */,
-				4EEA67B62C71E493005C459C /* EditTrackListView.swift in Sources */,
 				4EEA67812C71E493005C459C /* MediaPresenterView.swift in Sources */,
 				4ED7FFAC2C733B650045DACB /* CoordinateRegion.swift in Sources */,
 				4EEA67CA2C71E493005C459C /* MapScrollView.swift in Sources */,
@@ -1498,6 +1497,7 @@
 				4EEA67872C71E493005C459C /* NSTextField.swift in Sources */,
 				4EEA67C02C71E493005C459C /* LocationGroupDetailView.swift in Sources */,
 				4EEA67832C71E493005C459C /* LabeledSwitchView.swift in Sources */,
+				4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */,
 				4EEA679E2C71E493005C459C /* NSMenuItem.swift in Sources */,
 				4EEA679C2C71E493005C459C /* Insets.swift in Sources */,
 				4ED7FFD42C733B650045DACB /* AppState.swift in Sources */,
@@ -1534,7 +1534,7 @@
 				4ED7FFA82C733B650045DACB /* CGPoint+CL.swift in Sources */,
 				4EEA679A2C71E493005C459C /* WindowController.swift in Sources */,
 				4EEA67AE2C71E493005C459C /* AppDelegate.swift in Sources */,
-				4EEA67B52C71E493005C459C /* EditTrackListCell.swift in Sources */,
+				4EEA67B52C71E493005C459C /* EditTrackpointDetailView.swift in Sources */,
 				4ED7FFD02C733B650045DACB /* MapType.swift in Sources */,
 				4EEA67862C71E493005C459C /* NSButton.swift in Sources */,
 				4ED7FFC22C733B650045DACB /* Video.swift in Sources */,

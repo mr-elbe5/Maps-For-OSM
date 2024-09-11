@@ -15,10 +15,10 @@ class EditTrackViewController: ModalViewController {
     var track: Track
     var newTrack = Track()
     
-    var nameEditField = NSTextField()
-    var splitView: SplitView
+    var menuView: EditTrackMenuView
     var mapView: EditTrackMapView
-    var listView: EditTrackListView
+    var trackpointDetailView: EditTrackpointDetailView
+    var nameEditField = NSTextField()
     var minDistanceField = NSTextField()
     
     init(track: Track){
@@ -26,10 +26,9 @@ class EditTrackViewController: ModalViewController {
         for tp in track.trackpoints{
             newTrack.trackpoints.append(Trackpoint(coordinate: tp.coordinate, altitude: tp.altitude, timestamp: tp.timestamp))
         }
+        menuView = EditTrackMenuView()
         mapView = EditTrackMapView(track: newTrack)
-        listView = EditTrackListView(track: newTrack)
-        splitView = SplitView(mainView: mapView, sideView: listView)
-        splitView.minSideWidth = 200
+        trackpointDetailView = EditTrackpointDetailView()
         super.init()
     }
     
@@ -40,15 +39,20 @@ class EditTrackViewController: ModalViewController {
     override func loadView() {
         super.loadView()
         view.frame = CGRect(origin: .zero, size: startSize)
+        menuView.setupView()
+        menuView.delegate = self
+        view.addSubviewWithAnchors(menuView, top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
+        
+        view.addSubviewWithAnchors(mapView, top: menuView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
+        
+        trackpointDetailView.setupView()
+        view.addSubviewWithAnchors(trackpointDetailView, top: mapView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
+        
         nameEditField.asEditableField(text: track.name)
-        view.addSubviewWithAnchors(nameEditField, top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
-        splitView.setupView()
+        view.addSubviewWithAnchors(nameEditField, top: trackpointDetailView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
         mapView.delegate = self
-        listView.setupView()
-        listView.delegate = self
-        view.addSubviewWithAnchors(splitView, top: nameEditField.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
         let hintLabel = NSTextField(wrappingLabelWithString: "trackEditorHint".localize())
-        view.addSubviewWithAnchors(hintLabel, top: splitView.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
+        view.addSubviewWithAnchors(hintLabel, top: nameEditField.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, insets: defaultInsets)
         let simplifyView = NSView()
         view.addSubviewWithAnchors(simplifyView, top: hintLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor)
         let simplifyLabel = NSTextField(labelWithString: "simplifyByDistance".localize())
@@ -64,7 +68,23 @@ class EditTrackViewController: ModalViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        splitView.openSideView()
+        view.window?.makeFirstResponder(nil)
+    }
+    
+    func updateTrackpointDetailView(){
+        var trackpoint: Trackpoint? = nil
+        for tp in newTrack.trackpoints{
+            if tp.selected{
+                if trackpoint == nil{
+                    trackpoint = tp
+                }
+                else{
+                    trackpoint = nil
+                    break
+                }
+            }
+        }
+        trackpointDetailView.setTrackPoint(trackpoint)
     }
     
     @objc func simplify(){
@@ -72,7 +92,6 @@ class EditTrackViewController: ModalViewController {
         if let dist = dist, dist > 0{
             newTrack.setMinimalTrackpointDistances(minDistance: dist)
             mapView.trackpointsChanged()
-            listView.trackpointsChanged()
         }
     }
     
@@ -86,13 +105,51 @@ class EditTrackViewController: ModalViewController {
     
 }
 
-extension EditTrackViewController: EditTrackListDelegate{
+extension EditTrackViewController: EditTrackMenuDelegate{
     
-    func trackpointChangedInList(_ trackpoint: Trackpoint) {
-        mapView.trackpointChangedInList(trackpoint)
+    func toggleSelectAllTrackpoints() {
+        if newTrack.trackpoints.allSelected{
+            newTrack.trackpoints.deselectAll()
+        }
+        else{
+            newTrack.trackpoints.selectAll()
+        }
+        for sv in mapView.subviews{
+            if let marker = sv as? TrackpointMarker{
+                marker.needsDisplay = true
+            }
+        }
+        updateTrackpointDetailView()
     }
     
-    func trackpointsChanged() {
+    func deleteSelectedTrackpoints() {
+        var list = TrackpointList()
+        for i in 0..<newTrack.trackpoints.count{
+            let tp = newTrack.trackpoints[i]
+            if tp.selected{
+                list.append(tp)
+            }
+        }
+        if list.isEmpty{
+            return
+        }
+        print("deleting \(list.count) trackpoints")
+        newTrack.trackpoints.removeAll(where: { tp in
+            list.contains(where: { tp1 in
+                return tp.id == tp1.id
+            })
+        })
+        newTrack.trackpointsChanged()
+        mapView.trackpointsChanged()
+        updateTrackpointDetailView()
+    }
+    
+    func undoTrackChanges(){
+        newTrack.trackpoints.removeAll()
+        for tp in track.trackpoints{
+            newTrack.trackpoints.append(Trackpoint(coordinate: tp.coordinate, altitude: tp.altitude, timestamp: tp.timestamp))
+        }
+        newTrack.trackpointsChanged()
         mapView.trackpointsChanged()
     }
     
@@ -101,7 +158,7 @@ extension EditTrackViewController: EditTrackListDelegate{
 extension EditTrackViewController: EditTrackMapDelegate{
     
     func trackpointChangedInMap(_ trackpoint: Trackpoint) {
-        listView.trackpointChangedInMap(trackpoint)
+        updateTrackpointDetailView()
     }
     
 }

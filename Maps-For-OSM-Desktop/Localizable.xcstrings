@@ -715,7 +715,7 @@
         }
       }
     },
-    "coordinate" : {
+    "coordinates" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3741,6 +3741,23 @@
         }
       }
     },
+    "selectedTrackpoint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selektierter Wegpunkt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected Trackpoint"
+          }
+        }
+      }
+    },
     "selectSmallerRegion" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4342,13 +4359,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Du kannst Punkte auf der Karte oder in der Liste auswählen, um sie zu löschen (Icon über der Liste), Punkte bewegen (Zeiten werden nicht verändert) oder die ganze Tour vereinfachen, indem ein minimaler Abstand zwischen zwei Punkten gesetzt wird."
+            "value" : "Du kannst Punkte auf der Karte auswählen, um sie zu löschen (rotes Icon oben), Punkte bewegen (Zeiten werden nicht verändert) oder die ganze Tour vereinfachen, indem ein minimaler Abstand zwischen zwei Punkten gesetzt wird."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You can select points on the map and in the list for deleting (icon on top of the list), you can move points on the map (timestamps are not changed) or you can simplify the whole track by setting a minimum distance between points."
+            "value" : "You can select points on the map for deleting (red icon on top), you can move points on the map (timestamps are not changed) or you can simplify the whole track by setting a minimum distance between points."
           }
         }
       }
@@ -4468,6 +4485,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This action has not been authorized."
+          }
+        }
+      }
+    },
+    "undo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rückgängig"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo"
           }
         }
       }
