@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillFinishLaunching(_ notification: Notification) {
         Log.useCache = false
-        Log.logLevel = .info
+        Log.logLevel = .error
         FileManager.initializePrivateDir()
         FileManager.default.initializeAppDirs()
         //FileManager.default.logFileInfo()

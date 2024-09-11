@@ -24,12 +24,14 @@ protocol MapViewDelegate{
     
     //from map menu
     func importTrack()
+    
 }
 
 class MapView: NSView {
     
     var menuView = MapMenuView()
     var scrollView = MapScrollView()
+    var statusView = MapStatusView()
     var crossLocationView = NSButton().asIconButton("plus.circle", color: .systemBlue)
     
     var delegate: MapViewDelegate? = nil
@@ -37,13 +39,17 @@ class MapView: NSView {
     override func setupView(){
         addSubview(menuView)
         menuView.setupView()
-        menuView.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor)
+        menuView.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor).width(50, priority: .infinity)
         menuView.delegate = self
         
         scrollView.mapDelegate = self
         addSubview(scrollView)
         scrollView.setupView()
-        scrollView.setAnchors(top: topAnchor, leading: menuView.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        scrollView.setAnchors(top: topAnchor, leading: menuView.trailingAnchor, trailing: trailingAnchor)
+        
+        statusView.setupView()
+        addSubview(statusView)
+        statusView.setAnchors(top: scrollView.bottomAnchor, leading: menuView.trailingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
         
         crossLocationView.isBordered = false
         crossLocationView.target = self
@@ -154,6 +160,7 @@ extension MapView : MapScrollViewDelegate{
     func didZoom() {
         updateLocations()
         updateTrack()
+        statusView.setZoom(AppState.shared.zoom)
     }
     
     override func autoscroll(with event: NSEvent) -> Bool {

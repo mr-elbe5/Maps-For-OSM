@@ -115,14 +115,6 @@ class EditTrackMapView : NSClipView{
         }
     }
     
-    func trackpointChangedInList(_ trackpoint: Trackpoint) {
-        for sv in subviews{
-            if let marker = sv as? TrackpointMarker, marker.point.trackpoint.id == trackpoint.id{
-                marker.needsDisplay = true
-            }
-        }
-    }
-    
     func trackpointsChanged(){
         setDrawTrackPoints()
         setMarkers()

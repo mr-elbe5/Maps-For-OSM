@@ -2483,6 +2483,23 @@
         }
       }
     },
+    "mapHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst Orte (Nadeln) auswählen, scrollen (linke Maustaste halten,  Mausrad oder Scrollbalken) und zoomen (opt-Taste und Mausrad oder linkes Menü). Wenn die Karte ein Zahnrad zeigt, wird dieser Teil noch geladen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can select locations (pins), scroll (hold left mouse button, use scroll wheel or scroll bars) zoom in and and out (opt key and scroll wheel or left menu). If the map shows a gear image, this part is still loading."
+          }
+        }
+      }
+    },
     "mapPreload" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4842,6 +4859,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The text below the mode selector shows the current zoom factor. This is the software zoom created by pinching the preview screen. It creates a photo or video from a reduced area of the sensor blown up to full size."
+          }
+        }
+      }
+    },
+    "zoomLevel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoomebene"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom level"
           }
         }
       }

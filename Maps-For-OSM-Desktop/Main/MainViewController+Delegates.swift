@@ -229,7 +229,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
     
     func showLocationOnMap(_ location: Location) {
         setView(.map)
-        mapView.scrollView.scrollToScreenCenter(coordinate: location.coordinate)
+        showLocationDetails(location)
     }
     
     func exportImage(_ image: Image) {
