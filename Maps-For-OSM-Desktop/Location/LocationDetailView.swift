@@ -89,23 +89,23 @@ class LocationDetailView: MapDetailView {
             var itemView: LocationItemCellView
             switch item.type{
             case .image:
-                let view = ImageCellView(image: item as! Image)
+                let view = ImageCellView(image: item as! ImageItem)
                 view.delegate = self
                 itemView = view
             case .audio:
-                let view = AudioCellView(audio: item as! Audio)
+                let view = AudioCellView(audio: item as! AudioItem)
                 view.delegate = self
                 itemView = view
             case .video:
-                let view = VideoCellView(video: item as! Video)
+                let view = VideoCellView(video: item as! VideoItem)
                 view.delegate = self
                 itemView = view
             case .note:
-                let view = NoteCellView(note: item as! Note)
+                let view = NoteCellView(note: item as! NoteItem)
                 view.delegate = self
                 itemView = view
             case .track:
-                let view = TrackCellView(track: item as! Track)
+                let view = TrackCellView(track: item as! TrackItem)
                 view.delegate = self
                 itemView = view
             }
@@ -186,7 +186,7 @@ extension LocationDetailView: LocationItemDelegate{
 
 extension LocationDetailView: ImageCellDelegate{
     
-    func editImage(_ image: Image) {
+    func editImage(_ image: ImageItem) {
         let controller = EditImageViewController(image: image)
         if ModalWindow.run(title: "editImage".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200)) == .OK{
             AppData.shared.save()
@@ -198,7 +198,7 @@ extension LocationDetailView: ImageCellDelegate{
 
 extension LocationDetailView: NoteCellDelegate{
     
-    func editNote(_ note: Note) {
+    func editNote(_ note: NoteItem) {
         let controller = EditNoteViewController(note: note)
         if ModalWindow.run(title: "editNote".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200)) == .OK{
             AppData.shared.save()
@@ -210,7 +210,7 @@ extension LocationDetailView: NoteCellDelegate{
 
 extension LocationDetailView: AudioCellDelegate{
     
-    func editAudio(_ audio: Audio) {
+    func editAudio(_ audio: AudioItem) {
         let controller = EditAudioViewController(audio: audio)
         if ModalWindow.run(title: "editAudio".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200)) == .OK{
             AppData.shared.save()
@@ -222,7 +222,7 @@ extension LocationDetailView: AudioCellDelegate{
 
 extension LocationDetailView: TrackCellDelegate{
     
-    func editTrack(_ track: Track) {
+    func editTrack(_ track: TrackItem) {
         let controller = EditTrackViewController(track: track)
         if ModalWindow.run(title: "editTrack".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200)) == .OK{
             AppData.shared.save()
@@ -234,7 +234,7 @@ extension LocationDetailView: TrackCellDelegate{
 
 extension LocationDetailView: VideoCellDelegate{
     
-    func editVideo(_ video: Video) {
+    func editVideo(_ video: VideoItem) {
         let controller = EditVideoViewController(video: video)
         if ModalWindow.run(title: "editVideo".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 800, height: 600)) == .OK{
             AppData.shared.save()

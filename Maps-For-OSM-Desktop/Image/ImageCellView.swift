@@ -9,18 +9,18 @@ import AppKit
 
 
 protocol ImageCellDelegate{
-    func editImage(_ image: Image)
+    func editImage(_ image: ImageItem)
 }
 
 class ImageCellView : LocationItemCellView{
     
-    var image: Image
+    var image: ImageItem
     
     var selectedButton: NSButton!
     
     var delegate: ImageCellDelegate? = nil
     
-    init(image: Image){
+    init(image: ImageItem){
         self.image = image
         super.init()
     }

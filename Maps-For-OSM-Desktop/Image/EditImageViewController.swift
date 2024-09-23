@@ -10,11 +10,11 @@ import AppKit
 
 class EditImageViewController: ModalViewController {
     
-    var image: Image
+    var image: ImageItem
     
     var commentEditField = NSTextField()
     
-    init(image: Image){
+    init(image: ImageItem){
         self.image = image
         super.init()
     }

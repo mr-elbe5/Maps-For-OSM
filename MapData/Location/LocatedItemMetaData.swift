@@ -26,15 +26,15 @@ open class LocatedItemMetaData : Identifiable, Codable{
         type = try values.decode(LocatedItemType.self, forKey: .type)
         switch type{
         case .audio:
-            data = try values.decode(Audio.self, forKey: .data)
+            data = try values.decode(AudioItem.self, forKey: .data)
         case .image:
-            data = try values.decode(Image.self, forKey: .data)
+            data = try values.decode(ImageItem.self, forKey: .data)
         case .video:
-            data = try values.decode(Video.self, forKey: .data)
+            data = try values.decode(VideoItem.self, forKey: .data)
         case .track:
-            data = try values.decode(Track.self, forKey: .data)
+            data = try values.decode(TrackItem.self, forKey: .data)
         case .note:
-            data = try values.decode(Note.self, forKey: .data)
+            data = try values.decode(NoteItem.self, forKey: .data)
         }
     }
     

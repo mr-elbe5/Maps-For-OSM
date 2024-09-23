@@ -72,12 +72,12 @@ class MediaPresenterView: NSView {
         if let item = item{
             switch item.type{
             case .image:
-                if let image = item as? Image, let img = image.getImage(){
+                if let image = item as? ImageItem, let img = image.getImage(){
                     imageView.isHidden = false
                     imageView.image = img
                 }
             case .video:
-                if let video = item as? Video{
+                if let video = item as? VideoItem{
                     videoView.isHidden = false
                     videoView.player = AVPlayer(url: video.fileURL)
                 }

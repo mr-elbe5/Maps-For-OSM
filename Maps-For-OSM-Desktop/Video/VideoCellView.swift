@@ -10,19 +10,19 @@ import AVKit
 
 
 protocol VideoCellDelegate{
-    func editVideo(_ video: Video)
+    func editVideo(_ video: VideoItem)
 }
 
 class VideoCellView : LocationItemCellView{
     
-    var video: Video
+    var video: VideoItem
     
     var selectedButton: NSButton!
     let videoPlayerView = AVPlayerView()
     
     var delegate: VideoCellDelegate? = nil
     
-    init(video: Video){
+    init(video: VideoItem){
         self.video = video
         super.init()
     }

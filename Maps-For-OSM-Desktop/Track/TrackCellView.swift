@@ -9,19 +9,19 @@ import AppKit
 
 
 protocol TrackCellDelegate{
-    func editTrack(_ track: Track)
+    func editTrack(_ track: TrackItem)
 }
 
 class TrackCellView : LocationItemCellView{
     
-    var track: Track
+    var track: TrackItem
     
     var selectedButton: NSButton!
     var itemView = NSView()
     
     var delegate: TrackCellDelegate? = nil
     
-    init(track: Track){
+    init(track: TrackItem){
         self.track = track
         super.init()
     }

@@ -10,11 +10,11 @@ import AVKit
 
 class EditAudioViewController: ViewController {
     
-    var audio: Audio
+    var audio: AudioItem
     
     var commentEditField = NSTextField()
     
-    init(audio: Audio){
+    init(audio: AudioItem){
         self.audio = audio
         super.init()
     }

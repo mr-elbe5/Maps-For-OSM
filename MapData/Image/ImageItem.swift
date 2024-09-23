@@ -11,7 +11,7 @@ import UIKit
 #endif
 import E5Data
 
-open class Image : FileItem{
+open class ImageItem : FileItem{
     
     public static var previewSize: CGFloat = 512
     
@@ -129,11 +129,11 @@ open class Image : FileItem{
     
 }
 
-public typealias ImageList = Array<Image>
+public typealias ImageList = Array<ImageItem>
 
 extension ImageList{
     
-    public mutating func remove(_ image: Image){
+    public mutating func remove(_ image: ImageItem){
         for idx in 0..<self.count{
             if self[idx].equals(image){
                 self.remove(at: idx)

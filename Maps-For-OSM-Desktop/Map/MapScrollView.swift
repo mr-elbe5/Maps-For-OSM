@@ -62,7 +62,7 @@ class MapScrollView : PlainMapScrollView{
         trackLayerView.updateScale(scale: zoomScale)
     }
     
-    func showTrack(_ track: Track?){
+    func showTrack(_ track: TrackItem?){
         if track != nil{
             trackLayerView.updateScale(scale: zoomScale)
         }

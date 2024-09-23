@@ -12,7 +12,7 @@ public protocol DownloadDelegate {
     func downloadWithError()
 }
 
-open class TileDownloadOperation : AsyncOperation {
+open class TileDownloadOperation : AsyncOperation, @unchecked Sendable {
     
     public var tile : MapTile
     public var delegate : DownloadDelegate? = nil

@@ -9,18 +9,18 @@ import AVKit
 
 
 protocol AudioCellDelegate{
-    func editAudio(_ audio: Audio)
+    func editAudio(_ audio: AudioItem)
 }
 
 class AudioCellView : LocationItemCellView{
     
-    var audio: Audio
+    var audio: AudioItem
     
     var selectedButton: NSButton!
     
     var delegate: AudioCellDelegate? = nil
     
-    init(audio:Audio){
+    init(audio:AudioItem){
         self.audio = audio
         super.init()
     }

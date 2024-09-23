@@ -82,19 +82,19 @@ open class Location : UUIDObject, Comparable{
     public var tracks: TrackList{
         items.filter({
             $0.type == .track
-        }) as! Array<Track>
+        }) as! Array<TrackItem>
     }
     
     public var images: ImageList{
         items.filter({
             $0.type == .image
-        }) as! Array<Image>
+        }) as! Array<ImageItem>
     }
     
-    public var notes: Array<Note>{
+    public var notes: Array<NoteItem>{
         items.filter({
             $0.type == .note
-        }) as! Array<Note>
+        }) as! Array<NoteItem>
     }
     
     public var fileItems : FileItemList{

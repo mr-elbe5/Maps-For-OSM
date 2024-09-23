@@ -14,7 +14,7 @@ class ImageGridView: NSView{
     static var defaultGridSize: CGFloat = 200
     static var gridSizeFactors : Array<CGFloat> = [0.5, 0.75, 1.0, 1.5, 2.0]
     
-    var images = Array<Image>()
+    var images = Array<ImageItem>()
     
     var menuView = ImageGridMenuView()
     let scrollView = NSScrollView()
@@ -59,8 +59,8 @@ class ImageGridView: NSView{
         collectionView.reloadData()
     }
     
-    func getSelectedImages() -> Array<Image>{
-        var arr = Array<Image>()
+    func getSelectedImages() -> Array<ImageItem>{
+        var arr = Array<ImageItem>()
         if collectionView.selectionIndexPaths.isEmpty{
             arr.append(contentsOf: images )
         }
@@ -72,7 +72,7 @@ class ImageGridView: NSView{
         return arr
     }
     
-    func showImage(_ image: Image){
+    func showImage(_ image: ImageItem){
         MainViewController.instance.showImage(image)
     }
     
@@ -172,7 +172,7 @@ extension ImageGridView: ImageGridMenuDelegate{
                     let metaData = ImageMetaData()
                     metaData.readData(data: data)
                     if let coordinate = metaData.coordinate{
-                        let image = Image()
+                        let image = ImageItem()
                         FileManager.default.copyFile(fromURL: url, toURL: image.fileURL)
                         image.metaData = metaData
                         if let location = AppData.shared.getLocation(coordinate: coordinate){
@@ -206,11 +206,11 @@ extension ImageGridView: ImageGridMenuDelegate{
 
 extension ImageGridView: ImageGridItemDelegate{
     
-    func showImageFullSize(_ image: Image) {
+    func showImageFullSize(_ image: ImageItem) {
         MainViewController.instance.showImage(image)
     }
     
-    func exportImage(_ image: Image) {
+    func exportImage(_ image: ImageItem) {
         MainViewController.instance.exportImage(image)
     }
     

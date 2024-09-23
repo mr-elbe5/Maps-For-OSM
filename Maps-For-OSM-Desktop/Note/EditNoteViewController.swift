@@ -12,9 +12,9 @@ class EditNoteViewController: ModalViewController {
     
     var noteEditField = NSTextField()
     
-    var note: Note
+    var note: NoteItem
     
-    init(note: Note){
+    init(note: NoteItem){
         self.note = note
         super.init()
     }

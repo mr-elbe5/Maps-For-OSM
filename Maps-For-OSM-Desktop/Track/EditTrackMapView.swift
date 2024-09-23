@@ -15,7 +15,7 @@ protocol EditTrackMapDelegate{
 
 class EditTrackMapView : NSClipView{
     
-    var track: Track
+    var track: TrackItem
     
     var boundingTrackRect: CGRect = .zero
     var zoom = World.maxZoom
@@ -29,7 +29,7 @@ class EditTrackMapView : NSClipView{
     
     var delegate: EditTrackMapDelegate? = nil
     
-    init(track: Track){
+    init(track: TrackItem){
         self.track = track
         super.init(frame: .zero)
         backgroundColor = .clear

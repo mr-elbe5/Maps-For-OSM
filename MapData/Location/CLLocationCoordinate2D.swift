@@ -7,7 +7,7 @@
 import Foundation
 import CoreLocation
 
-extension CLLocationCoordinate2D : Equatable{
+extension CLLocationCoordinate2D : @retroactive Equatable{
     
     public static var equatorMeters = 40075017.0
     public static var circleMeters = 40007863.0

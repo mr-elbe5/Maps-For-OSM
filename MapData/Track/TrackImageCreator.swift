@@ -14,9 +14,9 @@ import CoreLocation
 
 open class TrackImageCreator{
     
-    public var track: Track
+    public var track: TrackItem
     
-    public init(track: Track){
+    public init(track: TrackItem){
         self.track = track
     }
     

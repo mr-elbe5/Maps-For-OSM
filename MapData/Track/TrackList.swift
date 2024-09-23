@@ -7,11 +7,11 @@
 import CoreLocation
 import E5Data
 
-public typealias TrackList = Array<Track>
+public typealias TrackList = Array<TrackItem>
 
 extension TrackList{
     
-    public mutating func remove(_ track: Track){
+    public mutating func remove(_ track: TrackItem){
         for idx in 0..<self.count{
             if self[idx].equals(track){
                 self.remove(at: idx)

@@ -9,18 +9,18 @@ import AppKit
 
 
 protocol NoteCellDelegate{
-    func editNote(_ note: Note)
+    func editNote(_ note: NoteItem)
 }
 
 class NoteCellView : LocationItemCellView{
     
-    var note: Note
+    var note: NoteItem
     
     var selectedButton: NSButton!
     
     var delegate: NoteCellDelegate? = nil
     
-    init(note: Note){
+    init(note: NoteItem){
         self.note = note
         super.init()
     }

@@ -11,13 +11,13 @@ import AVKit
 
 class EditVideoViewController: ModalViewController {
     
-    var video: Video
+    var video: VideoItem
     
     let videoPlayerView = AVPlayerView()
     
     var commentEditField = NSTextField()
     
-    init(video: Video){
+    init(video: VideoItem){
         self.video = video
         super.init()
     }

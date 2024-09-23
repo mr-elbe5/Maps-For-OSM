@@ -10,17 +10,17 @@ import E5Data
 
 
 protocol ImageGridItemDelegate{
-    func showImageFullSize(_ image: Image)
+    func showImageFullSize(_ image: ImageItem)
 }
 
 class ImageGridItem: NSCollectionViewItem, ImageGridItemViewDelegate{
     
-    var image: Image
+    var image: ImageItem
     var gridView: ImageGridView? = nil
     
     var delegate: ImageGridItemDelegate? = nil
     
-    init(image: Image, gridView: ImageGridView?) {
+    init(image: ImageItem, gridView: ImageGridView?) {
         self.image = image
         self.gridView = gridView
         super.init(nibName: "", bundle: nil)

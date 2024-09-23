@@ -16,13 +16,13 @@ class TrackLayerView: NSView {
         true
     }
     
-    func showTrack(_ track: Track?){
-        Track.visibleTrack = track
+    func showTrack(_ track: TrackItem?){
+        TrackItem.visibleTrack = track
         isHidden = track == nil
     }
     
     override func draw(_ dirtyRect: NSRect) {
-        if let track = Track.visibleTrack{
+        if let track = TrackItem.visibleTrack{
             if !track.trackpoints.isEmpty{
                 var drawPoints = Array<CGPoint>()
                     for idx in 0..<track.trackpoints.count{
@@ -56,7 +56,7 @@ class TrackLayerView: NSView {
         self.needsDisplay = true
     }
     
-    func getDrawPoints(track: Track) -> Array<CGPoint>{
+    func getDrawPoints(track: TrackItem) -> Array<CGPoint>{
         var points = Array<CGPoint>()
         for idx in 0..<track.trackpoints.count{
             let mapPoint = CGPoint(track.trackpoints[idx].coordinate)

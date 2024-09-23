@@ -12,8 +12,8 @@ class EditTrackViewController: ModalViewController {
     
     var startSize = CGSize(width: 1000, height: 800)
     
-    var track: Track
-    var newTrack = Track()
+    var track: TrackItem
+    var newTrack = TrackItem()
     
     var menuView: EditTrackMenuView
     var mapView: EditTrackMapView
@@ -21,7 +21,7 @@ class EditTrackViewController: ModalViewController {
     var nameEditField = NSTextField()
     var minDistanceField = NSTextField()
     
-    init(track: Track){
+    init(track: TrackItem){
         self.track = track
         for tp in track.trackpoints{
             newTrack.trackpoints.append(Trackpoint(coordinate: tp.coordinate, altitude: tp.altitude, timestamp: tp.timestamp))

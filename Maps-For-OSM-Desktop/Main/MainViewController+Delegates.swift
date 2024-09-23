@@ -76,7 +76,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         panel.allowedContentTypes = [.image]
         panel.directoryURL = FileManager.imagesURL
         if panel.runModal() == .OK, let url = panel.urls.first{
-            let image = Image()
+            let image = ImageItem()
             image.setFileNameFromURL(url)
             if FileManager.default.copyFile(fromURL: url, toURL: image.fileURL){
                 location.items.append(image)
@@ -94,7 +94,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         panel.allowedContentTypes = [.movie]
         panel.directoryURL = FileManager.movieLibraryURL
         if panel.runModal() == .OK, let url = panel.urls.first{
-            let video = Video()
+            let video = VideoItem()
             video.setFileNameFromURL(url)
             if FileManager.default.copyFile(fromURL: url, toURL: video.fileURL){
                 location.items.append(video)
@@ -112,7 +112,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         panel.allowedContentTypes = [.audio]
         panel.directoryURL = FileManager.default.homeDirectoryForCurrentUser
         if panel.runModal() == .OK, let url = panel.urls.first{
-            let audio = Audio()
+            let audio = AudioItem()
             audio.setFileNameFromURL(url)
             if FileManager.default.copyFile(fromURL: url, toURL: audio.fileURL){
                 location.items.append(audio)
@@ -123,7 +123,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
     }
     
     func addNote(to location: Location) {
-        let note = Note()
+        let note = NoteItem()
         note.location = location
         let controller = EditNoteViewController(note: note)
         if ModalWindow.run(title: "addNote".localize(), viewController: controller, outerWindow: MainWindowController.instance.window!, minSize: CGSize(width: 300, height: 200)) == .OK{
@@ -148,7 +148,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
     
     private func importGPXFile(url: URL){
         if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
-            let track = Track()
+            let track = TrackItem()
             track.name = gpxData.name
             for segment in gpxData.segments{
                 for point in segment.points{
@@ -204,17 +204,17 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         
     }
     
-    func showImage(_ image: Image) {
+    func showImage(_ image: ImageItem) {
         setView(.presenter)
         mediaPresenterView.setMediaItem(item: image)
     }
     
-    func showVideo(_ video: Video) {
+    func showVideo(_ video: VideoItem) {
         setView(.presenter)
         mediaPresenterView.setMediaItem(item: video)
     }
     
-    func showTrackOnMap(_ track: Track) {
+    func showTrackOnMap(_ track: TrackItem) {
         setView(.map)
         mapView.scrollView.showTrack(track)
         if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
@@ -223,7 +223,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         }
     }
     
-    func showImageFullSize(_ image: Image) {
+    func showImageFullSize(_ image: ImageItem) {
         showImage(image)
     }
     
@@ -232,7 +232,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         showLocationDetails(location)
     }
     
-    func exportImage(_ image: Image) {
+    func exportImage(_ image: ImageItem) {
         let panel = NSOpenPanel()
         panel.canChooseFiles = false
         panel.canChooseDirectories = true
@@ -253,7 +253,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         }
     }
     
-    func exportImages(_ images: Array<Image>) {
+    func exportImages(_ images: Array<ImageItem>) {
         if !images.isEmpty{
             let panel = NSOpenPanel()
             panel.canChooseFiles = false
@@ -278,7 +278,7 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         }
     }
     
-    func deleteImage(_ image: Image) {
+    func deleteImage(_ image: ImageItem) {
         image.prepareDelete()
         image.location.items.remove(image)
         imageGridView.updateData()
@@ -288,13 +288,13 @@ extension MainViewController: MapViewDelegate, LocationGroupDelegate{
         }
     }
     
-    func showImages(_ images: Array<Image>) {
+    func showImages(_ images: Array<ImageItem>) {
         setView(.presenter)
         mediaPresenterView.setMedia(images)
     }
     
-    func trackDeleted(_ track: Track){
-        if Track.visibleTrack == track{
+    func trackDeleted(_ track: TrackItem){
+        if TrackItem.visibleTrack == track{
             mapView.scrollView.showTrack(nil)
         }
     }

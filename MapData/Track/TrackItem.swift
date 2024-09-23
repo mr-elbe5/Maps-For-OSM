@@ -12,7 +12,7 @@ import UIKit
 #endif
 import E5Data
 
-open class Track : LocatedItem{
+open class TrackItem : LocatedItem{
     
     public static var previewSize: CGFloat = 512
     
@@ -27,7 +27,7 @@ open class Track : LocatedItem{
         case note
     }
     
-    public static var visibleTrack : Track? = nil
+    public static var visibleTrack : TrackItem? = nil
     
     public var startTime : Date
     public var pauseTime : Date? = nil
@@ -285,7 +285,7 @@ open class Track : LocatedItem{
         }
     }
     public func createPreview() -> NSImage?{
-        if let preview = TrackImageCreator(track: self).createImage(size: CGSize(width: Track.previewSize, height: Track.previewSize)){
+        if let preview = TrackImageCreator(track: self).createImage(size: CGSize(width: TrackItem.previewSize, height: TrackItem.previewSize)){
             if let tiff = preview.tiffRepresentation, let tiffData = NSBitmapImageRep(data: tiff) {
                 if let previewData = tiffData.representation(using: .jpeg, properties: [:]) {
                     _ = FileManager.default.assertDirectoryFor(url: previewURL)

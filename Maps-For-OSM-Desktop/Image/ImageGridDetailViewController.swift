@@ -12,7 +12,7 @@ import E5Data
 
 class ImageGridDetailViewController: PopoverViewController {
     
-    init(image: Image){
+    init(image: ImageItem){
         super.init()
         popover.behavior = .transient
         contentView = ImageGridDetailView(image: image, controller: self)
@@ -24,12 +24,12 @@ class ImageGridDetailViewController: PopoverViewController {
     
     class ImageGridDetailView: NSView{
         
-        var image: Image
+        var image: ImageItem
         var controller: PopoverViewController
         
         let stackView = NSStackView()
         
-        init(image: Image, controller: PopoverViewController) {
+        init(image: ImageItem, controller: PopoverViewController) {
             self.image = image
             self.controller = controller
             super.init(frame: .zero)
