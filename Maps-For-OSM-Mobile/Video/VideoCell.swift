@@ -10,14 +10,14 @@ import E5IOSUI
 
 
 protocol VideoCellDelegate: LocationItemCellDelegate{
-    func viewVideo(item: Video)
+    func viewVideo(item: VideoItem)
 }
 
 class VideoCell: LocationItemCell{
     
     static let CELL_IDENT = "videoCell"
     
-    var video : Video? = nil {
+    var video : VideoItem? = nil {
         didSet {
             updateCell()
             setSelected(video?.selected ?? false, animated: false)

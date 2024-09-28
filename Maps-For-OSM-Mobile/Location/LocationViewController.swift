@@ -191,8 +191,8 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         let item = location.item(at: indexPath.row)
         switch item.type{
         case .audio: 
-            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationAudioCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationAudioCell, let Audio = item as? Audio{
-                cell.audio = Audio
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationAudioCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationAudioCell, let audio = item as? AudioItem{
+                cell.audio = audio
                 cell.delegate = self
                 cell.updateCell()
                 return cell
@@ -202,8 +202,8 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .video:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationVideoCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationVideoCell, let Video = item as? Video{
-                cell.video = Video
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationVideoCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationVideoCell, let video = item as? VideoItem{
+                cell.video = video
                 cell.delegate = self
                 cell.updateCell()
                 return cell
@@ -213,8 +213,8 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .image:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationImageCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationImageCell, let Image = item as? Image{
-                cell.image = Image
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationImageCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationImageCell, let image = item as? ImageItem{
+                cell.image = image
                 cell.delegate = self
                 cell.updateCell()
                 return cell
@@ -224,8 +224,8 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .track:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationTrackCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationTrackCell, let Track = item as? Track{
-                cell.track = Track
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationTrackCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationTrackCell, let track = item as? TrackItem{
+                cell.track = track
                 cell.delegate = self
                 cell.updateCell()
                 return cell
@@ -235,8 +235,8 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
                 return UITableViewCell()
             }
         case .note:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationNoteCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationNoteCell, let Note = item as? Note{
-                cell.note = Note
+            if let cell = tableView.dequeueReusableCell(withIdentifier: LocationNoteCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationNoteCell, let note = item as? NoteItem{
+                cell.note = note
                 cell.delegate = self
                 cell.updateCell()
                 return cell
@@ -280,7 +280,7 @@ extension LocationViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let imageURL = info[.imageURL] as? URL, let data = FileManager.default.readFile(url: imageURL){
-            let image = Image()
+            let image = ImageItem()
             var imageData = data
             let metaData = ImageMetaData()
             metaData.readData(data: data)
@@ -308,7 +308,7 @@ extension LocationViewController: NoteViewDelegate{
     
     func addNote(text: String, coordinate: CLLocationCoordinate2D) {
         if !text.isEmpty{
-            let item = Note()
+            let item = NoteItem()
             item.text = text
             location.addItem(item: item)
             AppData.shared.save()
@@ -321,7 +321,7 @@ extension LocationViewController: NoteViewDelegate{
 
 extension LocationViewController: AudioCaptureDelegate{
     
-    func audioCaptured(audio: Audio){
+    func audioCaptured(audio: AudioItem){
         location.addItem(item: audio)
         AppData.shared.save()
         tableView.reloadData()
@@ -331,7 +331,7 @@ extension LocationViewController: AudioCaptureDelegate{
 
 extension LocationViewController : VideoCellDelegate{
     
-    func viewVideo(item: Video) {
+    func viewVideo(item: VideoItem) {
         let controller = VideoViewController()
         controller.videoURL = item.fileURL
         self.navigationController?.pushViewController(controller, animated: true)
@@ -341,7 +341,7 @@ extension LocationViewController : VideoCellDelegate{
 
 extension LocationViewController : ImageCellDelegate{
     
-    func viewImage(image: Image) {
+    func viewImage(image: ImageItem) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         self.navigationController?.pushViewController(controller, animated: true)
@@ -351,13 +351,13 @@ extension LocationViewController : ImageCellDelegate{
 
 extension LocationViewController : TrackCellDelegate{
     
-    func editTrack(track: Track) {
+    func editTrack(track: TrackItem) {
         let controller = TrackViewController(track: track)
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func showTrackOnMap(track: Track) {
+    func showTrackOnMap(track: TrackItem) {
         navigationController?.popToRootViewController(animated: true)
         mainViewController?.showTrackOnMap(track: track)
     }

@@ -25,7 +25,7 @@ extension MainViewController: NoteViewDelegate{
                 location = AppData.shared.createLocation(coordinate: coordinate)
                 newLocation = true
             }
-            let note = Note()
+            let note = NoteItem()
             note.text = text
             location!.addItem(item: note)
             AppData.shared.save()

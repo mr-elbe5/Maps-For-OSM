@@ -10,15 +10,15 @@ import E5IOSUI
 
 
 public protocol TrackCellDelegate{
-    func showTrackOnMap(track: Track)
-    func editTrack(track: Track)
+    func showTrackOnMap(track: TrackItem)
+    func editTrack(track: TrackItem)
 }
 
 class TrackCell: LocationItemCell{
 
     static let CELL_IDENT = "trackCell"
     
-    var track : Track? = nil
+    var track : TrackItem? = nil
     
     var delegate: TrackCellDelegate? = nil
     

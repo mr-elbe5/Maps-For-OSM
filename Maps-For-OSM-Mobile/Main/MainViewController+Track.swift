@@ -22,16 +22,16 @@ extension MainViewController{
         mapView.trackLayerView.setNeedsDisplay()
     }
     
-    func showTrackOnMap(track: Track) {
+    func showTrackOnMap(track: TrackItem) {
         if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
-            Track.visibleTrack = track
+            TrackItem.visibleTrack = track
             trackChanged()
             mapView.showMapRectOnMap(worldRect: boundingRect)
         }
     }
     
     func hideTrack() {
-        Track.visibleTrack = nil
+        TrackItem.visibleTrack = nil
         trackChanged()
     }
     
@@ -48,7 +48,7 @@ extension MainViewController{
         if let trackRecorder = TrackRecorder.instance{
             trackRecorder.track.addTrackpoint(from: location)
             trackRecorder.isRecording = true
-            Track.visibleTrack = trackRecorder.track
+            TrackItem.visibleTrack = trackRecorder.track
             self.trackChanged()
             self.statusView.startTrackInfo()
         }
@@ -66,7 +66,7 @@ extension MainViewController{
             }
             location!.addItem(item: track)
             AppData.shared.save()
-            Track.visibleTrack = track
+            TrackItem.visibleTrack = track
             self.trackChanged()
             self.statusView.stopTrackInfo()
             TrackRecorder.instance = nil
@@ -84,7 +84,7 @@ extension MainViewController{
     func cancelTrack() {
         if TrackRecorder.stopTracking() != nil{
             Log.info("track cancelled")
-            Track.visibleTrack = nil
+            TrackItem.visibleTrack = nil
             self.trackChanged()
             self.statusView.stopTrackInfo()
         }

@@ -114,7 +114,7 @@ class ImageListViewController: NavTableViewController{
     }
     
     func exportSelected(){
-        var exportList = Array<Image>()
+        var exportList = Array<ImageItem>()
         for i in 0..<images.count{
             let image = images[i]
             if image.selected{
@@ -148,7 +148,7 @@ class ImageListViewController: NavTableViewController{
     }
     
     func deleteSelected(){
-        var list = Array<Image>()
+        var list = Array<ImageItem>()
         for i in 0..<images.count{
             let image = images[i]
             if image.selected{
@@ -219,7 +219,7 @@ extension ImageListViewController : ImageCellDelegate{
         mainViewController?.showLocationOnMap(coordinate: coordinate)
     }
     
-    func viewImage(image: Image) {
+    func viewImage(image: ImageItem) {
         let controller = ImageViewController()
         controller.uiImage = image.getImage()
         self.navigationController?.pushViewController(controller, animated: true)

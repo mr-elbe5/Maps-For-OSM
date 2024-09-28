@@ -306,7 +306,7 @@ open class TrackItem : LocatedItem{
         }
     }
     public func createPreview() -> UIImage?{
-        if let preview = TrackImageCreator(track: self).createImage(size: CGSize(width: Track.previewSize, height: Track.previewSize)){
+        if let preview = TrackImageCreator(track: self).createImage(size: CGSize(width: TrackItem.previewSize, height: TrackItem.previewSize)){
             if let data = preview.jpegData(compressionQuality: 0.85){
                 _ = FileManager.default.assertDirectoryFor(url: previewURL)
                 if !FileManager.default.saveFile(data: data, url: previewURL){

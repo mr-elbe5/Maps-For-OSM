@@ -13,7 +13,7 @@ import E5IOSUI
 
 class TrackListViewController: NavTableViewController{
 
-    var tracks = Array<Track>()
+    var tracks = Array<TrackItem>()
     
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
@@ -76,7 +76,7 @@ class TrackListViewController: NavTableViewController{
     }
     
     func deleteSelected(){
-        var list = Array<Track>()
+        var list = Array<TrackItem>()
         for i in 0..<tracks.count{
             let track = tracks[i]
             if track.selected{
@@ -140,14 +140,14 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
   
 extension TrackListViewController : TrackCellDelegate{
     
-    func editTrack(track: Track) {
+    func editTrack(track: TrackItem) {
         let controller = TrackViewController(track: track)
         controller.track = track
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func showTrackOnMap(track: Track) {
+    func showTrackOnMap(track: TrackItem) {
         navigationController?.popToRootViewController(animated: true)
         mainViewController?.showTrackOnMap(track: track)
     }
@@ -174,7 +174,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
     
     private func importGPXFile(url: URL){
         if let gpxData = GPXParser.parseFile(url: url), !gpxData.isEmpty{
-            let track = Track()
+            let track = TrackItem()
             track.name = gpxData.name
             for segment in gpxData.segments{
                 for point in segment.points{

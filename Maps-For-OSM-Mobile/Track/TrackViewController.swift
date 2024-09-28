@@ -22,7 +22,7 @@ protocol TrackDelegate{
 
 class TrackViewController: NavScrollViewController{
     
-    var track: Track
+    var track: TrackItem
     
     var nameEditField = UITextField()
     var noteEditView = TextEditArea()
@@ -40,7 +40,7 @@ class TrackViewController: NavScrollViewController{
     
     var delegate: TrackDelegate? = nil
     
-    init(track: Track){
+    init(track: TrackItem){
         self.track = track
         super.init()
         
@@ -160,7 +160,7 @@ class TrackViewController: NavScrollViewController{
         trackpointsLabel.text = "\("trackpoints".localize()): \(track.trackpoints.count)"
     }
     
-    func exportTrack(item: Track) {
+    func exportTrack(item: TrackItem) {
         if let url = GPXCreator.createTemporaryFile(track: item){
             let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: false)
             controller.directoryURL = FileManager.exportGpxDirURL

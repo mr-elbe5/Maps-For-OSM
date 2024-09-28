@@ -11,7 +11,7 @@ import E5IOSUI
 import CoreLocation
 
 public protocol ImageCellDelegate {
-    func viewImage(image: Image)
+    func viewImage(image: ImageItem)
     func showLocationOnMap(coordinate: CLLocationCoordinate2D)
 }
 
@@ -19,7 +19,7 @@ class ImageCell: LocationItemCell{
     
     static let CELL_IDENT = "imageCell"
     
-    var image : Image? = nil {
+    var image : ImageItem? = nil {
         didSet {
             updateCell()
             setSelected(image?.selected ?? false, animated: false)

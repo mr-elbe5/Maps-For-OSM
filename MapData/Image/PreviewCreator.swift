@@ -38,11 +38,11 @@ open class PreviewCreator{
 #elseif os(iOS)
     public static func createPreview(of img: UIImage?, size: CGFloat = 512) -> UIImage?{
         if let img = img{
-            if (img.size.width<=Image.previewSize) && (img.size.height<=Image.previewSize) {
+            if (img.size.width<=ImageItem.previewSize) && (img.size.height<=ImageItem.previewSize) {
                 return img
             }
-            let widthRatio = Image.previewSize/img.size.width
-            let heightRatio = Image.previewSize/img.size.height
+            let widthRatio = ImageItem.previewSize/img.size.width
+            let heightRatio = ImageItem.previewSize/img.size.height
             let ratio = min(widthRatio,heightRatio)
             let newSize = CGSize(width: img.size.width*ratio, height: img.size.height*ratio)
             let renderer = UIGraphicsImageRenderer(size: newSize)

@@ -32,7 +32,7 @@ extension MainViewController: AudioCaptureDelegate{
         }
     }
     
-    func audioCaptured(audio: Audio){
+    func audioCaptured(audio: AudioItem){
         if let coordinate = LocationService.shared.location?.coordinate{
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: coordinate)

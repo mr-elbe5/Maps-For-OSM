@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Maps-For-OSM-Watch Watch App.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Maps-For-OSM.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>

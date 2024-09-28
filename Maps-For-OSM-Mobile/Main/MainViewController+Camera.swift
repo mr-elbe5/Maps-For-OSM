@@ -35,7 +35,7 @@ extension MainViewController: CameraDelegate{
     
     func photoCaptured(data: Data, location: CLLocation?) {
         if let cllocation = location{
-            let imageFile = Image()
+            let imageFile = ImageItem()
             var imageData = data
             if let dataWithCoordinates = data.setImageProperties(altitude: cllocation.altitude, latitude: cllocation.coordinate.latitude, longitude: cllocation.coordinate.longitude, utType: imageFile.fileURL.utType!){
                 imageData = dataWithCoordinates
@@ -65,7 +65,7 @@ extension MainViewController: CameraDelegate{
     
     func videoCaptured(data: Data, cllocation: CLLocation?) {
         if let cllocation = cllocation{
-            let videoFile = Video()
+            let videoFile = VideoItem()
             videoFile.saveFile(data: data)
             var newLocation = false
             var location = AppData.shared.getLocation(coordinate: cllocation.coordinate)

@@ -13,7 +13,7 @@ class NoteCell: LocationItemCell{
     
     static let CELL_IDENT = "noteCell"
     
-    var note : Note? = nil {
+    var note : NoteItem? = nil {
         didSet {
             updateCell()
         }

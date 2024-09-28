@@ -46,7 +46,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
                                 location = AppData.shared.createLocation(coordinate: coordinate)
                                 newLocation = true
                             }
-                            let image = Image()
+                            let image = ImageItem()
                             image.creationDate = creationDate ?? Date.localDate
                             image.saveImage(uiImage: uiimage)
                             location!.addItem(item: image)
@@ -73,7 +73,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
                                 location = AppData.shared.createLocation(coordinate: coordinate)
                                 newLocation = true
                             }
-                            let video = Video()
+                            let video = VideoItem()
                             video.creationDate = creationDate ?? Date.localDate
                             video.setFileNameFromURL(url)
                             if let data = FileManager.default.readFile(url: url){
@@ -116,7 +116,7 @@ extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerContr
             else{
                 coordinate = LocationService.shared.location?.coordinate
             }
-            let image = Image()
+            let image = ImageItem()
             var imageData = data
             let metaData = ImageMetaData()
             metaData.readData(data: data)

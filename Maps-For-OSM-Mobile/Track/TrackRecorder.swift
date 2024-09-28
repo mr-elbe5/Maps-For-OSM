@@ -28,7 +28,7 @@ class TrackRecorder: Codable{
     }
     
     @discardableResult
-    public static func stopTracking() -> Track?{
+    public static func stopTracking() -> TrackItem?{
         if let trackRecorder = instance{
             let track = trackRecorder.track
             instance = nil
@@ -47,7 +47,7 @@ class TrackRecorder: Codable{
         case horizontalAccuracy
     }
     
-    public var track: Track
+    public var track: TrackItem
     public var isRecording: Bool
     
     public var lastSaved = Date()
@@ -61,7 +61,7 @@ class TrackRecorder: Codable{
     }
     
     public init(){
-        track = Track()
+        track = TrackItem()
         isRecording = false
         speed = 0
         horizontalAccuracy = 0
@@ -69,7 +69,7 @@ class TrackRecorder: Codable{
     
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        track = try values.decodeIfPresent(Track.self, forKey: .track) ?? Track()
+        track = try values.decodeIfPresent(TrackItem.self, forKey: .track) ?? TrackItem()
         speed = try values.decodeIfPresent(Double.self, forKey: .speed) ?? 0
         horizontalAccuracy = try values.decodeIfPresent(Double.self, forKey: .horizontalAccuracy) ?? 0
         isRecording = false
