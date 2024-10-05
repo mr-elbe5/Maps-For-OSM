@@ -54,7 +54,9 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         if authorized, !running{
             startUpdatingLocation()
             allowsBackgroundLocationUpdates = true
+            #if !os(watchOS)
             pausesLocationUpdatesAutomatically = false
+            #endif
             #if os(iOS)
             showsBackgroundLocationIndicator = true
             #endif
@@ -97,6 +99,7 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         serviceDelegate?.directionDidChange(direction: newHeading.trueHeading)
     }
     
+    #if !os(watchOS)
     public func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
         Log.info("LocationService pause")
         running = false
@@ -110,6 +113,6 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         Log.info("LocationService resume")
         running = true
     }
-    
+    #endif
 }
 
