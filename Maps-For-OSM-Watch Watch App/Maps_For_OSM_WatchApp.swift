@@ -18,8 +18,6 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         FileManager.initializePrivateDir()
         Log.useCache = false
         Log.logLevel = .info
-        LocationService.shared.requestWhenInUseAuthorization()
-        LocationService.shared.start()
     }
 
 }

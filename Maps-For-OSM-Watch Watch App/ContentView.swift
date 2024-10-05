@@ -7,9 +7,14 @@
 
 import SwiftUI
 
-struct ContentView: View, LocationServiceDelegate {
+struct ContentView: View {
     
-    @State var location: CLLocationCoordinate2D?
+    @State var location: Location
+    
+    init(){
+        location = Location()
+        location.start()
+    }
     
     var body: some View {
         VStack {
@@ -17,17 +22,9 @@ struct ContentView: View, LocationServiceDelegate {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
-            Text("Location: \(location?.asShortString ?? "Unknown")")
+            Text("Location: \(location.location.coordinate.asShortString)")
         }
         .padding()
-    }
-    
-    func locationDidChange(location: CLLocation) {
-        self.location = location.coordinate
-    }
-    
-    func directionDidChange(direction: CLLocationDirection) {
-        
     }
     
 }

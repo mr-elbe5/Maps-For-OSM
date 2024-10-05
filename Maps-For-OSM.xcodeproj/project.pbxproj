@@ -51,6 +51,12 @@
 		4E2894A92CA827FD0012DBFE /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF612C733B650045DACB /* CoordinateRegion.swift */; };
 		4E2894AA2CA827FD0012DBFE /* CGPoint+CL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF5F2C733B650045DACB /* CGPoint+CL.swift */; };
 		4E2894AB2CA82AED0012DBFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF4A2C733B650045DACB /* Preferences.swift */; };
+		4E289AC12CB1A0FA0012DBFE /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
+		4E289AC22CB1A1400012DBFE /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
+		4E289AC32CB1A1400012DBFE /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
+		4E289AC42CB1A14A0012DBFE /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
+		4E289AC52CB1A14A0012DBFE /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
+		4E289AC62CB1A1560012DBFE /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */; };
@@ -201,11 +207,8 @@
 		4ED7FFF02C7342D80045DACB /* AVCaptureDevice+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FFEF2C7342D80045DACB /* AVCaptureDevice+Audio.swift */; };
 		4EE1463028D4C5DD0058F3D3 /* MapScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE1462F28D4C5DD0058F3D3 /* MapScrollView.swift */; };
 		4EEA67002C71E255005C459C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA66FF2C71E255005C459C /* Assets.xcassets */; };
-		4EEA67732C71E493005C459C /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA67082C71E493005C459C /* Base.xcstrings */; };
 		4EEA67752C71E493005C459C /* AudioCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA670A2C71E493005C459C /* AudioCellView.swift */; };
 		4EEA67762C71E493005C459C /* EditAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA670B2C71E493005C459C /* EditAudioViewController.swift */; };
-		4EEA67772C71E493005C459C /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA670D2C71E493005C459C /* Camera.xcstrings */; };
-		4EEA67782C71E493005C459C /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA670E2C71E493005C459C /* Location.xcstrings */; };
 		4EEA67792C71E493005C459C /* TileLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA670F2C71E493005C459C /* TileLayerView.swift */; };
 		4EEA677B2C71E493005C459C /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA67122C71E493005C459C /* InfoPlist.xcstrings */; };
 		4EEA677C2C71E493005C459C /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67132C71E493005C459C /* MainMenuView.swift */; };
@@ -459,11 +462,8 @@
 		4EEA66F92C71E254005C459C /* Maps For OSM Desktop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps For OSM Desktop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EEA66FF2C71E255005C459C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EEA67042C71E255005C459C /* Maps for OSM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps for OSM.entitlements"; sourceTree = "<group>"; };
-		4EEA67082C71E493005C459C /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
 		4EEA670A2C71E493005C459C /* AudioCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCellView.swift; sourceTree = "<group>"; };
 		4EEA670B2C71E493005C459C /* EditAudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAudioViewController.swift; sourceTree = "<group>"; };
-		4EEA670D2C71E493005C459C /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
-		4EEA670E2C71E493005C459C /* Location.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Location.xcstrings; sourceTree = "<group>"; };
 		4EEA670F2C71E493005C459C /* TileLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLayerView.swift; sourceTree = "<group>"; };
 		4EEA67122C71E493005C459C /* InfoPlist.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		4EEA67132C71E493005C459C /* MainMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
@@ -616,6 +616,9 @@
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
+				4E2579102B9DB5B200481B23 /* Base.xcstrings */,
+				4E2579122B9DB5B200481B23 /* Camera.xcstrings */,
+				4E2579112B9DB5B200481B23 /* Location.xcstrings */,
 				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */,
 				4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */,
 				4ED7FF462C733AFA0045DACB /* MapData */,
@@ -641,9 +644,6 @@
 			children = (
 				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
-				4E2579102B9DB5B200481B23 /* Base.xcstrings */,
-				4E2579122B9DB5B200481B23 /* Camera.xcstrings */,
-				4E2579112B9DB5B200481B23 /* Location.xcstrings */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
 				4E2579012B99C26700481B23 /* Localizable.xcstrings */,
 				4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */,
@@ -989,12 +989,9 @@
 				4EEA67042C71E255005C459C /* Maps for OSM.entitlements */,
 				4EEA66FF2C71E255005C459C /* Assets.xcassets */,
 				4EEA67402C71E493005C459C /* PrivacyInfo.xcprivacy */,
-				4EEA67082C71E493005C459C /* Base.xcstrings */,
-				4EEA670D2C71E493005C459C /* Camera.xcstrings */,
 				4EEA67612C71E493005C459C /* Info.xcstrings */,
 				4EEA67122C71E493005C459C /* InfoPlist.xcstrings */,
 				4EEA676B2C71E493005C459C /* Localizable.xcstrings */,
-				4EEA670E2C71E493005C459C /* Location.xcstrings */,
 				4EEA67552C71E493005C459C /* Application */,
 				4EEA670C2C71E493005C459C /* Audio */,
 				4EEA67602C71E493005C459C /* iCloud */,
@@ -1359,6 +1356,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E289AC32CB1A1400012DBFE /* Base.xcstrings in Resources */,
+				4E289AC52CB1A14A0012DBFE /* Camera.xcstrings in Resources */,
+				4E289AC12CB1A0FA0012DBFE /* Location.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1368,12 +1368,12 @@
 			files = (
 				4EEA67BD2C71E493005C459C /* Info.xcstrings in Resources */,
 				4EEA67002C71E255005C459C /* Assets.xcassets in Resources */,
+				4E289AC22CB1A1400012DBFE /* Base.xcstrings in Resources */,
 				4EEA677B2C71E493005C459C /* InfoPlist.xcstrings in Resources */,
-				4EEA67772C71E493005C459C /* Camera.xcstrings in Resources */,
 				4EEA67C62C71E493005C459C /* Localizable.xcstrings in Resources */,
-				4EEA67782C71E493005C459C /* Location.xcstrings in Resources */,
 				4EEA67A22C71E493005C459C /* PrivacyInfo.xcprivacy in Resources */,
-				4EEA67732C71E493005C459C /* Base.xcstrings in Resources */,
+				4E289AC62CB1A1560012DBFE /* Location.xcstrings in Resources */,
+				4E289AC42CB1A14A0012DBFE /* Camera.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1884,7 +1884,9 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Maps-For-OSM-Watch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location always";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.elbe5.SwiftyMaps;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
@@ -1919,7 +1921,9 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Maps-For-OSM-Watch-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location always";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.elbe5.SwiftyMaps;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
