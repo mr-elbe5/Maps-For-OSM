@@ -9,11 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var location: Location
+    @State var location: LocationManager
     
     init(){
-        location = Location()
-        location.start()
+        location = LocationManager.shared
     }
     
     var body: some View {

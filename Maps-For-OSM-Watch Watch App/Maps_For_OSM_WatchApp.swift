@@ -13,11 +13,19 @@ import E5Data
 class WatchAppDelegate: NSObject, WKApplicationDelegate {
 
     func applicationDidBecomeActive(){
-        Log.info("SceneDelegate will connect")
         
         FileManager.initializePrivateDir()
         Log.useCache = false
         Log.logLevel = .info
+        LocationManager.shared.start()
+    }
+    
+    func applicationWillResignActive(){
+        
+        FileManager.initializePrivateDir()
+        Log.useCache = false
+        Log.logLevel = .info
+        LocationManager.shared.stop()
     }
 
 }

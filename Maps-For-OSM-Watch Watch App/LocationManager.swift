@@ -8,16 +8,18 @@
 import Foundation
 import CoreLocation
 
-@Observable class Location: NSObject{
+@Observable class LocationManager: NSObject{
+    
+    static var shared: LocationManager = LocationManager()
     
     var location: CLLocation = CLLocation()
     
-    let locationManager = CLLocationManager()
+    private let clManager = CLLocationManager()
 
     override init() {
         super.init()
-        locationManager.delegate = self
-        locationManager.allowsBackgroundLocationUpdates = true
+        clManager.delegate = self
+        clManager.allowsBackgroundLocationUpdates = true
     }
     
     deinit{
@@ -25,16 +27,16 @@ import CoreLocation
     }
     
     func start(){
-        locationManager.startUpdatingLocation()
+        clManager.startUpdatingLocation()
     }
     
     func stop(){
-        locationManager.stopUpdatingLocation()
+        clManager.stopUpdatingLocation()
     }
     
 }
 
-extension Location: CLLocationManagerDelegate{
+extension LocationManager: CLLocationManagerDelegate{
      
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last{
