@@ -17,7 +17,6 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         FileManager.initializePrivateDir()
         Log.useCache = false
         Log.logLevel = .info
-        //LocationManager.shared.start()
     }
     
     func applicationWillResignActive(){
@@ -25,13 +24,16 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         FileManager.initializePrivateDir()
         Log.useCache = false
         Log.logLevel = .info
-        LocationManager.shared.stop()
     }
 
 }
 
 @main
-struct Maps_For_OSM_Watch_Watch_AppApp: App {
+struct WatchApp: App {
+    
+    @State var status = Status()
+    @State var locationManager = LocationManager()
+    
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
     var body: some Scene {
         WindowGroup {

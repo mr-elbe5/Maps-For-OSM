@@ -9,29 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var status: Status
     @State var phoneMessaging = PhoneMessaging()
     @State var location: LocationManager
     
     init(){
-        location = LocationManager.shared
+        status = Status.instance
+        location = LocationManager.instance
     }
     
     var body: some View {
-        ScrollView{
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
-                Text("Location: \(location.location.coordinate.asShortString)")
-                Button("Request Info") {
-                    phoneMessaging.requestInfo()
-                }
-                ForEach(phoneMessaging.messages, id: \.self) { message in
-                    Text(message)
+        GeometryReader{ geometry in
+            if updateStatus(geometry.size){
+                TabView{
+                    MainView()
+                    StatusView()
+                    ControlView()
                 }
             }
         }
+    }
+    
+    func updateStatus(_ size: CGSize) -> Bool{
+        status.screenSize = size
+        return true
     }
     
 }
