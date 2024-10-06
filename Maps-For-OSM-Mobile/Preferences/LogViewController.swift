@@ -109,8 +109,10 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource{
 extension LogViewController: LogDelegate{
     
     func newLog(log: String) {
-        logs.insert(log, at: 0)
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.logs.insert(log, at: 0)
+            self.tableView.reloadData()
+        }
     }
     
 }
