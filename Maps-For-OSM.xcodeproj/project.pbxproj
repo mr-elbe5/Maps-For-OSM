@@ -644,7 +644,6 @@
 		4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */ = {
 			isa = PBXGroup;
 			children = (
-				4E289ADD2CB26CA50012DBFE /* Watch */,
 				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
@@ -666,6 +665,7 @@
 				4E5124232BAAF8EA00A5B416 /* Track */,
 				4E5124242BAAF91800A5B416 /* Video */,
 				4EEF6F8228FAC58800543EBA /* Search */,
+				4E289ADD2CB26CA50012DBFE /* Watch */,
 			);
 			path = "Maps-For-OSM-Mobile";
 			sourceTree = "<group>";
