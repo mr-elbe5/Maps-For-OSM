@@ -1,4 +1,5 @@
 import WatchConnectivity
+import E5Data
 
 class WatchConnectionHandler: NSObject, ObservableObject {
     
@@ -9,31 +10,37 @@ class WatchConnectionHandler: NSObject, ObservableObject {
     override init() {
         super.init()
         session.delegate = self
-        session.activate()
     }
+    
+    func start(){
+        session.activate()
+        Log.info("watch session is reachable: \(session.isReachable)")
+        Log.info("watch session is paired: \(session.isPaired)")
+    }
+    
 }
 
 extension WatchConnectionHandler: WCSessionDelegate {
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        debugPrint("WCSession activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
-        debugPrint("WCSession.isPaired: \(session.isPaired), WCSession.isWatchAppInstalled: \(session.isWatchAppInstalled)")
+        Log.debug("WCSession activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
+        Log.debug("WCSession.isPaired: \(session.isPaired), WCSession.isWatchAppInstalled: \(session.isWatchAppInstalled)")
     }
 
     func sessionDidBecomeInactive(_ session: WCSession) {
-        debugPrint("sessionDidBecomeInactive: \(session)")
+        Log.debug("sessionDidBecomeInactive: \(session)")
     }
 
     func sessionDidDeactivate(_ session: WCSession) {
-        debugPrint("sessionDidDeactivate: \(session)")
+        Log.debug("sessionDidDeactivate: \(session)")
     }
 
     func sessionWatchStateDidChange(_ session: WCSession) {
-        debugPrint("sessionWatchStateDidChange: \(session)")
+        Log.debug("sessionWatchStateDidChange: \(session)")
     }
     
     func session(_: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
-        debugPrint("didReceiveMessage: \(message)")
+        Log.debug("didReceiveMessage: \(message)")
         if message["request"] as? String == "date" {
             replyHandler(["date": Date()])
         }
