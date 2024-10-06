@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var phoneMessaging = PhoneMessaging()
     @State var location: LocationManager
     
     init(){
@@ -16,14 +17,21 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-            Text("Location: \(location.location.coordinate.asShortString)")
+        ScrollView{
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello, world!")
+                Text("Location: \(location.location.coordinate.asShortString)")
+                Button("Request Info") {
+                    phoneMessaging.requestInfo()
+                }
+                ForEach(phoneMessaging.messages, id: \.self) { message in
+                    Text(message)
+                }
+            }
         }
-        .padding()
     }
     
 }

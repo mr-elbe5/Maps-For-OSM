@@ -17,7 +17,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         FileManager.initializePrivateDir()
         Log.useCache = false
         Log.logLevel = .info
-        LocationManager.shared.start()
+        //LocationManager.shared.start()
     }
     
     func applicationWillResignActive(){

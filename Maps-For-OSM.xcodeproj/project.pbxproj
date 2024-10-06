@@ -57,6 +57,7 @@
 		4E289AC42CB1A14A0012DBFE /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E289AC52CB1A14A0012DBFE /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E289AC62CB1A1560012DBFE /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
+		4E289ADF2CB26CC70012DBFE /* WatchConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E289ADE2CB26CC70012DBFE /* WatchConnectionHandler.swift */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */; };
@@ -360,6 +361,7 @@
 		4E2579112B9DB5B200481B23 /* Location.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Location.xcstrings; sourceTree = "<group>"; };
 		4E2579122B9DB5B200481B23 /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
 		4E2894862CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps-For-OSM-Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E289ADE2CB26CC70012DBFE /* WatchConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectionHandler.swift; sourceTree = "<group>"; };
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackMenuView.swift; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 		4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */ = {
 			isa = PBXGroup;
 			children = (
+				4E289ADD2CB26CA50012DBFE /* Watch */,
 				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
@@ -685,6 +688,14 @@
 				4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */,
 			);
 			path = Note;
+			sourceTree = "<group>";
+		};
+		4E289ADD2CB26CA50012DBFE /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				4E289ADE2CB26CC70012DBFE /* WatchConnectionHandler.swift */,
+			);
+			path = Watch;
 			sourceTree = "<group>";
 		};
 		4E30799228D783F8005FBEF0 /* Location */ = {
@@ -1497,6 +1508,7 @@
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E7251432C42D35B00EBA2BF /* LocationImageCell.swift in Sources */,
 				4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */,
+				4E289ADF2CB26CC70012DBFE /* WatchConnectionHandler.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4ED7FFF02C7342D80045DACB /* AVCaptureDevice+Audio.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
