@@ -12,7 +12,7 @@ import CoreLocation
     
     static var instance: LocationManager = LocationManager()
     
-    var location: CLLocation = CLLocation()
+    var location: CLLocation = CLLocation(latitude: 53.541905, longitude: 9.683107)
     
     private let clManager = CLLocationManager()
 
@@ -39,6 +39,7 @@ import CoreLocation
 extension LocationManager: CLLocationManagerDelegate{
      
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("updating location")
         if let loc = locations.last{
             location = loc
             print(loc)

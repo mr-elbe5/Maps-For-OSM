@@ -11,11 +11,8 @@ struct MainView: View {
     
     var body: some View {
         ScrollView{
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello, world!")
+            ZStack {
+                MapView()
             }
         }
     }

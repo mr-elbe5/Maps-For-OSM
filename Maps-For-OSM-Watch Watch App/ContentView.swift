@@ -26,6 +26,9 @@ struct ContentView: View {
                     StatusView()
                     ControlView()
                 }
+                .onAppear(){
+                    location.start()
+                }
             }
         }
     }

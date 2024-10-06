@@ -78,6 +78,7 @@ class TileLayerView: UIView {
     // rect is in contentSize = planetSize
     func drawTile(rect: CGRect){
         let tile = MapTile.getTile(data: getTileData(rect: rect))
+        print("drawing tile \(tile.shortDescription)")
         if let image = tile.image{
             image.draw(in: rect)
             return
