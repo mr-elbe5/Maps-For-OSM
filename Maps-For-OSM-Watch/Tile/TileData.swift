@@ -15,6 +15,10 @@ import SwiftUI
     var tileY: Int = 0
     var image: UIImage? = nil
     
+    public var fileUrl: URL{
+        FileManager.tilesDirURL.appendingPathComponent("\(zoom)/\(tileX)/\(tileY).jpg")
+    }
+    
     init(){
     }
     

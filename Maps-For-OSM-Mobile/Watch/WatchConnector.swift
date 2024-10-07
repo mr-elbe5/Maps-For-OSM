@@ -51,7 +51,7 @@ extension WatchConnector: WCSessionDelegate {
                 let y = message["y"] as? Int ?? 0
                 let mapTile = MapTile(zoom: zoom, x: x, y: y)
                 TileProvider.shared.loadTileImage(tile: mapTile, template: Preferences.shared.urlTemplate) { tile in
-                    if let data = mapTile.image?.jpegData(compressionQuality: 0.85) {
+                    if let data = mapTile.image?.pngData() {
                         replyHandler(["image": data as Any])
                     }
                 }

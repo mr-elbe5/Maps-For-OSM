@@ -18,20 +18,17 @@ struct MapView: View, LocationManagerDelegate {
     @State var offsetY = 0.0
     
     var body: some View {
-        ZStack {
-            TileView(tileData: topLeftData)
-                .offset(x: offsetX, y: offsetY)
-            TileView(tileData: topRightData)
-                .offset(x: offsetX + 256, y: offsetY)
-            TileView(tileData: bottomLeftData)
-                .offset(x: offsetX, y: offsetY + 256)
-            TileView(tileData: bottomRightData)
-                .offset(x: offsetX + 256, y: offsetY + 256)
-            Button("update"){
-                locationChanged(CLLocation(latitude: 53.541905, longitude: 9.683107))
+        TileView(tileData: topLeftData)
+            .offset(x: offsetX, y: offsetY)
+        TileView(tileData: topRightData)
+            .offset(x: offsetX + 256, y: offsetY)
+        TileView(tileData: bottomLeftData)
+            .offset(x: offsetX, y: offsetY + 256)
+        TileView(tileData: bottomRightData)
+            .offset(x: offsetX + 256, y: offsetY + 256)
+            .onAppear{
+                locationChanged(LocationManager.startLocation)
             }
-        }
-        
     }
     
     func locationChanged(_ location: CLLocation) {
@@ -52,18 +49,20 @@ struct MapView: View, LocationManagerDelegate {
         let tileX = Int(floor(worldPoint.x / 256.0))
         let tileY = Int(floor(worldPoint.y / 256.0))
         print("tile \(tileX), \(tileY)")
-        let dx = -Int(worldPoint.x) % 256
-        let dy = -Int(worldPoint.y) % 256
+        let worldDx = Int(worldPoint.x) % 256
+        let worldDy = Int(worldPoint.y) % 256
+        let dx = -(Double(worldDx) * zoomScaleFromWorld)
+        let dy = -(Double(worldDy) * zoomScaleFromWorld)
         print("dx,dy \(dx), \(dy)")
         
         topLeftData = TileData(zoom: zoom, tileX: tileX, tileY: tileY)
-        PhoneConnector.instance.requestTile(topLeftData)
+        TileProvider.instance.assertTileImage(tile: topLeftData)
         topRightData = TileData(zoom: zoom, tileX: tileX + 1, tileY: tileY)
-        PhoneConnector.instance.requestTile(topRightData)
+        TileProvider.instance.assertTileImage(tile: topRightData)
         bottomLeftData = TileData(zoom: zoom, tileX: tileX, tileY: tileY + 1)
-        PhoneConnector.instance.requestTile(bottomLeftData)
+        TileProvider.instance.assertTileImage(tile: bottomLeftData)
         bottomRightData = TileData(zoom: zoom, tileX: tileX + 1, tileY: tileY + 1)
-        PhoneConnector.instance.requestTile(bottomRightData)
+        TileProvider.instance.assertTileImage(tile: bottomRightData)
         offsetX = Double(dx)
         offsetY = Double(dy)
     }

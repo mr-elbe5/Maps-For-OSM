@@ -15,6 +15,8 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
     func applicationDidBecomeActive(){
         
         FileManager.initializePrivateDir()
+        try! FileManager.default.createDirectory(at: FileManager.tilesDirURL, withIntermediateDirectories: true, attributes: nil)
+        FileManager.initialize()
         Log.useCache = false
         Log.logLevel = .info
     }

@@ -42,7 +42,7 @@ import WatchConnectivity
         )
     }
     
-    func requestTile(_ tileData: TileData) {
+    func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {
         print("requestTile")
         let request = ["request": "tile", "zoom": tileData.zoom, "x": tileData.tileX, "y": tileData.tileY] as [String : Any]
         session?.sendMessage(
@@ -52,11 +52,13 @@ import WatchConnectivity
                     if let data = response["image"] as? Data {
                         let image = UIImage(data: data)
                         tileData.image = image
+                        completion(image != nil)
                     }
                 }
             },
             errorHandler: { error in
                 debugPrint("Error sending message:", error)
+                completion(false)
             }
         )
     }

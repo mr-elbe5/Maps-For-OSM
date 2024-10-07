@@ -27,7 +27,7 @@ struct TileView: View {
     TileView( tileData: tileData)
         .onAppear() {
             if tileData.image == nil {
-                PhoneConnector.instance.requestTile(tileData)
+                TileProvider.instance.assertTileImage(tile: tileData)
             }
         }
 }
