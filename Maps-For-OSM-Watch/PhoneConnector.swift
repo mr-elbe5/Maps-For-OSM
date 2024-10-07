@@ -11,6 +11,8 @@ import WatchConnectivity
 
 @Observable class PhoneConnector: NSObject {
     
+    static var instance = PhoneConnector()
+    
     var messages = [String]()
     
     var session: WCSession?
@@ -23,7 +25,7 @@ import WatchConnectivity
     }
 
     func requestInfo() {
-        print("requsetInfo")
+        print("requestInfo")
         let request = ["request": "date"]
         print(session?.activationState ?? .notActivated)
         session?.sendMessage(
@@ -39,6 +41,26 @@ import WatchConnectivity
             }
         )
     }
+    
+    func requestTile(_ tileData: TileData) {
+        print("requestTile")
+        let request = ["request": "tile", "zoom": tileData.zoom, "x": tileData.tileX, "y": tileData.tileY] as [String : Any]
+        session?.sendMessage(
+            request,
+            replyHandler: { response in
+                DispatchQueue.main.async {
+                    if let data = response["image"] as? Data {
+                        let image = UIImage(data: data)
+                        tileData.image = image
+                    }
+                }
+            },
+            errorHandler: { error in
+                debugPrint("Error sending message:", error)
+            }
+        )
+    }
+        
 }
 
 extension PhoneConnector: WCSessionDelegate {

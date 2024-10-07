@@ -41,8 +41,23 @@ extension WatchConnector: WCSessionDelegate {
     
     func session(_: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
         Log.debug("didReceiveMessage: \(message)")
-        if message["request"] as? String == "date" {
-            replyHandler(["date": Date()])
+        if let request = message["request"] as? String {
+            switch request {
+                case "date":
+                replyHandler(["date": Date()])
+            case "tile":
+                let zoom = message["zoom"] as? Int ?? 0
+                let x = message["x"] as? Int ?? 0
+                let y = message["y"] as? Int ?? 0
+                let mapTile = MapTile(zoom: zoom, x: x, y: y)
+                TileProvider.shared.loadTileImage(tile: mapTile, template: Preferences.shared.urlTemplate) { tile in
+                    if let data = mapTile.image?.jpegData(compressionQuality: 0.85) {
+                        replyHandler(["image": data as Any])
+                    }
+                }
+            default:
+                break;
+            }
         }
     }
 

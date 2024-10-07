@@ -8,11 +8,17 @@
 import Foundation
 import CoreLocation
 
-@Observable class LocationManager: NSObject{
+protocol LocationManagerDelegate{
+    func locationChanged(_ location: CLLocation)
+}
+
+class LocationManager: NSObject{
     
     static var instance: LocationManager = LocationManager()
     
     var location: CLLocation = CLLocation(latitude: 53.541905, longitude: 9.683107)
+    
+    var locationDelegate: LocationManagerDelegate? = nil
     
     private let clManager = CLLocationManager()
 
@@ -43,6 +49,7 @@ extension LocationManager: CLLocationManagerDelegate{
         if let loc = locations.last{
             location = loc
             print(loc)
+            locationDelegate?.locationChanged(loc)
         }
     }
     
