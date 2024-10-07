@@ -10,7 +10,7 @@
 	</array>
 	<key>WKBackgroundModes</key>
 	<array>
-        <string>location</string>
-    </array>
+		<string>location</string>
+	</array>
 </dict>
 </plist>
