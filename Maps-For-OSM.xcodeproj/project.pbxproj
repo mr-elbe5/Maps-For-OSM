@@ -38,7 +38,7 @@
 		4E2579132B9DB5B200481B23 /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
 		4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
 		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
-		4E2894932CA81FF40012DBFE /* Maps-For-OSM-Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E2894862CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4E2894932CA81FF40012DBFE /* Maps For OSM Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4E2894992CA826690012DBFE /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2894982CA826690012DBFE /* E5Data */; };
 		4E28949A2CA8275F0012DBFE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF5D2C733B650045DACB /* LocationService.swift */; };
 		4E28949E2CA827750012DBFE /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF552C733B650045DACB /* CLPlacemark.swift */; };
@@ -57,7 +57,7 @@
 		4E289AC42CB1A14A0012DBFE /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E289AC52CB1A14A0012DBFE /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E289AC62CB1A1560012DBFE /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
-		4E289ADF2CB26CC70012DBFE /* WatchConnectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E289ADE2CB26CC70012DBFE /* WatchConnectionHandler.swift */; };
+		4E289ADF2CB26CC70012DBFE /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E289ADE2CB26CC70012DBFE /* WatchConnector.swift */; };
 		4E44248D2B95022C0007A26F /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E44248C2B95022B0007A26F /* VideoViewController.swift */; };
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */; };
@@ -317,7 +317,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				4E2894932CA81FF40012DBFE /* Maps-For-OSM-Watch Watch App.app in Embed Watch Content */,
+				4E2894932CA81FF40012DBFE /* Maps For OSM Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,8 +360,8 @@
 		4E2579102B9DB5B200481B23 /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
 		4E2579112B9DB5B200481B23 /* Location.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Location.xcstrings; sourceTree = "<group>"; };
 		4E2579122B9DB5B200481B23 /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
-		4E2894862CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps-For-OSM-Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E289ADE2CB26CC70012DBFE /* WatchConnectionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectionHandler.swift; sourceTree = "<group>"; };
+		4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Maps For OSM Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E289ADE2CB26CC70012DBFE /* WatchConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnector.swift; sourceTree = "<group>"; };
 		4E44248C2B95022B0007A26F /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackMenuView.swift; sourceTree = "<group>"; };
@@ -556,7 +556,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch Watch App"; sourceTree = "<group>"; };
+		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -625,7 +625,7 @@
 				4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */,
 				4ED7FF462C733AFA0045DACB /* MapData */,
 				4ED7FFF12C7351160045DACB /* MacUI */,
-				4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App */,
+				4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
 				4E7C76872C71E758000A66A7 /* Frameworks */,
 			);
@@ -636,7 +636,7 @@
 			children = (
 				4E0BD97D26E9FC66005A4A94 /* Maps for OSM Mobile.app */,
 				4EEA66F92C71E254005C459C /* Maps For OSM Desktop.app */,
-				4E2894862CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App.app */,
+				4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -693,7 +693,7 @@
 		4E289ADD2CB26CA50012DBFE /* Watch */ = {
 			isa = PBXGroup;
 			children = (
-				4E289ADE2CB26CC70012DBFE /* WatchConnectionHandler.swift */,
+				4E289ADE2CB26CC70012DBFE /* WatchConnector.swift */,
 			);
 			path = Watch;
 			sourceTree = "<group>";
@@ -1255,9 +1255,9 @@
 			productReference = 4E0BD97D26E9FC66005A4A94 /* Maps for OSM Mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4E2894852CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App */ = {
+		4E2894852CA81FF30012DBFE /* Maps For OSM Watch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E2894972CA81FF40012DBFE /* Build configuration list for PBXNativeTarget "Maps-For-OSM-Watch Watch App" */;
+			buildConfigurationList = 4E2894972CA81FF40012DBFE /* Build configuration list for PBXNativeTarget "Maps For OSM Watch" */;
 			buildPhases = (
 				4E2894822CA81FF30012DBFE /* Sources */,
 				4E2894832CA81FF30012DBFE /* Frameworks */,
@@ -1268,14 +1268,14 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App */,
+				4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */,
 			);
-			name = "Maps-For-OSM-Watch Watch App";
+			name = "Maps For OSM Watch";
 			packageProductDependencies = (
 				4E2894982CA826690012DBFE /* E5Data */,
 			);
 			productName = "Maps-For-OSM-Watch Watch App";
-			productReference = 4E2894862CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App.app */;
+			productReference = 4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4EEA66F82C71E254005C459C /* Maps For OSM Desktop */ = {
@@ -1342,7 +1342,7 @@
 			targets = (
 				4E0BD97C26E9FC66005A4A94 /* Maps for OSM Mobile */,
 				4EEA66F82C71E254005C459C /* Maps For OSM Desktop */,
-				4E2894852CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App */,
+				4E2894852CA81FF30012DBFE /* Maps For OSM Watch */,
 			);
 		};
 /* End PBXProject section */
@@ -1508,7 +1508,7 @@
 				4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */,
 				4E7251432C42D35B00EBA2BF /* LocationImageCell.swift in Sources */,
 				4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */,
-				4E289ADF2CB26CC70012DBFE /* WatchConnectionHandler.swift in Sources */,
+				4E289ADF2CB26CC70012DBFE /* WatchConnector.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4ED7FFF02C7342D80045DACB /* AVCaptureDevice+Audio.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,
@@ -1680,7 +1680,7 @@
 /* Begin PBXTargetDependency section */
 		4E2894922CA81FF40012DBFE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4E2894852CA81FF30012DBFE /* Maps-For-OSM-Watch Watch App */;
+			target = 4E2894852CA81FF30012DBFE /* Maps For OSM Watch */;
 			targetProxy = 4E2894912CA81FF40012DBFE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1891,7 +1891,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -1928,7 +1928,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch Watch App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -2043,7 +2043,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E2894972CA81FF40012DBFE /* Build configuration list for PBXNativeTarget "Maps-For-OSM-Watch Watch App" */ = {
+		4E2894972CA81FF40012DBFE /* Build configuration list for PBXNativeTarget "Maps For OSM Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E2894952CA81FF40012DBFE /* Debug */,

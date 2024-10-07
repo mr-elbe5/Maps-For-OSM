@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import WatchConnectivity
 
-@Observable class PhoneMessaging: NSObject {
+@Observable class PhoneConnector: NSObject {
     
     var messages = [String]()
     
@@ -41,7 +41,7 @@ import WatchConnectivity
     }
 }
 
-extension PhoneMessaging: WCSessionDelegate {
+extension PhoneConnector: WCSessionDelegate {
     func session(_: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         debugPrint("activationDidCompleteWith activationState:\(activationState.rawValue), error: \(String(describing: error))")
     }

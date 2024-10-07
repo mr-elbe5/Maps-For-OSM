@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ControlView: View {
     
-    @State var phoneMessaging = PhoneMessaging()
+    @State var phoneMessaging = PhoneConnector()
     
     var body: some View {
         ScrollView{

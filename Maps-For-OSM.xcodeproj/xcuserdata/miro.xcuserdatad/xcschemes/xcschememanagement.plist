@@ -9,15 +9,15 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Maps For OSM Watch.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Maps for OSM Mobile.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
-		</dict>
-		<key>Maps-For-OSM-Watch Watch App.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Maps-For-OSM.xcscheme_^#shared#^_</key>
 		<dict>
@@ -27,6 +27,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>4E0BD97C26E9FC66005A4A94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4E2894852CA81FF30012DBFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4EEA66F82C71E254005C459C</key>
 		<dict>
 			<key>primary</key>

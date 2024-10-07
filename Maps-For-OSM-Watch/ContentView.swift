@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State var status: Status
-    @State var phoneMessaging = PhoneMessaging()
+    @State var phoneMessaging = PhoneConnector()
     @State var location: LocationManager
     
     init(){

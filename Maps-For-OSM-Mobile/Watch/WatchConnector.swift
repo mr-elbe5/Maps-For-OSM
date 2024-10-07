@@ -1,9 +1,9 @@
 import WatchConnectivity
 import E5Data
 
-class WatchConnectionHandler: NSObject, ObservableObject {
+class WatchConnector: NSObject, ObservableObject {
     
-    static let instance = WatchConnectionHandler()
+    static let instance = WatchConnector()
     
     var session = WCSession.default
 
@@ -20,7 +20,7 @@ class WatchConnectionHandler: NSObject, ObservableObject {
     
 }
 
-extension WatchConnectionHandler: WCSessionDelegate {
+extension WatchConnector: WCSessionDelegate {
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         Log.debug("WCSession activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
