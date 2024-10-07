@@ -19,23 +19,16 @@ struct ContentView: View {
     }
     
     var body: some View {
-        GeometryReader{ geometry in
-            if updateStatus(geometry.size){
-                TabView{
-                    MainView()
-                    StatusView()
-                    ControlView()
-                }
-                .onAppear(){
-                    location.start()
-                }
+        if status.setScreenSize(){
+            TabView{
+                MainView()
+                StatusView()
+                ControlView()
+            }
+            .onAppear(){
+                location.start()
             }
         }
-    }
-    
-    func updateStatus(_ size: CGSize) -> Bool{
-        status.screenSize = size
-        return true
     }
     
 }
