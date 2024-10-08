@@ -9,19 +9,19 @@ import SwiftUI
 
 struct TileView: View {
     
-    var tileData: TileData
+    @Bindable var tileData: TileData
     
     var body: some View {
         ZStack {
-            if let imageData = tileData.imageData, let image = UIImage(data: imageData) {
-                Image(uiImage: image)
+            if let imageData = tileData.imageData{
+                if let image = UIImage(data: imageData){
+                    Image(uiImage: image)
+                }
             }
             else{
                 Image(uiImage: UIImage(named: "gear.grey")!)
             }
-            //Text("\(tileData.tileX), \(tileData.tileY)")
         }
-        .background(.white)
         .frame(width: 256, height: 256)
     }
     

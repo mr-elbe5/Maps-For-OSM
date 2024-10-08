@@ -16,7 +16,7 @@ class LocationManager: NSObject{
     
     static var instance: LocationManager = LocationManager()
     
-    static var startLocation = CLLocation(latitude: 53.541905, longitude: 9.683107)
+    static var startLocation = CLLocation(latitude: 53.5419, longitude: 9.6831)
     
     var location: CLLocation = LocationManager.startLocation
     

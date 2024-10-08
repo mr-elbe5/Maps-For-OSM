@@ -18,7 +18,7 @@ public struct TileProvider{
             print("Tile already present")
             return
         }
-        print("try loading file \(tile.fileUrl)")
+        print("try loading file \(tile.fileUrl.lastPathComponent)")
         if FileManager.default.fileExists(url: tile.fileUrl), let data = FileManager.default.readFile(url: tile.fileUrl)    {
             tile.imageData = data
             print("Tile loaded from file")
@@ -37,7 +37,6 @@ public struct TileProvider{
                 else{
                     print("could not save file \(tile.fileUrl.lastPathComponent)")
                 }
-                dumpTiles()
             }
             else if tries <= TileProvider.maxTries{
                 print("reloading tile from phone in try \(tries)")

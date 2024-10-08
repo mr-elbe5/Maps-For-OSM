@@ -21,7 +21,11 @@ struct ContentView: View {
     var body: some View {
         if status.setScreenSize(){
             TabView{
-                MainView()
+                ZStack {
+                    MapView()
+                        .frame(width: status.screenSize.width, height: status.screenSize.height)
+                        .clipped()
+                }
                 StatusView()
                 ControlView()
             }

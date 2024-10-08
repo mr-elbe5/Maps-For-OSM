@@ -16,6 +16,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         FileManager.initializePrivateDir()
         FileManager.initializeTilesDir()
         //print("tiles dir exists: \(FileManager.default.fileExists(url: FileManager.tilesDirURL))")
+        TileProvider.instance.dumpTiles()
         Log.useCache = false
         Log.logLevel = .info
     }
