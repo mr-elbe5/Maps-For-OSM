@@ -1,5 +1,6 @@
 import WatchConnectivity
 import E5Data
+import UIKit
 
 class WatchConnector: NSObject, ObservableObject {
     
@@ -45,14 +46,19 @@ extension WatchConnector: WCSessionDelegate {
             switch request {
                 case "date":
                 replyHandler(["date": Date()])
-            case "tile":
+            case "tileImageData":
                 let zoom = message["zoom"] as? Int ?? 0
                 let x = message["x"] as? Int ?? 0
                 let y = message["y"] as? Int ?? 0
                 let mapTile = MapTile(zoom: zoom, x: x, y: y)
-                TileProvider.shared.loadTileImage(tile: mapTile, template: Preferences.shared.urlTemplate) { tile in
-                    if let data = mapTile.image?.pngData() {
-                        replyHandler(["image": data as Any])
+                if mapTile.exists, let fileData = FileManager.default.contents(atPath: mapTile.fileUrl.path){
+                    replyHandler(["imageData": fileData as Any])
+                }
+                else{
+                    TileProvider.shared.loadTileImage(tile: mapTile, template: Preferences.shared.urlTemplate) { success in
+                        if let data = mapTile.imageData {
+                            replyHandler(["imageData": data as Any])
+                        }
                     }
                 }
             default:

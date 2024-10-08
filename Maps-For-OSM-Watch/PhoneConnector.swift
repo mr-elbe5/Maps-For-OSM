@@ -43,16 +43,19 @@ import WatchConnectivity
     }
     
     func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {
-        print("requestTile")
-        let request = ["request": "tile", "zoom": tileData.zoom, "x": tileData.tileX, "y": tileData.tileY] as [String : Any]
+        print("watch requesting tile image data")
+        let request = ["request": "tileImageData", "zoom": tileData.zoom, "x": tileData.tileX, "y": tileData.tileY] as [String : Any]
         session?.sendMessage(
             request,
             replyHandler: { response in
                 DispatchQueue.main.async {
-                    if let data = response["image"] as? Data {
-                        let image = UIImage(data: data)
-                        tileData.image = image
-                        completion(image != nil)
+                    if let data = response["imageData"] as? Data {
+                        print("watch got tile image data")
+                        tileData.imageData = data
+                        completion(true)
+                    }
+                    else{
+                        completion(false)
                     }
                 }
             },

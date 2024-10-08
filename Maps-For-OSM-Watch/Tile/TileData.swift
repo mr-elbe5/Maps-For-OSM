@@ -13,10 +13,10 @@ import SwiftUI
     var zoom: Int = World.maxZoom
     var tileX: Int = 0
     var tileY: Int = 0
-    var image: UIImage? = nil
+    var imageData: Data? = nil
     
     public var fileUrl: URL{
-        FileManager.tilesDirURL.appendingPathComponent("\(zoom)/\(tileX)/\(tileY).jpg")
+        FileManager.tilesDirURL.appendingPathComponent("\(zoom)-\(tileX)-\(tileY).png")
     }
     
     init(){

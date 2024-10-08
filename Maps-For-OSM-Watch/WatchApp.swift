@@ -13,19 +13,14 @@ import E5Data
 class WatchAppDelegate: NSObject, WKApplicationDelegate {
 
     func applicationDidBecomeActive(){
-        
         FileManager.initializePrivateDir()
-        try! FileManager.default.createDirectory(at: FileManager.tilesDirURL, withIntermediateDirectories: true, attributes: nil)
-        FileManager.initialize()
+        FileManager.initializeTilesDir()
+        //print("tiles dir exists: \(FileManager.default.fileExists(url: FileManager.tilesDirURL))")
         Log.useCache = false
         Log.logLevel = .info
     }
     
     func applicationWillResignActive(){
-        
-        FileManager.initializePrivateDir()
-        Log.useCache = false
-        Log.logLevel = .info
     }
 
 }

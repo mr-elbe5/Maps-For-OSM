@@ -23,7 +23,7 @@ public class DrawTileData{
     }
     
     public func assertTileImage(){
-        if tile.image == nil {
+        if tile.imageData == nil {
             TileProvider.shared.loadTileImage(tile: tile, template: Preferences.shared.urlTemplate){ success in
                 if success{
                     self.complete = true
@@ -36,9 +36,15 @@ public class DrawTileData{
     }
     
     public func draw(){
-        if let image = tile.image{
+#if os(macOS)
+        if let imageData = tile.imageData, let image = NSImage(data: imageData){
             image.draw(in: drawRect)
         }
+#elseif os(iOS)
+        if let imageData = tile.imageData, let image = UIImage(data: imageData){
+            image.draw(in: drawRect)
+        }
+#endif
     }
     
 }

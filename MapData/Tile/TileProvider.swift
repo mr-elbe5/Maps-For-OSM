@@ -50,11 +50,7 @@ public struct TileProvider{
                         Log.error("TileProvider could not save tile \(tile.shortDescription)")
                     }
                 }
-#if os(macOS)
-                tile.image = NSImage(data: data)
-#elseif os(iOS)
-                tile.image = UIImage(data: data)
-#endif
+                tile.imageData = data
                 result(true)
                 return
             }

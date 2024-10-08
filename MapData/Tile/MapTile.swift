@@ -13,37 +13,22 @@ import E5Data
 
 open class MapTile{
     
-#if os(macOS)
     public static func getTile(data: MapTileData) -> MapTile{
         let tile = MapTile(zoom: data.zoom, x: data.x, y: data.y)
         //Log.debug("get tile \(tile.shortDescription)")
         if tile.exists, let fileData = FileManager.default.contents(atPath: tile.fileUrl.path){
-            tile.image = NSImage(data: fileData)
+            tile.imageData = fileData
         }
         return tile
     }
-#elseif os(iOS)
-    public static func getTile(data: MapTileData) -> MapTile{
-        let tile = MapTile(zoom: data.zoom, x: data.x, y: data.y)
-        //Log.debug("get tile \(tile.shortDescription)")
-        if tile.exists, let fileData = FileManager.default.contents(atPath: tile.fileUrl.path){
-            tile.image = UIImage(data: fileData)
-        }
-        return tile
-    }
-#endif
-    
+
     public static var tilesDirURL: URL = FileManager.default.urls(for: .applicationSupportDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!.appendingPathComponent("tiles")
     
     public var x: Int
     public var y: Int
     public var zoom: Int
     
-#if os(macOS)
-    public var image : NSImage? = nil
-#elseif os(iOS)
-    public var image : UIImage? = nil
-#endif
+    public var imageData : Data? = nil
     
     public init(zoom: Int, x: Int, y: Int){
         self.zoom = zoom

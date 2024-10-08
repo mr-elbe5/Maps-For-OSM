@@ -13,11 +13,16 @@ struct TileView: View {
     
     var body: some View {
         ZStack {
-            Image(uiImage: tileData.image ?? UIImage(named: "gear.grey")!)
-            Text("\(tileData.tileX), \(tileData.tileY)")
+            if let imageData = tileData.imageData, let image = UIImage(data: imageData) {
+                Image(uiImage: image)
+            }
+            else{
+                Image(uiImage: UIImage(named: "gear.grey")!)
+            }
+            //Text("\(tileData.tileX), \(tileData.tileY)")
         }
+        .background(.white)
         .frame(width: 256, height: 256)
-        .border(.blue)
     }
     
 }
@@ -26,7 +31,7 @@ struct TileView: View {
     @Previewable var tileData = TileData(zoom: 16, tileX: 2, tileY: 3)
     TileView( tileData: tileData)
         .onAppear() {
-            if tileData.image == nil {
+            if tileData.imageData == nil {
                 TileProvider.instance.assertTileImage(tile: tileData)
             }
         }

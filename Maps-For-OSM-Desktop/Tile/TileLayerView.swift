@@ -7,7 +7,6 @@
 import AppKit
 import E5Data
 
-
 class TileLayerView: NSView {
     
     var mapGearImage = NSImage(named: "gear.grey")
@@ -62,7 +61,7 @@ class TileLayerView: NSView {
     func drawTile(rect: CGRect){
         let tileData = getTileData(rect: rect)
         let tile = MapTile.getTile(data: tileData)
-        if let image = tile.image{
+        if let imageData = tile.imageData, let image = NSImage(data: imageData){
             image.draw(in: rect)
             return
         }

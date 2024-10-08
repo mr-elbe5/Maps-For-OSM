@@ -14,26 +14,33 @@ public struct TileProvider{
     static let maxTries: Int = 3
     
     func assertTileImage(tile: TileData) {
-        if tile.image != nil{
-            print("Tile already loaded")
+        if tile.imageData != nil{
+            print("Tile already present")
             return
         }
+        print("try loading file \(tile.fileUrl)")
         if FileManager.default.fileExists(url: tile.fileUrl), let data = FileManager.default.readFile(url: tile.fileUrl)    {
-            tile.image = UIImage(data: data)
-            print("Tile loaded")
+            tile.imageData = data
+            print("Tile loaded from file")
             return
         }
-        print("loading tile")
+        print("loading tile from phone")
         loadTileImage(tile: tile, tries: 1)
     }
     
     private func loadTileImage(tile: TileData, tries: Int) {
         PhoneConnector.instance.requestTile(tile){ success in
-            if success, let image = tile.image{
-                FileManager.default.createFile(atPath: tile.fileUrl.path(), contents: image.pngData())
+            if success, let imageData = tile.imageData{
+                if FileManager.default.saveFile(data: imageData, url: tile.fileUrl){
+                    print("file \(tile.fileUrl.lastPathComponent) saved")
+                }
+                else{
+                    print("could not save file \(tile.fileUrl.lastPathComponent)")
+                }
+                dumpTiles()
             }
             else if tries <= TileProvider.maxTries{
-                print("reloading tile in try \(tries)")
+                print("reloading tile from phone in try \(tries)")
                 loadTileImage(tile: tile, tries: tries + 1)
             }
         }
@@ -49,7 +56,7 @@ public struct TileProvider{
     }
     
     public func dumpTiles(){
-        var paths = Array<String>()
+        print("all tiles:")
         if let paths = FileManager.default.subpaths(atPath: FileManager.tilesDirURL.path){
             for path in paths{
                 print(path)

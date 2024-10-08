@@ -9,11 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     
+    @State var status = Status.instance
+    
     var body: some View {
-        ScrollView{
-            ZStack {
-                MapView()
-            }
+        ZStack {
+            MapView()
+                .frame(width: status.screenSize.width, height: status.screenSize.height)
+                .clipped()
         }
     }
     

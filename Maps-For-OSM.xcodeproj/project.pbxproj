@@ -44,7 +44,6 @@
 		4E28949E2CA827750012DBFE /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF552C733B650045DACB /* CLPlacemark.swift */; };
 		4E28949F2CA827750012DBFE /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF542C733B650045DACB /* CLLocationCoordinate2D.swift */; };
 		4E2894A22CA827750012DBFE /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF532C733B650045DACB /* CLLocation.swift */; };
-		4E2894A52CA827CE0012DBFE /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7D2C733B650045DACB /* FileManager.swift */; };
 		4E2894A62CA827FD0012DBFE /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF632C733B650045DACB /* World.swift */; };
 		4E2894A72CA827FD0012DBFE /* CoordinateSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF622C733B650045DACB /* CoordinateSpan.swift */; };
 		4E2894A82CA827FD0012DBFE /* CGRect+CL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF602C733B650045DACB /* CGRect+CL.swift */; };
@@ -1529,7 +1528,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E2894A52CA827CE0012DBFE /* FileManager.swift in Sources */,
 				4E28949E2CA827750012DBFE /* CLPlacemark.swift in Sources */,
 				4E28949F2CA827750012DBFE /* CLLocationCoordinate2D.swift in Sources */,
 				4E2894A22CA827750012DBFE /* CLLocation.swift in Sources */,
@@ -1898,6 +1896,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Maps-For-OSM-Watch/Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location always";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.elbe5.SwiftyMaps;
@@ -1935,6 +1934,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Maps-For-OSM-Watch/Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location always";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.elbe5.SwiftyMaps;
