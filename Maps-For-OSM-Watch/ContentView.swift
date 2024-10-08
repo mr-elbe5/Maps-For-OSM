@@ -21,13 +21,8 @@ struct ContentView: View {
     var body: some View {
         TabView{
             ZStack {
-                GeometryReader{ geometry in
-                    if Status.instance.setViewSize(geometry.size) {
-                        MapView()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .clipped()
-                    }
-                }
+                MapView()
+                    .clipped()
             }
             StatusView()
             ControlView()

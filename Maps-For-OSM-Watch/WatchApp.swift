@@ -35,9 +35,7 @@ struct WatchApp: App {
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                ContentView()
-            }
+            ContentView()
         }
     }
 }
