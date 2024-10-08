@@ -15,7 +15,7 @@ struct StatusView: View {
     var body: some View {
         ScrollView{
             VStack {
-                Text("screenSize = \(status.screenSize)")
+                Text("screenSize = \(status.viewSize)")
                 Text("Location: \(locationManager.location.coordinate.asShortString)")
             }
         }

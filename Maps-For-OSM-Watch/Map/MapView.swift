@@ -45,8 +45,8 @@ struct MapView: View, LocationManagerDelegate {
         TileProvider.instance.assertTileImage(tile: bottomLeftData)
         bottomRightData.update(zoom: status.zoom, tileX: data.tileX + 1, tileY: data.tileY + 1)
         TileProvider.instance.assertTileImage(tile: bottomRightData)
-        offsetX = Double(data.offsetX)
-        offsetY = Double(data.offsetY)
+        offsetX = data.offsetX
+        offsetY = data.offsetY
         
         
     }
