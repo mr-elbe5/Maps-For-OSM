@@ -14,7 +14,6 @@ struct MapView: View, LocationManagerDelegate {
     @State var topRightData = TileData()
     @State var bottomLeftData = TileData()
     @State var bottomRightData = TileData()
-    @State var centerPosition = CGPoint()
     @State var offsetX = 0.0
     @State var offsetY = 0.0
     
@@ -30,8 +29,6 @@ struct MapView: View, LocationManagerDelegate {
             .onAppear{
                 locationChanged(LocationManager.startLocation)
             }
-        CurrentLocationView()
-            .offset(x: centerPosition.x, y: centerPosition.y)
     }
     
     func locationChanged(_ location: CLLocation) {
@@ -45,10 +42,8 @@ struct MapView: View, LocationManagerDelegate {
         TileProvider.instance.assertTileImage(tile: bottomLeftData)
         bottomRightData.update(zoom: status.zoom, tileX: data.tileX + 1, tileY: data.tileY + 1)
         TileProvider.instance.assertTileImage(tile: bottomRightData)
-        offsetX = data.offsetX
-        offsetY = data.offsetY
-        
-        
+        offsetX = data.offsetX + 49
+        offsetY = data.offsetY + 62
     }
     
 }
