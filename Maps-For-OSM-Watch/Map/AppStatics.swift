@@ -4,24 +4,24 @@ import SwiftUI
 class AppStatics{
     
     static var screenSize: CGSize = .zero
-    static var safeSize: CGSize = .zero
-    static var viewSize: CGSize = .zero
-    
-    static var viewCenter : CGPoint{
-        CGPoint(x: viewSize.width/2, y: viewSize.height/2)
+    static var screenCenter : CGPoint{
+        CGPoint(x: screenSize.width/2, y: screenSize.height/2)
     }
+    //static var safeRect: CGRect = CGRect(x: 2.0, y: 48.0, width: 183.0, height: 144.0)
     
-    static func setSizes(_ geometry: GeometryProxy) -> Bool{
+    static func setSizes() -> Bool{
         let device = WKInterfaceDevice.current()
         let bounds = device.screenBounds
         screenSize = CGSize(width: bounds.width, height: bounds.height)
         print("screenSize: \(screenSize)")
-        print(geometry.safeAreaInsets)
-        safeSize = CGSize(width: screenSize.width - geometry.safeAreaInsets.leading - geometry.safeAreaInsets.trailing, height: screenSize.height - geometry.safeAreaInsets.top - geometry.safeAreaInsets.bottom)
-        print("safeSize: \(safeSize)")
-        viewSize = geometry.size
-        print("viewSize: \(viewSize)")
         return true
     }
     
+    /*static func setGeometrySizes(_ geometry: GeometryProxy) -> Bool{
+        print("viewSize: \(geometry.size)")
+        safeRect = CGRect(x: geometry.safeAreaInsets.leading, y: geometry.safeAreaInsets.top, width: screenSize.width - geometry.safeAreaInsets.leading - geometry.safeAreaInsets.trailing, height: screenSize.height - geometry.safeAreaInsets.top - geometry.safeAreaInsets.bottom)
+        print("safeRect: \(safeRect)")
+        return true
+    }
+    */
 }

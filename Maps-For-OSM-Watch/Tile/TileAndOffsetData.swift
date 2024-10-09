@@ -15,25 +15,21 @@ struct TileAndOffsetData{
     var offsetX: Double
     var offsetY: Double
     
-    init(location: CLLocation, status: Status) {
+    init(location: CLLocation, zoom: Int, screenCenter: CGPoint) {
         let coordinate = location.coordinate
         print(coordinate)
-        let viewCenter = AppStatics.viewCenter
-        print("view center \(viewCenter)")
-        let zoom = status.zoom
-        print("zoom \(zoom)")
         let zoomScaleFromWorld = World.zoomScaleFromWorld(to: zoom)
         print("zoom scale \(zoomScaleFromWorld)")
-        let x = World.scaledX(coordinate.longitude, downScale: zoomScaleFromWorld) - viewCenter.x
-        let y = World.scaledY(coordinate.latitude, downScale: zoomScaleFromWorld) - viewCenter.y
+        let x = World.scaledX(coordinate.longitude, downScale: zoomScaleFromWorld)
+        let y = World.scaledY(coordinate.latitude, downScale: zoomScaleFromWorld)
         
-        tileX = Int(floor(x / 256.0))
-        tileY = Int(floor(y / 256.0))
+        tileX = Int(floor((x  - screenCenter.x) / World.tileExtent))
+        tileY = Int(floor((y  - screenCenter.y) / World.tileExtent))
         
-        print("tile \(tileX), \(tileY)")
+        print("top left tile \(tileX), \(tileY)")
         
-        offsetX = Double(tileX)*256.0 - x
-        offsetY = Double(tileY)*256.0 - y
+        offsetX = Double(tileX)*World.tileExtent - x + 136.0
+        offsetY = Double(tileY)*World.tileExtent - y + 8.0
         
         print("offsetX,offsetY \(offsetX), \(offsetY)")
     }

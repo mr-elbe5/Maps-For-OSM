@@ -6,6 +6,6 @@ import CoreLocation
     
     static var instance = Status()
     
-    var zoom : Int = 18
+    var zoom : Int = 16
     
 }

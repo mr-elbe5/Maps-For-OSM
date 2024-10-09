@@ -19,7 +19,7 @@ struct TileView: View {
                 }
             }
             else{
-                Image(uiImage: UIImage(named: "gear.grey")!)
+                Image(uiImage: UIImage(named: "grid")!)
             }
         }
         .frame(width: 256, height: 256)

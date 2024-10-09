@@ -14,7 +14,6 @@ struct StatusView: View {
     
     var body: some View {
         VStack {
-            Text("viewSize = \(AppStatics.viewSize)")
             Text("screenSize = \(AppStatics.screenSize)")
             Text("Location: \(locationManager.location.coordinate.asShortString)")
         }

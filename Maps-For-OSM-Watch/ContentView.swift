@@ -17,23 +17,18 @@ struct ContentView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            if AppStatics.setSizes(geometry){
-                TabView{
-                    ZStack {
-                        MapView()
-                            .frame(width: AppStatics.viewSize.width, height: AppStatics.viewSize.height)
-                            .clipped()
-                        CurrentLocationView()
-                    }
-                    .clipped()
-                    StatusView()
-                    ControlView()
+        if AppStatics.setSizes(){
+            TabView(){
+                ZStack{
+                    MapView()
+                        .onAppear(){
+                            location.start()
+                        }
+                    CurrentLocationView()
                 }
+                StatusView()
+                ControlView()
             }
-        }
-        .onAppear(){
-            location.start()
         }
     }
 }

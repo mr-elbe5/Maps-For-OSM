@@ -14,25 +14,32 @@ struct MapView: View, LocationManagerDelegate {
     @State var topRightData = TileData()
     @State var bottomLeftData = TileData()
     @State var bottomRightData = TileData()
-    @State var offsetX = 0.0
-    @State var offsetY = 0.0
+    @State var offsetX: CGFloat = 0
+    @State var offsetY: CGFloat = 0
     
     var body: some View {
-        TileView(tileData: topLeftData)
-            .offset(x: offsetX, y: offsetY)
-        TileView(tileData: topRightData)
-            .offset(x: offsetX + 256, y: offsetY)
-        TileView(tileData: bottomLeftData)
-            .offset(x: offsetX, y: offsetY + 256)
-        TileView(tileData: bottomRightData)
-            .offset(x: offsetX + 256, y: offsetY + 256)
-            .onAppear{
-                locationChanged(LocationManager.startLocation)
-            }
+        ZStack(alignment: .center){
+            TileView(tileData: topLeftData)
+                .position(x: 0, y: 0)
+                .frame(width: 256, height: 256)
+            TileView(tileData: topRightData)
+                .position(x: 256, y: 0)
+                .frame(width: 256, height: 256)
+            TileView(tileData: bottomLeftData)
+                .position(x: 0, y: 256)
+                .frame(width: 256, height: 256)
+            TileView(tileData: bottomRightData)
+                .position(x: 256, y: 256)
+                .frame(width: 256, height: 256)
+        }
+        .offset(CGSize(width: offsetX, height: offsetY))
+        .onAppear{
+            locationChanged(LocationManager.startLocation)
+        }
     }
     
     func locationChanged(_ location: CLLocation) {
-        let data = TileAndOffsetData(location: location, status: status)
+        let data = TileAndOffsetData(location: location, zoom: status.zoom, screenCenter: AppStatics.screenCenter)
         
         topLeftData.update(zoom: status.zoom, tileX: data.tileX, tileY: data.tileY)
         TileProvider.instance.assertTileImage(tile: topLeftData)
@@ -42,8 +49,8 @@ struct MapView: View, LocationManagerDelegate {
         TileProvider.instance.assertTileImage(tile: bottomLeftData)
         bottomRightData.update(zoom: status.zoom, tileX: data.tileX + 1, tileY: data.tileY + 1)
         TileProvider.instance.assertTileImage(tile: bottomRightData)
-        offsetX = data.offsetX + 49
-        offsetY = data.offsetY + 62
+        offsetX = -data.offsetX
+        offsetY = -data.offsetY
     }
     
 }
