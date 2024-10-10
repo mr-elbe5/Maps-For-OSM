@@ -5,6 +5,7 @@ struct MainView: View {
     @State var debug = false
     @State var offsetX: CGFloat = 0
     @State var offsetY: CGFloat = 0
+    @State var currentDirection: CLLocationDirection = LocationManager.startDirection
     
     var body: some View {
         GeometryReader{ proxy in
@@ -13,11 +14,11 @@ struct MainView: View {
                     Text("\(proxy.frame(in: .global))")
                         .offset(y: -130)
                 }
-                MapView(offsetX: $offsetX, offsetY: $offsetY, size: proxy.size)
+                MapView(offsetX: $offsetX, offsetY: $offsetY, direction: $currentDirection, size: proxy.size)
                     .frame(width: proxy.size.width, height: proxy.size.width)
                     .offset(x: -offsetX, y: -offsetY)
                     .clipped()
-                CurrentLocationView()
+                CurrentLocationView(direction: $currentDirection)
                 if debug{
                     Text(" \(proxy.frame(in: .local)))")
                         .foregroundColor(.black)

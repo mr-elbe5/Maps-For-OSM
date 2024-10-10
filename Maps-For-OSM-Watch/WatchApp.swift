@@ -22,6 +22,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
     }
     
     func applicationWillResignActive(){
+        LocationManager.instance.stop()
     }
 
 }

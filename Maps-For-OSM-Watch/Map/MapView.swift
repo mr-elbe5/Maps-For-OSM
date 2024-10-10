@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct MapView: View, LocationManagerDelegate {
-    
+        
     @State var topLeftData = TileData()
     @State var topRightData = TileData()
     @State var bottomLeftData = TileData()
     @State var bottomRightData = TileData()
     @Binding var offsetX: CGFloat
     @Binding var offsetY: CGFloat
+    @Binding var direction: CLLocationDirection
     var size : CGSize = .zero
     
     var body: some View {
@@ -54,10 +55,15 @@ struct MapView: View, LocationManagerDelegate {
         offsetY = data.offsetY
     }
     
+    func directionChanged(_ direction: CLLocationDirection) {
+        self.direction = direction
+    }
+    
 }
 
 #Preview {
     @Previewable @State var offsetX:CGFloat = 0
     @Previewable @State var offsetY:CGFloat = 0
-    MapView(offsetX: $offsetX, offsetY: $offsetY)
+    @Previewable @State var currentDirection: CLLocationDirection = 45
+    MapView(offsetX: $offsetX, offsetY: $offsetY, direction: $currentDirection)
 }

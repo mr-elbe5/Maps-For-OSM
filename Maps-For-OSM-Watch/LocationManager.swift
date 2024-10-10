@@ -10,6 +10,7 @@ import CoreLocation
 
 protocol LocationManagerDelegate{
     func locationChanged(_ location: CLLocation)
+    func directionChanged(_ direction: CLLocationDirection)
 }
 
 class LocationManager: NSObject{
@@ -17,8 +18,10 @@ class LocationManager: NSObject{
     static var instance: LocationManager = LocationManager()
     
     static var startLocation = CLLocation(latitude: 53.5419, longitude: 9.6831)
+    static var startDirection : CLLocationDirection = 0
     
     var location: CLLocation = LocationManager.startLocation
+    var direction: CLLocationDirection = LocationManager.startDirection
     
     var locationDelegate: LocationManagerDelegate? = nil
     
@@ -36,10 +39,12 @@ class LocationManager: NSObject{
     
     func start(){
         clManager.startUpdatingLocation()
+        clManager.startUpdatingHeading()
     }
     
     func stop(){
         clManager.stopUpdatingLocation()
+        clManager.stopUpdatingHeading()
     }
     
 }
@@ -52,6 +57,15 @@ extension LocationManager: CLLocationManagerDelegate{
             location = loc
             print(loc)
             locationDelegate?.locationChanged(loc)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        print("updating heading")
+        if newHeading.trueHeading != direction{
+            direction = newHeading.trueHeading
+            print(direction)
+            locationDelegate?.directionChanged(direction)
         }
     }
     

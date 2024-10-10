@@ -23,6 +23,9 @@ struct ContentView: View {
             StatusView()
             ControlView()
         }
+        .onAppear(){
+            LocationManager.instance.start()
+        }
     }
 }
     
