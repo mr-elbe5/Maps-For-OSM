@@ -9,16 +9,16 @@ import SwiftUI
 
 struct MapView: View, LocationManagerDelegate {
     
-    @State var status = Status.instance
     @State var topLeftData = TileData()
     @State var topRightData = TileData()
     @State var bottomLeftData = TileData()
     @State var bottomRightData = TileData()
-    @State var offsetX: CGFloat = 0
-    @State var offsetY: CGFloat = 0
+    @Binding var offsetX: CGFloat
+    @Binding var offsetY: CGFloat
+    var size : CGSize = .zero
     
     var body: some View {
-        ZStack(alignment: .center){
+        ZStack{
             TileView(tileData: topLeftData)
                 .position(x: 0, y: 0)
                 .frame(width: 256, height: 256)
@@ -31,30 +31,33 @@ struct MapView: View, LocationManagerDelegate {
             TileView(tileData: bottomRightData)
                 .position(x: 256, y: 256)
                 .frame(width: 256, height: 256)
+            Text("\(size)")
+                .foregroundColor(.black)
         }
-        .offset(CGSize(width: offsetX, height: offsetY))
-        .onAppear{
+        .onAppear(){
             locationChanged(LocationManager.startLocation)
         }
     }
     
     func locationChanged(_ location: CLLocation) {
-        let data = TileAndOffsetData(location: location, zoom: status.zoom, screenCenter: AppStatics.screenCenter)
+        let data = TileAndOffsetData(location: location, zoom: Status.instance.zoom, screenCenter: CGPoint(x: size.width/2, y: size.height/2))
         
-        topLeftData.update(zoom: status.zoom, tileX: data.tileX, tileY: data.tileY)
+        topLeftData.update(zoom: Status.instance.zoom, tileX: data.tileX, tileY: data.tileY)
         TileProvider.instance.assertTileImage(tile: topLeftData)
-        topRightData.update(zoom: status.zoom, tileX: data.tileX + 1, tileY: data.tileY)
+        topRightData.update(zoom: Status.instance.zoom, tileX: data.tileX + 1, tileY: data.tileY)
         TileProvider.instance.assertTileImage(tile: topRightData)
-        bottomLeftData.update(zoom: status.zoom, tileX: data.tileX, tileY: data.tileY + 1)
+        bottomLeftData.update(zoom: Status.instance.zoom, tileX: data.tileX, tileY: data.tileY + 1)
         TileProvider.instance.assertTileImage(tile: bottomLeftData)
-        bottomRightData.update(zoom: status.zoom, tileX: data.tileX + 1, tileY: data.tileY + 1)
+        bottomRightData.update(zoom: Status.instance.zoom, tileX: data.tileX + 1, tileY: data.tileY + 1)
         TileProvider.instance.assertTileImage(tile: bottomRightData)
-        offsetX = -data.offsetX
-        offsetY = -data.offsetY
+        offsetX = data.offsetX
+        offsetY = data.offsetY
     }
     
 }
 
 #Preview {
-    MapView()
+    @Previewable @State var offsetX:CGFloat = 0
+    @Previewable @State var offsetY:CGFloat = 0
+    MapView(offsetX: $offsetX, offsetY: $offsetY)
 }

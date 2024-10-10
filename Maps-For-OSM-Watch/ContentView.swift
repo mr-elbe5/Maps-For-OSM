@@ -17,18 +17,11 @@ struct ContentView: View {
     }
     
     var body: some View {
-        if AppStatics.setSizes(){
-            TabView(){
-                ZStack{
-                    MapView()
-                        .onAppear(){
-                            location.start()
-                        }
-                    CurrentLocationView()
-                }
-                StatusView()
-                ControlView()
-            }
+        TabView(){
+            MainView()
+                .clipped()
+            StatusView()
+            ControlView()
         }
     }
 }
