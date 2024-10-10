@@ -39,6 +39,9 @@ struct MapView: View {
             locationChanged(LocationManager.startLocation)
             LocationManager.instance.locationDelegate = self
         }
+        .onChange(of: topLeftData){
+            print("topleft: \(topLeftData)")
+        }
     }
     
 }

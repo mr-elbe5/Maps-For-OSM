@@ -16,16 +16,20 @@ struct CurrentLocationView: View {
     
     var body: some View {
         ZStack {
-            
             Circle()
                 .stroke(.blue, lineWidth: 2)
+                .frame(width: 20, height: 20)
             Circle()
                 .fill(Color(.blue))
                 .frame(width: 8, height: 8)
             Triangle(direction: $direction)
                 .fill(currentDirectionColor)
+                .frame(width: 30, height: 30)
         }
-        .frame(width: 20, height: 20)
+        .frame(width: 30, height: 30)
+        .onChange(of: direction){
+            print("dir: \(direction)")
+        }
     }
     
 }
@@ -50,6 +54,6 @@ struct Triangle: Shape {
 }
 
 #Preview {
-    @Previewable @State var direction: CLLocationDirection = LocationManager.startDirection
+    @Previewable @State var direction: CLLocationDirection =  LocationManager.startDirection
     CurrentLocationView(direction: $direction)
 }

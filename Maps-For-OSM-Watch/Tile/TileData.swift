@@ -8,7 +8,11 @@
 import Foundation
 import SwiftUI
 
-@Observable class TileData{
+@Observable class TileData: Equatable{
+    
+    static func == (lhs: TileData, rhs: TileData) -> Bool {
+        lhs.zoom == rhs.zoom && lhs.tileX == rhs.tileX && lhs.tileY == rhs.tileY
+    }
     
     var zoom: Int = World.maxZoom
     var tileX: Int = 0
