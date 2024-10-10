@@ -17,7 +17,7 @@ class LocationManager: NSObject{
     
     static var instance: LocationManager = LocationManager()
     
-    static var startLocation = CLLocation(latitude: 53.5419, longitude: 9.6831)
+    static var startLocation = CLLocation(latitude: 53.544, longitude: 9.685)
     static var startDirection : CLLocationDirection = 0
     
     var location: CLLocation = LocationManager.startLocation
@@ -52,17 +52,14 @@ class LocationManager: NSObject{
 extension LocationManager: CLLocationManagerDelegate{
      
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("updating location")
-        if let loc = locations.last{
+        if let loc = locations.last, loc.horizontalAccuracy != -1{
             location = loc
-            print(loc)
             locationDelegate?.locationChanged(loc)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print("updating heading")
-        if newHeading.trueHeading != direction{
+        if newHeading.trueHeading - direction < 5{
             direction = newHeading.trueHeading
             print(direction)
             locationDelegate?.directionChanged(direction)

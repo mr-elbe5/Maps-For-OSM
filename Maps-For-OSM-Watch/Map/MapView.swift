@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MapView: View, LocationManagerDelegate {
+struct MapView: View {
         
     @State var topLeftData = TileData()
     @State var topRightData = TileData()
@@ -37,10 +37,16 @@ struct MapView: View, LocationManagerDelegate {
         }
         .onAppear(){
             locationChanged(LocationManager.startLocation)
+            LocationManager.instance.locationDelegate = self
         }
     }
     
+}
+
+extension MapView : LocationManagerDelegate {
+    
     func locationChanged(_ location: CLLocation) {
+        print("location changed")
         let data = TileAndOffsetData(location: location, zoom: Status.instance.zoom, screenCenter: CGPoint(x: size.width/2, y: size.height/2))
         
         topLeftData.update(zoom: Status.instance.zoom, tileX: data.tileX, tileY: data.tileY)

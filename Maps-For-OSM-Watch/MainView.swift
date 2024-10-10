@@ -33,7 +33,6 @@ struct MainView: View {
                     
                     
             }.frame(maxWidth: .infinity)
-                .background(.teal)
         }
     }
         
