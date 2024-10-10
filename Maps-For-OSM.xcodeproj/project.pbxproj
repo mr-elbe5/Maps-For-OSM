@@ -554,8 +554,18 @@
 		4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4EEBE4292CB82286001F273C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Watch-App-Info.plist",
+			);
+			target = 4E2894852CA81FF30012DBFE /* Maps For OSM Watch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
+		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4EEBE4292CB82286001F273C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
