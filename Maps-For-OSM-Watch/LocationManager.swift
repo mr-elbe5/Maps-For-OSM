@@ -38,11 +38,13 @@ class LocationManager: NSObject{
     }
     
     func start(){
+        print("starting location manager")
         clManager.startUpdatingLocation()
         clManager.startUpdatingHeading()
     }
     
     func stop(){
+        print("stopping location manager")
         clManager.stopUpdatingLocation()
         clManager.stopUpdatingHeading()
     }
@@ -54,14 +56,18 @@ extension LocationManager: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last, loc.horizontalAccuracy != -1{
             location = loc
-            locationDelegate?.locationChanged(loc)
+            DispatchQueue.main.async {
+                self.locationDelegate?.locationChanged(loc)
+            }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         if abs(newHeading.trueHeading - direction) > 5{
             direction = newHeading.trueHeading
-            locationDelegate?.directionChanged(direction)
+            DispatchQueue.main.async {
+                self.locationDelegate?.directionChanged(self.direction)
+            }
         }
     }
     
