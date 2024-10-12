@@ -23,9 +23,6 @@ import SwiftUI
         FileManager.tilesDirURL.appendingPathComponent("\(zoom)-\(tileX)-\(tileY).png")
     }
     
-    init(){
-    }
-    
     init(zoom: Int, tileX: Int, tileY: Int){
         self.zoom = zoom
         self.tileX = tileX

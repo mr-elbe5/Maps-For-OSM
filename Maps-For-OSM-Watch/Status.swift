@@ -6,6 +6,7 @@ import CoreLocation
     
     static var instance = Status()
     
+    var mainViewFrame = CGRect()
     var zoom : Int = 16
     
 }

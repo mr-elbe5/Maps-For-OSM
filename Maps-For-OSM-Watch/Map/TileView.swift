@@ -27,6 +27,15 @@ struct TileView: View {
     
 }
 
+extension TileView{
+    
+    func assertImage() -> TileView {
+        TileProvider.instance.assertTileImage(tile: tileData)
+        return self
+    }
+    
+}
+
 #Preview {
     @Previewable var tileData = TileData(zoom: 16, tileX: 2, tileY: 3)
     TileView( tileData: tileData)
