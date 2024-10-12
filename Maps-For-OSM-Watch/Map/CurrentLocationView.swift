@@ -27,9 +27,6 @@ struct CurrentLocationView: View {
                 .frame(width: 30, height: 30)
         }
         .frame(width: 30, height: 30)
-        .onChange(of: direction){
-            print("dir: \(direction)")
-        }
     }
     
 }
