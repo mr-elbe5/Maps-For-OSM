@@ -59,9 +59,8 @@ extension LocationManager: CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if newHeading.trueHeading - direction < 5{
+        if abs(newHeading.trueHeading - direction) > 5{
             direction = newHeading.trueHeading
-            print(direction)
             locationDelegate?.directionChanged(direction)
         }
     }

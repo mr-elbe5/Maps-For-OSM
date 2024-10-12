@@ -50,12 +50,12 @@ struct MainView: View {
 extension MainView : LocationManagerDelegate {
     
     func locationChanged(_ location: CLLocation) {
-        print("location changed")
+        //print("location changed")
         model.update(coordinate: location.coordinate)
     }
     
     func directionChanged(_ direction: CLLocationDirection) {
-        print("direction changed")
+        //print("direction changed")
         self.direction = direction
     }
     
