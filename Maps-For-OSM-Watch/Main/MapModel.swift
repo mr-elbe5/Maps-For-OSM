@@ -11,6 +11,7 @@ import CoreLocation
 @Observable class MapModel: NSObject{
     
     var coordinate: CLLocationCoordinate2D = LocationManager.startLocation.coordinate
+    var altitude: CLLocationDistance = LocationManager.startLocation.altitude
     
     var zoom = 16
     var tileX: Int = 0

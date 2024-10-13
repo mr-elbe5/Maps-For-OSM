@@ -12,6 +12,7 @@ struct MainView: View {
                     MapView(model: $model)
                         .frame(width: proxy.size.width, height: proxy.size.height)
                         .offset(x: model.mapOffsetX, y: model.mapOffsetY)
+                        .background(.primary)
                         .clipped()
                     
                     CurrentLocationView(direction: $direction)
@@ -35,6 +36,10 @@ struct MainView: View {
                     .frame(width: 30, height: 30)
                     .clipShape(.circle)
                     .position(x: proxy.size.width - 20, y: 60)
+                    
+                    Text("\(Int(model.altitude))m")
+                        .foregroundColor(.black)
+                        .offset(y: proxy.size.height/2 - 15)
                     
                 }.frame(maxWidth: .infinity)
                     .onAppear{
