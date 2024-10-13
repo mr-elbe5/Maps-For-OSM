@@ -19,8 +19,9 @@ struct ContentView: View {
     var body: some View {
         TabView(){
             MainView()
+            TrackView()
+            HealthView()
             StatusView()
-            ControlView()
         }
         .onAppear(){
             LocationManager.instance.start()

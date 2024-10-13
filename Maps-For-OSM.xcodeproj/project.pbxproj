@@ -552,6 +552,7 @@
 		4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		4EF477192941EED600294B21 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewController.swift; sourceTree = "<group>"; };
+		4EFE3E772CBBF3F4001FB40A /* Maps For OSM Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps For OSM Watch.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -627,6 +628,7 @@
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
+				4EFE3E772CBBF3F4001FB40A /* Maps For OSM Watch.entitlements */,
 				4E2579102B9DB5B200481B23 /* Base.xcstrings */,
 				4E2579122B9DB5B200481B23 /* Camera.xcstrings */,
 				4E2579112B9DB5B200481B23 /* Location.xcstrings */,
@@ -1897,6 +1899,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Maps For OSM Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch/Preview Content\"";
@@ -1907,6 +1910,8 @@
 				INFOPLIST_FILE = "Maps-For-OSM-Watch/Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health update";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location always";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.elbe5.SwiftyMaps;
@@ -1935,6 +1940,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = "Maps For OSM Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch/Preview Content\"";
@@ -1945,6 +1951,8 @@
 				INFOPLIST_FILE = "Maps-For-OSM-Watch/Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health update";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location always";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = de.elbe5.SwiftyMaps;

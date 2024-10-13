@@ -44,8 +44,6 @@ extension WatchConnector: WCSessionDelegate {
         Log.debug("didReceiveMessage: \(message)")
         if let request = message["request"] as? String {
             switch request {
-                case "date":
-                replyHandler(["date": Date()])
             case "tileImageData":
                 let zoom = message["zoom"] as? Int ?? 0
                 let x = message["x"] as? Int ?? 0

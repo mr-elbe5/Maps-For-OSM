@@ -13,8 +13,6 @@ import WatchConnectivity
     
     static var instance = PhoneConnector()
     
-    var messages = [String]()
-    
     var session: WCSession?
 
     override init() {
@@ -24,24 +22,6 @@ import WatchConnectivity
         session?.activate()
     }
 
-    func requestInfo() {
-        print("requestInfo")
-        let request = ["request": "date"]
-        print(session?.activationState ?? .notActivated)
-        session?.sendMessage(
-            request,
-            replyHandler: { response in
-                debugPrint("Received response", response)
-                DispatchQueue.main.async {
-                    self.messages.append("Reply: \(response)")
-                }
-            },
-            errorHandler: { error in
-                debugPrint("Error sending message:", error)
-            }
-        )
-    }
-    
     func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {
         print("watch requesting tile image data")
         let request = ["request": "tileImageData", "zoom": tileData.zoom, "x": tileData.tileX, "y": tileData.tileY] as [String : Any]
@@ -69,7 +49,9 @@ import WatchConnectivity
 }
 
 extension PhoneConnector: WCSessionDelegate {
+    
     func session(_: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         debugPrint("activationDidCompleteWith activationState:\(activationState.rawValue), error: \(String(describing: error))")
     }
+    
 }
