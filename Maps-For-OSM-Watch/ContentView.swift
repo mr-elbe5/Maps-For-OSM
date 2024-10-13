@@ -19,7 +19,6 @@ struct ContentView: View {
     var body: some View {
         TabView(){
             MainView()
-                .clipped()
             StatusView()
             ControlView()
         }

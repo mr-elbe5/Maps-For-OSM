@@ -30,6 +30,7 @@ struct TileView: View {
 extension TileView{
     
     func assertImage() -> TileView {
+        print("assert image for \(tileData.getDescription())")
         TileProvider.instance.assertTileImage(tile: tileData)
         return self
     }

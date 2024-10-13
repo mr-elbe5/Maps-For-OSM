@@ -29,10 +29,8 @@ import SwiftUI
         self.tileY = tileY
     }
     
-    func update(zoom: Int, tileX: Int, tileY: Int){
-        self.zoom = zoom
-        self.tileX = tileX
-        self.tileY = tileY
+    func getDescription() -> String{
+        "\(zoom)-\(tileX)-\(tileY)"
     }
     
 }

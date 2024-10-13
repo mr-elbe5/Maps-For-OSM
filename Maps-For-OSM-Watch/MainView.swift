@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State var debug = false
     @State var model = MapModel()
     @State var direction: CLLocationDirection = LocationManager.startDirection
     
@@ -10,27 +9,32 @@ struct MainView: View {
         GeometryReader{ proxy in
             if saveFrame(proxy.frame(in: .global)){
                 ZStack(){
-                    if debug{
-                        Text("\(proxy.frame(in: .global))")
-                            .offset(y: -130)
-                    }
                     MapView(model: $model)
-                        .frame(width: proxy.size.width, height: proxy.size.width)
+                        .frame(width: proxy.size.width, height: proxy.size.height)
                         .offset(x: model.mapOffsetX, y: model.mapOffsetY)
                         .clipped()
-                    CurrentLocationView(direction: $direction)
-                    if debug{
-                        Text(" \(proxy.frame(in: .local)))")
-                            .foregroundColor(.black)
-                            .offset(y: 20)
-                        Text("offX: \(128 - Int(proxy.size.width/2))")
-                            .foregroundColor(.black)
-                            .offset(y: 40)
-                        Text("offY: \(128 - Int(proxy.size.height/2))")
-                            .foregroundColor(.black)
-                            .offset(y: 55)
-                    }
                     
+                    CurrentLocationView(direction: $direction)
+                    
+                    Button("", systemImage: "plus", action: {
+                        zoomIn()
+                    })
+                    .labelStyle(.iconOnly)
+                    .background(.white)
+                    .foregroundStyle(.black)
+                    .frame(width: 30, height: 30)
+                    .clipShape(.circle)
+                    .position(x: proxy.size.width - 20, y: 20)
+                    
+                    Button("", systemImage: "minus", action: {
+                        zoomOut()
+                    })
+                    .labelStyle(.iconOnly)
+                    .background(.white)
+                    .foregroundStyle(.black)
+                    .frame(width: 30, height: 30)
+                    .clipShape(.circle)
+                    .position(x: proxy.size.width - 20, y: 60)
                     
                 }.frame(maxWidth: .infinity)
                     .onAppear{
@@ -38,6 +42,20 @@ struct MainView: View {
                         LocationManager.instance.locationDelegate = self
                     }
             }
+        }
+    }
+    
+    func zoomIn(){
+        if model.zoom < World.maxZoom{
+            model.zoom += 1
+            model.update(coordinate: LocationManager.instance.location.coordinate)
+        }
+    }
+    
+    func zoomOut(){
+        if model.zoom > 10{
+            model.zoom -= 1
+            model.update(coordinate: LocationManager.instance.location.coordinate)
         }
     }
     

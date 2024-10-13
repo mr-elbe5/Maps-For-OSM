@@ -13,19 +13,19 @@ struct MapView: View {
     
     var body: some View {
         ZStack{
-            TileView(tileData: TileData(zoom: Status.instance.zoom, tileX: model.tileX, tileY: model.tileY))
+            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX, tileY: model.tileY))
                 .assertImage()
                 .position(x: 0, y: 0)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: Status.instance.zoom, tileX: model.tileX + 1, tileY: model.tileY))
+            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX + 1, tileY: model.tileY))
                 .assertImage()
                 .position(x: 256, y: 0)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: Status.instance.zoom, tileX: model.tileX, tileY: model.tileY + 1))
+            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX, tileY: model.tileY + 1))
                 .assertImage()
                 .position(x: 0, y: 256)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: Status.instance.zoom, tileX: model.tileX + 1, tileY: model.tileY + 1))
+            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX + 1, tileY: model.tileY + 1))
                 .assertImage()
                 .position(x: 256, y: 256)
                 .frame(width: 256, height: 256)

@@ -7,7 +7,6 @@ class AppStatics{
     static var screenCenter : CGPoint{
         CGPoint(x: screenSize.width/2, y: screenSize.height/2)
     }
-    //static var safeRect: CGRect = CGRect(x: 2.0, y: 48.0, width: 183.0, height: 144.0)
     
     static func setSizes() -> Bool{
         let device = WKInterfaceDevice.current()

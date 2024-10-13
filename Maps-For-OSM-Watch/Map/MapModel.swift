@@ -24,7 +24,7 @@ import CoreLocation
         print("frame is \(Status.instance.mainViewFrame)")
         let coordinate = CLLocationCoordinate2D(latitude: 53.5419, longitude: 9.6831)
         print(coordinate)
-        let zoomScaleFromWorld = World.zoomScaleFromWorld(to: Status.instance.zoom)
+        let zoomScaleFromWorld = World.zoomScaleFromWorld(to: zoom)
         print("zoom scale \(zoomScaleFromWorld)")
         let x = World.scaledX(coordinate.longitude, downScale: zoomScaleFromWorld)
         print("x: \(x)")
