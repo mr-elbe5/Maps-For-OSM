@@ -296,6 +296,8 @@
 		4EF477182941EEB300294B21 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477172941EEB300294B21 /* AudioRecorderViewController.swift */; };
 		4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF477192941EED600294B21 /* AudioPlayerView.swift */; };
 		4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */; };
+		4EFE3EA82CBC3025001FB40A /* Trackpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF6B2C733B650045DACB /* Trackpoint.swift */; };
+		4EFE3EA92CBC3031001FB40A /* TrackpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF6C2C733B650045DACB /* TrackpointList.swift */; };
 		4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */; };
 /* End PBXBuildFile section */
 
@@ -777,12 +779,12 @@
 		4E5124232BAAF8EA00A5B416 /* Track */ = {
 			isa = PBXGroup;
 			children = (
-				4EA30CF52C37F706002EA622 /* TrackRecorder.swift */,
 				4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
 				4E1D0E1F274BDB1900F3D584 /* TrackViewController.swift */,
 				4E7251502C42D72600EBA2BF /* TrackListCell.swift */,
+				4EA30CF52C37F706002EA622 /* TrackRecorder.swift */,
 			);
 			path = Track;
 			sourceTree = "<group>";
@@ -1545,6 +1547,8 @@
 				4E2894A22CA827750012DBFE /* CLLocation.swift in Sources */,
 				4E28949A2CA8275F0012DBFE /* LocationService.swift in Sources */,
 				4E2894A62CA827FD0012DBFE /* World.swift in Sources */,
+				4EFE3EA82CBC3025001FB40A /* Trackpoint.swift in Sources */,
+				4EFE3EA92CBC3031001FB40A /* TrackpointList.swift in Sources */,
 				4E2894A72CA827FD0012DBFE /* CoordinateSpan.swift in Sources */,
 				4E2894AB2CA82AED0012DBFE /* Preferences.swift in Sources */,
 				4E2894A82CA827FD0012DBFE /* CGRect+CL.swift in Sources */,

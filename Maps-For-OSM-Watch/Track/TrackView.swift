@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TrackView: View {
     
+    @State var track: WatchTrack? = nil
+    
     var body: some View {
         ScrollView{
             VStack {
