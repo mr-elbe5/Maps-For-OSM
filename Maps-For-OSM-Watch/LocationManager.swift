@@ -8,8 +8,11 @@
 import Foundation
 import CoreLocation
 
-protocol LocationManagerDelegate{
+protocol LocationDelegate{
     func locationChanged(_ location: CLLocation)
+}
+
+protocol DirectionDelegate{
     func directionChanged(_ direction: CLLocationDirection)
 }
 
@@ -23,7 +26,8 @@ class LocationManager: NSObject{
     var location: CLLocation = LocationManager.startLocation
     var direction: CLLocationDirection = LocationManager.startDirection
     
-    var locationDelegate: LocationManagerDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
+    var directionDelegate: DirectionDelegate? = nil
     
     private let clManager = CLLocationManager()
 
@@ -66,7 +70,7 @@ extension LocationManager: CLLocationManagerDelegate{
         if abs(newHeading.trueHeading - direction) > 5{
             direction = newHeading.trueHeading
             DispatchQueue.main.async {
-                self.locationDelegate?.directionChanged(self.direction)
+                self.directionDelegate?.directionChanged(self.direction)
             }
         }
     }

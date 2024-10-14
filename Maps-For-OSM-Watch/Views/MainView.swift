@@ -7,8 +7,6 @@ struct MainView: View {
     @Binding var trackStatus: TrackStatus
     @Binding var healthStatus: HealthStatus
     
-    @State var direction: CLLocationDirection = LocationManager.startDirection
-    
     var body: some View {
         GeometryReader{ proxy in
             if saveFrame(proxy.frame(in: .global)){
@@ -19,7 +17,7 @@ struct MainView: View {
                         .background(.primary)
                         .clipped()
                     
-                    CurrentLocationView(direction: $direction)
+                    CurrentLocationView()
                     
                     Button("", systemImage: "plus", action: {
                         zoomIn()
@@ -46,10 +44,6 @@ struct MainView: View {
                         .offset(y: proxy.size.height/2 - 15)
                     
                 }.frame(maxWidth: .infinity)
-                    .onAppear{
-                        locationChanged(LocationManager.startLocation)
-                        LocationManager.instance.locationDelegate = self
-                    }
             }
         }
     }
@@ -72,20 +66,6 @@ struct MainView: View {
         AppStatus.instance.mainViewFrame = rect
         return true
     }
-}
-
-extension MainView : LocationManagerDelegate {
-    
-    func locationChanged(_ location: CLLocation) {
-        //print("location changed")
-        mapStatus.update(coordinate: location.coordinate)
-    }
-    
-    func directionChanged(_ direction: CLLocationDirection) {
-        //print("direction changed")
-        self.direction = direction
-    }
-    
 }
 
 #Preview {

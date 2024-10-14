@@ -28,10 +28,20 @@ struct ContentView: View {
         }
         .onAppear(){
             LocationManager.instance.start()
+            locationChanged(LocationManager.startLocation)
+            LocationManager.instance.locationDelegate = self
         }
     }
 }
     
+extension ContentView : LocationDelegate {
+    
+    func locationChanged(_ location: CLLocation) {
+        //print("location changed")
+        mapStatus.update(coordinate: location.coordinate)
+    }
+    
+}
 
 #Preview {
     ContentView()
