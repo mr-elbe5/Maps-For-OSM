@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-@Observable class MapModel: NSObject{
+@Observable class MapStatus: NSObject{
     
     var coordinate: CLLocationCoordinate2D = LocationManager.startLocation.coordinate
     var altitude: CLLocationDistance = LocationManager.startLocation.altitude
@@ -22,7 +22,7 @@ import CoreLocation
     
     func update(coordinate: CLLocationCoordinate2D){
         print("updating to coordinate \(coordinate)")
-        print("frame is \(Status.instance.mainViewFrame)")
+        print("frame is \(AppStatus.instance.mainViewFrame)")
         let coordinate = CLLocationCoordinate2D(latitude: 53.5419, longitude: 9.6831)
         print(coordinate)
         let zoomScaleFromWorld = World.zoomScaleFromWorld(to: zoom)
@@ -31,8 +31,8 @@ import CoreLocation
         print("x: \(x)")
         let y = World.scaledY(coordinate.latitude, downScale: zoomScaleFromWorld)
         print("y: \(y)")
-        tileX = Int(floor((x  - Status.instance.mainViewFrame.width/2) / World.tileExtent))
-        tileY = Int(floor((y  - Status.instance.mainViewFrame.height/2) / World.tileExtent))
+        tileX = Int(floor((x  - AppStatus.instance.mainViewFrame.width/2) / World.tileExtent))
+        tileY = Int(floor((y  - AppStatus.instance.mainViewFrame.height/2) / World.tileExtent))
         print("tileX, tileY \(tileX), \(tileY)")
         
         let tileXOffset = Double(tileX)*World.tileExtent

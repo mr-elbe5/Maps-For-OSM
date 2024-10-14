@@ -2,9 +2,9 @@ import Foundation
 import SwiftUI
 import CoreLocation
 
-@Observable class Status: NSObject{
+@Observable class AppStatus: NSObject{
     
-    static var instance = Status()
+    static var instance = AppStatus()
 
     var mainViewFrame = CGRect()
     

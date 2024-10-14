@@ -30,7 +30,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
 @main
 struct WatchApp: App {
     
-    @State var status = Status()
+    @State var status = AppStatus()
     @State var locationManager = LocationManager()
     
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate

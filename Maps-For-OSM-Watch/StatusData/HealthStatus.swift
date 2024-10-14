@@ -8,7 +8,7 @@
 import Foundation
 import HealthKit
 
-@Observable class HeartRateMonitor: NSObject {
+@Observable class HealthStatus: NSObject {
     
     var heartRate: Double = 0.0
     

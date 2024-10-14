@@ -7,11 +7,18 @@
 import CoreLocation
 import E5Data
 
-@Observable class WatchTrack: NSObject{
+@Observable class TrackStatus: NSObject{
     
     var trackpoints: TrackpointList
     var distance : CGFloat
     var isRecording: Bool
+    
+    var startTime : Date{
+        trackpoints.first?.timestamp ?? Date()
+    }
+    var endTime :Date{
+        trackpoints.last?.timestamp ?? Date()
+    }
     
     override init(){
         trackpoints = TrackpointList()

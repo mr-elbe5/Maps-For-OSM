@@ -9,23 +9,24 @@ import SwiftUI
 
 struct MapView: View {
         
-    @Binding var model: MapModel
+    @Binding var appStatus: AppStatus
+    @Binding var mapStatus: MapStatus
     
     var body: some View {
         ZStack{
-            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX, tileY: model.tileY))
+            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX, tileY: mapStatus.tileY))
                 .assertImage()
                 .position(x: 0, y: 0)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX + 1, tileY: model.tileY))
+            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX + 1, tileY: mapStatus.tileY))
                 .assertImage()
                 .position(x: 256, y: 0)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX, tileY: model.tileY + 1))
+            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX, tileY: mapStatus.tileY + 1))
                 .assertImage()
                 .position(x: 0, y: 256)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: model.zoom, tileX: model.tileX + 1, tileY: model.tileY + 1))
+            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX + 1, tileY: mapStatus.tileY + 1))
                 .assertImage()
                 .position(x: 256, y: 256)
                 .frame(width: 256, height: 256)
@@ -35,6 +36,7 @@ struct MapView: View {
 }
 
 #Preview {
-    @Previewable @State var model = MapModel()
-    MapView(model: $model)
+    @Previewable @State var appStatus = AppStatus()
+    @Previewable @State var mapStatus = MapStatus()
+    MapView(appStatus: $appStatus, mapStatus: $mapStatus)
 }
