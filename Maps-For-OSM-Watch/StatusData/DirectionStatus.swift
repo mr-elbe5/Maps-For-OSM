@@ -10,6 +10,8 @@ import CoreLocation
 
 @Observable class DirectionStatus: NSObject{
     
+    static var shared = DirectionStatus()
+    
     var direction: CLLocationDirection = LocationManager.startDirection
     
 }

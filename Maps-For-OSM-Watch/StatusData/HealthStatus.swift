@@ -10,6 +10,8 @@ import HealthKit
 
 @Observable class HealthStatus: NSObject {
     
+    static var shared = HealthStatus()
+    
     var heartRate: Double = 0.0
     
     private var healthStore: HKHealthStore?

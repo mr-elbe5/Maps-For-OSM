@@ -15,6 +15,8 @@ import CoreLocation
     // north
     static var startDirection : CLLocationDirection = 0
     
+    static var shared: LocationManager = LocationManager()
+    
     var location: CLLocation = LocationManager.startLocation
     var direction: CLLocationDirection = LocationManager.startDirection
     

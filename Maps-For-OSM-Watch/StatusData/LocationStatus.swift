@@ -8,7 +8,9 @@
 import Foundation
 import CoreLocation
 
-@Observable class MapStatus: NSObject{
+@Observable class LocationStatus: NSObject{
+    
+    static var shared = LocationStatus()
     
     var location: CLLocation = LocationManager.startLocation
     
@@ -30,8 +32,8 @@ import CoreLocation
         //print("x: \(x)")
         let y = World.scaledY(coordinate.latitude, downScale: zoomScaleFromWorld)
         //print("y: \(y)")
-        tileX = Int(floor((x  - AppStatus.instance.mainViewFrame.width/2) / World.tileExtent))
-        tileY = Int(floor((y  - AppStatus.instance.mainViewFrame.height/2) / World.tileExtent))
+        tileX = Int(floor((x  - AppStatus.shared.mainViewFrame.width/2) / World.tileExtent))
+        tileY = Int(floor((y  - AppStatus.shared.mainViewFrame.height/2) / World.tileExtent))
         //print("tileX, tileY \(tileX), \(tileY)")
         
         let tileXOffset = Double(tileX)*World.tileExtent

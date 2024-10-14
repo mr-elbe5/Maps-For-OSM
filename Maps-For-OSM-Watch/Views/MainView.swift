@@ -2,8 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @Binding var appStatus: AppStatus
-    @Binding var mapStatus: MapStatus
+    @Binding var locationStatus: LocationStatus
     @Binding var directionStatus: DirectionStatus
     @Binding var trackStatus: TrackStatus
     @Binding var healthStatus: HealthStatus
@@ -12,9 +11,9 @@ struct MainView: View {
         GeometryReader{ proxy in
             if saveFrame(proxy.frame(in: .global)){
                 ZStack(){
-                    MapView(appStatus: $appStatus, mapStatus: $mapStatus)
+                    MapView(locationStatus: $locationStatus)
                         .frame(width: proxy.size.width, height: proxy.size.height)
-                        .offset(x: mapStatus.mapOffsetX, y: mapStatus.mapOffsetY)
+                        .offset(x: locationStatus.mapOffsetX, y: locationStatus.mapOffsetY)
                         .background(.primary)
                         .clipped()
                     
@@ -52,7 +51,7 @@ struct MainView: View {
                     
                     HStack{
                         Image(systemName: "triangle.bottomhalf.filled")
-                        Text("\(Int(mapStatus.location.altitude)) m")
+                        Text("\(Int(locationStatus.location.altitude)) m")
                             .font(.system(size: 12))
                     }
                     .foregroundColor(.black)
@@ -69,16 +68,16 @@ struct MainView: View {
     }
     
     func zoomIn(){
-        if mapStatus.zoom < World.maxZoom{
-            mapStatus.zoom += 1
-            mapStatus.update()
+        if locationStatus.zoom < World.maxZoom{
+            locationStatus.zoom += 1
+            locationStatus.update()
         }
     }
     
     func zoomOut(){
-        if mapStatus.zoom > 10{
-            mapStatus.zoom -= 1
-            mapStatus.update()
+        if locationStatus.zoom > 10{
+            locationStatus.zoom -= 1
+            locationStatus.update()
         }
     }
     
@@ -87,16 +86,16 @@ struct MainView: View {
     }
     
     func saveFrame(_ rect: CGRect) -> Bool{
-        AppStatus.instance.mainViewFrame = rect
+        AppStatus.shared.mainViewFrame = rect
         return true
     }
 }
 
 #Preview {
     @Previewable @State var appStatus = AppStatus()
-    @Previewable @State var mapStatus = MapStatus()
+    @Previewable @State var mapStatus = LocationStatus()
     @Previewable @State var directionStatus = DirectionStatus()
     @Previewable @State var trackStatus = TrackStatus()
     @Previewable @State var healthStatus = HealthStatus()
-    MainView(appStatus: $appStatus, mapStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+    MainView(locationStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
 }

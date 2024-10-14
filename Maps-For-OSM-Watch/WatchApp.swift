@@ -12,6 +12,8 @@ import E5Data
 
 class WatchAppDelegate: NSObject, WKApplicationDelegate {
     
+    var app: WatchApp? = nil
+    
     override init(){
         FileManager.initializePrivateDir()
         FileManager.initializeTilesDir()
@@ -23,15 +25,21 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
     
     func applicationDidFinishLaunching() {
         print("app did finish launching")
+        LocationService.shared.start()
+        HealthStatus.shared.startMonitoring()
     }
 
     func applicationDidBecomeActive(){
         print("app did become active")
+        LocationManager.shared.start()
     }
     
     func applicationWillResignActive(){
         //LocationManager.instance.stop()
         print("app will resign active")
+        if !TrackStatus.shared.isRecording {
+            LocationManager.shared.stop()
+        }
     }
     
     func applicationDidEnterBackground() {
@@ -47,22 +55,18 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
 @main
 struct WatchApp: App {
     
-    @State var status = AppStatus()
-    @State var locationManager = LocationManager()
+    @State var locationManager = LocationManager.shared
     
-    @State var appStatus = AppStatus()
-    @State var mapStatus = MapStatus()
+    @State var mapStatus = LocationStatus()
     @State var directionStatus = DirectionStatus()
     @State var trackStatus = TrackStatus()
     @State var healthStatus = HealthStatus()
     
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
+    
     var body: some Scene {
         WindowGroup {
-            ContentView(appStatus: $appStatus, mapStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
-                .onAppear(){
-                    locationManager.start()
-                }
+            ContentView(locationStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
         }
         .onChange(of: locationManager.location){
             DispatchQueue.main.async {

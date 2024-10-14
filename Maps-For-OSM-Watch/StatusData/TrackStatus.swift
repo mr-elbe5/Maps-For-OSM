@@ -9,6 +9,8 @@ import E5Data
 
 @Observable class TrackStatus: NSObject{
     
+    static var shared = TrackStatus()
+    
     var trackpoints: TrackpointList
     var distance : CGFloat
     var isRecording: Bool

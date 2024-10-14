@@ -9,9 +9,7 @@ import SwiftUI
 
 struct TrackView: View {
     
-    @Binding var appStatus: AppStatus
     @Binding var trackStatus: TrackStatus
-    @Binding var healthStatus: HealthStatus
     
     var body: some View {
         VStack(){
@@ -57,18 +55,6 @@ struct TrackView: View {
                     Text("Distance: \(Int(trackStatus.distance)) m")
                 }
             }
-            Spacer()
-            HStack{
-                Text("❤️")
-                    .font(.system(size: 20))
-                Text("\(Int(67))")
-                    .fontWeight(.regular)
-                    .font(.system(size: 20))
-                Text("BPM")
-                    .fontWeight(.regular)
-                    .font(.system(size: 20))
-                    .foregroundColor(Color.red)
-            }
         }
         
     }
@@ -76,8 +62,6 @@ struct TrackView: View {
 }
 
 #Preview {
-    @Previewable @State var appStatus = AppStatus()
     @Previewable @State var trackStatus = TrackStatus()
-    @Previewable @State var healthStatus = HealthStatus()
-    TrackView(appStatus: $appStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+    TrackView(trackStatus: $trackStatus)
 }

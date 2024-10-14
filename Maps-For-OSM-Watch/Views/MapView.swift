@@ -9,24 +9,23 @@ import SwiftUI
 
 struct MapView: View {
         
-    @Binding var appStatus: AppStatus
-    @Binding var mapStatus: MapStatus
+    @Binding var locationStatus: LocationStatus
     
     var body: some View {
         ZStack{
-            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX, tileY: mapStatus.tileY))
+            TileView(tileData: TileData(zoom: locationStatus.zoom, tileX: locationStatus.tileX, tileY: locationStatus.tileY))
                 .assertImage()
                 .position(x: 0, y: 0)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX + 1, tileY: mapStatus.tileY))
+            TileView(tileData: TileData(zoom: locationStatus.zoom, tileX: locationStatus.tileX + 1, tileY: locationStatus.tileY))
                 .assertImage()
                 .position(x: 256, y: 0)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX, tileY: mapStatus.tileY + 1))
+            TileView(tileData: TileData(zoom: locationStatus.zoom, tileX: locationStatus.tileX, tileY: locationStatus.tileY + 1))
                 .assertImage()
                 .position(x: 0, y: 256)
                 .frame(width: 256, height: 256)
-            TileView(tileData: TileData(zoom: mapStatus.zoom, tileX: mapStatus.tileX + 1, tileY: mapStatus.tileY + 1))
+            TileView(tileData: TileData(zoom: locationStatus.zoom, tileX: locationStatus.tileX + 1, tileY: locationStatus.tileY + 1))
                 .assertImage()
                 .position(x: 256, y: 256)
                 .frame(width: 256, height: 256)
@@ -37,6 +36,6 @@ struct MapView: View {
 
 #Preview {
     @Previewable @State var appStatus = AppStatus()
-    @Previewable @State var mapStatus = MapStatus()
-    MapView(appStatus: $appStatus, mapStatus: $mapStatus)
+    @Previewable @State var locationStatus = LocationStatus()
+    MapView(locationStatus: $locationStatus)
 }

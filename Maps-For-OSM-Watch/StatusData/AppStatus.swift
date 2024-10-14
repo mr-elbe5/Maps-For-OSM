@@ -4,7 +4,7 @@ import CoreLocation
 
 @Observable class AppStatus: NSObject{
     
-    static var instance = AppStatus()
+    static var shared = AppStatus()
 
     var mainViewFrame = CGRect()
     
