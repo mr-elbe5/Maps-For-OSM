@@ -10,39 +10,26 @@ import SwiftUI
 struct ContentView: View {
     
     @State var phoneMessaging = PhoneConnector.instance
-    @State var location: LocationManager
     
-    @State var appStatus = AppStatus()
-    @State var mapStatus = MapStatus()
-    @State var trackStatus = TrackStatus()
-    @State var healthStatus = HealthStatus()
-    
-    init(){
-        location = LocationManager.instance
-    }
+    @Binding var appStatus: AppStatus
+    @Binding var mapStatus: MapStatus
+    @Binding var directionStatus: DirectionStatus
+    @Binding var trackStatus: TrackStatus
+    @Binding var healthStatus: HealthStatus
     
     var body: some View {
         TabView(){
-            MainView(appStatus: $appStatus, mapStatus: $mapStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+            MainView(appStatus: $appStatus, mapStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
             TrackView(appStatus: $appStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
         }
-        .onAppear(){
-            LocationManager.instance.start()
-            locationChanged(LocationManager.startLocation)
-            LocationManager.instance.locationDelegate = self
-        }
     }
 }
     
-extension ContentView : LocationDelegate {
-    
-    func locationChanged(_ location: CLLocation) {
-        //print("location changed")
-        mapStatus.update(coordinate: location.coordinate)
-    }
-    
-}
-
 #Preview {
-    ContentView()
+    @Previewable @State var appStatus = AppStatus()
+    @Previewable @State var mapStatus = MapStatus()
+    @Previewable @State var directionStatus = DirectionStatus()
+    @Previewable @State var trackStatus = TrackStatus()
+    @Previewable @State var healthStatus = HealthStatus()
+    ContentView(appStatus: $appStatus, mapStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CurrentLocationView: View {
     
-    @State var direction: CLLocationDirection = LocationManager.startDirection
+    @Binding var directionStatus: DirectionStatus
     
     let currentDirectionColor = Color(red: 1.0, green: 0.2, blue: 0.2)
     
@@ -22,22 +22,11 @@ struct CurrentLocationView: View {
             Circle()
                 .fill(Color(.blue))
                 .frame(width: 8, height: 8)
-            Triangle(direction: $direction)
+            Triangle(direction: $directionStatus.direction)
                 .fill(currentDirectionColor)
                 .frame(width: 30, height: 30)
         }
         .frame(width: 30, height: 30)
-        .onAppear {
-            LocationManager.instance.directionDelegate = self
-        }
-    }
-    
-}
-
-extension CurrentLocationView: DirectionDelegate {
-    
-    func directionChanged(_ direction: CLLocationDirection) {
-        self.direction = direction
     }
     
 }
@@ -62,6 +51,6 @@ struct Triangle: Shape {
 }
 
 #Preview {
-    @Previewable @State var direction: CLLocationDirection =  LocationManager.startDirection
-    CurrentLocationView(direction: direction)
+    @Previewable @State var directionStatus = DirectionStatus()
+    CurrentLocationView(directionStatus: $directionStatus)
 }

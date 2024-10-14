@@ -557,18 +557,8 @@
 		4EFE3E772CBBF3F4001FB40A /* Maps For OSM Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps For OSM Watch.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4EEBE4292CB82286001F273C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Watch-App-Info.plist",
-			);
-			target = 4E2894852CA81FF30012DBFE /* Maps For OSM Watch */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4EEBE4292CB82286001F273C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
+		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1911,7 +1901,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Maps-For-OSM-Watch/Watch-App-Info.plist";
+				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
@@ -1952,7 +1942,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Maps-For-OSM-Watch/Watch-App-Info.plist";
+				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";

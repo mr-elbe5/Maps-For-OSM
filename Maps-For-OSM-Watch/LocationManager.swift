@@ -8,26 +8,15 @@
 import Foundation
 import CoreLocation
 
-protocol LocationDelegate{
-    func locationChanged(_ location: CLLocation)
-}
-
-protocol DirectionDelegate{
-    func directionChanged(_ direction: CLLocationDirection)
-}
-
-class LocationManager: NSObject{
+@Observable class LocationManager: NSObject{
     
-    static var instance: LocationManager = LocationManager()
-    
-    static var startLocation = CLLocation(latitude: 53.5419, longitude: 9.6831)
+    //center de
+    static var startLocation = CLLocation(latitude: 51.165691, longitude: 10.4515269)
+    // north
     static var startDirection : CLLocationDirection = 0
     
     var location: CLLocation = LocationManager.startLocation
     var direction: CLLocationDirection = LocationManager.startDirection
-    
-    var locationDelegate: LocationDelegate? = nil
-    var directionDelegate: DirectionDelegate? = nil
     
     private let clManager = CLLocationManager()
 
@@ -60,18 +49,12 @@ extension LocationManager: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last, loc.horizontalAccuracy != -1{
             location = loc
-            DispatchQueue.main.async {
-                self.locationDelegate?.locationChanged(loc)
-            }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         if abs(newHeading.trueHeading - direction) > 5{
             direction = newHeading.trueHeading
-            DispatchQueue.main.async {
-                self.directionDelegate?.directionChanged(self.direction)
-            }
         }
     }
     

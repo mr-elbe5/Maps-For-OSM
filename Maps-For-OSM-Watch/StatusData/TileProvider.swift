@@ -15,16 +15,16 @@ public struct TileProvider{
     
     func assertTileImage(tile: TileData) {
         if tile.imageData != nil{
-            print("Tile already present")
+            //print("Tile already present")
             return
         }
-        print("try loading file \(tile.fileUrl.lastPathComponent)")
+        //print("try loading file \(tile.fileUrl.lastPathComponent)")
         if FileManager.default.fileExists(url: tile.fileUrl), let data = FileManager.default.readFile(url: tile.fileUrl)    {
             tile.imageData = data
-            print("Tile loaded from file")
+            //print("Tile loaded from file")
             return
         }
-        print("loading tile from phone")
+        Log.info("loading tile from phone")
         loadTileImage(tile: tile, tries: 1)
     }
     
@@ -32,14 +32,14 @@ public struct TileProvider{
         PhoneConnector.instance.requestTile(tile){ success in
             if success, let imageData = tile.imageData{
                 if FileManager.default.saveFile(data: imageData, url: tile.fileUrl){
-                    print("file \(tile.fileUrl.lastPathComponent) saved")
+                    //print("file \(tile.fileUrl.lastPathComponent) saved")
                 }
                 else{
-                    print("could not save file \(tile.fileUrl.lastPathComponent)")
+                    Log.error("could not save file \(tile.fileUrl.lastPathComponent)")
                 }
             }
             else if tries <= TileProvider.maxTries{
-                print("reloading tile from phone in try \(tries)")
+                Log.info("reloading tile from phone in try \(tries)")
                 loadTileImage(tile: tile, tries: tries + 1)
             }
         }
