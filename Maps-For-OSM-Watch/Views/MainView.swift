@@ -37,31 +37,27 @@ struct MainView: View {
                     .foregroundStyle(.black)
                     .frame(width: 20, height: 30)
                     .clipShape(.circle)
-                    .position(x: proxy.size.width - 20, y: 60)
+                    .position(x: proxy.size.width - 20, y: 50)
                     
-                    Button("", systemImage: "stop", action: {
-                        stop()
-                    })
-                    .labelStyle(.iconOnly)
-                    .background(.white)
-                    .foregroundStyle(.red)
-                    .frame(width: 20, height: 30)
-                    .clipShape(.circle)
-                    .position(x: proxy.size.width - 20, y: proxy.size.height - 20)
-                    
+                    HStack{
+                        Text("❤️ \(Int(healthStatus.heartRate)) BPM")
+                            .font(.system(size: 12))
+                    }
+                    .foregroundColor(.black)
+                    .offset(y: -proxy.size.height/2 + 20)
                     HStack{
                         Image(systemName: "triangle.bottomhalf.filled")
                         Text("\(Int(locationStatus.location.altitude)) m")
                             .font(.system(size: 12))
                     }
                     .foregroundColor(.black)
-                    .offset(y: proxy.size.height/2 - 30)
-                    HStack{
-                        Text("❤️ \(Int(healthStatus.heartRate)) BPM")
-                            .font(.system(size: 12))
+                    .offset(y: proxy.size.height/2 - 20)
+                    if trackStatus.isTracking{
+                        Image(systemName: trackStatus.isRecording ? "figure.walk" : "figure.stand")
+                        .foregroundColor(.black)
+                        .offset(x: proxy.size.width/2 - 20, y: proxy.size.height/2 - 20)
                     }
-                    .foregroundColor(.black)
-                    .offset(y: proxy.size.height/2 - 10)
+                    
                 }.frame(maxWidth: .infinity)
             }
         }
@@ -79,10 +75,6 @@ struct MainView: View {
             locationStatus.zoom -= 1
             locationStatus.update()
         }
-    }
-    
-    func stop(){
-        
     }
     
     func saveFrame(_ rect: CGRect) -> Bool{

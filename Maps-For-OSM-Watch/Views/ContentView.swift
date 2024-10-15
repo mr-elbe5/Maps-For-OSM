@@ -19,7 +19,8 @@ struct ContentView: View {
     var body: some View {
         TabView(){
             MainView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
-            TrackView(trackStatus: $trackStatus)
+            TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus)
+            PreferencesView(locationStatus: $locationStatus)
         }
     }
 }

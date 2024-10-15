@@ -9,47 +9,51 @@ import SwiftUI
 
 struct TrackView: View {
     
+    @Binding var locationStatus: LocationStatus
     @Binding var trackStatus: TrackStatus
     
     var body: some View {
         VStack(){
             Text("Tracking").font(Font.headline)
             Spacer()
-            if !trackStatus.isRecording{
-                HStack{
-                    if trackStatus.distance == 0{
-                        Button("Start", action: {
-                            trackStatus.isRecording = true
-                            trackStatus.distance = 345
-                        })
-                    }
-                    else{
-                        Button("Resume", action: {
-                            trackStatus.isRecording = true
-                            trackStatus.distance += 100
-                        })
-                    }
-                }
+            if !trackStatus.isTracking{
+                Button("Start", action: {
+                    trackStatus.startTracking(at: locationStatus.location)
+                })
+                Spacer()
             }
-            else {
-                HStack{
-                    Button("Pause", action: {
-                        trackStatus.isRecording = false
-                    })
-                    Button("Save", action: {
-                        trackStatus.isRecording = false
-                        trackStatus.distance = 0
-                    })
-                    .tint(.green)
-                    Button("Stop", action: {
-                        trackStatus.isRecording = false
-                        trackStatus.distance = 0
-                    })
-                    .tint(.red)
+            else{
+                if trackStatus.isRecording{
+                    HStack{
+                        Button("Stop", action: {
+                            trackStatus.stopRecording()
+                        })
+                    }
+                    
+                }
+                else {
+                    VStack{
+                        HStack{
+                            Button("Resume", action: {
+                                trackStatus.resumeRecording()
+                            })
+                        }
+                        HStack{
+                            Button("Save", action: {
+                                trackStatus.saveTrack()
+                            })
+                            .tint(.green)
+                            Button("Cancel", action: {
+                                trackStatus.cancelTrack()
+                            })
+                            .tint(.red)
+                        }
+                    }
+                    
                 }
                 Spacer()
                 HStack{
-                    Text("From \(trackStatus.startTime.timeString()) to \(trackStatus.endTime.timeString())")
+                    Text("Duration: \(trackStatus.durationString)")
                 }
                 HStack{
                     Text("Distance: \(Int(trackStatus.distance)) m")
@@ -62,6 +66,7 @@ struct TrackView: View {
 }
 
 #Preview {
+    @Previewable @State var locationStatus = LocationStatus()
     @Previewable @State var trackStatus = TrackStatus()
-    TrackView(trackStatus: $trackStatus)
+    TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus)
 }

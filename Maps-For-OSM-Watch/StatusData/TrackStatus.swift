@@ -15,11 +15,23 @@ import E5Data
     var distance : CGFloat
     var isRecording: Bool
     
+    var isTracking: Bool{
+        trackpoints.count > 0
+    }
+    
     var startTime : Date{
         trackpoints.first?.timestamp ?? Date()
     }
     var endTime :Date{
         trackpoints.last?.timestamp ?? Date()
+    }
+    
+    var duration: Range<Date>{
+        startTime..<endTime
+    }
+    
+    var durationString: String{
+        duration.formatted(.timeDuration)
     }
     
     override init(){
@@ -28,28 +40,42 @@ import E5Data
         isRecording = false
     }
     
-    func toJSON() -> String{
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        encoder.dateEncodingStrategy = .iso8601
-        if let data = try? encoder.encode(trackpoints){
-            if let s = String(data:data, encoding: .utf8){
-                return s
-            }
-        }
-        return ""
+    func startTracking(at location: CLLocation){
+        addTrackpoint(from: location)
+        isRecording = true
     }
     
     func startRecording(){
         isRecording = true
     }
     
-    func pauseRecording(){
+    func stopRecording(){
         isRecording = false
     }
     
     func resumeRecording(){
         isRecording = true
+    }
+    
+    func saveTrack(){
+        isRecording = false
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        encoder.dateEncodingStrategy = .iso8601
+        if let data = try? encoder.encode(trackpoints){
+            if let json = String(data:data, encoding: .utf8){
+                PhoneConnector.instance.saveTrack(json: json){ success in
+                    if success{
+                        self.trackpoints.removeAll()
+                    }
+                }
+            }
+        }
+    }
+    
+    func cancelTrack(){
+        isRecording = false
+        trackpoints.removeAll()
     }
     
     func addTrackpoint(from location: CLLocation){

@@ -45,6 +45,35 @@ import WatchConnectivity
             }
         )
     }
+    
+    func saveTrack(json: String, completion: @escaping (Bool) -> Void) {
+        print("watch saving track")
+        let request = ["request": "saveTrack", "json": json] as [String : Any]
+        session?.sendMessage(
+            request,
+            replyHandler: { response in
+                DispatchQueue.main.async {
+                    if let success = response["success"] as? Bool {
+                        if success {
+                            print("track saved on phone")
+                            completion(true)
+                        }
+                        else{
+                            print("track not saved on phone")
+                            completion(false)
+                        }
+                    }
+                    else{
+                        completion(false)
+                    }
+                }
+            },
+            errorHandler: { error in
+                debugPrint("Error sending message:", error)
+                completion(false)
+            }
+        )
+    }
         
 }
 

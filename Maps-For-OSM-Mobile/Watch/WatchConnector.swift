@@ -59,6 +59,10 @@ extension WatchConnector: WCSessionDelegate {
                         }
                     }
                 }
+            case "saveTrack":
+                let json = message["json"] as? String ?? ""
+                print("saving track on phone")
+                replyHandler(["success": true as Any])
             default:
                 break;
             }

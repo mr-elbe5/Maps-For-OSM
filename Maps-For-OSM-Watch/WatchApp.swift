@@ -21,6 +21,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         //TileProvider.instance.dumpTiles()
         Log.useCache = false
         Log.logLevel = .info
+        LocationStatus.shared.update()
     }
     
     func applicationDidFinishLaunching() {
@@ -57,7 +58,7 @@ struct WatchApp: App {
     
     @State var locationManager = LocationManager.shared
     
-    @State var mapStatus = LocationStatus()
+    @State var locationStatus = LocationStatus()
     @State var directionStatus = DirectionStatus()
     @State var trackStatus = TrackStatus()
     @State var healthStatus = HealthStatus()
@@ -66,12 +67,16 @@ struct WatchApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(locationStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+            ContentView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+                .onAppear(){
+                    locationStatus.location = locationManager.location
+                    locationStatus.update()
+                }
         }
         .onChange(of: locationManager.location){
             DispatchQueue.main.async {
-                mapStatus.location = locationManager.location
-                mapStatus.update()
+                locationStatus.location = locationManager.location
+                locationStatus.update()
             }
         }
         .onChange(of: locationManager.direction){
