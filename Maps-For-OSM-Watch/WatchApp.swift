@@ -21,6 +21,13 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         //TileProvider.instance.dumpTiles()
         Log.useCache = false
         Log.logLevel = .info
+        if let prefs : WatchPreferences = UserDefaults.standard.load(forKey: WatchPreferences.storeKey){
+            WatchPreferences.shared = prefs
+        }
+        else{
+            Log.info("no saved data available for watch preferences")
+            WatchPreferences.shared = WatchPreferences()
+        }
         LocationStatus.shared.update()
     }
     
@@ -62,27 +69,35 @@ struct WatchApp: App {
     @State var directionStatus = DirectionStatus()
     @State var trackStatus = TrackStatus()
     @State var healthStatus = HealthStatus()
+    @State var preferences = WatchPreferences.shared
     
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+            ContentView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus, preferences: $preferences)
                 .onAppear(){
                     locationStatus.location = locationManager.location
                     locationStatus.update()
                 }
         }
         .onChange(of: locationManager.location){
-            DispatchQueue.main.async {
-                locationStatus.location = locationManager.location
-                locationStatus.update()
+            if preferences.autoUpdateLocation {
+                DispatchQueue.main.async {
+                    locationStatus.location = locationManager.location
+                    locationStatus.update()
+                }
             }
         }
         .onChange(of: locationManager.direction){
-            DispatchQueue.main.async {
-                directionStatus.direction = locationManager.direction
+            if preferences.showDirection {
+                DispatchQueue.main.async {
+                    directionStatus.direction = locationManager.direction
+                }
             }
+        }
+        .onChange(of: preferences.showDirection){
+            LocationManager.shared.updateFollowDirection()
         }
     }
 

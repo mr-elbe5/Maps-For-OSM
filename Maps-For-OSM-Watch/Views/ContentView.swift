@@ -15,12 +15,13 @@ struct ContentView: View {
     @Binding var directionStatus: DirectionStatus
     @Binding var trackStatus: TrackStatus
     @Binding var healthStatus: HealthStatus
+    @Binding var preferences: WatchPreferences
     
     var body: some View {
         TabView(){
-            MainView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
-            TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus)
-            PreferencesView(locationStatus: $locationStatus)
+            MainView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus, preferences: $preferences)
+            TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus, preferences: $preferences)
+            PreferencesView(locationStatus: $locationStatus, preferences: $preferences)
         }
     }
 }
@@ -30,5 +31,6 @@ struct ContentView: View {
     @Previewable @State var directionStatus = DirectionStatus()
     @Previewable @State var trackStatus = TrackStatus()
     @Previewable @State var healthStatus = HealthStatus()
-    ContentView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+    @Previewable @State var preferences = WatchPreferences()
+    ContentView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus, preferences: $preferences)
 }

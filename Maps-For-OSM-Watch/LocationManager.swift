@@ -24,6 +24,9 @@ import CoreLocation
 
     override init() {
         super.init()
+        clManager.desiredAccuracy = kCLLocationAccuracyBest
+        clManager.distanceFilter = 10.0
+        clManager.headingFilter = 5.0
         clManager.delegate = self
         clManager.allowsBackgroundLocationUpdates = true
     }
@@ -35,13 +38,31 @@ import CoreLocation
     func start(){
         print("starting location manager")
         clManager.startUpdatingLocation()
-        clManager.startUpdatingHeading()
+        startFollowDirection()
     }
     
     func stop(){
         print("stopping location manager")
         clManager.stopUpdatingLocation()
         clManager.stopUpdatingHeading()
+    }
+    
+    func startFollowDirection(){
+        if WatchPreferences.shared.showDirection{
+            clManager.startUpdatingHeading()
+        }
+    }
+    
+    func stopFollowDirection(){
+        clManager.stopUpdatingHeading()
+    }
+    
+    func updateFollowDirection(){
+        if WatchPreferences.shared.showDirection{
+            clManager.startUpdatingHeading()
+        }else{
+            clManager.stopUpdatingHeading()
+        }
     }
     
 }
@@ -55,9 +76,7 @@ extension LocationManager: CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if abs(newHeading.trueHeading - direction) > 5{
-            direction = newHeading.trueHeading
-        }
+        direction = newHeading.trueHeading
     }
     
 }

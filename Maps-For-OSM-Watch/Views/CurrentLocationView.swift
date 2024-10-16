@@ -11,6 +11,7 @@ import SwiftUI
 struct CurrentLocationView: View {
     
     @Binding var directionStatus: DirectionStatus
+    @Binding var preferences: WatchPreferences
     
     let currentDirectionColor = Color(red: 1.0, green: 0.2, blue: 0.2)
     
@@ -22,9 +23,11 @@ struct CurrentLocationView: View {
             Circle()
                 .fill(Color(.blue))
                 .frame(width: 8, height: 8)
-            Triangle(direction: $directionStatus.direction)
-                .fill(currentDirectionColor)
-                .frame(width: 30, height: 30)
+            if preferences.showDirection{
+                Triangle(direction: $directionStatus.direction)
+                    .fill(currentDirectionColor)
+                    .frame(width: 30, height: 30)
+            }
         }
         .frame(width: 30, height: 30)
     }
@@ -52,5 +55,6 @@ struct Triangle: Shape {
 
 #Preview {
     @Previewable @State var directionStatus = DirectionStatus()
-    CurrentLocationView(directionStatus: $directionStatus)
+    @Previewable @State var preferences = WatchPreferences()
+    CurrentLocationView(directionStatus: $directionStatus, preferences: $preferences)
 }

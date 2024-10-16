@@ -11,6 +11,7 @@ struct TrackView: View {
     
     @Binding var locationStatus: LocationStatus
     @Binding var trackStatus: TrackStatus
+    @Binding var preferences: WatchPreferences
     
     var body: some View {
         VStack(){
@@ -58,6 +59,11 @@ struct TrackView: View {
                 HStack{
                     Text("Distance: \(Int(trackStatus.distance)) m")
                 }
+                if preferences.showTrackpoints{
+                    HStack{
+                        Text("Trackpoints: \(trackStatus.trackpoints.count)")
+                    }
+                }
             }
         }
         
@@ -68,5 +74,6 @@ struct TrackView: View {
 #Preview {
     @Previewable @State var locationStatus = LocationStatus()
     @Previewable @State var trackStatus = TrackStatus()
-    TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus)
+    @Previewable @State var preferences = WatchPreferences()
+    TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus, preferences: $preferences)
 }

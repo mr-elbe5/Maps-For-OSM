@@ -6,6 +6,7 @@ struct MainView: View {
     @Binding var directionStatus: DirectionStatus
     @Binding var trackStatus: TrackStatus
     @Binding var healthStatus: HealthStatus
+    @Binding var preferences: WatchPreferences
     
     var body: some View {
         GeometryReader{ proxy in
@@ -17,7 +18,7 @@ struct MainView: View {
                         .background(.primary)
                         .clipped()
                     
-                    CurrentLocationView(directionStatus: $directionStatus)
+                    CurrentLocationView(directionStatus: $directionStatus, preferences: $preferences)
                     
                     Button("", systemImage: "plus", action: {
                         zoomIn()
@@ -39,12 +40,26 @@ struct MainView: View {
                     .clipShape(.circle)
                     .position(x: proxy.size.width - 20, y: 50)
                     
-                    HStack{
-                        Text("❤️ \(Int(healthStatus.heartRate)) BPM")
-                            .font(.system(size: 12))
+                    if !preferences.autoUpdateLocation{
+                        Button("", systemImage: "arrow.clockwise", action: {
+                            refresh()
+                        })
+                        .labelStyle(.iconOnly)
+                        .background(.white)
+                        .foregroundStyle(.black)
+                        .frame(width: 20, height: 30)
+                        .clipShape(.circle)
+                        .position(x: proxy.size.width - 20, y: 80)
                     }
-                    .foregroundColor(.black)
-                    .offset(y: -proxy.size.height/2 + 20)
+                    
+                    if preferences.showHeartRate{
+                        HStack{
+                            Text("❤️ \(Int(healthStatus.heartRate)) BPM")
+                                .font(.system(size: 12))
+                        }
+                        .foregroundColor(.black)
+                        .offset(y: -proxy.size.height/2 + 20)
+                    }
                     HStack{
                         Image(systemName: "triangle.bottomhalf.filled")
                         Text("\(Int(locationStatus.location.altitude)) m")
@@ -77,6 +92,11 @@ struct MainView: View {
         }
     }
     
+    func refresh(){
+        locationStatus.location = LocationManager.shared.location
+        locationStatus.update()
+    }
+    
     func saveFrame(_ rect: CGRect) -> Bool{
         AppStatus.shared.mainViewFrame = rect
         return true
@@ -89,5 +109,6 @@ struct MainView: View {
     @Previewable @State var directionStatus = DirectionStatus()
     @Previewable @State var trackStatus = TrackStatus()
     @Previewable @State var healthStatus = HealthStatus()
-    MainView(locationStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus)
+    @Previewable @State var preferences = WatchPreferences()
+    MainView(locationStatus: $mapStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus, preferences: $preferences)
 }

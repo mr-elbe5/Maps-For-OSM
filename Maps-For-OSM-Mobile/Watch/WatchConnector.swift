@@ -67,7 +67,7 @@ extension WatchConnector: WCSessionDelegate {
                     }
                     location!.addItem(item: track)
                     AppData.shared.save()
-                    print("saved track on phone")
+                    Log.info("saved track on phone")
                     replyHandler(["success": true as Any])
                 }
                 else{

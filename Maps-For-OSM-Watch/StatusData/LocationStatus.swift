@@ -12,9 +12,11 @@ import CoreLocation
     
     static var shared = LocationStatus()
     
+    static var startZoom: Int = 16
+    
     var location: CLLocation = LocationManager.startLocation
     
-    var zoom = 16
+    var zoom = LocationStatus.startZoom
     var tileX: Int = 0
     var tileY: Int = 0
     

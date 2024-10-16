@@ -10,12 +10,24 @@ import SwiftUI
 struct PreferencesView: View {
     
     @Binding var locationStatus: LocationStatus
+    @Binding var preferences: WatchPreferences
     
     var body: some View {
         VStack(){
             Text("Preferences").font(Font.headline)
             Spacer()
-            
+            Toggle(isOn: $preferences.autoUpdateLocation) {
+                Text("Auto Update Location")
+                }
+            Toggle(isOn: $preferences.showDirection) {
+                Text("Show Direction")
+                }
+            Toggle(isOn: $preferences.showHeartRate) {
+                Text("Show Heartrate")
+                }
+            Toggle(isOn: $preferences.showTrackpoints) {
+                Text("Show Trackpoints")
+                }
         }
         
     }
@@ -24,5 +36,6 @@ struct PreferencesView: View {
 
 #Preview {
     @Previewable @State var locationStatus = LocationStatus()
-    PreferencesView(locationStatus: $locationStatus)
+    @Previewable @State var preferences = WatchPreferences()
+    PreferencesView(locationStatus: $locationStatus, preferences: $preferences)
 }
