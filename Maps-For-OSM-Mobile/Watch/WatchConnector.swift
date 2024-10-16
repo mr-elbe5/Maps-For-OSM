@@ -60,13 +60,46 @@ extension WatchConnector: WCSessionDelegate {
                     }
                 }
             case "saveTrack":
-                let json = message["json"] as? String ?? ""
-                print("saving track on phone")
-                replyHandler(["success": true as Any])
+                if let json = message["json"] as? String, let track = createTrack(json: json), let coordinate = track.startCoordinate{
+                    var location = AppData.shared.getLocation(coordinate: coordinate)
+                    if location == nil{
+                        location = AppData.shared.createLocation(coordinate: coordinate)
+                    }
+                    location!.addItem(item: track)
+                    AppData.shared.save()
+                    print("saved track on phone")
+                    replyHandler(["success": true as Any])
+                }
+                else{
+                    replyHandler(["success": false as Any])
+                }
             default:
                 break;
             }
         }
+    }
+    
+    func createTrack(json: String) -> TrackItem?{
+        if let data =  json.data(using: .utf8){
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            do{
+                let trackpoints: TrackpointList = try decoder.decode(TrackpointList.self, from : data)
+                if trackpoints.isEmpty{
+                    return nil
+                }
+                let track = TrackItem()
+                track.trackpoints = trackpoints
+                track .simplifyTrack()
+                track.updateFromTrackpoints()
+                track.setNameByDate()
+                return track
+            }
+            catch (let err){
+                Log.error(error: err)
+            }
+        }
+        return nil
     }
 
 }

@@ -117,6 +117,10 @@ open class TrackItem : LocatedItem{
         try container.encode(note, forKey: .note)
     }
     
+    func setNameByDate(){
+        name = "Tour of \(startTime.dateTimeString())"
+    }
+    
     public func pauseTracking(){
         pauseTime = Date.localDate
     }

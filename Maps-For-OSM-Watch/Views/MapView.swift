@@ -30,6 +30,9 @@ struct MapView: View {
                 .position(x: 256, y: 256)
                 .frame(width: 256, height: 256)
         }
+        .onAppear(){
+            print("map appeared")
+        }
     }
     
 }
