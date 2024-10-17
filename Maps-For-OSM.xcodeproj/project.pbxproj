@@ -1902,7 +1902,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health update";
@@ -1943,7 +1943,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Maps-For-OSM-Watch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Health update";

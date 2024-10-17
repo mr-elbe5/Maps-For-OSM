@@ -24,7 +24,7 @@ import CoreLocation
 
     override init() {
         super.init()
-        clManager.desiredAccuracy = kCLLocationAccuracyBest
+        clManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         clManager.distanceFilter = 10.0
         clManager.headingFilter = 5.0
         clManager.delegate = self
