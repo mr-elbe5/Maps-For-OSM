@@ -9,71 +9,71 @@ import SwiftUI
 
 struct TrackView: View {
     
-    @Binding var locationStatus: LocationStatus
-    @Binding var trackStatus: TrackStatus
-    @Binding var preferences: WatchPreferences
+    @State var locationStatus = LocationStatus.shared
+    @State var trackStatus = TrackStatus.shared
+    @State var preferences = WatchPreferences.shared
     
     var body: some View {
-        VStack(){
-            Text("Tracking").font(Font.headline)
-            Spacer()
-            if !trackStatus.isTracking{
-                Button("Start", action: {
-                    trackStatus.startTracking(at: locationStatus.location)
-                })
+            VStack(){
+                Text("Tracking").font(Font.headline)
                 Spacer()
-            }
-            else{
-                if trackStatus.isRecording{
-                    HStack{
-                        Button("Stop", action: {
-                            trackStatus.stopRecording()
-                        })
-                    }
-                    
+                if !trackStatus.isTracking{
+                    Button("Start", action: {
+                        trackStatus.startTracking()
+                    })
+                    Spacer()
                 }
-                else {
-                    VStack{
+                else{
+                    if trackStatus.isRecording{
                         HStack{
-                            Button("Resume", action: {
-                                trackStatus.resumeRecording()
+                            Button("Stop", action: {
+                                trackStatus.stopRecording()
                             })
                         }
+                        
+                    }
+                    else {
+                        VStack{
+                            HStack{
+                                Button("Resume", action: {
+                                    trackStatus.resumeRecording()
+                                })
+                            }
+                            HStack{
+                                Button("Save", action: {
+                                    trackStatus.saveTrack()
+                                })
+                                .tint(.green)
+                                Button("Cancel", action: {
+                                    trackStatus.stopTracking()
+                                })
+                                .tint(.red)
+                            }
+                        }
+                        
+                    }
+                    Spacer()
+                    HStack{
+                        Text("Duration: \(trackStatus.durationString)")
+                    }
+                    HStack{
+                        Text("Distance: \(Int(trackStatus.distance)) m")
+                    }
+                    if preferences.showTrackpoints{
                         HStack{
-                            Button("Save", action: {
-                                trackStatus.saveTrack()
-                            })
-                            .tint(.green)
-                            Button("Cancel", action: {
-                                trackStatus.cancelTrack()
-                            })
-                            .tint(.red)
+                            Text("Trackpoints: \(trackStatus.trackpointCount)")
                         }
                     }
-                    
                 }
-                Spacer()
-                HStack{
-                    Text("Duration: \(trackStatus.durationString)")
-                }
-                HStack{
-                    Text("Distance: \(Int(trackStatus.distance)) m")
-                }
-                if preferences.showTrackpoints{
-                    HStack{
-                        Text("Trackpoints: \(trackStatus.trackpoints.count)")
-                    }
-                }
-            }
+    
+                
         }
+        
         
     }
     
 }
 
 #Preview {
-    @Previewable @State var locationStatus = LocationStatus()
-    @Previewable @State var trackStatus = TrackStatus()
-    @Previewable @State var preferences = WatchPreferences()
-    TrackView(locationStatus: $locationStatus, trackStatus: $trackStatus, preferences: $preferences)
+    TrackView()
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MapView: View {
         
-    @Binding var locationStatus: LocationStatus
+    @State var locationStatus = LocationStatus.shared
     
     var body: some View {
         ZStack{
@@ -38,7 +38,5 @@ struct MapView: View {
 }
 
 #Preview {
-    @Previewable @State var appStatus = AppStatus()
-    @Previewable @State var locationStatus = LocationStatus()
-    MapView(locationStatus: $locationStatus)
+    MapView()
 }

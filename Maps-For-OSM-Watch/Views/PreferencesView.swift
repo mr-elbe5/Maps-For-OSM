@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PreferencesView: View {
     
-    @Binding var locationStatus: LocationStatus
-    @Binding var preferences: WatchPreferences
+    @State var locationStatus = LocationStatus.shared
+    @State var preferences = WatchPreferences.shared
     
     var body: some View {
         VStack(){
@@ -35,7 +35,5 @@ struct PreferencesView: View {
 }
 
 #Preview {
-    @Previewable @State var locationStatus = LocationStatus()
-    @Previewable @State var preferences = WatchPreferences()
-    PreferencesView(locationStatus: $locationStatus, preferences: $preferences)
+    PreferencesView()
 }

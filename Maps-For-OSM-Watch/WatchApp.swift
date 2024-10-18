@@ -65,17 +65,16 @@ struct WatchApp: App {
     
     @State var locationManager = LocationManager.shared
     
-    @State var locationStatus = LocationStatus()
-    @State var directionStatus = DirectionStatus()
-    @State var trackStatus = TrackStatus()
-    @State var healthStatus = HealthStatus()
+    @State var locationStatus = LocationStatus.shared
+    @State var directionStatus = DirectionStatus.shared
+    @State var trackStatus = TrackStatus.shared
     @State var preferences = WatchPreferences.shared
     
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
     
     var body: some Scene {
         WindowGroup {
-            ContentView(locationStatus: $locationStatus, directionStatus: $directionStatus, trackStatus: $trackStatus, healthStatus: $healthStatus, preferences: $preferences)
+            ContentView()
                 .onAppear(){
                     locationStatus.location = locationManager.location
                     locationStatus.update()
@@ -86,6 +85,9 @@ struct WatchApp: App {
                 DispatchQueue.main.async {
                     locationStatus.location = locationManager.location
                     locationStatus.update()
+                    if trackStatus.isRecording {
+                        trackStatus.addTrackpoint(from: locationManager.location)
+                    }
                 }
             }
         }

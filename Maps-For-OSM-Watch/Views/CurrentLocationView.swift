@@ -10,8 +10,8 @@ import SwiftUI
 
 struct CurrentLocationView: View {
     
-    @Binding var directionStatus: DirectionStatus
-    @Binding var preferences: WatchPreferences
+    @State var directionStatus = DirectionStatus.shared
+    @State var preferences = WatchPreferences.shared
     
     let currentDirectionColor = Color(red: 1.0, green: 0.2, blue: 0.2)
     
@@ -54,7 +54,5 @@ struct Triangle: Shape {
 }
 
 #Preview {
-    @Previewable @State var directionStatus = DirectionStatus()
-    @Previewable @State var preferences = WatchPreferences()
-    CurrentLocationView(directionStatus: $directionStatus, preferences: $preferences)
+    CurrentLocationView()
 }
