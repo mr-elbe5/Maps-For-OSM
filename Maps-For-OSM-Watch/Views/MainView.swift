@@ -23,18 +23,18 @@ struct MainView: View {
                         zoomIn()
                     })
                     .labelStyle(.iconOnly)
-                    .buttonStyle(PlainButtonStyle())
                     .foregroundStyle(.black)
                     .frame(width: 20, height: 20)
+                    .clipShape(.circle)
                     .position(x: proxy.size.width - 20, y: 20)
                     
                     Button("", systemImage: "minus", action: {
                         zoomOut()
                     })
                     .labelStyle(.iconOnly)
-                    .buttonStyle(PlainButtonStyle())
                     .foregroundStyle(.black)
-                    .frame(width: 20, height: 30)
+                    .frame(width: 20, height: 20)
+                    .clipShape(.circle)
                     .position(x: proxy.size.width - 20, y: 50)
                     
                     if !preferences.autoUpdateLocation{
@@ -42,13 +42,13 @@ struct MainView: View {
                             refresh()
                         })
                         .labelStyle(.iconOnly)
-                        .buttonStyle(PlainButtonStyle())
                         .foregroundStyle(.black)
-                        .frame(width: 20, height: 30)
+                        .frame(width: 20, height: 20)
+                        .clipShape(.circle)
                         .position(x: proxy.size.width - 20, y: 80)
                     }
                     
-                    if preferences.showHeartRate{
+                    if healthStatus.isMonitoring{
                         HStack{
                             Text("❤️ \(Int(healthStatus.heartRate)) BPM")
                                 .font(.system(size: 12))
@@ -67,7 +67,7 @@ struct MainView: View {
                     }
                     Image(systemName: trackStatus.isRecording ? "figure.walk" : "figure.stand")
                         .foregroundColor(.black)
-                        .position(x: proxy.size.width - 20, y: proxy.size.height - 30)
+                        .position(x: proxy.size.width - 20, y: proxy.size.height - 20)
                     
                 }.frame(maxWidth: .infinity)
             }

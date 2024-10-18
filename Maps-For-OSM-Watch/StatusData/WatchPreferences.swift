@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import CoreLocation
+import E5Data
 
 @Observable class WatchPreferences: NSObject, Identifiable, Codable{
     
@@ -8,18 +9,26 @@ import CoreLocation
     
     static var shared = WatchPreferences()
     
+    static func loadShared(){
+        if let prefs : WatchPreferences = UserDefaults.standard.load(forKey: storeKey){
+            shared = prefs
+            Log.info("loaded watch preferences")
+        }
+        else{
+            Log.info("no saved data available for watch preferences")
+            shared = WatchPreferences()
+            shared.save()
+        }
+    }
+    
     enum CodingKeys: String, CodingKey {
         case autoUpdateLocation
         case showDirection
-        case showHeartRate
-        case showTrackpoints
         case zoom
     }
     
     var autoUpdateLocation = true
     var showDirection = true
-    var showHeartRate = true
-    var showTrackpoints = true
     var zoom = LocationStatus.startZoom
     
     override init(){
@@ -30,8 +39,6 @@ import CoreLocation
         let values = try decoder.container(keyedBy: CodingKeys.self)
         autoUpdateLocation = try values.decodeIfPresent(Bool.self, forKey: .autoUpdateLocation) ?? true
         showDirection = try values.decodeIfPresent(Bool.self, forKey: .showDirection) ?? true
-        showHeartRate = try values.decodeIfPresent(Bool.self, forKey: .showHeartRate) ?? true
-        showTrackpoints = try values.decodeIfPresent(Bool.self, forKey: .showTrackpoints) ?? true
         zoom = try values.decodeIfPresent(Int.self, forKey: .zoom) ?? LocationStatus.startZoom
     }
     
@@ -39,8 +46,6 @@ import CoreLocation
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(autoUpdateLocation, forKey: .autoUpdateLocation)
         try container.encode(showDirection, forKey: .showDirection)
-        try container.encode(showHeartRate, forKey: .showHeartRate)
-        try container.encode(showTrackpoints, forKey: .showTrackpoints)
         try container.encode(zoom, forKey: .zoom)
     }
     

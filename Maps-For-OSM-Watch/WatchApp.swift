@@ -21,13 +21,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         //TileProvider.instance.dumpTiles()
         Log.useCache = false
         Log.logLevel = .info
-        if let prefs : WatchPreferences = UserDefaults.standard.load(forKey: WatchPreferences.storeKey){
-            WatchPreferences.shared = prefs
-        }
-        else{
-            Log.info("no saved data available for watch preferences")
-            WatchPreferences.shared = WatchPreferences()
-        }
+        WatchPreferences.loadShared()
         LocationStatus.shared.update()
     }
     
@@ -68,6 +62,7 @@ struct WatchApp: App {
     @State var locationStatus = LocationStatus.shared
     @State var directionStatus = DirectionStatus.shared
     @State var trackStatus = TrackStatus.shared
+    @State var heatlthStatus = HealthStatus.shared
     @State var preferences = WatchPreferences.shared
     
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
@@ -97,9 +92,6 @@ struct WatchApp: App {
                     directionStatus.direction = locationManager.direction
                 }
             }
-        }
-        .onChange(of: preferences.showDirection){
-            LocationManager.shared.updateFollowDirection()
         }
     }
 

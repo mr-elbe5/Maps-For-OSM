@@ -59,10 +59,8 @@ struct TrackView: View {
                     HStack{
                         Text("Distance: \(Int(trackStatus.distance)) m")
                     }
-                    if preferences.showTrackpoints{
-                        HStack{
-                            Text("Trackpoints: \(trackStatus.trackpointCount)")
-                        }
+                    HStack{
+                        Text("Trackpoints: \(trackStatus.trackpointCount)")
                     }
                 }
     

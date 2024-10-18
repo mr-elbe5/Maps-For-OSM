@@ -17,19 +17,21 @@ struct PreferencesView: View {
             Text("Preferences").font(Font.headline)
             Spacer()
             Toggle(isOn: $preferences.autoUpdateLocation) {
-                Text("Auto Update Location")
+                Text("Follow Location")
                 }
             Toggle(isOn: $preferences.showDirection) {
                 Text("Show Direction")
                 }
-            Toggle(isOn: $preferences.showHeartRate) {
-                Text("Show Heartrate")
-                }
-            Toggle(isOn: $preferences.showTrackpoints) {
-                Text("Show Trackpoints")
-                }
+            Spacer()
+            Button("Clear Map Tiles", action: {
+                    _ = FileManager.default.deleteAllFiles(dirURL: FileManager.tilesDirURL)
+                })
+                .buttonStyle(PlainButtonStyle())
+                .foregroundStyle(.red)
         }
-        
+        .onChange(of: preferences.showDirection){
+            LocationManager.shared.updateFollowDirection()
+        }
     }
     
 }

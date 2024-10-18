@@ -12,6 +12,7 @@ import HealthKit
     
     static var shared = HealthStatus()
     
+    var isMonitoring = false
     var heartRate: Double = 0.0
     
     private var healthStore: HKHealthStore?
@@ -21,44 +22,38 @@ import HealthKit
     override init() {
         self.appStartTime = Date()
         super.init()
-        
+    }
+    
+    func startMonitoring(){
+        isMonitoring = false
         if HKHealthStore.isHealthDataAvailable() {
-            self.healthStore = HKHealthStore()
-            self.requestAuthorization()
-        }
-    }
-    
-    private func requestAuthorization() {
-        guard let heartRateQuantityType = self.heartRateQuantityType else { return }
-        
-        healthStore?.requestAuthorization(toShare: nil, read: [heartRateQuantityType]) { success, error in
-            if success {
-                self.startMonitoring()
+            healthStore = HKHealthStore()
+            guard let heartRateQuantityType = self.heartRateQuantityType else { return}
+            healthStore?.requestAuthorization(toShare: nil, read: [heartRateQuantityType]) { success, error in
+                if success {
+                    guard let heartRateQuantityType = self.heartRateQuantityType else { return }
+                    let query = HKAnchoredObjectQuery(
+                        type: heartRateQuantityType,
+                        predicate: nil,
+                        anchor: nil,
+                        limit: HKObjectQueryNoLimit) { (query, samples, deletedObjects, newAnchor, error) in
+                            guard let samples = samples as? [HKQuantitySample] else { return }
+                            self.process(samples: samples)
+                        }
+                    self.isMonitoring = true
+                    query.updateHandler = { (query, samples, deletedObjects, newAnchor, error) in
+                        guard let samples = samples as? [HKQuantitySample] else { return }
+                        self.process(samples: samples)
+                    }
+                    
+                    self.healthStore?.execute(query)
+                }
             }
         }
-    }
-    
-    func startMonitoring() {
-        guard let heartRateQuantityType = self.heartRateQuantityType else { return }
-        
-        let query = HKAnchoredObjectQuery(
-            type: heartRateQuantityType,
-            predicate: nil,
-            anchor: nil,
-            limit: HKObjectQueryNoLimit) { (query, samples, deletedObjects, newAnchor, error) in
-                guard let samples = samples as? [HKQuantitySample] else { return }
-                self.process(samples: samples)
-            }
-        
-        query.updateHandler = { (query, samples, deletedObjects, newAnchor, error) in
-            guard let samples = samples as? [HKQuantitySample] else { return }
-            self.process(samples: samples)
-        }
-        
-        healthStore?.execute(query)
     }
     
     private func process(samples: [HKQuantitySample]) {
+        print("process heart rate")
         for sample in samples {
             if sample.endDate > appStartTime {
                 let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
