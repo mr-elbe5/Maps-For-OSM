@@ -555,8 +555,18 @@
 		4EFE3E772CBBF3F4001FB40A /* Maps For OSM Watch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Maps For OSM Watch.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4EB126E82CC3B96200F84ADB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Maps-For-OSM-Watch-Info.plist",
+			);
+			target = 4E2894852CA81FF30012DBFE /* Maps For OSM Watch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
+		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4EB126E82CC3B96200F84ADB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1829,7 +1839,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mobile/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -1839,7 +1849,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6;
+				MARKETING_VERSION = 4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1859,7 +1869,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mobile/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -1869,7 +1879,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.6;
+				MARKETING_VERSION = 4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1897,7 +1907,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
+				INFOPLIST_FILE = "Maps-For-OSM-Watch/Maps-For-OSM-Watch-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
@@ -1938,7 +1948,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
+				INFOPLIST_FILE = "Maps-For-OSM-Watch/Maps-For-OSM-Watch-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Map tiles will be stored in the document folder";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "This is for heart rate output";
