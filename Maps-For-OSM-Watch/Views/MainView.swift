@@ -5,7 +5,7 @@ struct MainView: View {
     @State var locationStatus = LocationStatus.shared
     @State var trackStatus = TrackStatus.shared
     @State var healthStatus = HealthStatus.shared
-    @State var preferences = WatchPreferences.shared
+    @State var preferences = Preferences.shared
     
     var body: some View {
         GeometryReader{ proxy in
@@ -14,7 +14,7 @@ struct MainView: View {
                     MapView()
                         .frame(width: proxy.size.width, height: proxy.size.height)
                         .offset(x: locationStatus.mapOffsetX, y: locationStatus.mapOffsetY)
-                        .background(.primary)
+                        .background(.secondary)
                         .clipped()
                     
                     CurrentLocationView()
@@ -50,7 +50,7 @@ struct MainView: View {
                     
                     if healthStatus.isMonitoring{
                         HStack{
-                            Text("❤️ \(Int(healthStatus.heartRate)) BPM")
+                            Text("❤️ \(Int(healthStatus.heartRate))")
                                 .font(.system(size: 12))
                         }
                         .foregroundColor(.black)
@@ -76,21 +76,23 @@ struct MainView: View {
     
     func zoomIn(){
         if locationStatus.zoom < World.maxZoom{
-            locationStatus.zoom += 1
+            Preferences.shared.zoom += 1
             locationStatus.update()
+            Preferences.shared.save()
         }
     }
     
     func zoomOut(){
         if locationStatus.zoom > 10{
-            locationStatus.zoom -= 1
+            Preferences.shared.zoom -= 1
             locationStatus.update()
+            Preferences.shared.save()
         }
     }
     
     func refresh(){
-        //locationStatus.location = LocationManager.shared.location
-        TrackSample.shared.nextStep()
+        locationStatus.location = LocationManager.shared.location
+        //TrackSample.shared.nextStep()
         locationStatus.update()
     }
     

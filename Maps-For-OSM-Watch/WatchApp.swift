@@ -21,13 +21,13 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         //TileProvider.instance.dumpTiles()
         Log.useCache = false
         Log.logLevel = .info
-        WatchPreferences.loadShared()
+        Preferences.loadShared()
         LocationStatus.shared.update()
     }
     
     func applicationDidFinishLaunching() {
         print("app did finish launching")
-        LocationService.shared.start()
+        LocationManager.shared.start()
         HealthStatus.shared.startMonitoring()
     }
 
@@ -37,7 +37,6 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
     }
     
     func applicationWillResignActive(){
-        //LocationManager.instance.stop()
         print("app will resign active")
         if !TrackStatus.shared.isRecording {
             LocationManager.shared.stop()
@@ -46,10 +45,14 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
     
     func applicationDidEnterBackground() {
         print("app did enter background")
+        if !TrackStatus.shared.isRecording {
+            LocationManager.shared.stop()
+        }
     }
     
     func applicationWillEnterForeground() {
         print("app will enter foreground")
+        LocationManager.shared.start()
     }
 
 }
@@ -63,7 +66,7 @@ struct WatchApp: App {
     @State var directionStatus = DirectionStatus.shared
     @State var trackStatus = TrackStatus.shared
     @State var heatlthStatus = HealthStatus.shared
-    @State var preferences = WatchPreferences.shared
+    @State var preferences = Preferences.shared
     
     @WKApplicationDelegateAdaptor var appDelegate: WatchAppDelegate
     
@@ -80,8 +83,8 @@ struct WatchApp: App {
                 DispatchQueue.main.async {
                     locationStatus.location = locationManager.location
                     locationStatus.update()
-                    if trackStatus.isRecording {
-                        trackStatus.addTrackpoint(from: locationManager.location)
+                    if trackStatus.isRecording, let location = locationManager.location {
+                        trackStatus.addTrackpoint(from: location)
                     }
                 }
             }

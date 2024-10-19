@@ -10,7 +10,7 @@ import SwiftUI
 struct PreferencesView: View {
     
     @State var locationStatus = LocationStatus.shared
-    @State var preferences = WatchPreferences.shared
+    @State var preferences = Preferences.shared
     
     var body: some View {
         VStack(){
@@ -31,6 +31,10 @@ struct PreferencesView: View {
         }
         .onChange(of: preferences.showDirection){
             LocationManager.shared.updateFollowDirection()
+            Preferences.shared.save()
+        }
+        .onChange(of: preferences.autoUpdateLocation){
+            Preferences.shared.save()
         }
     }
     

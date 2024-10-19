@@ -12,20 +12,21 @@ import CoreLocation
     
     static var shared = LocationStatus()
     
-    static var startZoom: Int = 16
-    
     var location: CLLocation? = nil
     
-    var zoom = LocationStatus.startZoom
     var tileX: Int = 0
     var tileY: Int = 0
     
     var mapOffsetX: CGFloat = 0
     var mapOffsetY: CGFloat = 0
     
+    var zoom: Int{
+        Preferences.shared.zoom
+    }
+    
     func update(){
         if let location = location{
-            print("updating to coordinate \(location.coordinate)")
+            //print("updating to coordinate \(location.coordinate)")
             //print("frame is \(AppStatus.instance.mainViewFrame)")
             let coordinate = location.coordinate
             //print(coordinate)

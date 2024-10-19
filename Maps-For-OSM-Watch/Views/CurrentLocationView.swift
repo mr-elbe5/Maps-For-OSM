@@ -11,7 +11,7 @@ import SwiftUI
 struct CurrentLocationView: View {
     
     @State var directionStatus = DirectionStatus.shared
-    @State var preferences = WatchPreferences.shared
+    @State var preferences = Preferences.shared
     
     let currentDirectionColor = Color(red: 1.0, green: 0.2, blue: 0.2)
     

@@ -23,14 +23,14 @@ import WatchConnectivity
     }
 
     func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {
-        print("watch requesting tile image data")
+        print("watch requesting tile image data from phone")
         let request = ["request": "tileImageData", "zoom": tileData.zoom, "x": tileData.tileX, "y": tileData.tileY] as [String : Any]
         session?.sendMessage(
             request,
             replyHandler: { response in
                 DispatchQueue.main.async {
                     if let data = response["imageData"] as? Data {
-                        print("watch got tile image data")
+                        print("watch got tile image data from phone")
                         tileData.imageData = data
                         completion(true)
                     }
@@ -40,7 +40,7 @@ import WatchConnectivity
                 }
             },
             errorHandler: { error in
-                debugPrint("Error sending message:", error)
+                print("error requesting tile:", error)
                 completion(false)
             }
         )
@@ -69,7 +69,7 @@ import WatchConnectivity
                 }
             },
             errorHandler: { error in
-                debugPrint("Error sending message:", error)
+                print("Error sending message:", error)
                 completion(false)
             }
         )
@@ -80,7 +80,7 @@ import WatchConnectivity
 extension PhoneConnector: WCSessionDelegate {
     
     func session(_: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        debugPrint("activationDidCompleteWith activationState:\(activationState.rawValue), error: \(String(describing: error))")
+        print("activationDidCompleteWith activationState:\(activationState.rawValue), error: \(String(describing: error))")
     }
     
 }

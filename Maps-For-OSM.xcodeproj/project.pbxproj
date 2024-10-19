@@ -40,7 +40,6 @@
 		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E2894932CA81FF40012DBFE /* Maps For OSM Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4E2894992CA826690012DBFE /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2894982CA826690012DBFE /* E5Data */; };
-		4E28949A2CA8275F0012DBFE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF5D2C733B650045DACB /* LocationService.swift */; };
 		4E28949E2CA827750012DBFE /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF552C733B650045DACB /* CLPlacemark.swift */; };
 		4E28949F2CA827750012DBFE /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF542C733B650045DACB /* CLLocationCoordinate2D.swift */; };
 		4E2894A22CA827750012DBFE /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF532C733B650045DACB /* CLLocation.swift */; };
@@ -49,7 +48,6 @@
 		4E2894A82CA827FD0012DBFE /* CGRect+CL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF602C733B650045DACB /* CGRect+CL.swift */; };
 		4E2894A92CA827FD0012DBFE /* CoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF612C733B650045DACB /* CoordinateRegion.swift */; };
 		4E2894AA2CA827FD0012DBFE /* CGPoint+CL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF5F2C733B650045DACB /* CGPoint+CL.swift */; };
-		4E2894AB2CA82AED0012DBFE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF4A2C733B650045DACB /* Preferences.swift */; };
 		4E289AC12CB1A0FA0012DBFE /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
 		4E289AC22CB1A1400012DBFE /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
 		4E289AC32CB1A1400012DBFE /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
@@ -1535,12 +1533,10 @@
 				4E28949E2CA827750012DBFE /* CLPlacemark.swift in Sources */,
 				4E28949F2CA827750012DBFE /* CLLocationCoordinate2D.swift in Sources */,
 				4E2894A22CA827750012DBFE /* CLLocation.swift in Sources */,
-				4E28949A2CA8275F0012DBFE /* LocationService.swift in Sources */,
 				4E2894A62CA827FD0012DBFE /* World.swift in Sources */,
 				4EFE3EA82CBC3025001FB40A /* Trackpoint.swift in Sources */,
 				4EFE3EA92CBC3031001FB40A /* TrackpointList.swift in Sources */,
 				4E2894A72CA827FD0012DBFE /* CoordinateSpan.swift in Sources */,
-				4E2894AB2CA82AED0012DBFE /* Preferences.swift in Sources */,
 				4E2894A82CA827FD0012DBFE /* CGRect+CL.swift in Sources */,
 				4E2894A92CA827FD0012DBFE /* CoordinateRegion.swift in Sources */,
 				4E2894AA2CA827FD0012DBFE /* CGPoint+CL.swift in Sources */,

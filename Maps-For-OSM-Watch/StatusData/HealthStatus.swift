@@ -53,7 +53,7 @@ import HealthKit
     }
     
     private func process(samples: [HKQuantitySample]) {
-        print("process heart rate")
+        //print("process heart rate")
         for sample in samples {
             if sample.endDate > appStartTime {
                 let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())

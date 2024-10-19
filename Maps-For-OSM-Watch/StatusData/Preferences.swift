@@ -3,20 +3,22 @@ import SwiftUI
 import CoreLocation
 import E5Data
 
-@Observable class WatchPreferences: NSObject, Identifiable, Codable{
+@Observable class Preferences: NSObject, Identifiable, Codable{
     
     public static var storeKey = "watchPreferences"
     
-    static var shared = WatchPreferences()
+    static var startZoom: Int = 16
+    
+    static var shared = Preferences()
     
     static func loadShared(){
-        if let prefs : WatchPreferences = UserDefaults.standard.load(forKey: storeKey){
+        if let prefs : Preferences = UserDefaults.standard.load(forKey: storeKey){
             shared = prefs
             Log.info("loaded watch preferences")
         }
         else{
             Log.info("no saved data available for watch preferences")
-            shared = WatchPreferences()
+            shared = Preferences()
             shared.save()
         }
     }
@@ -27,9 +29,12 @@ import E5Data
         case zoom
     }
     
+    var trackpointInterval: Double = 5.0
+    var minHorizontalTrackpointDistance: Double = 5.0
+    
     var autoUpdateLocation = true
     var showDirection = true
-    var zoom = LocationStatus.startZoom
+    var zoom = Preferences.startZoom
     
     override init(){
         
@@ -39,7 +44,7 @@ import E5Data
         let values = try decoder.container(keyedBy: CodingKeys.self)
         autoUpdateLocation = try values.decodeIfPresent(Bool.self, forKey: .autoUpdateLocation) ?? true
         showDirection = try values.decodeIfPresent(Bool.self, forKey: .showDirection) ?? true
-        zoom = try values.decodeIfPresent(Int.self, forKey: .zoom) ?? LocationStatus.startZoom
+        zoom = try values.decodeIfPresent(Int.self, forKey: .zoom) ?? Preferences.startZoom
     }
     
     open func encode(to encoder: Encoder) throws {
@@ -50,7 +55,7 @@ import E5Data
     }
     
     func save(){
-        UserDefaults.standard.save(forKey: WatchPreferences.storeKey, value: self)
+        UserDefaults.standard.save(forKey: Preferences.storeKey, value: self)
     }
     
 }

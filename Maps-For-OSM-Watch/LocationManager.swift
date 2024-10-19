@@ -10,20 +10,19 @@ import CoreLocation
 
 @Observable class LocationManager: NSObject{
     
-    //center de
-    static var startLocation = CLLocation(latitude: 51.165691, longitude: 10.4515269)
     // north
     static var startDirection : CLLocationDirection = 0
     
     static var shared: LocationManager = LocationManager()
     
-    var location: CLLocation = LocationManager.startLocation
+    var location: CLLocation? = nil
     var direction: CLLocationDirection = LocationManager.startDirection
     
     private let clManager = CLLocationManager()
 
     override init() {
         super.init()
+        clManager.activityType = .other
         clManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         clManager.distanceFilter = 10.0
         clManager.headingFilter = 5.0
@@ -38,7 +37,9 @@ import CoreLocation
     func start(){
         print("starting location manager")
         clManager.startUpdatingLocation()
-        startFollowDirection()
+        if Preferences.shared.showDirection{
+            startFollowDirection()
+        }
     }
     
     func stop(){
@@ -48,7 +49,7 @@ import CoreLocation
     }
     
     func startFollowDirection(){
-        if WatchPreferences.shared.showDirection{
+        if Preferences.shared.showDirection{
             clManager.startUpdatingHeading()
         }
     }
@@ -58,7 +59,7 @@ import CoreLocation
     }
     
     func updateFollowDirection(){
-        if WatchPreferences.shared.showDirection{
+        if Preferences.shared.showDirection{
             clManager.startUpdatingHeading()
         }else{
             clManager.stopUpdatingHeading()

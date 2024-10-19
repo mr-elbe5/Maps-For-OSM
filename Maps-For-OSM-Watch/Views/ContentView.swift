@@ -14,20 +14,8 @@ struct ContentView: View {
     var body: some View {
         TabView(){
             MainView()
-                .onAppear(){
-                    print("main appeared")
-                }
             TrackView()
-                .onAppear(){
-                    print("track appeared")
-                }
             PreferencesView()
-                .onAppear(){
-                    print("prefs appeared")
-                }
-        }
-        .onAppear(){
-            print("content appeared")
         }
     }
 }

@@ -11,7 +11,7 @@ struct TrackView: View {
     
     @State var locationStatus = LocationStatus.shared
     @State var trackStatus = TrackStatus.shared
-    @State var preferences = WatchPreferences.shared
+    @State var preferences = Preferences.shared
     
     var body: some View {
             VStack(){
