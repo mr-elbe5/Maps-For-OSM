@@ -15,14 +15,12 @@ extension FileManager{
     public static var exportMediaDirURL = FileManager.documentURL.appendingPathComponent("media")
     public static var backupDirURL = FileManager.documentURL.appendingPathComponent("backup")
     
-    public func initializeAppDirs() {
-        FileManager.mediaDirURL = FileManager.privateURL.appendingPathComponent("media")
-        FileManager.tilesDirURL = FileManager.privateURL.appendingPathComponent("tiles")
-        try! FileManager.default.createDirectory(at: FileManager.tilesDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileManager.mediaDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileManager.exportGpxDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileManager.backupDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileManager.exportMediaDirURL, withIntermediateDirectories: true, attributes: nil)
+    public static func initializeAppDirs() {
+        initializeTileDir()
+        initializeMediaDirs()
+        try! FileManager.default.createDirectory(at: exportGpxDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: backupDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: exportMediaDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
 }

@@ -11,16 +11,15 @@ extension FileManager {
     
     public static var mediaDirURL : URL = privateURL.appendingPathComponent("media")
     public static var previewsDirURL : URL = privateURL.appendingPathComponent("previews")
-    public static var tilesDirURL : URL = privateURL.appendingPathComponent("tiles")
     
-    public func logFileInfo(){
-        print("temp files:")
-        var names = listAllFiles(dirPath: FileManager.default.temporaryDirectory.path)
-        for name in names{
-            print(name)
-        }
+    public static func initializeMediaDirs() {
+        try! FileManager.default.createDirectory(at: FileManager.mediaDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: FileManager.previewsDirURL, withIntermediateDirectories: true, attributes: nil)
+    }
+    
+    public func logMediaFiles(){
         print("media files:")
-        names = listAllFiles(dirPath: FileManager.mediaDirURL.path)
+        var names = listAllFiles(dirPath: FileManager.mediaDirURL.path)
         for name in names{
             print(name)
         }

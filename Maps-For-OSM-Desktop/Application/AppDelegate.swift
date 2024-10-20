@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         Log.useCache = false
         Log.logLevel = .error
         FileManager.initializePrivateDir()
-        FileManager.default.initializeAppDirs()
+        FileManager.initializeAppDirs()
         //FileManager.default.logFileInfo()
         World.setMaxZoom(20)
         World.scrollWidthFactor = 1

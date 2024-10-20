@@ -90,6 +90,9 @@
 		4E7DDA402C56303B0008F654 /* FileManagerIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DDA3F2C56303B0008F654 /* FileManagerIOS.swift */; };
 		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
 		4EA30CF62C37F706002EA622 /* TrackRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA30CF52C37F706002EA622 /* TrackRecorder.swift */; };
+		4EB1271F2CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
+		4EB127202CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
+		4EB127212CC53B6C00F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
 		4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */; };
 		4EB694632C3EAF240058BAD0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694622C3EAF240058BAD0 /* Zip */; };
@@ -188,8 +191,8 @@
 		4ED7FFD42C733B650045DACB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7B2C733B650045DACB /* AppState.swift */; };
 		4ED7FFD52C733B650045DACB /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7C2C733B650045DACB /* Backup.swift */; };
 		4ED7FFD62C733B650045DACB /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7C2C733B650045DACB /* Backup.swift */; };
-		4ED7FFD72C733B650045DACB /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7D2C733B650045DACB /* FileManager.swift */; };
-		4ED7FFD82C733B650045DACB /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7D2C733B650045DACB /* FileManager.swift */; };
+		4ED7FFD72C733B650045DACB /* FileManager+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7D2C733B650045DACB /* FileManager+Media.swift */; };
+		4ED7FFD82C733B650045DACB /* FileManager+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7D2C733B650045DACB /* FileManager+Media.swift */; };
 		4ED7FFD92C733B650045DACB /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7F2C733B650045DACB /* NoteItem.swift */; };
 		4ED7FFDA2C733B650045DACB /* NoteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF7F2C733B650045DACB /* NoteItem.swift */; };
 		4ED7FFE52C7341AD0045DACB /* E5CameraViewController+Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FFDB2C7341AD0045DACB /* E5CameraViewController+Session.swift */; };
@@ -394,6 +397,7 @@
 		4E7DDA3F2C56303B0008F654 /* FileManagerIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerIOS.swift; sourceTree = "<group>"; };
 		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4EA30CF52C37F706002EA622 /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
+		4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Tiles.swift"; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* LocationGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
@@ -445,7 +449,7 @@
 		4ED7FF7A2C733B650045DACB /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		4ED7FF7B2C733B650045DACB /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4ED7FF7C2C733B650045DACB /* Backup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
-		4ED7FF7D2C733B650045DACB /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		4ED7FF7D2C733B650045DACB /* FileManager+Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Media.swift"; sourceTree = "<group>"; };
 		4ED7FF7F2C733B650045DACB /* NoteItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteItem.swift; sourceTree = "<group>"; };
 		4ED7FFDB2C7341AD0045DACB /* E5CameraViewController+Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "E5CameraViewController+Session.swift"; sourceTree = "<group>"; };
 		4ED7FFDC2C7341AD0045DACB /* E5CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = E5CameraViewController.swift; sourceTree = "<group>"; };
@@ -972,10 +976,11 @@
 		4ED7FF7E2C733B650045DACB /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */,
 				4ED7FF7A2C733B650045DACB /* AppData.swift */,
 				4ED7FF7B2C733B650045DACB /* AppState.swift */,
 				4ED7FF7C2C733B650045DACB /* Backup.swift */,
-				4ED7FF7D2C733B650045DACB /* FileManager.swift */,
+				4ED7FF7D2C733B650045DACB /* FileManager+Media.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -1419,7 +1424,7 @@
 				4EF3530A2BB2C30100A0A85B /* SearchResultCell.swift in Sources */,
 				4ED7FF812C733B650045DACB /* Nominatim.swift in Sources */,
 				4E72515D2C43C05E00EBA2BF /* MainViewController+Tiles.swift in Sources */,
-				4ED7FFD72C733B650045DACB /* FileManager.swift in Sources */,
+				4ED7FFD72C733B650045DACB /* FileManager+Media.swift in Sources */,
 				4E0BD98126E9FC66005A4A94 /* AppDelegate.swift in Sources */,
 				4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */,
 				4ED7FFAD2C733B650045DACB /* CoordinateSpan.swift in Sources */,
@@ -1507,6 +1512,7 @@
 				4ED7FFA72C733B650045DACB /* CGPoint+CL.swift in Sources */,
 				4E1D0E17274B9C4600F3D584 /* TrackListViewController.swift in Sources */,
 				4ED7FFC52C733B650045DACB /* MapTile.swift in Sources */,
+				4EB127202CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */,
 				4E1982C52BAC246600A37AE0 /* NoteCell.swift in Sources */,
 				4ED7FFB12C733B650045DACB /* GPXCreator.swift in Sources */,
 				4E1982C32BAB5A0700A37AE0 /* TrackCell.swift in Sources */,
@@ -1550,6 +1556,7 @@
 				4E2894A82CA827FD0012DBFE /* CGRect+CL.swift in Sources */,
 				4E2894A92CA827FD0012DBFE /* CoordinateRegion.swift in Sources */,
 				4E2894AA2CA827FD0012DBFE /* CGPoint+CL.swift in Sources */,
+				4EB127212CC53B6C00F84ADB /* FileManager+Tiles.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1636,6 +1643,7 @@
 				4ED7FF862C733B650045DACB /* Preferences.swift in Sources */,
 				4EEA67882C71E493005C459C /* RadioGroup.swift in Sources */,
 				4EEA67B92C71E493005C459C /* TrackCellView.swift in Sources */,
+				4EB1271F2CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */,
 				4EEA679F2C71E493005C459C /* UTType.swift in Sources */,
 				4ED7FF822C733B650045DACB /* Nominatim.swift in Sources */,
 				4EEA67792C71E493005C459C /* TileLayerView.swift in Sources */,
@@ -1643,7 +1651,7 @@
 				4ED7FF922C733B650045DACB /* CLLocation.swift in Sources */,
 				4EEA67CB2C71E493005C459C /* MapView.swift in Sources */,
 				4ED7FF882C733B650045DACB /* ImageItem.swift in Sources */,
-				4ED7FFD82C733B650045DACB /* FileManager.swift in Sources */,
+				4ED7FFD82C733B650045DACB /* FileManager+Media.swift in Sources */,
 				4ED7FFC82C733B650045DACB /* TileDownloadOperation.swift in Sources */,
 				4ED7FFCA2C733B650045DACB /* TileProvider.swift in Sources */,
 				4ED7FFAE2C733B650045DACB /* CoordinateSpan.swift in Sources */,

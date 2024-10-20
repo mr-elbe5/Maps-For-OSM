@@ -47,7 +47,7 @@ public struct TileProvider{
     
     public func deleteAllTiles(){
         do{
-            try FileManager.default.removeItem(at: FileManager.tilesDirURL)
+            try FileManager.default.removeItem(at: FileManager.tileDirURL)
         }
         catch let err{
             Log.error("TileProvider", error: err)
@@ -56,7 +56,7 @@ public struct TileProvider{
     
     public func dumpTiles(){
         print("all tiles:")
-        if let paths = FileManager.default.subpaths(atPath: FileManager.tilesDirURL.path){
+        if let paths = FileManager.default.subpaths(atPath: FileManager.tileDirURL.path){
             for path in paths{
                 print(path)
             }

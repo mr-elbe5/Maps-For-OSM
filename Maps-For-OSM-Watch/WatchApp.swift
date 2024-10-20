@@ -16,7 +16,7 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
     
     override init(){
         FileManager.initializePrivateDir()
-        FileManager.initializeTilesDir()
+        FileManager.initializeTileDir()
         //print("tiles dir exists: \(FileManager.default.fileExists(url: FileManager.tilesDirURL))")
         //TileProvider.instance.dumpTiles()
         Log.useCache = false

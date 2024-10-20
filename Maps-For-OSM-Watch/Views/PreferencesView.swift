@@ -24,7 +24,7 @@ struct PreferencesView: View {
                 }
             Spacer()
             Button("clearMapTiles".localize(), action: {
-                    _ = FileManager.default.deleteAllFiles(dirURL: FileManager.tilesDirURL)
+                    _ = FileManager.default.deleteAllFiles(dirURL: FileManager.tileDirURL)
                 })
                 .buttonStyle(PlainButtonStyle())
                 .foregroundStyle(.red)

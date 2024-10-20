@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Log.info("SceneDelegate will connect")
         
         FileManager.initializePrivateDir()
-        FileManager.default.initializeAppDirs()
+        FileManager.initializeAppDirs()
         Log.useCache = true
         Log.logLevel = .info
         PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")

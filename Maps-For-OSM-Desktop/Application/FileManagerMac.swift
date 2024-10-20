@@ -13,13 +13,11 @@ extension FileManager{
     public static let imagesURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     public static let movieLibraryURL : URL = FileManager.default.urls(for: .moviesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     
-    public func initializeAppDirs() {
+    public static func initializeAppDirs() {
         Log.info("document folder is \(FileManager.documentsURL.path())")
         Log.info("image folder is \(FileManager.imagesURL.path())")
-        FileManager.mediaDirURL = FileManager.privateURL.appendingPathComponent("media")
-        FileManager.tilesDirURL = FileManager.privateURL.appendingPathComponent("tiles")
-        try! FileManager.default.createDirectory(at: FileManager.tilesDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileManager.mediaDirURL, withIntermediateDirectories: true, attributes: nil)
+        initializeTileDir()
+        initializeMediaDirs()
     }
     
 }
