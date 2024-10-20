@@ -15,10 +15,10 @@ struct TrackView: View {
     
     var body: some View {
             VStack(){
-                Text("Tracking").font(Font.headline)
+                Text("recordTrack".localize()).font(Font.headline)
                 Spacer()
                 if !trackStatus.isTracking{
-                    Button("Start", action: {
+                    Button("start".localize(), action: {
                         trackStatus.startTracking()
                     })
                     Spacer()
@@ -26,7 +26,7 @@ struct TrackView: View {
                 else{
                     if trackStatus.isRecording{
                         HStack{
-                            Button("Stop", action: {
+                            Button("stop".localize(), action: {
                                 trackStatus.stopRecording()
                             })
                         }
@@ -35,16 +35,16 @@ struct TrackView: View {
                     else {
                         VStack{
                             HStack{
-                                Button("Resume", action: {
+                                Button("resume".localize(), action: {
                                     trackStatus.resumeRecording()
                                 })
                             }
                             HStack{
-                                Button("Save", action: {
+                                Button("save".localize(), action: {
                                     trackStatus.saveTrack()
                                 })
                                 .tint(.green)
-                                Button("Cancel", action: {
+                                Button("delete".localize(), action: {
                                     trackStatus.stopTracking()
                                 })
                                 .tint(.red)
@@ -54,13 +54,13 @@ struct TrackView: View {
                     }
                     Spacer()
                     HStack{
-                        Text("Duration: \(trackStatus.durationString)")
+                        Text("\("duration".localize()): \(trackStatus.durationString)")
                     }
                     HStack{
-                        Text("Distance: \(Int(trackStatus.distance)) m")
+                        Text("\("distance".localize()): \(Int(trackStatus.distance)) m")
                     }
                     HStack{
-                        Text("Trackpoints: \(trackStatus.trackpointCount)")
+                        Text("\("trackpoints".localize()): \(trackStatus.trackpointCount)")
                     }
                 }
     

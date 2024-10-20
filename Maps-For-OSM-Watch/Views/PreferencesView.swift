@@ -14,16 +14,16 @@ struct PreferencesView: View {
     
     var body: some View {
         VStack(){
-            Text("Preferences").font(Font.headline)
+            Text("preferences".localize()).font(Font.headline)
             Spacer()
             Toggle(isOn: $preferences.autoUpdateLocation) {
-                Text("Follow Location")
+                Text("followLocation".localize())
                 }
             Toggle(isOn: $preferences.showDirection) {
-                Text("Show Direction")
+                Text("showDirection".localize())
                 }
             Spacer()
-            Button("Clear Map Tiles", action: {
+            Button("clearMapTiles".localize(), action: {
                     _ = FileManager.default.deleteAllFiles(dirURL: FileManager.tilesDirURL)
                 })
                 .buttonStyle(PlainButtonStyle())
