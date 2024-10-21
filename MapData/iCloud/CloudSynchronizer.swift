@@ -177,6 +177,9 @@ open class CloudSynchronizer{
                     self.sendNextStep()
                 }
                 try await modifyRecords(recordsToSave: [], recordIdsToDelete: recordIdsToDelete)
+                DispatchQueue.main.async {
+                    self.sendNextStep()
+                }
             }
         }
     }

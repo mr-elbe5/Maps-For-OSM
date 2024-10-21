@@ -139,8 +139,14 @@ class ICloudViewController: NavScrollViewController{
         label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
         contentView.addSubviewWithAnchors(label, top: cleanupICloudButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: flatInsets)
         
+        let header = UILabel(header: "progress".localize()).withTextColor(.label)
+        contentView.addSubviewWithAnchors(header, top: label.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
         setupProgressView(max: 1)
-        contentView.addSubviewWithAnchors(progressView, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(progressView, top: header.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+        label = UILabel(text: "progressHint".localize()).withTextColor(.label)
+        label.font = UIFont.systemFont(ofSize: UIFont.smallSystemFontSize)
+        contentView.addSubviewWithAnchors(label, top: progressView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: flatInsets)
         
     }
     

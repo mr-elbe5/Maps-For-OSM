@@ -26,9 +26,9 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
     public override init() {
         super.init()
         delegate = self
-        desiredAccuracy = kCLLocationAccuracyBest
-        distanceFilter = kCLDistanceFilterNone
-        headingFilter = 2.0
+        desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        distanceFilter = 5.0
+        headingFilter = 5.0
         
     }
     

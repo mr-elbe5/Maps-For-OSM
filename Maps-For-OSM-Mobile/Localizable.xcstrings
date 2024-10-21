@@ -2772,6 +2772,40 @@
         }
       }
     },
+    "progress" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fortschritt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progress"
+          }
+        }
+      }
+    },
+    "progressHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kopieren von Dateien aus der Cloud und in die Cloud kann abhängig von ihrer Größe eine Weile dauern."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up- and download of files may take a while depending on their size."
+          }
+        }
+      }
+    },
     "radiusRegion" : {
       "extractionState" : "manual",
       "localizations" : {
