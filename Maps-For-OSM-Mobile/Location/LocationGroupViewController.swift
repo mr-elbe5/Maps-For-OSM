@@ -129,6 +129,8 @@ class LocationGroupViewController: NavTableViewController{
                 AppData.shared.locations.append(newLocation)
                 AppData.shared.locations.removeLocations(of: list)
                 AppData.shared.save()
+                self.group.locations.removeLocations(of: list)
+                self.group.locations.append(newLocation)
                 self.delegate?.locationsChanged()
                 self.tableView.reloadData()
             }
