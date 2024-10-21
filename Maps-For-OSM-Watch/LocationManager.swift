@@ -80,4 +80,8 @@ extension LocationManager: CLLocationManagerDelegate{
         direction = newHeading.trueHeading
     }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print("Error: \(error)")    
+    }
+    
 }

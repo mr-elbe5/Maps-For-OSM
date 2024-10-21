@@ -37,16 +37,14 @@ struct MainView: View {
                     .clipShape(.circle)
                     .position(x: proxy.size.width - 20, y: 50)
                     
-                    if !preferences.autoUpdateLocation{
-                        Button("", systemImage: "arrow.clockwise", action: {
-                            refresh()
-                        })
-                        .labelStyle(.iconOnly)
-                        .foregroundStyle(.black)
-                        .frame(width: 20, height: 20)
-                        .clipShape(.circle)
-                        .position(x: proxy.size.width - 20, y: 80)
-                    }
+                    Button("", systemImage: "arrow.clockwise", action: {
+                        refresh()
+                    })
+                    .labelStyle(.iconOnly)
+                    .foregroundStyle(.black)
+                    .frame(width: 20, height: 20)
+                    .clipShape(.circle)
+                    .position(x: proxy.size.width - 20, y: 80)
                     
                     if healthStatus.isMonitoring{
                         HStack{
@@ -91,9 +89,10 @@ struct MainView: View {
     }
     
     func refresh(){
-        locationStatus.location = LocationManager.shared.location
-        //TrackSample.shared.nextStep()
-        locationStatus.update()
+        if let location = LocationManager.shared.location{
+            locationStatus.location = LocationManager.shared.location
+            locationStatus.update()
+        }
     }
     
     func saveFrame(_ rect: CGRect) -> Bool{
