@@ -9,13 +9,6 @@ import CoreLocation
 import E5Data
 import E5IOSUI
 
-protocol LocationChangeDelegate{
-    func locationAdded(location: Location)
-    func locationChanged(location: Location)
-    func locationDeleted(location: Location)
-    func locationsChanged()
-}
-
 extension MainViewController: LocationServiceDelegate{
     
     func locationDidChange(location: CLLocation) {
@@ -48,22 +41,18 @@ extension MainViewController: LocationServiceDelegate{
     
 }
 
-extension MainViewController: LocationChangeDelegate{
+extension MainViewController: LocationDelegate{
     
-    func locationAdded(location: Location) {
+    func locationsChanged() {
         mapView.updateLocationLayer()
     }
     
     func locationChanged(location: Location) {
-        mapView.updateLocationLayer()
+        mapView.updateLocation(for: location)
     }
     
-    func locationDeleted(location: Location) {
-        mapView.updateLocationLayer()
-    }
-    
-    func locationsChanged() {
-        mapView.updateLocationLayer()
+    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
+        mapView.showLocationOnMap(coordinate: coordinate)
     }
     
 }

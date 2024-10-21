@@ -27,10 +27,9 @@ class LocationListViewController: NavTableViewController{
     let sortButton = UIButton().asIconButton("arrow.up.arrow.down", color: .label)
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
-
-    var mainViewController: MainViewController?{
-        navigationController?.rootViewController as? MainViewController
-    }
+    
+    var locationDelegate: LocationDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     var days = Array<Day>()
     
@@ -148,7 +147,7 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationListCell.LOCATION_CELL_IDENT, for: indexPath) as! LocationListCell
         let day = days[indexPath.section]
         cell.location = day.locations[indexPath.row]
-        cell.delegate = self
+        cell.locationDelegate = self
         cell.updateCell()
         return cell
     }
@@ -163,41 +162,41 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension LocationListViewController : LocationCellDelegate{
+extension LocationListViewController : LocationDelegate{
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showLocationOnMap(coordinate: coordinate)
+        locationDelegate?.showLocationOnMap(coordinate: coordinate)
     }
     
     func editLocation(location: Location) {
         let controller = LocationViewController(location: location)
         controller.location = location
-        controller.delegate = self
+        controller.locationDelegate = self
+        controller.trackDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func locationAdded(location: Location) {
-        tableView.reloadData()
-        mainViewController?.locationAdded(location: location)
-    }
-    
-    func locationChanged(location: Location) {
-        tableView.reloadData()
-        mainViewController?.locationChanged(location: location)
-    }
-    
-    func locationDeleted(location: Location) {
-        tableView.reloadData()
-        mainViewController?.locationDeleted(location: location)
     }
     
     func locationsChanged() {
         tableView.reloadData()
-        mainViewController?.locationsChanged()
+        locationDelegate?.locationsChanged()
+    }
+    
+    func locationChanged(location: Location) {
+        tableView.reloadData()
+        locationDelegate?.locationChanged(location: location)
     }
     
 }
+
+extension LocationListViewController: TrackDelegate{
+    
+    func showTrackOnMap(track: TrackItem) {
+        trackDelegate?.showTrackOnMap(track: track)
+    }
+    
+}
+
 
 
 

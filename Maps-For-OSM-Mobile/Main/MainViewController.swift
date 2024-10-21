@@ -30,15 +30,20 @@ class MainViewController: NavViewController {
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "locations".localize(), image: UIImage(systemName: "mappin"), primaryAction: UIAction(){ action in
             let controller = LocationListViewController()
+            controller.locationDelegate = self
+            controller.trackDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         items.append(UIBarButtonItem(title: "tracks".localize(), image: UIImage(systemName: "figure.walk"), primaryAction: UIAction(){ action in
             let controller = TrackListViewController()
+            controller.locationDelegate = self
+            controller.trackDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         items.append(UIBarButtonItem(title: "images".localize(), image: UIImage(systemName: "photo"), primaryAction: UIAction(){ action in
             let controller = ImageListViewController()
             controller.images = AppData.shared.locations.images
+            controller.locationDelegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
@@ -159,10 +164,6 @@ class MainViewController: NavViewController {
         statusView.setup()
         view.addSubviewWithAnchors(statusView, leading: guide.leadingAnchor, trailing: guide.trailingAnchor, bottom: licenseView.topAnchor, insets: UIEdgeInsets(top: 0, left: defaultInset, bottom: 0, right: defaultInset))
         statusView.delegate = self
-    }
-    
-    func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
-        mapView.showLocationOnMap(coordinate: coordinate)
     }
     
 }

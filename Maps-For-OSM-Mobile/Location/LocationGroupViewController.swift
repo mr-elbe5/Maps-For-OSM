@@ -18,11 +18,8 @@ class LocationGroupViewController: NavTableViewController{
     let mergeButton = UIButton().asIconButton("arrow.triangle.merge", color: .label)
     let deleteButton = UIButton().asIconButton("trash", color: .systemRed)
     
-    var delegate: LocationCellDelegate? = nil
-    
-    var mainViewController: MainViewController?{
-        navigationController?.rootViewController as? MainViewController
-    }
+    var locationDelegate: LocationDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     init(group: LocationGroup){
         self.group = group
@@ -107,7 +104,7 @@ class LocationGroupViewController: NavTableViewController{
                 AppData.shared.deleteLocation(location)
                 self.group.locations.remove(location)
             }
-            self.delegate?.locationsChanged()
+            self.locationDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -131,7 +128,7 @@ class LocationGroupViewController: NavTableViewController{
                 AppData.shared.save()
                 self.group.locations.removeLocations(of: list)
                 self.group.locations.append(newLocation)
-                self.delegate?.locationsChanged()
+                self.locationDelegate?.locationsChanged()
                 self.tableView.reloadData()
             }
         }
@@ -181,7 +178,7 @@ extension LocationGroupViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationGroupCell.LOCATION_CELL_IDENT, for: indexPath) as! LocationGroupCell
         cell.location = group.locations[indexPath.row]
-        cell.delegate = self
+        cell.locationDelegate = self
         cell.updateCell()
         return cell
     }
@@ -200,40 +197,38 @@ extension LocationGroupViewController: UITableViewDelegate, UITableViewDataSourc
     
 }
 
-extension LocationGroupViewController : LocationCellDelegate{
+extension LocationGroupViewController : LocationDelegate{
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showLocationOnMap(coordinate: coordinate)
+        locationDelegate?.showLocationOnMap(coordinate: coordinate)
     }
     
     func editLocation(location: Location) {
         let controller = LocationViewController(location: location)
         controller.location = location
-        controller.delegate = self
+        controller.locationDelegate = self
+        controller.trackDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    func locationAdded(location: Location) {
-        tableView.reloadData()
-        delegate?.locationAdded(location: location)
-    }
-    
-    func locationChanged(location: Location) {
-        tableView.reloadData()
-        delegate?.locationChanged(location: location)
-    }
-    
-    func locationDeleted(location: Location) {
-        tableView.reloadData()
-        delegate?.locationDeleted(location: location)
     }
     
     func locationsChanged() {
         tableView.reloadData()
-        delegate?.locationsChanged()
+        locationDelegate?.locationsChanged()
     }
     
+    func locationChanged(location: Location) {
+        tableView.reloadData()
+        locationDelegate?.locationChanged(location: location)
+    }
+    
+}
+
+extension LocationGroupViewController : TrackDelegate{
+    
+    func showTrackOnMap(track: TrackItem) {
+        trackDelegate?.showTrackOnMap(track: track)
+    }
 }
 
 

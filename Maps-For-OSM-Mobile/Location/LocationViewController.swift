@@ -10,7 +10,6 @@ import AVFoundation
 import E5Data
 import E5IOSUI
 
-
 class LocationViewController: NavTableViewController{
     
     let addImageButton = UIButton().asIconButton("photo", color: .label)
@@ -22,11 +21,8 @@ class LocationViewController: NavTableViewController{
     
     var location: Location
     
-    var delegate : LocationChangeDelegate? = nil
-    
-    var mainViewController: MainViewController?{
-        navigationController?.rootViewController as? MainViewController
-    }
+    var locationDelegate : LocationDelegate? = nil
+    var trackDelegate : TrackDelegate? = nil
     
     init(location: Location){
         self.location = location
@@ -161,7 +157,7 @@ class LocationViewController: NavTableViewController{
             for item in list{
                 self.location.deleteItem(item: item)
             }
-            self.mainViewController?.locationChanged(location: self.location)
+            self.locationDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -170,7 +166,7 @@ class LocationViewController: NavTableViewController{
         showDestructiveApprove(title: "confirmDeleteLocation".localize(), text: "deleteHint".localize()){
             print("deleting location")
             AppData.shared.deleteLocation(self.location)
-            self.mainViewController?.locationDeleted(location: self.location)
+            self.locationDelegate?.locationsChanged()
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -226,7 +222,7 @@ extension LocationViewController: UITableViewDelegate, UITableViewDataSource{
         case .track:
             if let cell = tableView.dequeueReusableCell(withIdentifier: LocationTrackCell.LOCATION_CELL_IDENT, for: indexPath) as? LocationTrackCell, let track = item as? TrackItem{
                 cell.track = track
-                cell.delegate = self
+                cell.trackDelegate = self
                 cell.updateCell()
                 return cell
             }
@@ -266,11 +262,11 @@ extension LocationViewController : LocationItemCellDelegate{
     
     func locationChanged(location: Location) {
         tableView.reloadData()
-        delegate?.locationChanged(location: location)
+        locationDelegate?.locationChanged(location: location)
     }
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
-        mainViewController?.showLocationOnMap(coordinate: coordinate)
+        locationDelegate?.showLocationOnMap(coordinate: coordinate)
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -313,7 +309,7 @@ extension LocationViewController: NoteViewDelegate{
             location.addItem(item: item)
             AppData.shared.save()
             tableView.reloadData()
-            self.delegate?.locationChanged(location: location)
+            self.locationDelegate?.locationChanged(location: location)
         }
     }
     
@@ -325,7 +321,7 @@ extension LocationViewController: AudioCaptureDelegate{
         location.addItem(item: audio)
         AppData.shared.save()
         tableView.reloadData()
-        self.delegate?.locationChanged(location: location)
+        self.locationDelegate?.locationChanged(location: location)
     }
 }
 
@@ -349,25 +345,21 @@ extension LocationViewController : ImageCellDelegate{
     
 }
 
-extension LocationViewController : TrackCellDelegate{
+extension LocationViewController : TrackDelegate{
+    
+    func trackChanged() {
+        tableView.reloadData()
+    }
     
     func editTrack(track: TrackItem) {
         let controller = TrackViewController(track: track)
-        controller.delegate = self
+        controller.trackDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(track: TrackItem) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showTrackOnMap(track: track)
-    }
-    
-}
-
-extension LocationViewController : TrackDelegate{
-    
-    func trackChanged() {
-        tableView.reloadData()
+        trackDelegate?.showTrackOnMap(track: track)
     }
     
 }

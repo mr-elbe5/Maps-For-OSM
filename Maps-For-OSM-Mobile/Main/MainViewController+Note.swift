@@ -31,7 +31,7 @@ extension MainViewController: NoteViewDelegate{
             AppData.shared.save()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationAdded(location: location!)
+                    self.locationsChanged()
                 }
                 else{
                     self.locationChanged(location: location!)

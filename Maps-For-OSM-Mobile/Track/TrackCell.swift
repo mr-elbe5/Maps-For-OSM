@@ -9,18 +9,13 @@ import E5Data
 import E5IOSUI
 
 
-public protocol TrackCellDelegate{
-    func showTrackOnMap(track: TrackItem)
-    func editTrack(track: TrackItem)
-}
-
 class TrackCell: LocationItemCell{
 
     static let CELL_IDENT = "trackCell"
     
     var track : TrackItem? = nil
     
-    var delegate: TrackCellDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     override func updateIconView(){
         iconView.removeAllSubviews()
@@ -35,13 +30,13 @@ class TrackCell: LocationItemCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showTrackOnMap(track: track)
+                self.trackDelegate?.showTrackOnMap(track: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let editButton = UIButton().asIconButton("magnifyingglass", color: .label)
             editButton.addAction(UIAction(){ action in
-                self.delegate?.editTrack(track: track)
+                self.trackDelegate?.editTrack(track: track)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

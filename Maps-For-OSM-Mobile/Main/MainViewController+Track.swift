@@ -18,18 +18,6 @@ extension MainViewController{
         }
     }
     
-    func trackChanged() {
-        mapView.trackLayerView.setNeedsDisplay()
-    }
-    
-    func showTrackOnMap(track: TrackItem) {
-        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
-            TrackItem.visibleTrack = track
-            trackChanged()
-            mapView.showMapRectOnMap(worldRect: boundingRect)
-        }
-    }
-    
     func hideTrack() {
         TrackItem.visibleTrack = nil
         trackChanged()
@@ -72,7 +60,7 @@ extension MainViewController{
             TrackRecorder.instance = nil
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationAdded(location: location!)
+                    self.locationsChanged()
                 }
                 else{
                     self.locationChanged(location: location!)
@@ -98,6 +86,22 @@ extension MainViewController: TrackStatusDelegate{
     func togglePauseTracking() {
         if let trackRecorder = TrackRecorder.instance{
             trackRecorder.isRecording = !trackRecorder.isRecording
+        }
+    }
+    
+}
+
+extension MainViewController: TrackDelegate{
+    
+    func trackChanged() {
+        mapView.trackLayerView.setNeedsDisplay()
+    }
+    
+    func showTrackOnMap(track: TrackItem) {
+        if !track.trackpoints.isEmpty, let boundingRect = track.trackpoints.boundingMapRect{
+            TrackItem.visibleTrack = track
+            trackChanged()
+            mapView.showMapRectOnMap(worldRect: boundingRect)
         }
     }
     

@@ -10,18 +10,13 @@ import E5Data
 
 import E5IOSUI
 
-protocol LocationCellDelegate: LocationChangeDelegate{
-    func editLocation(location: Location)
-    func showLocationOnMap(coordinate: CLLocationCoordinate2D)
-}
-
 class LocationCell: TableViewCell{
     
     static let CELL_IDENT = "locationCell"
     
     var location : Location? = nil
     
-    var delegate: LocationCellDelegate? = nil
+    var locationDelegate: LocationDelegate? = nil
     
     override func updateIconView(){
         iconView.setBackground(.iconViewColor).setGrayRoundedBorders()
@@ -36,13 +31,13 @@ class LocationCell: TableViewCell{
             
             let mapButton = UIButton().asIconButton("map", color: .label)
             mapButton.addAction(UIAction(){ action in
-                self.delegate?.showLocationOnMap(coordinate: location.coordinate)
+                self.locationDelegate?.showLocationOnMap(coordinate: location.coordinate)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(mapButton, top: iconView.topAnchor, trailing: selectedButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
             
             let editButton = UIButton().asIconButton("magnifyingglass", color: .label)
             editButton.addAction(UIAction(){ action in
-                self.delegate?.editLocation(location: location)
+                self.locationDelegate?.editLocation(location: location)
             }, for: .touchDown)
             iconView.addSubviewWithAnchors(editButton, top: iconView.topAnchor, leading: iconView.leadingAnchor, trailing: mapButton.leadingAnchor, bottom: iconView.bottomAnchor, insets: iconInsets)
         }

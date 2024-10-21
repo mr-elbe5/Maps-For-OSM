@@ -10,16 +10,6 @@ import CoreLocation
 import E5Data
 import E5IOSUI
 
-
-protocol ActiveTrackDelegate{
-    func cancelActiveTrack()
-    func saveActiveTrack()
-}
-
-protocol TrackDelegate{
-    func trackChanged()
-}
-
 class TrackViewController: NavScrollViewController{
     
     var track: TrackItem
@@ -34,11 +24,7 @@ class TrackViewController: NavScrollViewController{
     var durationLabel = UILabel(text: "\("duration".localize()): 00:00")
     var trackpointsLabel = UILabel(text: "\("trackpoints".localize()): 0")
     
-    var mainViewController: MainViewController?{
-        navigationController?.rootViewController as? MainViewController
-    }
-    
-    var delegate: TrackDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     init(track: TrackItem){
         self.track = track
@@ -62,7 +48,7 @@ class TrackViewController: NavScrollViewController{
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "showOnMap", image: UIImage(systemName: "map"), primaryAction: UIAction(){ action in
             self.navigationController?.popToRootViewController(animated: true)
-            self.mainViewController?.showTrackOnMap(track: self.track)
+            self.trackDelegate?.showTrackOnMap(track: self.track)
         }))
         items.append(UIBarButtonItem(title: "export", image: UIImage(systemName: "square.and.arrow.up"), primaryAction: UIAction(){ action in
             self.exportTrack(item: self.track)
@@ -172,14 +158,14 @@ class TrackViewController: NavScrollViewController{
         track.name = nameEditField.text ?? "Tour"
         track.note = noteEditView.text ?? ""
         AppData.shared.save()
-        delegate?.trackChanged()
+        trackDelegate?.trackChanged()
     }
     
     func recalculate(){
         track.updateFromTrackpoints()
         AppData.shared.save()
         updateLabels()
-        delegate?.trackChanged()
+        trackDelegate?.trackChanged()
     }
     
 }

@@ -28,9 +28,9 @@ extension MainViewController: MainMenuDelegate, ActionMenuDelegate, MapMenuDeleg
         if let _ = AppData.shared.getLocation(coordinate: coordinate){
             return
         }
-        let location = AppData.shared.createLocation(coordinate: coordinate)
+        AppData.shared.createLocation(coordinate: coordinate)
         DispatchQueue.main.async {
-            self.locationAdded(location: location)
+            self.locationsChanged()
         }
     }
     
@@ -77,12 +77,14 @@ extension MainViewController: LocationLayerDelegate{
     func showLocationDetails(location: Location) {
         let controller = LocationViewController(location: location)
         controller.location = location
-        controller.delegate = self
+        controller.locationDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showGroupDetails(group: LocationGroup) {
         let controller = LocationGroupViewController(group: group)
+        controller.locationDelegate = self
+        controller.trackDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -13,6 +13,8 @@
 		4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98926E9FC67005A4A94 /* Assets.xcassets */; };
 		4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */; };
 		4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */; };
+		4E127FD52CC651D9008D912D /* LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E127FD42CC651D9008D912D /* LocationDelegate.swift */; };
+		4E127FD72CC65405008D912D /* TrackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E127FD62CC65405008D912D /* TrackDelegate.swift */; };
 		4E1359452C39718F007F8720 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1359442C39718F007F8720 /* CameraViewController.swift */; };
 		4E14AFBC2C442223005C5DB4 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14AFBB2C442223005C5DB4 /* LogViewController.swift */; };
 		4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E14AFBD2C442541005C5DB4 /* LogCell.swift */; };
@@ -336,6 +338,8 @@
 		4E0BD98C26E9FC67005A4A94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E0BD98E26E9FC67005A4A94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0BD9A126EA0159005A4A94 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		4E127FD42CC651D9008D912D /* LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDelegate.swift; sourceTree = "<group>"; };
+		4E127FD62CC65405008D912D /* TrackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDelegate.swift; sourceTree = "<group>"; };
 		4E1359442C39718F007F8720 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4E14AFBB2C442223005C5DB4 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		4E14AFBD2C442541005C5DB4 /* LogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
@@ -732,6 +736,7 @@
 				4E72514A2C42D46400EBA2BF /* LocationVideoCell.swift */,
 				4E89173E273688580046AC91 /* LocationViewController.swift */,
 				4E79FBB2275BCE67001F0481 /* Marker.swift */,
+				4E127FD42CC651D9008D912D /* LocationDelegate.swift */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -781,6 +786,7 @@
 		4E5124232BAAF8EA00A5B416 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				4E127FD62CC65405008D912D /* TrackDelegate.swift */,
 				4E1982C22BAB5A0700A37AE0 /* TrackCell.swift */,
 				4E2088DE27439C440097BFBA /* TrackLayerView.swift */,
 				4E1D0E16274B9C4600F3D584 /* TrackListViewController.swift */,
@@ -1450,6 +1456,7 @@
 				4ED7FFE72C7341AD0045DACB /* E5CameraViewController+Video.swift in Sources */,
 				4EECDD772C3A81790080241F /* SettingsViewController.swift in Sources */,
 				4ED7FF9D2C733B650045DACB /* LocatedItemsList.swift in Sources */,
+				4E127FD72CC65405008D912D /* TrackDelegate.swift in Sources */,
 				4EEF6F8428FAC5C500543EBA /* SearchViewController.swift in Sources */,
 				4ED7FF952C733B650045DACB /* CLPlacemark.swift in Sources */,
 				4ED7FF8F2C733B650045DACB /* CloudSynchronizer.swift in Sources */,
@@ -1526,6 +1533,7 @@
 				4E7251432C42D35B00EBA2BF /* LocationImageCell.swift in Sources */,
 				4E14AFBE2C442541005C5DB4 /* LogCell.swift in Sources */,
 				4E289ADF2CB26CC70012DBFE /* WatchConnector.swift in Sources */,
+				4E127FD52CC651D9008D912D /* LocationDelegate.swift in Sources */,
 				4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */,
 				4ED7FFF02C7342D80045DACB /* AVCaptureDevice+Audio.swift in Sources */,
 				4E1B81132732EDC5003ED6B0 /* TileLayerView.swift in Sources */,

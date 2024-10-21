@@ -22,6 +22,7 @@ open class AppData{
         }
     }
     
+    @discardableResult
     public func createLocation(coordinate: CLLocationCoordinate2D) -> Location{
         let location = addLocation(coordinate: coordinate)
         return location

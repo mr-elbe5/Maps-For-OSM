@@ -30,14 +30,11 @@ class ImageListViewController: NavTableViewController{
     let exportSelectedButton = UIButton().asIconButton("square.and.arrow.up", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
+    var locationDelegate: LocationDelegate? = nil
     var delegate: ImageCellDelegate? = nil
     
     var images = ImageList()
     var days = Array<Day>()
-    
-    var mainViewController: MainViewController?{
-        navigationController?.rootViewController as? MainViewController
-    }
     
     override open func loadView() {
         title = "images".localize()
@@ -167,7 +164,7 @@ class ImageListViewController: NavTableViewController{
             AppData.shared.save()
             self.images = AppData.shared.locations.images
             self.setupData()
-            self.mainViewController?.locationsChanged()
+            self.locationDelegate?.locationsChanged()
             self.tableView.reloadData()
         }
     }
@@ -216,7 +213,7 @@ extension ImageListViewController : ImageCellDelegate{
     
     func showLocationOnMap(coordinate: CLLocationCoordinate2D) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showLocationOnMap(coordinate: coordinate)
+        locationDelegate?.showLocationOnMap(coordinate: coordinate)
     }
     
     func viewImage(image: ImageItem) {

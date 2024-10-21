@@ -18,11 +18,8 @@ class TrackListViewController: NavTableViewController{
     let selectAllButton = UIButton().asIconButton("checkmark.square", color: .label)
     let deleteButton = UIButton().asIconButton("trash.square", color: .systemRed)
     
-    var locationDelegate: LocationCellDelegate? = nil
-    
-    var mainViewController: MainViewController?{
-        navigationController?.rootViewController as? MainViewController
-    }
+    var locationDelegate: LocationDelegate? = nil
+    var trackDelegate: TrackDelegate? = nil
     
     override open func loadView() {
         title = "trackList".localize()
@@ -123,7 +120,7 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: TrackListCell.LIST_CELL_IDENT, for: indexPath) as! TrackListCell
         let track = tracks.reversed()[indexPath.row]
         cell.track = track
-        cell.delegate = self
+        cell.trackDelegate = self
         cell.updateCell()
         return cell
     }
@@ -138,23 +135,19 @@ extension TrackListViewController: UITableViewDelegate, UITableViewDataSource{
     
 }
   
-extension TrackListViewController : TrackCellDelegate{
+extension TrackListViewController : TrackDelegate{
     
     func editTrack(track: TrackItem) {
         let controller = TrackViewController(track: track)
         controller.track = track
-        controller.delegate = self
+        controller.trackDelegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func showTrackOnMap(track: TrackItem) {
         navigationController?.popToRootViewController(animated: true)
-        mainViewController?.showTrackOnMap(track: track)
+        trackDelegate?.showTrackOnMap(track: track)
     }
-    
-}
-
-extension TrackListViewController : TrackDelegate{
     
     func trackChanged() {
         tableView.reloadData()
@@ -202,7 +195,7 @@ extension TrackListViewController : UIDocumentPickerDelegate{
             tableView.reloadData()
             DispatchQueue.main.async {
                 if newLocation{
-                    self.locationDelegate?.locationAdded(location: location!)
+                    self.locationDelegate?.locationsChanged()
                 }
                 else{
                     self.locationDelegate?.locationChanged(location: location!)
