@@ -1,6 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "aboutMapsForOSM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über Maps for OSM"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About Maps for OSM"
+          }
+        }
+      }
+    },
     "accept" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -103,6 +120,23 @@
         }
       }
     },
+    "addPlace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort markieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark Place"
+          }
+        }
+      }
+    },
     "addVideo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,6 +167,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show all Locations"
+          }
+        }
+      }
+    },
+    "allPlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Orte anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show all Places"
           }
         }
       }
@@ -239,6 +290,23 @@
         }
       }
     },
+    "audio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonaufnahme"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        }
+      }
+    },
     "audioCount" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -320,6 +388,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backup has been saved in 'Maps for OSM/backup'"
+          }
+        }
+      }
+    },
+    "camera" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kamera"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Camera"
           }
         }
       }
@@ -517,7 +602,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie diese Aufnahme löschen?"
+            "value" : "Willst Du diese Aufnahme löschen?"
           }
         },
         "en" : {
@@ -534,7 +619,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie dieses Bild löschen?"
+            "value" : "Willst Du dieses Bild löschen?"
           }
         },
         "en" : {
@@ -551,7 +636,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie die auswählten Bilder löschen?"
+            "value" : "Willst Du die auswählten Bilder löschen?"
           }
         },
         "en" : {
@@ -568,7 +653,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie alle ausgewählten Elemente löschen?"
+            "value" : "Willst Du alle ausgewählten Elemente löschen?"
           }
         },
         "en" : {
@@ -585,7 +670,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie diesen Ort mit allen Elementen löschen?"
+            "value" : "Willst Du diesen Ort mit allen Elementen löschen?"
           }
         },
         "en" : {
@@ -602,7 +687,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie alle ausgewählten Orte mit allen Elementen löschen?"
+            "value" : "Willst Du alle ausgewählten Orte mit allen Elementen löschen?"
           }
         },
         "en" : {
@@ -619,7 +704,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie alle geladenen Kartenkacheln löschen?"
+            "value" : "Willst Du alle geladenen Kartenkacheln löschen?"
           }
         },
         "en" : {
@@ -636,7 +721,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie diese Tour löschen?"
+            "value" : "Willst Du diese Tour löschen?"
           }
         },
         "en" : {
@@ -653,7 +738,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie alle ausgewählten Touren löschen?"
+            "value" : "Willst Du alle ausgewählten Touren löschen?"
           }
         },
         "en" : {
@@ -670,7 +755,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie dieses Video löschen?"
+            "value" : "Willst Du dieses Video löschen?"
           }
         },
         "en" : {
@@ -687,7 +772,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wollen Sie die ausgewählten Orte zusammenführen?"
+            "value" : "Willst Du die ausgewählten Orte zusammenführen?"
           }
         },
         "en" : {
@@ -698,7 +783,41 @@
         }
       }
     },
+    "confirmMergePlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willst Du die ausgewählten Orte zusammenführen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to merge the selected places?"
+          }
+        }
+      }
+    },
     "coordinate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koordinaten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coordinates"
+          }
+        }
+      }
+    },
+    "coordinates" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -868,6 +987,23 @@
         }
       }
     },
+    "creationDate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellungsdatum"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creation Date"
+          }
+        }
+      }
+    },
     "crossLocation" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -983,6 +1119,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Current Track"
+          }
+        }
+      }
+    },
+    "decreaseImageSize" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschauen kleiner"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decrease preview size"
           }
         }
       }
@@ -1242,6 +1395,23 @@
         }
       }
     },
+    "east" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ost"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "East"
+          }
+        }
+      }
+    },
     "edit" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1255,6 +1425,91 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit"
+          }
+        }
+      }
+    },
+    "editAudio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audioeintrag ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Audio"
+          }
+        }
+      }
+    },
+    "editImage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bildeintrag ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Image"
+          }
+        }
+      }
+    },
+    "editNote" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notiz ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Note"
+          }
+        }
+      }
+    },
+    "editTrack" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toureintrag ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Track"
+          }
+        }
+      }
+    },
+    "editVideo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Videoeintrag ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Video"
           }
         }
       }
@@ -1293,6 +1548,23 @@
         }
       }
     },
+    "elbe5TileURLHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Karte im Carto-Stil kommt von einem privaten Server des Autors."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This carto styled map come from a private server of the author"
+          }
+        }
+      }
+    },
     "elbe5TopoTileURL" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1306,6 +1578,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use Template for topographic tiles from Elbe5.de"
+          }
+        }
+      }
+    },
+    "elbe5TopoTileURLHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese topografische Karte kommt von einem privaten Server des Autors."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This topographic map comes from a private server of the author"
           }
         }
       }
@@ -1395,6 +1684,23 @@
         }
       }
     },
+    "exportSelectedImages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewählte Bilder exportieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export selected images"
+          }
+        }
+      }
+    },
     "fileOpenError" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1408,6 +1714,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The file could not be opened."
+          }
+        }
+      }
+    },
+    "fileSaveError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Datei konnte nicht gespeichert werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File could not be save."
           }
         }
       }
@@ -1548,6 +1871,176 @@
         }
       }
     },
+    "height" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Höhe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        }
+      }
+    },
+    "help" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
+    "helpGeneral" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allgemein"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "helpGeneralText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App ist eine Begleit-App für die mobile App \"Maps for OSM\", kann aber auch einzeln verwendet werden.\n\nSie zeigt OSM Karten aus wählbaren Quellen, kann Ortsmarkierungen setzen, Bilder, Tonaufnahmen, Videos und Notizen zuordnen und Touren im GPX-Format hinzufügen und editieren.\n\nSie hat eine Rasteransicht für zugeordnete Bilder und eine Diaschau für alle Medien.\n\nSie kann all dies über die iCloud oder Backup-Dateien mit der mobilen App synchronisieren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This app is a companion app for the mobile app \"Maps for OSM\", though it can also be used standalone.\n\nIt shows OSM maps from a selectable source, can set and edit Location markers, attach images, audios, videos and notes to locations, add and edit tracks in GPX format have a grid view and slideshow of attached images and other media.\n\nIt can synchronize all of that via iCloud or backup files with the mobile app."
+          }
+        }
+      }
+    },
+    "helpGrid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild-Raster"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image Grid"
+          }
+        }
+      }
+    },
+    "helpGridText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Rasteransicht zeigt alle Bilder, die Orten zugeordnet sind. Sie können dort selektiert (mehrere mit cmd + Maus), in der Diaschau angezeigt, ihr Ort auf der Karte angezeigt, ihre Bilddaten angesehen, exportiert oder gelöscht werden.\n\nDas Menü links von oben:\n- alle auswählen/abwählen\n- selektierte Bilder als Diaschau anzeigen\n- Bilder importieren (benötigen GPS-Daten)\n- selektierte Bilder exportieren\n- Rasterelemente vergrössern\n- Rasterelemente verkleinern\n"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The grid view shows all images which are attached to a location.\nThere they can be selected (more with cmd + mouse), displayed in the slideshow, show their location on the map, view image data, export or delete them.\n\nThe left menu from top:\n- select/deselect all\n- show selected images in the slideshow\n- import images (need GPS data)\n- export selected images\n- increase raster item size\n- decrease raster item size\n"
+          }
+        }
+      }
+    },
+    "helpMap" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
+          }
+        }
+      }
+    },
+    "helpMapText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Kartensicht zeigt Karten auf der Basis der ausgewählten Quelle (oberes Menü - Kartensymbol) an.\nSie kann verschoben und gezoomt werden, sowohl mit der Maus als auch mit den Plus- und Minus-Zeichen oben links.\n\nAuf der Karte werden markierte Orte und ggf. Touren angezeigt, wobei die Farben auf die Inhalte hinweisen: grün - keine Medien, rot mit Medien, blau - Tourbeginn, violett - Medien und Tour. Liegen mehrere Markierungen eng zusammen, wird diese Gruppe durch ein Icon mit drei Nadeln angezeigt. Diese kann man durch Hineinzoomen auflösen.\n\nAnklicken einer Markierung öffnet die Detailansicht rechts.\n\nEs können über die Detailansicht von Orten Touren auf der Karten angezeigt werden (Kartensymbol).\n\nWeiterhin kann über das blaue Kreuz in der Kartenmitte eine Markierung gesetzt, eine Notiz, ein Bild oder andere Medien hinzugefügt werden.\n\nDer rechte Teil der Kartenansicht zeigt Details einer Gruppe oder eines einzelnen Ortes mit ihren zugeordneten Elementen. Diese können dort im Detail oder auf der Karte angezeigt, editiert oder gelöscht werden.\n\nInsbesondere können auch Touren im GPX-Format importiert, editiert und exportiert werden (Bleistift-Symbol).\n\nDas Menü links von oben:\n- Hineinzoomen\n- Herauszoomen\n- Kreuz in der Kartenmitte einblenden/ausblenden \n- auf aktuelle Position zentrieren\n- Ansicht neu laden\n- angezeigte Tour ausblenden\n\nWenn auf der Karte ein Platzhalter erscheint (Zahnrad), dann wird dieser Teil der Karte noch geladen. Man kann das mit dem \"Neu laden\"-Knopf überprüfen. "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The map view shows maps on the basis of the selected source (top menu - map icon).\nIt can be scrolled, zoomed, as well using the mouse as using the plus and minus icons on the top left.\n\nOn the map marked locations are shown with pin icons in several colors: green - no media, red - with media, blue - track start, purple - media and track.\nIf several locations are too close, this group is shown with a triple pin icon. You can dissolve it by zooming in.\n\nClicking on a marker open the detail view on the right.\n\nUsing the detail view of locations you can show tracks which start there on the map (map icon).\n\nFurther, you can place a marker using the blue cross in the center of the map. There you can also add a note, an image or other media.\n\nThe right part of the map view shows details of a group or a single location with its attached items. These can can be viewed in detail or on the map, be edited or deleted.\n\nEspecially tracks in GPX format can be imported, viewed, edited and exported (pencil icon).\n\nThe left menu from the top:\n- zoom in\n- zoom out\n- show/hide the blue cross in the map center\n- refresh the map\n- hide a displayed track\n\nIf the map shows a placeholder (gear image), this part of the map is still loading. You may check this with the refresh button."
+          }
+        }
+      }
+    },
+    "helpPresenter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diashow"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slideshow"
+          }
+        }
+      }
+    },
+    "helpPresenterText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In der Diaschau kann mit den Pfeilen rechts und links zwischen den enthaltenen Bildern. Videos und Audios navigiert werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In the slideshow view you can navigate between the selected media with the arrows on the left and on the right."
+          }
+        }
+      }
+    },
     "hideLocations" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1561,6 +2054,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hide Location Markers"
+          }
+        }
+      }
+    },
+    "hideMe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Maps for OSM\" ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide this app"
+          }
+        }
+      }
+    },
+    "hideOthers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Andere ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide other apps"
+          }
+        }
+      }
+    },
+    "hidePlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markierte Orte ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Place Markers"
           }
         }
       }
@@ -1735,6 +2279,40 @@
         }
       }
     },
+    "imagesExportedWithErrors" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Bilder wurden nach 'Fotos' exportiert (%@ Fehler)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ images have been exported to 'Photos' (%@ errors)"
+          }
+        }
+      }
+    },
+    "imagesNotImported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Bilder wurden nicht importiert, da sie keine Koordinaten haben."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ images have not been imported, as they have no coordinates."
+          }
+        }
+      }
+    },
     "importFromPhotoLibrary" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1782,6 +2360,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import Tour from GPX file"
+          }
+        }
+      }
+    },
+    "increaseImageSize" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorschauen größer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Increase preview size"
           }
         }
       }
@@ -1850,6 +2445,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Found an interrupted Track"
+          }
+        }
+      }
+    },
+    "latitude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breite"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Latitude"
           }
         }
       }
@@ -1939,6 +2551,23 @@
         }
       }
     },
+    "locationDetails" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Positonsangaben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Details"
+          }
+        }
+      }
+    },
     "locationGroup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1979,7 +2608,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Die App darf deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen."
+            "value" : "Die App darf Deinen Standort nicht feststellen. Bitte ändere die entsprechenden Einstellungen."
           }
         },
         "en" : {
@@ -2041,6 +2670,23 @@
         }
       }
     },
+    "longitude" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Länge"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Longitude"
+          }
+        }
+      }
+    },
     "map" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2054,6 +2700,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Map"
+          }
+        }
+      }
+    },
+    "mapHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst Orte (Nadeln) auswählen, scrollen (linke Maustaste halten,  Mausrad oder Scrollbalken) und zoomen (opt-Taste und Mausrad oder linkes Menü). Wenn die Karte ein Zahnrad zeigt, wird dieser Teil noch geladen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can select locations (pins), scroll (hold left mouse button, use scroll wheel or scroll bars) zoom in and and out (opt key and scroll wheel or left menu). If the map shows a gear image, this part is still loading."
           }
         }
       }
@@ -2081,13 +2744,30 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "BITTE BEACHTEN! Wenn Sie Kartenkacheln vorladen, müssen Sie das Recht haben, Massendownloads von dem konfigurierten Server zu machen! "
+            "value" : "Hier kannst Du Kartenkacheln für den aktuell sichtbaren Kartenbereich und verschiedene Zoomebenen vorladen.\nBITTE BEACHTEN! Wenn Du viele Kartenkacheln vorlädst, müsst Du das Recht haben, Massendownloads von dem konfigurierten Server zu machen! "
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "PLEASE NOTE! When you preload map tiles, you must be sure to have rights for making mass downloads from the configured server!"
+            "value" : "Here you can preload map tiles for the currently visible map area for selected zoom levels.\nPLEASE NOTE! When you preload many map tiles, you must be sure to have rights for making mass downloads from the configured server!"
+          }
+        }
+      }
+    },
+    "mapsForOSMHelp" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hilfe"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
           }
         }
       }
@@ -2156,6 +2836,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Maximal Speed Uncertainty Factor"
+          }
+        }
+      }
+    },
+    "maxTrackpointInLineDeviation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximale Abweichung von Wegpunkten einer Linie [m]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximal Deviation for Trackpoints in Line [m]"
           }
         }
       }
@@ -2279,6 +2976,23 @@
         }
       }
     },
+    "mergeSelected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewählte Orte zusammenfassen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merge selected locations"
+          }
+        }
+      }
+    },
     "mergeToICloud" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2330,6 +3044,40 @@
         }
       }
     },
+    "minVerticalTrackpointDistance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimale Wegpunkt-Höhendifferenz [m]"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimal Trackpoint Height Difference [m]"
+          }
+        }
+      }
+    },
+    "moveToScreenCenter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort auf Bildschirmmitte (Kreuz) verschieben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move Place to Screen Center (Cross Position)"
+          }
+        }
+      }
+    },
     "name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2353,7 +3101,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tragen Sie bitte einen Namen oder eine Beschreibung für diese Tour ein."
+            "value" : "Trage bitte einen Namen oder eine Beschreibung für diese Tour ein."
           }
         },
         "en" : {
@@ -2404,13 +3152,30 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verbinden Sie sich bitte zuerst mit der iCloud in 'Einstellungen'."
+            "value" : "Verbinde Dich bitte zuerst mit der iCloud in 'Einstellungen'."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please connect to your iCloud account in 'Settings' first."
+          }
+        }
+      }
+    },
+    "north" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nord"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "North"
           }
         }
       }
@@ -2466,6 +3231,40 @@
         }
       }
     },
+    "notePlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nur Orte mit Notizen anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show only places with notes"
+          }
+        }
+      }
+    },
+    "numTrackpoints" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzahl Wegpunkte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Number of trackpoints"
+          }
+        }
+      }
+    },
     "ok" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2479,6 +3278,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ok"
+          }
+        }
+      }
+    },
+    "openBackup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sichern und Wiederherstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Backup and restore"
           }
         }
       }
@@ -2500,6 +3316,23 @@
         }
       }
     },
+    "openICloud" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud"
+          }
+        }
+      }
+    },
     "openLog" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2513,6 +3346,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Log"
+          }
+        }
+      }
+    },
+    "openPreferences" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferences"
+          }
+        }
+      }
+    },
+    "openTiles" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenquelle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map source"
           }
         }
       }
@@ -2547,6 +3414,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Use template for tiles from OpenStreetMap.org"
+          }
+        }
+      }
+    },
+    "osmTileURLHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Karte kommt vom offiziellen OSM Server."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This map comes from the official OSM server"
           }
         }
       }
@@ -2806,6 +3690,23 @@
         }
       }
     },
+    "quitMapsForOSM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"Maps for OSM\" beenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit \"Maps for OSM\""
+          }
+        }
+      }
+    },
     "radiusRegion" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2870,6 +3771,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recalculate Tiles"
+          }
+        }
+      }
+    },
+    "refresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu laden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
           }
         }
       }
@@ -3095,6 +4013,23 @@
         }
       }
     },
+    "saveRecordedTour" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufgezeichnete Tour speichern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save recorded Tour"
+          }
+        }
+      }
+    },
     "saveTrack" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3118,7 +4053,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Auf dem Vorschaufenster kannst du einen Punkt antippen, um Fokus und Belichtung für diesen Punkt zu optimieren. Du kannst auch mit zwei Fingern zoomen (Software-Zoom)."
+            "value" : "Auf dem Vorschaufenster kannst Du einen Punkt antippen, um Fokus und Belichtung für diesen Punkt zu optimieren. Du kannst auch mit zwei Fingern zoomen (Software-Zoom)."
           }
         },
         "en" : {
@@ -3197,19 +4132,53 @@
         }
       }
     },
+    "selectedTrackpoint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selektierter Wegpunkt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected Trackpoint"
+          }
+        }
+      }
+    },
     "selectSmallerRegion" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bitte wählen Sie eine kleinere Region"
+            "value" : "Bitte wähle eine kleinere Region"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please select a smaller region"
+          }
+        }
+      }
+    },
+    "services" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dienste"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Services"
           }
         }
       }
@@ -3265,6 +4234,23 @@
         }
       }
     },
+    "showImageList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Bilder..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Images..."
+          }
+        }
+      }
+    },
     "showLocations" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3299,6 +4285,74 @@
         }
       }
     },
+    "showPlaceList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Orte..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Places..."
+          }
+        }
+      }
+    },
+    "showPlaces" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Markierte Orte anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Place Markers"
+          }
+        }
+      }
+    },
+    "showSelectedImages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ausgewählte Bilder anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show selected images"
+          }
+        }
+      }
+    },
+    "showTrackList" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle aufgezeichneten Touren..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All recorded Tracks..."
+          }
+        }
+      }
+    },
     "showTrackpoints" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3312,6 +4366,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show single trackpoints on track"
+          }
+        }
+      }
+    },
+    "simplifyByDistance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vereinfachen - min.Abstand [m]:"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simplify - min. distance[m]:"
+          }
+        }
+      }
+    },
+    "sizeToLoad" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gesamtgröße zu ladender Kacheln (ca):"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Size to load"
+          }
+        }
+      }
+    },
+    "slideshow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diashow"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slideshow"
+          }
+        }
+      }
+    },
+    "south" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Süd"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "South"
           }
         }
       }
@@ -3537,6 +4659,23 @@
         }
       }
     },
+    "tiles" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenkacheln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map tiles"
+          }
+        }
+      }
+    },
     "tileSource" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3639,13 +4778,30 @@
         }
       }
     },
+    "toggleCross" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blende des Kreuz-Knopf in der Kartenmitte ein oder aus."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show or hide cross button in the map center."
+          }
+        }
+      }
+    },
     "tooManyTiles" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sie haben zu viele Kartenkacheln angefragt (mehr als %@). Versuchen Sie es bitte mit einer kleineren Region oder tieferen/weniger Zoom-Ebenen."
+            "value" : "Du hast zu viele Kartenkacheln angefragt (mehr als %@). Versuche es bitte mit einer kleineren Region oder tieferen/weniger Zoom-Ebenen."
           }
         },
         "en" : {
@@ -3690,6 +4846,23 @@
         }
       }
     },
+    "trackEditorHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du kannst Punkte auf der Karte auswählen (mehrere mit cmd), um sie zu löschen (rotes Icon oben), Punkte bewegen (Zeiten werden nicht verändert) oder die ganze Tour vereinfachen, indem ein minimaler Abstand zwischen zwei Punkten gesetzt wird."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can select points on the map (more with cmd) for deleting (red icon on top), you can move points on the map (timestamps are not changed) or you can simplify the whole track by setting a minimum distance between points."
+          }
+        }
+      }
+    },
     "trackList" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3720,6 +4893,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Track: "
+          }
+        }
+      }
+    },
+    "trackName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour am %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tour on %@"
           }
         }
       }
@@ -3945,6 +5135,23 @@
         }
       }
     },
+    "urlTemplateHint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese URL wird für das Laden von Kartenkacheln benötigt. Sie hat das Format [server]/{z}/{x}/{y}.png"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This url template is used for loading map tiles. It needs the format [server]/{z}/{x}/{y}.png"
+          }
+        }
+      }
+    },
     "useICloud" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3992,6 +5199,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vertical Uncertainty"
+          }
+        }
+      }
+    },
+    "video" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video"
           }
         }
       }
@@ -4047,6 +5271,57 @@
         }
       }
     },
+    "west" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "West"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "West"
+          }
+        }
+      }
+    },
+    "width" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breite"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Width"
+          }
+        }
+      }
+    },
+    "window" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fenster"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Window"
+          }
+        }
+      }
+    },
     "yes" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4081,6 +5356,23 @@
         }
       }
     },
+    "zoomIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hineinzoomen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom in"
+          }
+        }
+      }
+    },
     "zoomIndicator" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4094,6 +5386,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The text below the mode selector shows the current zoom factor. This is the software zoom created by pinching the preview screen. It creates a photo or video from a reduced area of the sensor blown up to full size."
+          }
+        }
+      }
+    },
+    "zoomLevel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoomebene"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom level"
+          }
+        }
+      }
+    },
+    "zoomOut" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herauszoomen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zoom out"
           }
         }
       }

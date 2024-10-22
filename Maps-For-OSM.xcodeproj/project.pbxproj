@@ -35,7 +35,6 @@
 		4E1D0E22274C21CD00F3D584 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */; };
 		4E1D0E24274C223C00F3D584 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1D0E23274C223C00F3D584 /* LocationCell.swift */; };
 		4E2088DF27439C440097BFBA /* TrackLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2088DE27439C440097BFBA /* TrackLayerView.swift */; };
-		4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579012B99C26700481B23 /* Localizable.xcstrings */; };
 		4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */; };
 		4E2579132B9DB5B200481B23 /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579102B9DB5B200481B23 /* Base.xcstrings */; };
 		4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
@@ -61,6 +60,8 @@
 		4E4798832C060CDE00B49506 /* ICloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4798822C060CDE00B49506 /* ICloudViewController.swift */; };
 		4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */; };
 		4E4814422C91C98D0031DAAB /* MapStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4814412C91C98D0031DAAB /* MapStatusView.swift */; };
+		4E48718A2CC7A3F900E1C628 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E4871892CC7A3F900E1C628 /* Localizable.xcstrings */; };
+		4E48718B2CC7AA4500E1C628 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E4871892CC7A3F900E1C628 /* Localizable.xcstrings */; };
 		4E4B0A2E2BACA34800838EC0 /* ActionMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */; };
 		4E4B0A302BAD803D00838EC0 /* MainViewController+Cloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */; };
 		4E4B0A362BAECA2300838EC0 /* NoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */; };
@@ -285,7 +286,6 @@
 		4EEA67C32C71E493005C459C /* LocationLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67672C71E493005C459C /* LocationLayerView.swift */; };
 		4EEA67C42C71E493005C459C /* LocationMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67682C71E493005C459C /* LocationMarker.swift */; };
 		4EEA67C52C71E493005C459C /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67692C71E493005C459C /* Marker.swift */; };
-		4EEA67C62C71E493005C459C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA676B2C71E493005C459C /* Localizable.xcstrings */; };
 		4EEA67C72C71E493005C459C /* CrossLocationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA676C2C71E493005C459C /* CrossLocationMenu.swift */; };
 		4EEA67C82C71E493005C459C /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA676D2C71E493005C459C /* MapDetailView.swift */; };
 		4EEA67C92C71E493005C459C /* MapMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA676E2C71E493005C459C /* MapMenuView.swift */; };
@@ -360,7 +360,6 @@
 		4E1D0E21274C21CD00F3D584 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		4E1D0E23274C223C00F3D584 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		4E2088DE27439C440097BFBA /* TrackLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackLayerView.swift; sourceTree = "<group>"; };
-		4E2579012B99C26700481B23 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		4E2579052B99C3AF00481B23 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		4E2579102B9DB5B200481B23 /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
@@ -372,6 +371,7 @@
 		4E4798822C060CDE00B49506 /* ICloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ICloudViewController.swift; sourceTree = "<group>"; };
 		4E48143F2C918FAA0031DAAB /* EditTrackMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTrackMenuView.swift; sourceTree = "<group>"; };
 		4E4814412C91C98D0031DAAB /* MapStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStatusView.swift; sourceTree = "<group>"; };
+		4E4871892CC7A3F900E1C628 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4E4B0A2D2BACA34800838EC0 /* ActionMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMenuView.swift; sourceTree = "<group>"; };
 		4E4B0A2F2BAD803D00838EC0 /* MainViewController+Cloud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+Cloud.swift"; sourceTree = "<group>"; };
 		4E4B0A352BAECA2300838EC0 /* NoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewController.swift; sourceTree = "<group>"; };
@@ -546,7 +546,6 @@
 		4EEA67672C71E493005C459C /* LocationLayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationLayerView.swift; sourceTree = "<group>"; };
 		4EEA67682C71E493005C459C /* LocationMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationMarker.swift; sourceTree = "<group>"; };
 		4EEA67692C71E493005C459C /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
-		4EEA676B2C71E493005C459C /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4EEA676C2C71E493005C459C /* CrossLocationMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossLocationMenu.swift; sourceTree = "<group>"; };
 		4EEA676D2C71E493005C459C /* MapDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
 		4EEA676E2C71E493005C459C /* MapMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapMenuView.swift; sourceTree = "<group>"; };
@@ -666,7 +665,7 @@
 				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
-				4E2579012B99C26700481B23 /* Localizable.xcstrings */,
+				4E4871892CC7A3F900E1C628 /* Localizable.xcstrings */,
 				4ED5FC442BBDA98B00E96EBB /* PrivacyInfo.xcprivacy */,
 				4E0BD98E26E9FC67005A4A94 /* Info.plist */,
 				4E0BD98B26E9FC67005A4A94 /* LaunchScreen.storyboard */,
@@ -1024,7 +1023,6 @@
 				4EEA67402C71E493005C459C /* PrivacyInfo.xcprivacy */,
 				4EEA67612C71E493005C459C /* Info.xcstrings */,
 				4EEA67122C71E493005C459C /* InfoPlist.xcstrings */,
-				4EEA676B2C71E493005C459C /* Localizable.xcstrings */,
 				4EEA67552C71E493005C459C /* Application */,
 				4EEA670C2C71E493005C459C /* Audio */,
 				4EEA67602C71E493005C459C /* iCloud */,
@@ -1374,9 +1372,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E48718A2CC7A3F900E1C628 /* Localizable.xcstrings in Resources */,
 				4E0BD98D26E9FC67005A4A94 /* LaunchScreen.storyboard in Resources */,
 				4E2579042B99C27C00481B23 /* InfoPlist.xcstrings in Resources */,
-				4E2579022B99C26700481B23 /* Localizable.xcstrings in Resources */,
 				4ED5FC452BBDA98B00E96EBB /* PrivacyInfo.xcprivacy in Resources */,
 				4E0BD98A26E9FC67005A4A94 /* Assets.xcassets in Resources */,
 				4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */,
@@ -1401,9 +1399,9 @@
 			files = (
 				4EEA67BD2C71E493005C459C /* Info.xcstrings in Resources */,
 				4EEA67002C71E255005C459C /* Assets.xcassets in Resources */,
+				4E48718B2CC7AA4500E1C628 /* Localizable.xcstrings in Resources */,
 				4E289AC22CB1A1400012DBFE /* Base.xcstrings in Resources */,
 				4EEA677B2C71E493005C459C /* InfoPlist.xcstrings in Resources */,
-				4EEA67C62C71E493005C459C /* Localizable.xcstrings in Resources */,
 				4EEA67A22C71E493005C459C /* PrivacyInfo.xcprivacy in Resources */,
 				4E289AC62CB1A1560012DBFE /* Location.xcstrings in Resources */,
 				4E289AC42CB1A14A0012DBFE /* Camera.xcstrings in Resources */,
