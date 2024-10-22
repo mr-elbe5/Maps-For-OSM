@@ -16,12 +16,17 @@ class TilePreloadViewController: NavScrollViewController{
     var mapRegion: TileRegion? = nil
     
     var downloadQueue : OperationQueue?
+    var uploadQueue : OperationQueue?
     
     var allTiles = 0
     var existingTiles = 0
     var errors = 0
     
+    var uploadedTiles = 0
+    var uploadErrors = 0
+    
     var tiles = [MapTile]()
+    var watchTiles = [MapTile]()
     
     var minZoomControl = UISegmentedControl()
     var maxZoomControl = UISegmentedControl()
@@ -188,7 +193,15 @@ class TilePreloadViewController: NavScrollViewController{
     }
     
     func updateSliderValue(){
-        progressView.progress = Float(existingTiles + errors)/Float(allTiles)
+        if allTiles != 0{
+            progressView.progress = Float(existingTiles + errors)/Float(allTiles)
+        }
+    }
+    
+    func updateWatchSliderValue(){
+        if watchTiles.count != 0{
+            watchProgressView.progress = Float(uploadedTiles + uploadErrors)/Float(watchTiles.count)
+        }
     }
     
     func recalculateTiles(){
@@ -238,6 +251,26 @@ class TilePreloadViewController: NavScrollViewController{
         stopSpinner(spinner)
     }
     
+    func recalculateWatchTiles(){
+        watchTiles.removeAll()
+        if let region = mapRegion{
+            reset()
+            for zoom in region.tiles.keys{
+                if zoom < minZoom || zoom > maxZoom{
+                    continue
+                }
+                if let tileSet = region.tiles[zoom]{
+                    for x in tileSet.minX...tileSet.maxX{
+                        for y in tileSet.minY...tileSet.maxY{
+                            let tile = MapTile(zoom: zoom, x: x, y: y)
+                            watchTiles.append(tile)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func startDownload(){
         if tiles.isEmpty{
             return
@@ -266,8 +299,23 @@ class TilePreloadViewController: NavScrollViewController{
     }
     
     func startWatchUpload(){
-        if WatchConnector.shared.isWatchConnected, !tiles.isEmpty{
-            
+        if WatchConnector.shared.isWatchConnected{
+            recalculateWatchTiles()
+            uploadedTiles = 0
+            uploadErrors = 0
+            uploadQueue = OperationQueue()
+            uploadQueue!.name = "uploadQueue"
+            uploadQueue!.maxConcurrentOperationCount = 1
+            watchTiles.forEach { tile in
+                if let data = FileManager.default.readFile(url: tile.fileUrl){
+                    let operation = TileUploadOperation(tile: tile, data:data)
+                    operation.delegate = self
+                    uploadQueue!.addOperation(operation)
+                }
+                else{
+                    uploadWithError()
+                }
+            }
         }
     }
     
@@ -300,6 +348,30 @@ extension TilePreloadViewController: DownloadDelegate{
     }
     
     private func checkCompletion(){
+        if existingTiles + errors == allTiles{
+            enableDownload(true)
+            downloadQueue?.cancelAllOperations()
+            downloadQueue = nil
+        }
+    }
+    
+}
+
+extension TilePreloadViewController: UploadDelegate{
+    
+    func uploadSucceeded() {
+        uploadedTiles += 1
+        updateWatchSliderValue()
+        checkWatchCompletion()
+    }
+    
+    func uploadWithError() {
+        uploadErrors += 1
+        updateWatchSliderValue()
+        checkWatchCompletion()
+    }
+    
+    private func checkWatchCompletion(){
         if existingTiles + errors == allTiles{
             enableDownload(true)
             downloadQueue?.cancelAllOperations()

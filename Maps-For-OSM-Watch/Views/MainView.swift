@@ -90,7 +90,7 @@ struct MainView: View {
     
     func refresh(){
         if let location = LocationManager.shared.location{
-            locationStatus.location = LocationManager.shared.location
+            locationStatus.location = location
             locationStatus.update()
         }
     }

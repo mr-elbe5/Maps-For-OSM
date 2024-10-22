@@ -73,13 +73,13 @@ class MainViewController: NavViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        startCoordinate = (AppState.shared as! AppState).coordinate
+        startCoordinate = AppState.shared.coordinate
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let coord = startCoordinate{
-            (AppState.shared as! AppState).coordinate = coord
+            AppState.shared.coordinate = coord
             mapView.setStartLocation()
             startCoordinate = nil
         }

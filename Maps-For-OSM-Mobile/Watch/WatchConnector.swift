@@ -23,6 +23,27 @@ class WatchConnector: NSObject, ObservableObject {
         session.isReachable && session.isPaired
     }
     
+    func sendTile(_ tile: MapTile, data: Data, completion: @escaping (Bool) -> Void) {
+        session.sendMessage([
+            "request": "tileUpload",
+            "zoom": tile.zoom,
+            "x": tile.x,
+            "y": tile.y,
+            "data": data as Any
+        ], replyHandler: {response in
+            DispatchQueue.main.async {
+                if let success = response["success"] as? Bool {
+                    completion(success)
+                }
+                else{
+                    completion(false)
+                }
+            }
+        }) { error in
+            Log.error("error sending tile: \(error)")
+        }
+    }
+    
 }
 
 extension WatchConnector: WCSessionDelegate {

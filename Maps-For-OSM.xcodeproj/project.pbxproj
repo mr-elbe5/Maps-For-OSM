@@ -99,6 +99,8 @@
 		4EB1271F2CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB127202CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB127212CC53B6C00F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
+		4EB127832CC7F66300F84ADB /* TileUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */; };
+		4EB127842CC7F66300F84ADB /* TileUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */; };
 		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
 		4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */; };
 		4EB694632C3EAF240058BAD0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694622C3EAF240058BAD0 /* Zip */; };
@@ -405,6 +407,7 @@
 		4E89173E273688580046AC91 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4EA30CF52C37F706002EA622 /* TrackRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackRecorder.swift; sourceTree = "<group>"; };
 		4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Tiles.swift"; sourceTree = "<group>"; };
+		4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileUploadOperation.swift; sourceTree = "<group>"; };
 		4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		4ECC1ACB2BA2FB3300B9CCBD /* LocationGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationGroupViewController.swift; sourceTree = "<group>"; };
 		4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSourceController.swift; sourceTree = "<group>"; };
@@ -957,6 +960,7 @@
 		4ED7FF752C733B650045DACB /* Tile */ = {
 			isa = PBXGroup;
 			children = (
+				4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */,
 				4ED7FF702C733B650045DACB /* DrawTile.swift */,
 				4ED7FF712C733B650045DACB /* MapTile.swift */,
 				4ED7FF722C733B650045DACB /* TileDownloadOperation.swift */,
@@ -1492,6 +1496,7 @@
 				4E1B81122732EDC5003ED6B0 /* CurrentLocationView.swift in Sources */,
 				4ED7FFE82C7341AD0045DACB /* PreviewView.swift in Sources */,
 				4E0BD9A926EA0159005A4A94 /* ImageViewController.swift in Sources */,
+				4EB127832CC7F66300F84ADB /* TileUploadOperation.swift in Sources */,
 				4ECC1ACC2BA2FB3300B9CCBD /* LocationGroupViewController.swift in Sources */,
 				4ED7FF8B2C733B650045DACB /* CKContainer.swift in Sources */,
 				4EF4771A2941EED600294B21 /* AudioPlayerView.swift in Sources */,
@@ -1650,6 +1655,7 @@
 				4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */,
 				4EEA679E2C71E493005C459C /* NSMenuItem.swift in Sources */,
 				4EEA679C2C71E493005C459C /* Insets.swift in Sources */,
+				4EB127842CC7F66300F84ADB /* TileUploadOperation.swift in Sources */,
 				4ED7FF862C733B650045DACB /* Preferences.swift in Sources */,
 				4EEA67882C71E493005C459C /* RadioGroup.swift in Sources */,
 				4EEA67B92C71E493005C459C /* TrackCellView.swift in Sources */,
