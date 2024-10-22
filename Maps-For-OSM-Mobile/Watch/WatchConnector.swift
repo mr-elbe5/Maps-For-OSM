@@ -4,7 +4,7 @@ import UIKit
 
 class WatchConnector: NSObject, ObservableObject {
     
-    static let instance = WatchConnector()
+    static let shared = WatchConnector()
     
     var session = WCSession.default
 
@@ -17,6 +17,10 @@ class WatchConnector: NSObject, ObservableObject {
         session.activate()
         Log.info("watch session is reachable: \(session.isReachable)")
         Log.info("watch session is paired: \(session.isPaired)")
+    }
+    
+    var isWatchConnected: Bool {
+        session.isReachable && session.isPaired
     }
     
 }

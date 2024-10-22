@@ -49,7 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         LocationService.shared.serviceDelegate = mainViewController
         LocationService.shared.requestWhenInUseAuthorization()
-        WatchConnector.instance.start()
+        WatchConnector.shared.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

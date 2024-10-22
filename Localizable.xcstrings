@@ -4540,6 +4540,23 @@
         }
       }
     },
+    "startWatchUpload" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geladene Kacheln auf Uhr hochladen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload loaded tiles to watch"
+          }
+        }
+      }
+    },
     "streetTarget" : {
       "extractionState" : "manual",
       "localizations" : {

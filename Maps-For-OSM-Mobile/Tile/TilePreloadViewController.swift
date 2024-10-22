@@ -41,7 +41,9 @@ class TilePreloadViewController: NavScrollViewController{
     
     var errorsValueLabel = UILabel()
     
-    var deleteButton = UIButton()
+    var startWatchUploadButton = UIButton()
+    
+    var watchProgressView = UIProgressView()
     
     override func loadView() {
         title = "mapPreload".localize()
@@ -146,7 +148,25 @@ class TilePreloadViewController: NavScrollViewController{
         errorsInfo.text = "unloadedTiles".localize()
         contentView.addSubviewWithAnchors(errorsInfo, top: progressView.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
-        contentView.addSubviewWithAnchors(errorsValueLabel, top: progressView.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(errorsValueLabel, top: progressView.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
+        
+        if WatchConnector.shared.isWatchConnected{
+            startWatchUploadButton.setTitle("startWatchUpload".localize(), for: .normal)
+            startWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
+            startWatchUploadButton.setTitleColor(.systemGray, for: .disabled)
+            startWatchUploadButton.addAction(UIAction(){ action in
+                self.startWatchUpload()
+            }, for: .touchDown)
+            contentView.addSubviewWithAnchors(startWatchUploadButton, top: errorsValueLabel.bottomAnchor, insets: defaultInsets)
+                .centerX(contentView.centerXAnchor)
+            
+            watchProgressView.progress = 0
+            contentView.addSubviewWithAnchors(watchProgressView, top: startWatchUploadButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+            
+        }
+        else{
+            errorsValueLabel.bottom(contentView.bottomAnchor)
+        }
         
         enableCalculation(true)
         enableDownload(false)
@@ -243,6 +263,12 @@ class TilePreloadViewController: NavScrollViewController{
         reset()
         enableDownload(true)
         enableCalculation(true)
+    }
+    
+    func startWatchUpload(){
+        if WatchConnector.shared.isWatchConnected, !tiles.isEmpty{
+            
+        }
     }
     
     func enableCalculation(_ flag: Bool){
