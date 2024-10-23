@@ -66,9 +66,16 @@ extension WatchConnector: WCSessionDelegate {
     }
     
     func session(_: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
-        Log.debug("didReceiveMessage: \(message)")
         if let request = message["request"] as? String {
+            Log.debug("didReceiveRequest: \(request)")
             switch request {
+            case "location":
+                if let location = LocationService.shared.location {
+                    replyHandler(["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude, "altitude": location.altitude])
+                }
+                else{
+                    replyHandler([:])
+                }
             case "tileImageData":
                 let zoom = message["zoom"] as? Int ?? 0
                 let x = message["x"] as? Int ?? 0
@@ -81,6 +88,9 @@ extension WatchConnector: WCSessionDelegate {
                     TileProvider.shared.loadTileImage(tile: mapTile, template: Preferences.shared.urlTemplate) { success in
                         if let data = mapTile.imageData {
                             replyHandler(["imageData": data as Any])
+                        }
+                        else{
+                            replyHandler([:])
                         }
                     }
                 }

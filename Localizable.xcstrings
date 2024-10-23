@@ -5344,14 +5344,14 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kartenkacheln für die Uhr"
+            "state" : "needs_review",
+            "value" : "Kartenkacheln für die Apple Watch"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Watch Uploads"
+            "value" : "Map Tiles for Apple Watch"
           }
         }
       }

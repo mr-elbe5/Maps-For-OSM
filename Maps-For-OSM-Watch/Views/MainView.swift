@@ -93,6 +93,12 @@ struct MainView: View {
             locationStatus.location = location
             locationStatus.update()
         }
+        else{
+            PhoneConnector.instance.requestLocation( completion: { location in
+                locationStatus.location = location
+                locationStatus.update()
+            })
+        }
     }
     
     func saveFrame(_ rect: CGRect) -> Bool{

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreLocation
 import WatchConnectivity
 
 @Observable class PhoneConnector: NSObject {
@@ -20,6 +21,32 @@ import WatchConnectivity
         super.init()
         session?.delegate = self
         session?.activate()
+    }
+    
+    func requestLocation(completion: @escaping (CLLocation?) -> Void) {
+        print("watch requesting tile image data from phone")
+        let request = [
+            "request": "location",
+        ] as [String : Any]
+        session?.sendMessage(
+            request,
+            replyHandler: { response in
+                DispatchQueue.main.async {
+                    if let latitude = response["latitude"] as? Double, let longitude = response["longitude"] as? Double, let altitude = response["altitude"] as? Double {
+                        print("watch got location from phone")
+                        let location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())
+                        completion(location)
+                    }
+                    else{
+                        completion(nil)
+                    }
+                }
+            },
+            errorHandler: { error in
+                print("error requesting location:", error)
+                completion(nil)
+            }
+        )
     }
 
     func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {

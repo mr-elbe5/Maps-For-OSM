@@ -14,6 +14,12 @@ struct ContentView: View {
     var body: some View {
         TabView(){
             MainView()
+                .onAppear() {
+                    PhoneConnector.instance.requestLocation( completion: { location in
+                        LocationStatus.shared.location = location
+                        LocationStatus.shared.update()
+                    })
+                }
             TrackView()
             PreferencesView()
         }

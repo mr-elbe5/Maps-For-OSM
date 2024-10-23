@@ -33,10 +33,11 @@ open class TileUploadOperation : AsyncOperation, @unchecked Sendable {
     }
     
     override public func startExecution(){
-        Log.debug("TilUploadOperation starting upload of \(tile.shortDescription)")
+        Log.debug("TileUploadOperation starting upload of \(tile.shortDescription)")
         WatchConnector.shared.sendTile(tile, data: data){ success in
             if success{
                 DispatchQueue.main.async { [self] in
+                    Log.error("TileUploadOperation succeeded")
                     delegate?.uploadSucceeded()
                 }
             }
