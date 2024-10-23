@@ -89,7 +89,7 @@ extension PhoneConnector: WCSessionDelegate {
     }
     
     func session(_: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
-        print("didReceiveMessage: \(message)")
+        print("didReceiveMessage: \(message["request"] as? String ?? "")")
         if let request = message["request"] as? String {
             switch request {
             case "tileUpload":

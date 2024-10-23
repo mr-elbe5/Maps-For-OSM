@@ -38,7 +38,6 @@ class TilePreloadViewController: NavScrollViewController{
     var existingTilesValueLabel = UILabel()
     var tilesToLoadValueLabel = UILabel()
     
-    let calculateButton = UIButton()
     var startButton = UIButton()
     var cancelButton = UIButton()
     
@@ -47,6 +46,7 @@ class TilePreloadViewController: NavScrollViewController{
     var errorsValueLabel = UILabel()
     
     var startWatchUploadButton = UIButton()
+    var cancelWatchUploadButton = UIButton()
     
     var watchProgressView = UIProgressView()
     
@@ -71,6 +71,7 @@ class TilePreloadViewController: NavScrollViewController{
         contentView.addSubviewWithAnchors(note, top: contentView.topAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let sourceLabel = UILabel()
+        sourceLabel.numberOfLines = 0
         sourceLabel.text = "\("currentTileSource:".localize())\n\(Preferences.shared.urlTemplate)"
         contentView.addSubviewWithAnchors(sourceLabel, top: note.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
@@ -81,13 +82,13 @@ class TilePreloadViewController: NavScrollViewController{
         let segSize = World.maxZoom - World.minZoom
         for i: Int in 0...segSize{
             minZoomControl.insertSegment(action: UIAction(){ action in
-                self.enableCalculation(true)
                 self.enableDownload(false)
                 self.minZoom = i + World.minZoom
+                self.recalculateTiles()
             }, at: i, animated: false)
             minZoomControl.setTitle(String(i + World.minZoom), forSegmentAt: i)
         }
-        minZoomControl.selectedSegmentIndex = 0
+        minZoomControl.selectedSegmentIndex = minZoom - World.minZoom
         contentView.addSubviewWithAnchors(minZoomControl, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         label = UILabel()
@@ -96,27 +97,19 @@ class TilePreloadViewController: NavScrollViewController{
         
         for i: Int in 0...segSize{
             maxZoomControl.insertSegment(action: UIAction(){ action in
-                self.enableCalculation(true)
                 self.enableDownload(false)
                 self.maxZoom = i + World.minZoom
+                self.recalculateTiles()
             }, at: i, animated: false)
             maxZoomControl.setTitle(String(i + World.minZoom), forSegmentAt: i)
         }
-        maxZoomControl.selectedSegmentIndex = 0
+        maxZoomControl.selectedSegmentIndex = maxZoom - World.minZoom
         contentView.addSubviewWithAnchors(maxZoomControl, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
-        
-        calculateButton.setTitle("recalculateTiles".localize(), for: .normal)
-        calculateButton.setTitleColor(.systemBlue, for: .normal)
-        calculateButton.setTitleColor(.systemGray, for: .disabled)
-        calculateButton.addAction(UIAction(){ action in
-            self.recalculateTiles()
-        }, for: .touchDown)
-        contentView.addSubviewWithAnchors(calculateButton, top: maxZoomControl.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
         let allTilesLabel = UILabel()
         allTilesLabel.text = "allTilesForDownload".localize()
-        contentView.addSubviewWithAnchors(allTilesLabel, top: calculateButton.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        contentView.addSubviewWithAnchors(allTilesValueLabel, top: calculateButton.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(allTilesLabel, top: maxZoomControl.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(allTilesValueLabel, top: maxZoomControl.bottomAnchor, leading: allTilesLabel.trailingAnchor, insets: defaultInsets)
         
         let existingTilesLabel = UILabel()
         existingTilesLabel.text = "existingTiles".localize()
@@ -155,6 +148,22 @@ class TilePreloadViewController: NavScrollViewController{
         errorsValueLabel.text = String(errors)
         contentView.addSubviewWithAnchors(errorsValueLabel, top: progressView.bottomAnchor, leading: errorsInfo.trailingAnchor, insets: defaultInsets)
         
+        let watchHeader = UILabel(header: "watchUploadArea".localize())
+        contentView.addSubviewWithAnchors(watchHeader)
+        watchHeader.setAnchors(top: errorsInfo.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        
+        let watchInfo = UILabel(text: "watchUploadInfo".localize())
+        watchInfo.numberOfLines = 0
+        contentView.addSubviewWithAnchors(watchInfo)
+        watchInfo.setAnchors(top: watchHeader.bottomAnchor, leading: contentView.leadingAnchor,trailing: contentView.trailingAnchor, insets: defaultInsets)
+        
+        label = UILabel(text: "watchStatus".localizeWithColon())
+        contentView.addSubviewWithAnchors(label)
+        label.setAnchors(top: watchInfo.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
+        let watchStatus = UILabel(text: WatchConnector.shared.isWatchConnected ? "connected".localize() : "disconnected".localize())
+        contentView.addSubviewWithAnchors(watchStatus)
+        watchStatus.setAnchors(top: watchInfo.bottomAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+        
         if WatchConnector.shared.isWatchConnected{
             startWatchUploadButton.setTitle("startWatchUpload".localize(), for: .normal)
             startWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
@@ -162,18 +171,27 @@ class TilePreloadViewController: NavScrollViewController{
             startWatchUploadButton.addAction(UIAction(){ action in
                 self.startWatchUpload()
             }, for: .touchDown)
-            contentView.addSubviewWithAnchors(startWatchUploadButton, top: errorsValueLabel.bottomAnchor, insets: defaultInsets)
+            contentView.addSubviewWithAnchors(startWatchUploadButton, top: label.bottomAnchor, insets: defaultInsets)
+                .centerX(contentView.centerXAnchor)
+            
+            cancelWatchUploadButton.setTitle("cancel".localize(), for: .normal)
+            cancelWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
+            cancelWatchUploadButton.setTitleColor(.systemGray, for: .disabled)
+            cancelWatchUploadButton.addAction(UIAction(){ action in
+                self.cancelWatchUpload()
+            }, for: .touchDown)
+            contentView.addSubviewWithAnchors(cancelWatchUploadButton, top: startWatchUploadButton.bottomAnchor, insets: defaultInsets)
                 .centerX(contentView.centerXAnchor)
             
             watchProgressView.progress = 0
-            contentView.addSubviewWithAnchors(watchProgressView, top: startWatchUploadButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
+            contentView.addSubviewWithAnchors(watchProgressView, top: cancelWatchUploadButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, insets: doubleInsets)
             
         }
         else{
-            errorsValueLabel.bottom(contentView.bottomAnchor)
+            label.bottom(contentView.bottomAnchor)
         }
         
-        enableCalculation(true)
+        enableZoomControls(true)
         enableDownload(false)
         
     }
@@ -205,6 +223,13 @@ class TilePreloadViewController: NavScrollViewController{
     }
     
     func recalculateTiles(){
+        if minZoom > maxZoom{
+            reset()
+            updateValueViews()
+            enableDownload(false)
+            enableUpload(false)
+            return
+        }
         let spinner = startSpinner()
         tiles.removeAll()
         if let region = mapRegion{
@@ -223,6 +248,7 @@ class TilePreloadViewController: NavScrollViewController{
             }
             if allTiles > TilePreloadViewController.maxDownloadTiles{
                 updateValueViews()
+                enableDownload(false)
                 enableDownload(false)
                 stopSpinner(spinner)
                 showError("tooManyTiles".localize(param: String(TilePreloadViewController.maxDownloadTiles)))
@@ -247,7 +273,8 @@ class TilePreloadViewController: NavScrollViewController{
             }
         }
         updateValueViews()
-        enableDownload(true)
+        enableDownload(tiles.count > 0)
+        enableUpload(existingTiles == allTiles)
         stopSpinner(spinner)
     }
     
@@ -280,7 +307,8 @@ class TilePreloadViewController: NavScrollViewController{
             updateValueViews()
         }
         enableDownload(false)
-        enableCalculation(false)
+        enableUpload(false)
+        enableZoomControls(false)
         downloadQueue = OperationQueue()
         downloadQueue!.name = "downloadQueue"
         downloadQueue!.maxConcurrentOperationCount = 2
@@ -294,12 +322,15 @@ class TilePreloadViewController: NavScrollViewController{
     func cancelDownload(){
         downloadQueue?.cancelAllOperations()
         reset()
+        recalculateTiles()
         enableDownload(true)
-        enableCalculation(true)
+        enableUpload(true)
+        enableZoomControls(true)
     }
     
     func startWatchUpload(){
         if WatchConnector.shared.isWatchConnected{
+            enableUpload(false)
             recalculateWatchTiles()
             uploadedTiles = 0
             uploadErrors = 0
@@ -319,13 +350,24 @@ class TilePreloadViewController: NavScrollViewController{
         }
     }
     
-    func enableCalculation(_ flag: Bool){
-        calculateButton.isEnabled = flag
+    func cancelWatchUpload(){
+        uploadQueue?.cancelAllOperations()
+        recalculateWatchTiles()
+        enableUpload(true)
+    }
+    
+    func enableZoomControls(_ flag: Bool){
+        minZoomControl.isEnabled = flag
+        maxZoomControl.isEnabled = flag
     }
     
     func enableDownload(_ flag: Bool){
         startButton.isEnabled = flag
         cancelButton.isEnabled = !flag
+    }
+    
+    func enableUpload(_ flag: Bool){
+        startWatchUploadButton.isEnabled = flag
     }
     
 }
@@ -334,6 +376,9 @@ extension TilePreloadViewController: DownloadDelegate{
     
     func downloadSucceeded() {
         existingTiles += 1
+        if existingTiles > allTiles{
+            existingTiles = allTiles
+        }
         updateSliderValue()
         self.existingTilesValueLabel.text = String(self.existingTiles)
         self.tilesToLoadValueLabel.text = String(self.allTiles - self.existingTiles)
@@ -348,8 +393,9 @@ extension TilePreloadViewController: DownloadDelegate{
     }
     
     private func checkCompletion(){
-        if existingTiles + errors == allTiles{
-            enableDownload(true)
+        if existingTiles + errors >= allTiles{
+            enableZoomControls(true)
+            enableUpload(existingTiles == allTiles)
             downloadQueue?.cancelAllOperations()
             downloadQueue = nil
         }

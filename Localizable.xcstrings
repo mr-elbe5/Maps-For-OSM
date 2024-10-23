@@ -800,6 +800,23 @@
         }
       }
     },
+    "connected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "verbunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "connected"
+          }
+        }
+      }
+    },
     "coordinate" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1289,6 +1306,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete selected"
+          }
+        }
+      }
+    },
+    "disconnected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nicht verbunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not connected"
           }
         }
       }
@@ -5284,6 +5318,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Waiting for GPS..."
+          }
+        }
+      }
+    },
+    "watchStatus" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbindungsstatus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection Status"
+          }
+        }
+      }
+    },
+    "watchUploadArea" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kartenkacheln für die Uhr"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch Uploads"
+          }
+        }
+      }
+    },
+    "watchUploadInfo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Du eine verbundene Uhr hast, kannst Du hier Kartenkacheln auf die Uhr vorladen. Die Kacheln sollten bereits hier geladen sein und nicht zu viele sein (möglichst nur für den aktuellen Zoom-Wert auf der Uhr - Standard ist 16)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you have a connected watch, you can preload tiles to your watch app. Tiles should already be loaded to your phone and it should be a small amount (preferably only your watch zoom - default is 16)."
           }
         }
       }
