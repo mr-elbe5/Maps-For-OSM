@@ -89,15 +89,9 @@ struct MainView: View {
     }
     
     func refresh(){
-        if let location = LocationManager.shared.location{
+        LocationManager.shared.assertLocation(){ location in
             locationStatus.location = location
             locationStatus.update()
-        }
-        else{
-            PhoneConnector.instance.requestLocation( completion: { location in
-                locationStatus.location = location
-                locationStatus.update()
-            })
         }
     }
     

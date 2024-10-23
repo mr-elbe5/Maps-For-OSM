@@ -15,10 +15,10 @@ struct ContentView: View {
         TabView(){
             MainView()
                 .onAppear() {
-                    PhoneConnector.instance.requestLocation( completion: { location in
+                    LocationManager.shared.assertLocation(){ location in
                         LocationStatus.shared.location = location
                         LocationStatus.shared.update()
-                    })
+                    }
                 }
             TrackView()
             PreferencesView()

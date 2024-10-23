@@ -34,6 +34,20 @@ import CoreLocation
         stop()
     }
     
+    func assertLocation(_ gotLocation: @escaping (CLLocation) -> Void){
+        if let location = location{
+            gotLocation(location)
+        }
+        else{
+            PhoneConnector.instance.requestLocation( completion: { location in
+                if let location = location{
+                    self.location = location
+                    gotLocation(location)
+                }
+            })
+        }
+    }
+    
     func start(){
         print("starting location manager")
         clManager.startUpdatingLocation()
@@ -71,26 +85,25 @@ import CoreLocation
 extension LocationManager: CLLocationManagerDelegate{
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-            switch manager.authorizationStatus {
-            case .denied :
-                // Alert
-                print("Denied")
-            case .restricted:
-                print("restricted")
-            case .notDetermined:
-                // Request
-                print("not Determined")
-                manager.requestWhenInUseAuthorization()
-
-            case .authorizedWhenInUse :
-                print("Authorized when in use")
-                manager.allowsBackgroundLocationUpdates = true
-                manager.startUpdatingLocation()
-            default:
-                print("Default")
-            }
+        switch manager.authorizationStatus {
+        case .denied :
+            // Alert
+            print("Denied")
+        case .restricted:
+            print("restricted")
+        case .notDetermined:
+            // Request
+            print("not Determined")
+            manager.requestWhenInUseAuthorization()
+            
+        case .authorizedWhenInUse :
+            print("Authorized when in use")
+            manager.allowsBackgroundLocationUpdates = true
+            manager.startUpdatingLocation()
+        default:
+            print("Default")
         }
-
+    }
      
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last, loc.horizontalAccuracy != -1{
