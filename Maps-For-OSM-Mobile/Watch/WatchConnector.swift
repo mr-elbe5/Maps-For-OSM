@@ -13,6 +13,14 @@ class WatchConnector: NSObject, ObservableObject {
         session.delegate = self
     }
     
+    var isActivated: Bool {
+        session.activationState == .activated
+    }
+    
+    var isReachable: Bool {
+        session.isReachable
+    }
+    
     func start(){
         session.activate()
         Log.info("watch session is reachable: \(session.isReachable)")
@@ -20,10 +28,16 @@ class WatchConnector: NSObject, ObservableObject {
     }
     
     var isWatchConnected: Bool {
-        session.isReachable && session.isPaired
+        session.activationState == .activated && session.isPaired && session.isReachable
     }
     
     func sendTile(_ tile: MapTile, data: Data, completion: @escaping (Bool) -> Void) {
+        Log.debug("sending tile")
+        if !isWatchConnected {
+            Log.debug("not connected to phone")
+            completion(false)
+            return
+        }
         session.sendMessage([
             "request": "tileUpload",
             "zoom": tile.zoom,

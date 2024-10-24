@@ -194,13 +194,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zahl aller Kacheln:"
+            "value" : "Zahl aller ausgewählten Kacheln:"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Number of all tiles:"
+            "value" : "Number of all selected tiles:"
           }
         }
       }
@@ -2778,13 +2778,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hier kannst Du Kartenkacheln für den aktuell sichtbaren Kartenbereich und verschiedene Zoomebenen vorladen.\nBITTE BEACHTEN! Wenn Du viele Kartenkacheln vorlädst, müsst Du das Recht haben, Massendownloads von dem konfigurierten Server zu machen! "
+            "value" : "Hier kannst Du Kartenkacheln für den aktuell sichtbaren Kartenbereich und verschiedene Zoomebenen vorladen.\nBITTE BEACHTEN! Für Massendownloads solltest Du die entsprechenden Rechte haben."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Here you can preload map tiles for the currently visible map area for selected zoom levels.\nPLEASE NOTE! When you preload many map tiles, you must be sure to have rights for making mass downloads from the configured server!"
+            "value" : "Here you can preload map tiles for the currently visible map area for selected zoom levels.\nPLEASE NOTE! For mass downloads you should have respective rights."
           }
         }
       }
@@ -5344,7 +5344,7 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Kartenkacheln für die Apple Watch"
           }
         },

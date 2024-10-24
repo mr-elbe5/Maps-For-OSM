@@ -19,7 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileManager.initializePrivateDir()
         FileManager.initializeAppDirs()
         Log.useCache = true
+#if DEBUG
+        Log.logLevel = .debug
+#else
         Log.logLevel = .info
+#endif
         PhotoLibrary.initializeAlbum(albumName: "MapsForOSM")
         if let prefs : Preferences = UserDefaults.standard.load(forKey: Preferences.storeKey){
             Preferences.shared = prefs

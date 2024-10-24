@@ -20,7 +20,11 @@ class WatchAppDelegate: NSObject, WKApplicationDelegate {
         //print("tiles dir exists: \(FileManager.default.fileExists(url: FileManager.tilesDirURL))")
         //TileProvider.instance.dumpTiles()
         Log.useCache = false
+#if DEBUG
+        Log.logLevel = .debug
+#else
         Log.logLevel = .info
+#endif
         Preferences.loadShared()
         LocationStatus.shared.update()
     }

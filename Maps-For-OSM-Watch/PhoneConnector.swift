@@ -14,21 +14,29 @@ import WatchConnectivity
     
     static var instance = PhoneConnector()
     
-    var session: WCSession?
+    var session: WCSession = WCSession.default
 
     override init() {
-        session = WCSession.default
         super.init()
-        session?.delegate = self
-        session?.activate()
+        session.delegate = self
+        session.activate()
+    }
+    
+    var isWatchConnected: Bool {
+        session.activationState == .activated && session.isReachable
     }
     
     func requestLocation(completion: @escaping (CLLocation?) -> Void) {
         print("watch requesting tile image data from phone")
+        if !isWatchConnected {
+            print("not connected to phone")
+            completion(nil)
+            return
+        }
         let request = [
             "request": "location",
         ] as [String : Any]
-        session?.sendMessage(
+        session.sendMessage(
             request,
             replyHandler: { response in
                 DispatchQueue.main.async {
@@ -51,13 +59,18 @@ import WatchConnectivity
 
     func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {
         print("watch requesting tile image data from phone")
+        if !isWatchConnected {
+            print("not connected to phone")
+            completion(false)
+            return
+        }
         let request = [
             "request": "tileImageData",
             "zoom": tileData.zoom,
             "x": tileData.tileX,
             "y": tileData.tileY
         ] as [String : Any]
-        session?.sendMessage(
+        session.sendMessage(
             request,
             replyHandler: { response in
                 DispatchQueue.main.async {
@@ -80,8 +93,13 @@ import WatchConnectivity
     
     func saveTrack(json: String, completion: @escaping (Bool) -> Void) {
         print("watch saving track")
+        if !isWatchConnected {
+            print("not connected to phone")
+            completion(false)
+            return
+        }
         let request = ["request": "saveTrack", "json": json] as [String : Any]
-        session?.sendMessage(
+        session.sendMessage(
             request,
             replyHandler: { response in
                 DispatchQueue.main.async {

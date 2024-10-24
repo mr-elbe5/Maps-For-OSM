@@ -48,6 +48,7 @@ class TilePreloadViewController: NavScrollViewController{
     
     var watchTiles = [MapTile]()
     
+    var watchStatusLabel = UILabel(text: "disconnected".localize())
     var startWatchUploadButton = UIButton()
     var cancelWatchUploadButton = UIButton()
     
@@ -65,6 +66,12 @@ class TilePreloadViewController: NavScrollViewController{
         else{
             startButton.isEnabled = true
             cancelButton.isEnabled = false
+        }
+        if !WatchConnector.shared.isWatchConnected{
+            WatchConnector.shared.start()
+            DispatchQueue.main.async {
+                self.updateConnectionStatus()
+            }
         }
     }
     
@@ -84,6 +91,8 @@ class TilePreloadViewController: NavScrollViewController{
         label.text = "fromZoom:".localize()
         contentView.addSubviewWithAnchors(label, top: sourceLabel.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         
+        let segmentTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+        
         let segSize = World.maxZoom - World.minZoom
         for i: Int in 0...segSize{
             minZoomControl.insertSegment(action: UIAction(){ action in
@@ -93,6 +102,7 @@ class TilePreloadViewController: NavScrollViewController{
             }, at: i, animated: false)
             minZoomControl.setTitle(String(i + World.minZoom), forSegmentAt: i)
         }
+        minZoomControl.setTitleTextAttributes(segmentTitleAttributes, for: .normal)
         minZoomControl.selectedSegmentIndex = minZoom - World.minZoom
         contentView.addSubviewWithAnchors(minZoomControl, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -108,6 +118,7 @@ class TilePreloadViewController: NavScrollViewController{
             }, at: i, animated: false)
             maxZoomControl.setTitle(String(i + World.minZoom), forSegmentAt: i)
         }
+        maxZoomControl.setTitleTextAttributes(segmentTitleAttributes, for: .normal)
         maxZoomControl.selectedSegmentIndex = maxZoom - World.minZoom
         contentView.addSubviewWithAnchors(maxZoomControl, top: label.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
         
@@ -147,7 +158,7 @@ class TilePreloadViewController: NavScrollViewController{
         progressView.progress = 0
         contentView.addSubviewWithAnchors(progressView, top: startButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
         
-        let errorsInfo = UILabel()
+        var errorsInfo = UILabel()
         errorsInfo.text = "unloadedTiles".localize()
         contentView.addSubviewWithAnchors(errorsInfo, top: progressView.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
         errorsValueLabel.text = String(errors)
@@ -167,45 +178,39 @@ class TilePreloadViewController: NavScrollViewController{
         label = UILabel(text: "watchStatus".localizeWithColon())
         contentView.addSubviewWithAnchors(label)
         label.setAnchors(top: watchInfo.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
-        let watchStatus = UILabel(text: WatchConnector.shared.isWatchConnected ? "connected".localize() : "disconnected".localize())
-        contentView.addSubviewWithAnchors(watchStatus)
-        watchStatus.setAnchors(top: watchInfo.bottomAnchor, leading: label.trailingAnchor, insets: defaultInsets)
+        contentView.addSubviewWithAnchors(watchStatusLabel)
+        watchStatusLabel.setAnchors(top: watchInfo.bottomAnchor, leading: label.trailingAnchor, insets: defaultInsets)
         
-        if WatchConnector.shared.isWatchConnected{
-            startWatchUploadButton.setTitle("startWatchUpload".localize(), for: .normal)
-            startWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
-            startWatchUploadButton.setTitleColor(.systemGray, for: .disabled)
-            startWatchUploadButton.addAction(UIAction(){ action in
-                self.startWatchUpload()
-            }, for: .touchDown)
-            contentView.addSubviewWithAnchors(startWatchUploadButton, top: label.bottomAnchor, insets: defaultInsets)
-                .centerX(contentView.centerXAnchor)
-            
-            cancelWatchUploadButton.setTitle("cancel".localize(), for: .normal)
-            cancelWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
-            cancelWatchUploadButton.setTitleColor(.systemGray, for: .disabled)
-            cancelWatchUploadButton.addAction(UIAction(){ action in
-                self.cancelWatchUpload()
-            }, for: .touchDown)
-            contentView.addSubviewWithAnchors(cancelWatchUploadButton, top: startWatchUploadButton.bottomAnchor, insets: defaultInsets)
-                .centerX(contentView.centerXAnchor)
-            
-            watchProgressView.progress = 0
-            contentView.addSubviewWithAnchors(watchProgressView, top: cancelWatchUploadButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
-            
-            let errorsInfo = UILabel()
-            errorsInfo.text = "unloadedTiles".localize()
-            contentView.addSubviewWithAnchors(errorsInfo, top: watchProgressView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-            uploadErrorsValueLabel.text = String(uploadErrors)
-            contentView.addSubviewWithAnchors(uploadErrorsValueLabel, top: watchProgressView.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
-        }
-        else{
-            label.bottom(contentView.bottomAnchor)
-            watchStatus.bottom(contentView.bottomAnchor)
-        }
+        startWatchUploadButton.setTitle("startWatchUpload".localize(), for: .normal)
+        startWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
+        startWatchUploadButton.setTitleColor(.systemGray, for: .disabled)
+        startWatchUploadButton.addAction(UIAction(){ action in
+            self.startWatchUpload()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(startWatchUploadButton, top: label.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
+        
+        cancelWatchUploadButton.setTitle("cancel".localize(), for: .normal)
+        cancelWatchUploadButton.setTitleColor(.systemBlue, for: .normal)
+        cancelWatchUploadButton.setTitleColor(.systemGray, for: .disabled)
+        cancelWatchUploadButton.addAction(UIAction(){ action in
+            self.cancelWatchUpload()
+        }, for: .touchDown)
+        contentView.addSubviewWithAnchors(cancelWatchUploadButton, top: startWatchUploadButton.bottomAnchor, insets: defaultInsets)
+            .centerX(contentView.centerXAnchor)
+        
+        watchProgressView.progress = 0
+        contentView.addSubviewWithAnchors(watchProgressView, top: cancelWatchUploadButton.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: doubleInsets)
+        
+        errorsInfo = UILabel()
+        errorsInfo.text = "unloadedTiles".localize()
+        contentView.addSubviewWithAnchors(errorsInfo, top: watchProgressView.bottomAnchor, leading: contentView.leadingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
+        uploadErrorsValueLabel.text = String(uploadErrors)
+        contentView.addSubviewWithAnchors(uploadErrorsValueLabel, top: watchProgressView.bottomAnchor, leading: errorsInfo.trailingAnchor, bottom: contentView.bottomAnchor, insets: defaultInsets)
         
         enableZoomControls(true)
         enableDownload(false)
+        updateConnectionStatus()
         recalculateTiles()
     }
     
@@ -393,6 +398,11 @@ class TilePreloadViewController: NavScrollViewController{
     func enableUpload(_ flag: Bool){
         startWatchUploadButton.isEnabled = flag
         cancelWatchUploadButton.isEnabled = !flag
+    }
+    
+    func updateConnectionStatus(){
+        watchStatusLabel.text = WatchConnector.shared.isWatchConnected ? "connected".localize() : "disconnected".localize()
+        enableUpload(WatchConnector.shared.isWatchConnected)
     }
     
 }
