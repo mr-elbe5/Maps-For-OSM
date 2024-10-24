@@ -22,13 +22,13 @@ import WatchConnectivity
         session.activate()
     }
     
-    var isWatchConnected: Bool {
-        session.activationState == .activated && session.isReachable
+    var isPhoneConnectionActivated: Bool {
+        session.activationState == .activated
     }
     
     func requestLocation(completion: @escaping (CLLocation?) -> Void) {
         print("watch requesting tile image data from phone")
-        if !isWatchConnected {
+        if !isPhoneConnectionActivated {
             print("not connected to phone")
             completion(nil)
             return
@@ -59,7 +59,7 @@ import WatchConnectivity
 
     func requestTile(_ tileData: TileData, completion: @escaping (Bool) -> Void) {
         print("watch requesting tile image data from phone")
-        if !isWatchConnected {
+        if !isPhoneConnectionActivated {
             print("not connected to phone")
             completion(false)
             return
@@ -93,7 +93,7 @@ import WatchConnectivity
     
     func saveTrack(json: String, completion: @escaping (Bool) -> Void) {
         print("watch saving track")
-        if !isWatchConnected {
+        if !isPhoneConnectionActivated {
             print("not connected to phone")
             completion(false)
             return

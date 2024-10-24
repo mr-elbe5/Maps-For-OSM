@@ -13,27 +13,19 @@ class WatchConnector: NSObject, ObservableObject {
         session.delegate = self
     }
     
-    var isActivated: Bool {
-        session.activationState == .activated
-    }
-    
-    var isReachable: Bool {
-        session.isReachable
-    }
-    
     func start(){
         session.activate()
-        Log.info("watch session is reachable: \(session.isReachable)")
         Log.info("watch session is paired: \(session.isPaired)")
+        Log.info("watch session is activated: \(session.activationState == .activated)")
     }
     
-    var isWatchConnected: Bool {
-        session.activationState == .activated && session.isPaired && session.isReachable
+    var isWatchConnectionActivated: Bool {
+        session.isPaired && session.activationState == .activated
     }
     
     func sendTile(_ tile: MapTile, data: Data, completion: @escaping (Bool) -> Void) {
         Log.debug("sending tile")
-        if !isWatchConnected {
+        if !isWatchConnectionActivated {
             Log.debug("not connected to phone")
             completion(false)
             return

@@ -67,7 +67,7 @@ class TilePreloadViewController: NavScrollViewController{
             startButton.isEnabled = true
             cancelButton.isEnabled = false
         }
-        if !WatchConnector.shared.isWatchConnected{
+        if !WatchConnector.shared.isWatchConnectionActivated{
             WatchConnector.shared.start()
             DispatchQueue.main.async {
                 self.updateConnectionStatus()
@@ -366,7 +366,7 @@ class TilePreloadViewController: NavScrollViewController{
     }
     
     func startWatchUpload(){
-        if WatchConnector.shared.isWatchConnected{
+        if WatchConnector.shared.isWatchConnectionActivated{
             enableUpload(false)
             recalculateWatchTiles()
             uploadedTiles = 0
@@ -401,8 +401,8 @@ class TilePreloadViewController: NavScrollViewController{
     }
     
     func updateConnectionStatus(){
-        watchStatusLabel.text = WatchConnector.shared.isWatchConnected ? "connected".localize() : "disconnected".localize()
-        enableUpload(WatchConnector.shared.isWatchConnected)
+        watchStatusLabel.text = WatchConnector.shared.isWatchConnectionActivated ? "connected".localize() : "disconnected".localize()
+        enableUpload(WatchConnector.shared.isWatchConnectionActivated)
     }
     
 }
