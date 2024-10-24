@@ -100,7 +100,6 @@
 		4EB127202CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB127212CC53B6C00F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB127832CC7F66300F84ADB /* TileUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */; };
-		4EB127842CC7F66300F84ADB /* TileUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */; };
 		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
 		4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */; };
 		4EB694632C3EAF240058BAD0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694622C3EAF240058BAD0 /* Zip */; };
@@ -1655,7 +1654,6 @@
 				4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */,
 				4EEA679E2C71E493005C459C /* NSMenuItem.swift in Sources */,
 				4EEA679C2C71E493005C459C /* Insets.swift in Sources */,
-				4EB127842CC7F66300F84ADB /* TileUploadOperation.swift in Sources */,
 				4ED7FF862C733B650045DACB /* Preferences.swift in Sources */,
 				4EEA67882C71E493005C459C /* RadioGroup.swift in Sources */,
 				4EEA67B92C71E493005C459C /* TrackCellView.swift in Sources */,
