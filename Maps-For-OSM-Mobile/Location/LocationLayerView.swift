@@ -5,9 +5,6 @@
  */
 
 import UIKit
-import E5Data
-import E5IOSUI
-
 
 protocol LocationLayerDelegate{
     func showLocationDetails(location: Location)

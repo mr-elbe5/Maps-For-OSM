@@ -6,9 +6,6 @@
 
 import AppKit
 import CoreLocation
-import E5Data
-
-
 
 protocol MapScrollViewDelegate: PlainMapScrollViewDelegate{
     func showLocationDetails(_ location: Location)
@@ -83,7 +80,7 @@ class MapScrollView : PlainMapScrollView{
         }
     }
     
-    @objc override open func scrollViewDidScroll(){
+    @objc override func scrollViewDidScroll(){
         AppState.shared.coordinate = screenCenterCoordinate
         trackLayerView.updateScale(scale: zoomScale)
         mapDelegate?.didScroll()

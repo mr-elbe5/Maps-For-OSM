@@ -6,32 +6,31 @@
 
 import Foundation
 import CloudKit
-import E5Data
 
-public typealias LocationList = Array<Location>
+typealias LocationList = Array<Location>
 
 extension LocationList{
     
-    public mutating func remove(_ location: Location){
+    mutating func remove(_ location: Location){
         removeAll(where: {
             $0.equals(location)
         })
     }
     
-    public mutating func removeLocations(of list: LocationList){
+    mutating func removeLocations(of list: LocationList){
         for location in list{
             remove(location)
         }
     }
     
-    public mutating func sortAll(){
+    mutating func sortAll(){
         self.sort()
         for location in self{
             location.sortItems()
         }
     }
     
-    public var tracks: Array<TrackItem>{
+    var tracks: Array<TrackItem>{
         get{
             var trackList = Array<TrackItem>()
             for location in self{
@@ -42,7 +41,7 @@ extension LocationList{
         }
     }
     
-    public var images: Array<ImageItem>{
+    var images: Array<ImageItem>{
         get{
             var imageList = Array<ImageItem>()
             for location in self{
@@ -53,7 +52,7 @@ extension LocationList{
         }
     }
     
-    public var fileItems: FileItemList{
+    var fileItems: FileItemList{
         get{
             var fileList = FileItemList()
             for location in self{
@@ -63,7 +62,7 @@ extension LocationList{
         }
     }
     
-    public func updateCreationDates(){
+    func updateCreationDates(){
         for location in self{
             if !location.items.isEmpty{
                 var creationDate = Date.localDate
@@ -79,7 +78,7 @@ extension LocationList{
         }
     }
     
-    public mutating func removeDuplicates(){
+    mutating func removeDuplicates(){
         for location in self{
             let duplicates = getDuplicates(of: location)
             if duplicates.count > 0{
@@ -92,7 +91,7 @@ extension LocationList{
         }
     }
     
-    public func getDuplicates(of location: Location) -> LocationList{
+    func getDuplicates(of location: Location) -> LocationList{
         var list = LocationList()
         for otherLocation in self{
             if location != otherLocation, location.equals(otherLocation){

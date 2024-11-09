@@ -6,7 +6,6 @@
 
 import UIKit
 import AVFoundation
-import E5Data
 
 class VideoPlayerView: UIView {
     

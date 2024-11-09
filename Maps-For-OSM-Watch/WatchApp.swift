@@ -8,7 +8,6 @@
 import SwiftUI
 
 import WatchKit
-import E5Data
 
 class WatchAppDelegate: NSObject, WKApplicationDelegate {
     

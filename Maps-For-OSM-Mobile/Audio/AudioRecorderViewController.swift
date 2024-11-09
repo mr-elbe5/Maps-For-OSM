@@ -6,9 +6,6 @@
 
 import UIKit
 import AVFoundation
-import E5Data
-import E5IOSUI
-
 
 protocol AudioCaptureDelegate{
     func audioCaptured(audio: AudioItem)

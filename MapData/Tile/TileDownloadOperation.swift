@@ -5,24 +5,23 @@
  */
 
 import Foundation
-import E5Data
 
-public protocol DownloadDelegate {
+protocol DownloadDelegate {
     func downloadSucceeded()
     func downloadWithError()
 }
 
-open class TileDownloadOperation : AsyncOperation, @unchecked Sendable {
+class TileDownloadOperation : AsyncOperation, @unchecked Sendable {
     
-    public var tile : MapTile
-    public var delegate : DownloadDelegate? = nil
+    var tile : MapTile
+    var delegate : DownloadDelegate? = nil
     
-    public init(tile: MapTile) {
+    init(tile: MapTile) {
         self.tile = tile
         super.init()
     }
     
-    override public func startExecution(){
+    override func startExecution(){
         //debug("TileDownloadOperation starting download of \(tile.shortDescription)")
         TileProvider.shared.loadTileImage(tile: tile, template: Preferences.shared.urlTemplate){ success in
             if success{

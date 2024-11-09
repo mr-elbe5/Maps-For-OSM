@@ -5,16 +5,14 @@
  */
 
 import CoreLocation
-import E5Data
-
 
 class TrackRecorder: Codable{
     
-    public static var storeKey = "recordedTrack"
+    static var storeKey = "recordedTrack"
     
-    public static var instance: TrackRecorder? = nil
+    static var instance: TrackRecorder? = nil
     
-    public static func load(){
+    static func load(){
         if let recorder: TrackRecorder = UserDefaults.standard.load(forKey: TrackRecorder.storeKey){
             instance = recorder
             instance?.interrupted = true
@@ -23,12 +21,12 @@ class TrackRecorder: Codable{
         }
     }
     
-    public static func startTracking(){
+    static func startTracking(){
         instance = TrackRecorder()
     }
     
     @discardableResult
-    public static func stopTracking() -> TrackItem?{
+    static func stopTracking() -> TrackItem?{
         if let trackRecorder = instance{
             let track = trackRecorder.track
             instance = nil
@@ -37,7 +35,7 @@ class TrackRecorder: Codable{
         return nil
     }
     
-    public static var isRecording: Bool{
+    static var isRecording: Bool{
         instance != nil && instance!.isRecording
     }
     
@@ -47,27 +45,27 @@ class TrackRecorder: Codable{
         case horizontalAccuracy
     }
     
-    public var track: TrackItem
-    public var isRecording: Bool
+    var track: TrackItem
+    var isRecording: Bool
     
-    public var lastSaved = Date()
-    public var interrupted: Bool = false
+    var lastSaved = Date()
+    var interrupted: Bool = false
     
-    public var speed: Double
-    public var horizontalAccuracy: Double
+    var speed: Double
+    var horizontalAccuracy: Double
     
-    public var kmhSpeed: Int{
+    var kmhSpeed: Int{
         return Int(speed * 3.6)
     }
     
-    public init(){
+    init(){
         track = TrackItem()
         isRecording = false
         speed = 0
         horizontalAccuracy = 0
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         track = try values.decodeIfPresent(TrackItem.self, forKey: .track) ?? TrackItem()
         speed = try values.decodeIfPresent(Double.self, forKey: .speed) ?? 0
@@ -75,28 +73,28 @@ class TrackRecorder: Codable{
         isRecording = false
     }
     
-    open func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(track, forKey: .track)
         try container.encode(speed, forKey: .speed)
         try container.encode(horizontalAccuracy, forKey: .horizontalAccuracy)
     }
     
-    public func startRecording(){
+    func startRecording(){
         isRecording = true
     }
     
-    public func pauseRecording(){
+    func pauseRecording(){
         track.pauseTracking()
         isRecording = false
     }
     
-    public func resumeRecording(){
+    func resumeRecording(){
         track.resumeTracking()
         isRecording = true
     }
     
-    public func addTrackpoint(from location: CLLocation){
+    func addTrackpoint(from location: CLLocation){
         track.addTrackpoint(from: location)
         speed = location.speed
         horizontalAccuracy = location.horizontalAccuracy
@@ -107,7 +105,7 @@ class TrackRecorder: Codable{
         }
     }
     
-    public func save(){
+    func save(){
         UserDefaults.standard.save(forKey: TrackRecorder.storeKey, value: self)
         Log.info("interrupted track saved")
     }

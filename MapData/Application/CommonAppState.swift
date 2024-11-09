@@ -21,19 +21,18 @@
  */
 
 import CoreLocation
-import E5Data
 
-open class CommonAppState: Identifiable, Codable{
+class CommonAppState: Identifiable, Codable{
     
-    public static var storeKey = "state"
+    static var storeKey = "state"
     
-    public static let currentVersion : Int = 3
-    public static let startZoom : Int = 4
-    public static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)
-    public static let defaultSearchRadius : Double = 100
-    public static let defaultSortAscending = false
+    static let currentVersion : Int = 3
+    static let startZoom : Int = 4
+    static let startScale : Double = World.zoomScaleFromWorld(to : startZoom)
+    static let defaultSearchRadius : Double = 100
+    static let defaultSortAscending = false
     
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case version
         case zoom
         case showLocations
@@ -45,22 +44,22 @@ open class CommonAppState: Identifiable, Codable{
         case sortAscending
     }
 
-    public var version: Int
-    public var zoom : Int
-    public var showLocations : Bool = true
-    public var showCross : Bool = false
-    public var searchString : String = ""
-    public var searchTarget : SearchQuery.SearchTarget = .any
-    public var searchRegion : SearchQuery.SearchRegion = .unlimited
-    public var searchRadius : Double = defaultSearchRadius
-    public var sortAscending = defaultSortAscending
+    var version: Int
+    var zoom : Int
+    var showLocations : Bool = true
+    var showCross : Bool = false
+    var searchString : String = ""
+    var searchTarget : SearchQuery.SearchTarget = .any
+    var searchRegion : SearchQuery.SearchRegion = .unlimited
+    var searchRadius : Double = defaultSearchRadius
+    var sortAscending = defaultSortAscending
     
-    public init(){
+    init(){
         version = 1
         self.zoom = AppState.startZoom
     }
 
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         version = try values.decodeIfPresent(Int.self, forKey: .version) ?? 1
         zoom = try values.decodeIfPresent(Int.self, forKey: .zoom) ?? AppState.startZoom
@@ -75,7 +74,7 @@ open class CommonAppState: Identifiable, Codable{
         sortAscending = try values.decodeIfPresent(Bool.self, forKey: .sortAscending) ?? AppState.defaultSortAscending
     }
     
-    open func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(version, forKey: .version)
         try container.encode(zoom, forKey: .zoom)
@@ -88,11 +87,11 @@ open class CommonAppState: Identifiable, Codable{
         try container.encode(sortAscending, forKey: .sortAscending)
     }
     
-    public func resetPosition(){
+    func resetPosition(){
         zoom = AppState.startZoom
     }
     
-    open func save(){
+    func save(){
         UserDefaults.standard.save(forKey: AppState.storeKey, value: self)
     }
     

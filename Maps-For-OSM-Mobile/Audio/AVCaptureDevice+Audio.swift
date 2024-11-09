@@ -6,11 +6,10 @@
 
 import Foundation
 import Photos
-import E5Data
 
 extension AVCaptureDevice {
     
-    public static func askAudioAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
+    static func askAudioAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
         switch AVCaptureDevice.authorizationStatus(for: .audio){
         case .authorized:
             callback(.success(()))

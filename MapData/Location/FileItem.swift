@@ -5,22 +5,21 @@
  */
 
 import CloudKit
-import E5Data
 
-open class FileItem : LocatedItem{
+class FileItem : LocatedItem{
     
-    public static var recordMetaKeys = ["uuid"]
-    public static var recordDataKeys = ["uuid", "asset"]
+    static var recordMetaKeys = ["uuid"]
+    static var recordDataKeys = ["uuid", "asset"]
     
     private enum CodingKeys: CodingKey{
         case fileName
         case title
     }
     
-    public var comment: String
-    public var fileName : String
+    var comment: String
+    var fileName : String
     
-    public var filePath : String{
+    var filePath : String{
         if fileName.isEmpty{
             Log.error("File has no name")
             return ""
@@ -28,20 +27,20 @@ open class FileItem : LocatedItem{
         return FileManager.mediaDirURL.path.appendingPathComponent(fileName)
     }
     
-    public var fileURL : URL{
+    var fileURL : URL{
         if fileName.isEmpty{
             Log.error("File has no name")
         }
         return FileManager.mediaDirURL.appendingPathComponent(fileName)
     }
     
-    public var fileRecordId : CKRecord.ID{
+    var fileRecordId : CKRecord.ID{
         get{
             CKRecord.ID(recordName: id.uuidString)
         }
     }
     
-    public var fileRecord: CKRecord{
+    var fileRecord: CKRecord{
         get{
             let record = CKRecord(recordType: CKRecord.fileType, recordID: fileRecordId)
             let asset = CKAsset(fileURL: fileURL)
@@ -51,27 +50,27 @@ open class FileItem : LocatedItem{
         }
     }
     
-    override public init(){
+    override init(){
         fileName = ""
         comment = ""
         super.init()
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         fileName = try values.decode(String.self, forKey: .fileName)
         comment = try values.decodeIfPresent(String.self, forKey: .title) ?? ""
         try super.init(from: decoder)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(fileName, forKey: .fileName)
         try container.encode(comment, forKey: .title)
     }
     
-    open func setFileNameFromURL(_ url: URL){
+    func setFileNameFromURL(_ url: URL){
         var name = url.lastPathComponent
         //Log.debug("file name from url is \(name)")
         fileName = name
@@ -94,12 +93,12 @@ open class FileItem : LocatedItem{
         }
     }
     
-    public func getFile() -> Data?{
+    func getFile() -> Data?{
         let url = FileManager.mediaDirURL.appendingPathComponent(fileName)
         return FileManager.default.readFile(url: url)
     }
     
-    public func saveFile(data: Data){
+    func saveFile(data: Data){
         if !fileExists(){
             let url = FileManager.mediaDirURL.appendingPathComponent(fileName)
             if !FileManager.default.saveFile(data: data, url: url){
@@ -111,11 +110,11 @@ open class FileItem : LocatedItem{
         }
     }
     
-    public func fileExists() -> Bool{
+    func fileExists() -> Bool{
         return FileManager.default.fileExists(dirPath: FileManager.mediaDirURL.path, fileName: fileName)
     }
     
-    override public func prepareDelete(){
+    override func prepareDelete(){
         if FileManager.default.fileExists(dirPath: FileManager.mediaDirURL.path, fileName: fileName){
             if !FileManager.default.deleteFile(dirURL: FileManager.mediaDirURL, fileName: fileName){
                 Log.error("FileItem could not delete file: \(fileName)")
@@ -125,5 +124,5 @@ open class FileItem : LocatedItem{
     
 }
 
-public typealias FileItemList = Array<FileItem>
+typealias FileItemList = Array<FileItem>
 

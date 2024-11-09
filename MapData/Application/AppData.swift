@@ -6,35 +6,34 @@
 
 import Foundation
 import CloudKit
-import E5Data
 
-open class AppData{
+class AppData{
     
-    public static var storeKey = "locations"
+    static var storeKey = "locations"
     
-    public static var shared = AppData()
+    static var shared = AppData()
     
-    public var locations = LocationList()
+    var locations = LocationList()
     
-    public func resetCoordinateRegions() {
+    func resetCoordinateRegions() {
         for location in locations{
             location.resetCoordinateRegion()
         }
     }
     
     @discardableResult
-    public func createLocation(coordinate: CLLocationCoordinate2D) -> Location{
+    func createLocation(coordinate: CLLocationCoordinate2D) -> Location{
         let location = addLocation(coordinate: coordinate)
         return location
     }
     
-    public func addLocation(coordinate: CLLocationCoordinate2D) -> Location{
+    func addLocation(coordinate: CLLocationCoordinate2D) -> Location{
         let location = Location(coordinate: coordinate)
         locations.append(location)
         return location
     }
     
-    public func deleteLocation(_ location: Location){
+    func deleteLocation(_ location: Location){
         for idx in 0..<locations.count{
             if locations[idx].equals(location){
                 location.deleteAllItems()
@@ -44,20 +43,20 @@ open class AppData{
         }
     }
     
-    public func deleteAllLocations(){
+    func deleteAllLocations(){
         for idx in 0..<locations.count{
             locations[idx].deleteAllItems()
         }
         locations.removeAll()
     }
     
-    public func getLocation(coordinate: CLLocationCoordinate2D) -> Location?{
+    func getLocation(coordinate: CLLocationCoordinate2D) -> Location?{
         locations.first(where:{
             $0.coordinateRegion.contains(coordinate: coordinate)
         })
     }
     
-    public func getLocation(id: UUID) -> Location?{
+    func getLocation(id: UUID) -> Location?{
         locations.first(where:{
             $0.id == id
         })
@@ -65,7 +64,7 @@ open class AppData{
     
     // local persistance
     
-    open func load(){
+    func load(){
         if let list : LocationList = UserDefaults.standard.load(forKey: AppData.storeKey){
             locations = list
         }
@@ -74,13 +73,13 @@ open class AppData{
         }
     }
     
-    open func save(){
+    func save(){
         UserDefaults.standard.save(forKey: AppData.storeKey, value: locations)
     }
     
     // file persistance
     
-    open func saveAsFile() -> URL?{
+    func saveAsFile() -> URL?{
         let value = locations.toJSON()
         let url = FileManager.tempURL.appendingPathComponent(AppData.storeKey + ".json")
         if FileManager.default.saveFile(text: value, url: url){
@@ -89,13 +88,13 @@ open class AppData{
         return nil
     }
     
-    open func loadFromFile(url: URL){
+    func loadFromFile(url: URL){
         if let string = FileManager.default.readTextFile(url: url),let data : LocationList = LocationList.fromJSON(encoded: string){
             locations = data
         }
     }
     
-    open func cleanupFiles(){
+    func cleanupFiles(){
         let fileURLs = FileManager.default.listAllURLs(dirURL: FileManager.mediaDirURL)
         var itemURLs = Array<URL>()
         var count = 0

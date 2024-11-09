@@ -6,8 +6,6 @@
 
 import UIKit
 import CoreLocation
-import E5Data
-import E5IOSUI
 
 protocol LocationItemCellDelegate{
     func locationChanged(location: Location)

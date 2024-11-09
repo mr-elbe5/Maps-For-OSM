@@ -5,9 +5,8 @@
  */
 
 import SwiftUI
-import E5Data
 
-public struct TileProvider{
+struct TileProvider{
     
     static let instance = TileProvider()
     
@@ -45,7 +44,7 @@ public struct TileProvider{
         }
     }
     
-    public func deleteAllTiles(){
+    func deleteAllTiles(){
         do{
             try FileManager.default.removeItem(at: FileManager.tileDirURL)
         }
@@ -54,7 +53,7 @@ public struct TileProvider{
         }
     }
     
-    public func dumpTiles(){
+    func dumpTiles(){
         print("all tiles:")
         if let paths = FileManager.default.subpaths(atPath: FileManager.tileDirURL.path){
             for path in paths{

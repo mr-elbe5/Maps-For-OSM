@@ -7,9 +7,6 @@
 import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
-import E5Data
-import E5IOSUI
-
 
 class TrackListViewController: NavTableViewController{
 
@@ -21,7 +18,7 @@ class TrackListViewController: NavTableViewController{
     var locationDelegate: LocationDelegate? = nil
     var trackDelegate: TrackDelegate? = nil
     
-    override open func loadView() {
+    override func loadView() {
         title = "trackList".localize()
         setupData()
         super.loadView()

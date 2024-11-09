@@ -10,11 +10,10 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import E5Data
 
-open class TrackItem : LocatedItem{
+class TrackItem : LocatedItem{
     
-    public static var previewSize: CGFloat = 512
+    static var previewSize: CGFloat = 512
     
     private enum CodingKeys: String, CodingKey {
         case startTime
@@ -27,22 +26,22 @@ open class TrackItem : LocatedItem{
         case note
     }
     
-    public static var visibleTrack : TrackItem? = nil
+    static var visibleTrack : TrackItem? = nil
     
-    public var startTime : Date
-    public var pauseTime : Date? = nil
-    public var pauseLength : TimeInterval = 0
-    public var endTime : Date
-    public var name : String
-    public var trackpoints : TrackpointList
-    public var distance : CGFloat
-    public var upDistance : CGFloat
-    public var downDistance : CGFloat
-    public var note : String
+    var startTime : Date
+    var pauseTime : Date? = nil
+    var pauseLength : TimeInterval = 0
+    var endTime : Date
+    var name : String
+    var trackpoints : TrackpointList
+    var distance : CGFloat
+    var upDistance : CGFloat
+    var downDistance : CGFloat
+    var note : String
     
-    public var lastAltitude = 0.0
+    var lastAltitude = 0.0
     
-    override public var type : LocatedItemType{
+    override var type : LocatedItemType{
         get{
             return .track
         }
@@ -56,29 +55,29 @@ open class TrackItem : LocatedItem{
         FileManager.previewsDirURL.appendingPathComponent(fileName)
     }
     
-    public var duration : TimeInterval{
+    var duration : TimeInterval{
         if let pauseTime = pauseTime{
             return startTime.distance(to: pauseTime) - pauseLength
         }
         return startTime.distance(to: endTime) - pauseLength
     }
     
-    public var durationUntilNow : TimeInterval{
+    var durationUntilNow : TimeInterval{
         if let pauseTime = pauseTime{
             return startTime.distance(to: pauseTime) - pauseLength
         }
         return startTime.distance(to: Date.localDate) - pauseLength
     }
     
-    public var startCoordinate: CLLocationCoordinate2D?{
+    var startCoordinate: CLLocationCoordinate2D?{
         trackpoints.first?.coordinate
     }
     
-    public var endCoordinate: CLLocationCoordinate2D?{
+    var endCoordinate: CLLocationCoordinate2D?{
         trackpoints.last?.coordinate
     }
     
-    override public init(){
+    override init(){
         name = "trk"
         startTime = Date.localDate
         endTime = Date.localDate
@@ -90,7 +89,7 @@ open class TrackItem : LocatedItem{
         super.init()
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         startTime = try values.decodeIfPresent(Date.self, forKey: .startTime) ?? Date.localDate
         endTime = try values.decodeIfPresent(Date.self, forKey: .endTime) ?? Date.localDate
@@ -104,7 +103,7 @@ open class TrackItem : LocatedItem{
         creationDate = endTime
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(startTime, forKey: .startTime)
@@ -121,25 +120,25 @@ open class TrackItem : LocatedItem{
         name = "Tour of \(startTime.dateTimeString())"
     }
     
-    public func pauseTracking(){
+    func pauseTracking(){
         pauseTime = Date.localDate
     }
     
-    public func resumeTracking(){
+    func resumeTracking(){
         if let pauseTime = pauseTime{
             pauseLength += pauseTime.distance(to: Date.localDate)
             self.pauseTime = nil
         }
     }
     
-    public func setTrackpoints(_ trackpoints: TrackpointList){
+    func setTrackpoints(_ trackpoints: TrackpointList){
         if !trackpoints.isEmpty{
             self.trackpoints = trackpoints
             updateFromTrackpoints()
         }
     }
     
-    public func updateFromTrackpoints(){
+    func updateFromTrackpoints(){
         if !trackpoints.isEmpty{
             startTime = trackpoints.first!.timestamp
             endTime = trackpoints.last!.timestamp
@@ -165,7 +164,7 @@ open class TrackItem : LocatedItem{
         }
     }
     
-    public func addTrackpoint(from location: CLLocation){
+    func addTrackpoint(from location: CLLocation){
         let tp = Trackpoint(location: location)
         if trackpoints.isEmpty{
             trackpoints.append(tp)
@@ -205,7 +204,7 @@ open class TrackItem : LocatedItem{
         endTime = tp.timestamp
     }
     
-    public func setMinimalTrackpointDistances(minDistance: CGFloat){
+    func setMinimalTrackpointDistances(minDistance: CGFloat){
         if !trackpoints.isEmpty{
             var removables = Array<Trackpoint>()
             var last : Trackpoint = trackpoints.first!
@@ -228,7 +227,7 @@ open class TrackItem : LocatedItem{
         updateFromTrackpoints()
     }
     
-    public func simplifyTrack(){
+    func simplifyTrack(){
         Log.info("simplifying track starting with \(trackpoints.count) trackpoints")
         var i = 0
         while i + 2 < trackpoints.count{
@@ -242,7 +241,7 @@ open class TrackItem : LocatedItem{
         Log.info("ending with \(trackpoints.count)")
     }
     
-    public func canDropMiddleTrackpoint(tp0: Trackpoint, tp1: Trackpoint, tp2: Trackpoint) -> Bool{
+    func canDropMiddleTrackpoint(tp0: Trackpoint, tp1: Trackpoint, tp2: Trackpoint) -> Bool{
         //calculate expected middle coordinated between outer coordinates by triangles
         let outerLatDiff = tp2.coordinate.latitude - tp0.coordinate.latitude
         let outerLonDiff = tp2.coordinate.longitude - tp0.coordinate.longitude
@@ -262,17 +261,17 @@ open class TrackItem : LocatedItem{
         return tp1.coordinate.distance(to: expectedCoordinate) <= Preferences.maxTrackpointInLineDeviation
     }
     
-    public func getPreviewFile() -> Data?{
+    func getPreviewFile() -> Data?{
         FileManager.default.readFile(url: previewURL)
     }
     
-    public func trackpointsChanged(){
+    func trackpointsChanged(){
         if FileManager.default.fileExists(url: previewURL){
             FileManager.default.deleteFile(url: previewURL)
         }
     }
     
-    override public func prepareDelete(){
+    override func prepareDelete(){
         if FileManager.default.fileExists(dirPath: FileManager.previewsDirURL.path, fileName: fileName){
             if !FileManager.default.deleteFile(dirURL: FileManager.previewsDirURL, fileName: fileName){
                 Log.error("TrackItem could not delete preview: \(fileName)")
@@ -281,14 +280,14 @@ open class TrackItem : LocatedItem{
     }
     
 #if os(macOS)
-    public func getPreview() -> NSImage?{
+    func getPreview() -> NSImage?{
         if let data = getPreviewFile(){
             return NSImage(data: data)
         } else{
             return createPreview()
         }
     }
-    public func createPreview() -> NSImage?{
+    func createPreview() -> NSImage?{
         if let preview = TrackImageCreator(track: self).createImage(size: CGSize(width: TrackItem.previewSize, height: TrackItem.previewSize)){
             if let tiff = preview.tiffRepresentation, let tiffData = NSBitmapImageRep(data: tiff) {
                 if let previewData = tiffData.representation(using: .jpeg, properties: [:]) {
@@ -302,14 +301,14 @@ open class TrackItem : LocatedItem{
         return nil
     }
 #elseif os(iOS)
-    public func getPreview() -> UIImage?{
+    func getPreview() -> UIImage?{
         if let data = getPreviewFile(){
             return UIImage(data: data)
         } else{
             return createPreview()
         }
     }
-    public func createPreview() -> UIImage?{
+    func createPreview() -> UIImage?{
         if let preview = TrackImageCreator(track: self).createImage(size: CGSize(width: TrackItem.previewSize, height: TrackItem.previewSize)){
             if let data = preview.jpegData(compressionQuality: 0.85){
                 _ = FileManager.default.assertDirectoryFor(url: previewURL)

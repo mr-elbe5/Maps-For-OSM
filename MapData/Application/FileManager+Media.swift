@@ -5,19 +5,18 @@
  */
 
 import Foundation
-import E5Data
 
 extension FileManager {
     
-    public static var mediaDirURL : URL = privateURL.appendingPathComponent("media")
-    public static var previewsDirURL : URL = privateURL.appendingPathComponent("previews")
+    static var mediaDirURL : URL = privateURL.appendingPathComponent("media")
+    static var previewsDirURL : URL = privateURL.appendingPathComponent("previews")
     
-    public static func initializeMediaDirs() {
+    static func initializeMediaDirs() {
         try! FileManager.default.createDirectory(at: FileManager.mediaDirURL, withIntermediateDirectories: true, attributes: nil)
         try! FileManager.default.createDirectory(at: FileManager.previewsDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
-    public func logMediaFiles(){
+    func logMediaFiles(){
         print("media files:")
         var names = listAllFiles(dirPath: FileManager.mediaDirURL.path)
         for name in names{

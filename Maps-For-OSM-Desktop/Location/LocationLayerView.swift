@@ -5,9 +5,6 @@
  */
 
 import AppKit
-import E5Data
-
-
 
 protocol LocationLayerDelegate{
     func showLocationDetails(_ location: Location)

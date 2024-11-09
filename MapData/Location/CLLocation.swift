@@ -9,7 +9,7 @@ import CoreLocation
 
 extension CLLocation{
     
-    public var string: String{
+    var string: String{
         "lat: \(coordinate.latitude), lon: \(coordinate.longitude), speed: \(speed), course: \(course), time: \(timestamp.timestampString())"
     }
     

@@ -7,11 +7,10 @@
 import Foundation
 import Photos
 import Zip
-import E5Data
 
-open class Backup{
+class Backup{
     
-    public static func createBackupFile(at url: URL) -> Bool{
+    static func createBackupFile(at url: URL) -> Bool{
         do {
             let count = FileManager.default.deleteTemporaryFiles()
             if count > 0{
@@ -37,7 +36,7 @@ open class Backup{
         return false
     }
     
-    public static func unzipBackupFile(zipFileURL: URL) -> Bool{
+    static func unzipBackupFile(zipFileURL: URL) -> Bool{
         do {
             let count = FileManager.default.deleteTemporaryFiles()
             if count > 0{
@@ -55,7 +54,7 @@ open class Backup{
         return false
     }
     
-    public static func restoreBackupFile() -> Bool{
+    static func restoreBackupFile() -> Bool{
         var count = FileManager.default.deleteAllFiles(dirURL: FileManager.mediaDirURL)
         if count > 0{
             Log.info("\(count) media files deleted before restore")

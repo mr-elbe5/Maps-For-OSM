@@ -6,9 +6,6 @@
 
 import AppKit
 import CoreLocation
-import E5Data
-
-
 
 protocol PlainMapScrollViewDelegate{
     func didScroll()
@@ -118,7 +115,7 @@ class PlainMapScrollView : NSScrollView{
         }
     }
     
-    @objc override open func scrollViewDidScroll(){
+    @objc override func scrollViewDidScroll(){
         mapDelegate?.didScroll()
     }
     

@@ -8,12 +8,10 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5Data
-import E5PhotoLib
 
 extension E5CameraViewController{
     
-    public func toggleMovieRecording() {
+    func toggleMovieRecording() {
         guard let movieFileOutput = self.movieFileOutput else {
             return
         }
@@ -64,7 +62,7 @@ extension E5CameraViewController{
         }
     }
     
-    public func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
+    func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         func cleanup() {
             let path = outputFileURL.path
             if FileManager.default.fileExists(atPath: path) {

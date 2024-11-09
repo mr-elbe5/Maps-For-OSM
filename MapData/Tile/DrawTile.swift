@@ -9,20 +9,19 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import E5Data
 
-public class DrawTileData{
+class DrawTileData{
     
-    public var drawRect: CGRect
-    public var tile: MapTile
-    public var complete = false
+    var drawRect: CGRect
+    var tile: MapTile
+    var complete = false
     
-    public init(drawRect: CGRect, tile: MapTile){
+    init(drawRect: CGRect, tile: MapTile){
         self.drawRect = drawRect
         self.tile = tile
     }
     
-    public func assertTileImage(){
+    func assertTileImage(){
         if tile.imageData == nil {
             TileProvider.shared.loadTileImage(tile: tile, template: Preferences.shared.urlTemplate){ success in
                 if success{
@@ -35,7 +34,7 @@ public class DrawTileData{
         }
     }
     
-    public func draw(){
+    func draw(){
 #if os(macOS)
         if let imageData = tile.imageData, let image = NSImage(data: imageData){
             image.draw(in: drawRect)
@@ -49,11 +48,11 @@ public class DrawTileData{
     
 }
 
-public typealias DrawTileList = Array<DrawTileData>
+typealias DrawTileList = Array<DrawTileData>
 
 extension DrawTileList{
     
-    public static func getDrawTiles(size: CGSize, zoom: Int, downScale: CGFloat, scaledWorldViewRect: CGRect) -> DrawTileList{
+    static func getDrawTiles(size: CGSize, zoom: Int, downScale: CGFloat, scaledWorldViewRect: CGRect) -> DrawTileList{
         let tileExtent = World.tileSize.width
         let minTileX = Int(floor(scaledWorldViewRect.minX/tileExtent))
         let minTileY = Int(floor(scaledWorldViewRect.minY/tileExtent))
@@ -72,7 +71,7 @@ extension DrawTileList{
         return drawTileList
     }
     
-    public var complete: Bool{
+    var complete: Bool{
         for drawTile in self{
             if !drawTile.complete{
                 return false
@@ -81,14 +80,14 @@ extension DrawTileList{
         return true
     }
     
-    public func assertDrawTileImages() -> Bool{
+    func assertDrawTileImages() -> Bool{
         for drawTile in self{
             drawTile.assertTileImage()
         }
         return complete
     }
     
-    public func draw(){
+    func draw(){
         for drawTile in self{
             drawTile.draw()
         }

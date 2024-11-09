@@ -6,24 +6,23 @@
 
 import Foundation
 import CoreLocation
-import E5Data
 
-public protocol LocationServiceDelegate{
+protocol LocationServiceDelegate{
     func locationDidChange(location: CLLocation)
     func directionDidChange(direction: CLLocationDirection)
 }
 
-open class LocationService : CLLocationManager, CLLocationManagerDelegate{
+class LocationService : CLLocationManager, CLLocationManagerDelegate{
     
-    public static var shared = LocationService()
+    static var shared = LocationService()
     
-    public var running = false
+    var running = false
     
-    public var serviceDelegate: LocationServiceDelegate? = nil
+    var serviceDelegate: LocationServiceDelegate? = nil
     
     private var lock = DispatchSemaphore(value: 1)
     
-    public override init() {
+    override init() {
         super.init()
         delegate = self
         desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -32,7 +31,7 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         
     }
     
-    public var authorized : Bool{
+    var authorized : Bool{
         switch authorizationStatus{
         case .authorizedAlways:
             return true
@@ -43,11 +42,11 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         }
     }
     
-    public var authorizedForTracking : Bool{
+    var authorizedForTracking : Bool{
         authorizationStatus == .authorizedAlways
     }
     
-    public func start(){
+    func start(){
         Log.info("LocationService start")
         lock.wait()
         defer{lock.signal()}
@@ -65,13 +64,13 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         }
     }
     
-    public func checkRunning(){
+    func checkRunning(){
         if authorized && !running{
             start()
         }
     }
     
-    public func stop(){
+    func stop(){
         Log.info("LocationService stop")
         if running{
             stopUpdatingLocation()
@@ -82,25 +81,25 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         }
     }
     
-    public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkRunning()
         if authorized, let loc = location{
             serviceDelegate?.locationDidChange(location: loc)
         }
     }
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last, loc.horizontalAccuracy != -1, loc.horizontalAccuracy <= Preferences.shared.maxHorizontalUncertainty{
             serviceDelegate?.locationDidChange(location: loc)
         }
     }
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         serviceDelegate?.directionDidChange(direction: newHeading.trueHeading)
     }
     
     #if !os(watchOS)
-    public func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
         Log.info("LocationService pause")
         running = false
         if let loc = location{
@@ -109,7 +108,7 @@ open class LocationService : CLLocationManager, CLLocationManagerDelegate{
         }
     }
     
-    public func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
+    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
         Log.info("LocationService resume")
         running = true
     }

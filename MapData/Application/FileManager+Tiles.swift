@@ -13,17 +13,16 @@
  */
 
 import Foundation
-import E5Data
 
 extension FileManager {
     
-    public static var tileDirURL : URL = privateURL.appendingPathComponent("tiles")
+    static var tileDirURL : URL = privateURL.appendingPathComponent("tiles")
     
-    public static func initializeTileDir() {
+    static func initializeTileDir() {
         try! FileManager.default.createDirectory(at: FileManager.tileDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
-    public func logTileFiles(){
+    func logTileFiles(){
         print("tile files:")
         let names = listAllFiles(dirPath: FileManager.tileDirURL.path)
         for name in names{

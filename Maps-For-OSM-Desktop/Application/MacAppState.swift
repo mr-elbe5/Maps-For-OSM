@@ -20,7 +20,7 @@ class MacAppState: AppState {
         super.init()
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         if let type = try values.decodeIfPresent(Int.self, forKey: .viewType){
             viewType = MainViewType(rawValue: type) ?? .map
@@ -28,7 +28,7 @@ class MacAppState: AppState {
         try super.init(from: decoder)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(viewType.rawValue, forKey: .viewType)

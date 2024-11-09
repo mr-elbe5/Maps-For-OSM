@@ -5,8 +5,6 @@
  */
 
 import UIKit
-import E5Data
-import E5IOSUI
 
 class LogViewController: NavTableViewController{
     

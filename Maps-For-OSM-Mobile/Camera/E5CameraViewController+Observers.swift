@@ -8,11 +8,10 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5Data
 
 extension E5CameraViewController{
     
-    public func addObservers() {
+    func addObservers() {
         let keyValueObservation = session.observe(\.isRunning, options: .new) { _, change in
             guard let isSessionRunning = change.newValue else { return }
             
@@ -37,7 +36,7 @@ extension E5CameraViewController{
         
     }
     
-    public func removeObservers() {
+    func removeObservers() {
         NotificationCenter.default.removeObserver(self)
         
         for keyValueObservation in keyValueObservations {
@@ -46,7 +45,7 @@ extension E5CameraViewController{
         keyValueObservations.removeAll()
     }
     
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if !isCaptureEnabled{
             return
         }
@@ -65,7 +64,7 @@ extension E5CameraViewController{
         }
     }
     
-    override open func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: any UIViewControllerTransitionCoordinator) {
         switch UIDevice.current.orientation {
         case UIDeviceOrientation.portraitUpsideDown:
             previewView.videoPreviewLayer.connection?.videoOrientation = .portraitUpsideDown

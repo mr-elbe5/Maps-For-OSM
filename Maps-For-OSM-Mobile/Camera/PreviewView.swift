@@ -7,16 +7,16 @@
 import UIKit
 import AVFoundation
 
-open class PreviewView: UIView {
+class PreviewView: UIView {
     
-    public var videoPreviewLayer: AVCaptureVideoPreviewLayer {
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer {
         guard let layer = layer as? AVCaptureVideoPreviewLayer else {
             fatalError("Expected `AVCaptureVideoPreviewLayer` type for layer. Check PreviewView.layerClass implementation.")
         }
         return layer
     }
     
-    public var session: AVCaptureSession? {
+    var session: AVCaptureSession? {
         get {
             return videoPreviewLayer.session
         }
@@ -25,7 +25,7 @@ open class PreviewView: UIView {
         }
     }
     
-    override public class var layerClass: AnyClass {
+    override class var layerClass: AnyClass {
         return AVCaptureVideoPreviewLayer.self
     }
 }

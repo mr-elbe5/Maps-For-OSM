@@ -8,12 +8,10 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5Data
-import E5IOSUI
 
 class CameraViewController: E5CameraViewController {
     
-    override public func loadView() {
+    override func loadView() {
         super.loadView()
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.backgroundColor = .black
@@ -21,7 +19,7 @@ class CameraViewController: E5CameraViewController {
         updateNavigationItems()
     }
     
-    public func updateNavigationItems() {
+    func updateNavigationItems() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), primaryAction: UIAction(){ action in
             self.navigationController?.popViewController(animated: true)
         })

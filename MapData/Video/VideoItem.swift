@@ -7,33 +7,33 @@
 import Foundation
 import CloudKit
 
-open class VideoItem : FileItem{
+class VideoItem : FileItem{
     
     enum VideoCodingKeys: String, CodingKey {
         case time
     }
     
-    public var time: Double = 0.0
+    var time: Double = 0.0
     
-    override public var type : LocatedItemType{
+    override var type : LocatedItemType{
         get{
             return .video
         }
     }
     
-    override public init(){
+    override init(){
         time = 0.0
         super.init()
         fileName = "video_\(id).mp4"
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: VideoCodingKeys.self)
         time = try values.decodeIfPresent(Double.self, forKey: .time) ?? 0.0
         try super.init(from: decoder)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: VideoCodingKeys.self)
         try container.encode(time, forKey: .time)

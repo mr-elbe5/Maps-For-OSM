@@ -6,20 +6,19 @@
 
 import CoreLocation
 import CloudKit
-import E5Data
 
-open class Location : UUIDObject, Comparable{
+class Location : UUIDObject, Comparable{
     
-    public static func == (lhs: Location, rhs: Location) -> Bool {
+    static func == (lhs: Location, rhs: Location) -> Bool {
         lhs.id == rhs.id
     }
     
-    public static func < (lhs: Location, rhs: Location) -> Bool {
+    static func < (lhs: Location, rhs: Location) -> Bool {
         AppState.shared.sortAscending ? lhs.creationDate < rhs.creationDate : lhs.creationDate > rhs.creationDate
     }
     
-    public static var recordMetaKeys = ["uuid"]
-    public static var recordDataKeys = ["uuid", "json"]
+    static var recordMetaKeys = ["uuid"]
+    static var recordDataKeys = ["uuid", "json"]
     
     private enum CodingKeys: String, CodingKey {
         case latitude
@@ -30,20 +29,20 @@ open class Location : UUIDObject, Comparable{
         case address
         case items
     }
-    public var coordinate: CLLocationCoordinate2D
-    public var altitude: Double
-    public var creationDate: Date
-    public var mapPoint: CGPoint
-    public var name : String = ""
-    public var address : String = ""
-    public var items : LocatedItemsList
-    public var _coordinateRegion: CoordinateRegion? = nil
+    var coordinate: CLLocationCoordinate2D
+    var altitude: Double
+    var creationDate: Date
+    var mapPoint: CGPoint
+    var name : String = ""
+    var address : String = ""
+    var items : LocatedItemsList
+    var _coordinateRegion: CoordinateRegion? = nil
     
-    public var itemCount: Int{
+    var itemCount: Int{
         items.count
     }
     
-    public var imageCount: Int{
+    var imageCount: Int{
         var count = 0
         for item in items{
             if item.type == .image{
@@ -53,57 +52,57 @@ open class Location : UUIDObject, Comparable{
         return count
     }
     
-    public var hasItems : Bool{
+    var hasItems : Bool{
         !items.isEmpty
     }
     
-    public var allItemsSelected: Bool{
+    var allItemsSelected: Bool{
         items.allSelected
     }
     
-    public var hasMedia : Bool{
+    var hasMedia : Bool{
         items.first(where: {
             [.image, .video, .audio].contains($0.type)
         }) != nil
     }
     
-    public var hasTrack : Bool{
+    var hasTrack : Bool{
         items.first(where: {
             $0.type == .track
         }) != nil
     }
     
-    public var hasNote : Bool{
+    var hasNote : Bool{
         items.first(where: {
             $0.type == .note
         }) != nil
     }
     
-    public var tracks: TrackList{
+    var tracks: TrackList{
         items.filter({
             $0.type == .track
         }) as! Array<TrackItem>
     }
     
-    public var images: ImageList{
+    var images: ImageList{
         items.filter({
             $0.type == .image
         }) as! Array<ImageItem>
     }
     
-    public var notes: Array<NoteItem>{
+    var notes: Array<NoteItem>{
         items.filter({
             $0.type == .note
         }) as! Array<NoteItem>
     }
     
-    public var fileItems : FileItemList{
+    var fileItems : FileItemList{
         items.filter({
             $0 is FileItem
         }) as! FileItemList
     }
     
-    public var coordinateRegion: CoordinateRegion{
+    var coordinateRegion: CoordinateRegion{
         get{
             if _coordinateRegion == nil{
                 _coordinateRegion = coordinate.coordinateRegion(radiusMeters: Preferences.shared.maxLocationMergeDistance)
@@ -112,13 +111,13 @@ open class Location : UUIDObject, Comparable{
         }
     }
     
-    public var recordId : CKRecord.ID{
+    var recordId : CKRecord.ID{
         get{
             CKRecord.ID(recordName: id.uuidString)
         }
     }
     
-    public var dataRecord: CKRecord{
+    var dataRecord: CKRecord{
         get{
             let record = CKRecord(recordType: CKRecord.locationType, recordID: recordId)
             record["uuid"] = id.uuidString
@@ -127,7 +126,7 @@ open class Location : UUIDObject, Comparable{
         }
     }
     
-    public init(coordinate: CLLocationCoordinate2D){
+    init(coordinate: CLLocationCoordinate2D){
         items = LocatedItemsList()
         mapPoint = CGPoint(coordinate)
         self.coordinate = coordinate
@@ -137,7 +136,7 @@ open class Location : UUIDObject, Comparable{
         evaluatePlacemark()
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
@@ -155,7 +154,7 @@ open class Location : UUIDObject, Comparable{
         items.sort()
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(coordinate.latitude, forKey: .latitude)
@@ -169,13 +168,13 @@ open class Location : UUIDObject, Comparable{
         try container.encode(metaList, forKey: .items)
     }
     
-    public func assertPlacemark(){
+    func assertPlacemark(){
         if name.isEmpty || address.isEmpty{
             evaluatePlacemark()
         }
     }
     
-    public func evaluatePlacemark(){
+    func evaluatePlacemark(){
         //print("getting placemark for \(name)")
         CLPlacemark.getPlacemark(for: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)){ result in
             if let placemark = result{
@@ -190,52 +189,52 @@ open class Location : UUIDObject, Comparable{
         }
     }
     
-    public func resetCoordinateRegion(){
+    func resetCoordinateRegion(){
         _coordinateRegion = nil
     }
     
-    public func item(at idx: Int) -> LocatedItem{
+    func item(at idx: Int) -> LocatedItem{
         items[idx]
     }
     
-    public func selectAllItems(){
+    func selectAllItems(){
         items.selectAll()
     }
     
-    public func deselectAllItems(){
+    func deselectAllItems(){
         items.deselectAll()
     }
     
-    public func addItem(item: LocatedItem){
+    func addItem(item: LocatedItem){
         if !items.containsEqual(item){
             item.location = self
             items.append(item)
         }
     }
     
-    public func getItem(id: UUID) -> LocatedItem?{
+    func getItem(id: UUID) -> LocatedItem?{
         items.first(where:{
             $0.id == id
         })
     }
     
-    public func deleteItem(item: LocatedItem){
+    func deleteItem(item: LocatedItem){
         item.prepareDelete()
         items.remove(item)
     }
     
-    public func deleteAllItems(){
+    func deleteAllItems(){
         for item in items{
             item.prepareDelete()
         }
         items.removeAllItems()
     }
     
-    public func sortItems(){
+    func sortItems(){
         items.sort()
     }
     
-    public func mergeLocation(from sourceLocation: Location){
+    func mergeLocation(from sourceLocation: Location){
         for sourceItem in sourceLocation.items{
             if !items.containsEqual(sourceItem){
                 items.append(sourceItem)

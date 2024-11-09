@@ -5,7 +5,6 @@
  */
 
 import CoreLocation
-import E5Data
 
 @Observable class TrackStatus: NSObject{
     

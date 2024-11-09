@@ -14,7 +14,7 @@ class MapDetailView: MenuScrollView{
         nil
     }
     
-    override open func setupView(){
+    override func setupView(){
         super.setupView()
         backgroundColor = .black
     }

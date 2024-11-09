@@ -7,9 +7,6 @@
 import UIKit
 import UniformTypeIdentifiers
 import CoreLocation
-import E5Data
-import E5IOSUI
-
 
 class LocationListViewController: NavTableViewController{
     

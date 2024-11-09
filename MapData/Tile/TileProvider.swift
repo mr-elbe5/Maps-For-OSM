@@ -9,15 +9,14 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import E5Data
 
-public struct TileProvider{
+struct TileProvider{
     
-    public static let shared = TileProvider()
+    static let shared = TileProvider()
     
-    public static let maxTries: Int = 3
+    static let maxTries: Int = 3
     
-    public func loadTileImage(tile: MapTile, template: String, result: @escaping (Bool) -> Void) {
+    func loadTileImage(tile: MapTile, template: String, result: @escaping (Bool) -> Void) {
         let request = URLRequest(url: tile.tileUrl(template: template), cachePolicy: .reloadIgnoringCacheData, timeoutInterval: 10.0)
         let task = getDownloadTask(request: request, tile: tile, template: template, tries: 1, result: result)
         DispatchQueue.global(qos: .userInitiated).async{
@@ -99,7 +98,7 @@ public struct TileProvider{
         return false
     }
     
-    public func deleteAllTiles(){
+    func deleteAllTiles(){
         do{
             try FileManager.default.removeItem(at: MapTile.tilesDirURL)
             try FileManager.default.createDirectory(at: MapTile.tilesDirURL, withIntermediateDirectories: true)
@@ -110,7 +109,7 @@ public struct TileProvider{
         }
     }
     
-    public func dumpTiles(){
+    func dumpTiles(){
         var paths = Array<String>()
         if let subpaths = FileManager.default.subpaths(atPath: MapTile.tilesDirURL.path){
             for path in subpaths{

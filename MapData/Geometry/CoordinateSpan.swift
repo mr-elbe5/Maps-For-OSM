@@ -7,17 +7,17 @@
 import Foundation
 import CoreLocation
 
-open class CoordinateSpan{
+class CoordinateSpan{
     
-    public var latitudeDelta: CLLocationDegrees
-    public var longitudeDelta: CLLocationDegrees
+    var latitudeDelta: CLLocationDegrees
+    var longitudeDelta: CLLocationDegrees
     
-    public init(){
+    init(){
         latitudeDelta = 0
         longitudeDelta = 0
     }
     
-    public init(latitudeDelta: CLLocationDegrees, longitudeDelta: CLLocationDegrees){
+    init(latitudeDelta: CLLocationDegrees, longitudeDelta: CLLocationDegrees){
         self.latitudeDelta = latitudeDelta
         self.longitudeDelta = longitudeDelta
     }

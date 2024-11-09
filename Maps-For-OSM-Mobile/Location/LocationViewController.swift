@@ -7,8 +7,6 @@
 import UIKit
 import CoreLocation
 import AVFoundation
-import E5Data
-import E5IOSUI
 
 class LocationViewController: NavTableViewController{
     

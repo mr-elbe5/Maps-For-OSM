@@ -5,30 +5,29 @@
  */
 
 import Foundation
-import E5Data
 
-open class Preferences: Identifiable, Codable{
+class Preferences: Identifiable, Codable{
     
-    public static var storeKey = "preferences"
+    static var storeKey = "preferences"
     
-    public static var shared = Preferences()
+    static var shared = Preferences()
     
-    public static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
-    public static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
-    public static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+    static var elbe5Url = "https://maps.elbe5.de/carto/{z}/{x}/{y}.png"
+    static var elbe5TopoUrl = "https://maps.elbe5.de/topo/{z}/{x}/{y}.png"
+    static var osmUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     
-    public static var defaultTrackpointInterval: Double = 5.0
-    public static var defaultMaxHorizontalUncertainty: Double = 10.0
+    static var defaultTrackpointInterval: Double = 5.0
+    static var defaultMaxHorizontalUncertainty: Double = 10.0
     
-    public static var defaultMinHorizontalTrackpointDistance: Double = 10.0
-    public static var minVerticalTrackpointDistance: Double = 5.0
-    public static var maxTrackpointInLineDeviation: Double = 3.0
-    public static var defaultMaxLocationMergeDistance: Double = 10.0
+    static var defaultMinHorizontalTrackpointDistance: Double = 10.0
+    static var minVerticalTrackpointDistance: Double = 5.0
+    static var maxTrackpointInLineDeviation: Double = 3.0
+    static var defaultMaxLocationMergeDistance: Double = 10.0
     
-    public static var defaultMaxSearchResults: Int = 5
+    static var defaultMaxSearchResults: Int = 5
     
-    public static var defaultDeleteLocalDataOnDownload = false
-    public static var defaultDeleteICloudDataOnUpload = true
+    static var defaultDeleteLocalDataOnDownload = false
+    static var defaultDeleteICloudDataOnUpload = true
     
     enum CodingKeys: String, CodingKey {
         case urlTemplate
@@ -41,20 +40,20 @@ open class Preferences: Identifiable, Codable{
         case maxLocationMergeDistance
     }
 
-    public var urlTemplate : String = osmUrl
-    public var followTrack : Bool = false
-    public var showTrackpoints : Bool = false
+    var urlTemplate : String = osmUrl
+    var followTrack : Bool = false
+    var showTrackpoints : Bool = false
     
-    public var trackpointInterval: Double = defaultTrackpointInterval
-    public var maxHorizontalUncertainty: Double = defaultMaxHorizontalUncertainty
-    public var minHorizontalTrackpointDistance = defaultMinHorizontalTrackpointDistance
-    public var maxSearchResults = defaultMaxSearchResults
-    public var maxLocationMergeDistance: Double = defaultMaxLocationMergeDistance
+    var trackpointInterval: Double = defaultTrackpointInterval
+    var maxHorizontalUncertainty: Double = defaultMaxHorizontalUncertainty
+    var minHorizontalTrackpointDistance = defaultMinHorizontalTrackpointDistance
+    var maxSearchResults = defaultMaxSearchResults
+    var maxLocationMergeDistance: Double = defaultMaxLocationMergeDistance
     
-    public init(){
+    init(){
     }
 
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         urlTemplate = try values.decodeIfPresent(String.self, forKey: .urlTemplate) ?? Preferences.osmUrl
         followTrack = try values.decodeIfPresent(Bool.self, forKey: .followTrack) ?? false
@@ -65,7 +64,7 @@ open class Preferences: Identifiable, Codable{
         maxLocationMergeDistance = try values.decodeIfPresent(Double.self, forKey: .maxLocationMergeDistance) ?? Preferences.defaultMaxLocationMergeDistance
     }
     
-    open func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(urlTemplate, forKey: .urlTemplate)
         try container.encode(followTrack, forKey: .followTrack)
@@ -75,7 +74,7 @@ open class Preferences: Identifiable, Codable{
         try container.encode(maxLocationMergeDistance, forKey: .maxLocationMergeDistance)
     }
     
-    open func save(){
+    func save(){
         UserDefaults.standard.save(forKey: Preferences.storeKey, value: self)
     }
     

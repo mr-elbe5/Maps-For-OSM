@@ -8,20 +8,18 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5Data
-import E5IOSUI
 
-public protocol CameraDelegate{
+protocol CameraDelegate{
     func photoCaptured(data: Data, location: CLLocation?)
     func videoCaptured(data: Data, cllocation: CLLocation?)
 }
 
-open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVCapturePhotoOutputReadinessCoordinatorDelegate {
+class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordingDelegate, AVCapturePhotoOutputReadinessCoordinatorDelegate {
     
-    public static var discoverableDeviceTypes : [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera, .builtInUltraWideCamera,.builtInTelephotoCamera]
-    public static var maxLensZoomFactor = 10.0
+    static var discoverableDeviceTypes : [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera, .builtInUltraWideCamera,.builtInTelephotoCamera]
+    static var maxLensZoomFactor = 10.0
     
-    public enum SessionSetupResult {
+    enum SessionSetupResult {
         case success
         case notAuthorized
         case configurationFailed
@@ -29,29 +27,29 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
     
     let locationManager = CLLocationManager()
     
-    public var bodyView = UIView()
+    var bodyView = UIView()
     let previewView = PreviewView()
-    public let captureModeControl = UISegmentedControl()
-    public let hdrVideoModeButton = CameraIconButton()
-    public let flashModeButton = CameraIconButton()
-    public let zoomLabel = UILabel(text: "1.0x")
+    let captureModeControl = UISegmentedControl()
+    let hdrVideoModeButton = CameraIconButton()
+    let flashModeButton = CameraIconButton()
+    let zoomLabel = UILabel(text: "1.0x")
     
-    public let cameraUnavailableLabel = UILabel(text: "cameraUnavailable".localize(table: "Camera"))
+    let cameraUnavailableLabel = UILabel(text: "cameraUnavailable".localize(table: "Camera"))
     
-    public let backLensControl = UISegmentedControl()
-    public let captureButton = CaptureButton()
-    public let cameraButton = CameraIconButton()
+    let backLensControl = UISegmentedControl()
+    let captureButton = CaptureButton()
+    let cameraButton = CameraIconButton()
     
     let tapGestureRecognizer = UITapGestureRecognizer()
     let pinchGestureRecognizer = UIPinchGestureRecognizer()
     
-    public var currentZoom = 1.0
+    var currentZoom = 1.0
     var currentZoomAtBegin = 1.0
     var currentMaxZoom = 1.0
     
-    public var isHdrVideoMode = false
-    public var isPhotoMode = true
-    public var flashMode: AVCaptureDevice.FlashMode = .auto
+    var isHdrVideoMode = false
+    var isPhotoMode = true
+    var flashMode: AVCaptureDevice.FlashMode = .auto
     var backDevices = [AVCaptureDevice]()
     var currentBackCameraIndex = 0
     var frontDevice: AVCaptureDevice!
@@ -59,12 +57,12 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
     let session = AVCaptureSession()
     var isSessionRunning = false
     let sessionQueue = DispatchQueue(label: "session queue")
-    public var setupResult: SessionSetupResult = .success
+    var setupResult: SessionSetupResult = .success
     
     var isCaptureEnabled = false
     // check for isCaptureEnabled!
     var currentDeviceInput: AVCaptureDeviceInput? = nil
-    public var currentDevice: AVCaptureDevice?{
+    var currentDevice: AVCaptureDevice?{
         currentDeviceInput?.device ?? nil
     }
     var videoDeviceIsConnectedObservation: NSKeyValueObservation? = nil
@@ -81,12 +79,12 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
     
     var _supportedInterfaceOrientations: UIInterfaceOrientationMask = .all
     
-    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get { return _supportedInterfaceOrientations }
         set { _supportedInterfaceOrientations = newValue }
     }
     
-    override public var shouldAutorotate: Bool {
+    override var shouldAutorotate: Bool {
         if let movieFileOutput = movieFileOutput {
             return !movieFileOutput.isRecording
         }
@@ -96,9 +94,9 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
     var keyValueObservations = [NSKeyValueObservation]()
     var systemPreferredCameraContext = 0
     
-    public var delegate: CameraDelegate? = nil
+    var delegate: CameraDelegate? = nil
     
-    override open func loadView() {
+    override func loadView() {
         super.loadView()
         view.addSubviewFillingSafeArea(bodyView)
         bodyView.backgroundColor = .black
@@ -122,7 +120,7 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
         //Log.debug("found \(backCameras.count) back cameras")
     }
     
-    open func addControls(){
+    func addControls(){
         
         captureModeControl.insertSegment(with: UIImage(systemName: "camera"), at: 0, animated: false)
         captureModeControl.insertSegment(with: UIImage(systemName: "video"), at: 1, animated: false)
@@ -223,7 +221,7 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
         return false
     }
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         hdrVideoModeButton.isHidden = true
         previewView.session = session
@@ -259,7 +257,7 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
         }
     }
     
-    override public func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         sessionQueue.async {
@@ -288,7 +286,7 @@ open class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordin
         }
     }
     
-    override public func viewWillDisappear(_ animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         sessionQueue.async {
             if self.setupResult == .success {
                 self.session.stopRunning()

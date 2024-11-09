@@ -6,35 +6,34 @@
 
 import Foundation
 import CloudKit
-import E5Data
 
-open class AudioItem : FileItem{
+class AudioItem : FileItem{
     
-    public enum AudioCodingKeys: String, CodingKey {
+    enum AudioCodingKeys: String, CodingKey {
         case time
     }
     
-    public var time: Double
+    var time: Double
     
-    override public var type : LocatedItemType{
+    override var type : LocatedItemType{
         get{
             return .audio
         }
     }
     
-    override public init(){
+    override init(){
         time = 0.0
         super.init()
         fileName = "audio_\(id).m4a"
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: AudioCodingKeys.self)
         time = try values.decode(Double.self, forKey: .time)
         try super.init(from: decoder)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: AudioCodingKeys.self)
         try container.encode(time, forKey: .time)

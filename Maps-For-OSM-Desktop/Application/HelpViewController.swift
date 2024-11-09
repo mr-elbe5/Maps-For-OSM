@@ -14,7 +14,7 @@ class HelpViewController: NSTabViewController, ModalResponder {
     var gridViewController = GridHelpViewController()
     var imageViewController = ImageHelpViewController()
     
-    public var responseCode: NSApplication.ModalResponse = .cancel
+    var responseCode: NSApplication.ModalResponse = .cancel
     
     override func loadView() {
         super.loadView()

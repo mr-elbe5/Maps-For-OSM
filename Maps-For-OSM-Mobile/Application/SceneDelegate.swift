@@ -5,9 +5,6 @@
  */
 
 import UIKit
-import E5Data
-
-import E5PhotoLib
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

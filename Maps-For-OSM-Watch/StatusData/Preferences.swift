@@ -1,11 +1,10 @@
 import Foundation
 import SwiftUI
 import CoreLocation
-import E5Data
 
 @Observable class Preferences: NSObject, Identifiable, Codable{
     
-    public static var storeKey = "watchPreferences"
+    static var storeKey = "watchPreferences"
     
     static var startZoom: Int = 16
     
@@ -40,14 +39,14 @@ import E5Data
         
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         autoUpdateLocation = try values.decodeIfPresent(Bool.self, forKey: .autoUpdateLocation) ?? true
         showDirection = try values.decodeIfPresent(Bool.self, forKey: .showDirection) ?? true
         zoom = try values.decodeIfPresent(Int.self, forKey: .zoom) ?? Preferences.startZoom
     }
     
-    open func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(autoUpdateLocation, forKey: .autoUpdateLocation)
         try container.encode(showDirection, forKey: .showDirection)

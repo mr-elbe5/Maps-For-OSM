@@ -5,7 +5,6 @@
  */
 
 import AppKit
-import E5Data
 
 protocol EditTrackMenuDelegate{
     func toggleSelectAllTrackpoints()

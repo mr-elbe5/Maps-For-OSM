@@ -7,8 +7,6 @@
 import AppKit
 import AVFoundation
 import CoreLocation
-import E5Data
-
 
 extension MainViewController: MainMenuDelegate{
     

@@ -6,27 +6,26 @@
 
 import Foundation
 import CoreLocation
-import E5Data
 
-open class SearchQuery {
+class SearchQuery {
     
-    public enum SearchRegion: Int{
+    enum SearchRegion: Int{
         case unlimited
         case current
         case radius
     }
     
-    public enum SearchTarget: Int{
+    enum SearchTarget: Int{
         case any
         case city
         case street
         case poi
     }
     
-    public var coordinateRegion: CoordinateRegion? = nil
-    public var searchRadius: Double = AppState.shared.searchRadius
+    var coordinateRegion: CoordinateRegion? = nil
+    var searchRadius: Double = AppState.shared.searchRadius
     
-    public var searchQuery: String?{
+    var searchQuery: String?{
         if let searchString = AppState.shared.searchString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed){
             var query : String
             switch AppState.shared.searchTarget{
@@ -45,10 +44,10 @@ open class SearchQuery {
         return nil
     }
     
-    public init(){
+    init(){
     }
     
-    public func search(completion: @escaping (_ result: Array<NominatimLocation>?) -> Void)  {
+    func search(completion: @escaping (_ result: Array<NominatimLocation>?) -> Void)  {
         if let query = searchQuery{
             Nominatim.getLocation(query: query, completion: completion)
         }

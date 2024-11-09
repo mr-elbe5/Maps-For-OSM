@@ -6,11 +6,10 @@
 
 import Foundation
 import CoreLocation
-import E5Data
 
-open class Nominatim {
+class Nominatim {
     
-    public static func getLocation(query: String, completion: @escaping (_ result: Array<NominatimLocation>) -> Void)  {
+    static func getLocation(query: String, completion: @escaping (_ result: Array<NominatimLocation>) -> Void)  {
         Log.debug(query)
         if let queryURL = URL(string: query){
             let session = URLSession.shared
@@ -47,15 +46,15 @@ open class Nominatim {
     }
 }
 
-open class NominatimLocation {
+class NominatimLocation {
     
-    public var latitude: Double
-    public var longitude: Double
-    public var name: String
-    public var importance: Double = 0.0
-    public var boundingBox: Array<String>? = nil
+    var latitude: Double
+    var longitude: Double
+    var name: String
+    var importance: Double = 0.0
+    var boundingBox: Array<String>? = nil
     
-    public init(lat: Double, lon: Double, name: String, importance: Double, boundingBox: Array<String>) {
+    init(lat: Double, lon: Double, name: String, importance: Double, boundingBox: Array<String>) {
         self.latitude = lat
         self.longitude = lon
         self.name = name
@@ -63,11 +62,11 @@ open class NominatimLocation {
         self.boundingBox = boundingBox
     }
     
-    public var coordidate: CLLocationCoordinate2D{
+    var coordidate: CLLocationCoordinate2D{
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    public var mapRect : CGRect?{
+    var mapRect : CGRect?{
         if let boundingBox = boundingBox, let minLat = Double(boundingBox[0]), let maxLat = Double(boundingBox[1]), let minLon = Double(boundingBox[2]), let maxLon = Double(boundingBox[3]){
             //debug("Nominatim: mapRect")
             let topLeft = CGPoint(CLLocationCoordinate2D(latitude: maxLat, longitude: minLon))

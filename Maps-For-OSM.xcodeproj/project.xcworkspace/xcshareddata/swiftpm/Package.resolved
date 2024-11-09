@@ -1,33 +1,6 @@
 {
-  "originHash" : "0a54977526bcf22adca101897903b438c0dd5c286a5fc7a8cb061a563a1b3b00",
+  "originHash" : "06769e8d8c1631cc56af6c35d0a5d62dda58842ac4d1f5e7dc2c98d19d1972b6",
   "pins" : [
-    {
-      "identity" : "e5data",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mr-elbe5/E5Data.git",
-      "state" : {
-        "revision" : "054e1c1a32e3cb77c54b781dc565a91596a19be4",
-        "version" : "1.0.31"
-      }
-    },
-    {
-      "identity" : "e5iosui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mr-elbe5/E5IOSUI.git",
-      "state" : {
-        "revision" : "90ace0503b3328f95fe906e8d180001feb2b82ec",
-        "version" : "1.0.38"
-      }
-    },
-    {
-      "identity" : "e5photolib",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/mr-elbe5/E5PhotoLib.git",
-      "state" : {
-        "revision" : "90a077dcd3d5cf7f4bd3f01f58b64466acef8016",
-        "version" : "1.0.11"
-      }
-    },
     {
       "identity" : "zip",
       "kind" : "remoteSourceControl",

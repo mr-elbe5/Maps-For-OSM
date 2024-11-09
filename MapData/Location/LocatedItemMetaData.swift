@@ -6,22 +6,22 @@
 
 import Foundation
 
-open class LocatedItemMetaData : Identifiable, Codable{
+class LocatedItemMetaData : Identifiable, Codable{
     
     private enum CodingKeys: CodingKey{
         case type
         case data
     }
     
-    public var type : LocatedItemType
-    public var data : LocatedItem
+    var type : LocatedItemType
+    var data : LocatedItem
     
-    public init(item: LocatedItem){
+    init(item: LocatedItem){
         self.type = item.type
         self.data = item
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         type = try values.decode(LocatedItemType.self, forKey: .type)
         switch type{
@@ -38,7 +38,7 @@ open class LocatedItemMetaData : Identifiable, Codable{
         }
     }
     
-    public func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
         try container.encode(data, forKey: .data)
@@ -48,14 +48,14 @@ open class LocatedItemMetaData : Identifiable, Codable{
 
 extension Array<LocatedItemMetaData>{
     
-    public mutating func loadItemList(items: LocatedItemsList){
+    mutating func loadItemList(items: LocatedItemsList){
         removeAll()
         for i in 0..<items.count{
             append(LocatedItemMetaData(item: items[i]))
         }
     }
     
-    public func toItemList() -> LocatedItemsList{
+    func toItemList() -> LocatedItemsList{
         var items = LocatedItemsList()
         for metaItem in self{
             items.append(metaItem.data)

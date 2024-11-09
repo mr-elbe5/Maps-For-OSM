@@ -7,9 +7,6 @@
 import AppKit
 import CoreLocation
 import UniformTypeIdentifiers
-import E5Data
-
-
 
 protocol BackupDelegate{
     func createBackup()

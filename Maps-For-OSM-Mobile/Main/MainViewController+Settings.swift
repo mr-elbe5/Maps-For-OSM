@@ -5,8 +5,6 @@
  */
 
 import UIKit
-import E5Data
-
 
 extension MainViewController: SettingsViewDelegate{
     

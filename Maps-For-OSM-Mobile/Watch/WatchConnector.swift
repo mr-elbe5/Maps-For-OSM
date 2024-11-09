@@ -1,6 +1,4 @@
 import WatchConnectivity
-import E5Data
-import UIKit
 
 class WatchConnector: NSObject, ObservableObject {
     

@@ -7,9 +7,9 @@
 import Foundation
 import CoreLocation
 
-open class GPXParser : XMLParser{
+class GPXParser : XMLParser{
     
-    public static func parseFile(url: URL) -> GPXData?{
+    static func parseFile(url: URL) -> GPXData?{
         if let data = FileManager.default.readFile(url: url){
             let parser = GPXParser(data: data)
             guard parser.parse() else { return nil }
@@ -18,12 +18,12 @@ open class GPXParser : XMLParser{
         return nil
     }
     
-    override public init(data: Data){
+    override init(data: Data){
         super.init(data: data)
         delegate = self
     }
     
-    public var data = GPXData()
+    var data = GPXData()
     
     private var name: String? = nil
     private var currentSegment : GPXSegment? = nil
@@ -34,7 +34,7 @@ open class GPXParser : XMLParser{
 
 extension GPXParser : XMLParserDelegate{
     
-    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         if elementName == "name"{
             if data.name.isEmpty{
                 name = ""
@@ -53,7 +53,7 @@ extension GPXParser : XMLParserDelegate{
         currentElement = elementName
     }
     
-    public func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
         if string.isEmpty{
             return
         }
@@ -73,7 +73,7 @@ extension GPXParser : XMLParserDelegate{
         }
     }
 
-    public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "name"{
             if let name = name{
                 data.name = name

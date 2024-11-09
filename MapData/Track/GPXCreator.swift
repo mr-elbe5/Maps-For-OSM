@@ -6,13 +6,12 @@
 
 import Foundation
 import CoreLocation
-import E5Data
 
-open class GPXCreator : NSObject{
+class GPXCreator : NSObject{
     
-    public static var temporaryFileName = "track.gpx"
+    static var temporaryFileName = "track.gpx"
     
-    public static func createTemporaryFile(track: TrackItem) -> URL?{
+    static func createTemporaryFile(track: TrackItem) -> URL?{
         let fileName = track.name.replacingOccurrences(of: " ", with: "_")
         if let url = URL(string: "track_\(fileName)_\(track.startTime.fileDate()).gpx", relativeTo: FileManager.tempURL){
             let s = trackString(track: track)
@@ -23,7 +22,7 @@ open class GPXCreator : NSObject{
         return nil
     }
     
-    public static func trackPointString(tp: Trackpoint) -> String{
+    static func trackPointString(tp: Trackpoint) -> String{
             """
             
                   <trkpt lat="\(String(format:"%.7f", tp.coordinate.latitude))" lon="\(String(format:"%.7f", tp.coordinate.longitude))">
@@ -33,7 +32,7 @@ open class GPXCreator : NSObject{
             """
     }
     
-    public static func trackString(track: TrackItem) -> String{
+    static func trackString(track: TrackItem) -> String{
         var str = """
     <?xml version='1.0' encoding='UTF-8'?>
     <gpx version="1.1" creator="Maps For OSM" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">

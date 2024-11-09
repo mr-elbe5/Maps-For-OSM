@@ -5,9 +5,8 @@
  */
 
 import CoreLocation
-import E5Data
 
-open class Trackpoint: Codable, Identifiable, Selectable{
+class Trackpoint: Codable, Identifiable, Selectable{
     
     enum CodingKeys: String, CodingKey{
         case latitude
@@ -16,15 +15,15 @@ open class Trackpoint: Codable, Identifiable, Selectable{
         case timestamp
     }
     
-    public var coordinate: CLLocationCoordinate2D
-    public var altitude: Double
-    public var timestamp: Date
-    public var mapPoint: CGPoint
+    var coordinate: CLLocationCoordinate2D
+    var altitude: Double
+    var timestamp: Date
+    var mapPoint: CGPoint
     //runtime
-    public var selected: Bool = false
+    var selected: Bool = false
     
     // for gpx parser
-    public init(coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance, timestamp: Date){
+    init(coordinate: CLLocationCoordinate2D, altitude: CLLocationDistance, timestamp: Date){
         self.coordinate = coordinate
         self.altitude = altitude
         self.timestamp = timestamp
@@ -33,7 +32,7 @@ open class Trackpoint: Codable, Identifiable, Selectable{
     }
     
     // for track recorder
-    public init(location: CLLocation){
+    init(location: CLLocation){
         mapPoint = CGPoint(location.coordinate)
         coordinate = location.coordinate
         altitude = location.altitude
@@ -41,11 +40,11 @@ open class Trackpoint: Codable, Identifiable, Selectable{
         selected = false
     }
     
-    required public init?(coder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("not implemented")
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let latitude = try values.decodeIfPresent(Double.self, forKey: .latitude) ?? 0
         let longitude = try values.decodeIfPresent(Double.self, forKey: .longitude) ?? 0
@@ -55,7 +54,7 @@ open class Trackpoint: Codable, Identifiable, Selectable{
         timestamp = try values.decodeIfPresent(Date.self, forKey: .timestamp) ?? Date.localDate
     }
     
-    open func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)

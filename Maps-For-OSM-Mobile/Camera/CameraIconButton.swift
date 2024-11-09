@@ -8,11 +8,10 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5IOSUI
 
-open class CameraIconButton: UIButton{
+class CameraIconButton: UIButton{
     
-    open func setup(icon: String){
+    func setup(icon: String){
         setImage(UIImage(systemName: icon), for: .normal)
         configuration = UIButton.Configuration.borderless()
         configuration?.imagePadding = 0

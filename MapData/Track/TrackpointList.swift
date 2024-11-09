@@ -5,13 +5,12 @@
  */
 
 import CoreLocation
-import E5Data
 
-public typealias TrackpointList = Array<Trackpoint>
+typealias TrackpointList = Array<Trackpoint>
 
 extension TrackpointList{
     
-    public var boundingCoordinates: (topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D)?{
+    var boundingCoordinates: (topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D)?{
         get{
             if isEmpty{
                 return nil
@@ -33,7 +32,7 @@ extension TrackpointList{
         }
     }
     
-    public var boundingMapRect: CGRect?{
+    var boundingMapRect: CGRect?{
         if let boundingCoordinates = boundingCoordinates{
             let topLeft = CGPoint(boundingCoordinates.topLeft)
             let bottomRight = CGPoint(boundingCoordinates.bottomRight)

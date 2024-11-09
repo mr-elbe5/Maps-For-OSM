@@ -7,12 +7,12 @@
 import Foundation
 import CoreLocation
 
-open class GPXData{
+class GPXData{
     
-    public var name: String = ""
-    public var segments = [GPXSegment]()
+    var name: String = ""
+    var segments = [GPXSegment]()
     
-    public var isEmpty: Bool{
+    var isEmpty: Bool{
         get{
             segments.isEmpty || segments.first!.isEmpty
         }
@@ -20,11 +20,11 @@ open class GPXData{
     
 }
 
-public class GPXSegment{
+class GPXSegment{
     
-    public var points = [GPXPoint]()
+    var points = [GPXPoint]()
     
-    public var isEmpty: Bool{
+    var isEmpty: Bool{
         get{
             points.isEmpty
         }
@@ -32,19 +32,19 @@ public class GPXSegment{
     
 }
 
-public class GPXPoint{
+class GPXPoint{
     
-    public var coordinate : CLLocationCoordinate2D
-    public var altitude : CLLocationDistance = 0
-    public var timestamp : Date? = nil
+    var coordinate : CLLocationCoordinate2D
+    var altitude : CLLocationDistance = 0
+    var timestamp : Date? = nil
     
-    public var location: CLLocation{
+    var location: CLLocation{
         get{
             CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: 0, timestamp: timestamp ?? Date())
         }
     }
     
-    public init(coordinate: CLLocationCoordinate2D){
+    init(coordinate: CLLocationCoordinate2D){
         self.coordinate = coordinate
     }
     

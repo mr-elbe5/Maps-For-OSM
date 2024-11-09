@@ -5,8 +5,6 @@
  */
 
 import AppKit
-import E5Data
-
 
 class TrackLayerView: NSView {
     

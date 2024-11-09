@@ -8,8 +8,6 @@ import UIKit
 import CoreLocation
 import AVFoundation
 import PhotosUI
-import E5Data
-import E5IOSUI
 
 extension MainViewController: PHPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     

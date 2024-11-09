@@ -6,9 +6,6 @@
 
 import UIKit
 import CoreLocation
-import E5Data
-import E5IOSUI
-
 
 protocol SearchDelegate{
     func getCurrentRegion() -> CoordinateRegion

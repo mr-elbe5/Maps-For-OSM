@@ -5,13 +5,12 @@
  */
 
 import CoreLocation
-import E5Data
 
-public typealias TrackList = Array<TrackItem>
+typealias TrackList = Array<TrackItem>
 
 extension TrackList{
     
-    public mutating func remove(_ track: TrackItem){
+    mutating func remove(_ track: TrackItem){
         for idx in 0..<self.count{
             if self[idx].equals(track){
                 self.remove(at: idx)
@@ -20,7 +19,7 @@ extension TrackList{
         }
     }
     
-    public mutating func sortByDate(){
+    mutating func sortByDate(){
         self.sort(by: { $0.startTime < $1.startTime})
     }
     

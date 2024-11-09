@@ -40,7 +40,6 @@
 		4E2579142B9DB5B200481B23 /* Location.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579112B9DB5B200481B23 /* Location.xcstrings */; };
 		4E2579152B9DB5B200481B23 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E2579122B9DB5B200481B23 /* Camera.xcstrings */; };
 		4E2894932CA81FF40012DBFE /* Maps For OSM Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4E2894992CA826690012DBFE /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E2894982CA826690012DBFE /* E5Data */; };
 		4E28949E2CA827750012DBFE /* CLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF552C733B650045DACB /* CLPlacemark.swift */; };
 		4E28949F2CA827750012DBFE /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF542C733B650045DACB /* CLLocationCoordinate2D.swift */; };
 		4E2894A22CA827750012DBFE /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF532C733B650045DACB /* CLLocation.swift */; };
@@ -91,7 +90,6 @@
 		4E72515F2C43C15A00EBA2BF /* MainViewController+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E72515E2C43C15A00EBA2BF /* MainViewController+Settings.swift */; };
 		4E79FBB3275BCE67001F0481 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E79FBB2275BCE67001F0481 /* Marker.swift */; };
 		4E7AD5582C468C4700AC02D9 /* MainViewController+Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7AD5572C468C4700AC02D9 /* MainViewController+Camera.swift */; };
-		4E7C76892C71E758000A66A7 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7C76882C71E758000A66A7 /* E5Data */; };
 		4E7C768F2C71E774000A66A7 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7C768E2C71E774000A66A7 /* Zip */; };
 		4E7DDA402C56303B0008F654 /* FileManagerIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DDA3F2C56303B0008F654 /* FileManagerIOS.swift */; };
 		4E89173F273688580046AC91 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E89173E273688580046AC91 /* LocationViewController.swift */; };
@@ -100,11 +98,8 @@
 		4EB127202CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB127212CC53B6C00F84ADB /* FileManager+Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB1271E2CC53A9000F84ADB /* FileManager+Tiles.swift */; };
 		4EB127832CC7F66300F84ADB /* TileUploadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB127822CC7F66300F84ADB /* TileUploadOperation.swift */; };
-		4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694562C3EADBB0058BAD0 /* E5PhotoLib */; };
-		4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */; };
 		4EB694632C3EAF240058BAD0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EB694622C3EAF240058BAD0 /* Zip */; };
 		4EB9BCEA2BB1CE1400787A15 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB9BCE92BB1CE1400787A15 /* AudioRecorderView.swift */; };
-		4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC5201A2C0DF030009C4A49 /* E5Data */; };
 		4ECC1ACC2BA2FB3300B9CCBD /* LocationGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1ACB2BA2FB3300B9CCBD /* LocationGroupViewController.swift */; };
 		4ECC1AD42BA3398C00B9CCBD /* TileSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD32BA3398C00B9CCBD /* TileSourceController.swift */; };
 		4ECC1AD82BA4A7C500B9CCBD /* MainViewController+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECC1AD72BA4A7C500B9CCBD /* MainViewController+Image.swift */; };
@@ -223,34 +218,6 @@
 		4EEA677F2C71E493005C459C /* MainViewController+MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67162C71E493005C459C /* MainViewController+MainMenu.swift */; };
 		4EEA67802C71E493005C459C /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67172C71E493005C459C /* MainWindowController.swift */; };
 		4EEA67812C71E493005C459C /* MediaPresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67182C71E493005C459C /* MediaPresenterView.swift */; };
-		4EEA67822C71E493005C459C /* IconBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA671A2C71E493005C459C /* IconBar.swift */; };
-		4EEA67832C71E493005C459C /* LabeledSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA671B2C71E493005C459C /* LabeledSwitchView.swift */; };
-		4EEA67842C71E493005C459C /* LabeledText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA671C2C71E493005C459C /* LabeledText.swift */; };
-		4EEA67852C71E493005C459C /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA671D2C71E493005C459C /* LabeledTextField.swift */; };
-		4EEA67862C71E493005C459C /* NSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA671E2C71E493005C459C /* NSButton.swift */; };
-		4EEA67872C71E493005C459C /* NSTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA671F2C71E493005C459C /* NSTextField.swift */; };
-		4EEA67882C71E493005C459C /* RadioGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67202C71E493005C459C /* RadioGroup.swift */; };
-		4EEA67892C71E493005C459C /* ViewSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67212C71E493005C459C /* ViewSeparator.swift */; };
-		4EEA678A2C71E493005C459C /* MenuScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67232C71E493005C459C /* MenuScrollView.swift */; };
-		4EEA678B2C71E493005C459C /* NSGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67242C71E493005C459C /* NSGridView.swift */; };
-		4EEA678C2C71E493005C459C /* NSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67252C71E493005C459C /* NSImageView.swift */; };
-		4EEA678D2C71E493005C459C /* NSScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67262C71E493005C459C /* NSScrollView.swift */; };
-		4EEA678E2C71E493005C459C /* NSStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67272C71E493005C459C /* NSStackView.swift */; };
-		4EEA678F2C71E493005C459C /* NSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67282C71E493005C459C /* NSView.swift */; };
-		4EEA67902C71E493005C459C /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67292C71E493005C459C /* SplitView.swift */; };
-		4EEA67922C71E493005C459C /* NSAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672C2C71E493005C459C /* NSAlert.swift */; };
-		4EEA67932C71E493005C459C /* NSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672D2C71E493005C459C /* NSViewController.swift */; };
-		4EEA67942C71E493005C459C /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA672E2C71E493005C459C /* PopoverViewController.swift */; };
-		4EEA67962C71E493005C459C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67302C71E493005C459C /* ViewController.swift */; };
-		4EEA67972C71E493005C459C /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67322C71E493005C459C /* ModalViewController.swift */; };
-		4EEA67982C71E493005C459C /* ModalWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67332C71E493005C459C /* ModalWindow.swift */; };
-		4EEA67992C71E493005C459C /* ModalWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67342C71E493005C459C /* ModalWindowController.swift */; };
-		4EEA679A2C71E493005C459C /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67352C71E493005C459C /* WindowController.swift */; };
-		4EEA679B2C71E493005C459C /* ImageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67372C71E493005C459C /* ImageFactory.swift */; };
-		4EEA679C2C71E493005C459C /* Insets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67382C71E493005C459C /* Insets.swift */; };
-		4EEA679D2C71E493005C459C /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67392C71E493005C459C /* NSImage.swift */; };
-		4EEA679E2C71E493005C459C /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA673A2C71E493005C459C /* NSMenuItem.swift */; };
-		4EEA679F2C71E493005C459C /* UTType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA673B2C71E493005C459C /* UTType.swift */; };
 		4EEA67A02C71E493005C459C /* MacPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA673D2C71E493005C459C /* MacPreferences.swift */; };
 		4EEA67A12C71E493005C459C /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA673E2C71E493005C459C /* PreferencesViewController.swift */; };
 		4EEA67A22C71E493005C459C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 4EEA67402C71E493005C459C /* PrivacyInfo.xcprivacy */; };
@@ -303,7 +270,6 @@
 		4EFCC4762BBAEDD100CBEA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCC4752BBAEDD100CBEA6E /* ImageListViewController.swift */; };
 		4EFE3EA82CBC3025001FB40A /* Trackpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF6B2C733B650045DACB /* Trackpoint.swift */; };
 		4EFE3EA92CBC3031001FB40A /* TrackpointList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED7FF6C2C733B650045DACB /* TrackpointList.swift */; };
-		4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -486,34 +452,6 @@
 		4EEA67162C71E493005C459C /* MainViewController+MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MainViewController+MainMenu.swift"; sourceTree = "<group>"; };
 		4EEA67172C71E493005C459C /* MainWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		4EEA67182C71E493005C459C /* MediaPresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPresenterView.swift; sourceTree = "<group>"; };
-		4EEA671A2C71E493005C459C /* IconBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconBar.swift; sourceTree = "<group>"; };
-		4EEA671B2C71E493005C459C /* LabeledSwitchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledSwitchView.swift; sourceTree = "<group>"; };
-		4EEA671C2C71E493005C459C /* LabeledText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledText.swift; sourceTree = "<group>"; };
-		4EEA671D2C71E493005C459C /* LabeledTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
-		4EEA671E2C71E493005C459C /* NSButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSButton.swift; sourceTree = "<group>"; };
-		4EEA671F2C71E493005C459C /* NSTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextField.swift; sourceTree = "<group>"; };
-		4EEA67202C71E493005C459C /* RadioGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioGroup.swift; sourceTree = "<group>"; };
-		4EEA67212C71E493005C459C /* ViewSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSeparator.swift; sourceTree = "<group>"; };
-		4EEA67232C71E493005C459C /* MenuScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScrollView.swift; sourceTree = "<group>"; };
-		4EEA67242C71E493005C459C /* NSGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSGridView.swift; sourceTree = "<group>"; };
-		4EEA67252C71E493005C459C /* NSImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSImageView.swift; sourceTree = "<group>"; };
-		4EEA67262C71E493005C459C /* NSScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSScrollView.swift; sourceTree = "<group>"; };
-		4EEA67272C71E493005C459C /* NSStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStackView.swift; sourceTree = "<group>"; };
-		4EEA67282C71E493005C459C /* NSView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSView.swift; sourceTree = "<group>"; };
-		4EEA67292C71E493005C459C /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
-		4EEA672C2C71E493005C459C /* NSAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAlert.swift; sourceTree = "<group>"; };
-		4EEA672D2C71E493005C459C /* NSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSViewController.swift; sourceTree = "<group>"; };
-		4EEA672E2C71E493005C459C /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
-		4EEA67302C71E493005C459C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4EEA67322C71E493005C459C /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
-		4EEA67332C71E493005C459C /* ModalWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalWindow.swift; sourceTree = "<group>"; };
-		4EEA67342C71E493005C459C /* ModalWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalWindowController.swift; sourceTree = "<group>"; };
-		4EEA67352C71E493005C459C /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
-		4EEA67372C71E493005C459C /* ImageFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFactory.swift; sourceTree = "<group>"; };
-		4EEA67382C71E493005C459C /* Insets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Insets.swift; sourceTree = "<group>"; };
-		4EEA67392C71E493005C459C /* NSImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
-		4EEA673A2C71E493005C459C /* NSMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
-		4EEA673B2C71E493005C459C /* UTType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UTType.swift; sourceTree = "<group>"; };
 		4EEA673D2C71E493005C459C /* MacPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacPreferences.swift; sourceTree = "<group>"; };
 		4EEA673E2C71E493005C459C /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		4EEA67402C71E493005C459C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -568,6 +506,74 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4E672E652CDF98DA00C75767 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ImageFactory.swift,
+				Insets.swift,
+				NSControl/IconBar.swift,
+				NSControl/LabeledSwitchView.swift,
+				NSControl/LabeledText.swift,
+				NSControl/LabeledTextField.swift,
+				NSControl/NSButton.swift,
+				NSControl/NSTextField.swift,
+				NSControl/RadioGroup.swift,
+				NSControl/ViewSeparator.swift,
+				NSImage.swift,
+				NSMenuItem.swift,
+				NSView/MenuScrollView.swift,
+				NSView/NSGridView.swift,
+				NSView/NSImageView.swift,
+				NSView/NSScrollView.swift,
+				NSView/NSStackView.swift,
+				NSView/NSView.swift,
+				NSView/SplitView.swift,
+				NSViewController/NSAlert.swift,
+				NSViewController/NSViewController.swift,
+				NSViewController/PopoverViewController.swift,
+				NSViewController/ViewController.swift,
+				NSWindow/ModalViewController.swift,
+				NSWindow/ModalWindow.swift,
+				NSWindow/ModalWindowController.swift,
+				NSWindow/WindowController.swift,
+				UTType.swift,
+			);
+			target = 4E0BD97C26E9FC66005A4A94 /* Maps for OSM Mobile */;
+		};
+		4E672E662CDF98DB00C75767 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ImageFactory.swift,
+				Insets.swift,
+				NSControl/IconBar.swift,
+				NSControl/LabeledSwitchView.swift,
+				NSControl/LabeledText.swift,
+				NSControl/LabeledTextField.swift,
+				NSControl/NSButton.swift,
+				NSControl/NSTextField.swift,
+				NSControl/RadioGroup.swift,
+				NSControl/ViewSeparator.swift,
+				NSImage.swift,
+				NSMenuItem.swift,
+				NSView/MenuScrollView.swift,
+				NSView/NSGridView.swift,
+				NSView/NSImageView.swift,
+				NSView/NSScrollView.swift,
+				NSView/NSStackView.swift,
+				NSView/NSView.swift,
+				NSView/SplitView.swift,
+				NSViewController/NSAlert.swift,
+				NSViewController/NSViewController.swift,
+				NSViewController/PopoverViewController.swift,
+				NSViewController/ViewController.swift,
+				NSWindow/ModalViewController.swift,
+				NSWindow/ModalWindow.swift,
+				NSWindow/ModalWindowController.swift,
+				NSWindow/WindowController.swift,
+				UTType.swift,
+			);
+			target = 4E2894852CA81FF30012DBFE /* Maps For OSM Watch */;
+		};
 		4EB126E82CC3B96200F84ADB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -579,6 +585,9 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4EB126E82CC3B96200F84ADB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Maps-For-OSM-Watch"; sourceTree = "<group>"; };
+		4E672C9C2CDF980100C75767 /* SwiftDataBasics */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SwiftDataBasics; sourceTree = "<group>"; };
+		4E672C9D2CDF984400C75767 /* SwiftIOSBasics */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SwiftIOSBasics; sourceTree = "<group>"; };
+		4E672C9E2CDF985C00C75767 /* SwiftMacOSBasics */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (4E672E652CDF98DA00C75767 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 4E672E662CDF98DB00C75767 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftMacOSBasics; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -586,11 +595,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EC5201B2C0DF030009C4A49 /* E5Data in Frameworks */,
 				4EB694632C3EAF240058BAD0 /* Zip in Frameworks */,
-				4EFF86982C2AFC0E00D0DEB0 /* E5IOSUI in Frameworks */,
-				4EB694572C3EADBB0058BAD0 /* E5PhotoLib in Frameworks */,
-				4EB694602C3EAEAF0058BAD0 /* E5IOSUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,7 +603,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E2894992CA826690012DBFE /* E5Data in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +610,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E7C76892C71E758000A66A7 /* E5Data in Frameworks */,
 				4E7C768F2C71E774000A66A7 /* Zip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -640,6 +643,7 @@
 		4E0BD97426E9FC66005A4A94 = {
 			isa = PBXGroup;
 			children = (
+				4E672C9C2CDF980100C75767 /* SwiftDataBasics */,
 				4EFE3E772CBBF3F4001FB40A /* Maps For OSM Watch.entitlements */,
 				4E2579102B9DB5B200481B23 /* Base.xcstrings */,
 				4E2579122B9DB5B200481B23 /* Camera.xcstrings */,
@@ -648,7 +652,6 @@
 				4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */,
 				4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */,
 				4ED7FF462C733AFA0045DACB /* MapData */,
-				4ED7FFF12C7351160045DACB /* MacUI */,
 				4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */,
 				4E0BD97E26E9FC66005A4A94 /* Products */,
 				4E7C76872C71E758000A66A7 /* Frameworks */,
@@ -668,6 +671,7 @@
 		4E0BD97F26E9FC66005A4A94 /* Maps-For-OSM-Mobile */ = {
 			isa = PBXGroup;
 			children = (
+				4E672C9D2CDF984400C75767 /* SwiftIOSBasics */,
 				4E0252472BC2C94B0010D234 /* Maps for OSM.entitlements */,
 				4E0BD98926E9FC67005A4A94 /* Assets.xcassets */,
 				4E2579032B99C27C00481B23 /* InfoPlist.xcstrings */,
@@ -1005,25 +1009,10 @@
 			path = Note;
 			sourceTree = "<group>";
 		};
-		4ED7FFF12C7351160045DACB /* MacUI */ = {
-			isa = PBXGroup;
-			children = (
-				4EEA67222C71E493005C459C /* NSControl */,
-				4EEA672A2C71E493005C459C /* NSView */,
-				4EEA67312C71E493005C459C /* NSViewController */,
-				4EEA67362C71E493005C459C /* NSWindow */,
-				4EEA67372C71E493005C459C /* ImageFactory.swift */,
-				4EEA67382C71E493005C459C /* Insets.swift */,
-				4EEA67392C71E493005C459C /* NSImage.swift */,
-				4EEA673A2C71E493005C459C /* NSMenuItem.swift */,
-				4EEA673B2C71E493005C459C /* UTType.swift */,
-			);
-			path = MacUI;
-			sourceTree = "<group>";
-		};
 		4EEA66FA2C71E254005C459C /* Maps-For-OSM-Desktop */ = {
 			isa = PBXGroup;
 			children = (
+				4E672C9E2CDF985C00C75767 /* SwiftMacOSBasics */,
 				4EE481E62C8B047600BB9B73 /* Info.plist */,
 				4EEA67042C71E255005C459C /* Maps for OSM.entitlements */,
 				4EEA66FF2C71E255005C459C /* Assets.xcassets */,
@@ -1074,57 +1063,6 @@
 				4EEA67182C71E493005C459C /* MediaPresenterView.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		4EEA67222C71E493005C459C /* NSControl */ = {
-			isa = PBXGroup;
-			children = (
-				4EEA671A2C71E493005C459C /* IconBar.swift */,
-				4EEA671B2C71E493005C459C /* LabeledSwitchView.swift */,
-				4EEA671C2C71E493005C459C /* LabeledText.swift */,
-				4EEA671D2C71E493005C459C /* LabeledTextField.swift */,
-				4EEA671E2C71E493005C459C /* NSButton.swift */,
-				4EEA671F2C71E493005C459C /* NSTextField.swift */,
-				4EEA67202C71E493005C459C /* RadioGroup.swift */,
-				4EEA67212C71E493005C459C /* ViewSeparator.swift */,
-			);
-			path = NSControl;
-			sourceTree = "<group>";
-		};
-		4EEA672A2C71E493005C459C /* NSView */ = {
-			isa = PBXGroup;
-			children = (
-				4EEA67232C71E493005C459C /* MenuScrollView.swift */,
-				4EEA67242C71E493005C459C /* NSGridView.swift */,
-				4EEA67252C71E493005C459C /* NSImageView.swift */,
-				4EEA67262C71E493005C459C /* NSScrollView.swift */,
-				4EEA67272C71E493005C459C /* NSStackView.swift */,
-				4EEA67282C71E493005C459C /* NSView.swift */,
-				4EEA67292C71E493005C459C /* SplitView.swift */,
-			);
-			path = NSView;
-			sourceTree = "<group>";
-		};
-		4EEA67312C71E493005C459C /* NSViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4EEA672C2C71E493005C459C /* NSAlert.swift */,
-				4EEA672D2C71E493005C459C /* NSViewController.swift */,
-				4EEA672E2C71E493005C459C /* PopoverViewController.swift */,
-				4EEA67302C71E493005C459C /* ViewController.swift */,
-			);
-			path = NSViewController;
-			sourceTree = "<group>";
-		};
-		4EEA67362C71E493005C459C /* NSWindow */ = {
-			isa = PBXGroup;
-			children = (
-				4EEA67322C71E493005C459C /* ModalViewController.swift */,
-				4EEA67332C71E493005C459C /* ModalWindow.swift */,
-				4EEA67342C71E493005C459C /* ModalWindowController.swift */,
-				4EEA67352C71E493005C459C /* WindowController.swift */,
-			);
-			path = NSWindow;
 			sourceTree = "<group>";
 		};
 		4EEA673F2C71E493005C459C /* Preferences */ = {
@@ -1271,12 +1209,13 @@
 			dependencies = (
 				4E2894922CA81FF40012DBFE /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				4E672C9C2CDF980100C75767 /* SwiftDataBasics */,
+				4E672C9D2CDF984400C75767 /* SwiftIOSBasics */,
+				4E672C9E2CDF985C00C75767 /* SwiftMacOSBasics */,
+			);
 			name = "Maps for OSM Mobile";
 			packageProductDependencies = (
-				4EC5201A2C0DF030009C4A49 /* E5Data */,
-				4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */,
-				4EB694562C3EADBB0058BAD0 /* E5PhotoLib */,
-				4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */,
 				4EB694622C3EAF240058BAD0 /* Zip */,
 			);
 			productName = SwiftyMapViewer;
@@ -1297,10 +1236,11 @@
 			);
 			fileSystemSynchronizedGroups = (
 				4E2894872CA81FF30012DBFE /* Maps-For-OSM-Watch */,
+				4E672C9C2CDF980100C75767 /* SwiftDataBasics */,
+				4E672C9E2CDF985C00C75767 /* SwiftMacOSBasics */,
 			);
 			name = "Maps For OSM Watch";
 			packageProductDependencies = (
-				4E2894982CA826690012DBFE /* E5Data */,
 			);
 			productName = "Maps-For-OSM-Watch Watch App";
 			productReference = 4E2894862CA81FF30012DBFE /* Maps For OSM Watch.app */;
@@ -1318,9 +1258,12 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				4E672C9C2CDF980100C75767 /* SwiftDataBasics */,
+				4E672C9E2CDF985C00C75767 /* SwiftMacOSBasics */,
+			);
 			name = "Maps For OSM Desktop";
 			packageProductDependencies = (
-				4E7C76882C71E758000A66A7 /* E5Data */,
 				4E7C768E2C71E774000A66A7 /* Zip */,
 			);
 			productName = "Maps For OSM Mac";
@@ -1359,10 +1302,7 @@
 			);
 			mainGroup = 4E0BD97426E9FC66005A4A94;
 			packageReferences = (
-				4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
-				4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
 				4EB694612C3EAF240058BAD0 /* XCRemoteSwiftPackageReference "Zip" */,
-				4E7C76862C71E648000A66A7 /* XCRemoteSwiftPackageReference "E5Data" */,
 			);
 			productRefGroup = 4E0BD97E26E9FC66005A4A94 /* Products */;
 			projectDirPath = "";
@@ -1582,7 +1522,6 @@
 			files = (
 				4EEA67AA2C71E493005C459C /* ImageGridItem.swift in Sources */,
 				4ED7FFB82C733B650045DACB /* TrackItem.swift in Sources */,
-				4EEA67972C71E493005C459C /* ModalViewController.swift in Sources */,
 				4EEA677E2C71E493005C459C /* MainViewController+Delegates.swift in Sources */,
 				4EEA67BB2C71E493005C459C /* TrackpointMarker.swift in Sources */,
 				4EEA67B72C71E493005C459C /* EditTrackMapView.swift in Sources */,
@@ -1590,20 +1529,13 @@
 				4ED7FFD62C733B650045DACB /* Backup.swift in Sources */,
 				4EEA67A62C71E493005C459C /* NoteCellView.swift in Sources */,
 				4ED7FFD22C733B650045DACB /* AppData.swift in Sources */,
-				4EEA67922C71E493005C459C /* NSAlert.swift in Sources */,
-				4EEA678C2C71E493005C459C /* NSImageView.swift in Sources */,
 				4EEA67AC2C71E493005C459C /* ImageGridView.swift in Sources */,
 				4EEA677C2C71E493005C459C /* MainMenuView.swift in Sources */,
 				4EEA67A72C71E493005C459C /* EditImageViewController.swift in Sources */,
 				4EEA67A12C71E493005C459C /* PreferencesViewController.swift in Sources */,
 				4EEA67A02C71E493005C459C /* MacPreferences.swift in Sources */,
-				4EEA67992C71E493005C459C /* ModalWindowController.swift in Sources */,
-				4EEA678A2C71E493005C459C /* MenuScrollView.swift in Sources */,
-				4EEA678E2C71E493005C459C /* NSStackView.swift in Sources */,
 				4EEA67A82C71E493005C459C /* ImageCellView.swift in Sources */,
 				4ED7FF982C733B650045DACB /* FileItem.swift in Sources */,
-				4EEA67902C71E493005C459C /* SplitView.swift in Sources */,
-				4EEA67892C71E493005C459C /* ViewSeparator.swift in Sources */,
 				4EEA67C72C71E493005C459C /* CrossLocationMenu.swift in Sources */,
 				4EEA67B32C71E493005C459C /* main.swift in Sources */,
 				4EEA67A92C71E493005C459C /* ImageGridDetailViewController.swift in Sources */,
@@ -1613,16 +1545,12 @@
 				4ED7FFB02C733B650045DACB /* World.swift in Sources */,
 				4EEA67A52C71E493005C459C /* EditNoteViewController.swift in Sources */,
 				4EEA67CC2C71E493005C459C /* PlainMapScrollView.swift in Sources */,
-				4EEA67822C71E493005C459C /* IconBar.swift in Sources */,
 				4ED7FFC02C733B650045DACB /* TrackpointList.swift in Sources */,
 				4EEA67AF2C71E493005C459C /* BackupViewController.swift in Sources */,
 				4EEA67AB2C71E493005C459C /* ImageGridMenuView.swift in Sources */,
 				4EEA67B22C71E493005C459C /* MacAppState.swift in Sources */,
 				4ED7FFCC2C733B650045DACB /* TileRegion.swift in Sources */,
 				4ED7FF9C2C733B650045DACB /* LocatedItemMetaData.swift in Sources */,
-				4EEA67962C71E493005C459C /* ViewController.swift in Sources */,
-				4EEA679B2C71E493005C459C /* ImageFactory.swift in Sources */,
-				4EEA67852C71E493005C459C /* LabeledTextField.swift in Sources */,
 				4EEA67B42C71E493005C459C /* DrawTrackpoint.swift in Sources */,
 				4ED7FF8E2C733B650045DACB /* CKRecord.swift in Sources */,
 				4EEA67C22C71E493005C459C /* LocationItemCellView.swift in Sources */,
@@ -1630,17 +1558,13 @@
 				4ED7FFBA2C733B650045DACB /* TrackImageCreator.swift in Sources */,
 				4EEA67C82C71E493005C459C /* MapDetailView.swift in Sources */,
 				4ED7FFA22C733B650045DACB /* LocationGroup.swift in Sources */,
-				4EEA67982C71E493005C459C /* ModalWindow.swift in Sources */,
 				4E4814422C91C98D0031DAAB /* MapStatusView.swift in Sources */,
 				4EEA67812C71E493005C459C /* MediaPresenterView.swift in Sources */,
 				4ED7FFAC2C733B650045DACB /* CoordinateRegion.swift in Sources */,
 				4EEA67CA2C71E493005C459C /* MapScrollView.swift in Sources */,
-				4EEA678D2C71E493005C459C /* NSScrollView.swift in Sources */,
 				4EEA67C12C71E493005C459C /* LocationGroupMarker.swift in Sources */,
-				4EEA67842C71E493005C459C /* LabeledText.swift in Sources */,
 				4EEA67C32C71E493005C459C /* LocationLayerView.swift in Sources */,
 				4ED7FFA02C733B650045DACB /* Location.swift in Sources */,
-				4EEA67932C71E493005C459C /* NSViewController.swift in Sources */,
 				4EEA67C52C71E493005C459C /* Marker.swift in Sources */,
 				4EEA67BF2C71E493005C459C /* LocationDetailView.swift in Sources */,
 				4ED7FFB42C733B650045DACB /* GPXData.swift in Sources */,
@@ -1648,17 +1572,11 @@
 				4ED7FFBE2C733B650045DACB /* Trackpoint.swift in Sources */,
 				4EEA67B02C71E493005C459C /* FileManagerMac.swift in Sources */,
 				4EEA67C42C71E493005C459C /* LocationMarker.swift in Sources */,
-				4EEA67872C71E493005C459C /* NSTextField.swift in Sources */,
 				4EEA67C02C71E493005C459C /* LocationGroupDetailView.swift in Sources */,
-				4EEA67832C71E493005C459C /* LabeledSwitchView.swift in Sources */,
 				4E4814402C918FAA0031DAAB /* EditTrackMenuView.swift in Sources */,
-				4EEA679E2C71E493005C459C /* NSMenuItem.swift in Sources */,
-				4EEA679C2C71E493005C459C /* Insets.swift in Sources */,
 				4ED7FF862C733B650045DACB /* Preferences.swift in Sources */,
-				4EEA67882C71E493005C459C /* RadioGroup.swift in Sources */,
 				4EEA67B92C71E493005C459C /* TrackCellView.swift in Sources */,
 				4EB1271F2CC53A9000F84ADB /* FileManager+Tiles.swift in Sources */,
-				4EEA679F2C71E493005C459C /* UTType.swift in Sources */,
 				4ED7FF822C733B650045DACB /* Nominatim.swift in Sources */,
 				4EEA67792C71E493005C459C /* TileLayerView.swift in Sources */,
 				4EEA67A32C71E493005C459C /* EditVideoViewController.swift in Sources */,
@@ -1670,35 +1588,29 @@
 				4ED7FFCA2C733B650045DACB /* TileProvider.swift in Sources */,
 				4ED7FFAE2C733B650045DACB /* CoordinateSpan.swift in Sources */,
 				4ED7FFC62C733B650045DACB /* MapTile.swift in Sources */,
-				4EEA67942C71E493005C459C /* PopoverViewController.swift in Sources */,
 				4ED7FFAA2C733B650045DACB /* CGRect+CL.swift in Sources */,
 				4E4871912CC7E27600E1C628 /* AppState.swift in Sources */,
 				4E4871932CC7E30700E1C628 /* CommonAppState.swift in Sources */,
 				4ED7FF9A2C733B650045DACB /* LocatedItem.swift in Sources */,
 				4ED7FF9E2C733B650045DACB /* LocatedItemsList.swift in Sources */,
-				4EEA678B2C71E493005C459C /* NSGridView.swift in Sources */,
 				4EEA67B82C71E493005C459C /* EditTrackViewController.swift in Sources */,
 				4EEA677D2C71E493005C459C /* MainViewController.swift in Sources */,
 				4ED7FF842C733B650045DACB /* SearchQuery.swift in Sources */,
 				4EEA67752C71E493005C459C /* AudioCellView.swift in Sources */,
 				4EEA67C92C71E493005C459C /* MapMenuView.swift in Sources */,
 				4ED7FF962C733B650045DACB /* CLPlacemark.swift in Sources */,
-				4EEA678F2C71E493005C459C /* NSView.swift in Sources */,
 				4EEA67762C71E493005C459C /* EditAudioViewController.swift in Sources */,
 				4ED7FFCE2C733B650045DACB /* AudioItem.swift in Sources */,
 				4EEA677F2C71E493005C459C /* MainViewController+MainMenu.swift in Sources */,
 				4ED7FFA82C733B650045DACB /* CGPoint+CL.swift in Sources */,
-				4EEA679A2C71E493005C459C /* WindowController.swift in Sources */,
 				4EEA67AE2C71E493005C459C /* AppDelegate.swift in Sources */,
 				4EEA67B52C71E493005C459C /* EditTrackpointDetailView.swift in Sources */,
 				4ED7FFD02C733B650045DACB /* MapType.swift in Sources */,
-				4EEA67862C71E493005C459C /* NSButton.swift in Sources */,
 				4ED7FFC22C733B650045DACB /* VideoItem.swift in Sources */,
 				4ED7FF902C733B650045DACB /* CloudSynchronizer.swift in Sources */,
 				4EEA67AD2C71E493005C459C /* ImagePresenterDetailView.swift in Sources */,
 				4EEA67BC2C71E493005C459C /* ICloudViewController.swift in Sources */,
 				4ED7FFA42C733B650045DACB /* LocationList.swift in Sources */,
-				4EEA679D2C71E493005C459C /* NSImage.swift in Sources */,
 				4ED7FF8A2C733B650045DACB /* PreviewCreator.swift in Sources */,
 				4ED7FF942C733B650045DACB /* CLLocationCoordinate2D.swift in Sources */,
 				4EEA67BA2C71E493005C459C /* TrackLayerView.swift in Sources */,
@@ -2108,30 +2020,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E7C76862C71E648000A66A7 /* XCRemoteSwiftPackageReference "E5Data" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/E5Data.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.30;
-			};
-		};
-		4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/E5PhotoLib.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.10;
-			};
-		};
-		4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/E5IOSUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.24;
-			};
-		};
 		4EB694612C3EAF240058BAD0 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip.git";
@@ -2143,43 +2031,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E2894982CA826690012DBFE /* E5Data */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E7C76862C71E648000A66A7 /* XCRemoteSwiftPackageReference "E5Data" */;
-			productName = E5Data;
-		};
-		4E7C76882C71E758000A66A7 /* E5Data */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E7C76862C71E648000A66A7 /* XCRemoteSwiftPackageReference "E5Data" */;
-			productName = E5Data;
-		};
 		4E7C768E2C71E774000A66A7 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4EB694612C3EAF240058BAD0 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
 		};
-		4EB694562C3EADBB0058BAD0 /* E5PhotoLib */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EB694552C3EADBB0058BAD0 /* XCRemoteSwiftPackageReference "E5PhotoLib" */;
-			productName = E5PhotoLib;
-		};
-		4EB6945F2C3EAEAF0058BAD0 /* E5IOSUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EB6945E2C3EAEAF0058BAD0 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
-			productName = E5IOSUI;
-		};
 		4EB694622C3EAF240058BAD0 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4EB694612C3EAF240058BAD0 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
-		};
-		4EC5201A2C0DF030009C4A49 /* E5Data */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = E5Data;
-		};
-		4EFF86972C2AFC0E00D0DEB0 /* E5IOSUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = E5IOSUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

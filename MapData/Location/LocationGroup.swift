@@ -5,15 +5,14 @@
  */
 
 import CoreLocation
-import E5Data
 
-open class LocationGroup{
+class LocationGroup{
     
-    public var center: CLLocationCoordinate2D? = nil
-    public var centerPlanetPosition: CGPoint? = nil
-    public var locations = LocationList()
+    var center: CLLocationCoordinate2D? = nil
+    var centerPlanetPosition: CGPoint? = nil
+    var locations = LocationList()
     
-    public var hasMedia: Bool{
+    var hasMedia: Bool{
         for location in locations{
             if location.hasMedia{
                 return true
@@ -22,7 +21,7 @@ open class LocationGroup{
         return false
     }
     
-    public var hasTrack: Bool{
+    var hasTrack: Bool{
         for location in locations{
             if location.hasTrack{
                 return true
@@ -31,7 +30,7 @@ open class LocationGroup{
         return false
     }
     
-    public var centralCoordinate: CLLocationCoordinate2D?{
+    var centralCoordinate: CLLocationCoordinate2D?{
         let count = locations.count
         if count < 2{
             return nil
@@ -47,10 +46,10 @@ open class LocationGroup{
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
-    public init(){
+    init(){
     }
     
-    public func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
+    func isWithinRadius(location: Location, radius: CGFloat) -> Bool{
         //debug("LocationGroup checking radius")
         if let center = center{
             let dist = center.distance(to: location.coordinate)
@@ -62,15 +61,15 @@ open class LocationGroup{
         }
     }
     
-    public func hasLocation(location: Location) -> Bool{
+    func hasLocation(location: Location) -> Bool{
         locations.containsEqual(location)
     }
     
-    public func addLocation(location: Location){
+    func addLocation(location: Location){
         locations.append(location)
     }
     
-    public func setCenter(){
+    func setCenter(){
         var minLon : CGFloat? = nil
         var maxLon : CGFloat? = nil
         var minLat : CGFloat? = nil

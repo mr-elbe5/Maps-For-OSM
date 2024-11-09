@@ -5,7 +5,6 @@ Copyright: Michael Rönnau mr@elbe5.de
 */
 
 import AppKit
-import E5Data
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     

@@ -9,52 +9,51 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import E5Data
 
-open class ImageItem : FileItem{
+class ImageItem : FileItem{
     
-    public static var previewSize: CGFloat = 512
+    static var previewSize: CGFloat = 512
     
-    public enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case metaData
     }
     
-    override public var type : LocatedItemType{
+    override var type : LocatedItemType{
         .image
     }
     
-    override public init(){
+    override init(){
         super.init()
         fileName = "img_\(id).jpg"
     }
     
-    public var metaData: ImageMetaData? = nil
+    var metaData: ImageMetaData? = nil
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         metaData = try values.decodeIfPresent(ImageMetaData.self, forKey: .metaData)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(metaData, forKey: .metaData)
         try super.encode(to: encoder)
     }
     
-    public func readMetaData(){
+    func readMetaData(){
         if let data = FileManager.default.readFile(url: fileURL){
             metaData = ImageMetaData()
             metaData?.readData(data: data)
         }
     }
     
-    public func getPreviewFile() -> Data?{
+    func getPreviewFile() -> Data?{
         let url = FileManager.previewsDirURL.appendingPathComponent(fileName)
         return FileManager.default.readFile(url: url)
     }
     
-    override public func prepareDelete(){
+    override func prepareDelete(){
         super.prepareDelete()
         if FileManager.default.fileExists(dirPath: FileManager.previewsDirURL.path, fileName: fileName){
             if !FileManager.default.deleteFile(dirURL: FileManager.previewsDirURL, fileName: fileName){
@@ -64,21 +63,21 @@ open class ImageItem : FileItem{
     }
     
 #if os(macOS)
-    public func getImage() -> NSImage?{
+    func getImage() -> NSImage?{
         if let data = getFile(){
             return NSImage(data: data)
         } else{
             return nil
         }
     }
-    public func getPreview() -> NSImage?{
+    func getPreview() -> NSImage?{
         if let data = getPreviewFile(){
             return NSImage(data: data)
         } else{
             return createPreview()
         }
     }
-    public func createPreview() -> NSImage?{
+    func createPreview() -> NSImage?{
         if let preview = PreviewCreator.createPreview(of: getImage()){
             let url = FileManager.previewsDirURL.appendingPathComponent(fileName)
             if let tiff = preview.tiffRepresentation, let tiffData = NSBitmapImageRep(data: tiff) {
@@ -94,21 +93,21 @@ open class ImageItem : FileItem{
         return nil
     }
 #elseif os(iOS)
-    public func getImage() -> UIImage?{
+    func getImage() -> UIImage?{
         if let data = getFile(){
             return UIImage(data: data)
         } else{
             return nil
         }
     }
-    public func getPreview() -> UIImage?{
+    func getPreview() -> UIImage?{
         if let data = getPreviewFile(){
             return UIImage(data: data)
         } else{
             return createPreview()
         }
     }
-    public func createPreview() -> UIImage?{
+    func createPreview() -> UIImage?{
         if let preview = PreviewCreator.createPreview(of: getImage()){
             let url = FileManager.previewsDirURL.appendingPathComponent(fileName)
             if let data = preview.jpegData(compressionQuality: 0.85){
@@ -120,7 +119,7 @@ open class ImageItem : FileItem{
         }
         return nil
     }
-    public func saveImage(uiImage: UIImage){
+    func saveImage(uiImage: UIImage){
         if let data = uiImage.jpegData(compressionQuality: 0.8){
             saveFile(data: data)
         }
@@ -129,11 +128,11 @@ open class ImageItem : FileItem{
     
 }
 
-public typealias ImageList = Array<ImageItem>
+typealias ImageList = Array<ImageItem>
 
 extension ImageList{
     
-    public mutating func remove(_ image: ImageItem){
+    mutating func remove(_ image: ImageItem){
         for idx in 0..<self.count{
             if self[idx].equals(image){
                 self.remove(at: idx)

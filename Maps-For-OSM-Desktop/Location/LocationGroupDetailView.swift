@@ -6,8 +6,6 @@ Copyright: Michael Rönnau mr@elbe5.de
 
 import AppKit
 import CoreLocation
-import E5Data
-
 
 protocol LocationGroupDelegate{
     func showLocationDetails(_ location: Location)
@@ -36,7 +34,7 @@ class LocationGroupDetailView: MapDetailView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override open func setupView(){
+    override func setupView(){
         createFixedView()
         super.setupView()
     }

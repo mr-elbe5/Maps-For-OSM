@@ -6,30 +6,30 @@
 
 import Foundation
 
-open class NoteItem : LocatedItem{
+class NoteItem : LocatedItem{
     
     private enum CodingKeys: CodingKey{
         case text
     }
     
-    override public var type : LocatedItemType{
+    override var type : LocatedItemType{
         .note
     }
     
-    public var text: String
+    var text: String
     
-    override public init(){
+    override init(){
         text = ""
         super.init()
     }
     
-    required public init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         text = try values.decode(String.self, forKey: .text)
         try super.init(from: decoder)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(text, forKey: .text)

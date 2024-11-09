@@ -7,10 +7,6 @@
 import UIKit
 import UniformTypeIdentifiers
 import PhotosUI
-import E5Data
-import E5IOSUI
-import E5PhotoLib
-
 
 class ImageListViewController: NavTableViewController{
     
@@ -36,7 +32,7 @@ class ImageListViewController: NavTableViewController{
     var images = ImageList()
     var days = Array<Day>()
     
-    override open func loadView() {
+    override func loadView() {
         title = "images".localize()
         super.loadView()
         view.backgroundColor = .black

@@ -8,7 +8,6 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5Data
 
 extension E5CameraViewController{
     

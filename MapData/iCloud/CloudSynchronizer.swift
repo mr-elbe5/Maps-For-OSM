@@ -6,18 +6,17 @@
 
 import Foundation
 import CloudKit
-import E5Data
 
-public protocol CloudSynchronizerDelegate{
+protocol CloudSynchronizerDelegate{
     func setMaxSteps(_ value: Int)
     func nextStep()
 }
 
-open class CloudSynchronizer{
+class CloudSynchronizer{
     
-    public var delegate: CloudSynchronizerDelegate? = nil
+    var delegate: CloudSynchronizerDelegate? = nil
     
-    public init(){
+    init(){
     }
     
     func sendNextStep(){
@@ -26,14 +25,14 @@ open class CloudSynchronizer{
         }
     }
     
-    public func synchronizeICloud(replaceLocalData: Bool, replaceICloudData: Bool) async throws{
+    func synchronizeICloud(replaceLocalData: Bool, replaceICloudData: Bool) async throws{
         AppData.shared.save()
         try await synchronizeFromICloud(deleteLocalData: replaceLocalData)
         AppData.shared.save()
         try await synchronizeToICloud(deleteICloudData: replaceICloudData)
     }
     
-    public func synchronizeFromICloud(deleteLocalData: Bool) async throws{
+    func synchronizeFromICloud(deleteLocalData: Bool) async throws{
         Log.info("synchronizing from iCloud")
         Log.info("starting download with \(AppData.shared.locations.count) locations and \(AppData.shared.locations.fileItems.count) files")
         if try await CKContainer.isConnected(), let remoteLocations = try await getRemoteLocations(){
@@ -98,7 +97,7 @@ open class CloudSynchronizer{
         Log.info("ending download with \(AppData.shared.locations.count) locations and \(AppData.shared.locations.fileItems.count) files")
     }
     
-    public func synchronizeToICloud(deleteICloudData: Bool) async throws{
+    func synchronizeToICloud(deleteICloudData: Bool) async throws{
         Log.info("synchronizing to iCloud")
         if try await CKContainer.isConnected(){
             var recordsToSave = Array<CKRecord>()
@@ -166,7 +165,7 @@ open class CloudSynchronizer{
         }
     }
     
-    public func cleanupICloud() async throws{
+    func cleanupICloud() async throws{
         Log.debug("cleanup iCloud")
         if try await CKContainer.isConnected(), let remoteLocations = try await getRemoteLocations(){
             let remoteFileMetaDataMap = await getRemoteFileMetaData()
@@ -337,7 +336,7 @@ open class CloudSynchronizer{
         }
     }
     
-    public func modifyRecords(recordsToSave: Array<CKRecord>, recordIdsToDelete: Array<CKRecord.ID>) async throws{
+    func modifyRecords(recordsToSave: Array<CKRecord>, recordIdsToDelete: Array<CKRecord.ID>) async throws{
         let fullResult = try await CKContainer.privateDatabase.modifyRecords(saving:recordsToSave, deleting:recordIdsToDelete, savePolicy: .allKeys, atomically: false)
         for saveResult in fullResult.saveResults{
             switch saveResult.value{

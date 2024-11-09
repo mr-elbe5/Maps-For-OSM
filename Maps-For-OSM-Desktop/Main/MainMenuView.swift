@@ -5,7 +5,6 @@
  */
 
 import AppKit
-import E5Data
 
 protocol MainMenuDelegate{
     func setView(_ type: MainViewType)

@@ -6,8 +6,6 @@
 
 import UIKit
 import CoreLocation
-import E5Data
-import E5IOSUI
 
 protocol NoteViewDelegate{
     func addNote(text: String, coordinate: CLLocationCoordinate2D)

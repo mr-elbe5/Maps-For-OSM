@@ -6,36 +6,36 @@
 
 import CoreLocation
 
-open class CoordinateRegion{
+class CoordinateRegion{
     
-    public var minLatitude : CLLocationDegrees
-    public var maxLatitude : CLLocationDegrees
-    public var minLongitude : CLLocationDegrees
-    public var maxLongitude : CLLocationDegrees
+    var minLatitude : CLLocationDegrees
+    var maxLatitude : CLLocationDegrees
+    var minLongitude : CLLocationDegrees
+    var maxLongitude : CLLocationDegrees
     
-    public var center: CLLocationCoordinate2D{
+    var center: CLLocationCoordinate2D{
         CLLocationCoordinate2D(latitude: (minLatitude + maxLatitude)/2, longitude: (minLongitude + maxLongitude)/2)
     }
     
-    public init(topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D){
+    init(topLeft: CLLocationCoordinate2D, bottomRight: CLLocationCoordinate2D){
         maxLatitude = topLeft.latitude
         minLatitude = bottomRight.latitude
         minLongitude = topLeft.longitude
         maxLongitude = bottomRight.longitude
     }
     
-    public init(minLatitude: CLLocationDegrees, maxLatitude: CLLocationDegrees, minLongitude: CLLocationDegrees, maxLongitude: CLLocationDegrees){
+    init(minLatitude: CLLocationDegrees, maxLatitude: CLLocationDegrees, minLongitude: CLLocationDegrees, maxLongitude: CLLocationDegrees){
         self.minLatitude = minLatitude
         self.maxLatitude = maxLatitude
         self.minLongitude = minLongitude
         self.maxLongitude = maxLongitude
     }
     
-    public func contains(coordinate: CLLocationCoordinate2D) -> Bool{
+    func contains(coordinate: CLLocationCoordinate2D) -> Bool{
         coordinate.latitude >= minLatitude && coordinate.latitude <= maxLatitude && coordinate.longitude >= minLongitude && coordinate.longitude <= maxLongitude
     }
     
-    open var string : String{
+    var string : String{
         "minLatitude = \(minLatitude), maxLatitude = \(maxLatitude), minLongitude = \(minLongitude), maxLongitude = \(maxLongitude)"
     }
     

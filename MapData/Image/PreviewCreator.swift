@@ -9,12 +9,11 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import E5Data
 
-open class PreviewCreator{
+class PreviewCreator{
     
 #if os(macOS)
-    public static func createPreview(of img: NSImage?, size: CGFloat = 512) -> NSImage?{
+    static func createPreview(of img: NSImage?, size: CGFloat = 512) -> NSImage?{
         if let img = img{
             if (img.size.width<=ImageItem.previewSize) && (img.size.height<=ImageItem.previewSize) {
                 return img
@@ -36,7 +35,7 @@ open class PreviewCreator{
         return nil
     }
 #elseif os(iOS)
-    public static func createPreview(of img: UIImage?, size: CGFloat = 512) -> UIImage?{
+    static func createPreview(of img: UIImage?, size: CGFloat = 512) -> UIImage?{
         if let img = img{
             if (img.size.width<=ImageItem.previewSize) && (img.size.height<=ImageItem.previewSize) {
                 return img

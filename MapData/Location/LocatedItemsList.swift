@@ -5,27 +5,26 @@
  */
 
 import Foundation
-import E5Data
 
-public typealias LocatedItemsList = Array<LocatedItem>
+typealias LocatedItemsList = Array<LocatedItem>
 
 extension LocatedItemsList{
     
-    public mutating func remove(_ item: LocatedItem){
+    mutating func remove(_ item: LocatedItem){
         item.prepareDelete()
         removeAll(where: {
             $0.equals(item)
         })
     }
     
-    public mutating func removeAllItems(){
+    mutating func removeAllItems(){
         for item in self{
             item.prepareDelete()
         }
         self.removeAll()
     }
     
-    public mutating func removeDuplicates(){
+    mutating func removeDuplicates(){
         for item in self{
             let duplicates = getDuplicates(of: item)
             if duplicates.count > 0{
@@ -37,7 +36,7 @@ extension LocatedItemsList{
         }
     }
     
-    public func getDuplicates(of item: LocatedItem) -> LocatedItemsList{
+    func getDuplicates(of item: LocatedItem) -> LocatedItemsList{
         var list = LocatedItemsList()
         for otherItem in self{
             if item != otherItem, item.equals(otherItem){

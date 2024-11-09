@@ -6,9 +6,6 @@
 
 import AppKit
 import CoreLocation
-import E5Data
-
-
 
 class ImageGridDetailViewController: PopoverViewController {
     

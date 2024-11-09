@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import E5Data
 import CoreLocation
 
 protocol LocationDelegate{

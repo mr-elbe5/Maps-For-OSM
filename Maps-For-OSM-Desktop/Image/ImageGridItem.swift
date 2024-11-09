@@ -6,8 +6,6 @@
 
 import Foundation
 import AppKit
-import E5Data
-
 
 protocol ImageGridItemDelegate{
     func showImageFullSize(_ image: ImageItem)

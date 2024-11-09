@@ -9,7 +9,7 @@ import CoreLocation
 
 extension CLPlacemark{
     
-    public static func getPlacemark(for location: CLLocation, result: @escaping(CLPlacemark?) -> Void){
+    static func getPlacemark(for location: CLLocation, result: @escaping(CLPlacemark?) -> Void){
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
             if let error = error{
                 print(error)
@@ -27,7 +27,7 @@ extension CLPlacemark{
         })
     }
     
-    public var nameString: String?{
+    var nameString: String?{
         if let name = name{
             if name.isEmpty || name == postalCode{
                 return nil
@@ -39,14 +39,14 @@ extension CLPlacemark{
         return nil
     }
     
-    public var locationString: String{
+    var locationString: String{
         let streetAddress = "\(thoroughfare ?? "") \(subThoroughfare ?? "")".trim()
         return streetAddress.isEmpty ?
         "\(postalCode ?? "") \(locality ?? "")\n\(country ?? "")" :
         "\(streetAddress)\n\(postalCode ?? "") \(locality ?? "")\n\(country ?? "")"
     }
     
-    public var asString: String{
+    var asString: String{
         if let name = name, !name.isEmpty{
             return name
         }

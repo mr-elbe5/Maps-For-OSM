@@ -7,25 +7,25 @@
 import Foundation
 import UIKit
 
-open class CaptureButton: UIButton {
+class CaptureButton: UIButton {
     
-    public enum ButtonState: Int {
+    enum ButtonState: Int {
         case normal, recording
     }
     
-    public var buttonColor: UIColor = UIColor.red {
+    var buttonColor: UIColor = UIColor.red {
         didSet {
             innerCircleLayer.fillColor = buttonColor.cgColor
         }
     }
     
-    public var outerColor: UIColor = UIColor.white {
+    var outerColor: UIColor = UIColor.white {
         didSet {
             innerCircleLayer.fillColor = buttonColor.cgColor
         }
     }
     
-    public var buttonState: ButtonState = .normal {
+    var buttonState: ButtonState = .normal {
         didSet {
             self.setNeedsLayout()
         }
@@ -86,7 +86,7 @@ open class CaptureButton: UIButton {
         )
     }
     
-    override public func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         layer.addSublayer(outerCircleLayer)
         layer.addSublayer(innerCircleLayer)

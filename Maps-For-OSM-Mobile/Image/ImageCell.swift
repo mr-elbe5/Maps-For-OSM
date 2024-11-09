@@ -5,12 +5,10 @@
  */
 
 import UIKit
-import E5Data
-import E5IOSUI
 
 import CoreLocation
 
-public protocol ImageCellDelegate {
+protocol ImageCellDelegate {
     func viewImage(image: ImageItem)
     func showLocationOnMap(coordinate: CLLocationCoordinate2D)
 }

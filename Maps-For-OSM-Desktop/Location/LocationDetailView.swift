@@ -38,7 +38,7 @@ class LocationDetailView: MapDetailView {
         location.items.deselectAll()
     }
     
-    override open func setupView(){
+    override func setupView(){
         createFixedView()
         super.setupView()
     }

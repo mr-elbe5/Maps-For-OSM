@@ -7,9 +7,6 @@
 import AppKit
 import AVFoundation
 import CoreLocation
-import E5Data
-
-
 
 enum MainViewType: Int{
     case map

@@ -5,9 +5,6 @@
  */
 
 import UIKit
-import E5Data
-import E5IOSUI
-
 
 protocol VideoCellDelegate: LocationItemCellDelegate{
     func viewVideo(item: VideoItem)

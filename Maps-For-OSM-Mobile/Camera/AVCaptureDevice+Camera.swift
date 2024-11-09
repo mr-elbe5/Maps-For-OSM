@@ -6,11 +6,10 @@
 
 import Foundation
 import Photos
-import E5Data
 
 extension AVCaptureDevice {
     
-    public static var defaultCameraDevice : AVCaptureDevice?{
+    static var defaultCameraDevice : AVCaptureDevice?{
         if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
             return dualCameraDevice
         } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
@@ -21,11 +20,11 @@ extension AVCaptureDevice {
         return nil
     }
     
-    public static var isCameraAvailable : Bool{
+    static var isCameraAvailable : Bool{
         defaultCameraDevice != nil
     }
         
-    public static func askCameraAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
+    static func askCameraAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
         switch AVCaptureDevice.authorizationStatus(for: .video){
         case .authorized:
             callback(.success(()))
@@ -46,7 +45,7 @@ extension AVCaptureDevice {
         }
     }
     
-    public static func askVideoAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
+    static func askVideoAuthorization(callback: @escaping (Result<Void, Error>) -> Void){
         askCameraAuthorization(){ result  in
             switch result{
             case .success(()):

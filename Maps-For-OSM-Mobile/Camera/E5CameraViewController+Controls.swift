@@ -8,11 +8,10 @@ import UIKit
 import AVFoundation
 import CoreLocation
 import Photos
-import E5Data
 
 extension E5CameraViewController{
     
-    public func enableControls(_ enable: Bool){
+    func enableControls(_ enable: Bool){
         //Log.debug("enable controls: \(enable)")
         captureModeControl.isEnabled = enable
         hdrVideoModeButton.isEnabled = enable && !isPhotoMode

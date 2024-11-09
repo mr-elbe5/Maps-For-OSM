@@ -6,7 +6,7 @@
 
 import Foundation
 
-public enum MapType : String{
+enum MapType : String{
     case carto
     case topo
     

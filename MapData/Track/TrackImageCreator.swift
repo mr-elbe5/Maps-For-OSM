@@ -9,20 +9,19 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import E5Data
 import CoreLocation
 
-open class TrackImageCreator{
+class TrackImageCreator{
     
-    public var track: TrackItem
+    var track: TrackItem
     
-    public init(track: TrackItem){
+    init(track: TrackItem){
         self.track = track
     }
     
 #if os(macOS)
     
-    public func createImage(size: NSSize) -> NSImage?{
+    func createImage(size: NSSize) -> NSImage?{
         if track.trackpoints.isEmpty{
             return nil
         }
@@ -49,7 +48,7 @@ open class TrackImageCreator{
         return img
     }
     
-    public func drawTrack(ctx: CGContext, size: NSSize, zoom: Int, downScale: CGFloat, worldViewRect: CGRect) {
+    func drawTrack(ctx: CGContext, size: NSSize, zoom: Int, downScale: CGFloat, worldViewRect: CGRect) {
         if !track.trackpoints.isEmpty{
             var drawPoints = Array<CGPoint>()
             for idx in 0..<track.trackpoints.count{
@@ -72,7 +71,7 @@ open class TrackImageCreator{
     
 #elseif os(iOS)
     
-    public func createImage(size: CGSize) -> UIImage?{
+    func createImage(size: CGSize) -> UIImage?{
         if track.trackpoints.isEmpty{
             return nil
         }
@@ -98,7 +97,7 @@ open class TrackImageCreator{
         return img
     }
     
-    public func drawTrack(ctx: CGContext, size: CGSize, zoom: Int, downScale: CGFloat, worldViewRect: CGRect) {
+    func drawTrack(ctx: CGContext, size: CGSize, zoom: Int, downScale: CGFloat, worldViewRect: CGRect) {
         if !track.trackpoints.isEmpty{
             var drawPoints = Array<CGPoint>()
             for idx in 0..<track.trackpoints.count{

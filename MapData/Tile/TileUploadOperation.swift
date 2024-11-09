@@ -13,26 +13,25 @@
  */
 
 import Foundation
-import E5Data
 
-public protocol UploadDelegate {
+protocol UploadDelegate {
     func uploadSucceeded()
     func uploadWithError()
 }
 
-open class TileUploadOperation : AsyncOperation, @unchecked Sendable {
+class TileUploadOperation : AsyncOperation, @unchecked Sendable {
     
-    public var tile : MapTile
-    public var data : Data
-    public var delegate : UploadDelegate? = nil
+    var tile : MapTile
+    var data : Data
+    var delegate : UploadDelegate? = nil
     
-    public init(tile: MapTile, data: Data) {
+    init(tile: MapTile, data: Data) {
         self.tile = tile
         self.data = data
         super.init()
     }
     
-    override public func startExecution(){
+    override func startExecution(){
         Log.debug("TileUploadOperation starting upload of \(tile.shortDescription)")
         WatchConnector.shared.sendTile(tile, data: data){ success in
             if success{
