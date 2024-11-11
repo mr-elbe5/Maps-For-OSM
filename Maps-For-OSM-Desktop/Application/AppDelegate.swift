@@ -23,14 +23,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Log.info("no saved data available for preferences")
             Preferences.shared = MacPreferences()
         }
-        if let state : MacAppState = UserDefaults.standard.load(forKey: AppState.storeKey){
+        if let state : AppState = UserDefaults.standard.load(forKey: AppState.storeKey){
             AppState.shared = state
             Log.info("last location: \(AppState.shared.coordinate)")
             Log.info("last zoom: \(AppState.shared.zoom)")
         }
         else{
             Log.info("no saved data available for state")
-            AppState.shared = MacAppState()
+            AppState.shared = AppState()
         }
         AppData.shared.load()
         createMenu()

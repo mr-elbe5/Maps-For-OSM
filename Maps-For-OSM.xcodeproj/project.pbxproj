@@ -236,7 +236,6 @@
 		4EEA67AF2C71E493005C459C /* BackupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67502C71E493005C459C /* BackupViewController.swift */; };
 		4EEA67B02C71E493005C459C /* FileManagerMac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67512C71E493005C459C /* FileManagerMac.swift */; };
 		4EEA67B12C71E493005C459C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67522C71E493005C459C /* HelpViewController.swift */; };
-		4EEA67B22C71E493005C459C /* MacAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67532C71E493005C459C /* MacAppState.swift */; };
 		4EEA67B32C71E493005C459C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67542C71E493005C459C /* main.swift */; };
 		4EEA67B42C71E493005C459C /* DrawTrackpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67562C71E493005C459C /* DrawTrackpoint.swift */; };
 		4EEA67B52C71E493005C459C /* EditTrackpointDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA67572C71E493005C459C /* EditTrackpointDetailView.swift */; };
@@ -470,7 +469,6 @@
 		4EEA67502C71E493005C459C /* BackupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackupViewController.swift; sourceTree = "<group>"; };
 		4EEA67512C71E493005C459C /* FileManagerMac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerMac.swift; sourceTree = "<group>"; };
 		4EEA67522C71E493005C459C /* HelpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
-		4EEA67532C71E493005C459C /* MacAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacAppState.swift; sourceTree = "<group>"; };
 		4EEA67542C71E493005C459C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4EEA67562C71E493005C459C /* DrawTrackpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawTrackpoint.swift; sourceTree = "<group>"; };
 		4EEA67572C71E493005C459C /* EditTrackpointDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTrackpointDetailView.swift; sourceTree = "<group>"; };
@@ -1114,7 +1112,6 @@
 				4EEA67502C71E493005C459C /* BackupViewController.swift */,
 				4EEA67512C71E493005C459C /* FileManagerMac.swift */,
 				4EEA67522C71E493005C459C /* HelpViewController.swift */,
-				4EEA67532C71E493005C459C /* MacAppState.swift */,
 				4EEA67542C71E493005C459C /* main.swift */,
 			);
 			path = Application;
@@ -1548,7 +1545,6 @@
 				4ED7FFC02C733B650045DACB /* TrackpointList.swift in Sources */,
 				4EEA67AF2C71E493005C459C /* BackupViewController.swift in Sources */,
 				4EEA67AB2C71E493005C459C /* ImageGridMenuView.swift in Sources */,
-				4EEA67B22C71E493005C459C /* MacAppState.swift in Sources */,
 				4ED7FFCC2C733B650045DACB /* TileRegion.swift in Sources */,
 				4ED7FF9C2C733B650045DACB /* LocatedItemMetaData.swift in Sources */,
 				4EEA67B42C71E493005C459C /* DrawTrackpoint.swift in Sources */,

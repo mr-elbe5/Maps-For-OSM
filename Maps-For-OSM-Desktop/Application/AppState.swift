@@ -15,9 +15,11 @@ class AppState: CommonAppState{
     enum CodingKeys: String, CodingKey {
         case latitude
         case longitude
+        case viewType
     }
 
     var coordinate : CLLocationCoordinate2D
+    var viewType: MainViewType = .map
     
     override init(){
         self.coordinate = AppState.startCoordinate
@@ -32,6 +34,9 @@ class AppState: CommonAppState{
         else{
             coordinate = AppState.startCoordinate
         }
+        if let type = try values.decodeIfPresent(Int.self, forKey: .viewType){
+            viewType = MainViewType(rawValue: type) ?? .map
+        }
         try super.init(from: decoder)
     }
     
@@ -40,6 +45,7 @@ class AppState: CommonAppState{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(coordinate.latitude, forKey: .latitude)
         try container.encode(coordinate.longitude, forKey: .longitude)
+        try container.encode(viewType.rawValue, forKey: .viewType)
     }
     
 }
