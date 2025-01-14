@@ -95,6 +95,8 @@ class ImageItem : FileItem{
 #elseif os(iOS)
     func getImage() -> UIImage?{
         if let data = getFile(){
+            //readMetaData()
+            //print(metaData!.dictionary)
             return UIImage(data: data)
         } else{
             return nil

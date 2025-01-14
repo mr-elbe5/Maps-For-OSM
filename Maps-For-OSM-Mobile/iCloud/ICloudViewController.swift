@@ -116,7 +116,7 @@ class ICloudViewController: NavScrollViewController{
         assertLocalDataConsitencyButton.setTitleColor(.systemBlue, for: .normal)
         assertLocalDataConsitencyButton.setTitleColor(.systemGray, for: .disabled)
         assertLocalDataConsitencyButton.addAction(UIAction(){ action in
-            self.assertLocalDataConsitency()
+            self.assertLocalDataConsistency()
         }, for: .touchDown)
         contentView.addSubviewWithAnchors(assertLocalDataConsitencyButton, top: label.bottomAnchor, insets: defaultInsets)
         .centerX(contentView.centerXAnchor)
@@ -240,7 +240,7 @@ class ICloudViewController: NavScrollViewController{
         
     }
     
-    func assertLocalDataConsitency(){
+    func assertLocalDataConsistency(){
         AppData.shared.locations.updateCreationDates()
         AppData.shared.locations.removeDuplicates()
         AppData.shared.save()
