@@ -183,13 +183,13 @@ class ImageMetaData: NSObject, Codable {
                 dict[kCGImagePropertyGPSDictionary] = gpsDict
             }
             if let altitude = altitude{
-                gpsDict[kCGImagePropertyExifApertureValue] = altitude
+                gpsDict[kCGImagePropertyGPSAltitude] = altitude
             }
             if let latitude = latitude{
-                gpsDict[kCGImagePropertyExifBrightnessValue] = latitude
+                gpsDict[kCGImagePropertyGPSLatitude] = latitude
             }
             if let longitude = longitude{
-                gpsDict[kCGImagePropertyExifOffsetTime] = longitude
+                gpsDict[kCGImagePropertyGPSLongitude] = longitude
             }
         }
     }
