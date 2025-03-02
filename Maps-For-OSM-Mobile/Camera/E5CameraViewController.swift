@@ -312,9 +312,6 @@ class E5CameraViewController: UIViewController, AVCaptureFileOutputRecordingDele
                         self.currentDeviceInput = videoDeviceInput
                         //Log.debug("current device: \(self.currentDevice.position)")
                         self.isCaptureEnabled = true
-                        /*DispatchQueue.main.async {
-                            self.createDeviceRotationCoordinator()
-                        }*/
                     } else {
                         self.session.addInput(currentDeviceInput)
                     }

@@ -14,7 +14,7 @@ class IconBar : NSStackView{
         orientation = .horizontal
         spacing = smallInset
         edgeInsets = smallInsets
-        backgroundColor = .tertiarySystemFill
+        backgroundColor = .windowBackgroundColor
     }
     
     required init?(coder: NSCoder) {

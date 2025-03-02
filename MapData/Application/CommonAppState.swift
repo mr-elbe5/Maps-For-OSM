@@ -1,19 +1,3 @@
-//
-//  AppState.swift
-//  Maps-For-OSM
-//
-//  Created by Michael Rönnau on 22.10.24.
-//
-
-
-//
-//  AppState.swift
-//  Maps-For-OSM
-//
-//  Created by Michael Rönnau on 22.10.24.
-//
-
-
 /*
  E5MapData
  App for display and use of OSM maps without MapKit
