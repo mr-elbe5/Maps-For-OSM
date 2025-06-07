@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TileProvider{
     
-    static let instance = TileProvider()
+    static let shared = TileProvider()
     
     static let maxTries: Int = 3
     

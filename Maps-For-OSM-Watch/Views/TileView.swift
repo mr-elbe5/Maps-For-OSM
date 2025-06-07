@@ -31,7 +31,7 @@ extension TileView{
     
     func assertImage() -> TileView {
         //print("assert image for \(tileData.getDescription())")
-        TileProvider.instance.assertTileImage(tile: tileData)
+        TileProvider.shared.assertTileImage(tile: tileData)
         return self
     }
     
@@ -42,7 +42,7 @@ extension TileView{
     TileView( tileData: tileData)
         .onAppear() {
             if tileData.imageData == nil {
-                TileProvider.instance.assertTileImage(tile: tileData)
+                TileProvider.shared.assertTileImage(tile: tileData)
             }
         }
 }
