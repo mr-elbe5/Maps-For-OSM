@@ -136,7 +136,7 @@ class MapView: UIView {
 extension MapView : MapScrollViewDelegate{
     
     func didScroll() {
-        assertCenteredContent(scrollView: scrollView)
+        scrollView.assertCenteredContent()
         updatePosition()
         currentLocationView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
         locationLayerView.updatePosition(offset: contentOffset, scale: scrollView.zoomScale)
@@ -149,16 +149,6 @@ extension MapView : MapScrollViewDelegate{
     
     func didChangeZoom() {
         locationLayerView.setupMarkers(zoom: AppState.shared.zoom, offset: contentOffset, scale: scrollView.zoomScale)
-    }
-    
-    // for infinite scroll using 3 * content width
-    private func assertCenteredContent(scrollView: UIScrollView){
-        if scrollView.contentOffset.x >= 2*scrollView.contentSize.width/3{
-            scrollView.contentOffset.x -= scrollView.contentSize.width/3
-        }
-        else if scrollView.contentOffset.x < scrollView.contentSize.width/3{
-            scrollView.contentOffset.x += scrollView.contentSize.width/3
-        }
     }
     
 }

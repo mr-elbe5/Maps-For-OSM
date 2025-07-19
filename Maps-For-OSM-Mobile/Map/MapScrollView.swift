@@ -142,17 +142,17 @@ extension MapScrollView : UIScrollViewDelegate{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        assertCenteredContent(scrollView: scrollView)
+        assertCenteredContent()
         mapDelegate?.didScroll()
     }
     
     // for infinite scroll using 3 * content width
-    private func assertCenteredContent(scrollView: UIScrollView){
-        if scrollView.contentOffset.x >= 2*scrollView.contentSize.width/3{
-            scrollView.contentOffset.x -= scrollView.contentSize.width/3
+    func assertCenteredContent(){
+        if contentOffset.x >= 2*contentSize.width/3{
+            contentOffset.x -= contentSize.width/3
         }
-        else if scrollView.contentOffset.x < scrollView.contentSize.width/3{
-            scrollView.contentOffset.x += scrollView.contentSize.width/3
+        else if contentOffset.x < contentSize.width/3{
+            contentOffset.x += contentSize.width/3
         }
     }
     
