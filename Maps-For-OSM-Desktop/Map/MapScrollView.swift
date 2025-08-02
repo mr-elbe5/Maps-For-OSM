@@ -33,8 +33,8 @@ class MapScrollView : PlainMapScrollView{
     var locationLayerView = LocationLayerView()
     
     override func setupView(){
-        hasVerticalScroller = true
-        hasHorizontalScroller = true
+        hasVerticalScroller = false
+        hasHorizontalScroller = false
         addFlippedClipView()
         clipView.drawsBackground = false
         mapWorldView.frame = World.scaledWorld(zoom: AppState.shared.zoom)
