@@ -1650,6 +1650,23 @@
         }
       }
     },
+    "endOfLiveAlertText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "‚Maps for OSM‘ wird in Zukunft nur noch kleine Korrekturversionen erhalten. Als Ersatz und Weiterführung gibt es jetzt die App ‚OSM Maps‘. Vorhandene Daten können übertragen werden, indem hier eine Backup-Datei erstellt wird und diese in der neuen App zur Wiederherstellung als ‚von Maps for OSM’ genutzt wird."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In future ‚Maps for OSM‘ will only receive minor updates for necessary fixes. Instead you may use the new app ‚OSM Maps‘, which will be extended continuously. You can transfer your data by creating a backup file of this app and restore it in the new app as ‚from Maps for OSM‘. "
+          }
+        }
+      }
+    },
     "error" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2455,13 +2472,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://elbe5.de/openstreetmapkarten/mapsforosmiosapp.html"
+            "value" : "https://www.elbe5.de/de/"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://en.elbe5.de/openstreetmapmaps/mapsforosmiosapp.html"
+            "value" : "https://www.elbe5.de/en/"
           }
         }
       }

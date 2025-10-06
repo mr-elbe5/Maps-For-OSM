@@ -26,6 +26,7 @@ class CommonAppState: Identifiable, Codable{
         case searchRegion
         case searchRadius
         case sortAscending
+        case showEndOfLife
     }
 
     var version: Int
@@ -37,6 +38,7 @@ class CommonAppState: Identifiable, Codable{
     var searchRegion : SearchQuery.SearchRegion = .unlimited
     var searchRadius : Double = defaultSearchRadius
     var sortAscending = defaultSortAscending
+    var showEndOfLife : Bool = true
     
     init(){
         version = 1
@@ -56,6 +58,7 @@ class CommonAppState: Identifiable, Codable{
         searchRegion = SearchQuery.SearchRegion(rawValue: i) ?? .unlimited
         searchRadius = try values.decodeIfPresent(Double.self, forKey: .searchRadius) ?? AppState.defaultSearchRadius
         sortAscending = try values.decodeIfPresent(Bool.self, forKey: .sortAscending) ?? AppState.defaultSortAscending
+        showEndOfLife = try values.decodeIfPresent(Bool.self, forKey: .showEndOfLife) ?? true
     }
     
     func encode(to encoder: Encoder) throws {
@@ -69,6 +72,7 @@ class CommonAppState: Identifiable, Codable{
         try container.encode(searchRegion.rawValue, forKey: .searchRegion)
         try container.encode(searchRadius, forKey: .searchRadius)
         try container.encode(sortAscending, forKey: .sortAscending)
+        try container.encode(showEndOfLife, forKey: .showEndOfLife)
     }
     
     func resetPosition(){

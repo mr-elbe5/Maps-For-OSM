@@ -89,6 +89,12 @@ class MainViewController: NavViewController {
                 TrackRecorder.instance = nil
             })
         }
+        else if AppState.shared.showEndOfLife{
+            showAlert(title: "pleaseNote".localize(), text: "endOfLiveAlertText".localize()){
+                AppState.shared.showEndOfLife = false
+                AppState.shared.save()
+            }
+        }
     }
     
     override func loadSubviews(guide: UILayoutGuide) {

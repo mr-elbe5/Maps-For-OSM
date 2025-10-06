@@ -1773,7 +1773,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mobile/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -1783,7 +1783,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8.1;
+				MARKETING_VERSION = 4.9;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1803,7 +1803,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Maps-For-OSM-Mobile/Maps for OSM.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				INFOPLIST_FILE = "Maps-For-OSM-Mobile/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Maps for OSM";
@@ -1813,7 +1813,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.8.1;
+				MARKETING_VERSION = 4.9;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.SwiftyMaps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1835,7 +1835,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Maps For OSM Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_PREVIEWS = YES;
@@ -1876,7 +1876,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "Maps For OSM Watch.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Maps-For-OSM-Watch/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				ENABLE_PREVIEWS = YES;
